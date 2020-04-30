@@ -1,8 +1,0 @@
-{
-  "id": "generator-1.15.2-fabric",
-  "minversion": 202000300000,
-  "info": {
-    "name": "Minecraft Fabric 1.15.2 Generator",
-    "author": "Goldorion"
-  }
-}

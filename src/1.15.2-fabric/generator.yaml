@@ -1,0 +1,49 @@
+name: Minecraft Fabric for @minecraft (@buildfileversion)
+basefeatures: [i18n, textures, model_json, model_obj]
+partial_support: [item]
+status: dev
+minecraft: 1.15.2
+flavor: forge
+buildfileversion: 0.8.2+build.194
+
+gradle:
+  setup_task: genSources eclipse
+  run_client: runClient
+  run_server: runServer
+  export_file: "build/libs/sources.jar"
+
+# base generator roots
+source_root: "@WORKSPACEROOT/src/main/java"
+res_root: "@WORKSPACEROOT/src/main/resources"
+mod_assets_root: "@RESROOT/assets/@modid"
+mod_data_root: "@RESROOT/data/@modid"
+
+# specific resource folders
+other_textures_dir: "@MODASSETSROOT/textures"
+block_textures_dir: "@MODASSETSROOT/textures/blocks"
+item_textures_dir: "@MODASSETSROOT/textures/items"
+armor_textures_dir: "@MODASSETSROOT/textures/models/armor"
+
+base_templates:
+- template: modbase/mod.java.ftl
+  name: "@SRCROOT/@BASEPACKAGEPATH/@JavaModName.java"
+  canLock: true
+- template: modbase/fabric.mod.json.ftl
+  writer: json
+  name: "@RESROOT/fabric.mod.json"
+ 
+language_file:
+  format: json
+  root_folder: "@MODASSETSROOT/lang/"
+  langfile_name: "@langname.json"
+
+resources_setup_tasks:
+  - task: copy_file
+    from: "@MODASSETSROOT/textures/@modpicture.png"
+    to: "@MODASSETSROOT/icon.png"
+  - task: copy_models
+    type: OBJ
+    to: "@MODASSETSROOT/models/item"
+  - task: copy_models
+    type: JSON_noinlinetextures
+    to: "@MODASSETSROOT/models/custom"
