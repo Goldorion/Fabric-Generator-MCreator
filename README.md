@@ -20,7 +20,7 @@ do not spam the fabric discord trying to get MCreator help~~.
 
 ## Downloads/Install Instructions
 
-[Downloads can be found in the original MCreator Forums page](https://mcreator.net/forum/60201/fabric-generator-plugin)
+[Downloads can be found in the original MCreator Forums page](https://mcreator.net/forum/60201/fabric-generator-plugin) or the [Releases](https://github.com/Goldorion/MCreatorFabricGenerator/releases) tab.
 
 How to install: Launch MCreator -> Open preferences -> Manage plugins -> Load Plugin -> Find your downloaded zip file -> **Restart MCreator**.
 
