@@ -24,7 +24,7 @@ do not spam the fabric discord trying to get MCreator help~~.
 
 How to install: Launch MCreator -> Open preferences -> Manage plugins -> Load Plugin -> Find your downloaded zip file -> **Restart MCreator**.
 
-##Important Information
+## Important Information
 -To use the plugin, you need to have MCreator 2020.3 snapshots or newer.
 
 -When you create a new workspace, you need to go to the Forge Generator, and select Minecraft Fabric for 1.15.2 (0.8.2+build.194)
