@@ -16,7 +16,7 @@ dependencies {
 	mappings "net.fabricmc:yarn:1.15.2+build.15"
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
-	modImplementation "net.fabricmc.fabric-api:fabric-api:0.7.1+build.301-1.15"
+	modImplementation "net.fabricmc.fabric-api:fabric-api:0.8.0+build.302-1.15"
 
 	// PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
 	// You may need to force-disable transitiveness on them.
