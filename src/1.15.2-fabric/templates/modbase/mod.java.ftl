@@ -19,10 +19,6 @@ package ${package};
 
 public class ${JavaModName} implements ModInitializer {
 
-<#list w.getElementsOfType("TAB") as tab>
-	public static final ItemGroup ${tab} = new ${tab}();
-</#list>
-
 <#list w.getElementsOfType("ITEM") as item>
 	public static final Item ${item} = new ${item}();
 
