@@ -1,6 +1,6 @@
 name: Minecraft Fabric for @minecraft (@buildfileversion)
 basefeatures: [model_json, model_obj]
-partial_support: [item]
+partial_support: [item, block, food]
 status: dev
 minecraft: 1.15.2
 flavor: forge
