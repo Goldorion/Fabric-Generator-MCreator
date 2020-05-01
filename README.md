@@ -18,9 +18,15 @@ do not spam the fabric discord trying to get MCreator help~~.
 
 - Advancements (Mostly complete, procedure triggered advancements don't work)
 
+- Block (Only basic block with some paramters and Generation)
+
+- Food (Mostly complete, few parameters don´t work)
+
+- Fuel (Complete)
+
 ## Downloads/Install Instructions
 
-[Downloads can be found in the original MCreator Forums page](https://mcreator.net/forum/60201/fabric-generator-plugin) or the [Releases](https://github.com/Goldorion/MCreatorFabricGenerator/releases) tab.
+[Downloads can be found on the Release page (https://github.com/Goldorion/MCreatorFabricGenerator/releases) tab.
 
 How to install: Launch MCreator -> Open preferences -> Manage plugins -> Load Plugin -> Find your downloaded zip file -> **Restart MCreator**.
 
