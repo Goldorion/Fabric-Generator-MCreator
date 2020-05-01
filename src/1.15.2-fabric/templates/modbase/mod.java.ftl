@@ -21,13 +21,37 @@ public class ${JavaModName} implements ModInitializer {
 
 <#list w.getElementsOfType("ITEM") as item>
 	public static final Item ${item} = new ${item}();
-
 </#list>
+
+<#list w.getElementsOfType("FOOD") as food>
+	public static final Item ${food} = new ${food}();
+</#list>
+
+<#list w.getElementsOfType("BLOCK") as block>
+    public static final Block ${block} = new ${block}();
+</#list>
+
 	@Override
 	public void onInitialize() {
 <#list w.getElementsOfType("ITEM") as item>
 		Registry.register(Registry.ITEM, new Identifier("${modid}", "${item.getRegistryName()}"), ${item});
 </#list>
+
+<#list w.getElementsOfType("FOOD") as food>
+		Registry.register(Registry.ITEM, new Identifier("${modid}", "${food.getRegistryName()}"), ${food});
+</#list>
+
+<#list w.getElementsOfType("BLOCK") as block>
+        Registry.register(Registry.BLOCK, new Identifier("${modid}", "${block.getRegistryName()}"), ${block});
+</#list>
+
+<#list w.getElementsOfType("BLOCK") as blockitem>
+        Registry.register(Registry.ITEM, new Identifier("${modid}", "${blockitem.getRegistryName()}"), new BlockItem(${blockitem}, new Item.Settings().group(${blockitem.getCreativeTab()})));
+</#list>
+
+<#if (blockore.data.spawnWorldTypes?size > 0)>
+	Registry.BIOME.forEach(this::handleBiome);
+	RegistryEntryAddedCallback.event(Registry.BIOME).register((i, identifier, biome) -> handleBiome(biome));
 	}
 }
 <#-- @formatter:on -->
