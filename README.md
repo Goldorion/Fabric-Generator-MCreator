@@ -24,6 +24,8 @@ do not spam the fabric discord trying to get MCreator help~~.
 
 - Fuel (Complete)
 
+- Tools (Pickaxe, Axe, Shovel, Hoe and Sword)
+
 ## Downloads/Install Instructions
 
 [Downloads can be found on the Release page (https://github.com/Goldorion/MCreatorFabricGenerator/releases) tab.
@@ -31,11 +33,11 @@ do not spam the fabric discord trying to get MCreator help~~.
 How to install: Launch MCreator -> Open preferences -> Manage plugins -> Load Plugin -> Find your downloaded zip file -> **Restart MCreator**.
 
 ## Important Information
--To use the plugin, you need to have MCreator 2020.3 snapshots or newer.
+- If you have created a workspace with an old version, you need to recreate one.
 
--When you create a new workspace, you need to go to the Forge Generator, and select Minecraft Fabric for 1.15.2 (0.8.2+build.194)
+-To use the plugin, you need to have at least the second MCreator 2020.3 snapshots or newer.
 
--If you make a Forge mod, don’t change it to the Fabric Generator. ~~Bad things will happen.~~
+-When you create a new workspace, you need to go to the Fabric Generator, and select Minecraft Fabric for 1.15.2 (0.8.2+build.194)
 
 -Always back up your workspace before updating to a newer version of the plugin.
 ## Credits/License
