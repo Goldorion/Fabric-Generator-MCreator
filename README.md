@@ -3,7 +3,6 @@ A unofficial plugin for [MCreator](https://mcreator.net/), a highly advanced min
 ## Disclaimer
 This project is not official. Not affiliated with the respective owners of Fabric, Minecraft, or MCreator. Do not expect any official support ~~and
 do not spam the fabric discord trying to get MCreator help~~.
-
 ## Features
 
 - Item (Only basic items, some parameters don't work)
@@ -18,7 +17,7 @@ do not spam the fabric discord trying to get MCreator help~~.
 
 - Advancements (Mostly complete, procedure triggered advancements don't work)
 
-- Block (Only basic block with some paramters and Generation)
+- Block (Only basic blocks can be made with some parameters and world generation. Render types don't work.)
 
 - Food (Mostly complete, few parameters don´t work)
 
@@ -33,7 +32,7 @@ do not spam the fabric discord trying to get MCreator help~~.
 How to install: Launch MCreator -> Open preferences -> Manage plugins -> Load Plugin -> Find your downloaded zip file -> **Restart MCreator**.
 
 ## Important Information
-- If you have created a workspace with an old version, you need to recreate one.
+-If you have created a workspace with an version older than 0.4.0, you need to create a new one since the workspace format has been changed.
 
 -To use the plugin, you need to have at least the second MCreator 2020.3 snapshots or newer.
 
