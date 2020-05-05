@@ -17,7 +17,7 @@ do not spam the fabric discord trying to get MCreator help~~.
 
 - Advancements (Mostly complete, procedure triggered advancements don't work)
 
-- Block (Only basic blocks can be made with some parameters and world generation. Render types don't work.)
+- Block (Only basic blocks can be made with some parameters. Render types and World generation don't work.)
 
 - Food (Mostly complete, few parameters don´t work)
 
