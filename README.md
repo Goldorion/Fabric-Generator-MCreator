@@ -5,7 +5,7 @@ This project is not official. Not affiliated with the respective owners of Fabri
 do not spam the fabric discord trying to get help on MCreator~~.
 ## Features
 
-- Item (Only basic items, some parameters don't work)
+- Item 
 
 - Function (Complete)
 
@@ -17,17 +17,18 @@ do not spam the fabric discord trying to get help on MCreator~~.
 
 - Advancements (Mostly complete, procedure triggered advancements don't work)
 
-- ~~Block (Only basic blocks can be made with some parameters. Render types and World generation don't work.)~~ CURRENTLY BROKEN AS OF 0.4.0!
+- Block (Only basic blocks can be made with some parameters. Render types and World generation don't work, will be fixed soon)
 
-- Food (Mostly complete, a few parameters don´t work)
+- Food (Drinking animation and dog food parameter does not work)
 
-- Fuel (Complete)
+- ~~Fuel (Complete)~~ CURRENTLY BROKEN AS OF 0.4.1!
 
-- ~~Tools (Pickaxe, Axe, Shovel, Hoe and Sword)~~ CURRENTLY BROKEN AS OF 0.4.0!
+- ~~Tools (Pickaxe, Axe, Shovel, Hoe and Sword)~~ CURRENTLY BROKEN AS OF 0.4.1!
 
 ## Downloads/Install Instructions
 
-Downloads can be found on the [release page](https://github.com/Goldorion/MCreatorFabricGenerator/releases).
+Downloads can be found on the [Release page of this repo](https://github.com/Goldorion/MCreatorFabricGenerator/releases).
+The plugin's MCreator forum page is [here](https://mcreator.net/forum/60201/fabric-generator-plugin). (Information Outdated!)
 
 Install like any other plugin: Launch MCreator -> Open preferences -> Manage plugins -> Load Plugin -> Find your downloaded zip file -> **Restart MCreator**.
 
@@ -36,9 +37,8 @@ Install like any other plugin: Launch MCreator -> Open preferences -> Manage plu
 
 - To use the plugin, you need to have at least the second MCreator 2020.3 snapshots or newer.
 
-- When you create a new workspace, you need to go to the Fabric Generator, and select Minecraft Fabric for 1.15.2 (0.8.2+build.194)
-
 - Always back up your workspace before updating to a newer version of the plugin.
+
 ## Credits/License
 
 Lead Dev - Goldorion
