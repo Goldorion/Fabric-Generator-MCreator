@@ -12,3 +12,6 @@ out
 *.iws
 *.iml
 .idea
+
+# Mac OS Garbage    
+.DS_Store
