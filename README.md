@@ -21,9 +21,9 @@ do not spam the fabric discord trying to get help on MCreator~~.
 
 - Food (Drinking animation and dog food parameter does not work)
 
-- ~~Fuel (Complete)~~ CURRENTLY BROKEN AS OF 0.4.1!
+- Fuel (Complete)
 
-- ~~Tools (Pickaxe, Axe, Shovel, Hoe and Sword)~~ CURRENTLY BROKEN AS OF 0.4.1!
+- Tools (Pickaxe, Axe, Shovel, Hoe and Sword)
 
 ## Downloads/Install Instructions
 
