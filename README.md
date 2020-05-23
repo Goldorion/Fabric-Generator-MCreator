@@ -47,4 +47,4 @@ Contributors - Klemen, crispy_chips1234
 
 Testers - Blackout, crispy_chips1234. AG_Espace, TheLuxure
 
-Code and binaries licensed under Apache 2.0. ~~Have fun.~~
+All Rights Reserved unless otherwise explicitly stated.
