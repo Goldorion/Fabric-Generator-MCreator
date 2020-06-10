@@ -46,5 +46,3 @@ Lead Dev - Goldorion
 Contributors - Klemen, crispy_chips1234
 
 Testers - Blackout, crispy_chips1234. Max094_Reikeb
-
-All Rights Reserved unless otherwise explicitly stated.
