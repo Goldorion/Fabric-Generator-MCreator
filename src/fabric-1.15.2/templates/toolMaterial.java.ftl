@@ -34,9 +34,10 @@ public class ${name}Material implements ToolMaterial{
    		public Ingredient getRepairIngredient() {
 			<#if data.repairItems?has_content>
 			return Ingredient.ofItems(
-					<#list data.repairItems as repairItem>
-					${mappedMCItemToItemStackCode(repairItem,1)}<#if repairItem?has_next>,</#if>
-                	</#list>
+					<#if data.repairItems?has_content>
+					<#list data.repairItems as repairItem>${mappedMCItemToItemStackCode(repairItem)?replace("Blocks.", "Items.")}
+					<#if repairItem?has_next>,</#if></#list>
+					<#else>Items.AIR</#if>
 					);
 			<#else>
 			return Ingredient.EMPTY;

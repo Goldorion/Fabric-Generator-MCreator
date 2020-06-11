@@ -11,7 +11,7 @@ public class ${name} extends Item
 			<#if data.damageCount != 0>.maxDamage(${data.damageCount})
 			<#else>.maxCount(${data.stackSize})</#if>
 			<#if data.stayInGridWhenCrafting>
-			.recipeRemainder(${mappedMCItemToItem(mappedBlock)})</#if>);
+			.recipeRemainder(${mappedMCItemToItem(mappedBlock,1)})</#if>);
     }
 }
 <#-- @formatter:on -->

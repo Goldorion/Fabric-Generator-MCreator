@@ -1,38 +1,36 @@
 <#function mappedBlockToBlockStateCode mappedBlock>
-    <#if mappedBlock.toString().contains("(world.")>
+    <#if mappedBlock.toString().contains("(world.") || mappedBlock.toString().contains("/*@BlockState*/")>
         <#return mappedBlock>
     <#elseif mappedBlock.toString().startsWith("CUSTOM:")>
         <#if !mappedBlock.toString().contains(".")>
             <#return (generator.getElementPlainName(mappedBlock))
-            + (generator.getType(mappedBlock.toString()).getRecipeElementType() == "BLOCK")?then("Block", "Item") + ".block.getDefaultState()">
+            + (generator.getRecipeElementType(mappedBlock.toString()) == "BLOCK")?then("Block", "Item") + ".block.getDefaultState()">
         <#else>
             <#return (generator.getElementPlainName(mappedBlock))
-            + (generator.getType(mappedBlock.toString()).getRecipeElementType() == "BLOCK")?then("Block", "Item") + "." + generator.getElementExtension(mappedBlock) + ".getDefaultState()">
+            + (generator.getRecipeElementType(mappedBlock.toString()) == "BLOCK")?then("Block", "Item") + "." + generator.getElementExtension(mappedBlock) + ".getDefaultState()">
         </#if>
     <#else>
         <#return mappedBlock + ".getDefaultState()">
     </#if>
 </#function>
 
-<#function mappedMCItemToItemStackCode mappedBlock amount>
+<#function mappedMCItemToItemStackCode mappedBlock>
     <#if mappedBlock.toString().contains("/*@ItemStack*/")>
         <#return mappedBlock?replace("/*@ItemStack*/", "")>
     <#elseif mappedBlock.toString().startsWith("CUSTOM:")>
         <#if !mappedBlock.toString().contains(".")>
-            <#return "new ItemStack("+ (generator.getElementPlainName(mappedBlock))
-            + (generator.getType(mappedBlock.toString()).getRecipeElementType() == "BLOCK")?then("Block", "Item") + ".block, (int)(" + amount + "))">
+            <#return JavaModName + "." + (generator.getElementPlainName(mappedBlock))>
         <#else>
-            <#return "new ItemStack("+ (generator.getElementPlainName(mappedBlock))
-            + (generator.getType(mappedBlock.toString()).getRecipeElementType() == "BLOCK")?then("Block", "Item") + "."
-            + generator.getElementExtension(mappedBlock) + ", (int)(" + amount + "))">
+            <#return JavaModName + "." + (generator.getElementPlainName(mappedBlock)) + "."
+            + generator.getElementExtension(mappedBlock)>
         </#if>
     <#else>
-        <#return "new ItemStack(" + mappedBlock.toString().split("#")[0] + ", (int)(" + amount + "))">
+        <#return mappedBlock.toString().split("#")[0]>
     </#if>
 </#function>
 
 <#function mappedMCItemToItem mappedBlock>
-    <#return mappedMCItemToItemStackCode(mappedBlock, 1)+".getItem()">
+    <#return mappedMCItemToItemStackCode(mappedBlock)>
 </#function>
 
 <#function mappedMCItemToIngameItemName mappedBlock>
@@ -41,10 +39,10 @@
         .replace(".helmet", "").replace(".body", "").replace(".legs", "").replace(".boots", ""))!""/>
         <#if customelement?has_content>
             <#return "\"item\": \"" + "${modid}:" + customelement
-            + (mappedBlock.getUnmappedValue().contains(".helmet"))?then("helmet", "")
-            + (mappedBlock.getUnmappedValue().contains(".body"))?then("body", "")
-            + (mappedBlock.getUnmappedValue().contains(".legs"))?then("legs", "")
-            + (mappedBlock.getUnmappedValue().contains(".boots"))?then("boots", "")
+            + (mappedBlock.getUnmappedValue().contains(".helmet"))?then("_helmet", "")
+            + (mappedBlock.getUnmappedValue().contains(".body"))?then("_chestplate", "")
+            + (mappedBlock.getUnmappedValue().contains(".legs"))?then("_leggings", "")
+            + (mappedBlock.getUnmappedValue().contains(".boots"))?then("_boots", "")
             + "\"">
         <#else>
             <#return "\"item\": \"minecraft:air\"">
@@ -67,10 +65,10 @@
         .replace(".helmet", "").replace(".body", "").replace(".legs", "").replace(".boots", ""))!""/>
         <#if customelement?has_content>
             <#return "${modid}:" + customelement
-            + (mappedBlock.getUnmappedValue().contains(".helmet"))?then("helmet", "")
-            + (mappedBlock.getUnmappedValue().contains(".body"))?then("body", "")
-            + (mappedBlock.getUnmappedValue().contains(".legs"))?then("legs", "")
-            + (mappedBlock.getUnmappedValue().contains(".boots"))?then("boots", "")>
+            + (mappedBlock.getUnmappedValue().contains(".helmet"))?then("_helmet", "")
+            + (mappedBlock.getUnmappedValue().contains(".body"))?then("_chestplate", "")
+            + (mappedBlock.getUnmappedValue().contains(".legs"))?then("_leggings", "")
+            + (mappedBlock.getUnmappedValue().contains(".boots"))?then("_boots", "")>
         <#else>
             <#return "minecraft:air">
         </#if>

@@ -1,8 +1,8 @@
 name: Minecraft Fabric for 1.15.2 (@buildfileversion)
 basefeatures: [model_json, model_obj]
-partial_support: [item, block, food, tool]
+partial_support: [block, item, food, tool, fuel, armor]
 status: dev
-buildfileversion: 0.8.2+build.194
+buildfileversion: 0.8.7+build.201
 
 gradle:
   setup_task: genSources eclipse
@@ -29,7 +29,13 @@ base_templates:
 - template: modbase/fabric.mod.json.ftl
   writer: json
   name: "@RESROOT/fabric.mod.json"
- 
+- template: toolTags/pickaxes.json.ftl
+  writer: json
+  name: "@RESROOT/data/fabric/tags/items/pickaxes.json"
+- template: "modbase/pack.mcmeta.ftl"
+  writer: json
+  name: "@RESROOT/pack.mcmeta"
+
 language_file:
   format: json
   root_folder: "@MODASSETSROOT/lang/"

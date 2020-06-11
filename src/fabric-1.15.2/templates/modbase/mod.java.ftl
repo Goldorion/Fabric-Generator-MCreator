@@ -23,6 +23,14 @@ public class ${JavaModName} implements ModInitializer {
 	public static final Item ${item} = new ${item}();
 </#list>
 
+<#list w.getElementsOfType("ARMOR") as armor>
+<#assign ge = armor.getGeneratableElement()>
+	public static final Item ${armor}_HELMET = new ${armor}ArmorItem(${armor}Material.${armor}, EquipmentSlot.HEAD, (new Item.Settings().group(${ge.creativeTab})));
+	public static final Item ${armor}_CHESTPLATE = new ${armor}ArmorItem(${armor}Material.${armor}, EquipmentSlot.CHEST, (new Item.Settings().group(${ge.creativeTab})));
+	public static final Item ${armor}_LEGGINGS = new ${armor}ArmorItem(${armor}Material.${armor}, EquipmentSlot.LEGS, (new Item.Settings().group(${ge.creativeTab})));
+	public static final Item ${armor}_BOOTS = new ${armor}ArmorItem(${armor}Material.${armor}, EquipmentSlot.FEET, (new Item.Settings().group(${ge.creativeTab})));
+</#list>
+
 <#list w.getElementsOfType("FOOD") as food>
 	public static final Item ${food} = new ${food}();
 </#list>
@@ -33,8 +41,16 @@ public class ${JavaModName} implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+
 <#list w.getElementsOfType("ITEM") as item>
 		Registry.register(Registry.ITEM, new Identifier("${modid}", "${item.getRegistryName()}"), ${item});
+</#list>
+
+<#list w.getElementsOfType("ARMOR") as armor>
+	Registry.register(Registry.ITEM,new Identifier("${modid}","${armor.getRegistryName()}_helmet"), ${armor}_HELMET);
+	Registry.register(Registry.ITEM,new Identifier("${modid}","${armor.getRegistryName()}_chestplate"), ${armor}_CHESTPLATE);
+	Registry.register(Registry.ITEM,new Identifier("${modid}","${armor.getRegistryName()}_leggings"), ${armor}_LEGGINGS);
+	Registry.register(Registry.ITEM,new Identifier("${modid}","${armor.getRegistryName()}_boots"), ${armor}_BOOTS);
 </#list>
 
 <#list w.getElementsOfType("FOOD") as food>
