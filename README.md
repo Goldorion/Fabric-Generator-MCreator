@@ -6,7 +6,7 @@ do not spam the Fabric discord trying to get help on MCreator~~.
 ## Features
 - Advancement (Mostly complete, procedure triggered advancements don't work)
 
-- Armor (Mostly complete, custom 3D models don't work)
+- Armor (Mostly complete, custom 3D models don't work) **To don't get an error, you have to select a sound.**
   (Not all sounds are included because mappings are not finished. Any help is welcome.)
 
 - Block (Only basic blocks can be made with some parameters.)
