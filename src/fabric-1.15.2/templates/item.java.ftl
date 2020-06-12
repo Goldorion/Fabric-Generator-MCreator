@@ -46,6 +46,12 @@ public class ${name} extends Item
     }
     </#if>
 
+    @Override
+    public int getEnchantability()
+    {
+        return ${data.enchantability};
+    }
+
 }
 
 <#-- @formatter:on -->
