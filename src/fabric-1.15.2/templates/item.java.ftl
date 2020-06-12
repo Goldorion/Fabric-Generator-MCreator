@@ -13,5 +13,24 @@ public class ${name} extends Item
 			<#if data.stayInGridWhenCrafting>
 			.recipeRemainder(${mappedMCItemToItem(mappedBlock,1)})</#if>);
     }
+
+    <#if data.hasGlow>
+    @Environment(EnvType.CLIENT)
+    @Override
+    public boolean hasEnchantmentGlint(ItemStack stack)
+    {
+        return true;
+    }
+    </#if>
+
+    <#if data.specialInfo?has_content>
+		@Override
+    public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context)
+    {
+		    <#list data.specialInfo as entry>
+  	     list.add(new LiteralText("${JavaConventions.escapeStringForJava(entry)}"));
+         </#list>
+		}
+    </#if>
 }
 <#-- @formatter:on -->
