@@ -52,6 +52,14 @@ public class ${name} extends Item
         return ${data.enchantability};
     }
 
+
+    <#if data.destroyAnyBlock>
+    @Override
+    public boolean isEffectiveOn(BlockState state) {
+        return true;
+    }
+    </#if>
+
 }
 
 <#-- @formatter:on -->
