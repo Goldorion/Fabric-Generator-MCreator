@@ -2,9 +2,17 @@
 .gradle/
 build/
 
-# Other IDE related folders
+# IDE related folders
 .idea/
 .settings/
+*.ipr
+*.iml
+*.iws
+*.code-workspace
+.classpath
+.project
+.vscode/
+*.bbproject
 
 # MCreator workspace
 .mcreator/
@@ -20,3 +28,6 @@ src/main/resources/assets/*/textures/items
 src/main/resources/assets/*/textures/models/armor
 src/main/resources/assets/*/textures/*.png
 src/main/resources/assets/*/sounds
+
+# Mac OS Folder Metadata
+.DS_Store
