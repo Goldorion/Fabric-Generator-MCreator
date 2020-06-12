@@ -35,6 +35,17 @@ public class ${name} extends Item
          </#list>
 		}
     </#if>
+
+    <#if data.enableMeleeDamage>
+    @Override
+    public Multimap<String, EntityAttributeModifier> getModifiers(EquipmentSlot slot) {
+        Multimap<String, EntityAttributeModifier> map = super.getModifiers(slot);
+        map.put(EntityAttributes.ATTACK_DAMAGE.getId(), new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_UUID, "item_damage", (double) ${data.damageVsEntity - 2}, EntityAttributeModifier.Operation.ADDITION));
+        map.put(EntityAttributes.ATTACK_SPEED.getId(), new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_UUID, "item_attack_speed", -2.4, EntityAttributeModifier.Operation.ADDITION));
+        return map;
+    }
+    </#if>
+
 }
 
 <#-- @formatter:on -->
