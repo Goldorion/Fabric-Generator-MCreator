@@ -28,7 +28,7 @@ public class ${name} extends Item
     public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context)
     {
 		    <#list data.specialInfo as entry>
-  	     list.add(new LiteralText("${JavaConventions.escapeStringForJava(entry)}"));
+  	     tooltip.add(new LiteralText("${JavaConventions.escapeStringForJava(entry)}"));
          </#list>
 		}
     </#if>
