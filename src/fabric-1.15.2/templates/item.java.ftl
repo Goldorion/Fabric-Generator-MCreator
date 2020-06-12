@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <#-- @formatter:off -->
 <#include "mcitems.ftl">
 
@@ -7,16 +6,6 @@ package ${package}.item;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
-=======
-<#-- @formatter:off -->
-<#include "mcitems.ftl">
-
-package ${package}.item;
-
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-
->>>>>>> 4b3d429296c3c8b7ae0d6a72719c396482d1b620
 public class ${name} extends Item
 {
     public ${name}()
@@ -46,11 +35,6 @@ public class ${name} extends Item
          </#list>
 		}
     </#if>
-<<<<<<< HEAD
 }
 
 <#-- @formatter:on -->
-=======
-}
-<#-- @formatter:on -->
->>>>>>> 4b3d429296c3c8b7ae0d6a72719c396482d1b620
