@@ -1,7 +1,7 @@
 # MCreatorFabricGenerator
 An unofficial plugin for [MCreator](https://mcreator.net/), a highly advanced Minecraft mod maker. Adds a [Fabric](https://fabricmc.net/) mod generator type. Currently this is very WIP, and most features are incomplete.
 ## Disclaimer
-This project is not official. Not affiliated with the respective owners of Fabric, Minecraft, or MCreator. Do not expect any official support ~~and
+This project is not official. Not affiliated with the respective owners and maintainers of Fabric, Minecraft, or MCreator. Do not expect any official support ~~and
 do not spam the Fabric discord trying to get help on MCreator~~.
 ## Features
 - Advancement (Mostly complete, procedure triggered advancements don't work)
@@ -41,10 +41,14 @@ Install like any other plugin: Launch MCreator -> Open preferences -> Manage plu
 
 - Always back up your workspace before updating to a newer version of the plugin.
 
+- Mods may also require [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api) to function properly, so when you build your mod, make sure you have fabric api.
+
 ## Credits/License
 
 Lead Dev - Goldorion
 
 Contributors - crispy_chips1234, Klemen
 
-Thanks you for all of you helping in reporting bugs, testing or anything else.
+Thank you to all of you helping in reporting bugs, testing or anything else.
+
+Licensed under the MIT License.
