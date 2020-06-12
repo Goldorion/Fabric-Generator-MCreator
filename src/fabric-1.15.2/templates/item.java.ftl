@@ -3,6 +3,9 @@
 
 package ${package}.item;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+
 public class ${name} extends Item
 {
     public ${name}()
