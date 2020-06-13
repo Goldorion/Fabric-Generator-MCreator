@@ -49,7 +49,7 @@ public class ${JavaModName} implements ModInitializer {
 </#list>
 
 <#list w.getElementsOfType("FUEL") as fuel>
-  ${fuel}.initialize();
+  ${fuel}Fuel.initialize();
 </#list>
 
 <#list w.getElementsOfType("ARMOR") as armor>
