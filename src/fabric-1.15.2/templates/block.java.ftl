@@ -86,6 +86,28 @@ public class ${name} extends <#if data.hasGravity>FallingBlock<#else>Block</#if>
 	    }
 			</#if>
 
+			@Override
+    	public int getTickRate(WorldView worldView) {
+        	return ${data.tickRate};
+    	}
+
+			<#if data.dropAmount != 1 && !(data.customDrop?? && !data.customDrop.isEmpty())>
+			@Override
+    	public List<ItemStack> getDroppedStacks(BlockState state, LootContext.Builder builder) {
+        	List<ItemStack> dropsOriginal = super.getDroppedStacks(state, builder);
+        	if(!dropsOriginal.isEmpty())
+            	return dropsOriginal;
+        	return Collections.singletonList(new ItemStack(this, ${data.dropAmount}));
+    	}
+			<#else>
+			@Override
+    	public List<ItemStack> getDroppedStacks(BlockState state, LootContext.Builder builder) {
+					List<ItemStack> dropsOriginal = super.getDroppedStacks(state, builder);
+					if(!dropsOriginal.isEmpty())return dropsOriginal;
+					return Collections.singletonList(new ItemStack(this, 1));
+    	}
+			</#if>
+
 
 			<#if data.rotationMode != 0>
     @Override
@@ -181,11 +203,13 @@ public class ${name} extends <#if data.hasGravity>FallingBlock<#else>Block</#if>
     }
 		</#if>
 
+		<#if data.connectedSides>
 		@Environment(EnvType.CLIENT)
     @Override
     public boolean isSideInvisible(BlockState state, BlockState neighbor, Direction facing) {
         return true;
     }
+		</#if>
 
 }
 
