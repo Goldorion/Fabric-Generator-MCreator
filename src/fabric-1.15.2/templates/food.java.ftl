@@ -31,5 +31,10 @@ public class ${name} extends Item{
          </#list>
 		}
     </#if>
+
+    @Override
+		public UseAction getUseAction(ItemStack stack) {
+      return UseAction.${data.animation?upper_case};
+		}
 }
 <#-- @formatter:on -->
