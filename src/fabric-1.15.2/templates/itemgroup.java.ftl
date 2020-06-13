@@ -5,7 +5,7 @@ package ${package}.item;
 
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 
-public class ${name}ItemGroup {
+public class ${name}Group {
     public static ItemGroup get(){
         return FabricItemGroupBuilder.create(new Identifier("${modid}","tab${registryname}")).icon(()->${mappedMCItemToItemStackCode(data.icon, 1)}).build();
     }

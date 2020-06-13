@@ -25,6 +25,10 @@ public class ${JavaModName} implements ModInitializer {
 	public static final Item ${item} = new ${item}();
 </#list>
 
+<#list w.getElementsOfType("ITEM") as group>
+	public static final ItemGroup ${group} = ${group}Group.get();
+</#list>
+
 <#list w.getElementsOfType("ARMOR") as armor>
 <#assign ge = armor.getGeneratableElement()>
 	public static final Item ${armor}_HELMET = new ${armor}ArmorItem(${armor}Material.${armor}, EquipmentSlot.HEAD, (new Item.Settings().group(${ge.creativeTab})));
