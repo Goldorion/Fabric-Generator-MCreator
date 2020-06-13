@@ -15,10 +15,15 @@ public class ${name} extends Block {
 	}
 	<#if data.mx != 0 || data.my != 0 || data.mz != 0 || data.Mx != 1 || data.My != 1 || data.Mz != 1>
 	@Override
- public VoxelShape getOutlineShape(BlockState state, BlockView view, BlockPos pos, EntityContext ctx) {
+ 	public VoxelShape getOutlineShape(BlockState state, BlockView view, BlockPos pos, EntityContext ctx) {
      return VoxelShapes.cuboid(${data.mx}D, ${data.my}D, ${data.mz}D, ${data.Mx}D, ${data.My}D, ${data.Mz}D);
- }
- </#if>
+ 	}
+ 	</#if>
+
+    @Override
+    public int getLuminance(BlockState state) {
+        return ${(data.luminance * 15)?round};
+    }
 }
 
 <#-- @formatter:on -->
