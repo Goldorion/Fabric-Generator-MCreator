@@ -3,5 +3,5 @@ templates:
     name: "@SRCROOT/@BASEPACKAGEPATH/item/@NAMEItemGroup.java"
 
 localizationkeys:
-  - key: itemGroup.@MODID.@REGISTRYNAME
+  - key: itemGroup.@modid.@registryname
     mapto: name
