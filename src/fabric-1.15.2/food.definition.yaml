@@ -1,6 +1,6 @@
 templates:
   - template: food.java.ftl
-    name: "@SRCROOT/@BASEPACKAGEPATH/item/@NAME.java"
+    name: "@SRCROOT/@BASEPACKAGEPATH/food/@NAME.java"
   - template: json/item.json.ftl
     writer: json
     condition: "renderType #= 0"
@@ -16,5 +16,5 @@ templates:
     name: "@MODASSETSROOT/models/item/@registryname.json"
 
 localizationkeys:
-  - key: item.@modid.@registryname
+  - key: food.@modid.@registryname
     mapto: name

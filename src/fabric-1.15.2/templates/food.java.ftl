@@ -1,6 +1,6 @@
 <#-- @formatter:off -->
 
-package ${package}.item;
+package ${package}.food;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
