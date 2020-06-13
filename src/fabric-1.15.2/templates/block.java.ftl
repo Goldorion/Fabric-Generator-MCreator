@@ -84,6 +84,7 @@ public class ${name} extends Block {
 			</#if>
 
 
+			<#if data.rotationMode != 0>
     @Override
     public BlockState getPlacementState(ItemPlacementContext context) {
 			<#if data.rotationMode == 1>
@@ -107,6 +108,7 @@ public class ${name} extends Block {
         return this.getDefaultState().with(FACING, facing);
 			</#if>
     }
+		</#if>
 
 		<#if data.mx != 0 || data.my != 0 || data.mz != 0 || data.Mx != 1 || data.My != 1 || data.Mz != 1>
 @Override public VoxelShape getOutlineShape(BlockState state, BlockView view, BlockPos pos, EntityContext context) {
