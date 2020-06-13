@@ -1,5 +1,5 @@
 name: Minecraft Fabric for 1.15.2 (@buildfileversion)
-basefeatures: [model_json,model_obj,fuel,tool]
+basefeatures: [model_json,model_obj,sounds]
 partial_support: [block,item,food,armor]
 status: dev
 buildfileversion: 0.8.7+build.201
@@ -17,6 +17,7 @@ mod_assets_root: "@RESROOT/assets/@modid"
 mod_data_root: "@RESROOT/data/@modid"
 
 # specific resource folders
+sounds_dir: "@MODASSETSROOT/sounds"
 other_textures_dir: "@MODASSETSROOT/textures"
 block_textures_dir: "@MODASSETSROOT/textures/blocks"
 item_textures_dir: "@MODASSETSROOT/textures/items"
@@ -47,6 +48,9 @@ base_templates:
 - template: "modbase/pack.mcmeta.ftl"
   writer: json
   name: "@RESROOT/pack.mcmeta"
+- template: modbase/sounds.json.ftl
+  writer: json
+  name: "@MODASSETSROOT/sounds.json"
 
 language_file:
   format: json
