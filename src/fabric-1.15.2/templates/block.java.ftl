@@ -17,12 +17,6 @@ public class ${name} extends Block {
 </#if>
 .sounds(BlockSoundGroup.${data.soundOnStep}).strength(${data.hardness}f, ${data.resistance}f));
 	}
-	<#if data.mx != 0 || data.my != 0 || data.mz != 0 || data.Mx != 1 || data.My != 1 || data.Mz != 1>
-	@Override
- 	public VoxelShape getOutlineShape(BlockState state, BlockView view, BlockPos pos, EntityContext ctx) {
-     return VoxelShapes.cuboid(${data.mx}D, ${data.my}D, ${data.mz}D, ${data.Mx}D, ${data.My}D, ${data.Mz}D);
- 	}
- 	</#if>
 
 		<#if data.rotationMode == 1 || data.rotationMode == 3>
 		public static final DirectionProperty FACING = HorizontalFacingBlock.FACING;
@@ -112,6 +106,67 @@ public class ${name} extends Block {
         return this.getDefaultState().with(FACING, facing);
 			</#if>
     }
+
+		<#if data.mx != 0 || data.my != 0 || data.mz != 0 || data.Mx != 1 || data.My != 1 || data.Mz != 1>
+@Override public VoxelShape getOutlineShape(BlockState state, BlockView view, BlockPos pos, EntityContext context) {
+	<#if data.rotationMode == 1 || data.rotationMode == 3>
+						switch ((Direction) state.get(FACING)) {
+								case UP:
+								case DOWN:
+								case SOUTH:
+								default:
+										return VoxelShapes.cuboid(${1-data.mx}D, ${data.my}D, ${1-data.mz}D, ${1-data.Mx}D, ${data.My}D,
+												${1-data.Mz}D);
+								case NORTH:
+										return VoxelShapes.cuboid(${data.mx}D, ${data.my}D, ${data.mz}D, ${data.Mx}D, ${data.My}D, ${data.Mz}D);
+								case WEST:
+										return VoxelShapes.cuboid(${data.mz}D, ${data.my}D, ${1-data.mx}D, ${data.Mz}D, ${data.My}D,
+												${1-data.Mx}D);
+								case EAST:
+										return VoxelShapes.cuboid(${1-data.mz}D, ${data.my}D, ${data.mx}D, ${1-data.Mz}D, ${data.My}D,
+												${data.Mx}D);
+						}
+						<#elseif data.rotationMode == 2 || data.rotationMode == 4>
+						switch ((Direction) state.get(FACING)) {
+								case SOUTH:
+								default:
+										return VoxelShapes.cuboid(${1-data.mx}D, ${data.my}D, ${1-data.mz}D, ${1-data.Mx}D, ${data.My}D,
+												${1-data.Mz}D);
+								case NORTH:
+										return VoxelShapes.cuboid(${data.mx}D, ${data.my}D, ${data.mz}D, ${data.Mx}D, ${data.My}D, ${data.Mz}D);
+								case WEST:
+										return VoxelShapes.cuboid(${data.mz}D, ${data.my}D, ${1-data.mx}D, ${data.Mz}D, ${data.My}D,
+												${1-data.Mx}D);
+								case EAST:
+										return VoxelShapes.cuboid(${1-data.mz}D, ${data.my}D, ${data.mx}D, ${1-data.Mz}D, ${data.My}D,
+												${data.Mx}D);
+								case UP:
+										return VoxelShapes.cuboid(${data.mx}D, ${1-data.mz}D, ${data.my}D, ${data.Mx}D, ${1-data.Mz}D,
+												${data.My}D);
+								case DOWN:
+										return VoxelShapes.cuboid(${data.mx}D, ${data.mz}D, ${1-data.my}D, ${data.Mx}D, ${data.Mz}D,
+												${1-data.My}D);
+						}
+						<#elseif data.rotationMode == 5>
+						switch ((Direction) state.get(FACING)) {
+								case SOUTH:
+								case NORTH:
+								default:
+										return VoxelShapes.cuboid(${data.mx}D, ${data.my}D, ${data.mz}D, ${data.Mx}D, ${data.My}D, ${data.Mz}D);
+								case EAST:
+								case WEST:
+										return VoxelShapes.cuboid(${data.mx}D, ${1-data.mz}D, ${data.my}D, ${data.Mx}D, ${1-data.Mz}D,
+												${data.My}D);
+								case UP:
+								case DOWN:
+										return VoxelShapes.cuboid(${data.my}D, ${1-data.mx}D, ${1-data.mz}D, ${data.My}D, ${1-data.Mx}D,
+												${1-data.Mz}D);
+						}
+						<#else>
+		return VoxelShapes.cuboid(${data.mx}D, ${data.my}D, ${data.mz}D, ${data.Mx}D, ${data.My}D, ${data.Mz}D);
+				</#if>
+}
+		</#if>
 
 }
 
