@@ -10,7 +10,7 @@ public class ${name}Group {
         return FabricItemGroupBuilder
         .create(new Identifier("${modid}","tab${registryname}"))
         .icon(()->{
-          return ${mappedMCItemToItemStackCode(data.icon)}
+          return new ItemStack(${mappedMCItemToItemStackCode(data.icon)});
         })
         .build();
     }
