@@ -32,6 +32,17 @@ public class ${name} extends Block {
         return ${data.lightOpacity};
     }
 
+
+				<#if data.specialInfo?has_content>
+				@Environment(EnvType.CLIENT)
+				@Override
+		    public void buildTooltip(ItemStack stack, BlockView view, List<Text> tooltip, TooltipContext options) {
+					<#list data.specialInfo as entry>
+					 tooltip.add(new LiteralText("${JavaConventions.escapeStringForJava(entry)}"));
+					 </#list>
+		    }
+				</#if>
+
 }
 
 <#-- @formatter:on -->
