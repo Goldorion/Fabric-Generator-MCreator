@@ -95,12 +95,6 @@ public class ${name} extends Block {
 	    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
 	        builder.add(FACING);
 	    }
-
-
-    	@Override
-    	public BlockState rotate(BlockState state, BlockRotation rotation) {
-        return super.rotate(state, rotation);
-    	}
 			</#if>
 
 
