@@ -73,8 +73,9 @@ public class ${JavaModName} implements ModInitializer {
 </#list>
 
 <#list w.getElementsOfType("BLOCK") as block>
+<#assign ge = block.getGeneratableElement()>
 		Registry.register(Registry.BLOCK, new Identifier("${modid}", "${block.getRegistryName()}"), ${block});
-		Registry.register(Registry.ITEM, new Identifier("${modid}", "${block.getRegistryName()}"), new BlockItem(${block}, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
+		Registry.register(Registry.ITEM, new Identifier("${modid}", "${block.getRegistryName()}"), new BlockItem(${block}, new Item.Settings().group(${ge.creativeTab})));
 </#list>
 
 <#list w.getElementsOfType("FUEL") as fuel>
