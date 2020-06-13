@@ -1,7 +1,7 @@
 <#-- @formatter:off -->
 <#include "mcitems.ftl">
 
-package ${package}.fuel;
+package ${package}.item;
 
 public class ${name}Fuel {
 
