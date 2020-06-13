@@ -33,15 +33,23 @@ public class ${name} extends Block {
     }
 
 
-				<#if data.specialInfo?has_content>
-				@Environment(EnvType.CLIENT)
-				@Override
-		    public void buildTooltip(ItemStack stack, BlockView view, List<Text> tooltip, TooltipContext options) {
-					<#list data.specialInfo as entry>
-					 tooltip.add(new LiteralText("${JavaConventions.escapeStringForJava(entry)}"));
-					 </#list>
-		    }
-				</#if>
+			<#if data.specialInfo?has_content>
+			@Environment(EnvType.CLIENT)
+			@Override
+		   public void buildTooltip(ItemStack stack, BlockView view, List<Text> tooltip, TooltipContext options) {
+				<#list data.specialInfo as entry>
+					tooltip.add(new LiteralText("${JavaConventions.escapeStringForJava(entry)}"));
+					</#list>
+		   }
+			</#if>
+
+
+			<#if data.lightOpacity == 0>
+			@Override
+			public boolean isTranslucent(BlockState state, BlockView view, BlockPos pos) {
+					return true;
+			}
+			</#if>
 
 }
 
