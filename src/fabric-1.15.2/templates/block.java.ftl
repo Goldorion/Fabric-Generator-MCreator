@@ -4,6 +4,8 @@ package ${package}.block;
 
 import net.fabricmc.fabric.api.tools.FabricToolTags;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 
 public class ${name} extends Block {
 
@@ -24,6 +26,12 @@ public class ${name} extends Block {
     public int getLuminance(BlockState state) {
         return ${(data.luminance * 15)?round};
     }
+
+		@Override
+    public int getOpacity(BlockState state, BlockView view, BlockPos pos) {
+        return ${data.lightOpacity};
+    }
+
 }
 
 <#-- @formatter:on -->
