@@ -17,6 +17,8 @@
 
 package ${package};
 
+import ${package}.item;
+
 public class ${JavaModName} implements ModInitializer {
 
 <#list w.getElementsOfType("ITEM") as item>
