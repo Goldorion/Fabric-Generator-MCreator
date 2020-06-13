@@ -35,6 +35,7 @@ public class ${name} extends Block {
     }
 
 		<#if data.rotationMode != 5>
+		<#if data.rotationMode != 0>
     public BlockState rotate(BlockState state, BlockRotation rot) {
         return state.with(FACING, rot.rotate(state.get(FACING)));
     }
@@ -42,7 +43,7 @@ public class ${name} extends Block {
 		public BlockState mirror(BlockState state, BlockMirror mirrorIn) {
         return state.rotate(mirrorIn.getRotation(state.get(FACING)));
     }
-
+		</#if>
 		<#else>
 		public BlockState rotate(BlockState state, BlockRotation rot) {
 			if(rot == BlockRotation.CLOCKWISE_90 || rot == BlockRotation.COUNTERCLOCKWISE_90) {
