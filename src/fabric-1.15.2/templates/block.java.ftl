@@ -51,6 +51,14 @@ public class ${name} extends Block {
 			}
 			</#if>
 
+
+			<#if data.isNotColidable>
+	    @Override
+	    public boolean isAir(BlockState state) {
+	        return true;
+	    }
+			</#if>
+
 }
 
 <#-- @formatter:on -->
