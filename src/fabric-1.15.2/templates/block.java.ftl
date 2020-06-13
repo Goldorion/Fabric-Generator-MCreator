@@ -101,7 +101,7 @@ public class ${name} extends Block {
     	public BlockState rotate(BlockState state, BlockRotation rotation) {
         return super.rotate(state, rotation);
     	}
-			<#if>
+			</#if>
 
 
     @Override
