@@ -27,6 +27,9 @@ base_templates:
 - template: modbase/mod.java.ftl
   name: "@SRCROOT/@BASEPACKAGEPATH/@JavaModName.java"
   canLock: true
+- template: modbase/biomeRegistry.java.ftl
+  name: "@SRCROOT/@BASEPACKAGEPATH/registry/@JavaModNameBiomes.java"
+  canLock: true
 - template: modbase/fabric.mod.json.ftl
   writer: json
   name: "@RESROOT/fabric.mod.json"

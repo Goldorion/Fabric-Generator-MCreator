@@ -1,13 +1,8 @@
 <#-- @formatter:off -->
 package ${package}.world.biome;
 
-public class ${name}Biome extends Biome{
-
-  public static void initialize(){
-    OverworldBiomes.addContinentalBiome(OverworldClimate.${data.biomeType}, ${JavaModName.${name}Biome, 2D);
-  }
-
-  public ${name}Biome(){
+public class ${name} extends Biome{
+  public ${name}(){
             super(new Biome.Settings().configureSurfaceBuilder(SurfaceBuilder.DEFAULT, SurfaceBuilder.GRASS_CONFIG)
             .precipitation(Biome.Precipitation.<#if (data.rainingPossibility > 0)><#if (data.temperature > 0.15)>RAIN<#else>SNOW</#if><#else>NONE</#if>)
             .category(Biome.Category.PLAINS)
@@ -37,19 +32,9 @@ public class ${name}Biome extends Biome{
             DefaultBiomeFeatures.addDefaultVegetation(this);
             DefaultBiomeFeatures.addSprings(this);
             DefaultBiomeFeatures.addFrozenTopLayer(this);
-            <#if data.generateLakes>
-            DefaultBiomeFeatures.addLakes(this);
-            </#if>
             <#if (data.grassPerChunk > 0)>
-            .addGrassFeature(Blocks.GRASS.getDefaultState(), ${data.grassPerChunk});
+            DefaultBiomeFeatures.addDefaultGrass(this);
             </#if>
-
-            <#list data.spawnList as entityEntry>
-            <#assign entity = generator.map(entityEntry.getUnmappedValue(), "entities", 1)!"null">
-            <#if entity != "null">
-            this.addSpawn(EntityClassification.CREATURE, new Biome.SpawnListEntry(EntityType.${entity}, 15, 1, 5));
-            </#if>
-            </#list>
   }
 }
 <#-- @formatter:on -->
