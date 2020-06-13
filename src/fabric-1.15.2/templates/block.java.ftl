@@ -81,15 +81,6 @@ public class ${name} extends Block {
 			}
 			</#if>
 
-
-			<#if data.isNotColidable>
-	    @Override
-	    public boolean isAir(BlockState state) {
-	        return true;
-	    }
-			</#if>
-
-
 			<#if data.rotationMode != 0>
 	    @Override
 	    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
