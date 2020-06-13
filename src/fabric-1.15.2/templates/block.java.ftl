@@ -6,6 +6,8 @@ import net.fabricmc.fabric.api.tools.FabricToolTags;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.block.HorizontalFacingBlock;
+import net.minecraft.util.math.Direction;
 
 public class ${name} extends Block {
 
@@ -22,6 +24,12 @@ public class ${name} extends Block {
  	}
  	</#if>
 
+		<#if data.rotationMode == 1 || data.rotationMode == 3>
+		public static final DirectionProperty FACING = HorizontalFacingBlock.HORIZONTAL_FACING;
+		<#elseif data.rotationMode == 2 || data.rotationMode == 4 || data.rotationMode == 5>
+		public static final DirectionProperty FACING = FacingBlock.FACING;
+		</#if>
+
     @Override
     public int getLuminance(BlockState state) {
         return ${(data.luminance * 15)?round};
@@ -31,6 +39,28 @@ public class ${name} extends Block {
     public int getOpacity(BlockState state, BlockView view, BlockPos pos) {
         return ${data.lightOpacity};
     }
+
+		<#if data.rotationMode != 5>
+    public BlockState rotate(BlockState state, BlockRotation rot) {
+        return state.with(FACING, rot.rotate(state.get(FACING)));
+    }
+
+		public BlockState mirror(BlockState state, BlockMirror mirrorIn) {
+        return state.rotate(mirrorIn.getRotation(state.get(FACING)));
+    }
+
+		<#else>
+		public BlockState rotate(BlockState state, BlockRotation rot) {
+			if(rot == BlockRotation.CLOCKWISE_90 || rot == BlockRotation.COUNTERCLOCKWISE_90) {
+					if((Direction) state.get(FACING) == Direction.WEST || (Direction) state.get(FACING) == Direction.EAST) {
+							return state.with(FACING, Direction.UP);
+					} else if((Direction) state.get(FACING) == Direction.UP || (Direction) state.get(FACING) == Direction.DOWN) {
+							return state.with(FACING, Direction.WEST);
+					}
+			}
+			return state;
+	}
+		</#if>
 
 
 			<#if data.specialInfo?has_content>
@@ -58,6 +88,45 @@ public class ${name} extends Block {
 	        return true;
 	    }
 			</#if>
+
+
+			<#if data.rotationMode != 0>
+	    @Override
+	    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+	        builder.add(FACING);
+	    }
+
+
+    	@Override
+    	public BlockState rotate(BlockState state, BlockRotation rotation) {
+        return super.rotate(state, rotation);
+    	}
+			<#if>
+
+
+    @Override
+    public BlockState getPlacementState(ItemPlacementContext context) {
+			<#if data.rotationMode == 1>
+        return this.getDefaultState().with(FACING, context.getPlayerFacing().getOpposite());
+			<#elseif data.rotationMode == 2>
+        return this.getDefaultState().with(FACING, context.getPlayerLookDirection().getOpposite());
+            <#elseif data.rotationMode == 3>
+        if (context.getFace() == Direction.UP || context.getFace() == Direction.DOWN)
+            return this.getDefaultState().with(FACING, Direction.NORTH);
+        return this.getDefaultState().with(FACING, context.getFace());
+            <#elseif data.rotationMode == 4>
+        return this.getDefaultState().with(FACING, context.getFace());
+			<#elseif data.rotationMode == 5>
+                Direction facing = context.getSide();
+        if (facing == Direction.WEST || facing == Direction.EAST)
+            facing = Direction.UP;
+        else if (facing == Direction.NORTH || facing == Direction.SOUTH)
+            facing = Direction.EAST;
+        else
+            facing = Direction.SOUTH;
+        return this.getDefaultState().with(FACING, facing);
+			</#if>
+    }
 
 }
 
