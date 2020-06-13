@@ -21,6 +21,11 @@ import ${package}.item;
 
 public class ${JavaModName} implements ModInitializer {
 
+  <#list sounds as sound>
+	public static final Identifier ${sound} = new Identifier("${modid}:${sound}");
+  public static SoundEvent ${sound} = new SoundEvent(${sound});
+	</#list>
+
 <#list w.getElementsOfType("ITEM") as item>
 	public static final Item ${item} = new ${item}();
 </#list>
@@ -44,6 +49,10 @@ public class ${JavaModName} implements ModInitializer {
 	@Override
 	public void onInitialize() {
 
+  <#list sounds as sound>
+  	Registry.register(Registry.${sound}, ${JavaModName}.${sound}, ${sound});
+  </#list>
+
 <#list w.getElementsOfType("ITEM") as item>
 		Registry.register(Registry.ITEM, new Identifier("${modid}", "${item.getRegistryName()}"), ${item});
 </#list>
@@ -64,8 +73,9 @@ public class ${JavaModName} implements ModInitializer {
 </#list>
 
 <#list w.getElementsOfType("BLOCK") as block>
+<#assign ge = block.getGeneratableElement()>
 		Registry.register(Registry.BLOCK, new Identifier("${modid}", "${block.getRegistryName()}"), ${block});
-		Registry.register(Registry.ITEM, new Identifier("${modid}", "${block.getRegistryName()}"), new BlockItem(${block}, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
+		Registry.register(Registry.ITEM, new Identifier("${modid}", "${block.getRegistryName()}"), new BlockItem(${block}, new Item.Settings().group(${ge.creativeTab})));
 </#list>
 
 <#list w.getElementsOfType("FUEL") as fuel>

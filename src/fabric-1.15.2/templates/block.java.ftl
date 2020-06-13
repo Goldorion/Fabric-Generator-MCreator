@@ -9,11 +9,14 @@ import net.fabricmc.api.Environment;
 import net.minecraft.block.HorizontalFacingBlock;
 import net.minecraft.util.math.Direction;
 
-public class ${name} extends Block {
+public class ${name} extends <#if data.hasGravity>FallingBlock<#else>Block</#if> {
 
 	public ${name}(){
 		super(FabricBlockSettings.of(Material.${data.material})<#if data.destroyTool != "Not specified">.breakByTool(FabricToolTags.${data.destroyTool?upper_case}S, ${data.breakHarvestLevel})<#else>
 .breakByHand(true)
+</#if>
+<#if data.isNotColidable>
+			.noCollision()
 </#if>
 .sounds(BlockSoundGroup.${data.soundOnStep}).strength(${data.hardness}f, ${data.resistance}f));
 	}
@@ -81,6 +84,28 @@ public class ${name} extends Block {
 	    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
 	        builder.add(FACING);
 	    }
+			</#if>
+
+			@Override
+    	public int getTickRate(WorldView worldView) {
+        	return ${data.tickRate};
+    	}
+
+			<#if data.dropAmount != 1 && !(data.customDrop?? && !data.customDrop.isEmpty())>
+			@Override
+    	public List<ItemStack> getDroppedStacks(BlockState state, LootContext.Builder builder) {
+        	List<ItemStack> dropsOriginal = super.getDroppedStacks(state, builder);
+        	if(!dropsOriginal.isEmpty())
+            	return dropsOriginal;
+        	return Collections.singletonList(new ItemStack(this, ${data.dropAmount}));
+    	}
+			<#else>
+			@Override
+    	public List<ItemStack> getDroppedStacks(BlockState state, LootContext.Builder builder) {
+					List<ItemStack> dropsOriginal = super.getDroppedStacks(state, builder);
+					if(!dropsOriginal.isEmpty())return dropsOriginal;
+					return Collections.singletonList(new ItemStack(this, 1));
+    	}
 			</#if>
 
 
@@ -169,6 +194,21 @@ public class ${name} extends Block {
 		return VoxelShapes.cuboid(${data.mx}D, ${data.my}D, ${data.mz}D, ${data.Mx}D, ${data.My}D, ${data.Mz}D);
 				</#if>
 }
+		</#if>
+
+		<#if data.hasTransparency>
+		@Override
+    public boolean isSimpleFullBlock(BlockState state, BlockView view, BlockPos pos) {
+        return false;
+    }
+		</#if>
+
+		<#if data.connectedSides>
+		@Environment(EnvType.CLIENT)
+    @Override
+    public boolean isSideInvisible(BlockState state, BlockState neighbor, Direction facing) {
+        return true;
+    }
 		</#if>
 
 }
