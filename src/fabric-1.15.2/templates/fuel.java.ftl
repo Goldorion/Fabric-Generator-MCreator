@@ -5,7 +5,7 @@ package ${package}.item;
 
 public class ${name}Fuel {
 
-	public void initialize() {
+	public static void initialize() {
 		FuelRegistry.INSTANCE.add(${mappedMCItemToItem(data.block)?replace("Blocks.", "")}, ${data.power});
 	}
 
