@@ -9,11 +9,14 @@ import net.fabricmc.api.Environment;
 import net.minecraft.block.HorizontalFacingBlock;
 import net.minecraft.util.math.Direction;
 
-public class ${name} extends Block {
+public class ${name} extends <#if data.hasGravity>FallingBlock<#else>Block</#if> {
 
 	public ${name}(){
 		super(FabricBlockSettings.of(Material.${data.material})<#if data.destroyTool != "Not specified">.breakByTool(FabricToolTags.${data.destroyTool?upper_case}S, ${data.breakHarvestLevel})<#else>
 .breakByHand(true)
+</#if>
+<#if data.isNotColidable>
+			.noCollision()
 </#if>
 .sounds(BlockSoundGroup.${data.soundOnStep}).strength(${data.hardness}f, ${data.resistance}f));
 	}
