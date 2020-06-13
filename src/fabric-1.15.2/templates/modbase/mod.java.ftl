@@ -46,6 +46,10 @@ public class ${JavaModName} implements ModInitializer {
 		Registry.register(Registry.ITEM, new Identifier("${modid}", "${item.getRegistryName()}"), ${item});
 </#list>
 
+<#list w.getElementsOfType("FUEL") as fuel>
+  ${fuel}.initialize();
+</#list>
+
 <#list w.getElementsOfType("ARMOR") as armor>
 	Registry.register(Registry.ITEM,new Identifier("${modid}","${armor.getRegistryName()}_helmet"), ${armor}_HELMET);
 	Registry.register(Registry.ITEM,new Identifier("${modid}","${armor.getRegistryName()}_chestplate"), ${armor}_CHESTPLATE);

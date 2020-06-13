@@ -13,7 +13,7 @@ This project is not official. Not affiliated with the respective owners and main
 
 - Food (Mostly complete)
 
-- Fuel (Doesn't work)
+- Fuel (Complete)
 
 - Function (Complete)
 
