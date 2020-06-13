@@ -21,6 +21,11 @@ import ${package}.item;
 
 public class ${JavaModName} implements ModInitializer {
 
+  <#list sounds as sound>
+	public static final Identifier ${sound} = new Identifier("${modid}:${sound}");
+  public static SoundEvent ${sound} = new SoundEvent(${sound});
+	</#list>
+
 <#list w.getElementsOfType("ITEM") as item>
 	public static final Item ${item} = new ${item}();
 </#list>
@@ -47,6 +52,10 @@ public class ${JavaModName} implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+
+  <#list sounds as sound>
+  	Registry.register(Registry.${sound}, ${JavaModName}.${sound}, ${sound});
+  </#list>
 
 <#list w.getElementsOfType("ITEM") as item>
 		Registry.register(Registry.ITEM, new Identifier("${modid}", "${item.getRegistryName()}"), ${item});
