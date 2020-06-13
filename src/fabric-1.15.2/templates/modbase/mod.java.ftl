@@ -30,7 +30,7 @@ public class ${JavaModName} implements ModInitializer {
 	public static final Item ${item} = new ${item}();
 </#list>
 
-<#list w.getElementsOfType("ITEM") as group>
+<#list w.getElementsOfType("TAB") as group>
 	public static final ItemGroup ${group} = ${group}Group.get();
 </#list>
 
