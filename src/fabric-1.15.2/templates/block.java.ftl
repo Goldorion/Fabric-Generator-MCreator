@@ -96,11 +96,11 @@ public class ${name} extends Block {
 			<#elseif data.rotationMode == 2>
         return this.getDefaultState().with(FACING, context.getPlayerLookDirection().getOpposite());
             <#elseif data.rotationMode == 3>
-        if (context.getFace() == Direction.UP || context.getFace() == Direction.DOWN)
+        if (context.getSide() == Direction.UP || context.getSide() == Direction.DOWN)
             return this.getDefaultState().with(FACING, Direction.NORTH);
-        return this.getDefaultState().with(FACING, context.getFace());
+        return this.getDefaultState().with(FACING, context.getSide());
             <#elseif data.rotationMode == 4>
-        return this.getDefaultState().with(FACING, context.getFace());
+        return this.getDefaultState().with(FACING, context.getSide());
 			<#elseif data.rotationMode == 5>
                 Direction facing = context.getSide();
         if (facing == Direction.WEST || facing == Direction.EAST)
