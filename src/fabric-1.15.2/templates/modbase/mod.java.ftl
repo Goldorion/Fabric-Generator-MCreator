@@ -46,6 +46,10 @@ public class ${JavaModName} implements ModInitializer {
     public static final Block ${block} = new ${block}();
 </#list>
 
+<#list w.getElementsOfType("BIOME") as biome>
+        public static final Biome ${biome?upper_case} = Registry.register(Registry.BIOME, new Identifier("${modid}", "${biome.getRegistryName}"), new ${biome}Biome());
+</#list>
+
 	@Override
 	public void onInitialize() {
 
@@ -78,8 +82,12 @@ public class ${JavaModName} implements ModInitializer {
 		Registry.register(Registry.ITEM, new Identifier("${modid}", "${block.getRegistryName()}"), new BlockItem(${block}, new Item.Settings().group(${ge.creativeTab})));
 </#list>
 
+<#list w.getElementsOfType("BIOME") as biome>
+    ${biome}Biome.initialize();
+</#list>
+
 <#list w.getElementsOfType("FUEL") as fuel>
-  ${fuel}Fuel.initialize();
+    ${fuel}Fuel.initialize();
 </#list>
 	}
 }

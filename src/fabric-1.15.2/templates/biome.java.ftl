@@ -3,6 +3,10 @@ package ${package}.world.biome;
 
 public class ${name}Biome extends Biome{
 
+  public static void initialize(){
+    OverworldBiomes.addContinentalBiome(OverworldClimate.${data.biomeType}, ${JavaModName.${name}Biome, 2D);
+  }
+
   public ${name}Biome(){
             super(new Biome.Settings().configureSurfaceBuilder(SurfaceBuilder.DEFAULT, SurfaceBuilder.GRASS_CONFIG)
             .precipitation(Biome.Precipitation.<#if (data.rainingPossibility > 0)><#if (data.temperature > 0.15)>RAIN<#else>SNOW</#if><#else>NONE</#if>)
