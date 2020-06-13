@@ -48,10 +48,6 @@ public class ${JavaModName} implements ModInitializer {
 		Registry.register(Registry.ITEM, new Identifier("${modid}", "${item.getRegistryName()}"), ${item});
 </#list>
 
-<#list w.getElementsOfType("FUEL") as fuel>
-  ${fuel}Fuel.initialize();
-</#list>
-
 <#list w.getElementsOfType("ARMOR") as armor>
 	Registry.register(Registry.ITEM,new Identifier("${modid}","${armor.getRegistryName()}_helmet"), ${armor}_HELMET);
 	Registry.register(Registry.ITEM,new Identifier("${modid}","${armor.getRegistryName()}_chestplate"), ${armor}_CHESTPLATE);
@@ -70,6 +66,10 @@ public class ${JavaModName} implements ModInitializer {
 <#list w.getElementsOfType("BLOCK") as block>
 		Registry.register(Registry.BLOCK, new Identifier("${modid}", "${block.getRegistryName()}"), ${block});
 		Registry.register(Registry.ITEM, new Identifier("${modid}", "${block.getRegistryName()}"), new BlockItem(${block}, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
+</#list>
+
+<#list w.getElementsOfType("FUEL") as fuel>
+  ${fuel}Fuel.initialize();
 </#list>
 	}
 }
