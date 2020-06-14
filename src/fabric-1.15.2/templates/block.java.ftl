@@ -215,8 +215,8 @@ public class ${name} extends <#if data.hasGravity>FallingBlock<#else>Block</#if>
 			<#list data.spawnWorldTypes as worldType>
 			<#if worldType=="Surface">
 			try{
-			<#if (data.spawnWorldTypes?size > 0)>
-			if(biome.getCategory() != Biome.Category.THEEND
+				<#if (data.spawnWorldTypes?size > 0)>
+				if(biome.getCategory() != Biome.Category.THEEND
 				<#if data.restrictionBiomes?has_content>
 					<#list data.restrictionBiomes as restrictionBiome>
 					  && biome != Registry.BIOME.get(new Identifier("${restrictionBiome}"))
@@ -246,10 +246,11 @@ public class ${name} extends <#if data.hasGravity>FallingBlock<#else>Block</#if>
 													))));
 			}</#if>
 		}catch(Throwable ignored){}
+		</#if>
 
 		<#if worldType == "Nether">
-		try{
-		<#if (data.spawnWorldTypes?size > 0)>
+			try{
+			<#if (data.spawnWorldTypes?size > 0)>
 		if(biome.getCategory() != Biome.Category.THEEND
 			<#if data.restrictionBiomes?has_content>
 				<#list data.restrictionBiomes as restrictionBiome>
