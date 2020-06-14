@@ -13,7 +13,7 @@ public class ${name} extends Biome{
             .depth(${data.baseHeight}f)
             .scale(${data.heightVariation}f)
             .temperature(${data.temperature}f)
-            .precipitation(PRec.<#if (data.rainingPossibility > 0)><#if (data.temperature > 0.15)>RAIN<#else>SNOW</#if><#else>NONE</#if>)
+            .precipitation(Precipitation.<#if (data.rainingPossibility > 0)><#if (data.temperature > 0.15)>RAIN<#else>SNOW</#if><#else>NONE</#if>)
             .downfall(${data.rainingPossibility}f)
             <#if data.customColors>
             .waterColor(${data.waterColor.getRGB()}).waterFogColor(${data.waterColor.getRGB()})
