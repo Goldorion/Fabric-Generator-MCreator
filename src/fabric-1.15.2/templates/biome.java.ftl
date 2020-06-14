@@ -7,7 +7,7 @@ import net.fabricmc.api.Environment;
 
 public class ${name} extends Biome{
 
-  static final int WEIGHT = ${data.biomeWeight};
+  public static final int WEIGHT = ${data.biomeWeight};
 
   public ${name}(){
             super(new Biome.Settings().configureSurfaceBuilder(SurfaceBuilder.DEFAULT, SurfaceBuilder.GRASS_CONFIG)
