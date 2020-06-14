@@ -34,12 +34,14 @@ public class ${name} extends Biome{
             DefaultBiomeFeatures.addLandCarvers(this);
             DefaultBiomeFeatures.addDefaultStructures(this);
             DefaultBiomeFeatures.addDungeons(this);
-            DefaultBiomeFeatures.addDefaultFlowers(this);
             DefaultBiomeFeatures.addDefaultOres(this);
             DefaultBiomeFeatures.addDefaultDisks(this);
             DefaultBiomeFeatures.addDefaultVegetation(this);
             DefaultBiomeFeatures.addSprings(this);
             DefaultBiomeFeatures.addFrozenTopLayer(this);
+            <#if (data.flowersPerChunk > 0)>
+            DefaultBiomeFeatures.addDefaultFlowers(this);
+            </#if>
             <#if (data.grassPerChunk > 0)>
             DefaultBiomeFeatures.addDefaultGrass(this);
             </#if>
