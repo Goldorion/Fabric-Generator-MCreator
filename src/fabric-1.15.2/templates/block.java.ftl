@@ -246,8 +246,7 @@ public class ${name} extends <#if data.hasGravity>FallingBlock<#else>Block</#if>
 													))));
 			}</#if>
 		}catch(Throwable ignored){}
-		}
-		</#if>
+
 		<#if worldType == "Nether">
 		try{
 		<#if (data.spawnWorldTypes?size > 0)>
@@ -281,10 +280,12 @@ public class ${name} extends <#if data.hasGravity>FallingBlock<#else>Block</#if>
 												))));
 		}</#if>
 		}catch(Throwable ignored){}
-		}
 		</#if>
 		</#list>
+		}
+
 
 }
+
 
 <#-- @formatter:on -->
