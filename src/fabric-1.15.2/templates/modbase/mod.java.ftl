@@ -40,7 +40,7 @@ public class ${JavaModName} implements ModInitializer {
 </#list>
 
 <#list w.getElementsOfType("BLOCK") as block>
-    public static final Block ${block} = new ${block}();
+    public static final ${block} ${block} = new ${block}();
 </#list>
 
 	@Override
@@ -72,8 +72,8 @@ public class ${JavaModName} implements ModInitializer {
 <#list w.getElementsOfType("BLOCK") as block>
 <#assign ge = block.getGeneratableElement()>
 		Registry.register(Registry.BLOCK, new Identifier("${modid}", "${block.getRegistryName()}"), ${block});
-    Registry.BIOME.forEach(${block}::genBlock);
-    RegistryEntryAddedCallback.event(Registry.BIOME).register((i, identifier, biome) -> { ${block}.genBlock(biome); });
+    Registry.BIOME.forEach(this.${block}::genBlock);
+    RegistryEntryAddedCallback.event(Registry.BIOME).register((i, identifier, biome) -> { this.${block}.genBlock(biome); });
 		Registry.register(Registry.ITEM, new Identifier("${modid}", "${block.getRegistryName()}"), new BlockItem(${block}, new Item.Settings().group(${ge.creativeTab})));
 </#list>
 
