@@ -72,6 +72,8 @@ public class ${JavaModName} implements ModInitializer {
 <#list w.getElementsOfType("BLOCK") as block>
 <#assign ge = block.getGeneratableElement()>
 		Registry.register(Registry.BLOCK, new Identifier("${modid}", "${block.getRegistryName()}"), ${block});
+    Registry.BIOME.forEach(${block}::handleBiome);
+    RegistryEntryAddedCallback.event(Registry.BIOME).register((i, identifier, biome) -> { ${block}.handleBiome(biome); });
 		Registry.register(Registry.ITEM, new Identifier("${modid}", "${block.getRegistryName()}"), new BlockItem(${block}, new Item.Settings().group(${ge.creativeTab})));
 </#list>
 
