@@ -212,6 +212,8 @@ public class ${name} extends <#if data.hasGravity>FallingBlock<#else>Block</#if>
 		</#if>
 
 		public void genBlock(Biome biome){
+			<#list data.spawnWorldTypes as worldType>
+			<#if worldType=="Surface">
 			try{
 			<#if (data.spawnWorldTypes?size > 0)>
 			if(biome.getCategory() != Biome.Category.THEEND
@@ -222,24 +224,66 @@ public class ${name} extends <#if data.hasGravity>FallingBlock<#else>Block</#if>
 				</#if>
 			){
 					biome.addFeature(
-									GenerationStep.Feature.UNDERGROUND_ORES,
-									Feature.ORE.configure(
+									GenerationStep
+									.Feature
+									.UNDERGROUND_ORES,Feature
+									.ORE
+									.configure(
 													new OreFeatureConfig(OreFeatureConfig
-																	.Target.
-																	NATURAL_STONE,
-																	${JavaModName}.${name}.getDefaultState(),
+																	.Target
+																	.NATURAL_STONE,
+																	${JavaModName}
+																	.${name}
+																	.getDefaultState(),
 																	${data.frequencyOnChunk}
-													)).createDecoratedFeature(
-													Decorator.COUNT_RANGE.configure(new RangeDecoratorConfig(
+													)).createDecoratedFeature(Decorator
+													.COUNT_RANGE.
+													configure(new RangeDecoratorConfig(
 																	${data.frequencyPerChunks},
-																	${data.minGenerateHeight}, // Dunno what this is
+																	${data.minGenerateHeight},
 																	${data.minGenerateHeight},
 																	${data.maxGenerateHeight}
 													))));
-			}
-			</#if>
+			}</#if>
 		}catch(Throwable ignored){}
 		}
+		</#if>
+		<#if worldType == "Nether">
+		try{
+		<#if (data.spawnWorldTypes?size > 0)>
+		if(biome.getCategory() != Biome.Category.THEEND
+			<#if data.restrictionBiomes?has_content>
+				<#list data.restrictionBiomes as restrictionBiome>
+					&& biome != Registry.BIOME.get(new Identifier("${restrictionBiome}"))
+				</#list>
+			</#if>
+		){
+				biome.addFeature(
+								GenerationStep
+								.Feature
+								.UNDERGROUND_ORES,Feature
+								.ORE
+								.configure(
+												new OreFeatureConfig(OreFeatureConfig
+																.Target
+																.NETHERRACK,
+																${JavaModName}
+																.${name}
+																.getDefaultState(),
+																${data.frequencyOnChunk}
+												)).createDecoratedFeature(Decorator
+												.COUNT_RANGE.
+												configure(new RangeDecoratorConfig(
+																${data.frequencyPerChunks},
+																${data.minGenerateHeight},
+																${data.minGenerateHeight},
+																${data.maxGenerateHeight}
+												))));
+		}</#if>
+		}catch(Throwable ignored){}
+		}
+		</#if>
+		</#list>
 
 }
 
