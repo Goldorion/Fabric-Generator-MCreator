@@ -15,6 +15,8 @@
 package ${package};
 
 import ${package}.item;
+import net.fabricmc.fabric.api.biomes.v1.OverworldBiomes;
+import net.fabricmc.fabric.api.biomes.v1.OverworldClimate;
 
 public class ${JavaModName} implements ModInitializer {
 
@@ -61,6 +63,9 @@ public class ${JavaModName} implements ModInitializer {
 	Registry.register(Registry.ITEM,new Identifier("${modid}","${armor.getRegistryName()}_boots"), ${armor}_BOOTS);
 </#list>
 
+${JavaModName}Biomes.registerBiomes();
+
+
 <#list w.getElementsOfType("FOOD") as food>
 		Registry.register(Registry.ITEM, new Identifier("${modid}", "${food.getRegistryName()}"), ${food});
 </#list>
@@ -76,8 +81,6 @@ public class ${JavaModName} implements ModInitializer {
     RegistryEntryAddedCallback.event(Registry.BIOME).register((i, identifier, biome) -> { this.${block}.genBlock(biome); });
 		Registry.register(Registry.ITEM, new Identifier("${modid}", "${block.getRegistryName()}"), new BlockItem(${block}, new Item.Settings().group(${ge.creativeTab})));
 </#list>
-
-    ${JavaModName}Biomes.registerBiomes();
 
 <#list w.getElementsOfType("FUEL") as fuel>
     ${fuel}Fuel.initialize();
