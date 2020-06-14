@@ -66,7 +66,7 @@ public class ${JavaModName} implements ModInitializer {
 ${JavaModName}Biomes.registerBiomes();
 
 <#list w.getElementsOfType("BIOME") as biome>
-  OverworldBiomes.addContinentalBiome(${JavaModName}Biomes.${biome},OverworldClimate.TEMPERATE,${biome.biomeWeight});
+  OverworldBiomes.addContinentalBiome(${JavaModName}Biomes.${biome},OverworldClimate.TEMPERATE,${biome.getbiomeWeight()});
 </#list>
 
 <#list w.getElementsOfType("FOOD") as food>
