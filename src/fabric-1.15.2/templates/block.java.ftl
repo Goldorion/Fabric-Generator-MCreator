@@ -278,11 +278,12 @@ public class ${name} extends <#if data.hasGravity>FallingBlock<#else>Block</#if>
 																${data.minGenerateHeight},
 																${data.maxGenerateHeight}
 												))));
-		}</#if>
-		}catch(Throwable ignored){}
-		</#if>
-		</#list>
-		}
+											}</#if>
+			}catch(Throwable ignored){}
+			</#if>
+
+			</#list>
+			}
 
 
 }
