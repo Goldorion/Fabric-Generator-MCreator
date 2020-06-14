@@ -24,6 +24,7 @@ public class ${JavaModName}Biomes {
   {
     <#list w.getElementsOfType("BIOME") as biome>
     ${biome?upper_case} = register(new ${biome}(), "${modid}");
+    FabricBiomes.addSpawnBiome(${JavaModName}Biomes.${biome?upper_case});
     </#list>
   }
 
