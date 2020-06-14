@@ -4,28 +4,20 @@ An unofficial plugin for [MCreator](https://mcreator.net/), a highly advanced Mi
 This project is not official. Not affiliated with the respective owners and maintainers of Fabric, Minecraft, or MCreator. Do not expect any official support from their respective communities.
 
 ## Features
-- Advancement (Mostly complete, procedure triggered advancements don't work)
-
-- Armor (Mostly complete, custom 3D models need to be hardcoded) **To don't get an error, you have to select a sound.**
-  (Not all sounds are included because mappings are not finished. Any help is welcome.)
-
-- Block (Mostly complete)
-
-- Food (Mostly complete)
-
-- Fuel (Complete)
-
-- Function (Complete)
-
-- Item (Mostly Complete)
-
-- Loot table (Complete)
-
-- Recipe (Complete)
-
-- Tag (Complete)
-
-- Tool (Pickaxe, Axe, Shovel, Hoe and Sword)
+* Advancement (Mostly complete)
+* Armor (Mostly complete) **To don't get an error, you have to select a sound.** (Not all sounds are included because mappings are not finished. Any help is welcome.)
+* Block (Mostly complete)
+* Food (Mostly complete)
+* Fuel (Complete)
+* Function (Complete)
+* Item (Mostly Complete)
+* Loot table (Complete)
+* Recipe (Complete)
+* Tag (Complete)
+* Tool (Pickaxe, Axe, Shovel, Hoe and Sword)
+* Biome (Not complete)
+* Ore generation (Nether and Overworld, Netherrack and Stone Respectively)
+* Itemgroups (Complete)
 
 ## Downloads/Install Instructions
 
