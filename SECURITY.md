@@ -1,7 +1,7 @@
 # Security Policy
 
 ## Guarentee
-MCreatorFabricGenerator will make no attempt to do one of the following:
+MCreatorFabricGenerator will make no attempt to do any of the following:
 * Store your Pylo account's password
 * Store your mod's elements
 * Steal any information stored in your computer
@@ -22,4 +22,5 @@ Most of these security updates concern only the mod.
 If you happen to find a security vulnerability in MCreatorFabricGenerator, immediately report an issue with the bug fix template.
 Issues that have [SECURITY] in their title will be handled as soon as possible after review.
 
-Depending on the severity, it can take upto a few days to fix.
+Depending on the severity, it can take upto a few days to fix. 
+**MCreatorFabricGenerator is not affiliated with MCreator. Report vulnerabilities with it only to us**
