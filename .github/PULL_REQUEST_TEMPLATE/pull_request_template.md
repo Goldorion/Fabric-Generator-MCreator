@@ -1,4 +1,4 @@
-**Version:- ** 0.X.X+foo
+**Version:-** 0.X.X+foo
 
 ### Changes
 * State
