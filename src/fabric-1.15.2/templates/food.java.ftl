@@ -36,5 +36,12 @@ public class ${name} extends Item{
 		public UseAction getUseAction(ItemStack stack) {
       return UseAction.${data.animation?upper_case};
 		}
+
+    <#if data.eatingSpeed != 32>
+    @Override
+		public int getMaxUseTime(ItemStack stack) {
+			return ${data.eatingSpeed};
+		}
+    </#if>
 }
 <#-- @formatter:on -->
