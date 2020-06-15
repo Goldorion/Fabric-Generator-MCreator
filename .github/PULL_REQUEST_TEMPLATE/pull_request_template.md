@@ -1,3 +1,9 @@
+---
+name: New Features / Bug Fixes
+about: Template to add new features and/or bug fixes
+
+---
+
 **Version:-** 0.X.X+foo
 
 ### Changes
