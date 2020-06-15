@@ -49,7 +49,7 @@ public class ${JavaModName} implements ModInitializer {
 	public void onInitialize() {
 
   <#list sounds as sound>
-  	Registry.register(Registry.${sound}, ${JavaModName}.${sound}, ${sound});
+  	Registry.register(Registry.SOUND_EVENT, ${JavaModName}.${sound}Event, ${sound});
   </#list>
 
 <#list w.getElementsOfType("ITEM") as item>
