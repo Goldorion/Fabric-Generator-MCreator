@@ -22,7 +22,7 @@ public class ${JavaModName} implements ModInitializer {
 
   <#list sounds as sound>
 	public static final Identifier ${sound} = new Identifier("${modid}:${sound}");
-  public static SoundEvent ${sound} = new SoundEvent(${sound});
+  public static SoundEvent ${sound}Event = new SoundEvent(${sound});
 	</#list>
 
 <#list w.getElementsOfType("ITEM") as item>
