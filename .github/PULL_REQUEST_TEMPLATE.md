@@ -1,9 +1,9 @@
-**Version:-** 0.X.X+foo
+**Version:-** Release/Snapshot 0.X.X+foo
 
 ### Changes
 * State
 * Your
-* Changes 
+* Changes
 * Here
 
 ### Bug Fixes
@@ -14,4 +14,3 @@
 * Minor
 * Changes
 * Here
-

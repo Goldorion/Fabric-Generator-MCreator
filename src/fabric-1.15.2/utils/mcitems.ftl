@@ -3,10 +3,10 @@
         <#return mappedBlock>
     <#elseif mappedBlock.toString().startsWith("CUSTOM:")>
         <#if !mappedBlock.toString().contains(".")>
-            <#return (generator.getElementPlainName(mappedBlock))
-            + (generator.getRecipeElementType(mappedBlock.toString()) == "BLOCK")?then("Block", "Item") + ".block.getDefaultState()">
+            <#return JavaModName + "." + (generator.getElementPlainName(mappedBlock))
+            + (generator.getRecipeElementType(mappedBlock.toString()) == "BLOCK")?then("Block", "Item") + ".getDefaultState()">
         <#else>
-            <#return (generator.getElementPlainName(mappedBlock))
+            <#return JavaModName + "." + (generator.getElementPlainName(mappedBlock))
             + (generator.getRecipeElementType(mappedBlock.toString()) == "BLOCK")?then("Block", "Item") + "." + generator.getElementExtension(mappedBlock) + ".getDefaultState()">
         </#if>
     <#else>

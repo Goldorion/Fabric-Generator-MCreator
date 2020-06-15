@@ -1,6 +1,6 @@
 name: Minecraft Fabric for 1.15.2 (@buildfileversion)
-basefeatures: [model_json,model_obj,sounds]
-partial_support: [block,item,food,armor]
+basefeatures: [model_json,model_obj]
+partial_support: [block,item,food,armor,biome,tab,sounds,fuel]
 status: dev
 buildfileversion: 0.8.7+build.201
 
@@ -26,6 +26,9 @@ armor_textures_dir: "@MODASSETSROOT/textures/models/armor"
 base_templates:
 - template: modbase/mod.java.ftl
   name: "@SRCROOT/@BASEPACKAGEPATH/@JavaModName.java"
+  canLock: true
+- template: modbase/biomeRegistry.java.ftl
+  name: "@SRCROOT/@BASEPACKAGEPATH/registry/@JavaModNameBiomes.java"
   canLock: true
 - template: modbase/fabric.mod.json.ftl
   writer: json
