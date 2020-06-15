@@ -21,8 +21,8 @@ import net.fabricmc.fabric.api.biomes.v1.OverworldClimate;
 public class ${JavaModName} implements ModInitializer {
 
   <#list sounds as sound>
-	public static final Identifier ${sound} = new Identifier("${modid}:${sound}");
-  public static SoundEvent ${sound}Event = new SoundEvent(${sound});
+	public static final Identifier ${sound}Event = new Identifier("${modid}:${sound}");
+  public static SoundEvent ${sound} = new SoundEvent(${sound}Event);
 	</#list>
 
 <#list w.getElementsOfType("ITEM") as item>
