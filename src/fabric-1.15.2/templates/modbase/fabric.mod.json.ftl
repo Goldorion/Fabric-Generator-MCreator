@@ -26,9 +26,6 @@
   "entrypoints": {
     "main": [
       "${package}.${JavaModName}"
-    ], 
-    "client":[
-      "${package}.ClientInit"
     ]
   },
 

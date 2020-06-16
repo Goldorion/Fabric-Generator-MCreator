@@ -91,10 +91,4 @@ ${JavaModName}Biomes.registerBiomes();
 </#list>
 	}
 }
-class ClientInit implements ClientModInitializer{
-   @Override
-   public void onInitializeClient() {
-       System.out.println("Detected Client");
-   }
-}
 <#-- @formatter:on -->
