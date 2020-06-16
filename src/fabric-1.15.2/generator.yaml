@@ -5,7 +5,7 @@ status: dev
 buildfileversion: 0.8.7+build.201
 
 gradle:
-  setup_task: genSources downloadAssets
+  setup_task: genSources
   run_client: runClient
   run_server: runServer
   export_file: "build/libs/sources.jar"
