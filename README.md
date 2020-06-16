@@ -9,6 +9,8 @@ This project is not official. Not affiliated with the respective owners and main
 * Biome (Not complete)
 * Block (Mostly complete)
   - Ore generation (Nether and Overworld, Netherrack and Stone Respectively)
+  - Block entities (Non pushable)
+  - Custom plants
 * Food (Mostly complete)
 * Fuel (Complete)
 * Function (Complete)
