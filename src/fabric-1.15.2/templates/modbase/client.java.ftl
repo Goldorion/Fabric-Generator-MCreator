@@ -9,8 +9,10 @@ import net.fabricmc.api.Environment;
 public class ClientInit implements ClientModInitializer{
   @Override
   public void onInitializeClient(){
+
     <#list w.getElementsOfType("PLANT") as plant>
     BlockRenderLayerMap.INSTANCE.putBlock(${JavaModName}.${plant}, RenderLayer.getCutout());
     </#list>
+
   }
 }
