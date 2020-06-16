@@ -2,9 +2,9 @@
 
 package ${package}.block;
 
-public class ${name} extends PlantBlock{
+public class ${name} extends FlowerBlock{
   public TestBlock(Settings settings) {
-        super(settings);
+        super(StatusEffect.byRawId(23),1,settings);
   }
 
   @Override
