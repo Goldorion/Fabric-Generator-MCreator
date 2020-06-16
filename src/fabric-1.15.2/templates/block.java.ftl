@@ -9,7 +9,12 @@ import net.fabricmc.api.Environment;
 import net.minecraft.block.HorizontalFacingBlock;
 import net.minecraft.util.math.Direction;
 
-public class ${name} extends <#if data.hasGravity>FallingBlock<#else>Block</#if> {
+public class ${name} extends
+<#if data.hasInventory>
+BlockWithEntity
+<#else>
+<#if data.hasGravity>FallingBlock<#else>Block</#if>
+<#if> {
 
 	public ${name}(){
 		super(FabricBlockSettings.of(Material.${data.material})<#if data.destroyTool != "Not specified">.breakByTool(FabricToolTags.${data.destroyTool?upper_case}S, ${data.breakHarvestLevel})<#else>
