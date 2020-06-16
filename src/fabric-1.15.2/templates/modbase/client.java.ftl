@@ -11,7 +11,7 @@ public class ClientInit implements ClientModInitializer{
   public void onInitializeClient(){
 
     <#list w.getElementsOfType("PLANT") as plant>
-    BlockRenderLayerMap.INSTANCE.putBlock(${JavaModName}.${plant}, RenderLayer.getCutout());
+    BlockRenderLayerMap.INSTANCE.putBlock(${JavaModName}.${plant}Plant, RenderLayer.getCutout());
     </#list>
 
   }
