@@ -7,7 +7,7 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 
 public class ${name} extends FlowerBlock{
-  public TestBlock() {
+  public ${name}() {
         super(StatusEffect.byRawId(23),1,FabricBlockSettings.of(
         <#if data.colorOnMap != "DEFAULT">
         Material.PLANT
