@@ -5,7 +5,7 @@ This project is not official. Not affiliated with the respective owners and main
 
 ## Features
 * Advancement (Mostly complete)
-* Armor (Mostly complete) **To not get an error, you have to select an equip sound.** 
+* Armor (Mostly complete) **To not get an error, you have to select an equip sound.**
 * Biome (Not complete)
 * Block (Mostly complete)
   - Ore generation (Nether and Overworld, Netherrack and Stone Respectively)
@@ -18,6 +18,7 @@ This project is not official. Not affiliated with the respective owners and main
 * Recipe (Complete)
 * Tag (Complete)
 * Tool (Supports Pickaxe, Axe, Shovel, Hoe and Sword)
+* Sounds (Only useful for Armor. **Sound names can not have any special charecters.**)
 
 ## Downloads/Install Instructions
 Downloads can be found on the [Release page of this repo](https://github.com/Goldorion/MCreatorFabricGenerator/releases).
@@ -48,4 +49,3 @@ Licensed under the GNU Lesser General Public License, version 3.0
 * Forked versions of this software must be distributed under the same license as this with attribution, if distributed.
 * Changes must be stated if any modified works are to be distributed.
 * Under no circumstances can you state that modified works are endorsed by the original creators.
-
