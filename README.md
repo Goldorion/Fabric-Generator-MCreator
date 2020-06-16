@@ -1,26 +1,28 @@
 # MCreatorFabricGenerator
-An unofficial plugin for [MCreator](https://mcreator.net/), a highly advanced Minecraft mod maker. Adds a [Fabric](https://fabricmc.net/) mod generator type. Currently this is very WIP, and most features are incomplete.
+An unofficial plugin for [MCreator](https://mcreator.net/), a highly advanced Minecraft mod maker. Adds a [Fabric](https://fabricmc.net/) mod generator type. Currently, this tool is very incomplete.
 ## Disclaimer
 This project is not official. Not affiliated with the respective owners and maintainers of Fabric, Minecraft, or MCreator. Do not expect any official support from their respective communities.
 
 ## Features
 * Advancement (Mostly complete)
-* Armor (Mostly complete) **To don't get an error, you have to select a sound.** (Not all sounds are included because mappings are not finished. Any help is welcome.)
+* Armor (Mostly complete) **To not get an error, you have to select an equip sound.**
+* Biome (Not complete)
 * Block (Mostly complete)
+  - Ore generation (Nether and Overworld, Netherrack and Stone Respectively)
+  - Block entities (Non pushable)
+  - Custom plants
 * Food (Mostly complete)
 * Fuel (Complete)
 * Function (Complete)
 * Item (Mostly Complete)
+* Itemgroups("Creative Tabs") (Complete)
 * Loot table (Complete)
 * Recipe (Complete)
 * Tag (Complete)
-* Tool (Pickaxe, Axe, Shovel, Hoe and Sword)
-* Biome (Not complete)
-* Ore generation (Nether and Overworld, Netherrack and Stone Respectively)
-* Itemgroups (Complete)
+* Tool (Supports Pickaxe, Axe, Shovel, Hoe and Sword)
+* Sounds (Only useful for Armor. **Sound names can not have any special charecters.**)
 
 ## Downloads/Install Instructions
-
 Downloads can be found on the [Release page of this repo](https://github.com/Goldorion/MCreatorFabricGenerator/releases).
 The plugin's MCreator forum page is [here](https://mcreator.net/forum/60201/fabric-generator-plugin).
 
@@ -49,4 +51,3 @@ Licensed under the GNU Lesser General Public License, version 3.0
 * Forked versions of this software must be distributed under the same license as this with attribution, if distributed.
 * Changes must be stated if any modified works are to be distributed.
 * Under no circumstances can you state that modified works are endorsed by the original creators.
-

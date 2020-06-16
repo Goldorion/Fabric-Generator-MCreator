@@ -9,7 +9,11 @@ import net.fabricmc.api.Environment;
 import net.minecraft.block.HorizontalFacingBlock;
 import net.minecraft.util.math.Direction;
 
-public class ${name} extends <#if data.hasGravity>FallingBlock<#else>Block</#if> {
+public class ${name} extends
+<#if data.hasInventory>BlockWithEntity<#else>
+<#if data.hasGravity>FallingBlock<#else>Block</#if>
+</#if>
+{
 
 	public ${name}(){
 		super(FabricBlockSettings.of(Material.${data.material})<#if data.destroyTool != "Not specified">.breakByTool(FabricToolTags.${data.destroyTool?upper_case}S, ${data.breakHarvestLevel})<#else>
@@ -285,6 +289,25 @@ public class ${name} extends <#if data.hasGravity>FallingBlock<#else>Block</#if>
 
 			</#list>
 			}
+
+			@Override
+	    public BlockRenderType getRenderType(BlockState state) {
+	        return BlockRenderType.MODEL;
+	    }
+
+		public static boolean hasBE = <#if data.hasInventory>true<#else>false</#if>;
+
+		<#if data.hasInventory>
+		@Override
+    public BlockEntity createBlockEntity(BlockView view) {
+        return new ${name}BlockEntity();
+    }
+		</#if>
+		public static class ${name}BlockEntity extends BlockEntity{
+        public ${name}BlockEntity() {
+            super(${JavaModName}.${name}BE);
+        }
+    }
 
 
 }

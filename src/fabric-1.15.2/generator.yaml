@@ -1,11 +1,11 @@
 name: Minecraft Fabric for 1.15.2 (@buildfileversion)
 basefeatures: [model_json,model_obj]
-partial_support: [block,item,food,armor,biome,tab,sounds,fuel]
+partial_support: [block,item,food,armor,biome,sounds]
 status: dev
 buildfileversion: 0.8.7+build.201
 
 gradle:
-  setup_task: genSources downloadAssets
+  setup_task: genSources
   run_client: runClient
   run_server: runServer
   export_file: "build/libs/sources.jar"
@@ -29,6 +29,9 @@ base_templates:
   canLock: true
 - template: modbase/biomeRegistry.java.ftl
   name: "@SRCROOT/@BASEPACKAGEPATH/registry/@JavaModNameBiomes.java"
+  canLock: true
+- template: modbase/client.java.ftl
+  name: "@SRCROOT/@BASEPACKAGEPATH/ClientInit.java"
   canLock: true
 - template: modbase/fabric.mod.json.ftl
   writer: json

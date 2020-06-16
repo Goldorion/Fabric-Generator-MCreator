@@ -22,11 +22,15 @@ public class ${JavaModName} implements ModInitializer {
 
   <#list sounds as sound>
 	public static final Identifier ${sound} = new Identifier("${modid}:${sound}");
-  public static SoundEvent ${sound} = new SoundEvent(${sound});
+  public static SoundEvent ${sound}Event = new SoundEvent(${sound});
 	</#list>
 
 <#list w.getElementsOfType("ITEM") as item>
 	public static final Item ${item} = new ${item}();
+</#list>
+
+<#list w.getElementsOfType("PLANT") as plant>
+  public static final PlantBlock ${plant}Plant = new ${plant}();
 </#list>
 
 <#list w.getElementsOfType("ARMOR") as armor>
@@ -43,13 +47,14 @@ public class ${JavaModName} implements ModInitializer {
 
 <#list w.getElementsOfType("BLOCK") as block>
     public static final ${block} ${block} = new ${block}();
+    public static BlockEntityType<${block}.${block}BlockEntity> ${block}BE;
 </#list>
 
 	@Override
 	public void onInitialize() {
 
   <#list sounds as sound>
-  	Registry.register(Registry.${sound}, ${JavaModName}.${sound}, ${sound});
+  	Registry.register(Registry.SOUND_EVENT, ${JavaModName}.${sound}, ${JavaModName}.${sound}Event);
   </#list>
 
 <#list w.getElementsOfType("ITEM") as item>
@@ -69,6 +74,12 @@ ${JavaModName}Biomes.registerBiomes();
   OverworldBiomes.addContinentalBiome(${JavaModName}Biomes.${biome?upper_case},OverworldClimate.TEMPERATE,${biome}.WEIGHT);
 </#list>
 
+<#list w.getElementsOfType("PLANT") as plant>
+<#assign ge = plant.getGeneratableElement()>
+  Registry.register(Registry.BLOCK,new Identifier("${modid}","${plant.getRegistryName()}"),${plant}Plant);
+  Registry.register(Registry.ITEM,new Identifier("${modid}","${plant.getRegistryName()}"),new BlockItem(${plant}Plant, new Item.Settings().group(${ge.creativeTab})));
+</#list>
+
 <#list w.getElementsOfType("FOOD") as food>
 		Registry.register(Registry.ITEM, new Identifier("${modid}", "${food.getRegistryName()}"), ${food});
 </#list>
@@ -79,6 +90,7 @@ ${JavaModName}Biomes.registerBiomes();
 
 <#list w.getElementsOfType("BLOCK") as block>
 <#assign ge = block.getGeneratableElement()>
+    if(${block}.hasBE) ${block}BE = Registry.register(Registry.BLOCK_ENTITY_TYPE,new Identifier("${modid}","${block?lower_case}be"),BlockEntityType.Builder.create(${block}.${block}BlockEntity::new).build(null));
 		Registry.register(Registry.BLOCK, new Identifier("${modid}", "${block.getRegistryName()}"), ${block});
     Registry.BIOME.forEach(this.${block}::genBlock);
     RegistryEntryAddedCallback.event(Registry.BIOME).register((i, identifier, biome) -> { this.${block}.genBlock(biome); });
