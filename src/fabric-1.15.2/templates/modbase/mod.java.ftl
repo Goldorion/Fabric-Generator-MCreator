@@ -81,7 +81,7 @@ ${JavaModName}Biomes.registerBiomes();
 
 <#list w.getElementsOfType("BLOCK") as block>
 <#assign ge = block.getGeneratableElement()>
-    if(${block}.hasBE) ${block}BE = Registry.register(Registry.BLOCK_ENTITY_TYPE,new Identifier("${modid}","${block}be"),BlockEntityType.Builder.create(${package}.block.${block}.${block}BE::new).build(null));
+    if(${block}.hasBE) ${block}BE = Registry.register(Registry.BLOCK_ENTITY_TYPE,new Identifier("${modid}","${block}be"),BlockEntityType.Builder.create(${block}.${block}BlockEntity::new).build(null));
 		Registry.register(Registry.BLOCK, new Identifier("${modid}", "${block.getRegistryName()}"), ${block});
     Registry.BIOME.forEach(this.${block}::genBlock);
     RegistryEntryAddedCallback.event(Registry.BIOME).register((i, identifier, biome) -> { this.${block}.genBlock(biome); });
