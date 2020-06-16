@@ -300,7 +300,7 @@ BlockWithEntity
     }
 		</#if>
 		public static class ${name}BlockEntity extends BlockEntity{
-        public TestBE() {
+        public ${name}BlockEntity() {
             super(${JavaModName}.${name}BE);
         }
     }
