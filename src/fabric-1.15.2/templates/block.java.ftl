@@ -291,6 +291,20 @@ BlockWithEntity
 			</#list>
 			}
 
+		public static boolean hasBE = <#if data.hasInventory>true<#else>false</#if>;
+
+		<#if data.hasInventory>
+		@Override
+    public BlockEntity createBlockEntity(BlockView view) {
+        return new ${name}BlockEntity();
+    }
+		</#if>
+		public static class ${name}BlockEntity extends BlockEntity{
+        public TestBE() {
+            super(${JavaModName}.${name}BE);
+        }
+    }
+
 
 }
 

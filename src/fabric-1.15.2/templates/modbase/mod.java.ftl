@@ -44,6 +44,7 @@ public class ${JavaModName} implements ModInitializer {
 
 <#list w.getElementsOfType("BLOCK") as block>
     public static final ${block} ${block} = new ${block}();
+    public static final BlockEntityType<${block}.${block}BlockEntity> ${block}BE;
 </#list>
 
 	@Override
@@ -80,6 +81,7 @@ ${JavaModName}Biomes.registerBiomes();
 
 <#list w.getElementsOfType("BLOCK") as block>
 <#assign ge = block.getGeneratableElement()>
+    BE = Registry.register(Registry.BLOCK_ENTITY_TYPE,new Identifier("${modid}","${block}be"),BlockEntityType.Builder.create(${block}.${block}BE::new).build(null));
 		Registry.register(Registry.BLOCK, new Identifier("${modid}", "${block.getRegistryName()}"), ${block});
     Registry.BIOME.forEach(this.${block}::genBlock);
     RegistryEntryAddedCallback.event(Registry.BIOME).register((i, identifier, biome) -> { this.${block}.genBlock(biome); });
