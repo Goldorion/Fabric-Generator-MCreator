@@ -6,28 +6,26 @@ This project is not official. Not affiliated with the respective owners and main
 ## Features
 * Advancement (Mostly complete)
 * Armor (Mostly complete) **To not get an error, you have to select an equip sound.** 
+* Biome (Not complete)
 * Block (Mostly complete)
+  - Ore generation (Nether and Overworld, Netherrack and Stone Respectively)
 * Food (Mostly complete)
 * Fuel (Complete)
 * Function (Complete)
 * Item (Mostly Complete)
+* Itemgroups("Creative Tabs") (Complete)
 * Loot table (Complete)
 * Recipe (Complete)
 * Tag (Complete)
 * Tool (Supports Pickaxe, Axe, Shovel, Hoe and Sword)
-* Biome (Not complete)
-* Ore generation (Nether and Overworld, Netherrack and Stone Respectively)
-* Itemgroups("Creative Tabs") (Complete)
 
 ## Downloads/Install Instructions
-
 Downloads can be found on the [Release page of this repo](https://github.com/Goldorion/MCreatorFabricGenerator/releases).
 The plugin's MCreator forum page is [here](https://mcreator.net/forum/60201/fabric-generator-plugin).
 
 Install like any other plugin: Launch MCreator -> Open preferences -> Manage plugins -> Load Plugin -> Find your downloaded zip file -> **Restart MCreator**.
 
 ## Important Information
-
 - If you have created a workspace with a version older than 0.4.0, you need to create a new one since the workspace format has been changed.
 
 - To use the latest version of the plugin, you need to have the latest version of MCreator.
