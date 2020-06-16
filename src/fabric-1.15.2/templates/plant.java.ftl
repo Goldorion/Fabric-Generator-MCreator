@@ -4,10 +4,27 @@ package ${package}.block;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 
 public class ${name} extends FlowerBlock{
-  public TestBlock(Settings settings) {
-        super(StatusEffect.byRawId(23),1,settings);
+  public TestBlock() {
+        super(StatusEffect.byRawId(23),1,FabricBlockSettings.of(
+        <#if data.colorOnMap != "DEFAULT">
+        Material.PLANT
+        <#else>
+        Material.PLANT,MaterialColor.${data.colorOnMap}
+        </#if>
+        )
+        .noCollision()
+        <#if data.unbreakable>
+        .hardness(-1)
+        .resistance(3600000)
+        <#else>
+        .hardness(${data.hardness}f)
+        .resistance(${data.resistance}f)
+        </#if>
+        .lightLevel(${(data.luminance * 15)?round})
+        );
   }
 
   @Override
