@@ -8,6 +8,7 @@ Since we have limited time, we would love to accept pull requests to get things 
 * State all your changes
 * Do *not* use newline brackets
 * Always commit in past tense
+* Report to us if an automatic merge can not be performed. If there are conflicts, it is at our discretion to decide.
 * Do not send a huge pull request with multiple large and untraceable commits. Instead, create a single pull request for each major change.
 
 ## Reporting Issues
