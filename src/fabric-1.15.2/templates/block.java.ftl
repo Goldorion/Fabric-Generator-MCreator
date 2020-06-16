@@ -10,9 +10,8 @@ import net.minecraft.block.HorizontalFacingBlock;
 import net.minecraft.util.math.Direction;
 
 public class ${name} extends
+<#if data.hasInventory>BlockWithEntity<#else>
 <#if data.hasGravity>FallingBlock<#else>Block</#if>
-<#if data.hasInventory>
-implements BlockEntityProvider
 </#if>
 {
 
