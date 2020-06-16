@@ -15,7 +15,7 @@
 </#if>
   "contact": {
     "homepage": "${settings.getWebsiteURL()}",
-    "sources": ""
+    "sources": "https://github.com/ClothCreators/MCreatorFabricGenerator"
   },
 
 <#if settings.getModPicture()?has_content>
