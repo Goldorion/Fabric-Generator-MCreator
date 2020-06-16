@@ -298,6 +298,11 @@ implements BlockEntityProvider
     public BlockEntity createBlockEntity(BlockView view) {
         return new ${name}BlockEntity();
     }
+
+		@Override
+    public BlockRenderType getRenderType(BlockState state) {
+        return BlockRenderType.MODEL;
+    }
 		</#if>
 		public static class ${name}BlockEntity extends BlockEntity{
         public ${name}BlockEntity() {
