@@ -14,7 +14,7 @@ public class ${name} extends
 BlockWithEntity
 <#else>
 <#if data.hasGravity>FallingBlock<#else>Block</#if>
-<#if> {
+</#if> {
 
 	public ${name}(){
 		super(FabricBlockSettings.of(Material.${data.material})<#if data.destroyTool != "Not specified">.breakByTool(FabricToolTags.${data.destroyTool?upper_case}S, ${data.breakHarvestLevel})<#else>
