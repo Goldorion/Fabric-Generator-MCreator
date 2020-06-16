@@ -17,7 +17,6 @@ package ${package};
 import ${package}.item;
 import net.fabricmc.fabric.api.biomes.v1.OverworldBiomes;
 import net.fabricmc.fabric.api.biomes.v1.OverworldClimate;
-import net.fabricmc.api.ClientModInitializer;
 
 public class ${JavaModName} implements ModInitializer {
 

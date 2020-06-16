@@ -26,16 +26,15 @@
   "entrypoints": {
     "main": [
       "${package}.${JavaModName}"
+    ],
+    "client":[
+      "${package}.ClientInit"
     ]
   },
 
   "depends": {
-    "fabricloader": ">=0.8.3",
-    "fabric": "*",
-    "minecraft": "1.15.x"
-  },
-  "suggests": {
-    "flamingo": "*"
+    "fabricloader": ">=0.8.2",
+    "fabric": "*"
   }
 }
 <#-- @formatter:on -->
