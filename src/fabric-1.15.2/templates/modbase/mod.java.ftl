@@ -44,7 +44,7 @@ public class ${JavaModName} implements ModInitializer {
 
 <#list w.getElementsOfType("BLOCK") as block>
     public static final ${block} ${block} = new ${block}();
-    public static final BlockEntityType<${block}.${block}BlockEntity> ${block}BE;
+    public static BlockEntityType<${block}.${block}BlockEntity> ${block}BE;
 </#list>
 
 	@Override
