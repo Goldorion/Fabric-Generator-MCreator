@@ -2,6 +2,9 @@
 
 package ${package}.block;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+
 public class ${name} extends FlowerBlock{
   public TestBlock(Settings settings) {
         super(StatusEffect.byRawId(23),1,settings);
@@ -41,6 +44,16 @@ public class ${name} extends FlowerBlock{
         if(!dropsOriginal.isEmpty())return dropsOriginal;
         return Collections.singletonList(new ItemStack(this, 1));
     }
+    </#if>
+
+    <#if data.specialInfo?has_content>
+    @Environment(EnvType.CLIENT)
+    @Override
+     public void buildTooltip(ItemStack stack, BlockView view, List<Text> tooltip, TooltipContext options) {
+      <#list data.specialInfo as entry>
+        tooltip.add(new LiteralText("${JavaConventions.escapeStringForJava(entry)}"));
+        </#list>
+     }
     </#if>
 }
 
