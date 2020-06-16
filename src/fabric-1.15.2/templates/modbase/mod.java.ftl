@@ -29,6 +29,10 @@ public class ${JavaModName} implements ModInitializer {
 	public static final Item ${item} = new ${item}();
 </#list>
 
+<#list w.getElementsOfType("PLANT") as plant>
+  public static final PlantBlock ${plant}Plant = new ${plant}();
+</#list>
+
 <#list w.getElementsOfType("ARMOR") as armor>
 <#assign ge = armor.getGeneratableElement()>
 	public static final Item ${armor}_HELMET = new ${armor}ArmorItem(${armor}Material.${armor}, EquipmentSlot.HEAD, (new Item.Settings().group(${ge.creativeTab})));
@@ -68,6 +72,10 @@ ${JavaModName}Biomes.registerBiomes();
 
 <#list w.getElementsOfType("BIOME") as biome>
   OverworldBiomes.addContinentalBiome(${JavaModName}Biomes.${biome?upper_case},OverworldClimate.TEMPERATE,${biome}.WEIGHT);
+</#list>
+
+<#list w.getElementsOfType("PLANT") as plant>
+  Registry.register(Registry.BLOCK,new Identifier("${modid}","${plant.getRegistryName}"),${food}Plant);
 </#list>
 
 <#list w.getElementsOfType("FOOD") as food>
