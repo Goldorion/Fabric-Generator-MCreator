@@ -75,7 +75,7 @@ ${JavaModName}Biomes.registerBiomes();
 </#list>
 
 <#list w.getElementsOfType("PLANT") as plant>
-  Registry.register(Registry.BLOCK,new Identifier("${modid}","${plant.getRegistryName}"),${food}Plant);
+  Registry.register(Registry.BLOCK,new Identifier("${modid}","${plant.getRegistryName}"),${plant}Plant);
 </#list>
 
 <#list w.getElementsOfType("FOOD") as food>

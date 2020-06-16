@@ -1,6 +1,6 @@
 templates:
   - template: plant.java.ftl
-    name: "@SRCROOT/@BASEPACKAGEPATH/block/@NAMEBlock.java"
+    name: "@SRCROOT/@BASEPACKAGEPATH/block/@NAME.java"
   - template: json/plant_item.json.ftl
     writer: json
     name: "@MODASSETSROOT/models/item/@registryname.json"
