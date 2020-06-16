@@ -90,12 +90,11 @@ ${JavaModName}Biomes.registerBiomes();
     ${fuel}Fuel.initialize();
 </#list>
 	}
-
-  public static class ClientInit implements ClientModInitializer{
-     @Override
-	   public void onInitializeClient() {
-		     System.out.println("Detected Client");
-	   }
-  }
+}
+class ClientInit implements ClientModInitializer{
+   @Override
+   public void onInitializeClient() {
+       System.out.println("Detected Client");
+   }
 }
 <#-- @formatter:on -->
