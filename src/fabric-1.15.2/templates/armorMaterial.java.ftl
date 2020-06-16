@@ -8,7 +8,10 @@ import net.fabricmc.api.Environment;
 
     public enum ${name}Material implements ArmorMaterial {
 
-	${name}("${registryname}", ${data.maxDamage}, new int[]{${data.damageValueBoots}, ${data.damageValueLeggings}, ${data.damageValueBody}, ${data.damageValueHelmet}}, ${data.enchantability}, SoundEvents.${data.equipSound}, ${data.toughness}F, () -> {
+	${name}("${registryname}", ${data.maxDamage}, new int[]{${data.damageValueBoots}, ${data.damageValueLeggings}, ${data.damageValueBody}, ${data.damageValueHelmet}}, ${data.enchantability},
+  <#if data.equipSound?contains(modid)>Registry.SOUND_EVENT.get(new Identifier(data.equipSound))<#else>
+  SoundEvents.${data.equipSound}</#if>,
+   ${data.toughness}F, () -> {
 		return Ingredient.ofItems(<#if data.repairItems?has_content><#list data.repairItems as repairItem>${mappedMCItemToItemStackCode(repairItem)?replace("Blocks.", "Items.")}<#if repairItem?has_next>,</#if></#list><#else>Items.AIR</#if>);
 		});
 
