@@ -75,7 +75,9 @@ ${JavaModName}Biomes.registerBiomes();
 </#list>
 
 <#list w.getElementsOfType("PLANT") as plant>
+<#assign ge = plant.getGeneratableElement()>
   Registry.register(Registry.BLOCK,new Identifier("${modid}","${plant.getRegistryName()}"),${plant}Plant);
+  Registry.register(Registry.ITEM,new Identifier("${modid}","${plant.getRegistryName()}"),new BlockItem(${plant}Plant, new Item.Settings().group(${ge.creativeTab})));
 </#list>
 
 <#list w.getElementsOfType("FOOD") as food>
