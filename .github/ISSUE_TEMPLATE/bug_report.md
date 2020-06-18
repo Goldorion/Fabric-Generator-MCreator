@@ -13,9 +13,7 @@ A clear and concise description of what the bug is.
 <<<<<<< HEAD
 **Affected version(s)** Release/Snapshot 0.X.X+foo
 =======
-**Affected Version**
-Snapshot / Release *state version number*
->>>>>>> origin/dev
+**Affected Version** Snapshot / Release *state version number*
 
 **To Reproduce**
 Steps to reproduce the behavior:
