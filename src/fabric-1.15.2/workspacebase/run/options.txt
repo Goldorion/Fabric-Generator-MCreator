@@ -5,7 +5,7 @@ renderDistance:5
 fancyGraphics:false
 entityShadows:true
 enableVsync:false
-maxFps:260
+maxFps:80
 particles:0
 renderClouds:false
 ao:0
