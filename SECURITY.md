@@ -9,7 +9,7 @@ MCreatorFabricGenerator will make no attempt to do any of the following:
 ## Supported Versions
 
 Currently, only the latest version of MCreatorFabricGenerator is getting updates that include potential security fixes.
-Most of these security updates concern only the mod.
+Most of these security updates only concern the mod.
 
 | Version | Supported          |
 | ------- | ------------------ |
