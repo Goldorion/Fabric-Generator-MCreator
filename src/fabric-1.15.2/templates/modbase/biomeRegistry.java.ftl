@@ -23,13 +23,13 @@ public class ${JavaModName}Biomes {
   public static void registerBiomes()
   {
     <#list w.getElementsOfType("BIOME") as biome>
-    ${biome?upper_case} = register(new ${biome}(), "${modid}");
+    ${biome?upper_case} = register(new ${biome}(), "${modid}:${biome.getRegistryName()}");
     FabricBiomes.addSpawnBiome(${JavaModName}Biomes.${biome?upper_case});
     </#list>
   }
 
-  private static Biome register(Biome biome, String id) {
-		return Registry.register(Registry.BIOME, id, biome);
+  private static Biome register(Biome biome, String ID) {
+		return Registry.register(Registry.BIOME, ID, biome);
 	}
 
 }

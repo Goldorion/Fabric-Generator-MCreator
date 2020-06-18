@@ -1,8 +1,8 @@
 name: Minecraft Fabric for 1.15.2 (@buildfileversion)
 basefeatures: [model_json,model_obj]
-partial_support: [block,item,food,armor,biome,sounds]
-status: dev
-buildfileversion: 0.8.7+build.201
+partial_support: [block,item,food,armor,biome]
+status: stable
+buildfileversion: 0.8.8+build.202
 
 gradle:
   setup_task: genSources
@@ -10,13 +10,11 @@ gradle:
   run_server: runServer
   export_file: "build/libs/sources.jar"
 
-# base generator roots
 source_root: "@WORKSPACEROOT/src/main/java"
 res_root: "@WORKSPACEROOT/src/main/resources"
 mod_assets_root: "@RESROOT/assets/@modid"
 mod_data_root: "@RESROOT/data/@modid"
 
-# specific resource folders
 sounds_dir: "@MODASSETSROOT/sounds"
 other_textures_dir: "@MODASSETSROOT/textures"
 block_textures_dir: "@MODASSETSROOT/textures/blocks"
