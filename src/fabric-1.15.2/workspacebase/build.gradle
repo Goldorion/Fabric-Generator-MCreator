@@ -13,13 +13,13 @@ group = project.maven_group
 dependencies {
     minecraft "com.mojang:minecraft:1.15.2"
     mappings "net.fabricmc:yarn:1.15.2+build.17:v2"
-    modImplementation "net.fabricmc:fabric-loader:0.8.7+build.201"
+    modImplementation "net.fabricmc:fabric-loader:0.8.8+build.202"
 
     //Fabric api
     modImplementation "net.fabricmc.fabric-api:fabric-api:0.12.0+build.313-1.15"
 
-	//Mod Menu
-	modImplementation "io.github.prospector:modmenu:1.10.2+build.32"
+		//Mod Menu
+		modImplementation "io.github.prospector:modmenu:1.10.2+build.32"
 }
 
 processResources {
@@ -35,9 +35,6 @@ processResources {
 	}
 }
 
-// ensure that the encoding is set to UTF-8, no matter what the system default is
-// this fixes some edge cases with special characters not displaying correctly
-// see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
 tasks.withType(JavaCompile) {
 	options.encoding = "UTF-8"
 }
