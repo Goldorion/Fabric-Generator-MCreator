@@ -1,8 +1,8 @@
 # MCreatorFabricGenerator
-An unofficial plugin for [MCreator](https://mcreator.net/), a code generator to create Minecraft mods. Adds a [Fabric Loader](https://fabricmc.net/) code generator type. Currently, this tool is very incomplete.
+An unofficial plugin for [MCreator](https://mcreator.net/), a code generator to create Minecraft mods. Adds a [Fabric](https://fabricmc.net/) code generator type. Currently, this tool is very incomplete.
 
 ## Disclaimer
-This project is not official. Not affiliated with the respective owners and maintainers of Fabric, Minecraft, or MCreator. Do not expect any official support from their respective communities.
+This project is not official.It is not affiliated with the respective owners and maintainers of Fabric, Minecraft, or MCreator. Do not expect any official support from their communities.
 
 ## Features
 * Advancement (Mostly complete)
