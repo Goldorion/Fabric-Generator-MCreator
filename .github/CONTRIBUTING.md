@@ -10,6 +10,7 @@ Since we have limited time, we would love to accept pull requests to get things 
 * Always commit in past tense
 * Report to us if an automatic merge can not be performed. If there are conflicts, it is at our discretion to decide.
 * Do not send a huge pull request with multiple large and untraceable commits. Instead, create a single pull request for each major change.
+* Use descriptive commit messages. A small description of what was done is enough.
 
 ## Reporting Issues
 * Please describe your issue in detail.
