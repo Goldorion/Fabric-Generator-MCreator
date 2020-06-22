@@ -1,5 +1,5 @@
 name: Minecraft Fabric for 1.15.2 (@buildfileversion)
-basefeatures: [block,model_json,model_obj,item,food]
+basefeatures: [model_json,model_obj]
 partial_support: [armor,biome]
 status: stable
 buildfileversion: 0.8.8+build.202
