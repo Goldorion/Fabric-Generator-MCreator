@@ -15,7 +15,7 @@ public class ${name}ItemGroup {
         .build();
     }
 
-    public static ItemGroup tab = get();
+    public final static ItemGroup tab = get();
 }
 
 <#-- @formatter:on -->
