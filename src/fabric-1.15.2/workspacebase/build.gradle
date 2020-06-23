@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '0.4.26'
+	id 'fabric-loom' version '0.4-SNAPSHOT'
 	id 'maven-publish'
 }
 
@@ -8,17 +8,23 @@ targetCompatibility = JavaVersion.VERSION_1_8
 
 archivesBaseName = 'modid'
 version = '1.0'
-group = 'com.yourname.modid'
+group = 'com.modid'
 
 dependencies {
-    minecraft "com.mojang:minecraft:1.15.2"
-    mappings "net.fabricmc:yarn:1.15.2+build.17:v2"
-    modImplementation "net.fabricmc:fabric-loader:0.8.8+build.202"
+	// Minecraft version
+    	minecraft "com.mojang:minecraft:1.15.2"
 
-    //Fabric api
-    modImplementation "net.fabricmc.fabric-api:fabric-api:0.13.0+build.315-1.15"
-		//Mod Menu
-		modImplementation "io.github.prospector:modmenu:1.10.2+build.32"
+	// Yarn Mappings
+    	mappings "net.fabricmc:yarn:1.15.2+build.17:v2"
+
+	// Fabric Loader
+    	modImplementation "net.fabricmc:fabric-loader:0.8.8+build.202"
+
+    	// Fabric api
+    	modImplementation "net.fabricmc.fabric-api:fabric-api:0.13.0+build.315-1.15"
+
+	// Mod Menu
+	modImplementation "io.github.prospector:modmenu:1.10.2+build.32"
 }
 
 processResources {
