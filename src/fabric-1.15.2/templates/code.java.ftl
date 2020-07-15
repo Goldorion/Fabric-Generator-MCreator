@@ -14,6 +14,6 @@
 
 package ${package};
 
-public class ${name} extends ModElement{
+public class ${name} {
 }
 <#-- @formatter:on -->
