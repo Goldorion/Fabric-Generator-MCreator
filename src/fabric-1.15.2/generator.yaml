@@ -5,10 +5,10 @@ status: stable
 buildfileversion: 0.8.8+build.202
 
 gradle:
-  setup_task: genSources
+  setup_task: tasks
   run_client: runClient
   run_server: runServer
-  export_file: "build/libs/sources.jar"
+  export_file: "build/libs/modid.jar"
 
 source_root: "@WORKSPACEROOT/src/main/java"
 res_root: "@WORKSPACEROOT/src/main/resources"
@@ -25,29 +25,12 @@ base_templates:
 - template: modbase/mod.java.ftl
   name: "@SRCROOT/@BASEPACKAGEPATH/@JavaModName.java"
   canLock: true
-- template: modbase/biomeRegistry.java.ftl
-  name: "@SRCROOT/@BASEPACKAGEPATH/registry/@JavaModNameBiomes.java"
-  canLock: true
 - template: modbase/client.java.ftl
   name: "@SRCROOT/@BASEPACKAGEPATH/ClientInit.java"
   canLock: true
 - template: modbase/fabric.mod.json.ftl
   writer: json
   name: "@RESROOT/fabric.mod.json"
-- template: toolTags/pickaxes.json.ftl
-  writer: json
-  name: "@RESROOT/data/fabric/tags/items/pickaxes.json"
-- template: toolTags/axes.json.ftl
-  writer: json
-  name: "@RESROOT/data/fabric/tags/items/axes.json"
-- template: toolTags/shovels.json.ftl
-  writer: json
-  name: "@RESROOT/data/fabric/tags/items/shovels.json"
-- template: toolTags/swords.json.ftl
-  writer: json
-  name: "@RESROOT/data/fabric/tags/items/swords.json"
-- template: toolTags/hoes.json.ftl
-  writer: json
   name: "@RESROOT/data/fabric/tags/items/hoes.json"
 - template: "modbase/pack.mcmeta.ftl"
   writer: json
