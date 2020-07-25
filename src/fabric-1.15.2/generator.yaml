@@ -8,13 +8,14 @@ gradle:
   setup_task: help
   run_client: runClient
   run_server: runServer
-  export_file: "build/libs/modid.jar"
+  export_file: "build/libs/modid-1.0.0.jar"
 
 source_root: "@WORKSPACEROOT/src/main/java"
 res_root: "@WORKSPACEROOT/src/main/resources"
 mod_assets_root: "@RESROOT/assets/@modid"
 mod_data_root: "@RESROOT/data/@modid"
 
+structures_dir: "@MODDATAROOT/structures"
 sounds_dir: "@MODASSETSROOT/sounds"
 other_textures_dir: "@MODASSETSROOT/textures"
 block_textures_dir: "@MODASSETSROOT/textures/blocks"

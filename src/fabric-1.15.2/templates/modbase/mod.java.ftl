@@ -21,8 +21,16 @@ public class ${JavaModName} implements ModInitializer {
 
     public static final Logger LOGGER = LogManager.getLogger();
 
+	<#list w.getElementsOfType("ITEM") as item>
+		public static final Item ${item}Item = Registry.register(Registry.ITEM, id("${item.getRegistryName()}"), new ${item}());
+	</#list>
+
 	public void onInitialize() {
 		LOGGER.info("[${JavaModName}] Initializing");
+	}
+
+	public static final Identifier id(String s) {
+		return new Identifier("${modid}", s);
 	}
 }
 <#-- @formatter:on -->

@@ -10,12 +10,12 @@ version = '1.0.0'
 group = 'com.yourname.modid'
 
 dependencies {
-    	minecraft("com.mojang:minecraft:1.16.1")
-    	mappings("net.fabricmc:yarn:1.16.1+build.21:v2")
-    	modImplementation("net.fabricmc:fabric-loader:0.9.0+build.204")
+	minecraft("com.mojang:minecraft:1.16.1")
+	mappings("net.fabricmc:yarn:1.16.1+build.21:v2")
+	modImplementation("net.fabricmc:fabric-loader:0.9.0+build.204")
 
-    	//Fabric api
-    	modImplementation("net.fabricmc.fabric-api:fabric-api:0.15.1+build.380-1.16.1")
+	//Fabric api
+	modImplementation("net.fabricmc.fabric-api:fabric-api:0.15.1+build.380-1.16.1")
 
 	//Mod Menu
 	modApi("io.github.prospector:modmenu:1.14.5+build.30")
