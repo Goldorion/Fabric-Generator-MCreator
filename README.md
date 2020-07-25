@@ -23,11 +23,15 @@ This project is not official.It is not affiliated with the respective owners and
 * Tool (Supports Pickaxe, Axe, Shovel, Hoe and Sword)
 * Sounds (Only useful for Armor. **Sound names can not contain any special charecters.**)
 
-## Downloads/Install Instructions
-Downloads can be found on the [Release page of this repo](https://github.com/Goldorion/MCreatorFabricGenerator/releases).
+## Installation Instructions
+Downloads can be found on the [Release page of this repository](https://github.com/Goldorion/MCreatorFabricGenerator/releases).
 The plugin's MCreator forum page is [here](https://mcreator.net/forum/60201/fabric-generator-plugin).
 
 Install like any other plugin: Launch MCreator -> Open preferences -> Manage plugins -> Load Plugin -> Find your downloaded zip file -> **Restart MCreator**.
+
+## Building Instructions
+- Clone the repository
+- Run `./gradlew build` to get the zip file in `build/`, or run `./gradlew install` to directly build and install the plugin to the mcreator plugin folder
 
 ## Important Information
 - If you have made a workspace with a version older than 0.4.0, you need to create a new one since the workspace format has been changed.
