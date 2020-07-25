@@ -29,9 +29,11 @@ Install like any other plugin: Launch MCreator -> Open preferences -> Manage plu
 
 ## Credits/License
 
-Lead Dev - Goldorion
+Lead Dev - [Goldorion](https://github.com/Goldorion), [BoogieMonster1O1](https://github.com/BoogieMonster1O1)
 
-Contributors - crispy_chips1234, Klemen, [BoogieMonster1O1](https://github.com/BoogieMonster1O1)
+Devs: crispy_chips1234
+
+Contributors - Klemen 
 
 Thanks to all of you helping in reporting bugs, testing or anything else.
 
