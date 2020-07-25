@@ -1,11 +1,11 @@
 name: Minecraft Fabric for 1.16.1 (@buildfileversion)
 basefeatures: [model_json]
 partial_support: [item]
-status: stable
+status: dev
 buildfileversion: 0.9.0
 
 gradle:
-  setup_task: help
+  setup_task: tasks
   run_client: runClient
   run_server: runServer
   export_file: "build/libs/modid-1.0.0.jar"
@@ -28,6 +28,9 @@ base_templates:
   canLock: true
 - template: modbase/client.java.ftl
   name: "@SRCROOT/@BASEPACKAGEPATH/ClientInit.java"
+  canLock: true
+- template: modbase/listener.java.ftl
+  name: "@SRCROOT/@BASEPACKAGEPATH/IListener.java"
   canLock: true
 - template: modbase/fabric.mod.json.ftl
   writer: json

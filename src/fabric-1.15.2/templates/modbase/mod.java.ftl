@@ -17,16 +17,24 @@ package ${package};
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
+import net.fabricmc.fabric.api.event.world.WorldTickCallback;
+
 public class ${JavaModName} implements ModInitializer {
 
     public static final Logger LOGGER = LogManager.getLogger();
 
-	<#list w.getElementsOfType("ITEM") as item>
-		public static final Item ${item}Item = Registry.register(Registry.ITEM, id("${item.getRegistryName()}"), new ${item}());
-	</#list>
+<#list w.getElementsOfType("ITEM") as item>
+	public static final Item ${item}Item = Registry.register(Registry.ITEM, id("${item.getRegistryName()}"), new ${item}());
+</#list>
 
 	public void onInitialize() {
 		LOGGER.info("[${JavaModName}] Initializing");
+
+		WorldTickCallback.EVENT.register((world) -> {
+		<#list w.getElementsOfType("PROCEDURE") as procedure>
+			${procedure}Procedure.worldTick(world);
+		</#list>
+		});
 	}
 
 	public static final Identifier id(String s) {

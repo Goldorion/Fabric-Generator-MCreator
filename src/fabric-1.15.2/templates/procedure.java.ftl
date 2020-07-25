@@ -1,11 +1,12 @@
 <#-- @formatter:off -->
 package ${package}.procedures;
 
+import java.util.Map;
 import java.util.HashMap;
 
 public class ${name}Procedure {
 
-    public static void executeProcedure(HashMap<String, Object> dependencies){
+    public static void executeProcedure(Map<String, Object> dependencies){
         <#list dependencies as dependency>
             if(dependencies.get("${dependency.getName()}")==null){
                 System.err.println("Failed to load dependency ${dependency.getName()} for procedure ${name}!");
