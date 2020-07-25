@@ -33,7 +33,7 @@
   },
 
   "depends": {
-    "fabricloader": ">=0.8.2",
+    "fabricloader": ">=0.9.0",
     "fabric": "*"
   }
 }

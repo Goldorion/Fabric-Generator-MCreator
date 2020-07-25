@@ -14,9 +14,15 @@
 
 package ${package};
 
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
 public class ${JavaModName} implements ModInitializer {
+
+    public static final Logger LOGGER = LogManager.getLogger();
+
 	public void onInitialize() {
-		//
+		LOGGER.info("[${JavaModName}] Initializing");
 	}
 }
 <#-- @formatter:on -->

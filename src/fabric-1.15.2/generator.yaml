@@ -31,7 +31,6 @@ base_templates:
 - template: modbase/fabric.mod.json.ftl
   writer: json
   name: "@RESROOT/fabric.mod.json"
-  name: "@RESROOT/data/fabric/tags/items/hoes.json"
 - template: "modbase/pack.mcmeta.ftl"
   writer: json
   name: "@RESROOT/pack.mcmeta"
