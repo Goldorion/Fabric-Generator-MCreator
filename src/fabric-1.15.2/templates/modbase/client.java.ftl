@@ -14,10 +14,23 @@
 
 package ${package};
 
+import net.fabricmc.fabric.api.blockrenderlayer.v1.*;
+
 public class ClientInit implements ClientModInitializer{
     @Override
     public void onInitializeClient(){
-        LOGGER.info("[${JavaModName}] Detected Client");
+        LOGGER.info("[${JavaModName}] Initialized Client");
+
+    <#list w.getElementsOfType("BLOCK") as block>
+        <#assign ge = block.getGeneratableElement()>
+        <#if ge.transparencyType == "CUTOUT">
+		BlockRenderLayerMap.INSTANCE.putBlock(block, RenderLayer.getCutout());
+        <#elseif ge.transparencyType == "CUTOUT_MIPPED">
+		BlockRenderLayerMap.INSTANCE.putBlock(block, RenderLayer.getCutoutMipped());
+        <#elseif ge.transparencyType == "TRANSLUCENT">
+		BlockRenderLayerMap.INSTANCE.putBlock(block, RenderLayer.getTranslucent());
+        </#if>
+    </#list>
     }
 }
 

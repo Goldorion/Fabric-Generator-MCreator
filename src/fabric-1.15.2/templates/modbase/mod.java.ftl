@@ -19,12 +19,22 @@ import org.apache.logging.log4j.LogManager;
 
 import net.fabricmc.fabric.api.event.world.WorldTickCallback;
 
+import ${package}.procedures.*;
+import ${package}.item.*;
+import ${package}.block.*;
+
 public class ${JavaModName} implements ModInitializer {
 
     public static final Logger LOGGER = LogManager.getLogger();
 
 <#list w.getElementsOfType("ITEM") as item>
-	public static final Item ${item}Item = Registry.register(Registry.ITEM, id("${item.getRegistryName()}"), new ${item}());
+	public static final Item ${item}_ITEM = Registry.register(Registry.ITEM, id("${item.getRegistryName()}"), new ${item}());
+</#list>
+
+<#list w.getElementsOfType("BLOCK") as block>
+	<#assign ge = block.getGeneratableElement()>
+	public static final Block ${block}_BLOCK = Registry.register(Registry.BLOCK, id("${block.getRegistryName()}"), new ${block}());
+	public static final BlockItem ${block}_BLOCK_ITEM = Registry.register(Registry.ITEM, id("${block.getRegistryName()}"), new BlockItem(${block}, new Item.Settings().group(${ge.creativeTab})));
 </#list>
 
 	public void onInitialize() {

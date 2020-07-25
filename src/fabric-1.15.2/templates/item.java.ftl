@@ -1,4 +1,7 @@
 <#-- @formatter:off -->
+
+<#include "procedures.java.ftl">
+
 /*
 *    MCreator note:
 *
