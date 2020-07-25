@@ -5,8 +5,54 @@
  * Learn how to create Gradle builds at https://guides.gradle.org/creating-new-gradle-builds
  */
 
+import org.apache.tools.ant.taskdefs.condition.Os
+
+import java.nio.file.Files;
+
+class Globals {
+    private static final def ARCHIVE_NAME ="generator-fabric"
+    private static final def MINECRAFT_VERSION ="1.16.1"
+
+    static def getArchiveName() {
+        return ARCHIVE_NAME + "-" + MINECRAFT_VERSION
+    }
+
+    static def getZipArchiveName() {
+        return getArchiveName() + ".zip"
+    }
+}
+
 task build(type: Zip) {
     from 'src'
-    archiveName = 'generator-fabric-1.16.1.zip'
+    archiveName = Globals.getArchiveName()
     destinationDir = file('build/')
+}
+
+task install {
+    dependsOn build
+    doLast {
+        println("Installing plugin...")
+        if (Os.isFamily(Os.FAMILY_MAC) || Os.isFamily(Os.FAMILY_UNIX)) {
+            installPlugin("/Users/" + System.getProperty("user.name") + "/.mcreator/plugins/", '/')
+        }
+        else if (Os.isFamily(Os.FAMILY_WINDOWS) || Os.isFamily(Os.FAMILY_NT) ) {
+            installPlugin("C:\\Users\\" + System.getProperty("user.name") + "\\.mcreator\\plugins\\", '\\')
+        }
+    }
+}
+
+static def installPlugin(String path, String separator) {
+    File des = new File(path + Globals.getZipArchiveName())
+    File original = new File(String.format("%s%s%s%s%s", System.getProperty("user.dir"), separator, "build", separator, Globals.getZipArchiveName()))
+    if(des.exists()) {
+        des.delete()
+    }
+    try {
+        FileOutputStream os = new FileOutputStream(des);
+        Files.copy(original.toPath(), os)
+        System.out.println(String.format("Plugin successfully installed to %s ", path))
+    } catch(IOException e) {
+        e.printStackTrace()
+        System.err.println("Could not install plugin!")
+    }
 }
