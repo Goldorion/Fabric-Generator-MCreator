@@ -23,3 +23,6 @@ build
 
 # BBedit
 *.bbproject
+
+# Ignore Gradle project-specific cache directory
+.gradle
