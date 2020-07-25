@@ -1,7 +1,7 @@
 ---
 name: Bug report
 about: Create a report to help us improve
-title: '[REQUEST] Title'
+title: '[BUG] Title'
 labels: ''
 assignees: ''
 
@@ -10,7 +10,10 @@ assignees: ''
 **Describe the bug**
 A clear and concise description of what the bug is.
 
-**Affected version(s)** Release/Snapshot 0.X.X+foo
+**Log**
+Share mcreator.log in a paste website such as [Hastebin](https://hastebin.com/).
+
+**Affected version(s)** Release/Snapshot X.X.X+foo
 
 **To Reproduce**
 Steps to reproduce the behavior:
