@@ -1,0 +1,12 @@
+bobView:false
+fboEnable:true
+lastServer:localhost:25464
+renderDistance:8
+fancyGraphics:true
+entityShadows:true
+enableVsync:true
+maxFps:80
+particles:0
+renderClouds:false
+ao:0
+mipmapLevels:2
