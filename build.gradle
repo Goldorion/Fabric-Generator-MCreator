@@ -14,11 +14,7 @@ class Globals {
     private static final def MINECRAFT_VERSION ="1.16.1"
 
     static def getArchiveName() {
-        return ARCHIVE_NAME + "-" + MINECRAFT_VERSION
-    }
-
-    static def getZipArchiveName() {
-        return getArchiveName() + ".zip"
+        return ARCHIVE_NAME + "-" + MINECRAFT_VERSION + ".zip"
     }
 }
 
@@ -42,8 +38,8 @@ task install {
 }
 
 static def installPlugin(String path, String separator) {
-    File des = new File(path + Globals.getZipArchiveName())
-    File original = new File(String.format("%s%s%s%s%s", System.getProperty("user.dir"), separator, "build", separator, Globals.getZipArchiveName()))
+    File des = new File(path + Globals.getArchiveName())
+    File original = new File(String.format("%s%s%s%s%s", System.getProperty("user.dir"), separator, "build", separator, Globals.getArchiveName()))
     if(des.exists()) {
         des.delete()
     }
