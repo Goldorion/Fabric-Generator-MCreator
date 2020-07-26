@@ -101,6 +101,10 @@ public class ${JavaModName} implements ModInitializer {
 		</#list>
 			return ActionResult.PASS;
 		});
+
+		<#list w.getElementsOfType("CODE") as code>
+			${code}CustomCode.initialize();
+		</#list>
 	}
 
 	public static final Identifier id(String s) {

@@ -20,8 +20,6 @@ import net.fabricmc.api.ClientModInitializer;
 public class ClientInit implements ClientModInitializer{
     @Override
     public void onInitializeClient(){
-        LOGGER.info("[${JavaModName}] Initialized Client");
-
     <#list w.getElementsOfType("BLOCK") as block>
         <#assign ge = block.getGeneratableElement()>
         <#if ge.transparencyType == "CUTOUT">
@@ -32,6 +30,9 @@ public class ClientInit implements ClientModInitializer{
 		BlockRenderLayerMap.INSTANCE.putBlock(block, RenderLayer.getTranslucent());
         </#if>
     </#list>
+        <#list w.getElementsOfType("CODE") as code>
+            ${code}CustomCode.initializeClient();
+        </#list>
     }
 }
 

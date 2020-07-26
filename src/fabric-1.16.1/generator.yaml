@@ -1,6 +1,5 @@
 name: Minecraft Fabric for 1.16.1 (@buildfileversion)
 basefeatures: [model_json]
-partial_support: [item]
 status: dev
 buildfileversion: 0.9.0
 
