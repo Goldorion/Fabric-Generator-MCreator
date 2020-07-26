@@ -31,6 +31,10 @@ public class ${JavaModName} implements ModInitializer {
 	public static final Item ${item}_ITEM = Registry.register(Registry.ITEM, id("${item.getRegistryName()}"), new ${item}());
 </#list>
 
+<#list w.getElementsOfType("TAB") as group>
+ 	public static final ItemGroup ${group} = ${group}ItemGroup.get();
+</#list>
+
 <#list w.getElementsOfType("BLOCK") as block>
 	<#assign ge = block.getGeneratableElement()>
 	public static final Block ${block}_BLOCK = Registry.register(Registry.BLOCK, id("${block.getRegistryName()}"), new ${block}());
@@ -39,6 +43,10 @@ public class ${JavaModName} implements ModInitializer {
 
 	public void onInitialize() {
 		LOGGER.info("[${JavaModName}] Initializing");
+	<#list w.getElementsOfType("FUEL") as fuel>
+		${fuel}Fuel.initialize();
+	</#list>
+
 
 		WorldTickCallback.EVENT.register((world) -> {
 		<#list w.getElementsOfType("PROCEDURE") as procedure>

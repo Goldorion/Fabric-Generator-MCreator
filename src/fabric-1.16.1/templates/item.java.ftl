@@ -129,6 +129,7 @@ public class ${name}Item extends Item {
     }
 </#if>
 
+<#if hasProcedure(data.onRightClickedOnBlock)>
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
         World world = context.getWorld();
@@ -142,6 +143,7 @@ public class ${name}Item extends Item {
 			<@procedureOBJToCode data.onRightClickedOnBlock/>
         return ActionResult.PASS;
     }
+</#if>
 
 <#if hasProcedure(data.onRightClickedInAir) || (data.guiBoundTo?has_content && data.guiBoundTo != "<NONE>")>
     @Override

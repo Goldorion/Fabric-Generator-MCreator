@@ -1,0 +1,7 @@
+templates:
+  - template: itemgroup.java.ftl
+    name: "@SRCROOT/@BASEPACKAGEPATH/item/@NAMEItemGroup.java"
+
+localizationkeys:
+  - key: itemGroup.@modid.@registryname
+    mapto: name
