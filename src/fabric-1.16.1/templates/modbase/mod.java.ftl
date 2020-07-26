@@ -52,7 +52,7 @@ public class ${JavaModName} implements ModInitializer {
 	<#if ge.enableLeggings>
 		public static final Item ${armor}_ARMOR = Registry.register(Registry.ITEM, id("${armor.getRegistryName()}"), new ArmorItem(${armor}ArmorMaterial.${armor?upper_case}, EquipmentSlot.LEGS, (new Item.Settings().group(${ge.creativeTab}))));
 	</#if>
-	<#if ge.enableBootst>
+	<#if ge.enableBoots>
 		public static final Item ${armor}_ARMOR = Registry.register(Registry.ITEM, id("${armor.getRegistryName()}"), new ArmorItem(${armor}ArmorMaterial.${armor?upper_case}, EquipmentSlot.FEET, (new Item.Settings().group(${ge.creativeTab}))));
 	</#if>
 </#list>
