@@ -15,6 +15,7 @@
 package ${package};
 
 import net.fabricmc.fabric.api.blockrenderlayer.v1.*;
+import net.fabricmc.api.ClientModInitializer;
 
 public class ClientInit implements ClientModInitializer{
     @Override

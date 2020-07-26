@@ -18,6 +18,8 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
 import net.fabricmc.fabric.api.event.world.WorldTickCallback;
+import net.fabricmc.fabric.api.event.player.*;
+import net.fabricmc.api.ModInitializer;
 
 import ${package}.procedures.*;
 import ${package}.item.*;
@@ -80,6 +82,24 @@ public class ${JavaModName} implements ModInitializer {
 		<#list w.getElementsOfType("PROCEDURE") as procedure>
 			${procedure}Procedure.worldTick(world);
 		</#list>
+		});
+		UseBlockCallback.EVENT.register((player, world, hand, hitResult) -> {
+		<#list w.getElementsOfType("PROCEDURE") as procedure>
+			${procedure}Procedure.useOnBlock(player, world, hand, hitResult);
+		</#list>
+			return ActionResult.PASS;
+		});
+		UseEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {
+		<#list w.getElementsOfType("PROCEDURE") as procedure>
+			${procedure}Procedure.useOnEntity(player, world, hand, entity, hitResult);
+		</#list>
+			return ActionResult.PASS;
+		});
+		UseItemCallback.EVENT.register((player, world, hand) -> {
+		<#list w.getElementsOfType("PROCEDURE") as procedure>
+			${procedure}Procedure.useItem(player, world, hand);
+		</#list>
+			return ActionResult.PASS;
 		});
 	}
 
