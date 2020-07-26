@@ -402,9 +402,7 @@ public class ${name}Block extends <#if data.hasGravity> FallingBlock <#else> Blo
                                     new OreFeatureConfig(OreFeatureConfig
                                             .Target
                                             .NETHERRACK,
-                                        ${JavaModName}
-                                            .${name}
-                            .getDefaultState(),
+                                            this.getDefaultState(),
                 ${data.frequencyOnChunk}
             )).createDecoratedFeature(Decorator
                     .COUNT_RANGE.
