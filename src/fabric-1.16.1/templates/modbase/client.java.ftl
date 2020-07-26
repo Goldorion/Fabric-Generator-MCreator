@@ -16,6 +16,7 @@ package ${package};
 
 import net.fabricmc.fabric.api.blockrenderlayer.v1.*;
 import net.fabricmc.api.ClientModInitializer;
+import ${package}.client;
 
 public class ClientInit implements ClientModInitializer{
     @Override
@@ -33,6 +34,12 @@ public class ClientInit implements ClientModInitializer{
         <#list w.getElementsOfType("CODE") as code>
             ${code}CustomCode.initializeClient();
         </#list>
+
+        HudRenderCallback.EVENT.register((matrices, tickDelta) -> {
+        <#list w.getElementsOfType("OVERLAY") as overlay>
+            ${overlay}Overlay.render(matrices, tickDelta);
+        </#list>
+        });
     }
 }
 
