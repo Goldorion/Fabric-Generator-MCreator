@@ -7,6 +7,7 @@ package ${package}.block;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.registry.*;
 import ${package}.*;
 
 public class ${name}Block extends <#if data.hasGravity> FallingBlock <#else> Block </#if>{
@@ -48,6 +49,10 @@ public class ${name}Block extends <#if data.hasGravity> FallingBlock <#else> Blo
 			this.setDefaultState(this.stateManager.getDefaultState().with(FACING, Direction.NORTH));
         <#elseif data.rotationMode == 5>
 			this.setDefaultState(this.stateManager.getDefaultState().with(FACING, Direction.SOUTH));
+        </#if>
+
+        <#if data.flammability != 0 && data.fireSpreadSpeed != 0>
+            FlammableBlockRegistry.getDefaultInstance().add(this, ${data.flammability}, ${data.fireSpreadSpeed});
         </#if>
     }
 
@@ -341,6 +346,80 @@ public class ${name}Block extends <#if data.hasGravity> FallingBlock <#else> Blo
 			<@procedureOBJToCode data.onEntityWalksOn/>
         }
     </#if>
+
+
+    public void genBlock(Biome biome){
+			<#list data.spawnWorldTypes as worldType>
+                <#if worldType=="Surface">
+			try{
+				<#if (data.spawnWorldTypes?size > 0)>
+				if(biome.getCategory() != Biome.Category.THEEND
+				<#if data.restrictionBiomes?has_content>
+                    <#list data.restrictionBiomes as restrictionBiome>
+					  && biome != Registry.BIOME.get(new Identifier("${restrictionBiome}"))
+                    </#list>
+                </#if>
+                ){
+                    biome.addFeature(
+                            GenerationStep
+                                    .Feature
+                                    .UNDERGROUND_ORES,Feature
+                                    .ORE
+                                    .configure(
+                                            new OreFeatureConfig(OreFeatureConfig
+                                                    .Target
+                                                    .NATURAL_STONE,
+                                                this.getDefaultState(),
+                        ${data.frequencyOnChunk}
+                    )).createDecoratedFeature(Decorator
+                            .COUNT_RANGE.
+                                    configure(new RangeDecoratorConfig(
+                                        ${data.frequencyPerChunks},
+                                        ${data.minGenerateHeight},
+                                        ${data.minGenerateHeight},
+                                        ${data.maxGenerateHeight}
+                                    ))));
+                }</#if>
+            }catch(Throwable ignored){}
+                </#if>
+
+                <#if worldType == "Nether">
+			try{
+			<#if (data.spawnWorldTypes?size > 0)>
+		if(biome.getCategory() != Biome.Category.THEEND
+			<#if data.restrictionBiomes?has_content>
+                <#list data.restrictionBiomes as restrictionBiome>
+					&& biome != Registry.BIOME.get(new Identifier("${restrictionBiome}"))
+                </#list>
+            </#if>
+        ){
+            biome.addFeature(
+                    GenerationStep
+                            .Feature
+                            .UNDERGROUND_ORES,Feature
+                            .ORE
+                            .configure(
+                                    new OreFeatureConfig(OreFeatureConfig
+                                            .Target
+                                            .NETHERRACK,
+                                        ${JavaModName}
+                                            .${name}
+                            .getDefaultState(),
+                ${data.frequencyOnChunk}
+            )).createDecoratedFeature(Decorator
+                    .COUNT_RANGE.
+                            configure(new RangeDecoratorConfig(
+                                ${data.frequencyPerChunks},
+                                ${data.minGenerateHeight},
+                                ${data.minGenerateHeight},
+                                ${data.maxGenerateHeight}
+                            ))));
+        }</#if>
+            }catch(Throwable ignored){}
+                </#if>
+
+            </#list>
+    }
 }
 
 <#-- @formatter:on -->

@@ -46,8 +46,16 @@ public class ${JavaModName} implements ModInitializer {
 	<#list w.getElementsOfType("FUEL") as fuel>
 		${fuel}Fuel.initialize();
 	</#list>
-
-
+		Registry.BIOME.forEach((biome) -> {
+			<#list w.getElementsOfType("BLOCK") as block>
+			${block}_BLOCK.genBlock(biome);
+			</#list>
+		});
+		RegistryEntryAddedCallback.event(Registry.BIOME).register((i, identifier, biome) -> {
+			<#list w.getElementsOfType("BLOCK") as block>
+				${block}_BLOCK.genBlock(biome);
+			</#list>
+		})
 		WorldTickCallback.EVENT.register((world) -> {
 		<#list w.getElementsOfType("PROCEDURE") as procedure>
 			${procedure}Procedure.worldTick(world);
