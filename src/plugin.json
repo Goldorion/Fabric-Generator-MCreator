@@ -1,6 +1,6 @@
 {
   "id": "generator-fabric-1.16.1",
-  "minversion": 202000322116,
+  "minversion": 202000400000,
   "info": {
     "name": "Minecraft Fabric 1.16.1 Generator",
     "version": "1.0.0+alpha.1",
