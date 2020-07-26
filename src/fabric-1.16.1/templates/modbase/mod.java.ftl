@@ -41,6 +41,22 @@ public class ${JavaModName} implements ModInitializer {
 	public static final BlockItem ${block}_BLOCK_ITEM = Registry.register(Registry.ITEM, id("${block.getRegistryName()}"), new BlockItem(${block}, new Item.Settings().group(${ge.creativeTab})));
 </#list>
 
+<#list w.getElementsOfType("ARMOR") as armor>
+	<#assign ge = armor.getGeneratableElement()>
+	<#if ge.enableHelmet>
+		public static final Item ${armor}_ARMOR = Registry.register(Registry.ITEM, id("${armor.getRegistryName()}"), new ArmorItem(${armor}ArmorMaterial.${armor?upper_case}, EquipmentSlot.HEAD, (new Item.Settings().group(${ge.creativeTab}))));
+	</#if>
+	<#if ge.enableBody>
+		public static final Item ${armor}_ARMOR = Registry.register(Registry.ITEM, id("${armor.getRegistryName()}"), new ArmorItem(${armor}ArmorMaterial.${armor?upper_case}, EquipmentSlot.CHEST, (new Item.Settings().group(${ge.creativeTab}))));
+	</#if>
+	<#if ge.enableLeggings>
+		public static final Item ${armor}_ARMOR = Registry.register(Registry.ITEM, id("${armor.getRegistryName()}"), new ArmorItem(${armor}ArmorMaterial.${armor?upper_case}, EquipmentSlot.LEGS, (new Item.Settings().group(${ge.creativeTab}))));
+	</#if>
+	<#if ge.enableBootst>
+		public static final Item ${armor}_ARMOR = Registry.register(Registry.ITEM, id("${armor.getRegistryName()}"), new ArmorItem(${armor}ArmorMaterial.${armor?upper_case}, EquipmentSlot.FEET, (new Item.Settings().group(${ge.creativeTab}))));
+	</#if>
+</#list>
+
 	public void onInitialize() {
 		LOGGER.info("[${JavaModName}] Initializing");
 	<#list w.getElementsOfType("FUEL") as fuel>
