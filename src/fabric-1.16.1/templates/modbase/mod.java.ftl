@@ -39,7 +39,7 @@ public class ${JavaModName} implements ModInitializer {
 </#list>
 
 <#list w.getElementsOfType("MUSICDISC") as disc>
-	public static final Item ${disc}_DISC = Registry.register(Registry.ITEM, id("${item.getRegistryName()}"), new ${item}MusicDisc());
+	public static final Item ${disc}_DISC = Registry.register(Registry.ITEM, id("${disc.getRegistryName()}"), new ${disc}MusicDisc());
 </#list>
 
 <#list w.getElementsOfType("TAB") as group>
@@ -69,7 +69,7 @@ public class ${JavaModName} implements ModInitializer {
 </#list>
 
 <#list w.getElementsOfType("TOOL") as tool>
-	public static final Item ${tool}_TOOL = Registry.register(Registry.ITEM, id("${armor.getRegistryName()}"), ${tool}Tool.INSTANCE);
+	public static final Item ${tool}_TOOL = Registry.register(Registry.ITEM, id("${tool.getRegistryName()}"), ${tool}Tool.INSTANCE);
 </#list>
 
 	public void onInitialize() {

@@ -11,12 +11,12 @@ import net.fabricmc.api.Environment;
 
 public class ${name}MusicDisc extends MusicDiscItem {
     public ${name}MusicDisc() {
-			super(0, (net.minecraft.util.SoundEvent) Registry.SOUND_EVENT.get(new Identifier("${data.music}")),
+			super(0, (net.minecraft.sound.SoundEvent) Registry.SOUND_EVENT.get(new Identifier("${data.music}")),
                     new Item.Settings().group(${data.creativeTab}).maxCount(1).rarity(Rarity.RARE));
     }
 
     <#if data.hasGlow>
-    @Environment(Envtype.CLIENT)
+    @Environment(EnvType.CLIENT)
     @Override
     public boolean hasGlint(ItemStack stack) {
         return true;
@@ -26,7 +26,7 @@ public class ${name}MusicDisc extends MusicDiscItem {
     <#if data.specialInfo?has_content>
     @Override
     @Environment(EnvType.CLIENT)
-    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+    public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
         <#list data.specialInfo as entry>
             tooltip.add(new LiteralText("${JavaConventions.escapeStringForJava(entry)}"));
         </#list>

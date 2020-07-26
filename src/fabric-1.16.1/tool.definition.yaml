@@ -1,6 +1,6 @@
 templates:
   - template: tool.java.ftl
-    name: "@SRCROOT/@BASEPACKAGEPATH/item/@NAMEItem.java"
+    name: "@SRCROOT/@BASEPACKAGEPATH/item/@NAMETool.java"
   - template: json/tool.json.ftl
     writer: json
     condition: "renderType #= 0"

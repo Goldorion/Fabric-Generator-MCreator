@@ -1,7 +1,7 @@
 name: Minecraft Fabric for 1.16.1 (@buildfileversion)
 basefeatures: [model_json]
 status: dev
-buildfileversion: 0.9.0
+buildfileversion: 1.0.0-alpha2
 
 gradle:
   setup_task: tasks

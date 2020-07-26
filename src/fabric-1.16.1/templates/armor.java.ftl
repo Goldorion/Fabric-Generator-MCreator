@@ -12,7 +12,7 @@ public class ${name}ArmorMaterial implements ArmorMaterial {
 public static final ${name}ArmorMaterial ${name?upper_case} = new ${name}ArmorMaterial("${registryname}", ${data.maxDamage}, new int[]{${data.damageValueBoots}, ${data.damageValueLeggings}, ${data.damageValueBody}, ${data.damageValueHelmet}}, ${data.enchantability},
   <#if data.equipSound?contains(modid)>${JavaModName}.${data.equipSound?remove_beginning(modid + ":")}Event<#else>
   SoundEvents.${data.equipSound}</#if>,
-${data.toughness}F, () -> {
+${data.toughness}F, 0F, () -> {
         return Ingredient.ofItems(<#if data.repairItems?has_content><#list data.repairItems as repairItem>${mappedMCItemToItemStackCode(repairItem)?replace("Blocks.", "Items.")}<#if repairItem?has_next>,</#if></#list><#else>Items.AIR</#if>);
     });
 
@@ -23,15 +23,17 @@ ${data.toughness}F, () -> {
     private final int enchantability;
     private final SoundEvent equipSound;
     private final float toughness;
+    private final float knockbackResistance;
     private final Lazy<Ingredient> repairIngredient;
 
-    ${name}ArmorMaterial(String name, int durabilityMultiplier, int[] armorValueArr, int enchantability, SoundEvent soundEvent, float toughness, Supplier<Ingredient> repairIngredient) {
+    ${name}ArmorMaterial(String name, int durabilityMultiplier, int[] armorValueArr, int enchantability, SoundEvent soundEvent, float toughness, float knockbackResistance, Supplier<Ingredient> repairIngredient) {
         this.name = name;
         this.durabilityMultiplier = durabilityMultiplier;
         this.armorValues = armorValueArr;
         this.enchantability = enchantability;
         this.equipSound = soundEvent;
         this.toughness = toughness;
+        this.knockbackResistance = knockbackResistance;
         this.repairIngredient = new Lazy(repairIngredient);
     }
 
