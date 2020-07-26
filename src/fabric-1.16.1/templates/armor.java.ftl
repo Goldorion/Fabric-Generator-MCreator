@@ -65,5 +65,9 @@ ${data.toughness}F, 0F, () -> {
     public float getToughness() {
         return this.toughness;
     }
+
+    public float getKnockbackResistance() {
+        return this.knockbackResistance;
+    }
 }
 <#-- @formatter:on -->
