@@ -57,6 +57,10 @@ public class ${JavaModName} implements ModInitializer {
 	</#if>
 </#list>
 
+<#list w.getElementsOfType("TOOL") as tool>
+	public static final Item ${tool}_TOOL = Registry.register(Registry.ITEM, id("${armor.getRegistryName()}"), ${tool}Tool.INSTANCE);
+</#list>
+
 	public void onInitialize() {
 		LOGGER.info("[${JavaModName}] Initializing");
 	<#list w.getElementsOfType("FUEL") as fuel>
