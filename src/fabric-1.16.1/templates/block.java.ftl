@@ -8,6 +8,7 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.registry.*;
+import net.fabricmc.fabric.api.tool.attribute.v1.*;
 import ${package}.*;
 
 public class ${name}Block extends <#if data.hasGravity> FallingBlock <#else> Block </#if>{

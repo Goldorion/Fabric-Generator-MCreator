@@ -40,7 +40,7 @@ public class ${name}Item {
     <#if data.specialInfo?has_content>
     @Override
     @Environment(EnvType.CLIENT)
-    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+    public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
         <#list data.specialInfo as entry>
             tooltip.add(new LiteralText("${JavaConventions.escapeStringForJava(entry)}"));
         </#list>

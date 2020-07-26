@@ -29,8 +29,17 @@ public class ${JavaModName} implements ModInitializer {
 
     public static final Logger LOGGER = LogManager.getLogger();
 
+<#list sounds as sound>
+	public static final Identifier ${sound}_ID = id("${sound}");
+  	public static final SoundEvent ${sound}Event = new SoundEvent(${sound}_ID);
+</#list>
+
 <#list w.getElementsOfType("ITEM") as item>
-	public static final Item ${item}_ITEM = Registry.register(Registry.ITEM, id("${item.getRegistryName()}"), new ${item}());
+	public static final Item ${item}_ITEM = Registry.register(Registry.ITEM, id("${item.getRegistryName()}"), new ${item}Item());
+</#list>
+
+<#list w.getElementsOfType("MUSICDISC") as disc>
+	public static final Item ${disc}_DISC = Registry.register(Registry.ITEM, id("${item.getRegistryName()}"), new ${item}MusicDisc());
 </#list>
 
 <#list w.getElementsOfType("TAB") as group>
@@ -39,23 +48,23 @@ public class ${JavaModName} implements ModInitializer {
 
 <#list w.getElementsOfType("BLOCK") as block>
 	<#assign ge = block.getGeneratableElement()>
-	public static final Block ${block}_BLOCK = Registry.register(Registry.BLOCK, id("${block.getRegistryName()}"), new ${block}());
-	public static final BlockItem ${block}_BLOCK_ITEM = Registry.register(Registry.ITEM, id("${block.getRegistryName()}"), new BlockItem(${block}, new Item.Settings().group(${ge.creativeTab})));
+	public static final Block ${block}_BLOCK = Registry.register(Registry.BLOCK, id("${block.getRegistryName()}"), new ${block}Block());
+	public static final BlockItem ${block}_BLOCK_ITEM = Registry.register(Registry.ITEM, id("${block.getRegistryName()}"), new BlockItem(${block}_BLOCK, new Item.Settings().group(${ge.creativeTab})));
 </#list>
 
 <#list w.getElementsOfType("ARMOR") as armor>
 	<#assign ge = armor.getGeneratableElement()>
 	<#if ge.enableHelmet>
-		public static final Item ${armor}_ARMOR = Registry.register(Registry.ITEM, id("${armor.getRegistryName()}"), new ArmorItem(${armor}ArmorMaterial.${armor?upper_case}, EquipmentSlot.HEAD, (new Item.Settings().group(${ge.creativeTab}))));
+		public static final Item ${armor}_HELMET = Registry.register(Registry.ITEM, id("${armor.getRegistryName()}"), new ArmorItem(${armor}ArmorMaterial.${armor?upper_case}, EquipmentSlot.HEAD, (new Item.Settings().group(${ge.creativeTab}))));
 	</#if>
 	<#if ge.enableBody>
-		public static final Item ${armor}_ARMOR = Registry.register(Registry.ITEM, id("${armor.getRegistryName()}"), new ArmorItem(${armor}ArmorMaterial.${armor?upper_case}, EquipmentSlot.CHEST, (new Item.Settings().group(${ge.creativeTab}))));
+		public static final Item ${armor}_CHESTPLATE = Registry.register(Registry.ITEM, id("${armor.getRegistryName()}"), new ArmorItem(${armor}ArmorMaterial.${armor?upper_case}, EquipmentSlot.CHEST, (new Item.Settings().group(${ge.creativeTab}))));
 	</#if>
 	<#if ge.enableLeggings>
-		public static final Item ${armor}_ARMOR = Registry.register(Registry.ITEM, id("${armor.getRegistryName()}"), new ArmorItem(${armor}ArmorMaterial.${armor?upper_case}, EquipmentSlot.LEGS, (new Item.Settings().group(${ge.creativeTab}))));
+		public static final Item ${armor}_LEGGINGS = Registry.register(Registry.ITEM, id("${armor.getRegistryName()}"), new ArmorItem(${armor}ArmorMaterial.${armor?upper_case}, EquipmentSlot.LEGS, (new Item.Settings().group(${ge.creativeTab}))));
 	</#if>
 	<#if ge.enableBoots>
-		public static final Item ${armor}_ARMOR = Registry.register(Registry.ITEM, id("${armor.getRegistryName()}"), new ArmorItem(${armor}ArmorMaterial.${armor?upper_case}, EquipmentSlot.FEET, (new Item.Settings().group(${ge.creativeTab}))));
+		public static final Item ${armor}_BOOTS = Registry.register(Registry.ITEM, id("${armor.getRegistryName()}"), new ArmorItem(${armor}ArmorMaterial.${armor?upper_case}, EquipmentSlot.FEET, (new Item.Settings().group(${ge.creativeTab}))));
 	</#if>
 </#list>
 
@@ -80,30 +89,34 @@ public class ${JavaModName} implements ModInitializer {
 <#--		});-->
 		WorldTickCallback.EVENT.register((world) -> {
 		<#list w.getElementsOfType("PROCEDURE") as procedure>
-			${procedure}Procedure.worldTick(world);
+			new ${procedure}Procedure().worldTick(world);
 		</#list>
 		});
 		UseBlockCallback.EVENT.register((player, world, hand, hitResult) -> {
 		<#list w.getElementsOfType("PROCEDURE") as procedure>
-			${procedure}Procedure.useOnBlock(player, world, hand, hitResult);
+			new ${procedure}Procedure().useOnBlock(player, world, hand, hitResult);
 		</#list>
 			return ActionResult.PASS;
 		});
 		UseEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {
 		<#list w.getElementsOfType("PROCEDURE") as procedure>
-			${procedure}Procedure.useOnEntity(player, world, hand, entity, hitResult);
+			new ${procedure}Procedure().useOnEntity(player, world, hand, entity, hitResult);
 		</#list>
 			return ActionResult.PASS;
 		});
 		UseItemCallback.EVENT.register((player, world, hand) -> {
 		<#list w.getElementsOfType("PROCEDURE") as procedure>
-			${procedure}Procedure.useItem(player, world, hand);
+			new ${procedure}Procedure().useItem(player, world, hand);
 		</#list>
 			return TypedActionResult.pass(player.getStackInHand(hand));
 		});
 
 		<#list w.getElementsOfType("CODE") as code>
 			${code}CustomCode.initialize();
+		</#list>
+
+		<#list sounds as sound>
+  			Registry.register(Registry.SOUND_EVENT, ${JavaModName}.${sound}_ID, ${JavaModName}.${sound}Event);
 		</#list>
 	}
 

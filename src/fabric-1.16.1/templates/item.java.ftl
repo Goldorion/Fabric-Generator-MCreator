@@ -26,7 +26,7 @@ public class ${name}Item extends Item {
             .group(${data.creativeTab})
         <#if data.damageCount != 0>
             .maxDamage(${data.damageCount})
-        <#else>.maxStackSize(${data.stackSize})
+        <#else>.maxCount(${data.stackSize})
         </#if>
         );
     }

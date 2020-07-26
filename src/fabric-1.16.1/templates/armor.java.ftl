@@ -9,7 +9,7 @@ import ${package}.${JavaModName};
 
 public class ${name}ArmorMaterial implements ArmorMaterial {
 
-public static final ${name}ArmorMaterial ${name?upper_case}("${registryname}", ${data.maxDamage}, new int[]{${data.damageValueBoots}, ${data.damageValueLeggings}, ${data.damageValueBody}, ${data.damageValueHelmet}}, ${data.enchantability},
+public static final ${name}ArmorMaterial ${name?upper_case} = new ${name}ArmorMaterial("${registryname}", ${data.maxDamage}, new int[]{${data.damageValueBoots}, ${data.damageValueLeggings}, ${data.damageValueBody}, ${data.damageValueHelmet}}, ${data.enchantability},
   <#if data.equipSound?contains(modid)>${JavaModName}.${data.equipSound?remove_beginning(modid + ":")}Event<#else>
   SoundEvents.${data.equipSound}</#if>,
 ${data.toughness}F, () -> {
@@ -25,7 +25,7 @@ ${data.toughness}F, () -> {
     private final float toughness;
     private final Lazy<Ingredient> repairIngredient;
 
-    ${name}Material(String name, int durabilityMultiplier, int[] armorValueArr, int enchantability, SoundEvent soundEvent, float toughness, Supplier<Ingredient> repairIngredient) {
+    ${name}ArmorMaterial(String name, int durabilityMultiplier, int[] armorValueArr, int enchantability, SoundEvent soundEvent, float toughness, Supplier<Ingredient> repairIngredient) {
         this.name = name;
         this.durabilityMultiplier = durabilityMultiplier;
         this.armorValues = armorValueArr;
