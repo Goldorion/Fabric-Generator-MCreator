@@ -14,23 +14,23 @@
     </#if>
 </#function>
 
-<#function mappedMCItemToItemStackCode mappedBlock>
+<#function mappedMCItemToItemStackCode mappedBlock amount>
     <#if mappedBlock.toString().contains("/*@ItemStack*/")>
         <#return mappedBlock?replace("/*@ItemStack*/", "")>
     <#elseif mappedBlock.toString().startsWith("CUSTOM:")>
         <#if !mappedBlock.toString().contains(".")>
-            <#return JavaModName + "." + (generator.getElementPlainName(mappedBlock))>
+            <#return JavaModName + "." + (generator.getElementPlainName(mappedBlock)) + ", (int)(" + amount + ")">
         <#else>
             <#return JavaModName + "." + (generator.getElementPlainName(mappedBlock)) + "."
-            + generator.getElementExtension(mappedBlock)>
+            + generator.getElementExtension(mappedBlock) + ", (int)(" + amount + "))">
         </#if>
     <#else>
-        <#return mappedBlock.toString().split("#")[0]>
+        <#return mappedBlock.toString().split("#")[0] + ", (int)(" + amount + "))">
     </#if>
 </#function>
 
 <#function mappedMCItemToItem mappedBlock>
-    <#return mappedMCItemToItemStackCode(mappedBlock)>
+    <#return mappedMCItemToItemStackCode(mappedBlock, 1)>
 </#function>
 
 <#function mappedMCItemToIngameItemName mappedBlock>

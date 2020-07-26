@@ -1,6 +1,7 @@
 <#-- @formatter:off -->
 
 <#include "procedures.java.ftl">
+<#include "mcitems.ftl">
 
 package ${package}.block;
 
