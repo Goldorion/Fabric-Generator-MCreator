@@ -1,0 +1,2 @@
+(((${input$entity} instanceof ServerPlayerEntity)&&(${input$entity}.world instanceof ServerWorld))?((ServerPlayerEntity)${input$entity}).getAdvancementTracker()
+        .getProgress(((MinecraftServer)((ServerPlayerEntity)${input$entity}).server).getAdvancementLoader().get(new Identifier("${generator.map(field$achievement, "achievements")}"))).isDone():false)

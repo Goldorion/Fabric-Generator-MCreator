@@ -1,0 +1,1 @@
+((${input$entity} instanceof LivingEntity)?((LivingEntity)${input$entity}).getArmor():0)

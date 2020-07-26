@@ -1,0 +1,1 @@
+if(${input$entity} instanceof PlayerEntity)((PlayerEntity)${input$entity}).addExperience((int)${input$xpamount});

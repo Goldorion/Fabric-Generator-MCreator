@@ -1,0 +1,1 @@
+${input$entity}.setOnFireFor((int) ${input$seconds});
