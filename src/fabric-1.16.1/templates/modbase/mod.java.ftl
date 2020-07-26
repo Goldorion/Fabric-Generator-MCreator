@@ -68,16 +68,16 @@ public class ${JavaModName} implements ModInitializer {
 	<#list w.getElementsOfType("FUEL") as fuel>
 		${fuel}Fuel.initialize();
 	</#list>
-		Registry.BIOME.forEach((biome) -> {
-			<#list w.getElementsOfType("BLOCK") as block>
-			${block}_BLOCK.genBlock(biome);
-			</#list>
-		});
-		RegistryEntryAddedCallback.event(Registry.BIOME).register((i, identifier, biome) -> {
-			<#list w.getElementsOfType("BLOCK") as block>
-				${block}_BLOCK.genBlock(biome);
-			</#list>
-		})
+<#--		Registry.BIOME.forEach((biome) -> {-->
+<#--			<#list w.getElementsOfType("BLOCK") as block>-->
+<#--			${block}_BLOCK.genBlock(biome);-->
+<#--			</#list>-->
+<#--		});-->
+<#--		RegistryEntryAddedCallback.event(Registry.BIOME).register((i, identifier, biome) -> {-->
+<#--			<#list w.getElementsOfType("BLOCK") as block>-->
+<#--				${block}_BLOCK.genBlock(biome);-->
+<#--			</#list>-->
+<#--		});-->
 		WorldTickCallback.EVENT.register((world) -> {
 		<#list w.getElementsOfType("PROCEDURE") as procedure>
 			${procedure}Procedure.worldTick(world);
@@ -99,7 +99,7 @@ public class ${JavaModName} implements ModInitializer {
 		<#list w.getElementsOfType("PROCEDURE") as procedure>
 			${procedure}Procedure.useItem(player, world, hand);
 		</#list>
-			return ActionResult.PASS;
+			return TypedActionResult.pass(player.getStackInHand(hand));
 		});
 
 		<#list w.getElementsOfType("CODE") as code>
