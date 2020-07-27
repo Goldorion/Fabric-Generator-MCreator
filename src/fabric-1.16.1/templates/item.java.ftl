@@ -19,6 +19,7 @@ package ${package}.item;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import com.google.common.collect.*;
 
 public class ${name}Item extends Item {
     public ${name}Item() {

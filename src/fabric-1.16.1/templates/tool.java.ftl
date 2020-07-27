@@ -5,6 +5,7 @@ package ${package}.item;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import com.google.common.collect.*;
 
 public class ${name}Tool {
 <#if data.toolType == "Pickaxe" || data.toolType == "Axe" || data.toolType == "Sword" || data.toolType == "Spade" || data.toolType == "Hoe">

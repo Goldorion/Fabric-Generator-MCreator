@@ -49,7 +49,7 @@ public class ${JavaModName} implements ModInitializer {
 <#list w.getElementsOfType("BLOCK") as block>
 	<#assign ge = block.getGeneratableElement()>
 	public static final Block ${block}_BLOCK = Registry.register(Registry.BLOCK, id("${block.getRegistryName()}"), new ${block}Block());
-	public static final BlockItem ${block}_BLOCK_ITEM = Registry.register(Registry.ITEM, id("${block.getRegistryName()}"), new BlockItem(${block}_BLOCK, new Item.Settings().group(${ge.creativeTab})));
+	public static final BlockItem ${block}_ITEM = Registry.register(Registry.ITEM, id("${block.getRegistryName()}"), new BlockItem(${block}_BLOCK, new Item.Settings().group(${ge.creativeTab})));
 </#list>
 
 <#list w.getElementsOfType("ARMOR") as armor>

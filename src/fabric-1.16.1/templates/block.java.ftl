@@ -213,7 +213,7 @@ public class ${name}Block extends <#if data.hasGravity> FallingBlock <#else> Blo
     <#if data.creativePickItem?? && !data.creativePickItem.isEmpty()>
         @Environment(EnvType.CLIENT)
         public ItemStack getPickStack(BlockView world, BlockPos pos, BlockState state) {
-            return ${mappedMCItemToItemStackCode(data.creativePickItem, 1)};
+            return new ItemStack(${mappedMCItemToItemStackCode(data.creativePickItem, 1)});
         }
     </#if>
 
@@ -245,7 +245,7 @@ public class ${name}Block extends <#if data.hasGravity> FallingBlock <#else> Blo
             List<ItemStack> dropsOriginal = super.getDroppedStacks(state, builder);
             if(!dropsOriginal.isEmpty())
                 return dropsOriginal;
-            return Collections.singletonList(${mappedMCItemToItemStackCode(data.customDrop, data.dropAmount)});
+            return Collections.singletonList(new ItemStack(${mappedMCItemToItemStackCode(data.customDrop, data.dropAmount)}));
         }
     <#elseif data.blockBase?has_content && data.blockBase == "Slab">
 		@Override

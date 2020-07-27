@@ -19,7 +19,7 @@
         <#return mappedBlock?replace("/*@ItemStack*/", "")>
     <#elseif mappedBlock.toString().startsWith("CUSTOM:")>
         <#if !mappedBlock.toString().contains(".")>
-            <#return JavaModName + "." + (generator.getElementPlainName(mappedBlock))>
+            <#return JavaModName + "." + (generator.getElementPlainName(mappedBlock)) + "_ITEM">
         <#else>
             <#return JavaModName + "." + (generator.getElementPlainName(mappedBlock)) + "."
             + generator.getElementExtension(mappedBlock)>
