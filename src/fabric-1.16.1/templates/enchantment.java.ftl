@@ -39,7 +39,7 @@ public class ${name}Enchantment extends Enchantment {
 		@Override
         public boolean isAcceptableItem(ItemStack stack) {
             <#list data.compatibleItems as compatibleItem>
-			    if(stack.getItem() == ${mappedMCItemToItem(compatibleItem)})
+			    if(stack.getItem() == ${mappedMCItemToItem(compatibleItem)?remove_ending(", (int)(1)")})
                     return true;
             </#list>
             return false;

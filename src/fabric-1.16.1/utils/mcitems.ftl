@@ -22,10 +22,10 @@
             <#return JavaModName + "." + (generator.getElementPlainName(mappedBlock)) + "_ITEM">
         <#else>
             <#return JavaModName + "." + (generator.getElementPlainName(mappedBlock)) + "."
-            + generator.getElementExtension(mappedBlock) + ", (int)(" + amount + "))">
+            + generator.getElementExtension(mappedBlock) + ", (int)(" + amount + ")">
         </#if>
     <#else>
-        <#return mappedBlock.toString().split("#")[0] + ", (int)(" + amount + "))">
+        <#return mappedBlock.toString().split("#")[0] + ", (int)(" + amount + ")">
     </#if>
 </#function>
 
