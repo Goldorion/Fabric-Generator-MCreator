@@ -12,5 +12,6 @@ Since we have limited time, we would love to accept pull requests to get things 
 * Always annotate overridden methods with `@Override`
 * Follow java naming conventions
 * Use the `this` keyword when referencing any non static fields
+* Do not use mixins. Fabric Api has, or will soon have all the required modules. 
 
 You must also follow the [Code Of Conduct](https://github.com/ClothCreators/MCreatorFabricGenerator/blob/1.15.2/CODE_OF_CONDUCT.md).
