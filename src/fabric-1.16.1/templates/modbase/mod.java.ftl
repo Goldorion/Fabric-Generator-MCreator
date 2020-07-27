@@ -24,6 +24,7 @@ import net.fabricmc.api.ModInitializer;
 import ${package}.procedures.*;
 import ${package}.item.*;
 import ${package}.block.*;
+import ${package}.server.*;
 
 public class ${JavaModName} implements ModInitializer {
 
@@ -118,6 +119,12 @@ public class ${JavaModName} implements ModInitializer {
 		<#list sounds as sound>
   			Registry.register(Registry.SOUND_EVENT, ${JavaModName}.${sound}_ID, ${JavaModName}.${sound}Event);
 		</#list>
+
+		CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> {
+			<#list w.getElementsOfType("COMMAND") as command>
+			${command}Command.register(dispatcher);
+			</#list>
+		});
 	}
 
 	public static final Identifier id(String s) {
