@@ -22,7 +22,7 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 public class ClientInit implements ClientModInitializer{
 
     <#list w.getElementsOfType("KEYBIND") as keybind>
-        public static final KeyBinding ${keybind}_KEY = KeyBindingHelper.registerKeyBinding(new ${keybind}KeyBinding);
+        public static final KeyBinding ${keybind}_KEY = KeyBindingHelper.registerKeyBinding(new ${keybind}KeyBinding());
     </#list>
 
     @Override
@@ -61,4 +61,3 @@ public class ClientInit implements ClientModInitializer{
 }
 
 <#-- @formatter:on -->
-
