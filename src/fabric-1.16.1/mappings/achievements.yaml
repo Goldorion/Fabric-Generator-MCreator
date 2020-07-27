@@ -31,6 +31,16 @@ nether/create_beacon: minecraft:nether/create_beacon
 nether/all_potions: minecraft:nether/all_potions
 nether/create_full_beacon: minecraft:nether/create_full_beacon
 nether/all_effects: minecraft:nether/all_effects
+nether/find_bastion: minecraft:nether/find_bastion
+nether/obtain_ancient_debris: minecraft:nether/obtain_ancient_debris
+nether/obtain_crying_obsidian: minecraft:nether/obtain_crying_obsidian
+nether/distract_piglin: minecraft:nether/distract_piglin
+nether/ride_strider: minecraft:nether/ride_strider
+nether/loot_bastion: minecraft:nether/loot_bastion
+nether/use_lodestone: minecraft:nether/use_lodestone
+nether/netherite_armor: minecraft:nether/netherite_armor
+nether/charge_respawn_anchor: minecraft:nether/charge_respawn_anchor
+nether/explore_nether: minecraft:nether/explore_nether
 end/root: minecraft:end/root
 end/kill_dragon: minecraft:end/kill_dragon
 end/dragon_egg: minecraft:end/dragon_egg
@@ -59,6 +69,7 @@ adventure/arbalistic: minecraft:adventure/arbalistic
 adventure/adventuring_time: minecraft:adventure/adventuring_time
 adventure/very_very_frightening: minecraft:adventure/very_very_frightening
 adventure/sniper_duel: minecraft:adventure/sniper_duel
+adventure/bullseye: minecraft:adventure/bullseye
 husbandry/root: minecraft:husbandry/root
 husbandry/safely_harvest_honey: minecraft:husbandry/safely_harvest_honey
 husbandry/breed_an_animal: minecraft:husbandry/breed_an_animal
@@ -70,4 +81,4 @@ husbandry/breed_all_animals: minecraft:husbandry/breed_all_animals
 husbandry/complete_catalogue: minecraft:husbandry/complete_catalogue
 husbandry/tactical_fishing: minecraft:husbandry/tactical_fishing
 husbandry/balanced_diet: minecraft:husbandry/balanced_diet
-husbandry/break_diamond_hoe: minecraft:husbandry/break_diamond_hoe
+husbandry/obtain_netherite_hoe: minecraft:husbandry/obtain_netherite_hoe
