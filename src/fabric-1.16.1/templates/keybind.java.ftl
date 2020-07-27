@@ -1,26 +1,42 @@
 <#-- @formatter:off -->
 
+<#include "procedures.java.ftl">
 
-package ${package}.keybind;
+package ${package}.client;
 
- {
+import ${package}.${JavaModName};
 
-	@OnlyIn(Dist.CLIENT)
-	private static KeyBinding key;
-
+public class ${name}KeyBinding extends KeyBinding {
 	<#if hasProcedure(data.onKeyReleased)>
 	private long lastpress = 0;
 	</#if>
 
-	public static void initializeClient(){
-		${key} = new KeyBinding(
-    "key.${registryname}",
-    InputUtil.Type.KEYSYM,
-    GLFW.GLFW_KEY_${generator.map(data.triggerKey, "keybuttons")},
-    "key.categories.${data.keyBindingCategoryKey}"
-    );
+	public ${name}KeyBinding() {
+		super("key.mcreator.${registryname}", GLFW.GLFW_KEY_${generator.map(data.triggerKey, "keybuttons")}, "key.categories.${data.keyBindingCategoryKey}");
+	}
 
-		KeyBindingHelper.registerKeyBinding(keyBinding);
+	public void keyPressed(PlayerEntity entity) {
+
+		World world = entity.world;
+		double x = entity.getX();
+		double y = entity.getY();
+		double z = entity.getZ();
+
+		<#if hasProcedure(data.onKeyPressed)>
+			<@procedureOBJToCode data.onKeyPressed/>
+		</#if>
+	}
+
+	public void keyReleased(PlayerEntity entity) {
+
+		World world = entity.world;
+		double x = entity.getX();
+		double y = entity.getY();
+		double z = entity.getZ();
+
+		<#if hasProcedure(data.onKeyReleased)>
+			<@procedureOBJToCode data.onKeyReleased/>
+		</#if>
 	}
 }
 

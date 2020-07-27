@@ -17,8 +17,14 @@ package ${package};
 import net.fabricmc.fabric.api.blockrenderlayer.v1.*;
 import net.fabricmc.api.ClientModInitializer;
 import ${package}.client;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 
 public class ClientInit implements ClientModInitializer{
+
+    <#list w.getElementsOfType("KEYBIND") as keybind>
+        public static final KeyBinding ${keybind}_KEY = KeyBindingHelper.registerKeyBinding(new ${keybind}KeyBinding);
+    </#list>
+
     @Override
     public void onInitializeClient(){
     <#list w.getElementsOfType("BLOCK") as block>
@@ -39,6 +45,17 @@ public class ClientInit implements ClientModInitializer{
         <#list w.getElementsOfType("OVERLAY") as overlay>
             ${overlay}Overlay.render(matrices, tickDelta);
         </#list>
+        });
+
+        ClientTickEvents.END_CLIENT_TICK.register((client) -> {
+            <#list w.getElementsOfType("KEYBIND") as keybind>
+            if(${keybind}_KEY.isPressed() && !${keybind}_KEY.wasPressed()){
+                ${keybind}_KEY.keyPressed(client.player);
+            }
+            if(!${keybind}_KEY.isPressed() && ${keybind}_KEY.wasPressed()){
+                ${keybind}_KEY.keyReleased(client.player);
+            };
+            </#list>
         });
     }
 }
