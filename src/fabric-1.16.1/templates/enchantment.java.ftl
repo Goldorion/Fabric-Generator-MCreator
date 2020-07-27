@@ -28,7 +28,7 @@ public class ${name}Enchantment extends Enchantment {
 		@Override
         public boolean canAccept(Enchantment ench) {
 			<#list data.compatibleEnchantments as compatibleEnchantment>
-			    if(ench == ${compatibleEnchantment})
+			    if(ench == Enchantments.${compatibleEnchantment})
                     return true;
             </#list>
             return false;
