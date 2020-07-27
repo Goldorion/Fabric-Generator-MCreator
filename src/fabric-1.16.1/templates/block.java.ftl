@@ -1,10 +1,12 @@
 <#-- @formatter:off -->
 
 <#include "procedures.java.ftl">
+<#include "mcitems.ftl">
 
 package ${package}.block;
 
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tools.FabricToolTags;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.registry.*;
@@ -28,7 +30,7 @@ public class ${name}Block extends <#if data.hasGravity> FallingBlock <#else> Blo
         </#if>
                 .lightLevel(${(data.luminance * 15)?round})
         <#if data.destroyTool != "Not specified">
-			    .breakByTool(FabricToolTags.${data.destroyTool?upper_case}, ${data.breakHarvestLevel})
+			    .breakByTool(FabricToolTags.${data.destroyTool?upper_case}S, ${data.breakHarvestLevel})
         </#if>
         <#if data.isNotColidable>
                 .noCollision()

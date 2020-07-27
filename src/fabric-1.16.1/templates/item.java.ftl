@@ -45,7 +45,7 @@ public class ${name}Item extends Item {
     @Override
     public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(EquipmentSlot slot) {
         Multimap<String, EntityAttributeModifier> multimap = super.getAttributeModifiers(slot);
-        if (slot == EquipmentSlotType.MAINHAND) {
+        if (slot == EquipmentSlot.MAINHAND) {
             multimap.put(EntityAttributes.GENERIC_ATTACK_DAMAGE.getTranslationKey(), new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "item_damage", (double) ${data.damageVsEntity - 2}, EntityAttributeModifier.Operation.ADDITION));
             multimap.put(EntityAttributes.GENERIC_ATTACK_SPEED.getTranslationKey(), new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_ID, "item_attack_speed", -2.4, EntityAttributeModifier.Operation.ADDITION));
         }

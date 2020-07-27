@@ -47,7 +47,7 @@ public class ${name}Tool {
 					return Ingredient.EMPTY;
             </#if>
         }
-    }
+    };
 
 </#if>
 
@@ -92,7 +92,7 @@ public class ${name}Tool {
             stack.damageItem(1, miner, i -> i.sendBreakAnimation(EquipmentSlotType.MAINHAND));
             return true;
         }
-    }
+    };
 <#elseif data.toolType=="MultiTool">
     public static class CustomToolItem extends Item {
         public CustomToolItem() {
@@ -135,12 +135,12 @@ public class ${name}Tool {
         public int getEnchantability() {
             return ${data.enchantability};
         }
-    }
+    };
 </#if>
 
     public static final Item INSTANCE = new
-<#if data.toolType == "Pickaxe" || data.toolType == "Axe" || data.toolType == "Sword" || data.toolType == "Spade" || data.toolType == "Hoe">${data.toolType.toString().replace("Spade", "Shovel")}Item(${name?upper_case}_TOOL_MATERIAL, ${data.attackSpeed - 4}, ${data.attackSpeed - 4}, (new Item.Settings().group(${ge.creativeTab})))
-<#elseif data.toolType == "Shears">ShearsItem((new Item.Settings().group(${ge.creativeTab})))
+<#if data.toolType == "Pickaxe" || data.toolType == "Axe" || data.toolType == "Sword" || data.toolType == "Spade" || data.toolType == "Hoe">${data.toolType.toString().replace("Spade", "Shovel")}Item(${name?upper_case}_TOOL_MATERIAL, ${data.attackSpeed - 4}, ${data.attackSpeed - 4}, (new Item.Settings().group(${data.creativeTab})))
+<#elseif data.toolType == "Shears">ShearsItem((new Item.Settings().group(${data.creativeTab})))
 <#else>CustomToolItem()</#if>{
 
         <#if data.toolType == "Shears">

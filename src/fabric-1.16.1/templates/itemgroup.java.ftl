@@ -13,7 +13,7 @@ public final class ${name}ItemGroup {
     private static final ItemGroup ITEM_GROUP = FabricItemGroupBuilder
             .create(new Identifier("${modid}","${registryname}"))
             .icon(()->{
-                return new ItemStack(${mappedMCItemToItemStackCode(data.icon)});
+                return new ItemStack(${mappedMCItemToItem(data.icon)?remove_ending(", (int)(1))")});
             })
             .build();
 }

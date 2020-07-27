@@ -1,12 +1,13 @@
 <#-- @formatter:off -->
 <#include "procedures.java.ftl">
+<#include "tokens.ftl">
 
 package ${package}.client;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
-@Environment(Envtype.CLIENT)
+@Environment(EnvType.CLIENT)
 public class ${name}Overlay {
     public static void render(MatrixStack matrices, float tickDelta) {
         int posX = (MinecraftClient.getInstance().getWindow().getScaledWidth()) / 2;
@@ -28,9 +29,9 @@ public class ${name}Overlay {
 
 					MinecraftClient.getInstance().getTextureManager()
                             .bindTexture(new Identifier("${modid}:textures/${data.baseTexture}"));
-					MinecraftClient.getInstance().inGameHud.drawTexture(matrices, ${data.getBaseTextureWidth()}, ${data.getBaseTextureHeight()},
-                            0, 0
-                            MinecraftClient.getInstance().getWindow().getScaledWidth(), MinecraftClient.getInstance().getWindow().getScaledHeight());
+					MinecraftClient.getInstance().inGameHud.drawTexture(matrices, 0, 0, 0, 0, ${data.getBaseTextureWidth()}, ${data.getBaseTextureHeight()});
+                            MinecraftClient.getInstance().getWindow().getScaledWidth();
+                            MinecraftClient.getInstance().getWindow().getScaledHeight();
 
 					RenderSystem.depthMask(true);
       				RenderSystem.enableDepthTest();
