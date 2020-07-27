@@ -35,6 +35,10 @@ public class ${JavaModName} implements ModInitializer {
   	public static final SoundEvent ${sound}Event = new SoundEvent(${sound}_ID);
 </#list>
 
+<#list w.getElementsOfType("ENCHANTMENT") as ench>
+	public static final Enchantment ${ench}_ENCH = Registry.register(Registry.ENCHANTMENT, id("${ench.getRegistryName()}"), new ${ench}Enchantment());
+</#list>
+
 <#list w.getElementsOfType("ITEM") as item>
 	public static final Item ${item}_ITEM = Registry.register(Registry.ITEM, id("${item.getRegistryName()}"), new ${item}Item());
 </#list>
