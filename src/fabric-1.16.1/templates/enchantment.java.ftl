@@ -51,7 +51,6 @@ public class ${name}Enchantment extends Enchantment {
         return ${data.isTreasureEnchantment};
     }
 
-    @Override
     public boolean isCurse() {
         return ${data.isCurse};
     }
