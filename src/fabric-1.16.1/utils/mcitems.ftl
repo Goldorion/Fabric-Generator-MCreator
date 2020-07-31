@@ -33,6 +33,21 @@
     <#return mappedMCItemToItemStackCode(mappedBlock, 1)>
 </#function>
 
+<#function mappedMCItemToItemStackCodeNoItemStackValue mappedBlock>
+    <#if mappedBlock.toString().contains("/*@ItemStack*/")>
+        <#return mappedBlock?replace("/*@ItemStack*/", "")>
+    <#elseif mappedBlock.toString().startsWith("CUSTOM:")>
+        <#if !mappedBlock.toString().contains(".")>
+            <#return JavaModName + "." + (generator.getElementPlainName(mappedBlock)) + "_ITEM">
+        <#else>
+            <#return JavaModName + "." + (generator.getElementPlainName(mappedBlock)) + "."
+            + generator.getElementExtension(mappedBlock)>
+        </#if>
+    <#else>
+        <#return mappedBlock.toString().split("#")[0]>
+    </#if>
+</#function>
+
 <#function mappedMCItemToIngameItemName mappedBlock>
     <#if mappedBlock.getUnmappedValue().startsWith("CUSTOM:")>
         <#assign customelement = generator.getRegistryNameForModElement(mappedBlock.getUnmappedValue().replace("CUSTOM:", "")

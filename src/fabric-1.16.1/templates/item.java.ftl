@@ -42,7 +42,8 @@ public class ${name}Item extends Item {
         return (float)(${data.toolType}F);
     }
 
-    @Override
+    //Needs to be fixed
+    /*@Override
     public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(EquipmentSlot slot) {
         Multimap<String, EntityAttributeModifier> multimap = super.getAttributeModifiers(slot);
         if (slot == EquipmentSlot.MAINHAND) {
@@ -50,7 +51,7 @@ public class ${name}Item extends Item {
             multimap.put(EntityAttributes.GENERIC_ATTACK_SPEED.getTranslationKey(), new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_ID, "item_attack_speed", -2.4, EntityAttributeModifier.Operation.ADDITION));
         }
         return multimap;
-    }
+    }*/
 
 <#if data.hasGlow>
     @Environment(Envtype.CLIENT)
