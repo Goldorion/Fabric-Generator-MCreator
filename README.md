@@ -5,12 +5,25 @@ An unofficial plugin for [MCreator](https://mcreator.net/), a code generator to 
 This project is not official. It is not affiliated with the respective owners and maintainers of Fabric, Minecraft, or MCreator. Do not expect any official support from their communities.
 
 ## Features
-- Advancements
-- Recipes
-- Tags
-- Functions
-- Loot tables
-- Items
+* Advancements
+* Armor
+* Blocks (block entities are not supported yet)
+* Command
+* Custom code
+* Enchantment
+* Food
+* Fuel
+* Functions
+* Items (inventory is not supported yet)
+* Item groups
+* Key Bindings (They still have bugs)
+* Loot tables
+* Music Discs
+* Overlay
+* Procedures (77 procedure blocks, and 4 global triggers)
+* Tags
+* Recipes
+* Tools
 
 ## Building Instructions
 - Clone the repository
