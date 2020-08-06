@@ -13,7 +13,7 @@ public static final ${name}ArmorMaterial ${name?upper_case} = new ${name}ArmorMa
   <#if data.equipSound?contains(modid)>${JavaModName}.${data.equipSound?remove_beginning(modid + ":")}Event<#else>
   SoundEvents.${data.equipSound}</#if>,
 ${data.toughness}F, 0F, () -> {
-        return Ingredient.ofItems(<#if data.repairItems?has_content><#list data.repairItems as repairItem>${mappedMCItemToItemStackCode(repairItem)?replace("Blocks.", "Items.")}<#if repairItem?has_next>,</#if></#list><#else>Items.AIR</#if>);
+        return Ingredient.ofItems(<#if data.repairItems?has_content><#list data.repairItems as repairItem>${mappedMCItemToItemStackCodeNoItemStackValue(repairItem)?replace("Blocks.", "Items.")}<#if repairItem?has_next>,</#if></#list><#else>Items.AIR</#if>);
     });
 
     private static final int[] BASE_DURABILITY = {13, 15, 16, 11};
