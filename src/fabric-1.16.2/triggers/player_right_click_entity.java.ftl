@@ -1,9 +1,9 @@
 @Override
 public void useOnEntity(PlayerEntity player, World world, Hand hand, Entity entity, /* Nullable */ EntityHitResult hitResult){
 		Map<String, Object> dependencies = new HashMap<>();
-		int i=player.getX();
-		int j=player.getY();
-		int k=player.getZ();
+		int i=(int) player.getX();
+		int j=(int) player.getY();
+		int k=(int) player.getZ();
 		dependencies.put("world",world);
 		dependencies.put("sourceentity" ,player);
 		dependencies.put("entity", entity);
