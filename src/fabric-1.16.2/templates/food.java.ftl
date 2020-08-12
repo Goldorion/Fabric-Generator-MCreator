@@ -9,7 +9,7 @@ import net.fabricmc.api.Environment;
 public class ${name}Item {
     public ${name}Item() {
         super(new Item.Settings().group(${data.creativeTab})
-                .maxStackSize(${data.stackSize})
+                .maxCount(${data.stackSize})
                 .food((new FoodComponent.Builder()).hunger(${data.nutritionalValue}).saturationModifier(${data.saturation}f)
 				<#if data.isAlwaysEdible>.alwaysEdible()</#if>
 				<#if data.forDogs>.meat()</#if>
@@ -32,7 +32,6 @@ public class ${name}Item {
         }
     </#if>
 
-    @Override
     public UseAction getUseAction(ItemStack stack) {
         return UseAction.${data.animation?upper_case};
     }
