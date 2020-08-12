@@ -331,3 +331,18 @@ EntityPlayerMP:
 EntityFishHook:
   - FishingBobberEntity
   - FISHING_BOBBER
+EntityHoglin:
+  - HoglinEntity
+  - HOGLIN
+EntityPiglin:
+  - PiglinEntity
+  - PIGLIN
+EntityPiglinBrute:
+  - PiglinBruteEntity
+  - PIGLIN_BRUTE
+EntityStrider:
+  - StriderEntity
+  - STRIDER
+EntityZoglin:
+  - ZoglinEntity
+  - ZOGLIN

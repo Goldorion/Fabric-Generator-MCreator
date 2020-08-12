@@ -443,6 +443,11 @@
   type: item
   texture: PIGLIN_SPAWN_EGG
 
+- Items.PIGLIN_BRUTE_SPAWN_EGG:
+  readable_name: "Piglin Brute Spawn Egg"
+  type: item
+  texture: PIGLIN_BRUTE_SPAWN_EGG
+
 - Items.STRIDER_SPAWN_EGG:
   readable_name: "Strider Spawn Egg"
   type: item
@@ -457,4 +462,3 @@
   readable_name: "Warped Fungus on a Stick"
   type: item
   texture: WARPED_FUNGUS_ON_A_STICK
-  
