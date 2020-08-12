@@ -27,11 +27,11 @@ templates:
     name: "@MODASSETSROOT/models/item/@registryname_boots.json"
 
 localizationkeys:
-  - key: item.@modid.@registrynamehelmet
+  - key: item.@modid.@registryname_helmet
     mapto: helmetName
-  - key: item.@modid.@registrynamebody
+  - key: item.@modid.@registryname_chestplate
     mapto: bodyName
-  - key: item.@modid.@registrynamelegs
+  - key: item.@modid.@registryname_leggings
     mapto: leggingsName
-  - key: item.@modid.@registrynameboots
+  - key: item.@modid.@registryname_boots
     mapto: bootsName
