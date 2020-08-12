@@ -116,6 +116,12 @@
 - entity.piglin.jealous
 - entity.piglin.retreat
 - entity.piglin.step
+- entity.piglin_brute.ambient
+- entity.piglin_brute.angry
+- entity.piglin_brute.death
+- entity.piglin_brute.hurt
+- entity.piglin_brute.step
+- entity.piglin_brute.converted_to_zombified
 - entity.strider.ambient
 - entity.strider.death
 - entity.strider.eat
@@ -139,9 +145,3 @@
 - music.nether.soul_sand_valley
 - music.nether.warped_forest
 - particle.soul_escape
-- entity.piglin_brute.ambient
-- entity.piglin_brute.angry
-- entity.piglin_brute.death
-- entity.piglin_brute.hurt
-- entity.piglin_brute.step
-- entity.piglin_brute.converted_to_zombified

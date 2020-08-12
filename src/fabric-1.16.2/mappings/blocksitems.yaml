@@ -3287,7 +3287,7 @@ Blocks.POLISHED_BLACKSTONE_BRICK_STAIRS:
   - "polished_blackstone_brick_stairs"
 Blocks.POLISHED_BLACKSTONE_BRICK_WALL:
   - Blocks.POLISHED_BLACKSTONE_BRICK_WALL
-  - "polished_blackstone_brick-wall"
+  - "polished_blackstone_brick_wall"
 Blocks.NETHERITE_BLOCK:
   - Blocks.NETHERITE_BLOCK
   - "netherite_block"

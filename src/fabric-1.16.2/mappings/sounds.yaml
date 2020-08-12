@@ -61,7 +61,7 @@ block.grass.place: BLOCK_GRASS_PLACE
 block.grass.step: BLOCK_GRASS_STEP
 block.gravel.break: BLOCK_GRAVEL_BREk
 block.gravel.fall: BLOCK_GRAVEL_FALL
-BLOCK_GRAVEL_HIT: block.gravel.hit
+block.gravel.hit: BLOCK_GRAVEL_HIT
 block.gravel.hit: BLOCK_GRAVEL_HIT
 block.gravel.place: BLOCK_GRAVEL_PLACE
 block.gravel.step: BLOCK_GRAVE,_STEP
@@ -933,6 +933,12 @@ entity.piglin.hurt: ENTITY_PIGLIN_HURT
 entity.piglin.jealous: ENTITY_PIGLIN_JEALOUS
 entity.piglin.retreat: ENTITY_PIGLIN_RETREAT
 entity.piglin.step: ENTITY_PIGLIN_STEP
+entity.piglin_brute.ambient: ENTITY_PIGLIN_BRUTE_AMBIENT
+entity.piglin_brute.angry: ENTITY_PIGLIN_BRUTE_ANGRY
+entity.piglin_brute.death: ENTITY_PIGLIN_BRUTE_DEATH
+entity.piglin_brute.hurt: ENTITY_PIGLIN_BRUTE_HURT
+entity.piglin_brute.step: ENTITY_PIGLIN_BRUTE_STEP
+entity.piglin_brute.converted_to_zombified: ENTITY_PIGLIN_BRUTE_CONVERTED_TO_ZOMBIFIED
 entity.strider.ambient: ENTITY_STRIDER_AMBIENT
 entity.strider.death: ENTITY_STRIDER_DEATH
 entity.strider.eat: ENTITY_STRIDER_EAT
@@ -956,9 +962,3 @@ music.nether.nether_wastes: MUSIC_NETHER_NETHER_WASTES
 music.nether.soul_sand_valley: MUSIC_NETHER_SOUL_SAND_VALLEY
 music.nether.warped_forest: MUSIC_NETHER_WARPED_FOREST
 particle.soul_escape: PARTICLE_SOUL_ESCAPE
-entity.piglin_brute.ambient: ENTITY_PIGLIN_BRUTE_AMBIENT
-entity.piglin_brute.angry: ENTITY_PIGLIN_BRUTE_ANGRY
-entity.piglin_brute.death: ENTITY_PIGLIN_BRUTE_DEATH
-entity.piglin_brute.hurt: ENTITY_PIGLIN_BRUTE_HURT
-entity.piglin_brute.step: ENTITY_PIGLIN_BRUTE_STEP
-entity.piglin_brute.converted_to_zombified: ENTITY_PIGLIN_BRUTE_CONVERTED_TO_ZOMBIFIED
