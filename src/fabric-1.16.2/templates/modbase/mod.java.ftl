@@ -60,16 +60,16 @@ public class ${JavaModName} implements ModInitializer {
 <#list w.getElementsOfType("ARMOR") as armor>
 	<#assign ge = armor.getGeneratableElement()>
 	<#if ge.enableHelmet>
-		public static final Item ${armor}_HELMET = Registry.register(Registry.ITEM, id("${armor.getRegistryName()}"), new ArmorItem(${armor}ArmorMaterial.${armor?upper_case}, EquipmentSlot.HEAD, (new Item.Settings().group(${ge.creativeTab}))));
+		public static final Item ${armor}_HELMET = Registry.register(Registry.ITEM, id("${armor.getRegistryName()}_helmet"), new ArmorItem(${armor}ArmorMaterial.${armor?upper_case}, EquipmentSlot.HEAD, (new Item.Settings().group(${ge.creativeTab}))));
 	</#if>
 	<#if ge.enableBody>
-		public static final Item ${armor}_CHESTPLATE = Registry.register(Registry.ITEM, id("${armor.getRegistryName()}"), new ArmorItem(${armor}ArmorMaterial.${armor?upper_case}, EquipmentSlot.CHEST, (new Item.Settings().group(${ge.creativeTab}))));
+		public static final Item ${armor}_CHESTPLATE = Registry.register(Registry.ITEM, id("${armor.getRegistryName()}_chestplate"), new ArmorItem(${armor}ArmorMaterial.${armor?upper_case}, EquipmentSlot.CHEST, (new Item.Settings().group(${ge.creativeTab}))));
 	</#if>
 	<#if ge.enableLeggings>
-		public static final Item ${armor}_LEGGINGS = Registry.register(Registry.ITEM, id("${armor.getRegistryName()}"), new ArmorItem(${armor}ArmorMaterial.${armor?upper_case}, EquipmentSlot.LEGS, (new Item.Settings().group(${ge.creativeTab}))));
+		public static final Item ${armor}_LEGGINGS = Registry.register(Registry.ITEM, id("${armor.getRegistryName()}_leggings"), new ArmorItem(${armor}ArmorMaterial.${armor?upper_case}, EquipmentSlot.LEGS, (new Item.Settings().group(${ge.creativeTab}))));
 	</#if>
 	<#if ge.enableBoots>
-		public static final Item ${armor}_BOOTS = Registry.register(Registry.ITEM, id("${armor.getRegistryName()}"), new ArmorItem(${armor}ArmorMaterial.${armor?upper_case}, EquipmentSlot.FEET, (new Item.Settings().group(${ge.creativeTab}))));
+		public static final Item ${armor}_BOOTS = Registry.register(Registry.ITEM, id("${armor.getRegistryName()}_boots"), new ArmorItem(${armor}ArmorMaterial.${armor?upper_case}, EquipmentSlot.FEET, (new Item.Settings().group(${ge.creativeTab}))));
 	</#if>
 </#list>
 
