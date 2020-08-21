@@ -92,29 +92,10 @@ public class ${JavaModName} implements ModInitializer {
 <#--				${block}_BLOCK.genBlock(biome);-->
 <#--			</#list>-->
 <#--		});-->
-		WorldTickCallback.EVENT.register((world) -> {
+
 		<#list w.getElementsOfType("PROCEDURE") as procedure>
-			new ${procedure}Procedure().worldTick(world);
+			new ${procedure}Procedure();
 		</#list>
-		});
-		UseBlockCallback.EVENT.register((player, world, hand, hitResult) -> {
-		<#list w.getElementsOfType("PROCEDURE") as procedure>
-			new ${procedure}Procedure().useOnBlock(player, world, hand, hitResult);
-		</#list>
-			return ActionResult.PASS;
-		});
-		UseEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {
-		<#list w.getElementsOfType("PROCEDURE") as procedure>
-			new ${procedure}Procedure().useOnEntity(player, world, hand, entity, hitResult);
-		</#list>
-			return ActionResult.PASS;
-		});
-		UseItemCallback.EVENT.register((player, world, hand) -> {
-		<#list w.getElementsOfType("PROCEDURE") as procedure>
-			new ${procedure}Procedure().useItem(player, world, hand);
-		</#list>
-			return TypedActionResult.pass(player.getStackInHand(hand));
-		});
 
 		<#list w.getElementsOfType("CODE") as code>
 			${code}CustomCode.initialize();
