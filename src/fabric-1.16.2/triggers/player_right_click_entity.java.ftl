@@ -1,5 +1,5 @@
-@Override
-public void useOnEntity(PlayerEntity player, World world, Hand hand, Entity entity, /* Nullable */ EntityHitResult hitResult){
+public ${name}Procedure() {
+	UseEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {
 		Map<String, Object> dependencies = new HashMap<>();
 		int i=(int) player.getX();
 		int j=(int) player.getY();
@@ -11,4 +11,6 @@ public void useOnEntity(PlayerEntity player, World world, Hand hand, Entity enti
 		dependencies.put("y" ,j);
 		dependencies.put("z" ,k);
 		executeProcedure(dependencies);
+		return ActionResult.PASS;
+	});
 }

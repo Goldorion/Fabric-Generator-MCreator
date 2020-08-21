@@ -1,5 +1,5 @@
-@Override
-public void useItem(PlayerEntity player, World world, Hand hand) {
+public ${name}Procedure() {
+	UseItemCallback.EVENT.register((player, world, hand) -> {
 		Map<String, Object> dependencies = new HashMap<>();
 		int i=(int) player.getX();
 		int j=(int) player.getY();
@@ -10,4 +10,6 @@ public void useItem(PlayerEntity player, World world, Hand hand) {
 		dependencies.put("y" ,j);
 		dependencies.put("z" ,k);
 		executeProcedure(dependencies);
+		return TypedActionResult.pass(player.getStackInHand(hand));
+	});
 }

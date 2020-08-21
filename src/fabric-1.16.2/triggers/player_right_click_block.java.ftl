@@ -1,5 +1,5 @@
-@Override
-public void useOnBlock(PlayerEntity player, World world, Hand hand, BlockHitResult hitResult){
+public ${name}Procedure() {
+	UseBlockCallback.EVENT.register((player, world, hand, hitResult) -> {
 		Map<String, Object> dependencies = new HashMap<>();
 		int i=(int) player.getX();
 		int j=(int) player.getY();
@@ -10,4 +10,6 @@ public void useOnBlock(PlayerEntity player, World world, Hand hand, BlockHitResu
 		dependencies.put("y" ,j);
 		dependencies.put("z" ,k);
 		executeProcedure(dependencies);
+		return ActionResult.PASS;
+	});
 }
