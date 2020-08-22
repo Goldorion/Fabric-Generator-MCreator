@@ -12,7 +12,7 @@ import net.fabricmc.api.Environment;
 public class ${name}MusicDisc extends MusicDiscItem {
     public ${name}MusicDisc() {
 			super(0, (net.minecraft.sound.SoundEvent) Registry.SOUND_EVENT.get(new Identifier("${data.music}")),
-                    new Item.Settings().group(${data.creativeTab}).maxCount(1).rarity(Rarity.RARE));
+                    new FabricItemSettings().group(${data.creativeTab}).maxCount(1).rarity(Rarity.RARE));
     }
 
     <#if data.hasGlow>
