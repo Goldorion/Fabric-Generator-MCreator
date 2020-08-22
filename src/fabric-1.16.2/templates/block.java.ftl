@@ -20,6 +20,12 @@ public class ${name}Block extends <#if data.hasGravity> FallingBlock <#else> Blo
     <#elseif data.rotationMode == 2 || data.rotationMode == 4 || data.rotationMode == 5>
 		public static final DirectionProperty FACING = FacingBlock.FACING;
     </#if>
+	
+	<#if data.emissiveRendering>
+        private static boolean always(BlockState state, BlockView world, BlockPos pos) {
+            return true;
+        }
+    </#if>
 
     public ${name}Block() {
         super(FabricBlockSettings.of(Material.${data.material})
@@ -40,6 +46,9 @@ public class ${name}Block extends <#if data.hasGravity> FallingBlock <#else> Blo
         </#if>
         <#if data.hasTransparency || (data.blockBase?has_content && data.blockBase == "Leaves")>
                 .nonOpaque()
+        </#if>
+		<#if data.emissiveRendering>
+                .emissiveLighting(${name}Block::always)
         </#if>
         <#if data.tickRandomly>
                 .ticksRandomly()
