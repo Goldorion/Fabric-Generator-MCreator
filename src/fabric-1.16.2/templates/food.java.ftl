@@ -6,9 +6,10 @@ package ${package}.item;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
-public class ${name}Item {
+public class ${name}Item extends Item {
     public ${name}Item() {
-        super(new Item.Settings().group(${data.creativeTab})
+        super(new FabricItemSettings()
+                .group(${data.creativeTab})
                 .maxCount(${data.stackSize})
                 .food((new FoodComponent.Builder()).hunger(${data.nutritionalValue}).saturationModifier(${data.saturation}f)
 				<#if data.isAlwaysEdible>.alwaysEdible()</#if>
