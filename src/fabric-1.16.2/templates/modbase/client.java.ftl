@@ -49,11 +49,11 @@ public class ClientInit implements ClientModInitializer{
 
         ClientTickEvents.END_CLIENT_TICK.register((client) -> {
             <#list w.getElementsOfType("KEYBIND") as keybind>
-            if(${keybind}_KEY.isPressed() && !${keybind}_KEY.wasPressed()){
-                ${keybind}_KEY.keyPressed(client.player);
+            if(((${keybind}KeyBinding) ${keybind}_KEY).isPressed() && !((${keybind}KeyBinding) ${keybind}_KEY).wasPressed()){
+                ((${keybind}KeyBinding) ${keybind}_KEY).keyPressed(client.player);
             }
-            if(!${keybind}_KEY.isPressed() && ${keybind}_KEY.wasPressed()){
-                ${keybind}_KEY.keyReleased(client.player);
+            if(!((${keybind}KeyBinding) ${keybind}_KEY).isPressed() && ((${keybind}KeyBinding) ${keybind}_KEY).wasPressed()){
+                ((${keybind}KeyBinding) ${keybind}_KEY).keyReleased(client.player);
             };
             </#list>
         });

@@ -18,9 +18,9 @@ public class ${name}KeyBinding extends KeyBinding {
 	public void keyPressed(PlayerEntity entity) {
 
 		World world = entity.world;
-		double x = entity.getX();
-		double y = entity.getY();
-		double z = entity.getZ();
+		int x = Math.round(MathHelper.floor(entity.getX()));
+		int y = Math.round(MathHelper.floor(entity.getY()));
+		int z = Math.round(MathHelper.floor(entity.getZ()));
 
 		<#if hasProcedure(data.onKeyPressed)>
 			<@procedureOBJToCode data.onKeyPressed/>
@@ -30,9 +30,9 @@ public class ${name}KeyBinding extends KeyBinding {
 	public void keyReleased(PlayerEntity entity) {
 
 		World world = entity.world;
-		double x = entity.getX();
-		double y = entity.getY();
-		double z = entity.getZ();
+		int x = Math.round(MathHelper.floor(entity.getX()));
+		int y = Math.round(MathHelper.floor(entity.getY()));
+		int z = Math.round(MathHelper.floor(entity.getZ()));
 
 		<#if hasProcedure(data.onKeyReleased)>
 			<@procedureOBJToCode data.onKeyReleased/>
