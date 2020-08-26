@@ -16,7 +16,7 @@ import ${package}.*;
 public class ${name}Block extends <#if data.hasGravity> FallingBlock <#else> Block </#if>{
 
     <#if data.rotationMode == 1 || data.rotationMode == 3>
-		public static final DirectionProperty FACING = HorizontalFacingBlock.HORIZONTAL_FACING;
+		public static final DirectionProperty FACING = HorizontalFacingBlock.FACING;
     <#elseif data.rotationMode == 2 || data.rotationMode == 4 || data.rotationMode == 5>
 		public static final DirectionProperty FACING = FacingBlock.FACING;
     </#if>
