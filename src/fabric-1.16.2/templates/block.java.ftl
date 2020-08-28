@@ -70,11 +70,10 @@ public class ${name}Block extends <#if data.hasGravity> FallingBlock <#else> Blo
 
     <#if data.specialInfo?has_content>
 		@Override
-        @Environment(Envtype.CLIENT)
-        public void buildTooltip(ItemStack stack, BlockView world, List<Text> tooltip, TooltipContext options) {
-            super.addInformation(stack, world, tooltip, options);
+        @Environment(EnvType.CLIENT)
+        public void appendTooltip(ItemStack stack, BlockView world, List<Text> tooltip, TooltipContext options) {
 			<#list data.specialInfo as entry>
-			list.add(new LiteralTExt("${JavaConventions.escapeStringForJava(entry)}"));
+			tooltip.add(new LiteralText("${JavaConventions.escapeStringForJava(entry)}"));
             </#list>
         }
     </#if>
