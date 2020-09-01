@@ -26,9 +26,6 @@ public class ${name}FlowerBlock extends <#if data.plantType == "normal">Flower<#
                 .slipperiness(${data.slipperiness}F)
         </#if>
         .nonOpaque()
-		<#if data.emissiveRendering>
-                .emissiveLighting(${name}Block::always)
-        </#if>
         <#if data.plantType == "growapable" || data.forceTicking>
                 .ticksRandomly()
         </#if>
