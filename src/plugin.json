@@ -3,7 +3,7 @@
   "minversion": 202000400000,
   "info": {
     "name": "Minecraft Fabric 1.16.2 Generator",
-    "version": "1.0.0+alpha.6",
+    "version": "1.0.0+alpha.7",
     "description": "A Fabric Generator",
     "author": "Goldorion and BoogieMonster1O1 with the help of CrispyChips"
   }
