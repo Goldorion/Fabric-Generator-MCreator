@@ -37,6 +37,10 @@ public class ClientInit implements ClientModInitializer{
 		BlockRenderLayerMap.INSTANCE.putBlock(block, RenderLayer.getTranslucent());
         </#if>
     </#list>
+
+    <#list w.getElementsOfType("BLOCK") as block>
+        BlockRenderLayerMap.INSTANCE.putBlock(${JavaModName}.block_BLOCK, RenderLayer.getCutoutMipped());
+    </#list>
         <#list w.getElementsOfType("CODE") as code>
             ${code}CustomCode.initializeClient();
         </#list>
