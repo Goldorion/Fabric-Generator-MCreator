@@ -20,7 +20,7 @@ package ${package}.item;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import com.google.common.collect.*;
-	
+
 public class ${name}Item extends Item {
     public ${name}Item() {
         super(new FabricItemSettings()
@@ -42,19 +42,22 @@ public class ${name}Item extends Item {
         return (float)(${data.toolType}F);
     }
 
-    //Needs to be fixed
-    /*@Override
+    @Override
     public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(EquipmentSlot slot) {
-        Multimap<String, EntityAttributeModifier> multimap = super.getAttributeModifiers(slot);
         if (slot == EquipmentSlot.MAINHAND) {
-            multimap.put(EntityAttributes.GENERIC_ATTACK_DAMAGE.getTranslationKey(), new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "item_damage", (double) ${data.damageVsEntity - 2}, EntityAttributeModifier.Operation.ADDITION));
-            multimap.put(EntityAttributes.GENERIC_ATTACK_SPEED.getTranslationKey(), new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_ID, "item_attack_speed", -2.4, EntityAttributeModifier.Operation.ADDITION));
+            return ImmutableMultimap.of(
+                    EntityAttributes.GENERIC_ATTACK_DAMAGE,
+                    new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "item_damage", (double) ${data.damageVsEntity - 2}, EntityAttributeModifier.Operation.ADDITION),
+
+                    EntityAttributes.GENERIC_ATTACK_SPEED,
+                    new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_ID, "item_attack_speed", -2.4, EntityAttributeModifier.Operation.ADDITION)
+            );
         }
-        return multimap;
-    }*/
+        return super.getAttributeModifiers(slot);
+    }
 
 <#if data.hasGlow>
-    @Environment(Envtype.CLIENT)
+    @Environment(EnvType.CLIENT)
     @Override
     public boolean hasGlint(ItemStack stack) {
             return true;

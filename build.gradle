@@ -7,7 +7,7 @@
 
 import org.apache.tools.ant.taskdefs.condition.Os
 
-import java.nio.file.Files;
+import java.nio.file.Files
 
 class Globals {
     private static final def ARCHIVE_NAME ="generator-fabric"
@@ -33,6 +33,23 @@ task install {
         }
         else if (Os.isFamily(Os.FAMILY_WINDOWS) || Os.isFamily(Os.FAMILY_NT) ) {
             installPlugin("C:\\Users\\" + System.getProperty("user.name") + "\\.mcreator\\plugins\\", '\\')
+        }
+    }
+}
+
+task launch {
+    dependsOn install
+    doLast {
+        println("Launching MCreator...")
+        if (Os.isFamily(Os.FAMILY_MAC) || Os.isFamily(Os.FAMILY_UNIX)) {
+            try {
+                ProcessBuilder builder = new ProcessBuilder("/Applications/MCreator.app/Contents/MacOS/mcreator")
+                builder.redirectOutput(ProcessBuilder.Redirect.INHERIT)
+                builder.redirectError(ProcessBuilder.Redirect.INHERIT)
+                Process process = builder.start()
+            } catch (IOException e) {
+                throw new RuntimeException("Could not launch MCreator! Please make sure you have installed it to /Applications/", e)
+            }
         }
     }
 }
