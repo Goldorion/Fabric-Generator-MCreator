@@ -57,6 +57,12 @@ public class ${JavaModName} implements ModInitializer {
 	public static final BlockItem ${block}_ITEM = Registry.register(Registry.ITEM, id("${block.getRegistryName()}"), new BlockItem(${block}_BLOCK, new Item.Settings().group(${ge.creativeTab})));
 </#list>
 
+<#list w.getElementsOfType("PLANT") as plant>
+	<#assign ge = plant.getGeneratableElement()>
+	public static final Block ${block}_BLOCK = Registry.register(Registry.BLOCK, id("${block.getRegistryName()}"), new ${plant}FlowerBlock());
+	public static final BlockItem ${block}_ITEM = Registry.register(Registry.ITEM, id("${block.getRegistryName()}"), new BlockItem(${plant}_BLOCK, new Item.Settings().group(${ge.creativeTab})));
+</#list>
+
 <#list w.getElementsOfType("ARMOR") as armor>
 	<#assign ge = armor.getGeneratableElement()>
 	<#if ge.enableHelmet>
@@ -82,16 +88,6 @@ public class ${JavaModName} implements ModInitializer {
 	<#list w.getElementsOfType("FUEL") as fuel>
 		${fuel}Fuel.initialize();
 	</#list>
-<#--		Registry.BIOME.forEach((biome) -> {-->
-<#--			<#list w.getElementsOfType("BLOCK") as block>-->
-<#--			${block}_BLOCK.genBlock(biome);-->
-<#--			</#list>-->
-<#--		});-->
-<#--		RegistryEntryAddedCallback.event(Registry.BIOME).register((i, identifier, biome) -> {-->
-<#--			<#list w.getElementsOfType("BLOCK") as block>-->
-<#--				${block}_BLOCK.genBlock(biome);-->
-<#--			</#list>-->
-<#--		});-->
 
 		<#list w.getElementsOfType("PROCEDURE") as procedure>
 			new ${procedure}Procedure();
