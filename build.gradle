@@ -66,6 +66,6 @@ static def installPlugin(String path, String separator) {
         System.out.println(String.format("Plugin successfully installed to %s ", path))
     } catch(IOException e) {
         e.printStackTrace()
-        System.err.println("Could not install plugin!")
+        throw new RuntimeException("Could not install plugin!")
     }
 }
