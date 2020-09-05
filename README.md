@@ -1,5 +1,5 @@
 # MCreatorFabricGenerator
-An unofficial plugin for [MCreator](https://mcreator.net/), a code generator to create Minecraft mods. Adds a [Fabric](https://fabricmc.net/) generator type. Currently, this tool is very incomplete.
+A plugin for [MCreator](https://mcreator.net/), a code generator to create Minecraft mods. Adds a [Fabric](https://fabricmc.net/) generator type.
 
 ## Disclaimer
 This project is not official. It is not affiliated with the respective owners and maintainers of Fabric, Minecraft, or MCreator. Do not expect any official support from their communities.
@@ -7,8 +7,9 @@ This project is not official. It is not affiliated with the respective owners an
 ## Features
 * Advancements
 * Armor
+* Biomes (generating them in the overworld is not supported yet)
 * Blocks (block entities are not supported yet)
-* Command
+* Commands
 * Custom code
 * Enchantment
 * Food
@@ -20,9 +21,10 @@ This project is not official. It is not affiliated with the respective owners an
 * Loot tables
 * Music Discs
 * Overlay
+* Plants
 * Procedures (77 procedure blocks, and 4 global triggers)
-* Tags
 * Recipes
+* Tags
 * Tools
 
 ## Building Instructions

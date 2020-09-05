@@ -1,3 +1,20 @@
+<#--
+This file is part of MCreatorFabricGenerator.
+
+MCreatorFabricGenerator is free software: you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+MCreatorFabricGenerator is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with MCreatorFabricGenerator.  If not, see <https://www.gnu.org/licenses/>.
+-->
+
 <#-- @formatter:off -->
 /*
  *    MCreator note:
@@ -25,6 +42,7 @@ import ${package}.procedures.*;
 import ${package}.item.*;
 import ${package}.block.*;
 import ${package}.server.*;
+import ${package}.world.*;
 
 public class ${JavaModName} implements ModInitializer {
 
@@ -95,6 +113,10 @@ public class ${JavaModName} implements ModInitializer {
 
 		<#list w.getElementsOfType("CODE") as code>
 			${code}CustomCode.initialize();
+		</#list>
+
+		<#list w.getElementsOfType("BIOME") as biome>
+			${biome}Biome.init();
 		</#list>
 
 		<#list sounds as sound>
