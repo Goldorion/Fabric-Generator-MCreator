@@ -39,7 +39,7 @@ public class ${name}Command {
         );
     }
 
-    private static int execute(Command<ServerCommandSource> ctx) {
+    private static int execute(CommandContext<ServerCommandSource> ctx) {
         ServerWorld world = ctx.getSource().getWorld();
 
         double x = ctx.getSource().getPos().getX();
