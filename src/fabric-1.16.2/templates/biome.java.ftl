@@ -98,9 +98,9 @@ public class ${name}Biome {
         Biome.Builder biomeBuilder = new Biome.Builder();
         biomeBuilder.effects(effectsBuilder.build());
         biomeBuilder.generationSettings(genSettingsBuilder.build());
-        biomeBuilder.spawnSettings(spawnBuilder)
+        biomeBuilder.spawnSettings(spawnBuilder);
         biomeBuilder.temperatureModifier(Biome.TemperatureModifier.NONE);
-        biomeBuilder.temperature(${data.temperature}F)
+        biomeBuilder.temperature(${data.temperature}F);
         biomeBuilder.downfall(${data.rainingPossibility}F);
         biomeBuilder.depth(${data.baseHeight}F);
         biomeBuilder.scale(${data.heightVariation}F);
