@@ -12,7 +12,6 @@ nether: NETHER_WASTES
 the_end: THE_END
 frozen_ocean: FROZEN_OCEAN
 frozen_river: FROZEN_RIVER
-snowy_tundra: SNOWY_TUNDRA
 snowy_mountains: SNOWY_MOUNTAINS
 mushroom_fields: MUSHROOM_FIELDS
 mushroom_fields_shore: MUSHROOM_FIELD_SHORE
