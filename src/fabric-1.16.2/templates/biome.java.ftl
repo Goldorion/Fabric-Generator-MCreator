@@ -39,7 +39,7 @@ public class ${name}Biome {
         DefaultBiomeFeatures.addDungeons(genSettingsBuilder);
         DefaultBiomeFeatures.addDefaultUndergroundStructures(genSettingsBuilder);
         <#if data.generateLakes>
-			DefaultBiomeFeatures.addLakes(genSettingsBuilder);
+			DefaultBiomeFeatures.addDefaultLakes(genSettingsBuilder);
         </#if>
         <#if (data.flowersPerChunk > 0)>
             DefaultBiomeFeatures.addDefaultFlowers(genSettingsBuilder);
@@ -98,14 +98,14 @@ public class ${name}Biome {
         Biome.Builder biomeBuilder = new Biome.Builder();
         biomeBuilder.effects(effectsBuilder.build());
         biomeBuilder.generationSettings(genSettingsBuilder.build());
-        biomeBuilder.spawnSettings(spawnBuilder);
+        biomeBuilder.spawnSettings(spawnBuilder.build());
         biomeBuilder.temperatureModifier(Biome.TemperatureModifier.NONE);
         biomeBuilder.temperature(${data.temperature}F);
         biomeBuilder.downfall(${data.rainingPossibility}F);
         biomeBuilder.depth(${data.baseHeight}F);
         biomeBuilder.scale(${data.heightVariation}F);
         biomeBuilder.category(Biome.Category.${data.biomeCategory});
-        biomeBuilder.precipitation(Biome.RainType.<#if (data.rainingPossibility > 0)><#if (data.temperature > 0.15)>RAIN<#else>SNOW</#if><#else>NONE</#if>);
+        biomeBuilder.precipitation(Biome.Precipitation.<#if (data.rainingPossibility > 0)><#if (data.temperature > 0.15)>RAIN<#else>SNOW</#if><#else>NONE</#if>);
         theBiome = biomeBuilder.build();
     }
 }

@@ -1,6 +1,7 @@
-_default: EntityClassification.MONSTER
-monster: EntityClassification.MONSTER
-creature: EntityClassification.CREATURE
-ambient: EntityClassification.AMBIENT
-waterCreature: EntityClassification.AQUATIC
-misc: EntityClassification.MISC
+_default: SpawnGroup.MONSTER
+monster: SpawnGroup.MONSTER
+creature: SpawnGroup.CREATURE
+ambient: SpawnGroup.AMBIENT
+waterCreature: SpawnGroup.WATER_CREATURE
+waterAmbient: SpawnGroup.WATER_AMBIENT
+misc: SpawnGroup.MISC
