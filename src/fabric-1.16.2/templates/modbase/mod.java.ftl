@@ -25,6 +25,7 @@ import ${package}.procedures.*;
 import ${package}.item.*;
 import ${package}.block.*;
 import ${package}.server.*;
+import ${package}.world.*;
 
 public class ${JavaModName} implements ModInitializer {
 
@@ -95,6 +96,10 @@ public class ${JavaModName} implements ModInitializer {
 
 		<#list w.getElementsOfType("CODE") as code>
 			${code}CustomCode.initialize();
+		</#list>
+
+		<#list w.getElementsOfType("BIOME") as biome>
+			${biome}Biome.init();
 		</#list>
 
 		<#list sounds as sound>
