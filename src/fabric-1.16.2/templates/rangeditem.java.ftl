@@ -53,19 +53,6 @@ public static class ${name}RangedItem extends Item {
     }
     </#if>
 
-    <#if hasProcedure(data.onEntitySwing)>
-    @Override
-    public boolean onEntitySwing(ItemStack itemstack, LivingEntity entity) {
-        boolean retval = super.onEntitySwing(itemstack, entity);
-        double x = entity.getPosX();
-        double y = entity.getPosY();
-        double z = entity.getPosZ();
-        World world = entity.world;
-        <@procedureOBJToCode data.onEntitySwing/>
-        return retval;
-    }
-    </#if>
-
     public int getMaxUseTime(ItemStack stack) {
         return 72000;
     }
