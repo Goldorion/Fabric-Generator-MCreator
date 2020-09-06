@@ -61,8 +61,12 @@ public class ${JavaModName} implements ModInitializer {
 	public static final Item ${item}_ITEM = Registry.register(Registry.ITEM, id("${item.getRegistryName()}"), new ${item}Item());
 </#list>
 
+<#list w.getElementsOfType("RANGEDITEM") as item>
+	public static final Item ${item}_ITEM = Registry.register(Registry.ITEM, id("${item.getRegistryName()}"), new ${item}RangedItem());
+</#list>
+
 <#list w.getElementsOfType("MUSICDISC") as disc>
-	public static final Item ${disc}_DISC = Registry.register(Registry.ITEM, id("${disc.getRegistryName()}"), new ${disc}MusicDisc());
+	public static final Item ${disc}_ITEM = Registry.register(Registry.ITEM, id("${disc.getRegistryName()}"), new ${disc}MusicDisc());
 </#list>
 
 <#list w.getElementsOfType("TAB") as group>
