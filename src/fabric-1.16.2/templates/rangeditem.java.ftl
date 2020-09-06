@@ -23,13 +23,27 @@ package ${package}.item;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
+import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
+import net.fabricmc.loader.api.FabricLoader;
 
-public static class ${name}RangedItem extends Item {
-    public RangedItem() {
+public class ${name}RangedItem extends Item {
+    public static final EntityType<CustomProjectileEntity> ENTITY_TYPE = Registry.register(
+            Registry.ENTITY_TYPE,
+            new Identifier("${modid}", "${registryname}_projectile"),
+            FabricEntityTypeBuilder.<CustomProjectileEntity>create(SpawnGroup.MISC, CustomProjectileEntity::new).dimensions(EntityDimensions.fixed(0.5F, 0.5F)).build()
+    );
+
+    public ${name}RangedItem() {
         super(new Item.Settings()
         .group(${data.creativeTab})
 					<#if data.usageCount != 0>.maxDamage(${data.usageCount})
                     <#else>.maxCount(${data.stackSize})</#if>);
+        if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
+            EntityRendererRegistry.INSTANCE.register(ENTITY_TYPE, (dispatcher, context) -> {
+                return new FlyingItemEntityRenderer(dispatcher, MinecraftClient.getInstance().getItemRenderer());
+            });
+        }
     }
 
     @Override
@@ -40,7 +54,7 @@ public static class ${name}RangedItem extends Item {
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         user.setCurrentHand(hand);
-        return TypedActionResult.success(user.getHeldItem(hand));
+        return TypedActionResult.success(user.getStackInHand(hand));
     }
 
     <#if data.specialInfo?has_content>
@@ -82,7 +96,8 @@ public static class ${name}RangedItem extends Item {
     </#if>
 
     <#if data.shootConstantly>
-	@Override public void usageTick(World world, ItemStack itemstack, LivingEntity entityLiving, int count) {
+	@Override
+    public void usageTick(World world, LivingEntity entityLiving, ItemStack itemstack, int remainingUseTicks) {
 	    if (!world.isClient() && entityLiving instanceof ServerPlayerEntity) {
 	        ServerPlayerEntity entity = (ServerPlayerEntity) entityLiving;
 	        double x = entity.getX();
@@ -126,18 +141,18 @@ public static class ${name}RangedItem extends Item {
         @Environment(EnvType.CLIENT)
         public ItemStack getStack() {
 			<#if !data.bulletItemTexture.isEmpty()>
-			return ${mappedMCItemToItemStackCode(data.bulletItemTexture, 1)};
+			return new ItemStack(${mappedMCItemToItemStackCode(data.bulletItemTexture, 1)});
             <#else>
-			return null;
+			return ItemStack.EMPTY;
             </#if>
         }
 
         @Override
         protected ItemStack asItemStack() {
 			<#if !data.ammoItem.isEmpty()>
-			return ${mappedMCItemToItemStackCode(data.ammoItem, 1)};
+			return new ItemStack(${mappedMCItemToItemStackCode(data.ammoItem, 1)});
             <#else>
-			return null;
+			return ItemStack.EMPTY;
             </#if>
         }
 
@@ -185,7 +200,7 @@ public static class ${name}RangedItem extends Item {
     }
 
     public static CustomProjectileEntity shoot(World world, LivingEntity entity, Random random, float power, double damage, int knockback) {
-        CustomProjectileEntity arrow = new CustomProjectileEntity(arrow, entity, world);
+        CustomProjectileEntity arrow = new CustomProjectileEntity(ENTITY_TYPE, entity, world);
         arrow.setVelocity(entity.getRotationVector().x, entity.getRotationVector().y, entity.getRotationVector().z, power * 2, 0);
         arrow.setSilent(true);
         arrow.setCritical(${data.bulletParticles});
@@ -199,17 +214,17 @@ public static class ${name}RangedItem extends Item {
         double x = entity.getX();
         double y = entity.getY();
         double z = entity.getZ();
-        world.playSound((PlayerEntity) null, (double) x, (double) y, (double) z, (net.minecraft.util.SoundEvent) Registry.SOUND_EVENT.get(new Identifier("${data.actionSound}")), SoundCategory.PLAYERS, 1, 1F / (random.nextFloat() * 0.5F + 1) + (power / 2));
+        world.playSound((PlayerEntity) null, (double) x, (double) y, (double) z, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1, 1F / (random.nextFloat() * 0.5F + 1) + (power / 2));
 
         return arrow;
     }
 
     public static CustomProjectileEntity shoot(LivingEntity entity, LivingEntity target) {
-        CustomProjectileEntity arrow = new CustomProjectileEntity(arrow, entity, entity.world);
+        CustomProjectileEntity arrow = new CustomProjectileEntity(ENTITY_TYPE, entity, entity.world);
         double d0 = target.getX() + (double) target.getStandingEyeHeight() - 1.1;
         double d1 = target.getY() - entity.getX();
         double d3 = target.getZ() - entity.getZ();
-        arrow.setVelocity(d1, d0 - arrow.getPosY() + (double) MathHelper.sqrt(d1 * d1 + d3 * d3) * 0.2F, d3, ${data.bulletPower}f * 2, 12.0F);
+        arrow.setVelocity(d1, d0 - arrow.getY() + (double) MathHelper.sqrt(d1 * d1 + d3 * d3) * 0.2F, d3, ${data.bulletPower}f * 2, 12.0F);
 
         arrow.setSilent(true);
         arrow.setDamage(${data.bulletDamage});
@@ -218,12 +233,12 @@ public static class ${name}RangedItem extends Item {
 		<#if data.bulletIgnitesFire>
 			arrow.setOnFireFor(100);
         </#if>
-        entity.world.addEntity(arrow);
+        entity.world.spawnEntity(arrow);
 
-        double x = entity.getPosX();
-        double y = entity.getPosY();
-        double z = entity.getPosZ();
-        entity.world.playSound((PlayerEntity) null, (double) x, (double) y, (double) z, (net.minecraft.util.SoundEvent) Registry.SOUND_EVENT.getValue(new Identifier("${data.actionSound}")), SoundCategory.PLAYERS, 1, 1F / (new Random().nextFloat() * 0.5F + 1));
+        double x = entity.getX();
+        double y = entity.getY();
+        double z = entity.getZ();
+        entity.world.playSound((PlayerEntity) null, (double) x, (double) y, (double) z, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1, 1F / (new Random().nextFloat() * 0.5F + 1));
 
         return arrow;
     }
@@ -231,35 +246,35 @@ public static class ${name}RangedItem extends Item {
 
 <#macro arrowShootCode>
     <#if !data.ammoItem.isEmpty()>
-	ItemStack stack = RangedWeaponItem.getHeldProjectile(entity, e -> e.getItem() == ${mappedMCItemToItem(data.ammoItem)});
+	ItemStack stack = RangedWeaponItem.getHeldProjectile(entity, e -> e.getItem() == new ItemStack(${mappedMCItemToItem(data.ammoItem)}).getItem());
 
 	if(stack == ItemStack.EMPTY) {
-            for (int i = 0; i < entity.inventory.mainInventory.size(); i++) {
+            for (int i = 0; i < entity.inventory.main.size(); i++) {
 			ItemStack teststack = entity.inventory.main.get(i);
-			if(teststack != null && teststack.getItem() == ${mappedMCItemToItem(data.ammoItem)}) {
+			if(teststack != null && teststack.getItem() == new ItemStack(${mappedMCItemToItem(data.ammoItem)}).getItem()) {
 				stack = teststack;
 				break;
 			}
 		}
 	}
 
-	if (entity.abilities.isCreativeMode || stack != ItemStack.EMPTY) {
+	if (entity.abilities.creativeMode || stack != ItemStack.EMPTY) {
     </#if>
 
-	CustomProjectileEntity entityarrow = shoot(world, entity, random, ${data.bulletPower}f, ${data.bulletDamage}, ${data.bulletKnockback});
+	CustomProjectileEntity entityarrow = shoot(world, entity, new Random(31100L), ${data.bulletPower}f, ${data.bulletDamage}, ${data.bulletKnockback});
 
-	itemstack.damageItem(1, entity, e -> e.sendBreakAnimation(entity.getActiveHand()));
+	itemstack.damage(1, entity, e -> e.sendToolBreakStatus(entity.getActiveHand()));
 
     <#if !data.ammoItem.isEmpty()>
-	if (entity.abilities.isCreativeMode) {
+	if (entity.abilities.creativeMode) {
 		entityarrow.pickupType = PersistentProjectileEntity.PickupPermission.CREATIVE_ONLY;
 	} else {
-		if (${mappedMCItemToItemStackCode(data.ammoItem, 1)}.isDamageable()){
-			if (stack.damage(1, random, entity)) {
+		if (new ItemStack(${mappedMCItemToItemStackCode(data.ammoItem, 1)}).isDamageable()){
+			if (stack.damage(1, new Random(31100L), entity)) {
 				stack.decrement(1);
 				stack.setDamage(0);
             	if (stack.isEmpty())
-               		entity.removeOne.(stack);
+               		entity.inventory.removeOne(stack);
 			}
 		} else{
 			stack.decrement(1);
