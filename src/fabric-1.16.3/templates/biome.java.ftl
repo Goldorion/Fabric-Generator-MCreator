@@ -26,6 +26,7 @@ public class ${name}Biome {
 
     public static void init() {
         Registry.register(BuiltinRegistries.BIOME, BIOME_KEY.getValue(), theBiome);
+        BuiltinBiomesAccessor.getRawIdMap().put(BuiltinRegistries.BIOME.getRawId(theBiome), BIOME_KEY);
     }
 
     private static int getSkyColor(float temperature) {
