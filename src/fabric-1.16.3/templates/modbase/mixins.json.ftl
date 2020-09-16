@@ -1,6 +1,6 @@
 {
   "required": true,
-  "package": "net.fabricmc.fabric.mixin.biome",
+  "package": "${package}.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "SetBaseBiomesLayerAccessor",

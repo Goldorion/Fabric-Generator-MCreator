@@ -106,7 +106,7 @@ public class ${JavaModName} implements ModInitializer {
 </#list>
 
 	public void onInitialize() {
-		LOGGER.info("[${JavaModName}] Initializing");
+		LOGGER.info("Initializing ${JavaModName}");
 	<#list w.getElementsOfType("FUEL") as fuel>
 		${fuel}Fuel.initialize();
 	</#list>
