@@ -29,7 +29,7 @@ public class ${name}Biome {
     public static final RegistryKey<Biome> BIOME_KEY = RegistryKey.of(Registry.BIOME_KEY, new Identifier("${modid}", "${registryname}"));
 
     public static void init() {
-        Registry.register(BuiltinRegistries.CONFIGURED_SURFACE_BUILDER, BIOME_KEY.getValue(), OBSIDIAN_SURFACE_BUILDER);
+        Registry.register(BuiltinRegistries.CONFIGURED_SURFACE_BUILDER, BIOME_KEY.getValue(), SURFACE_BUILDER);
         BiomeEffects.Builder effectsBuilder = new BiomeEffects.Builder();
         <#if data.waterColor?has_content>
             effectsBuilder.waterColor(${data.waterColor.getRGB()}).waterFogColor(${data.waterColor.getRGB()});
