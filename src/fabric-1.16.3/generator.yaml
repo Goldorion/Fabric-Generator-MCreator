@@ -25,9 +25,21 @@ base_templates:
 - template: modbase/mod.java.ftl
   name: "@SRCROOT/@BASEPACKAGEPATH/@JavaModName.java"
   canLock: true
+- template: modbase/builtinbiomes.java.ftl
+  name: "@SRCROOT/@BASEPACKAGEPATH/mixin/BuiltinBiomesAccessor.java"
+  canLock: true
+- template: modbase/setbasebiomelayers.java.ftl
+  name: "@SRCROOT/@BASEPACKAGEPATH/mixin/SetBaseBiomesLayerAccessor.java"
+  canLock: true
+- template: modbase/vanillalayeredbiomesource.java.ftl
+  name: "@SRCROOT/@BASEPACKAGEPATH/mixin/VanillaLayeredBiomeSourceAccessor.java"
+  canLock: true
 - template: modbase/client.java.ftl
   name: "@SRCROOT/@BASEPACKAGEPATH/ClientInit.java"
   canLock: true
+- template: modbase/mixins.json.ftl
+  writer: json
+  name: "@RESROOT/modid.mixins.json"
 - template: modbase/listener.java.ftl
   name: "@SRCROOT/@BASEPACKAGEPATH/IListener.java"
   canLock: true

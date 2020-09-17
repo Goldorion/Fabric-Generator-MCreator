@@ -20,21 +20,16 @@ along with MCreatorFabricGenerator.  If not, see <https://www.gnu.org/licenses/>
 
 package ${package}.world;
 
+import ${package}.mixin;
+import org.apache.commons.lang3.ArrayUtils;
+
 public class ${name}Biome {
     private static Biome theBiome;
+    private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> SURFACE_BUILDER = SurfaceBuilder.DEFAULT.method_30478(new TernarySurfaceConfig(${mappedBlockToBlockStateCode(data.groundBlock)}, ${mappedBlockToBlockStateCode(data.undergroundBlock)}, ${mappedBlockToBlockStateCode(data.undergroundBlock)}));
     public static final RegistryKey<Biome> BIOME_KEY = RegistryKey.of(Registry.BIOME_KEY, new Identifier("${modid}", "${registryname}"));
 
     public static void init() {
-        Registry.register(BuiltinRegistries.BIOME, BIOME_KEY.getValue(), theBiome);
-    }
-
-    private static int getSkyColor(float temperature) {
-        float f = temperature / 3.0F;
-        f = MathHelper.clamp(f, -1.0F, 1.0F);
-        return MathHelper.hsvToRgb(0.62222224F - f * 0.05F, 0.5F + f * 0.1F, 1.0F);
-    }
-
-    static {
+        Registry.register(BuiltinRegistries.CONFIGURED_SURFACE_BUILDER, BIOME_KEY.getValue(), SURFACE_BUILDER);
         BiomeEffects.Builder effectsBuilder = new BiomeEffects.Builder();
         <#if data.waterColor?has_content>
             effectsBuilder.waterColor(${data.waterColor.getRGB()}).waterFogColor(${data.waterColor.getRGB()});
@@ -98,7 +93,7 @@ public class ${name}Biome {
 				genSettingsBuilder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.PLAIN_VEGETATION);
             </#if>
         </#if>
-        genSettingsBuilder.surfaceBuilder(SurfaceBuilder.DEFAULT.method_30478(new TernarySurfaceConfig(${mappedBlockToBlockStateCode(data.groundBlock)}, ${mappedBlockToBlockStateCode(data.undergroundBlock)}, ${mappedBlockToBlockStateCode(data.undergroundBlock)})));
+        genSettingsBuilder.surfaceBuilder(SURFACE_BUILDER);
 
         SpawnSettings.Builder spawnBuilder = new SpawnSettings.Builder();
         <#list data.spawnEntries as spawnEntry>
@@ -124,6 +119,18 @@ public class ${name}Biome {
         biomeBuilder.category(Biome.Category.${data.biomeCategory});
         biomeBuilder.precipitation(Biome.Precipitation.<#if (data.rainingPossibility > 0)><#if (data.temperature > 0.15)>RAIN<#else>SNOW</#if><#else>NONE</#if>);
         theBiome = biomeBuilder.build();
+        Registry.register(BuiltinRegistries.BIOME, BIOME_KEY.getValue(), theBiome);
+        BuiltinBiomesAccessor.getRawIdMap().put(BuiltinRegistries.BIOME.getRawId(theBiome), BIOME_KEY);
+        List<RegistryKey<Biome>> biomes = new ArrayList<>(VanillaLayeredBiomeSourceAccessor.getBiomes());
+        biomes.add(BIOME_KEY);
+        VanillaLayeredBiomeSourceAccessor.setBiomes(biomes);
+        SetBaseBiomesLayerAccessor.setTemperateBiomes(ArrayUtils.add(SetBaseBiomesLayerAccessor.getTemperateBiomes(), BuiltinRegistries.BIOME.getRawId(theBiome)));
+    }
+
+    private static int getSkyColor(float temperature) {
+        float f = temperature / 3.0F;
+        f = MathHelper.clamp(f, -1.0F, 1.0F);
+        return MathHelper.hsvToRgb(0.62222224F - f * 0.05F, 0.5F + f * 0.1F, 1.0F);
     }
 }
 <#-- @formatter:on -->

@@ -35,6 +35,9 @@
   "depends": {
     "fabricloader": ">=0.9.0",
     "fabric": "*"
-  }
+  },
+  "mixins": [
+     "modid.mixins.json"
+  ]
 }
 <#-- @formatter:on -->
