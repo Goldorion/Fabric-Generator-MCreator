@@ -7,7 +7,7 @@ gradle:
   setup_task: tasks
   run_client: runClient
   run_server: runServer
-  export_file: "build/libs/modid-1.0.0.jar"
+  export_file: "build/libs/@modid-1.0.0.jar"
 
 source_root: "@WORKSPACEROOT/src/main/java"
 res_root: "@WORKSPACEROOT/src/main/resources"
