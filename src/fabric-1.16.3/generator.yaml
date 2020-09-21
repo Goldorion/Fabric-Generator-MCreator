@@ -1,7 +1,7 @@
-name: Minecraft Fabric for 1.16.2 (@buildfileversion)
+name: Minecraft Fabric for 1.16.3 (1.0.0+pre.5)
 basefeatures: [model_json]
 status: dev
-buildfileversion: 1.0.0-alpha.5
+buildfileversion: 1.0.0+pre.5
 
 gradle:
   setup_task: tasks
@@ -25,21 +25,9 @@ base_templates:
 - template: modbase/mod.java.ftl
   name: "@SRCROOT/@BASEPACKAGEPATH/@JavaModName.java"
   canLock: true
-- template: modbase/builtinbiomes.java.ftl
-  name: "@SRCROOT/@BASEPACKAGEPATH/mixin/BuiltinBiomesAccessor.java"
-  canLock: true
-- template: modbase/setbasebiomelayers.java.ftl
-  name: "@SRCROOT/@BASEPACKAGEPATH/mixin/SetBaseBiomesLayerAccessor.java"
-  canLock: true
-- template: modbase/vanillalayeredbiomesource.java.ftl
-  name: "@SRCROOT/@BASEPACKAGEPATH/mixin/VanillaLayeredBiomeSourceAccessor.java"
-  canLock: true
 - template: modbase/client.java.ftl
   name: "@SRCROOT/@BASEPACKAGEPATH/ClientInit.java"
   canLock: true
-- template: modbase/mixins.json.ftl
-  writer: json
-  name: "@RESROOT/modid.mixins.json"
 - template: modbase/listener.java.ftl
   name: "@SRCROOT/@BASEPACKAGEPATH/IListener.java"
   canLock: true

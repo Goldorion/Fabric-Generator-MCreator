@@ -20,8 +20,7 @@ along with MCreatorFabricGenerator.  If not, see <https://www.gnu.org/licenses/>
 
 package ${package}.world;
 
-import ${package}.mixin;
-import org.apache.commons.lang3.ArrayUtils;
+import net.fabricmc.fabric.api.biome.v1.*;
 
 public class ${name}Biome {
     private static Biome theBiome;
@@ -120,11 +119,8 @@ public class ${name}Biome {
         biomeBuilder.precipitation(Biome.Precipitation.<#if (data.rainingPossibility > 0)><#if (data.temperature > 0.15)>RAIN<#else>SNOW</#if><#else>NONE</#if>);
         theBiome = biomeBuilder.build();
         Registry.register(BuiltinRegistries.BIOME, BIOME_KEY.getValue(), theBiome);
-        BuiltinBiomesAccessor.getRawIdMap().put(BuiltinRegistries.BIOME.getRawId(theBiome), BIOME_KEY);
-        List<RegistryKey<Biome>> biomes = new ArrayList<>(VanillaLayeredBiomeSourceAccessor.getBiomes());
         biomes.add(BIOME_KEY);
-        VanillaLayeredBiomeSourceAccessor.setBiomes(biomes);
-        SetBaseBiomesLayerAccessor.setTemperateBiomes(ArrayUtils.add(SetBaseBiomesLayerAccessor.getTemperateBiomes(), BuiltinRegistries.BIOME.getRawId(theBiome)));
+        OverworldBiomes.addContinentalBiome(BIOME_KEY, <#if (data.temperature < 0.5)>OverworldClimate.SNOWY<#elseif (data.temperature > 0.5 && data.temperature < 1.0)>COOL<#elseif (data.temperature > 3)>DRY<#else>TEMPERATE</#if>, ${data.biomeWeight});
     }
 
     private static int getSkyColor(float temperature) {
