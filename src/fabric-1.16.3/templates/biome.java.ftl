@@ -45,36 +45,58 @@ public class ${name}Biome {
         </#if>
 
         GenerationSettings.Builder genSettingsBuilder = new GenerationSettings.Builder();
-        DefaultBiomeFeatures.addDefaultOres(genSettingsBuilder);
-        DefaultBiomeFeatures.addLandCarvers(genSettingsBuilder);
-        DefaultBiomeFeatures.addDungeons(genSettingsBuilder);
-        DefaultBiomeFeatures.addDefaultUndergroundStructures(genSettingsBuilder);
-        <#if data.generateLakes>
-			DefaultBiomeFeatures.addDefaultLakes(genSettingsBuilder);
-        </#if>
-        <#if (data.flowersPerChunk > 0)>
-            DefaultBiomeFeatures.addDefaultFlowers(genSettingsBuilder);
-        </#if>
-        <#if (data.grassPerChunk > 0)>
-            DefaultBiomeFeatures.addDefaultGrass(genSettingsBuilder);
-        </#if>
-        <#if (data.mushroomsPerChunk > 0)>
-      		DefaultBiomeFeatures.addDefaultMushrooms(genSettingsBuilder);
-        </#if>
-        <#if (data.bigMushroomsChunk > 0)>
-			DefaultBiomeFeatures.addMushroomFieldsFeatures(genSettingsBuilder);
-        </#if>
-        <#if (data.reedsPerChunk > 0)>
-			DefaultBiomeFeatures.addDefaultVegetation(genSettingsBuilder);
-        <#elseif (data.cactiPerChunk > 0)>
-            DefaultBiomeFeatures.addDesertVegetation(genSettingsBuilder);
-        </#if>
-        <#if (data.sandPathcesPerChunk > 0)>
-			genSettingsBuilder.feature(GenerationStep.Feature.UNDERGROUND_ORES, ConfiguredFeatures.DISK_SAND);
-        </#if>
-        <#if (data.gravelPatchesPerChunk > 0)>
-			genSettingsBuilder.feature(GenerationStep.Feature.UNDERGROUND_ORES, ConfiguredFeatures.DISK_GRAVEL);
-        </#if>
+        <#list data.defaultFeatures as defaultFeature>
+			DefaultBiomeFeatures.add${generator.map(defaultFeature, "defaultfeatures")}(genSettingsBuilder);
+        </#list>
+
+            <#if data.spawnStronghold>
+			genSettingsBuilder.structureFeature(ConfiguredStructureFeatures.STRONGHOLD);
+			</#if>
+
+			<#if data.spawnMineshaft>
+			genSettingsBuilder.structureFeature(ConfiguredStructureFeatures.MINESHAFT);
+            </#if>
+
+			<#if data.spawnPillagerOutpost>
+			genSettingsBuilder.structureFeature(ConfiguredStructureFeatures.PILLAGER_OUTPOST);
+            </#if>
+
+        <#--TODO: Add villages
+        -->
+<#--			<#if data.villageType != "none">-->
+<#--			genSettingsBuilder.structureFeature(ConfiguredStructureFeatures.VILLAGE.withConfiguration(new VillageConfig("village/${data.villageType}/town_centers", 6)));-->
+<#--            </#if>-->
+
+			<#if data.spawnWoodlandMansion>
+			genSettingsBuilder.structureFeature(ConfiguredStructureFeatures.MANSION);
+            </#if>
+
+			<#if data.spawnJungleTemple>
+			genSettingsBuilder.structureFeature(ConfiguredStructureFeatures.JUNGLE_PYRAMID);
+            </#if>
+
+			<#if data.spawnDesertPyramid>
+			genSettingsBuilder.structureFeature(ConfiguredStructureFeatures.DESERT_PYRAMID);
+            </#if>
+
+			<#if data.spawnIgloo>
+			genSettingsBuilder.structureFeature(ConfiguredStructureFeatures.IGLOO);
+            </#if>
+
+			<#if data.spawnOceanMonument>
+			genSettingsBuilder.structureFeature(ConfiguredStructureFeatures.MONUMENT);
+            </#if>
+
+			<#if data.spawnShipwreck>
+			genSettingsBuilder.structureFeature(ConfiguredStructureFeatures.SHIPWRECK);
+            </#if>
+
+        <#--TODO: Add ocean ruins
+        -->
+<#--			<#if data.oceanRuinType != "NONE">-->
+<#--			genSettingsBuilder.structureFeature(ConfiguredStructureFeatures.OCEAN_RUIN.withConfiguration(new OceanRuinConfig(OceanRuinStructure.Type.${data.oceanRuinType}, 0.3F, 0.9F)));-->
+<#--            </#if>-->
+
         <#if (data.treesPerChunk > 0)>
             <#if data.treeType == data.TREES_CUSTOM>
 				System.err.println("Custom Trees are not supported yet by MCreatorFabricGenerator! Please consider changing the tree type in the biome \"${modid}:${registryname}\"");
