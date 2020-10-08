@@ -31,10 +31,15 @@ public class ${name}Biome {
         Registry.register(BuiltinRegistries.CONFIGURED_SURFACE_BUILDER, BIOME_KEY.getValue(), SURFACE_BUILDER);
         BiomeEffects.Builder effectsBuilder = new BiomeEffects.Builder();
         <#if data.waterColor?has_content>
-            effectsBuilder.waterColor(${data.waterColor.getRGB()}).waterFogColor(${data.waterColor.getRGB()});
-        <#else>
-            effectsBuilder.waterColor(4159204).waterFogColor(329011);
-        </#if>
+            effectsBuilder.waterColor(${data.waterColor.getRGB()});
+				<#else>
+				    effectsBuilder.waterColor(4159204);
+				</#if>
+				<#if data.waterFogColor?has_content>
+				effectsBuilder.waterFogColor(${data.waterFogColor.getRGB()});
+				<#else>
+				effectsBuilder.waterFogColor(329011);
+				</#if>
         <#if data.airColor?has_content>
             effectsBuilder.skyColor(${data.airColor.getRGB()}).fogColor(${data.airColor.getRGB()});
         <#else>
