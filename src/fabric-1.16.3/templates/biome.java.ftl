@@ -46,7 +46,10 @@ public class ${name}Biome {
             effectsBuilder.skyColor(getSkyColor(${data.temperature}F)).fogColor(12638463);
         </#if>
         <#if data.grassColor?has_content>
-            effectsBuilder.grassColor(${data.grassColor.getRGB()}).foliageColor(${data.grassColor.getRGB()});
+            effectsBuilder.grassColor(${data.grassColor.getRGB()});
+        </#if>
+        <#if data.foliageColor?has_content>
+            effectsBuilder.foliageColor(${data.foliageColor.getRGB()});
         </#if>
 
         GenerationSettings.Builder genSettingsBuilder = new GenerationSettings.Builder();
