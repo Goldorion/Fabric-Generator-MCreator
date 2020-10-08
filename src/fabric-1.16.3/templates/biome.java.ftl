@@ -141,8 +141,7 @@ public class ${name}Biome {
         biomeBuilder.precipitation(Biome.Precipitation.<#if (data.rainingPossibility > 0)><#if (data.temperature > 0.15)>RAIN<#else>SNOW</#if><#else>NONE</#if>);
         theBiome = biomeBuilder.build();
         Registry.register(BuiltinRegistries.BIOME, BIOME_KEY.getValue(), theBiome);
-        biomes.add(BIOME_KEY);
-        OverworldBiomes.addContinentalBiome(BIOME_KEY, <#if (data.temperature < 0.5)>OverworldClimate.SNOWY<#elseif (data.temperature > 0.5 && data.temperature < 1.0)>COOL<#elseif (data.temperature > 3)>DRY<#else>TEMPERATE</#if>, ${data.biomeWeight});
+        OverworldBiomes.addContinentalBiome(BIOME_KEY, OverworldClimate.<#if (data.temperature < 0.5)>SNOWY<#elseif (data.temperature > 0.5 && data.temperature < 1.0)>COOL<#elseif (data.temperature > 3)>DRY<#else>TEMPERATE</#if>, ${data.biomeWeight});
     }
 
     private static int getSkyColor(float temperature) {
