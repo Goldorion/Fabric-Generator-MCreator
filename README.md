@@ -37,7 +37,6 @@ Pre-built binaries can be found on the [Release page of this repository](https:/
 Install like any other plugin: Launch MCreator -> Open preferences -> Manage plugins -> Load Plugin -> Find your downloaded zip file -> **Restart MCreator**.
 
 ## Important Information
-- **The plugin requires [ClothCommons](https://github.com/ClothCreators/ClothCommons) to be able to work properly.**
 - Make sure you use the latest Mcreator 2020.4 snapshot
 - Back up your workspace before updating to a newer version of the plugin.
 - Mods will also require [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api) to function properly, so when you want to play your mod, make sure you have fabric api.
