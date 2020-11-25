@@ -1,4 +1,4 @@
-name: Minecraft Fabric for 1.16.3 (1.0.0+pre.6)
+name: Minecraft Fabric for 1.16.3 (@buildfileversion)
 basefeatures: [model_json]
 status: dev
 buildfileversion: 1.0.0+pre.6
@@ -7,7 +7,7 @@ gradle:
   setup_task: tasks
   run_client: runClient
   run_server: runServer
-  export_file: "build/libs/@modid-1.0.0.jar"
+  export_file: "build/libs/modid-1.0.0.jar"
 
 source_root: "@WORKSPACEROOT/src/main/java"
 res_root: "@WORKSPACEROOT/src/main/resources"
