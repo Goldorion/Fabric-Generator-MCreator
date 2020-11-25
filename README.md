@@ -3,6 +3,8 @@ A plugin for [MCreator](https://mcreator.net/), a code generator to create Minec
 
 This project is not official. It is not affiliated with the respective owners and maintainers of Fabric, Minecraft, or MCreator. Do not expect any official support from their communities.
 
+**The Current Targetted Minecraft Version is 20w46a**
+
 ## Features
 * Advancements
 * Armor
