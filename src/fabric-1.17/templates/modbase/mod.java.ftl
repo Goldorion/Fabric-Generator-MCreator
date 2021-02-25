@@ -43,6 +43,7 @@ import ${package}.item.*;
 import ${package}.block.*;
 import ${package}.server.*;
 import ${package}.world.*;
+import ${package}.potion.*;
 
 public class ${JavaModName} implements ModInitializer {
 
@@ -103,6 +104,14 @@ public class ${JavaModName} implements ModInitializer {
 
 <#list w.getElementsOfType("TOOL") as tool>
 	public static final Item ${tool}_TOOL = Registry.register(Registry.ITEM, id("${tool.getRegistryName()}"), ${tool}Tool.INSTANCE);
+</#list>
+
+<#list w.getElementsOfType("POTION") as potion>
+	<#assign ge = potion.getGeneratableElement()>
+	public static final StatusEffect ${potion}_STATUS_EFFECT = Registry.register(Registry.STATUS_EFFECT, id("${potion.getRegistryName()}"), ${potion}Effect.INSTANCE);
+	<#if ge.registerPotionType>
+	public static final Potion ${potion}_POTION = Registry.register(Registry.POTION, id("${potion.getRegistryName()}_potion"), ${potion}Effect.POTION_INSTANCE);
+	</#if>
 </#list>
 
 	public void onInitialize() {
