@@ -246,8 +246,8 @@ public class ${name}Block extends <#if data.hasGravity> FallingBlock <#else> Blo
 
     <#if generator.map(data.colorOnMap, "mapcolors") != "DEFAULT">
 		@Override
-        public MaterialColor getDefaultMaterialColor() {
-            return MaterialColor.${generator.map(data.colorOnMap, "mapcolors")};
+        public MapColor getDefaultMapColor() {
+            return MapColor.${generator.map(data.colorOnMap, "mapcolors")};
         }
     </#if>
 
