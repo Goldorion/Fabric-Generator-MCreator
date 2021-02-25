@@ -71,7 +71,7 @@ public class ${name}Tool {
 <#if data.toolType=="Special">
     public static class CustomToolItem extends Item {
         public CustomToolItem() {
-            super(new FabricItemSettings().group(${data.creativeTab}).maxDamage(${data.usageCount}));
+            super(new FabricItemSettings().group(${data.creativeTab}).maxDamage(${data.usageCount})<#if data.immuneToFire>.fireproof()</#if>);
         }
 
         @Override
@@ -113,7 +113,7 @@ public class ${name}Tool {
 <#elseif data.toolType=="MultiTool">
     public static class CustomToolItem extends Item {
         public CustomToolItem() {
-            super(new FabricItemSettings().group(${data.creativeTab}).maxDamage(${data.usageCount}));
+            super(new FabricItemSettings().group(${data.creativeTab}).maxDamage(${data.usageCount})<#if data.immuneToFire>.fireproof()</#if>);
         }
 
         @Override
@@ -156,8 +156,8 @@ public class ${name}Tool {
 </#if>
 
     public static final Item INSTANCE = new
-<#if data.toolType == "Pickaxe" || data.toolType == "Axe" || data.toolType == "Sword" || data.toolType == "Spade" || data.toolType == "Hoe">${data.toolType.toString().replace("Spade", "Shovel")}Item(${name?upper_case}_TOOL_MATERIAL, ${data.attackSpeed - 4}, ${data.attackSpeed - 4}, (new FabricItemSettings().group(${data.creativeTab})))
-<#elseif data.toolType == "Shears">ShearsItem((new FabricItemSettings().group(${data.creativeTab})))
+<#if data.toolType == "Pickaxe" || data.toolType == "Axe" || data.toolType == "Sword" || data.toolType == "Spade" || data.toolType == "Hoe">${data.toolType.toString().replace("Spade", "Shovel")}Item(${name?upper_case}_TOOL_MATERIAL, ${data.attackSpeed - 4}, ${data.attackSpeed - 4}, (new FabricItemSettings().group(${data.creativeTab})<#if data.immuneToFire>.fireproof()</#if>))
+<#elseif data.toolType == "Shears">ShearsItem((new FabricItemSettings().group(${data.creativeTab})<#if data.immuneToFire>.fireproof()</#if>))
 <#else>CustomToolItem()</#if>{
 
         <#if data.toolType == "Shears">
