@@ -156,7 +156,7 @@ public class ${name}Tool {
 </#if>
 
     public static final Item INSTANCE = new
-<#if data.toolType == "Pickaxe" || data.toolType == "Axe" || data.toolType == "Sword" || data.toolType == "Spade" || data.toolType == "Hoe">${data.toolType.toString().replace("Spade", "Shovel")}Item(${name?upper_case}_TOOL_MATERIAL, ${data.attackSpeed - 4}, ${data.attackSpeed - 4}, (new FabricItemSettings().group(${data.creativeTab})<#if data.immuneToFire>.fireproof()</#if>))
+<#if data.toolType == "Pickaxe" || data.toolType == "Axe" || data.toolType == "Sword" || data.toolType == "Spade" || data.toolType == "Hoe">${data.toolType.toString().replace("Spade", "Shovel")}Item(${name?upper_case}_TOOL_MATERIAL, 0, (float) ${data.attackSpeed - 4}, (new FabricItemSettings().group(${data.creativeTab})<#if data.immuneToFire>.fireproof()</#if>))
 <#elseif data.toolType == "Shears">ShearsItem((new FabricItemSettings().group(${data.creativeTab})<#if data.immuneToFire>.fireproof()</#if>))
 <#else>CustomToolItem()</#if>{
 
