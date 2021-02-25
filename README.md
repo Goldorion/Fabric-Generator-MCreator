@@ -3,7 +3,7 @@ A plugin for [MCreator](https://mcreator.net/), a code generator to create Minec
 
 This project is not official. It is not affiliated with the respective owners and maintainers of Fabric, Minecraft, or MCreator. Do not expect any official support from their communities.
 
-**The Current Targetted Minecraft Version is 20w46a**
+**The Current Targetted Minecraft Version is 21w08b**
 
 ## Features
 * Advancements
@@ -24,6 +24,7 @@ This project is not official. It is not affiliated with the respective owners an
 * Overlay
 * Plants
 * Procedures (77 procedure blocks, and 4 global triggers)
+* Potions
 * Recipes
 * Tags
 * Tools
@@ -33,7 +34,7 @@ This project is not official. It is not affiliated with the respective owners an
 - Run `./gradlew build` to get the zip file in `build/`, or run `./gradlew install` to directly build and install the plugin to the mcreator plugin folder
 
 ## Installation Instructions
-Pre-built binaries can be found on the [Release page of this repository](https://github.com/Goldorion/MCreatorFabricGenerator/releases).
+Pre-built binaries can be found on the [Release page of this repository](https://github.com/ClothCreators/MCreatorFabricGenerator/releases).
 
 Install like any other plugin: Launch MCreator -> Open preferences -> Manage plugins -> Load Plugin -> Find your downloaded zip file -> **Restart MCreator**.
 
