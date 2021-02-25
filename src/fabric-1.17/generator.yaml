@@ -1,7 +1,7 @@
-name: Minecraft Fabric for 21w08a (@buildfileversion)
+name: Minecraft Fabric for 21w08b (@buildfileversion)
 basefeatures: [model_json]
 status: dev
-buildfileversion: 0.11.1
+buildfileversion: 0.11.2
 
 gradle:
   setup_task: tasks
