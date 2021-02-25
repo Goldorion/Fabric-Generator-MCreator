@@ -65,7 +65,9 @@ public class ${name}Effect extends StatusEffect {
 	public static final StatusEffect INSTANCE = new ${name}Effect() {
 	};
 
+	<#if data.registerPotionType>
 	public static final Potion POTION_INSTANCE = new ${name}Potion() {
 	};
+	</#if>
 }
 <#-- @formatter:on -->
