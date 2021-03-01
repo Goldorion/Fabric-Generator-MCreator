@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '0.4-SNAPSHOT'
+	id 'fabric-loom' version '0.5-SNAPSHOT'
 }
 
 sourceCompatibility = JavaVersion.VERSION_1_8
@@ -10,12 +10,12 @@ version = '1.0.0'
 group = 'com.yourname.modid'
 
 dependencies {
-	minecraft("com.mojang:minecraft:20w46a")
-	mappings("net.fabricmc:yarn:20w46a+build.23:v2")
-	modImplementation("net.fabricmc:fabric-loader:0.10.8")
-
-	//Fabric api
-	modImplementation("net.fabricmc.fabric-api:fabric-api:0.26.3+1.17")
+    minecraft "com.mojang:minecraft:21w08b"
+    mappings "net.fabricmc:yarn:21w08b+build.1:v2"
+    modImplementation "net.fabricmc:fabric-loader:0.11.2"
+            
+    //Fabric api
+    modImplementation "net.fabricmc.fabric-api:fabric-api:0.31.1+1.17"
 }
 
 processResources {

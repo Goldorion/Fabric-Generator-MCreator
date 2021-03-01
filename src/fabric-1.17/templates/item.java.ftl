@@ -46,6 +46,9 @@ public class ${name}Item extends Item {
             .maxDamage(${data.damageCount})
         <#else>.maxCount(${data.stackSize})
         </#if>
+	<#if data.immuneToFire>
+	    .fireproof()
+	</#if>
         );
     }
 
