@@ -17,6 +17,7 @@ along with MCreatorFabricGenerator.  If not, see <https://www.gnu.org/licenses/>
 
 <#-- @formatter:off -->
 <#include "procedures.java.ftl">
+<#include "mcitems.ftl">
 
 package ${package}.item;
 
@@ -55,9 +56,9 @@ public class ${name}Tool {
         @Override
         public Ingredient getRepairIngredient() {
             <#if data.repairItems?has_content>
-					return Ingredient.ofStacks(
+					return Ingredient.ofItems(
 							<#list data.repairItems as repairItem>
-                                ${mappedMCItemToItemStackCode(repairItem,1)}<#if repairItem?has_next>,</#if>
+                                ${mappedMCItemToItemStackCodeNoItemStackValue(repairItem)?replace("Blocks.", "Items.")}<#if repairItem?has_next>,</#if>
                             </#list>
                     );
             <#else>
