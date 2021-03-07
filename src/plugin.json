@@ -1,10 +1,11 @@
 {
   "id": "generator-fabric-1.17",
-  "minversion": 202000400000,
+  "minversion": 202100103117,
   "info": {
     "name": "Minecraft Fabric 1.17 Generator",
-    "version": "1.1.0+alpha.1",
+    "version": "1.0",
     "description": "A Fabric Generator",
-    "author": "Goldorion and BoogieMonster1O1 with the help of CrispyChips"
+    "author": "Goldorion, BoogieMonster1O1 with the help of CrispyChips",
+    "credits": "Thank you to CrispyChips, Klemen, U1timateJ7"
   }
 }

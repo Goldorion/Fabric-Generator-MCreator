@@ -27,7 +27,7 @@ public class ${name}Command {
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(CommandManager.literal("${data.commandName}")
-                .requires(s -> s.hasPermissionLevel(${data.permissionLevel}))
+                <#if data.permissionLevel != "No requirement">.requires(s -> s.hasPermissionLevel(${data.permissionLevel}))</#if>
         .then(CommandManager.argument("arguments", StringArgumentType.greedyString())
 			<#if hasProcedure(data.onCommandExecuted)>
             .executes(${name}Command::execute)
@@ -42,9 +42,9 @@ public class ${name}Command {
     private static int execute(CommandContext<ServerCommandSource> ctx) {
         ServerWorld world = ctx.getSource().getWorld();
 
-        double x = ctx.getSource().getPos().getX();
-        double y = ctx.getSource().getPos().getY();
-        double z = ctx.getSource().getPos().getZ();
+        double x = ctx.getSource().getPosition().getX();
+        double y = ctx.getSource().getPosition().getY();
+        double z = ctx.getSource().getPosition().getZ();
 
         Entity entity = ctx.getSource().getEntity();
 
