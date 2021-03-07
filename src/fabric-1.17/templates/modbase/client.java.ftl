@@ -47,11 +47,9 @@ public class ClientInit implements ClientModInitializer{
     <#list w.getElementsOfType("BLOCK") as block>
         <#assign ge = block.getGeneratableElement()>
         <#if ge.transparencyType == "CUTOUT">
-		BlockRenderLayerMap.INSTANCE.putBlock(block, RenderLayer.getCutout());
-        <#elseif ge.transparencyType == "CUTOUT_MIPPED">
-		BlockRenderLayerMap.INSTANCE.putBlock(block, RenderLayer.getCutoutMipped());
+		BlockRenderLayerMap.INSTANCE.putBlock(${block}_BLOCK, RenderLayer.getCutout());
         <#elseif ge.transparencyType == "TRANSLUCENT">
-		BlockRenderLayerMap.INSTANCE.putBlock(block, RenderLayer.getTranslucent());
+		BlockRenderLayerMap.INSTANCE.putBlock(${block}_BLOCK, RenderLayer.getTranslucent());
         </#if>
     </#list>
 
