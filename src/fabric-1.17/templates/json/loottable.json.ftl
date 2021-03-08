@@ -13,23 +13,90 @@
           },
           </#if>
           <#if pool.hasbonusrolls>
-            <#if pool.minbonusrolls == pool.maxbonusrolls>
+              <#if pool.minbonusrolls == pool.maxbonusrolls>
             "bonus_rolls": ${pool.minbonusrolls},
-            <#else>
+              <#else>
             "bonus_rolls": {
               "min": ${pool.minbonusrolls},
               "max": ${pool.maxbonusrolls}
             },
-            </#if>
+              </#if>
           </#if>
           "entries": [
             <#list pool.entries as entry>
               {
                 "type": "minecraft:${entry.type}",
                 "name": "${mappedMCItemToIngameNameNoTags(entry.item)}",
-                "weight": ${entry.weight}
+                "weight": ${entry.weight},
+                <#if entry.silkTouchMode == 1>
+                "conditions": [
+                  {
+                    "condition": "minecraft:match_tool",
+                    "predicate": {
+                      "enchantments": [
+                        {
+                          "enchantment": "minecraft:silk_touch",
+                          "levels": {
+                            "min": 1
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ],
+                <#elseif entry.silkTouchMode == 2>
+                "conditions": [
+                  {
+                    "condition": "minecraft:inverted",
+                    "term": {
+                      "condition": "minecraft:match_tool",
+                      "predicate": {
+                        "enchantments": [
+                          {
+                            "enchantment": "minecraft:silk_touch",
+                            "levels": {
+                              "min": 1
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ],
+                </#if>
+                "functions": [
+                    {
+                      "function": "set_count",
+                      "count": {
+                        "min": ${entry.minCount},
+                        "max": ${entry.maxCount}
+                      }
+                    }
+                    <#if entry.minEnchantmentLevel != 0 || entry.maxEnchantmentLevel != 0>
+                    ,{
+                      "function": "enchant_with_levels",
+                      "treasure": true,
+                      "levels": {
+                        "min": ${entry.minEnchantmentLevel},
+                        "max": ${entry.maxEnchantmentLevel}
+                      }
+                    }
+                    </#if>
+                    <#if entry.explosionDecay>
+                    ,{
+                      "function": "minecraft:explosion_decay"
+                    }
+                    </#if>
+                    <#if entry.affectedByFortune>
+                    ,{
+                      "function": "minecraft:apply_bonus",
+                      "enchantment": "minecraft:fortune",
+                      "formula": "minecraft:ore_drops"
+                    }
+                    </#if>
+                ]
               }
-              <#if entry?has_next>,</#if>
+                <#if entry?has_next>,</#if>
             </#list>
           ]
         }
