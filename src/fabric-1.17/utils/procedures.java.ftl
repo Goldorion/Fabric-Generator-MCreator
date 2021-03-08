@@ -53,3 +53,7 @@
         true
     </#if>
 </#macro>
+
+<#function hasCondition object="">
+    <#return object?? && object?has_content && object.getName() != "null">
+</#function>

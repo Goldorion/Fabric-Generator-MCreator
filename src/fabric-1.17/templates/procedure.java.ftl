@@ -23,11 +23,11 @@ import java.util.HashMap;
 
 public class ${name}Procedure {
 
-    public static void executeProcedure(Map<String, Object> dependencies){
+    public static <#if return_type??>${return_type.getJavaType(generator.getWorkspace())}<#else>void</#if> executeProcedure(Map<String, Object> dependencies) executeProcedure(Map<String, Object> dependencies){
         <#list dependencies as dependency>
             if(dependencies.get("${dependency.getName()}")==null){
                 System.err.println("Failed to load dependency ${dependency.getName()} for procedure ${name}!");
-                return;
+                <#if return_type??>return ${return_type.getDefaultValue(generator.getWorkspace())}<#else>return</#if>;
             }
         </#list>
 

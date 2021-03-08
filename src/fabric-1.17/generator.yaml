@@ -28,9 +28,6 @@ base_templates:
 - template: modbase/client.java.ftl
   name: "@SRCROOT/@BASEPACKAGEPATH/ClientInit.java"
   canLock: true
-- template: modbase/mixins.json.ftl
-  writer: json
-  name: "@RESROOT/modid.mixins.json"
 - template: modbase/listener.java.ftl
   name: "@SRCROOT/@BASEPACKAGEPATH/IListener.java"
   canLock: true

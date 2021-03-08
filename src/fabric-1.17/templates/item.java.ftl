@@ -18,20 +18,7 @@ along with MCreatorFabricGenerator.  If not, see <https://www.gnu.org/licenses/>
 <#-- @formatter:off -->
 
 <#include "procedures.java.ftl">
-
-/*
-*    MCreator note:
-*
-*    If you lock base mod element files, you can edit this file and the proxy files
-*    and they won't get overwritten. If you change your mod package or modid, you
-*    need to apply these changes to this file MANUALLY.
-*
-*
-*    If you do not lock base mod element files in Workspace settings, this file
-*    will be REGENERATED on each build.
-*
-*/
-<#import procedures.java.ftl>
+<#include "mcitems.ftl">
 
 package ${package}.item;
 
@@ -51,7 +38,11 @@ public class ${name}Item extends Item {
 	    .fireproof()
 	</#if>
         .rarity(Rarity.${data.rarity})
-        .recipeReminder(${mappedMCItemToItemStackCodeNoItemStackValue(data.recipeRemainder)})
+        <#if data.stayInGridWhenCrafting>
+            <#if data.recipeRemainder?? && !data.recipeRemainder.isEmpty()>
+                .recipeRemainder(${mappedMCItemToItemStackCodeNoItemStackValue(data.recipeRemainder)})
+            </#if>
+        </#if>
         );
     }
 
@@ -86,9 +77,9 @@ public class ${name}Item extends Item {
     <#if hasCondition(data.glowCondition)>
         PlayerEntity entity = MinecraftClient.getInstance().player;
         World world = entity.world;
-        double x = entity.getPos.getX();
-        double y = entity.getPos.getY();
-        double z = entity.getPos.getZ();
+        double x = entity.getPos().getX();
+        double y = entity.getPos().getY();
+        double z = entity.getPos().getZ();
         if (!(<@procedureOBJToConditionCode data.glowCondition/>)) {
             return false;
          }
@@ -123,9 +114,9 @@ public class ${name}Item extends Item {
     @Override
     public void onCraft(ItemStack stack, World world, PlayerEntity player) {
         super.onCraft(stack, world, player);
-        int x = (int) player.getPosX();
-        int y = (int) player.getPosY();
-        int z = (int) player.getPosZ();
+        int x = (int) player.getPos().getX();
+        int y = (int) player.getPos().getY();
+        int z = (int) player.getPos().getZ();
 			<@procedureOBJToCode data.onCrafted/>
     }
 </#if>
@@ -134,9 +125,9 @@ public class ${name}Item extends Item {
     @Override
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
         super.inventoryTick(itemstack, world, entity, slot, selected);
-        int x = (int) entity.getPosX();
-        int y = (int) entity.getPosY();
-        int z = (int) entity.getPosZ();
+        int x = (int) entity.getPos().getX();
+        int y = (int) entity.getPos().getY();
+        int z = (int) entity.getPos().getZ();
     <#if hasProcedure(data.onItemInUseTick)>
         if (selected)
     </#if>
@@ -147,9 +138,9 @@ public class ${name}Item extends Item {
 <#if hasProcedure(data.onStoppedUsing)>
     @Override
     public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
-        int x = (int) entity.getPosX();
-        int y = (int) entity.getPosY();
-        int z = (int) entity.getPosZ();
+        int x = (int) entity.getPos().getX();
+        int y = (int) entity.getPos().getY();
+        int z = (int) entity.getPos().getZ();
 			<@procedureOBJToCode data.onStoppedUsing/>
     }
 </#if>
@@ -158,9 +149,9 @@ public class ${name}Item extends Item {
     @Override
     public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         super.postHit(stack, target, attacker);
-        int x = (int) target.getPosX();
-        int y = (int) target.getPosY();
-        int z = (int) target.getPosZ();
+        int x = (int) target.getPos().getX();
+        int y = (int) target.getPos().getY();
+        int z = (int) target.getPos().getZ();
         World world = target.world;
 			<@procedureOBJToCode data.onEntityHitWith/>
         return true;
@@ -187,9 +178,9 @@ public class ${name}Item extends Item {
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack itemstack = super.use(world, user, hand).getResult();
-        int x = (int) entity.getPosX();
-        int y = (int) entity.getPosY();
-        int z = (int) entity.getPosZ();
+        int x = (int) entity.getPos().getX();
+        int y = (int) entity.getPos().getY();
+        int z = (int) entity.getPos().getZ();
             <@procedureOBJToCode data.onRightClickedInAir/>
         return super.use(world, user, hand);
     }
