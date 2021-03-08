@@ -18,7 +18,7 @@ along with MCreatorFabricGenerator.  If not, see <https://www.gnu.org/licenses/>
 <#-- @formatter:off -->
 <#include "mcitems.ftl">
 
-package ${package}.world;
+package ${package}.world.biomes;
 
 public class ${name}Biome {
     private static Biome theBiome;
