@@ -20,38 +20,46 @@ along with MCreatorFabricGenerator.  If not, see <https://www.gnu.org/licenses/>
 
 package ${package}.world;
 
-import ${package}.mixin;
-import org.apache.commons.lang3.ArrayUtils;
-
 public class ${name}Biome {
     private static Biome theBiome;
-    private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> SURFACE_BUILDER = SurfaceBuilder.DEFAULT.method_30478(new TernarySurfaceConfig(${mappedBlockToBlockStateCode(data.groundBlock)}, ${mappedBlockToBlockStateCode(data.undergroundBlock)}, ${mappedBlockToBlockStateCode(data.undergroundBlock)}));
+    private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> SURFACE_BUILDER = SurfaceBuilder.DEFAULT.withConfig(new TernarySurfaceConfig(${mappedBlockToBlockStateCode(data.groundBlock)}, ${mappedBlockToBlockStateCode(data.undergroundBlock)}, ${mappedBlockToBlockStateCode(data.undergroundBlock)}));
     public static final RegistryKey<Biome> BIOME_KEY = RegistryKey.of(Registry.BIOME_KEY, new Identifier("${modid}", "${registryname}"));
 
     public static void init() {
         Registry.register(BuiltinRegistries.CONFIGURED_SURFACE_BUILDER, BIOME_KEY.getValue(), SURFACE_BUILDER);
-        BiomeEffects.Builder effectsBuilder = new BiomeEffects.Builder();
-        <#if data.waterColor?has_content>
-            effectsBuilder.waterColor(${data.waterColor.getRGB()}).waterFogColor(${data.waterColor.getRGB()});
-        <#else>
-            effectsBuilder.waterColor(4159204).waterFogColor(329011);
-        </#if>
-        <#if data.airColor?has_content>
-            effectsBuilder.skyColor(${data.airColor.getRGB()}).fogColor(${data.airColor.getRGB()});
-        <#else>
-            effectsBuilder.skyColor(getSkyColor(${data.temperature}F)).fogColor(12638463);
-        </#if>
-        <#if data.grassColor?has_content>
-            effectsBuilder.grassColor(${data.grassColor.getRGB()}).foliageColor(${data.grassColor.getRGB()});
-        </#if>
+        BiomeEffects effects = new BiomeEffects.Builder()
+            .fogColor(${data.airColor?has_content?then(data.airColor.getRGB(), 12638463)})
+            .waterColor(${data.waterColor?has_content?then(data.waterColor.getRGB(), 4159204)})
+            .waterFogColor(${data.waterFogColor?has_content?then(data.waterFogColor.getRGB(), 329011)})
+            .skyColor(${data.airColor?has_content?then(data.airColor.getRGB(), 12638463)})
+            .grassColor(${data.grassColor?has_content?then(data.grassColor.getRGB(), 9470285)})
+            .foliageColor(${data.foliageColor?has_content?then(data.foliageColor.getRGB(), 10387789)})
+            <#if data.ambientSound?has_content && data.ambientSound.getMappedValue()?has_content>
+            .loopSound((net.minecraft.sound.SoundEvent) <#if data.ambientSound?contains(modid)>${JavaModName}.${data.ambientSound?remove_beginning(modid + ":")}Event<#else>SoundEvents.${data.ambientSound}</#if>)
+            </#if>
+            <#if data.moodSound?has_content && data.moodSound.getMappedValue()?has_content>
+            .moodSound(new BiomeModdSound((net.minecraft.sound.SoundEvent) <#if data.moodSound?contains(modid)>${JavaModName}.${data.moodSound?remove_beginning(modid + ":")}Event<#else>SoundEvents.${data.moodSound}</#if>, ${data.moodSoundDelay}, 8, 2))
+            </#if>
+            <#if data.additionsSound?has_content && data.additionsSound.getMappedValue()?has_content>
+            .additionsSound(new BiomeAdditionsSound((net.minecraft.sound.SoundEvent) <#if data.additionsSound?contains(modid)>${JavaModName}.${data.additionsSound?remove_beginning(modid + ":")}Event<#else>SoundEvents.${data.additionsSound}</#if>, 0.0111D))
+            </#if>
+            <#if data.music?has_content && data.music.getMappedValue()?has_content>
+            .music(new MusicSound((net.minecraft.sound.SoundEvent) <#if data.music?contains(modid)>${JavaModName}.${data.music?remove_beginning(modid + ":")}Event<#else>SoundEvents.${data.music}</#if>, 12000, 24000, true))
+            </#if>
+            <#if data.spawnParticles>
+            .particleConfig(new BiomeParticleConfig(${data.particleToSpawn}, ${data.particlesProbability / 100}f))
+            </#if>
+            .build();
 
         GenerationSettings.Builder genSettingsBuilder = new GenerationSettings.Builder();
-        DefaultBiomeFeatures.addDefaultOres(genSettingsBuilder);
-        DefaultBiomeFeatures.addLandCarvers(genSettingsBuilder);
-        DefaultBiomeFeatures.addDungeons(genSettingsBuilder);
-        DefaultBiomeFeatures.addDefaultUndergroundStructures(genSettingsBuilder);
-        <#if data.generateLakes>
-			DefaultBiomeFeatures.addDefaultLakes(genSettingsBuilder);
+        <#list data.defaultFeatures as defaultFeature>
+        <#assign mfeat = generator.map(defaultFeature, "defaultfeatures")>
+            <#if mfeat != "null">
+        DefaultBiomeFeatures.add${mfeat}(genSettingsBuilder);
+            </#if>
+        </#list>
+        <#if (data.seagrassPerChunk > 0)>
+            genSettingsBuilder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.SEAGRASS_NORMAL);
         </#if>
         <#if (data.flowersPerChunk > 0)>
             DefaultBiomeFeatures.addDefaultFlowers(genSettingsBuilder);
@@ -70,12 +78,57 @@ public class ${name}Biome {
         <#elseif (data.cactiPerChunk > 0)>
             DefaultBiomeFeatures.addDesertVegetation(genSettingsBuilder);
         </#if>
-        <#if (data.sandPathcesPerChunk > 0)>
+        <#if (data.sandPatchesPerChunk > 0)>
 			genSettingsBuilder.feature(GenerationStep.Feature.UNDERGROUND_ORES, ConfiguredFeatures.DISK_SAND);
         </#if>
         <#if (data.gravelPatchesPerChunk > 0)>
 			genSettingsBuilder.feature(GenerationStep.Feature.UNDERGROUND_ORES, ConfiguredFeatures.DISK_GRAVEL);
         </#if>
+
+        <#if data.spawnStronghold>
+            genSettingsBuilder.structureFeature(ConfiguredStructureFeatures.STRONGHOLD);
+        </#if>
+
+        <#if data.spawnMineshaft>
+            genSettingsBuilder.structureFeature(ConfiguredStructureFeatures.MINESHAFT);
+        </#if>
+
+        <#if data.spawnPillagerOutpost>
+            genSettingsBuilder.structureFeature(ConfiguredStructureFeatures.PILLAGER_OUTPOST);
+        </#if>
+
+        <#if data.villageType != "none">
+            genSettingsBuilder.structureFeature(ConfiguredStructureFeatures.VILLAGE_${data.villageType?upper_case});
+        </#if>
+
+        <#if data.spawnWoodlandMansion>
+            genSettingsBuilder.structureFeature(ConfiguredStructureFeatures.MANSION);
+        </#if>
+
+        <#if data.spawnJungleTemple>
+            genSettingsBuilder.structureFeature(ConfiguredStructureFeatures.JUNGLE_PYRAMID);
+        </#if>
+
+        <#if data.spawnDesertPyramid>
+            genSettingsBuilder.structureFeature(ConfiguredStructureFeatures.DESERT_PYRAMID);
+        </#if>
+
+        <#if data.spawnIgloo>
+            genSettingsBuilder.structureFeature(ConfiguredStructureFeatures.IGLOO);
+        </#if>
+
+        <#if data.spawnOceanMonument>
+            genSettingsBuilder.structureFeature(ConfiguredStructureFeatures.MONUMENT);
+        </#if>
+
+        <#if data.spawnShipwreck>
+            genSettingsBuilder.structureFeature(ConfiguredStructureFeatures.SHIPWRECK);
+        </#if>
+
+        <#if data.oceanRuinType != "NONE">
+            genSettingsBuilder.structureFeature(ConfiguredStructureFeatures.OCEAN_RUIN_${data.oceanRuinType});
+        </#if>
+
         <#if (data.treesPerChunk > 0)>
             <#if data.treeType == data.TREES_CUSTOM>
 				System.err.println("Custom Trees are not supported yet by MCreatorFabricGenerator! Please consider changing the tree type in the biome \"${modid}:${registryname}\"");
@@ -99,16 +152,16 @@ public class ${name}Biome {
         <#list data.spawnEntries as spawnEntry>
             <#assign entity = generator.map(spawnEntry.entity.getUnmappedValue(), "entities", 1)!"null">
             <#if entity != "null">
-                <#if !entity.toString().contains(".CustomEntity")>
+        <#if !entity.toString().contains(".CustomEntity")>
 						spawnBuilder.spawn(${generator.map(spawnEntry.spawnType, "mobspawntypes")}, new SpawnSettings.SpawnEntry(EntityType.${entity}, ${spawnEntry.weight}, ${spawnEntry.minGroup}, ${spawnEntry.maxGroup}));
-                <#else>
+        <#else>
 						spawnBuilder.spawn(${generator.map(spawnEntry.spawnType, "mobspawntypes")}, new SpawnSettings.SpawnEntry((${entity.toString().replace(".CustomEntity", "")}.entity, ${spawnEntry.weight}, ${spawnEntry.minGroup}, ${spawnEntry.maxGroup}));
-                </#if>
+        </#if>
             </#if>
         </#list>
 
         Biome.Builder biomeBuilder = new Biome.Builder();
-        biomeBuilder.effects(effectsBuilder.build());
+        biomeBuilder.effects(effects);
         biomeBuilder.generationSettings(genSettingsBuilder.build());
         biomeBuilder.spawnSettings(spawnBuilder.build());
         biomeBuilder.temperatureModifier(Biome.TemperatureModifier.NONE);
@@ -120,11 +173,7 @@ public class ${name}Biome {
         biomeBuilder.precipitation(Biome.Precipitation.<#if (data.rainingPossibility > 0)><#if (data.temperature > 0.15)>RAIN<#else>SNOW</#if><#else>NONE</#if>);
         theBiome = biomeBuilder.build();
         Registry.register(BuiltinRegistries.BIOME, BIOME_KEY.getValue(), theBiome);
-        BuiltinBiomesAccessor.getRawIdMap().put(BuiltinRegistries.BIOME.getRawId(theBiome), BIOME_KEY);
-        List<RegistryKey<Biome>> biomes = new ArrayList<>(VanillaLayeredBiomeSourceAccessor.getBiomes());
-        biomes.add(BIOME_KEY);
-        VanillaLayeredBiomeSourceAccessor.setBiomes(biomes);
-        SetBaseBiomesLayerAccessor.setTemperateBiomes(ArrayUtils.add(SetBaseBiomesLayerAccessor.getTemperateBiomes(), BuiltinRegistries.BIOME.getRawId(theBiome)));
+        OverworldBiomes.addContinentalBiome(BIOME_KEY, OverworldClimate.${data.biomeCategory?replace("WARM", "TEMPERATE")?replace("DESERT", "DRY")}, ${data.biomeWeight}d);
     }
 
     private static int getSkyColor(float temperature) {
