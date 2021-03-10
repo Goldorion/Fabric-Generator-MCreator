@@ -11,7 +11,7 @@
 * Added the smithing recipe type
 * Added Is immunte to fire, Glow condition (item), recipe remainder, rarity
 * Added support for the Return procedure block
-* Biomes now use the Fabric API generation system
+* Biomes can now be generated in the overworld
 * Changed and fixed some mappings
 * Remove mixins entirely
 * [Bugfix] Mods couldn't be exported
