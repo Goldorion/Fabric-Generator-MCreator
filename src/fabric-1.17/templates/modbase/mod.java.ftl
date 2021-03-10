@@ -114,6 +114,7 @@ public class ${JavaModName} implements ModInitializer {
 	</#if>
 </#list>
 
+	@Override
 	public void onInitialize() {
 		LOGGER.info("Initializing ${JavaModName}");
 	<#list w.getElementsOfType("FUEL") as fuel>

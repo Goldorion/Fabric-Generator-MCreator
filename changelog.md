@@ -5,6 +5,7 @@
 * Updated to Minecraft 1.17 Snapshjot 21w08b
 * Updated Fabric API to 0.31.2
 * Added support for custom potions
+* Added support for custom dimensions (no portal)
 * Updated the Biome mod element to support all features (except custom tree and biome dictionnary)
 * Updated the loot table to support new features
 * Updated the command mod element

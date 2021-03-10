@@ -12,6 +12,7 @@ This project is not official. It is not affiliated with the respective owners an
 * Blocks (block entities are not supported yet)
 * Commands
 * Custom code
+* Dimension (portal is not supported yet)
 * Enchantment
 * Food
 * Fuel
