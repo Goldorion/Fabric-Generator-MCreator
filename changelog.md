@@ -21,3 +21,4 @@
 * [Bugfix] Blocks didn't build properly
 * [Bugfix] Tools failed to compile when the attack speed was set to a decimal, and the damage would be reduced by the attack speed.
 * [Bugfix] Surely more bug fix caused by mixins
+* [Bugfix] Custom armors had a black and white renderer
