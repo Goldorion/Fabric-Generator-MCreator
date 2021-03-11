@@ -23,3 +23,4 @@
 * [Bugfix] Surely more bug fix caused by mixins
 * [Bugfix] Custom armors had a black and white renderer
 * [Bugfix] Custom armors without an equipment sound or with an invalid sound caused a build error
+* [Bugfix] Number dependencies in procedures couldn't be used
