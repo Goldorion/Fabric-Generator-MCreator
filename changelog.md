@@ -11,7 +11,10 @@
 * Updated the command mod element
 * Added the smithing recipe type
 * Added Is immune to fire, Glow condition (item), recipe remainder, rarity
+* Added support for new item stack related procedure blocks: Is enchanted, Is enchantable, Has enchantment, Set number of items to,
+  Cooldown for, Get damage, Get enchantment level, Provided itemstack
 * Added support for the Return procedure block
+* Explode procedure block now supports the explosion type  
 * Biomes can now be generated in the overworld
 * Changed and fixed some mappings
 * Remove mixins entirely
