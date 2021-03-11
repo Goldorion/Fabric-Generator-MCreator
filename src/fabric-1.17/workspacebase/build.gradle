@@ -10,12 +10,12 @@ version = '1.0.0'
 group = 'com.yourname.modid'
 
 dependencies {
-    minecraft "com.mojang:minecraft:21w08b"
-    mappings "net.fabricmc:yarn:21w08b+build.20:v2"
-    modImplementation "net.fabricmc:fabric-loader:0.11.2"
-            
-    //Fabric api
-    modImplementation "net.fabricmc.fabric-api:fabric-api:0.31.2+1.17"
+	minecraft "com.mojang:minecraft:21w10a"
+	mappings "net.fabricmc:yarn:21w10a+build.2:v2"
+	modImplementation "net.fabricmc:fabric-loader:0.11.2"
+
+	//Fabric api
+	modImplementation "net.fabricmc.fabric-api:fabric-api:0.32.1+1.17"
 }
 
 processResources {

@@ -1,4 +1,4 @@
-name: Minecraft Fabric for 21w08b (@buildfileversion)
+name: Minecraft Fabric for 21w10a (@buildfileversion)
 basefeatures: [model_json]
 status: dev
 buildfileversion: 0.11.2

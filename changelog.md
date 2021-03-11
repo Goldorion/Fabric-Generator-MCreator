@@ -2,7 +2,7 @@
 
 ## 1.0
 * Updated to MCreator 2021.1.3117
-* Updated to Minecraft 1.17 Snapshjot 21w08b
+* Updated to Minecraft 1.17 Snapshjot 21w10a
 * Updated Fabric API to 0.31.2
 * Added support for custom potions
 * Added support for custom dimensions (no portal)
