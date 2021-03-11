@@ -32,7 +32,11 @@ public class ${name}Procedure {
         </#list>
 
         <#list dependencies as dependency>
-            ${dependency.getType(generator.getWorkspace())} ${dependency.getName()} =(${dependency.getType(generator.getWorkspace())})dependencies.get("${dependency.getName()}" );
+            <#if dependency.getType(generator.getWorkspace()) == "double">
+                double ${dependency.getName()} = (double) dependencies.get("${dependency.getName()}");
+            <#else>
+            	${dependency.getType(generator.getWorkspace())} ${dependency.getName()} = (${dependency.getType(generator.getWorkspace())}) dependencies.get("${dependency.getName()}");
+            </#if>
         </#list>
 
         ${procedurecode}

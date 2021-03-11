@@ -1,9 +1,9 @@
 public ${name}Procedure() {
 	UseEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {
 		Map<String, Object> dependencies = new HashMap<>();
-		int i=(int) player.getX();
-		int j=(int) player.getY();
-		int k=(int) player.getZ();
+		double i=(int) player.getX();
+		double j=(int) player.getY();
+		double k=(int) player.getZ();
 		dependencies.put("world",world);
 		dependencies.put("sourceentity" ,player);
 		dependencies.put("entity", entity);
