@@ -27,7 +27,7 @@ import ${package}.${JavaModName};
 public class ${name}ArmorMaterial implements ArmorMaterial {
 
 public static final ${name}ArmorMaterial ${name?upper_case} = new ${name}ArmorMaterial("${data.armorTextureFile}", ${data.maxDamage}, new int[]{${data.damageValueBoots}, ${data.damageValueLeggings}, ${data.damageValueBody}, ${data.damageValueHelmet}}, ${data.enchantability},
-  <#if data.equipSound?contains(modid)>${JavaModName}.${data.equipSound?remove_beginning(modid + ":")}Event<#elseif data.equipSound?length > 0>
+  <#if data.equipSound?contains(modid)>${JavaModName}.${data.equipSound?remove_beginning(modid + ":")}Event<#elseif (data.equipSound?length > 0)>
   SoundEvents.${data.equipSound}<#else>null</#if>,
 ${data.toughness}F, 0F, () -> {
 return Ingredient.ofItems(<#if data.repairItems?has_content><#list data.repairItems as repairItem>${mappedMCItemToItemStackCodeNoItemStackValue(repairItem)?replace("Blocks.", "Items.")}<#if repairItem?has_next>,</#if></#list><#else>Items.AIR</#if>);
