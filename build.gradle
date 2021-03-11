@@ -10,8 +10,8 @@ import org.apache.tools.ant.taskdefs.condition.Os
 import java.nio.file.Files
 
 class Globals {
-    private static final def ARCHIVE_NAME ="generator-fabric"
-    private static final def MINECRAFT_VERSION ="1.17"
+    private static final def ARCHIVE_NAME = "generator-fabric"
+    private static final def MINECRAFT_VERSION = "1.17"
 
     static def getArchiveName() {
         return ARCHIVE_NAME + "-" + MINECRAFT_VERSION + ".zip"
@@ -30,8 +30,7 @@ task install {
         println("Installing plugin...")
         if (Os.isFamily(Os.FAMILY_MAC) || Os.isFamily(Os.FAMILY_UNIX)) {
             installPlugin("/Users/" + System.getProperty("user.name") + "/.mcreator/plugins/", '/')
-        }
-        else if (Os.isFamily(Os.FAMILY_WINDOWS) || Os.isFamily(Os.FAMILY_NT) ) {
+        } else if (Os.isFamily(Os.FAMILY_WINDOWS) || Os.isFamily(Os.FAMILY_NT)) {
             installPlugin("C:\\Users\\" + System.getProperty("user.name") + "\\.mcreator\\plugins\\", '\\')
         }
     }
@@ -50,6 +49,16 @@ task launch {
             } catch (IOException e) {
                 throw new RuntimeException("Could not launch MCreator! Please make sure you have installed it to /Applications/", e)
             }
+        } else if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+            try {
+                ProcessBuilder builder = new ProcessBuilder("C://Program Files/Pylo/MCreatorEAP20211b03117/mcreator.exe")
+                builder.redirectOutput(ProcessBuilder.Redirect.INHERIT)
+                builder.redirectError(ProcessBuilder.Redirect.INHERIT)
+                Process process = builder.start()
+                System.exit(0)
+            } catch (IOException e) {
+                throw new RuntimeException("Could not launch MCreator! Please make sure you have installed it to C://Program Files/", e)
+            }
         }
     }
 }
@@ -57,14 +66,14 @@ task launch {
 static def installPlugin(String path, String separator) {
     File des = new File(path + Globals.getArchiveName())
     File original = new File(String.format("%s%s%s%s%s", System.getProperty("user.dir"), separator, "build", separator, Globals.getArchiveName()))
-    if(des.exists()) {
+    if (des.exists()) {
         des.delete()
     }
     try {
         FileOutputStream os = new FileOutputStream(des);
         Files.copy(original.toPath(), os)
         System.out.println(String.format("Plugin successfully installed to %s ", path))
-    } catch(IOException e) {
+    } catch (IOException e) {
         e.printStackTrace()
         throw new RuntimeException("Could not install plugin!")
     }
