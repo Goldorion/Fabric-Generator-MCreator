@@ -34,7 +34,7 @@
     "biomes": [
       <#list data.biomesInDimension as biome>
         {
-          "biome": "${biome}",
+          "biome": "${biome?lower_case}",
           "parameters": {
             <#if data.biomesInDimension?size == 1>
             "temperature": 0,

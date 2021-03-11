@@ -1,4 +1,6 @@
 _default: PLAINS
+_mcreator_prefix: "CUSTOM:"
+_mcreator_map_template: "@modid:@registryname"
 _bypass_prefix: "No parent"
 ocean: OCEAN
 plains: PLAINS
