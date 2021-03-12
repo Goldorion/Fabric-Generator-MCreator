@@ -10,8 +10,9 @@
 * Updated the Biome mod element to support all features (except custom tree and biome dictionary)
 * Updated the loot table to support new features
 * Updated the command mod element
+* Added support for slab, leaves and pane block bases  
 * Added the smithing recipe type
-* Added crop and grass models for custom blocks
+* Added crop model for blocks
 * Added support for custom block item and particle textures
 * Added Is immune to fire, Glow condition (item), recipe remainder, rarity
 * Added support for new item stack related procedure blocks: Is enchanted, Is enchantable, Has enchantment, Set number of items to,
@@ -30,3 +31,4 @@
 * [Bugfix] Custom armors had a black and white renderer
 * [Bugfix] Custom armors without an equipment sound or with an invalid sound caused a build error
 * [Bugfix] Number dependencies in procedures couldn't be used
+* [Bugfix] Default map color for block caused a build error

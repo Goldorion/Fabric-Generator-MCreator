@@ -52,7 +52,23 @@ public class ${name}Block extends
     </#if>
 
     public ${name}Block() {
-        super(FabricBlockSettings.of(Material.${data.material})
+        <#if data.blockBase?has_content && data.blockBase == "Stairs">
+        		super(new Block(Block.Properties.create(Material.ROCK)
+        	<#if data.unbreakable>
+        		.hardnessAndResistance(-1, 3600000)
+        	<#else>
+        		.hardnessAndResistance(${data.hardness}f, ${data.resistance}f)
+        	</#if>
+        		).getDefaultState(),
+        <#elseif data.blockBase?has_content && data.blockBase == "Wall">
+        		super(
+        <#elseif data.blockBase?has_content && data.blockBase == "Fence">
+        		super(
+        <#else>
+        		super(
+        </#if>
+
+        		FabricBlockSettings.of(Material.${data.material})
         <#if data.unbreakable>
                 .strength(-1, 3600000)
         <#else>
