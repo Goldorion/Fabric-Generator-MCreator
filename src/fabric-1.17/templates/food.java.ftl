@@ -42,17 +42,34 @@ public class ${name}Item extends Item {
         }
     </#if>
 
-    <#if data.hasGlow>
-		@Override
-        @Environment(EnvType.CLIENT)
-        public boolean hasGlint(ItemStack itemstack) {
-            return true;
-        }
+<#if data.hasGlow>
+    @Environment(EnvType.CLIENT)
+    @Override
+    public boolean hasGlint(ItemStack stack) {
+    <#if hasCondition(data.glowCondition)>
+        PlayerEntity entity = MinecraftClient.getInstance().player;
+        World world = entity.world;
+        double x = entity.getPos().getX();
+        double y = entity.getPos().getY();
+        double z = entity.getPos().getZ();
+        if (!(<@procedureOBJToConditionCode data.glowCondition/>)) {
+            return false;
+         }
     </#if>
+        return true;
+    }
+</#if>
 
     public UseAction getUseAction(ItemStack stack) {
         return UseAction.${data.animation?upper_case};
     }
+
+    <#if data.animation == "drink">
+	@Override
+	public net.minecraft.sound.SoundEvent getEatSound() {
+	    return net.minecraft.sound.SoundEvents.ENTITY_GENERIC_DRINK;
+	   }
+	</#if>
 
     <#if data.specialInfo?has_content>
     @Override
@@ -64,17 +81,60 @@ public class ${name}Item extends Item {
     }
     </#if>
 
-    <#if hasProcedure(data.onRightClickedInAir)>
+    <#if hasProcedure(data.onRightClicked)>
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack itemstack = super.use(world, user, hand).getResult();
         int x = (int) entity.getPosX();
         int y = (int) entity.getPosY();
         int z = (int) entity.getPosZ();
-            <@procedureOBJToCode data.onRightClickedInAir/>
+            <@procedureOBJToCode data.onRightClicked/>
         return super.use(world, user, hand);
     }
     </#if>
+
+<#if hasProcedure(data.onEntityHitWith)>
+    @Override
+    public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+        super.postHit(stack, target, attacker);
+        int x = (int) target.getPos().getX();
+        int y = (int) target.getPos().getY();
+        int z = (int) target.getPos().getZ();
+        World world = target.world;
+			<@procedureOBJToCode data.onEntityHitWith/>
+        return true;
+    }
+</#if>
+
+<#if hasProcedure(data.onItemInUseTick) || hasProcedure(data.onItemInInventoryTick)>
+    @Override
+    public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
+        super.inventoryTick(itemstack, world, entity, slot, selected);
+        int x = (int) entity.getPos().getX();
+        int y = (int) entity.getPos().getY();
+        int z = (int) entity.getPos().getZ();
+    <#if hasProcedure(data.onItemInUseTick)>
+        if (selected)
+    </#if>
+        <@procedureOBJToCode data.onItemInInventoryTick/>
+    }
+</#if>
+
+<#if hasProcedure(data.onRightClickedOnBlock)>
+    @Override
+    public ActionResult useOnBlock(ItemUsageContext context) {
+        World world = context.getWorld();
+        BlockPos pos = context.getBlockPos();
+        PlayerEntity entity = context.getPlayer();
+        Direction direction = context.getSide();
+        int x = pos.getX();
+        int y = pos.getY();
+        int z = pos.getZ();
+        ItemStack itemstack = context.getItem();
+			<@procedureOBJToCode data.onRightClickedOnBlock/>
+        return ActionResult.PASS;
+    }
+</#if>
 
     <#if hasProcedure(data.onEaten)>
         @Override

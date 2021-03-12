@@ -10,11 +10,13 @@
 * Updated the Biome mod element to support all features (except custom tree and biome dictionary)
 * Updated the loot table to support new features
 * Updated the command mod element
+* Updated the food mod element
+  //Note: When item is dropped and When entity swing item are still not implemented)
 * Added support for slab, leaves and pane block bases  
 * Added the smithing recipe type
 * Added crop model for blocks
 * Added support for custom block item and particle textures
-* Added Is immune to fire, Glow condition (item), recipe remainder, rarity
+* Added Is immune to fire, Glow condition (item + food), recipe remainder, rarity
 * Added support for new item stack related procedure blocks: Is enchanted, Is enchantable, Has enchantment, Set number of items to,
   Cooldown for, Get damage, Get enchantment level, Provided itemstack
 * Added support for the Return and Console log procedure blocks
