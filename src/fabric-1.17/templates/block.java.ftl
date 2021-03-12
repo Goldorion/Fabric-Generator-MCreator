@@ -30,7 +30,14 @@ import net.fabricmc.fabric.api.registry.*;
 import net.fabricmc.fabric.api.tool.attribute.v1.*;
 import ${package}.*;
 
-public class ${name}Block extends <#if data.hasGravity> FallingBlock <#else> Block </#if>{
+public class ${name}Block extends
+    <#if data.hasGravity>
+        FallingBlock
+    <#elseif data.blockBase?has_content>
+        ${data.blockBase}Block
+    <#else>
+        Block
+    </#if>{
 
     <#if data.rotationMode == 1 || data.rotationMode == 3>
 		public static final DirectionProperty FACING = HorizontalFacingBlock.FACING;

@@ -1,6 +1,7 @@
 # Changelogs:
 
 ## 1.0
+* The plugin no longer requires ClothCommons to work
 * Updated to MCreator 2021.1.3117
 * Updated to Minecraft 1.17 Snapshot 21w10a
 * Updated Fabric API to 0.31.2
@@ -10,6 +11,8 @@
 * Updated the loot table to support new features
 * Updated the command mod element
 * Added the smithing recipe type
+* Added crop and grass models for custom blocks
+* Added support for custom block item and particle textures
 * Added Is immune to fire, Glow condition (item), recipe remainder, rarity
 * Added support for new item stack related procedure blocks: Is enchanted, Is enchantable, Has enchantment, Set number of items to,
   Cooldown for, Get damage, Get enchantment level, Provided itemstack
