@@ -39,3 +39,4 @@
 * [Bugfix] Number dependencies in procedures couldn't be used
 * [Bugfix] Default map color for blocks caused a build error
 * [Bugfix] Custom music discs didn't play the sound
+* [Bugfix] Fix custom enchantments in mappings

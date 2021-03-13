@@ -1,4 +1,6 @@
 _default: EFFICIENCY
+_mcreator_prefix: "CUSTOM:"
+_mcreator_map_template: "@NAMEEnchantment.enchantment"
 PROTECTION: PROTECTION
 FIRE_PROTECTION: FIRE_PROTECTION
 FEATHER_FALLING: FEATHER_FALLING

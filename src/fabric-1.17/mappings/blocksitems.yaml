@@ -8,7 +8,7 @@ Blocks.AIR:
   - "air"
 Blocks.STONE:
   - Blocks.STONE
-  - "#forge:stone"
+  - "stone"
 Blocks.STONE#0:
   - Blocks.STONE
   - "stone"
@@ -185,7 +185,7 @@ Blocks.EMERALD_BLOCK:
   - "emerald_block"
 Blocks.QUARTZ_BLOCK:
   - Blocks.QUARTZ_BLOCK
-  - "#forge:ores/quartz"
+  - "quartz_block"
 Blocks.QUARTZ_BLOCK#0:
   - Blocks.SMOOTH_QUARTZ
   - "smooth_quartz"
@@ -260,7 +260,7 @@ Blocks.SPONGE#1:
   - "wet_sponge"
 Blocks.SANDSTONE:
   - Blocks.SANDSTONE
-  - "#forge:sandstone"
+  - sandstone"
 Blocks.SANDSTONE#0:
   - Blocks.SANDSTONE
   - "sandstone"
@@ -272,7 +272,7 @@ Blocks.SANDSTONE#2:
   - "cut_sandstone"
 Blocks.RED_SANDSTONE:
   - Blocks.RED_SANDSTONE
-  - "#forge:sandstone"
+  - "red_sandstone"
 Blocks.RED_SANDSTONE#0:
   - Blocks.RED_SANDSTONE
   - "red_sandstone"
@@ -475,9 +475,6 @@ Blocks.FARMLAND:
   - Blocks.FARMLAND
   - "farmland"
 Blocks.FURNACE:
-  - Blocks.FURNACE
-  - "furnace"
-Blocks.LIT_FURNACE:
   - Blocks.FURNACE
   - "furnace"
 Blocks.STANDING_SIGN:
@@ -893,7 +890,7 @@ Blocks.HAY_BLOCK:
   - "hay_block"
 Blocks.SKULL:
   - Blocks.SKELETON_SKULL
-  - "#forge:heads"
+  - "skeleton_skull"
 Blocks.SKULL#0:
   - Blocks.SKELETON_SKULL
   - "skeleton_skull"
@@ -1223,7 +1220,7 @@ Blocks.GLASS:
   - "glass"
 Blocks.STAINED_GLASS:
   - Blocks.WHITE_STAINED_GLASS
-  - "#forge:stained_glass"
+  - "white_stained_glass"
 Blocks.STAINED_GLASS#0:
   - Blocks.WHITE_STAINED_GLASS
   - "white_stained_glass"
@@ -1277,7 +1274,7 @@ Blocks.GLASS_PANE:
   - "glass_pane"
 Blocks.STAINED_GLASS_PANE:
   - Blocks.WHITE_STAINED_GLASS_PANE
-  - "#forge:stained_glass_panes"
+  - "white_stained_glass_pane"
 Blocks.STAINED_GLASS_PANE#0:
   - Blocks.WHITE_STAINED_GLASS_PANE
   - "white_stained_glass_pane"
@@ -2187,9 +2184,258 @@ Blocks.HONEY_BLOCK:
 Blocks.HONEYCOMB_BLOCK:
   - Blocks.HONEYCOMB_BLOCK
   - "honeycomb_block"
+Blocks.NETHER_GOLD_ORE:
+  - Blocks.NETHER_GOLD_ORE
+  - "nether_gold_ore"
+Blocks.SOUL_FIRE:
+  - Blocks.SOUL_FIRE
+  - "soul_fire"
+Blocks.SOUL_SOIL:
+  - Blocks.SOUL_SOIL
+  - "soul_soil"
+Blocks.BASALT:
+  - Blocks.BASALT
+  - "basalt"
+Blocks.POLISHED_BASALT:
+  - Blocks.POLISHED_BASALT
+  - "polished_basalt"
+Blocks.SOUL_TORCH:
+  - Blocks.SOUL_TORCH
+  - "soul_torch"
+Blocks.SOUL_WALL_TORCH:
+  - Blocks.SOUL_WALL_TORCH
+  - "soul_wall_torch"
+Blocks.CHAIN:
+  - Blocks.CHAIN
+  - "chain"
+Blocks.SOUL_LANTERN:
+  - Blocks.SOUL_LANTERN
+  - "soul_lantern"
+Blocks.SOUL_CAMPFIRE:
+  - Blocks.SOUL_CAMPFIRE
+  - "soul_campfire"
+Blocks.WARPED_STEM:
+  - Blocks.WARPED_STEM
+  - "warped_stem"
+Blocks.STRIPPED_WARPED_STEM:
+  - Blocks.STRIPPED_WARPED_STEM
+  - "stripped_warped_stem"
+Blocks.WARPED_HYPHAE:
+  - Blocks.WARPED_HYPHAE
+  - "warped_hyphae"
+Blocks.STRIPPED_WARPED_HYPHAE:
+  - Blocks.STRIPPED_WARPED_HYPHAE
+  - "stripped_warped_hyphae"
+Blocks.WARPED_NYLIUM:
+  - Blocks.WARPED_NYLIUM
+  - "warped_nylium"
+Blocks.WARPED_FUNGUS:
+  - Blocks.WARPED_FUNGUS
+  - "warped_fungus"
+Blocks.WARPED_WART_BLOCK:
+  - Blocks.WARPED_WART_BLOCK
+  - "warped_wart_block"
+Blocks.WARPED_ROOTS:
+  - Blocks.WARPED_ROOTS
+  - "warped_roots"
+Blocks.NETHER_SPROUTS:
+  - Blocks.NETHER_SPROUTS
+  - "nether_sprouts"
+Blocks.CRIMSON_STEM:
+  - Blocks.CRIMSON_STEM
+  - "crimson_stem"
+Blocks.STRIPPED_CRIMSON_STEM:
+  - Blocks.STRIPPED_CRIMSON_STEM
+  - "stripped_crimson_stem"
+Blocks.CRIMSON_HYPHAE:
+  - Blocks.CRIMSON_HYPHAE
+  - "crimson_hyphae"
+Blocks.STRIPPED_CRIMSON_HYPHAE:
+  - Blocks.STRIPPED_CRIMSON_HYPHAE
+  - "stripped_crimson_hyphae"
+Blocks.CRIMSON_NYLIUM:
+  - Blocks.CRIMSON_NYLIUM
+  - "crimson_nylium"
+Blocks.CRIMSON_FUNGUS:
+  - Blocks.CRIMSON_FUNGUS
+  - "crimson_fungus"
+Blocks.SHROOMLIGHT:
+  - Blocks.SHROOMLIGHT
+  - "shroomlight"
+Blocks.WEEPING_VINES:
+  - Blocks.WEEPING_VINES
+  - "weeping_vines"
+Blocks.WEEPING_VINES_PLANT:
+  - Blocks.WEEPING_VINES_PLANT
+  - "weeping_vines_plant"
+Blocks.TWISTING_VINES:
+  - Blocks.TWISTING_VINES
+  - "twisting_vines"
+Blocks.TWISTING_VINES_PLANT:
+  - Blocks.TWISTING_VINES_PLANT
+  - "twisting_vines_plant"
+Blocks.CRIMSON_ROOTS:
+  - Blocks.CRIMSON_ROOTS
+  - "crimson_roots"
+Blocks.CRIMSON_PLANKS:
+  - Blocks.CRIMSON_PLANKS
+  - "crimson_planks"
+Blocks.WARPED_PLANKS:
+  - Blocks.WARPED_PLANKS
+  - "warped_planks"
+Blocks.CRIMSON_SLAB:
+  - Blocks.CRIMSON_SLAB
+  - "crimson_slab"
+Blocks.WARPED_SLAB:
+  - Blocks.WARPED_SLAB
+  - "warped_slab"
+Blocks.CRIMSON_PRESSURE_PLATE:
+  - Blocks.CRIMSON_PRESSURE_PLATE
+  - "crimson_pressure_plate"
+Blocks.WARPED_PRESSURE_PLATE:
+  - Blocks.WARPED_PRESSURE_PLATE
+  - "warped_pressure_plate"
+Blocks.CRIMSON_FENCE:
+  - Blocks.CRIMSON_FENCE
+  - "crimson_fence"
+Blocks.WARPED_FENCE:
+  - Blocks.WARPED_FENCE
+  - "warped_fence"
+Blocks.CRIMSON_TRAPDOOR:
+  - Blocks.CRIMSON_TRAPDOOR
+  - "crimson_trapdoor"
+Blocks.WARPED_TRAPDOOR:
+  - Blocks.WARPED_TRAPDOOR
+  - "warped_trapdoor"
+Blocks.CRIMSON_FENCE_GATE:
+  - Blocks.CRIMSON_FENCE_GATE
+  - "crimson_fence_gate"
+Blocks.WARPED_FENCE_GATE:
+  - Blocks.WARPED_FENCE_GATE
+  - "warped_fence_gate"
+Blocks.CRIMSON_STAIRS:
+  - Blocks.CRIMSON_STAIRS
+  - "crimson_stairs"
+Blocks.WARPED_STAIRS:
+  - Blocks.WARPED_STAIRS
+  - "warped_stairs"
+Blocks.CRIMSON_BUTTON:
+  - Blocks.CRIMSON_BUTTON
+  - "crimson_button"
+Blocks.WARPED_BUTTON:
+  - Blocks.WARPED_BUTTON
+  - "warped_button"
+Blocks.CRIMSON_DOOR:
+  - Blocks.CRIMSON_DOOR
+  - "crimson_door"
+Blocks.WARPED_DOOR:
+  - Blocks.WARPED_DOOR
+  - "warped_door"
+Blocks.CRIMSON_SIGN:
+  - Blocks.CRIMSON_SIGN
+  - "crimson_sign"
+Blocks.WARPED_SIGN:
+  - Blocks.WARPED_SIGN
+  - "warped_sign"
+Blocks.CRIMSON_WALL_SIGN:
+  - Blocks.CRIMSON_WALL_SIGN
+  - "crimson_wall_sign"
+Blocks.WARPED_WALL_SIGN:
+  - Blocks.WARPED_WALL_SIGN
+  - "warped_wall_sign"
+Blocks.TARGET:
+  - Blocks.TARGET
+  - "target"
+Blocks.NETHERITE_BLOCK:
+  - Blocks.NETHERITE_BLOCK
+  - "netherite_block"
+Blocks.ANCIENT_DEBRIS:
+  - Blocks.ANCIENT_DEBRIS
+  - "ancient_debris"
+Blocks.CRYING_OBSIDIAN:
+  - Blocks.CRYING_OBSIDIAN
+  - "crying_obsidian"
+Blocks.RESPAWN_ANCHOR:
+  - Blocks.RESPAWN_ANCHOR
+  - "respawn_anchor"
+Blocks.POTTED_CRIMSON_FUNGUS:
+  - Blocks.POTTED_CRIMSON_FUNGUS
+  - "potted_crimson_fungus"
+Blocks.POTTED_WARPED_FUNGUS:
+  - Blocks.POTTED_WARPED_FUNGUS
+  - "potted_warped_fungus"
+Blocks.POTTED_CRIMSON_ROOTS:
+  - Blocks.POTTED_CRIMSON_ROOTS
+  - "potted_crimson_roots"
+Blocks.POTTED_WARPED_ROOTS:
+  - Blocks.POTTED_WARPED_ROOTS
+  - "potted_warped_roots"
+Blocks.LODESTONE:
+  - Blocks.LODESTONE
+  - "lodestone"
+Blocks.BLACKSTONE:
+  - Blocks.BLACKSTONE
+  - "blackstone"
+Blocks.BLACKSTONE_STAIRS:
+  - Blocks.BLACKSTONE_STAIRS
+  - "blackstone_stairs"
+Blocks.BLACKSTONE_WALL:
+  - Blocks.BLACKSTONE_WALL
+  - "blackstone_wall"
+Blocks.BLACKSTONE_SLAB:
+  - Blocks.BLACKSTONE_SLAB
+  - "blackstone_slab"
+Blocks.POLISHED_BLACKSTONE:
+  - Blocks.POLISHED_BLACKSTONE
+  - "polished_blackstone"
+Blocks.POLISHED_BLACKSTONE_BRICKS:
+  - Blocks.POLISHED_BLACKSTONE_BRICKS
+  - "polished_blackstone_bricks"
+Blocks.CRACKED_POLISHED_BLACKSTONE_BRICKS:
+  - Blocks.CRACKED_POLISHED_BLACKSTONE_BRICKS
+  - "cracked_polished_blackstone_bricks"
+Blocks.CHISELED_POLISHED_BLACKSTONE:
+  - Blocks.CHISELED_POLISHED_BLACKSTONE
+  - "chiseled_polished_blackstone"
+Blocks.POLISHED_BLACKSTONE_BRICK_SLAB:
+  - Blocks.POLISHED_BLACKSTONE_BRICK_SLAB
+  - "polished_blackstone_brick_slab"
+Blocks.POLISHED_BLACKSTONE_BRICK_STAIRS:
+  - Blocks.POLISHED_BLACKSTONE_BRICK_STAIRS
+  - "polished_blackstone_brick_stairs"
+Blocks.POLISHED_BLACKSTONE_BRICK_WALL:
+  - Blocks.POLISHED_BLACKSTONE_BRICK_WALL
+  - "polished_blackstone_brick_wall"
+Blocks.GILDED_BLACKSTONE:
+  - Blocks.GILDED_BLACKSTONE
+  - "gilded_blackstone"
+Blocks.POLISHED_BLACKSTONE_STAIRS:
+  - Blocks.POLISHED_BLACKSTONE_STAIRS
+  - "polished_blackstone_stairs"
+Blocks.POLISHED_BLACKSTONE_SLAB:
+  - Blocks.POLISHED_BLACKSTONE_SLAB
+  - "polished_blackstone_slab"
+Blocks.POLISHED_BLACKSTONE_PRESSURE_PLATE:
+  - Blocks.POLISHED_BLACKSTONE_PRESSURE_PLATE
+  - "polished_blackstone_pressure_plate"
+Blocks.POLISHED_BLACKSTONE_BUTTON:
+  - Blocks.POLISHED_BLACKSTONE_BUTTON
+  - "polished_blackstone_button"
+Blocks.POLISHED_BLACKSTONE_WALL:
+  - Blocks.POLISHED_BLACKSTONE_WALL
+  - "polished_blackstone_wall"
+Blocks.CHISELED_NETHER_BRICKS:
+  - Blocks.CHISELED_NETHER_BRICKS
+  - "chiseled_nether_bricks"
+Blocks.CRACKED_NETHER_BRICKS:
+  - Blocks.CRACKED_NETHER_BRICKS
+  - "cracked_nether_bricks"
+Blocks.QUARTZ_BRICKS:
+  - Blocks.QUARTZ_BRICKS
+  - "quartz_bricks"
 Items.DYE:
   - Items.INK_SAC
-  - "#forge:dyes"
+  - "ink_sac"
 Items.DYE#0:
   - Items.INK_SAC
   - "ink_sac"
@@ -2574,6 +2820,12 @@ Items.DARK_OAK_DOOR:
 Items.IRON_DOOR:
   - Items.IRON_DOOR
   - "iron_door"
+Items.CRIMSON_DOOR:
+  - Items.CRIMSON_DOOR
+  - "crimson_door"
+Items.WARPED_DOOR:
+  - Items.WARPED_DOOR
+  - "warped_door"
 Items.BUCKET:
   - Items.BUCKET
   - "bucket"
@@ -2882,7 +3134,7 @@ Items.SPECKLED_MELON:
   - "glistering_melon_slice"
 Items.SPAWN_EGG:
   - Items.CREEPER_SPAWN_EGG
-  - "#forge:eggs"
+  - "creeper_spawn_egg"
 Items.SPAWN_EGG#50:
   - Items.CREEPER_SPAWN_EGG
   - "creeper_spawn_egg"
@@ -2902,8 +3154,8 @@ Items.SPAWN_EGG#56:
   - Items.GHAST_SPAWN_EGG
   - "ghast_spawn_egg"
 Items.SPAWN_EGG#57:
-  - Items.ZOMBIE_PIGMAN_SPAWN_EGG
-  - "zombie_pigman_spawn_egg"
+  - Items.ZOMBIFIED_PIGLIN_SPAWN_EGG
+  - "zombified_piglin_spawn_egg"
 Items.SPAWN_EGG#58:
   - Items.ENDERMAN_SPAWN_EGG
   - "enderman_spawn_egg"
@@ -3026,7 +3278,7 @@ Items.RECORD_WAIT:
   - "music_disc_wait"
 Items.SKULL:
   - Items.SKELETON_SKULL
-  - "#forge:heads"
+  - "skeleton_skull"
 Items.SKULL#0:
   - Items.SKELETON_SKULL
   - "skeleton_skull"
@@ -3231,231 +3483,27 @@ Items.HONEYCOMB:
 Items.HONEY_BOTTLE:
   - Items.HONEY_BOTTLE
   - "honey_bottle"
-Blocks.ANCIENT_DEBRIS:
-  - Blocks.ANCIENT_DEBRIS
-  - "ancient_debris"
-Blocks.BASALT:
-  - Blocks.BASALT
-  - "basalt"
-Blocks.POLISHED_BASALT:
-  - Blocks.POLISHED_BASALT
-  - "polished_basalt"
-Blocks.BLACKSTONE:
-  - Blocks.BLACKSTONE
-  - "blackstone"
-Blocks.BLACKSTONE_SLAB:
-  - Blocks.BLACKSTONE_SLAB
-  - "blackstone_slab"
-Blocks.BLACKSTONE_STAIRS:
-  - Blocks.BLACKSTONE_STAIRS
-  - "blackstone_stairs"
-Blocks.BLACKSTONE_WALL:
-  - Blocks.BLACKSTONE_WALL
-  - "blackstone_wall"
-Blocks.POLISHED_BLACKSTONE:
-  - Blocks.POLISHED_BLACKSTONE
-  - "polished_blackstone"
-Blocks.CHISELED_POLISHED_BLACKSTONE:
-  - Blocks.CHISELED_POLISHED_BLACKSTONE
-  - "chiseled_polished_blackstone"
-Blocks.POLISHED_BLACKSTONE_SLAB:
-  - Blocks.POLISHED_BLACKSTONE_SLAB
-  - "polished_blackstone_slab"
-Blocks.POLISHED_BLACKSTONE_STAIRS:
-  - Blocks.POLISHED_BLACKSTONE_STAIRS
-  - "polished_blackstone_stairs"
-Blocks.POLISHED_BLACKSTONE_WALL:
-  - Blocks.POLISHED_BLACKSTONE_WALL
-  - "polished_blackstone_wall"
-Blocks.POLISHED_BLACKSTONE_PRESSURE_PLATE:
-  - Blocks.POLISHED_BLACKSTONE_PRESSURE_PLATE
-  - "polished_blackstone_pressure_plate"
-Blocks.POLISHED_BLACKSTONE_BUTTON:
-  - Blocks.POLISHED_BLACKSTONE_BUTTON
-  - "polished_blackstone_button"
-Blocks.POLISHED_BLACKSTONE_BRICKS:
-  - Blocks.POLISHED_BLACKSTONE_BRICKS
-  - "polished_blackstone_bricks"
-Blocks.CRACKED_POLISHED_BLACKSTONE_BRICKS:
-  - Blocks.CRACKED_POLISHED_BLACKSTONE_BRICKS
-  - "cracked_polished_blackstone_bricks"
-Blocks.POLISHED_BLACKSTONE_BRICK_SLAB:
-  - Blocks.POLISHED_BLACKSTONE_BRICK_SLAB
-  - "polished_blackstone_brick_slab"
-Blocks.POLISHED_BLACKSTONE_BRICK_STAIRS:
-  - Blocks.POLISHED_BLACKSTONE_BRICK_STAIRS
-  - "polished_blackstone_brick_stairs"
-Blocks.POLISHED_BLACKSTONE_BRICK_WALL:
-  - Blocks.POLISHED_BLACKSTONE_BRICK_WALL
-  - "polished_blackstone_brick_wall"
-Blocks.NETHERITE_BLOCK:
-  - Blocks.NETHERITE_BLOCK
-  - "netherite_block"
-Blocks.CHAIN:
-  - Blocks.CHAIN
-  - "chain"
-Blocks.CHISELED_NETHER_BRICKS:
-  - Blocks.CHISELED_NETHER_BRICKS
-  - "chiseled_nether_bricks"
-Blocks.CRACKED_NETHER_BRICKS:
-  - Blocks.CRACKED_NETHER_BRICKS
-  - "cracked_nether_bricks"
-Blocks.CRIMSON_FUNGUS:
-  - Blocks.CRIMSON_FUNGUS
-  - "crimson_fungus"
-Blocks.WARPED_FUNGUS:
-  - Blocks.WARPED_FUNGUS
-  - "warped_fungus"
-Blocks.CRIMSON_NYLIUM:
-  - Blocks.CRIMSON_NYLIUM
-  - "crimson_nylium"
-Blocks.WARPED_NYLIUM:
-  - Blocks.WARPED_NYLIUM
-  - "warped_nylium"
-Blocks.CRIMSON_PLANKS:
-  - Blocks.CRIMSON_PLANKS
-  - "crimson_planks"
-Blocks.WARPED_PLANKS:
-  - Blocks.WARPED_PLANKS
-  - "warped_planks"
-Blocks.CRIMSON_SLAB:
-  - Blocks.CRIMSON_SLAB
-  - "crimson_slab"
-Blocks.WARPED_SLAB:
-  - Blocks.WARPED_SLAB
-  - "warped_slab"
-Blocks.CRIMSON_STAIRS:
-  - Blocks.CRIMSON_STAIRS
-  - "crimson_stairs"
-Blocks.WARPED_STAIRS:
-  - Blocks.WARPED_STAIRS
-  - "warped_stairs"
-Blocks.CRIMSON_FENCE:
-  - Blocks.CRIMSON_FENCE
-  - "crimson_fence"
-Blocks.WARPED_FENCE:
-  - Blocks.WARPED_FENCE
-  - "warped_fence"
-Blocks.CRIMSON_FENCE_GATE:
-  - Blocks.CRIMSON_FENCE_GATE
-  - "crimson_fence_gate"
-Blocks.WARPED_FENCE_GATE:
-  - Blocks.WARPED_FENCE_GATE
-  - "warped_fence_gate"
-Blocks.CRIMSON_PRESSURE_PLATE:
-  - Blocks.CRIMSON_PRESSURE_PLATE
-  - "crimson_pressure_plate"
-Blocks.WARPED_PRESSURE_PLATE:
-  - Blocks.WARPED_PRESSURE_PLATE
-  - "warped_pressure_plate"
-Blocks.CRIMSON_BUTTON:
-  - Blocks.CRIMSON_BUTTON
-  - "crimson_button"
-Blocks.WARPED_BUTTON:
-  - Blocks.WARPED_BUTTON
-  - "warped_warped_button"
-Blocks.CRIMSON_SIGN:
-  - Blocks.CRIMSON_SIGN
-  - "crimson_sign"
-Blocks.WARPED_SIGN:
-  - Blocks.WARPED_SIGN
-  - "warped_sign"
-Blocks.CRIMSON_DOOR:
-  - Blocks.CRIMSON_DOOR
-  - "crimson_door"
-Blocks.WARPED_DOOR:
-  - Blocks.WARPED_DOOR
-  - "warped_door"
-Blocks.CRIMSON_TRAPDOOR:
-  - Blocks.CRIMSON_TRAPDOOR
-  - "crimson_trapdoor"
-Blocks.WARPED_TRAPDOOR:
-  - Blocks.WARPED_TRAPDOOR
-  - "warped_trapdoor"
-Blocks.CRIMSON_ROOTS:
-  - Blocks.CRIMSON_ROOTS
-  - "crimson_roots"
-Blocks.WARPED_ROOTS:
-  - Blocks.WARPED_ROOTS
-  - "warped_roots"
-Blocks.CRIMSON_STEM:
-  - Blocks.CRIMSON_STEM
-  - "crimson_stem"
-Blocks.WARPED_STEM:
-  - Blocks.WARPED_STEM
-  - "warped_stem"
-Blocks.STRIPPED_CRIMSON_STEM:
-  - Blocks.STRIPPED_CRIMSON_STEM
-  - "stripped_crimson_stem"
-Blocks.STRIPPED_WARPED_STEM:
-  - Blocks.STRIPPED_WARPED_STEM
-  - "stripped_warped_stem"
-Blocks.CRYING_OBSIDIAN:
-  - Blocks.CRYING_OBSIDIAN
-  - "crying_obsidian"
-Blocks.GILDED_BLACKSTONE:
-  - Blocks.GILDED_BLACKSTONE
-  - "gilded_blackstone"
-Blocks.CRIMSON_HYPHAE:
-  - Blocks.CRIMSON_HYPHAE
-  - "crimson_hyphae"
-Blocks.WARPED_HYPHAE:
-  - Blocks.WARPED_HYPHAE
-  - "warped_hyphae"
-Blocks.STRIPPED_CRIMSON_HYPHAE:
-  - Blocks.STRIPPED_CRIMSON_HYPHAE
-  - "stripped_crimson_hyphae"
-Blocks.STRIPPED_WARPED_HYPHAE:
-  - Blocks.STRIPPED_WARPED_HYPHAE
-  - "stripped_warped_hyphae"
-Blocks.LODESTONE:
-  - Blocks.LODESTONE
-  - "lodestone"
-Blocks.NETHER_GOLD_ORE:
-  - Blocks.NETHER_GOLD_ORE
-  - "nether_gold_ore"
-Blocks.NETHER_SPROUTS:
-  - Blocks.NETHER_SPROUTS
-  - "nether_sprouts"
-Blocks.QUARTZ_BRICKS:
-  - Blocks.QUARTZ_BRICKS
-  - "quartz_bricks"
-Blocks.RESPAWN_ANCHOR:
-  - Blocks.RESPAWN_ANCHOR
-  - "respawn_anchor"
-Blocks.SHROOMLIGHT:
-  - Blocks.SHROOMLIGHT
-  - "shroomlight"
-Blocks.SOUL_CAMPFIRE:
-  - Blocks.SOUL_CAMPFIRE
-  - "soul_campfire"
-Blocks.SOUL_FIRE:
-  - Blocks.SOUL_FIRE
-  - "soul_fire"
-Blocks.SOUL_LANTERN:
-  - Blocks.SOUL_LANTERN
-  - "soul_lantern"
-Blocks.SOUL_TORCH:
-  - Blocks.SOUL_TORCH
-  - "soul_torch"
-Blocks.SOUL_SOIL:
-  - Blocks.SOUL_SOIL
-  - "soul_soil"
-Blocks.TARGET:
-  - Blocks.TARGET
-  - "target"
-Blocks.TWISTING_VINES:
-  - Blocks.TWISTING_VINES
-  - "twisting_vines"
-Blocks.WARPED_WART_BLOCK:
-  - Blocks.WARPED_WART_BLOCK
-  - "warped_wart_block"
-Blocks.WEEPING_VINES:
-  - Blocks.WEEPING_VINES
-  - "weeping_vines"
-Items.MUSIC_DISC_PIGSTEP:
-  - Items.MUSIC_DISC_PIGSTEP
-  - "music_disc_pigstep"
+Items.NETHERITE_INGOT:
+  - Items.NETHERITE_INGOT
+  - "netherite_ingot"
+Items.NETHERITE_SCRAP:
+  - Items.NETHERITE_SCRAP
+  - "netherite_scrap"
+Items.NETHERITE_SWORD:
+  - Items.NETHERITE_SWORD
+  - "netherite_sword"
+Items.NETHERITE_SHOVEL:
+  - Items.NETHERITE_SHOVEL
+  - "netherite_shovel"
+Items.NETHERITE_PICKAXE:
+  - Items.NETHERITE_PICKAXE
+  - "netherite_pickaxe"
+Items.NETHERITE_AXE:
+  - Items.NETHERITE_AXE
+  - "netherite_axe"
+Items.NETHERITE_HOE:
+  - Items.NETHERITE_HOE
+  - "netherite_hoe"
 Items.NETHERITE_HELMET:
   - Items.NETHERITE_HELMET
   - "netherite_helmet"
@@ -3468,30 +3516,12 @@ Items.NETHERITE_LEGGINGS:
 Items.NETHERITE_BOOTS:
   - Items.NETHERITE_BOOTS
   - "netherite_boots"
-Items.NETHERITE_AXE:
-  - Items.NETHERITE_AXE
-  - "netherite_axe"
-Items.NETHERITE_HOE:
-  - Items.NETHERITE_HOE
-  - "netherite_hoe"
-Items.NETHERITE_PICKAXE:
-  - Items.NETHERITE_PICKAXE
-  - "netherite_pickaxe"
-Items.NETHERITE_SHOVEL:
-  - Items.NETHERITE_SHOVEL
-  - "netherite_shovel"
-Items.NETHERITE_SWORD:
-  - Items.NETHERITE_SWORD
-  - "netherite_sword"
-Items.NETHERITE_INGOT:
-  - Items.NETHERITE_INGOT
-  - "netherite_ingot"
-Items.NETHERITE_SCRAP:
-  - Items.NETHERITE_SCRAP
-  - "netherite_scrap"
-Items.SNOUT_BANNER_PATTERN:
-  - Items.SNOUT_BANNER_PATTERN
-  - "snout_banner_pattern"
+Items.CRIMSON_SIGN:
+  - Items.CRIMSON_SIGN
+  - "crimson_sign"
+Items.WARPED_SIGN:
+  - Items.WARPED_SIGN
+  - "warped_sign"
 Items.HOGLIN_SPAWN_EGG:
   - Items.HOGLIN_SPAWN_EGG
   - "hoglin_spawn_egg"
@@ -3503,10 +3533,16 @@ Items.PIGLIN_BRUTE_SPAWN_EGG:
   - "piglin_brute_spawn_egg"
 Items.STRIDER_SPAWN_EGG:
   - Items.STRIDER_SPAWN_EGG
-  - "stridder_spawn_egg"
+  - "strider_spawn_egg"
 Items.ZOGLIN_SPAWN_EGG:
   - Items.ZOGLIN_SPAWN_EGG
   - "zoglin_spawn_egg"
 Items.WARPED_FUNGUS_ON_A_STICK:
   - Items.WARPED_FUNGUS_ON_A_STICK
   - "warped_fungus_on_a_stick"
+Items.MUSIC_DISC_PIGSTEP:
+  - Items.MUSIC_DISC_PIGSTEP
+  - "music_disc_pigstep"
+Items.PIGLIN_BANNER_PATTERN:
+  - Items.PIGLIN_BANNER_PATTERN
+  - "piglin_banner_pattern"
