@@ -60,22 +60,31 @@ public class ${name}Overlay {
                 <#assign x = (component.x/2 - 213)?round>
                 <#assign y = (component.y/2 - 120)?round>
                 <#if component.getClass().getSimpleName() == "Label">
-						MinecraftClient.getInstance().textRenderer.draw(matrices, "${translateTokens(JavaConventions.escapeStringForJava(component.text))}",
-                                posX + ${x}, posY + ${y}, ${component.color.getRGB()});
+						<#if hasCondition(component.displayCondition)>
+						if (<@procedureOBJToConditionCode component.displayCondition/>)
+						</#if>
+						    MinecraftClient.getInstance().textRenderer.draw(matrices, "${translateTokens(JavaConventions.escapeStringForJava(component.text))}",
+                                    posX + ${x}, posY + ${y}, ${component.color.getRGB()});
                 <#elseif component.getClass().getSimpleName() == "Image">
-						RenderSystem.disableDepthTest();
-						RenderSystem.depthMask(false);
-						RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
-						RenderSystem.color3f(1.0F, 1.0F, 1.0F);
-						RenderSystem.disableAlphaTest();
+						<#if hasCondition(component.displayCondition)>
+						if (<@procedureOBJToConditionCode component.displayCondition/>) {
+						</#if>
+						    RenderSystem.disableDepthTest();
+						    RenderSystem.depthMask(false);
+						    RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
+						    RenderSystem.color3f(1.0F, 1.0F, 1.0F);
+						    RenderSystem.disableAlphaTest();
 
-						MinecraftClient.getInstance().getTextureManager().bindTexture(new Identifier("${modid}:textures/${component.image}"));
-						MinecraftClient.getInstance().inGameHud.drawTexture(matrices, posX + ${x}, posY + ${y}, 0, 0, 256, 256);
+						    MinecraftClient.getInstance().getTextureManager().bindTexture(new Identifier("${modid}:textures/${component.image}"));
+						    MinecraftClient.getInstance().inGameHud.drawTexture(matrices, posX + ${x}, posY + ${y}, 0, 0, 256, 256);
 
-						RenderSystem.depthMask(true);
-      					RenderSystem.enableDepthTest();
-      					RenderSystem.enableAlphaTest();
-      					RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+						    RenderSystem.depthMask(true);
+      					    RenderSystem.enableDepthTest();
+      					    RenderSystem.enableAlphaTest();
+      					    RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+						<#if hasCondition(component.displayCondition)>
+						}
+						</#if>
                 </#if>
             </#list>
         }

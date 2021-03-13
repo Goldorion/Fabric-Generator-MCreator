@@ -4,21 +4,17 @@
 * The plugin no longer requires ClothCommons to work
 * Updated to MCreator 2021.1.3117
 * Updated to Minecraft 1.17 Snapshot 21w10a
-* Updated Fabric API to 0.31.2
+* Updated Fabric API to 0.32.2
 * Added support for custom potions
 * Added support for custom dimensions (no portal)
-* Updated the Biome mod element to support all features
-  //Note: The biome dictionary is not supported because fabric doesn't support for the moment
-  //Check below for custom trees
-* Updated the loot table to support new features
-* Updated the command mod element
-* Updated the food mod element
-  //Note: When item is dropped and When entity swing item are still not implemented)
+* Updated the biome, command, food, loot table and overlay to support new features
+  //Note for biomes: The biome dictionary is not supported because fabric doesn't support for the moment. Check below for custom trees 
+  //Note for foods: When item is dropped and When entity swing item are still not implemented)
 * Added support for slab, leaves and pane block bases
 * Added support for custom trees in biomes
   //Note: Max water depth, custom vines and fruits are not implemented yet (water depth is not supported)
 * Added the smithing recipe type
-* Added support for local variables in procedures  
+* Added support for local variables in procedures
 * Added crop model for blocks
 * Added support for custom block item and particle textures
 * Added Is immune to fire, Glow condition (food & item), recipe remainder, rarity
