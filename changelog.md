@@ -23,7 +23,7 @@
 * Added support for the Return and Console log procedure blocks
 * Explode procedure block now supports the explosion type  
 * Biomes can now be generated in the overworld
-* Changed and fixed some mappings
+* Added all missing mappings and fixed some mapping files
 * Remove mixins entirely
 * Custom axes, pickaxes, swords, shovels and hoes have now to be added inside the fabric item tag to work with modded blocks
   //Note: Item tags: fabric:axes, fabric:pickaxes, fabric:swords, fabric:shovels and fabric:hoes
