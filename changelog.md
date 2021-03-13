@@ -18,9 +18,10 @@
 * Added support for custom trees in biomes
   //Note: Max water depth, custom vines and fruits are not implemented yet (water depth is not supported)
 * Added the smithing recipe type
+* Added support for local variables in procedures  
 * Added crop model for blocks
 * Added support for custom block item and particle textures
-* Added Is immune to fire, Glow condition (item + food), recipe remainder, rarity
+* Added Is immune to fire, Glow condition (food & item), recipe remainder, rarity
 * Added support for new item stack related procedure blocks: Is enchanted, Is enchantable, Has enchantment, Set number of items to,
   Cooldown for, Get damage, Get enchantment level, Provided itemstack
 * Added support for the Return and Console log procedure blocks
@@ -40,4 +41,5 @@
 * [Bugfix] Custom armors had a black and white renderer
 * [Bugfix] Custom armors without an equipment sound or with an invalid sound caused a build error
 * [Bugfix] Number dependencies in procedures couldn't be used
-* [Bugfix] Default map color for block caused a build error
+* [Bugfix] Default map color for blocks caused a build error
+* [Bugfix] Custom music discs didn't play the sound

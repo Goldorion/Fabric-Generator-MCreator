@@ -28,7 +28,8 @@ import net.fabricmc.api.Environment;
 
 public class ${name}MusicDisc extends MusicDiscItem {
     public ${name}MusicDisc() {
-			super(0, (net.minecraft.sound.SoundEvent) Registry.SOUND_EVENT.get(new Identifier("${data.music}")),
+			super(0, (net.minecraft.sound.SoundEvent) <#if data.music?contains(modid)>${JavaModName}.${data.music?remove_beginning(modid + ":")}Event
+			<#elseif (data.music?length > 0)>SoundEvents.${data.music}<#else>null</#if>,
                     new FabricItemSettings().group(${data.creativeTab}).maxCount(1).rarity(Rarity.RARE));
     }
 
