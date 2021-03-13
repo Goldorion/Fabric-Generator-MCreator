@@ -7,12 +7,16 @@
 * Updated Fabric API to 0.31.2
 * Added support for custom potions
 * Added support for custom dimensions (no portal)
-* Updated the Biome mod element to support all features (except custom tree and biome dictionary)
+* Updated the Biome mod element to support all features
+  //Note: The biome dictionary is not supported because fabric doesn't support for the moment
+  //Check below for custom trees
 * Updated the loot table to support new features
 * Updated the command mod element
 * Updated the food mod element
   //Note: When item is dropped and When entity swing item are still not implemented)
-* Added support for slab, leaves and pane block bases  
+* Added support for slab, leaves and pane block bases
+* Added support for custom trees in biomes
+  //Note: Max water depth, custom vines and fruits are not implemented yet (water depth is not supported)
 * Added the smithing recipe type
 * Added crop model for blocks
 * Added support for custom block item and particle textures
