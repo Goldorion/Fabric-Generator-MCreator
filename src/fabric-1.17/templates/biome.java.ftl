@@ -60,62 +60,56 @@ public class ${name}Biome {
 			<#if data.vanillaTreeType == "Big trees">
 			genSettingsBuilder.feature(GenerationStep.Feature.VEGETAL_DECORATION, Feature.TREE.configure((new TreeFeatureConfig.Builder(
                             new SimpleBlockStateProvider(${ct?then(mappedBlockToBlockStateCode(data.treeStem), "Blocks.JUNGLE_LOG.getDefaultState()")}),
-                            new MegaJungleTrunkPlacer(${ct?then(data.minHeight, 10)}, 2, 19),
                             new SimpleBlockStateProvider(${ct?then(mappedBlockToBlockStateCode(data.treeBranch), "Blocks.JUNGLE_LEAVES.getDefaultState()")}),
-                            new JungleFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(0), 2) {
-                            },
+                            new JungleFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(0), 2),
+                            new MegaJungleTrunkPlacer(${ct?then(data.minHeight, 10)}, 2, 19),
                             new TwoLayersFeatureSize(1, 1, 2)
-                    ).build())).decorate(ConfiguredFeatures.Decorators.field_29534)
+                    ).build())).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP)
                     .decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(${data.treesPerChunk}, 0.1f, 1))));
             <#elseif data.vanillaTreeType == "Savanna trees">
 			genSettingsBuilder.feature(GenerationStep.Feature.VEGETAL_DECORATION, Feature.TREE.configure((new TreeFeatureConfig.Builder(
                             new SimpleBlockStateProvider(${ct?then(mappedBlockToBlockStateCode(data.treeStem), "Blocks.ACACIA_LOG.getDefaultState()")}),
-                            new ForkingTrunkPlacer(${ct?then(data.minHeight, 5)}, 2, 2),
                             new SimpleBlockStateProvider(${ct?then(mappedBlockToBlockStateCode(data.treeBranch), "Blocks.ACACIA_LEAVES.getDefaultState()")}),
-                            new AcaciaFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(0)) {
-                            },
+                            new AcaciaFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(0)),
+                            new ForkingTrunkPlacer(${ct?then(data.minHeight, 5)}, 2, 2),
                             new TwoLayersFeatureSize(1, 0, 2)
-                    ).ignoreVines().build())).decorate(ConfiguredFeatures.Decorators.field_29534)
+                    ).ignoreVines().build())).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP)
                     .decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(${data.treesPerChunk}, 0.1f, 1))));
            <#elseif data.vanillaTreeType == "Mega pine trees">
 			genSettingsBuilder.feature(GenerationStep.Feature.VEGETAL_DECORATION, Feature.TREE.configure((new TreeFeatureConfig.Builder(
                             new SimpleBlockStateProvider(${ct?then(mappedBlockToBlockStateCode(data.treeStem), "Blocks.SPRUCE_LOG.getDefaultState()")}),
-                            new GiantTrunkPlacer(${ct?then(data.minHeight, 13)}, 2, 14),
                             new SimpleBlockStateProvider(${ct?then(mappedBlockToBlockStateCode(data.treeBranch), "Blocks.SPRUCE_LEAVES.getDefaultState()")}),
-                            new MegaPineFoliagePlacer(UniformIntDistribution.of(0), UniformIntDistribution.of(0), UniformIntDistribution.of(3, 4)) {
-                            },
+                            new MegaPineFoliagePlacer(UniformIntDistribution.of(0), UniformIntDistribution.of(0), UniformIntDistribution.of(3, 4)),
+                            new GiantTrunkPlacer(${ct?then(data.minHeight, 13)}, 2, 14),
                             new TwoLayersFeatureSize(1, 1, 2)
-                    ).build())).decorate(ConfiguredFeatures.Decorators.field_29534)
+                    ).build())).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP)
                     .decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(${data.treesPerChunk}, 0.1f, 1))));
            <#elseif data.vanillaTreeType == "Mega spruce trees">
 			genSettingsBuilder.feature(GenerationStep.Feature.VEGETAL_DECORATION, Feature.TREE.configure((new TreeFeatureConfig.Builder(
                             new SimpleBlockStateProvider(${ct?then(mappedBlockToBlockStateCode(data.treeStem), "Blocks.SPRUCE_LOG.getDefaultState()")}),
-                            new GiantTrunkPlacer(${ct?then(data.minHeight, 13)}, 2, 14),
                             new SimpleBlockStateProvider(${ct?then(mappedBlockToBlockStateCode(data.treeBranch), "Blocks.SPRUCE_LEAVES.getDefaultState()")}),
-                            new MegaPineFoliagePlacer(UniformIntDistribution.of(0), UniformIntDistribution.of(0), UniformIntDistribution.of(13, 4)) {
-                            },
+                            new MegaPineFoliagePlacer(UniformIntDistribution.of(0), UniformIntDistribution.of(0), UniformIntDistribution.of(13, 4)),
+                            new GiantTrunkPlacer(${ct?then(data.minHeight, 13)}, 2, 14),
                             new TwoLayersFeatureSize(1, 1, 2)
-                    ).build())).decorate(ConfiguredFeatures.Decorators.field_29534)
+                    ).build())).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP)
                     .decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(${data.treesPerChunk}, 0.1f, 1))));
            <#elseif data.vanillaTreeType == "Birch trees">
 			genSettingsBuilder.feature(GenerationStep.Feature.VEGETAL_DECORATION, Feature.TREE.configure((new TreeFeatureConfig.Builder(
                             new SimpleBlockStateProvider(${ct?then(mappedBlockToBlockStateCode(data.treeStem), "Blocks.BIRCH_LOG.getDefaultState()")}),
-                            new StraightTrunkPlacer(${ct?then(data.minHeight, 5)}, 2, 0),
                             new SimpleBlockStateProvider(${ct?then(mappedBlockToBlockStateCode(data.treeBranch), "Blocks.BIRCH_LEAVES.getDefaultState()")}),
-                            new BlobFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(0), 3) {
-                            },
+                            new BlobFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(0), 3),
+                            new StraightTrunkPlacer(${ct?then(data.minHeight, 5)}, 2, 0),
                             new TwoLayersFeatureSize(1, 0, 1)
-                    ).ignoreVines().build())).decorate(ConfiguredFeatures.Decorators.field_29534)
+                    ).ignoreVines().build())).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP)
                     .decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(${data.treesPerChunk}, 0.1f, 1))));
            <#else>
 			genSettingsBuilder.feature(GenerationStep.Feature.VEGETAL_DECORATION, Feature.TREE.configure((new TreeFeatureConfig.Builder(
                             new SimpleBlockStateProvider(${ct?then(mappedBlockToBlockStateCode(data.treeStem), "Blocks.OAK_LOG.getDefaultState()")}),
-                            new StraightTrunkPlacer(${ct?then(data.minHeight, 4)}, 2, 0),
                             new SimpleBlockStateProvider(${ct?then(mappedBlockToBlockStateCode(data.treeBranch), "Blocks.OAK_LEAVES.getDefaultState()")}),
-                            new BlobFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(0), 3) {
-                            },
+                            new BlobFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(0), 3),
+                            new StraightTrunkPlacer(${ct?then(data.minHeight, 4)}, 2, 0),
                             new TwoLayersFeatureSize(1, 0, 1)
-                    ).ignoreVines().build())).decorate(ConfiguredFeatures.Decorators.field_29534)
+                    ).ignoreVines().build())).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP)
                     .decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(${data.treesPerChunk}, 0.1f, 1))));
 		    </#if>
 		</#if>

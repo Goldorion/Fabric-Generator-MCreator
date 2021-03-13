@@ -3,8 +3,8 @@
 ## 1.0
 * The plugin no longer requires ClothCommons to work
 * Updated to MCreator 2021.1.3117
-* Updated to Minecraft 1.17 Snapshot 21w10a
-* Updated Fabric API to 0.32.2
+* Updated to Minecraft 1.16.5
+* Updated Fabric API to 0.32.0
 * Added support for custom potions
 * Added support for custom dimensions (no portal)
 * Updated the biome, command, food, loot table and overlay to support new features
