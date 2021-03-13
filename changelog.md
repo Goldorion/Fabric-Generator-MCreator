@@ -17,7 +17,7 @@
 * Added support for local variables in procedures
 * Added crop model for blocks
 * Added support for custom block item and particle textures
-* Added Is immune to fire, Glow condition (food & item), recipe remainder, rarity
+* Added Is immune to fire, glow condition, recipe remainder, rarity
 * Added support for new item stack related procedure blocks: Is enchanted, Is enchantable, Has enchantment, Set number of items to,
   Cooldown for, Get damage, Get enchantment level, Provided itemstack
 * Added support for the Return and Console log procedure blocks

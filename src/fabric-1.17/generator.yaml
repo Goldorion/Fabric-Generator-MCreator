@@ -1,6 +1,6 @@
 name: Minecraft Fabric for 21w10a (@buildfileversion)
 basefeatures: [model_json, variables]
-partial_support: [armors, block, dimension, item, overlay]
+partial_support: [armors, block, dimension, item, overlay, plant, procedure]
 status: dev
 buildfileversion: 0.32.2
 

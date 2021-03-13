@@ -6,13 +6,14 @@ This project is not official. It is not affiliated with the respective owners an
 **The Current Targetted Minecraft Version is 21w10a**
 
 ## Features
+Note: Mod elements listed are not all fully implemented
 * Advancements
 * Armor
 * Biomes
-* Blocks (block entities are not supported yet)
+* Blocks
 * Commands
 * Custom code
-* Dimension (portal is not supported yet)
+* Dimension
 * Enchantment
 * Food
 * Fuel
