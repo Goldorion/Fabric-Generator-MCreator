@@ -24,6 +24,9 @@
 * Biomes can now be generated in the overworld
 * Changed and fixed some mappings
 * Remove mixins entirely
+* Custom axes, pickaxes, swords, shovels and hoes have now to be added inside the fabric item tag to work with modded blocks
+  //Note: Item tags: fabric:axes, fabric:pickaxes, fabric:swords, fabric:shovels and fabric:hoes
+  //Without this change, files have to be manually changed to remove the "null" each type a custom tool is deleted.
 * [Bugfix] Mods couldn't be exported
 * [Bugfix] Run client could not work
 * [Bugfix] Fix transparency parameter for blocks

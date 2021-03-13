@@ -40,21 +40,6 @@ base_templates:
 - template: modbase/sounds.json.ftl
   writer: json
   name: "@MODASSETSROOT/sounds.json"
-- template: json/pickaxes.json.ftl
-  writer: json
-  name: "@RESROOT/data/fabric/tags/items/pickaxes.json"
-- template: json/axes.json.ftl
-  writer: json
-  name: "@RESROOT/data/fabric/tags/items/axes.json"
-- template: json/shovels.json.ftl
-  writer: json
-  name: "@RESROOT/data/fabric/tags/items/shovels.json"
-- template: json/swords.json.ftl
-  writer: json
-  name: "@RESROOT/data/fabric/tags/items/swords.json"
-- template: json/hoes.json.ftl
-  writer: json
-  name: "@RESROOT/data/fabric/tags/items/hoes.json"
 
 language_file:
   format: json
