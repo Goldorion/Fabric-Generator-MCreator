@@ -991,10 +991,10 @@ entity.strider.retreat: ENTITY_STRIDER_RETREAT
 entity.strider.saddle: ENTITY_STRIDER_SADDLE
 entity.strider.step: ENTITY_STRIDER_STEP
 entity.strider.step_lava: ENTITY_STRIDER_STEP_LAVA
+block.smithing_table.use: BLOCK_SMITHING_TABLE_USE
 entity.zoglin.ambient: ENTITY_ZOGLIN_AMBIENT
 entity.zoglin.angry: ENTITY_ZOGLIN_ANGRY
 entity.zoglin.attack: ENTITY_ZOGLIN_ATTACK
 entity.zoglin.death: ENTITY_ZOGLIN_DEATH
 entity.zoglin.hurt: ENTITY_ZOGLIN_HURT
 entity.zoglin.step: ENTITY_ZOGLIN_STEP
-block.smithing_table.use: BLOCK_SMITHING_TABLE_USE

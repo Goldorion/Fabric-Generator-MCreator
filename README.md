@@ -3,7 +3,7 @@ A plugin for [MCreator](https://mcreator.net/), a code generator to create Minec
 
 This project is not official. It is not affiliated with the respective owners and maintainers of Fabric, Minecraft, or MCreator. Do not expect any official support from their communities.
 
-**The Current targeted Minecraft Version is 21w10a**
+**The Current targeted Minecraft Version is 1.16.5**
 
 ## Features
 Note: Mod elements listed are not all fully implemented
@@ -18,14 +18,14 @@ Note: Mod elements listed are not all fully implemented
 * Food
 * Fuel
 * Functions
-* Items (inventory is not supported yet)
+* Items
 * Item groups
-* Key Bindings (They still have bugs)
+* Key Bindings
 * Loot tables
 * Music Discs
 * Overlay
 * Plants
-* Procedures (77 procedure blocks, and 4 global triggers)
+* Procedures
 * Potions
 * Recipes
 * Tags
@@ -49,7 +49,7 @@ Install like any other plugin: Launch MCreator -> Open preferences -> Manage plu
 
 Lead Dev - [Goldorion](https://github.com/Goldorion), [BoogieMonster1O1](https://github.com/BoogieMonster1O1)
 
-Contributors - crispy_chips1234, Klemen
+Contributors - crispy_chips1234, Klemen, U1timateJ7
 
 Thanks to all of you helping in reporting bugs, testing or anything else.
 
