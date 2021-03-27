@@ -2,7 +2,7 @@ name: Minecraft Fabric for 1.16.5 - (@buildfileversion)
 basefeatures: [model_json, variables]
 partial_support: [armors, block, dimension, item, overlay, plant, procedure]
 status: dev
-buildfileversion: 0.32.0
+buildfileversion: 0.32.5
 
 gradle:
   setup_task: tasks

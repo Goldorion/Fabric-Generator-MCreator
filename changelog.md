@@ -1,6 +1,7 @@
 # Changelogs:
 ## 1.0.1
 * Updated to MCreator EAP 2021.12313
+* Updated Fabric API to 0.32.5  
 * Updated the command mod element to support new features
 * Updated the block and plant mod elements to support the new bounding box editor
 * [#72] Bounding boxes now properly rotate  
