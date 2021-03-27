@@ -54,45 +54,51 @@ public class ${name}Block extends
 
     public ${name}Block() {
         <#if data.blockBase?has_content && data.blockBase == "Stairs">
-        		super(new Block(Block.Properties.create(Material.ROCK)
+        super(new Block(Block.Properties.create(Material.ROCK)
         	<#if data.unbreakable>
-        		.hardnessAndResistance(-1, 3600000)
+        	.hardnessAndResistance(-1, 3600000)
         	<#else>
-        		.hardnessAndResistance(${data.hardness}f, ${data.resistance}f)
+        	.hardnessAndResistance(${data.hardness}f, ${data.resistance}f)
         	</#if>
-        		).getDefaultState(),
+        	).getDefaultState(),
         <#elseif data.blockBase?has_content && data.blockBase == "Wall">
-        		super(
+        super(
         <#elseif data.blockBase?has_content && data.blockBase == "Fence">
-        		super(
+        super(
         <#else>
-        		super(
+        super(
         </#if>
-
-        		FabricBlockSettings.of(Material.${data.material})
+        FabricBlockSettings.of(Material.${data.material})
+            .sounds(BlockSoundGroup.${data.soundOnStep})
         <#if data.unbreakable>
-                .strength(-1, 3600000)
+           .strength(-1, 3600000)
         <#else>
-                .strength(${data.hardness}F, ${data.resistance}F)
+           .strength(${data.hardness}F, ${data.resistance}F)
         </#if>
-                .lightLevel(${(data.luminance * 15)?round})
+           .luminance(${data.luminance})
         <#if data.destroyTool != "Not specified">
-			    .breakByTool(FabricToolTags.${data.destroyTool?upper_case}S, ${data.breakHarvestLevel})
+		   .breakByTool(FabricToolTags.${data.destroyTool?upper_case}S, ${data.breakHarvestLevel})
         </#if>
         <#if data.isNotColidable>
-                .noCollision()
+            .noCollision()
         </#if>
         <#if data.slipperiness != 0.6>
-                .slipperiness(${data.slipperiness}F)
+            .slipperiness(${data.slipperiness}F)
         </#if>
         <#if data.hasTransparency || (data.blockBase?has_content && data.blockBase == "Leaves")>
-                .nonOpaque()
+            .nonOpaque()
         </#if>
 		<#if data.emissiveRendering>
-                .emissiveLighting(${name}Block::always)
+           .emissiveLighting(${name}Block::always)
         </#if>
+        <#if data.speedFactor != 1.0>
+           .velocityMultiplier(${data.speedFactor}f)
+		</#if>
+		<#if data.jumpFactor != 1.0>
+		    .jumpVelocityMultiplier(${data.jumpFactor}f)
+		</#if>
         <#if data.tickRandomly>
-                .ticksRandomly()
+           .ticksRandomly()
         </#if>
         );
 

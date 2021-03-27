@@ -31,17 +31,32 @@ import net.fabricmc.api.Environment;
 public class ${name}Block extends <#if data.plantType == "normal">Flower<#elseif data.plantType == "growapable">SugarCane</#if>Block <#if data.hasTileEntity>implements BlockEntityProvider</#if>{
     public ${name}Block() {
         super(<#if data.plantType == "normal">StatusEffects.SATURATION, 0,</#if>
-        FabricBlockSettings.of(Material.PLANT)
-        <#if data.unbreakable>
-                .strength(-1, 3600000)
+        <#if generator.map(data.colorOnMap, "mapcolors") != "DEFAULT">
+        FabricBlockSettings.of(Material.PLANT, MaterialColor.${generator.map(data.colorOnMap, "mapcolors")})
         <#else>
-                .strength(${data.hardness}F, ${data.resistance}F)
+        FabricBlockSettings.of(Material.PLANT)
         </#if>
-        .lightLevel(${(data.luminance * 15)?round})
-        .noCollision()
-        .nonOpaque()
+            .sounds(BlockSoundGroup.${data.soundOnStep})
+        <#if data.unbreakable>
+            .strength(-1, 3600000)
+        <#else>
+            .strength(${data.hardness}F, ${data.resistance}F)
+        </#if>
+		<#if data.emissiveRendering>
+            .emissiveLighting(${name}Block::always)
+        </#if>
+            .luminance(${data.luminance})
+            .noCollision()
+            .nonOpaque()
+            .breakInstantly()
+        <#if data.speedFactor != 1.0>
+            .velocityMultiplier(${data.speedFactor}f)
+		</#if>
+		<#if data.jumpFactor != 1.0>
+		     .jumpVelocityMultiplier(${data.jumpFactor}f)
+		</#if
         <#if data.plantType == "growapable" || data.forceTicking>
-                .ticksRandomly()
+            .ticksRandomly()
         </#if>
         );
 

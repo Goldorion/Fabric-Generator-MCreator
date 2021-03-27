@@ -5,6 +5,7 @@
 * Updated the block and plant mod elements to support the new bounding box editor
 * [#72] Bounding boxes now properly rotate  
 * Added grass model for blocks
+* Added new block/plant properties: Step sound, emissive lightning, speed and jump factors  
 * [Bugfix] Custom blocks did not compile due to the new boundig box editor
 * [Bugfix] The code of custom plants were not generated
 
