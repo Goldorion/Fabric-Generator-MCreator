@@ -137,7 +137,7 @@ public class ${name}Block extends
 		@Override
         public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
 			<#if data.isBoundingBoxEmpty()>
-            	return VoxelShapes.epty();
+            	return VoxelShapes.empty();
             <#else>
             	<#if !data.disableOffset>Vec3d offset = state.getModelOffset(world, pos);</#if>
                 <@boundingBoxWithRotation data.positiveBoundingBoxes() data.negativeBoundingBoxes() data.disableOffset data.rotationMode/>

@@ -1,10 +1,14 @@
 # Changelogs:
 ## 1.0.1
 * Updated to MCreator EAP 2021.12313
-* Updated the command mode element to support new features
-* Updated the block mod element to support the new bounding box editor
+* Updated the command mod element to support new features
+* Updated the block and plant mod elements to support the new bounding box editor
 * [#72] Bounding boxes now properly rotate  
 * Added grass model for blocks
+* [Bugfix] Custom blocks did not compile due to the new boundig box editor
+* [Bugfix] The code of custom plants were not generated
+
+AJOUTER NOUVELLES FEATURES BLOCS + PLANTES
 
 ## 1.0
 * The plugin no longer requires ClothCommons to work

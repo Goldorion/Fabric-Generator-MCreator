@@ -17,31 +17,28 @@ along with MCreatorFabricGenerator.  If not, see <https://www.gnu.org/licenses/>
 
 <#-- @formatter:off -->
 
+<#include "boundingboxes.java.ftl">
 <#include "mcitems.ftl">
 <#include "procedures.java.ftl">
 
 package ${package}.block;
 
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
-public class ${name}FlowerBlock extends <#if data.plantType == "normal">Flower<#elseif data.plantType == "growapable">SugarCane</#if>Block <#if data.hasTileEntity>implements BlockEntityProvider</#if>{
+public class ${name}Block extends <#if data.plantType == "normal">Flower<#elseif data.plantType == "growapable">SugarCane</#if>Block <#if data.hasTileEntity>implements BlockEntityProvider</#if>{
     public ${name}Block() {
-        super(FabricBlockSettings.of(Material.${data.material})
+        super(<#if data.plantType == "normal">StatusEffects.SATURATION, 0,</#if>
+        FabricBlockSettings.of(Material.PLANT)
         <#if data.unbreakable>
                 .strength(-1, 3600000)
         <#else>
                 .strength(${data.hardness}F, ${data.resistance}F)
         </#if>
         .lightLevel(${(data.luminance * 15)?round})
-        <#if data.destroyTool != "Not specified">
-			    .breakByTool(FabricToolTags.${data.destroyTool?upper_case}S, ${data.breakHarvestLevel})
-        </#if>
         .noCollision()
-        <#if data.slipperiness != 0.6>
-                .slipperiness(${data.slipperiness}F)
-        </#if>
         .nonOpaque()
         <#if data.plantType == "growapable" || data.forceTicking>
                 .ticksRandomly()
@@ -52,6 +49,18 @@ public class ${name}FlowerBlock extends <#if data.plantType == "normal">Flower<#
             FlammableBlockRegistry.getDefaultInstance().add(this, ${data.flammability}, ${data.fireSpreadSpeed});
         </#if>
     }
+
+    <#if data.boundingBoxes?? && !data.blockBase?? && !data.isFullCube()>
+		@Override
+        public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+			<#if data.isBoundingBoxEmpty()>
+            	return VoxelShapes.empty();
+            <#else>
+            	<#if !data.disableOffset>Vec3d offset = state.getModelOffset(world, pos);</#if>
+                <@makeBoundingBox data.positiveBoundingBoxes() data.negativeBoundingBoxes() data.disableOffset "north"/>
+            </#if>
+        }
+    </#if>
 
     <#if data.isReplaceable>
     @Override
