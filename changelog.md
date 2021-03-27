@@ -8,8 +8,7 @@
 * Added new block/plant properties: Step sound, speed and jump factors  
 * [Bugfix] Custom blocks did not compile due to the new boundig box editor
 * [Bugfix] The code of custom plants were not generated
-
-AJOUTER NOUVELLES FEATURES BLOCS + PLANTES
+* [Bugfix] An error was still printed in the console saying custom trees arenot supported yet.
 
 ## 1.0
 * The plugin no longer requires ClothCommons to work

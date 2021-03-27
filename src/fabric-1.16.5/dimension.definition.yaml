@@ -26,3 +26,6 @@ templates:
     writer: json
     condition: "worldGenType %= End like gen"
     name: "@MODDATAROOT/worldgen/noise_settings/@registryname.json"
+
+field_inclusions: [mainFillerBlock, fluidBlock, biomesInDimension, imitateOverworldBehaviour, canRespawnHere,
+                   hasFog, isDark, doesWaterVaporize, sleepResult, hasSkyLight, imitateOverworldBehaviour, worldGenType]

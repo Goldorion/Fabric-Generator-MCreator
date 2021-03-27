@@ -193,7 +193,6 @@ public class ${name}Biome {
 
         <#if (data.treesPerChunk > 0)>
             <#if data.treeType == data.TREES_CUSTOM>
-				System.err.println("Custom Trees are not supported yet by MCreatorFabricGenerator! Please consider changing the tree type in the biome \"${modid}:${registryname}\"");
             <#elseif data.vanillaTreeType == "Big trees">
 				genSettingsBuilder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.FANCY_OAK);
             <#elseif data.vanillaTreeType == "Savanna trees">
