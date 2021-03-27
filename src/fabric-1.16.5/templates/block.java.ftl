@@ -19,6 +19,7 @@ along with MCreatorFabricGenerator.  If not, see <https://www.gnu.org/licenses/>
 
 <#include "procedures.java.ftl">
 <#include "mcitems.ftl">
+<#include "boundingboxes.java.ftl">
 
 package ${package}.block;
 
@@ -132,64 +133,14 @@ public class ${name}Block extends
         }
     </#if>
 
-    <#if data.mx != 0 || data.my != 0 || data.mz != 0 || data.Mx != 1 || data.My != 1 || data.Mz != 1>
+    <#if data.boundingBoxes?? && !data.blockBase?? && !data.isFullCube()>
 		@Override
         public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-			<#if data.rotationMode == 1 || data.rotationMode == 3>
-			switch ((Direction) state.get(FACING)) {
-                case UP:
-                case DOWN:
-                case SOUTH:
-                default:
-                    return VoxelShapes.cuboid(${1-data.mx}D, ${data.my}D, ${1-data.mz}D, ${1-data.Mx}D, ${data.My}D,
-                                ${1-data.Mz}D);
-                case NORTH:
-                    return VoxelShapes.cuboid(${data.mx}D, ${data.my}D, ${data.mz}D, ${data.Mx}D, ${data.My}D, ${data.Mz}D);
-                case WEST:
-                    return VoxelShapes.cuboid(${data.mz}D, ${data.my}D, ${1-data.mx}D, ${data.Mz}D, ${data.My}D,
-                                ${1-data.Mx}D);
-                case EAST:
-                    return VoxelShapes.cuboid(${1-data.mz}D, ${data.my}D, ${data.mx}D, ${1-data.Mz}D, ${data.My}D,
-                                ${data.Mx}D);
-            }
-            <#elseif data.rotationMode == 2 || data.rotationMode == 4>
-			switch ((Direction) state.get(FACING)) {
-                case SOUTH:
-                default:
-                    return VoxelShapes.cuboid(${1-data.mx}D, ${data.my}D, ${1-data.mz}D, ${1-data.Mx}D, ${data.My}D,
-                                ${1-data.Mz}D);
-                case NORTH:
-                    return VoxelShapes.cuboid(${data.mx}D, ${data.my}D, ${data.mz}D, ${data.Mx}D, ${data.My}D, ${data.Mz}D);
-                case WEST:
-                    return VoxelShapes.cuboid(${data.mz}D, ${data.my}D, ${1-data.mx}D, ${data.Mz}D, ${data.My}D,
-                                ${1-data.Mx}D);
-                case EAST:
-                    return VoxelShapes.cuboid(${1-data.mz}D, ${data.my}D, ${data.mx}D, ${1-data.Mz}D, ${data.My}D,
-                                ${data.Mx}D);
-                case UP:
-                    return VoxelShapes.cuboid(${data.mx}D, ${1-data.mz}D, ${data.my}D, ${data.Mx}D, ${1-data.Mz}D,
-                                ${data.My}D);
-                case DOWN:
-                    return VoxelShapes.cuboid(${data.mx}D, ${data.mz}D, ${1-data.my}D, ${data.Mx}D, ${data.Mz}D,
-                                ${1-data.My}D);
-            }
-            <#elseif data.rotationMode == 5>
-			switch ((Direction) state.get(FACING)) {
-                case SOUTH:
-                case NORTH:
-                default:
-                    return VoxelShapes.cuboid(${data.mx}D, ${data.my}D, ${data.mz}D, ${data.Mx}D, ${data.My}D, ${data.Mz}D);
-                case EAST:
-                case WEST:
-                    return VoxelShapes.cuboid(${data.mx}D, ${1-data.mz}D, ${data.my}D, ${data.Mx}D, ${1-data.Mz}D,
-                                ${data.My}D);
-                case UP:
-                case DOWN:
-                    return VoxelShapes.cuboid(${data.my}D, ${1-data.mx}D, ${1-data.mz}D, ${data.My}D, ${1-data.Mx}D,
-                                ${1-data.Mz}D);
-            }
+			<#if data.isBoundingBoxEmpty()>
+            	return VoxelShapes.epty();
             <#else>
-			return VoxelShapes.cuboid(${data.mx}D, ${data.my}D, ${data.mz}D, ${data.Mx}D, ${data.My}D, ${data.Mz}D);
+            	<#if !data.disableOffset>Vec3d offset = state.getModelOffset(world, pos);</#if>
+                <@boundingBoxWithRotation data.positiveBoundingBoxes() data.negativeBoundingBoxes() data.disableOffset data.rotationMode/>
             </#if>
         }
     </#if>
@@ -229,7 +180,7 @@ public class ${name}Block extends
             <#elseif data.rotationMode == 2>
 			return this.getDefaultState().with(FACING, context.getPlayerLookDirection().getOpposite());
             <#elseif data.rotationMode == 3>
-			if (context.getFace() == Direction.UP || context.getSide() == Direction.DOWN)
+			if (context.getSide() == Direction.UP || context.getSide() == Direction.DOWN)
                 return this.getDefaultState().with(FACING, Direction.NORTH);
 			return this.getDefaultState().with(FACING, context.getSide());
             <#elseif data.rotationMode == 4>
@@ -259,6 +210,7 @@ public class ${name}Block extends
             return PistonBehavior.${data.reactionToPushing};
         }
     </#if>
+
 
     <#if data.creativePickItem?? && !data.creativePickItem.isEmpty()>
         @Environment(EnvType.CLIENT)

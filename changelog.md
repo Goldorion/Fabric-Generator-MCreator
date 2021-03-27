@@ -2,6 +2,8 @@
 ## 1.0.1
 * Updated to MCreator EAP 2021.12313
 * Updated the command mode element to support new features
+* Updated the block mod element to support the new bounding box editor
+* [#72] Bounding boxes now properly rotate  
 * Added grass model for blocks
 
 ## 1.0
