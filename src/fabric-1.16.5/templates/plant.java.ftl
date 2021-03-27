@@ -42,9 +42,6 @@ public class ${name}Block extends <#if data.plantType == "normal">Flower<#elseif
         <#else>
             .strength(${data.hardness}F, ${data.resistance}F)
         </#if>
-		<#if data.emissiveRendering>
-            .emissiveLighting(${name}Block::always)
-        </#if>
             .luminance(${data.luminance})
             .noCollision()
             .nonOpaque()
