@@ -1,4 +1,8 @@
 # Changelogs:
+## 1.0.1
+* Updated to MCreator EAP 2021.12313
+* Updated the command mode element to support new features
+* Added grass model for blocks
 
 ## 1.0
 * The plugin no longer requires ClothCommons to work

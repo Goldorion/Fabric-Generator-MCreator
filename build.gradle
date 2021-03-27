@@ -45,16 +45,16 @@ task launch {
                 ProcessBuilder builder = new ProcessBuilder("/Applications/MCreator.app/Contents/MacOS/mcreator")
                 builder.redirectOutput(ProcessBuilder.Redirect.INHERIT)
                 builder.redirectError(ProcessBuilder.Redirect.INHERIT)
-                Process process = builder.start()
+                builder.start()
             } catch (IOException e) {
                 throw new RuntimeException("Could not launch MCreator! Please make sure you have installed it to /Applications/", e)
             }
         } else if (Os.isFamily(Os.FAMILY_WINDOWS)) {
             try {
-                ProcessBuilder builder = new ProcessBuilder("C://Program Files/Pylo/MCreatorEAP20211b03117/mcreator.exe")
+                ProcessBuilder builder = new ProcessBuilder("C://Program Files/Pylo/MCreatorEAP20211b12313/mcreator.exe")
                 builder.redirectOutput(ProcessBuilder.Redirect.INHERIT)
                 builder.redirectError(ProcessBuilder.Redirect.INHERIT)
-                Process process = builder.start()
+                builder.start()
                 System.exit(0)
             } catch (IOException e) {
                 throw new RuntimeException("Could not launch MCreator! Please make sure you have installed it to C://Program Files/", e)
@@ -70,7 +70,7 @@ static def installPlugin(String path, String separator) {
         des.delete()
     }
     try {
-        FileOutputStream os = new FileOutputStream(des);
+        FileOutputStream os = new FileOutputStream(des)
         Files.copy(original.toPath(), os)
         System.out.println(String.format("Plugin successfully installed to %s ", path))
     } catch (IOException e) {
