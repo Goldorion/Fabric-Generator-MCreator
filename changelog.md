@@ -1,15 +1,15 @@
 # Changelogs:
 ## 1.0.1
 * Updated to MCreator EAP 2021.12313
-* Updated Fabric API to 0.32.5  
+* Updated Fabric API to 0.32.5
 * Updated the command mod element to support new features
 * Updated the block and plant mod elements to support the new bounding box editor
-* [#72] Bounding boxes now properly rotate  
+* [#72] Bounding boxes now properly rotate
 * Added grass model for blocks
-* Added new block/plant properties: Step sound, speed and jump factors  
-* [Bugfix] Custom blocks did not compile due to the new boundig box editor
+* Added new block/plant properties: Step sound, speed and jump factors
+* [Bugfix] Custom blocks did not compile due to the new bounding box editor
 * [Bugfix] The code of custom plants were not generated
-* [Bugfix] An error was still printed in the console saying custom trees arenot supported yet.
+* [Bugfix] An error was still printed in the console saying custom trees are not supported yet.
 
 ## 1.0
 * The plugin no longer requires ClothCommons to work
