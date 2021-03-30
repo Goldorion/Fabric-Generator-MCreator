@@ -1,4 +1,7 @@
 # Changelogs:
+## 1.0.2
+* [Bugfix #99] Repair items could not use custom tools
+
 ## 1.0.1
 * Updated to MCreator EAP 2021.12313
 * Updated Fabric API to 0.32.5

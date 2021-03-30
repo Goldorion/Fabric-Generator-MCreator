@@ -103,7 +103,7 @@ public class ${JavaModName} implements ModInitializer {
 </#list>
 
 <#list w.getElementsOfType("TOOL") as tool>
-	public static final Item ${tool}_TOOL = Registry.register(Registry.ITEM, id("${tool.getRegistryName()}"), ${tool}Tool.INSTANCE);
+	public static final Item ${tool}_ITEM = Registry.register(Registry.ITEM, id("${tool.getRegistryName()}"), ${tool}Tool.INSTANCE);
 </#list>
 
 <#list w.getElementsOfType("POTION") as potion>
