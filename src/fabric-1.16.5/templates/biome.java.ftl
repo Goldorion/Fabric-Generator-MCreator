@@ -233,8 +233,8 @@ public class ${name}Biome {
         biomeBuilder.category(Biome.Category.${data.biomeCategory});
         biomeBuilder.precipitation(Biome.Precipitation.<#if (data.rainingPossibility > 0)><#if (data.temperature > 0.15)>RAIN<#else>SNOW</#if><#else>NONE</#if>);
         theBiome = biomeBuilder.build();
-        Registry.register(BuiltinRegistries.BIOME, BIOME_KEY.getValue(), theBiome);
-        OverworldBiomes.addContinentalBiome(BIOME_KEY, OverworldClimate.${data.biomeType?replace("WARM", "TEMPERATE")?replace("DESERT", "DRY")}, ${data.biomeWeight}d);
+        Registry.register(BuiltinRegistries.BIOME, ${JavaModName}.${name}_KEY.getValue(), theBiome);
+        OverworldBiomes.addContinentalBiome(${JavaModName}.${name}_KEY, OverworldClimate.${data.biomeType?replace("WARM", "TEMPERATE")?replace("DESERT", "DRY")}, ${data.biomeWeight}d);
     }
 
     private static int getSkyColor(float temperature) {

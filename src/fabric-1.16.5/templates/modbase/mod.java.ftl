@@ -82,7 +82,7 @@ public class ${JavaModName} implements ModInitializer {
 
 <#list w.getElementsOfType("PLANT") as plant>
 	<#assign ge = plant.getGeneratableElement()>
-	public static final Block ${plant}_BLOCK = Registry.register(Registry.BLOCK, id("${plant.getRegistryName()}"), new ${plant}FlowerBlock());
+	public static final Block ${plant}_BLOCK = Registry.register(Registry.BLOCK, id("${plant.getRegistryName()}"), new ${plant}Block());
 	public static final BlockItem ${plant}_ITEM = Registry.register(Registry.ITEM, id("${plant.getRegistryName()}"), new BlockItem(${plant}_BLOCK, new Item.Settings().group(${ge.creativeTab})));
 </#list>
 
@@ -115,7 +115,7 @@ public class ${JavaModName} implements ModInitializer {
 </#list>
 
 <#list w.getElementsOfType("BIOME") as biome>
-    public static final RegistryKey<Biome> $[biome}_KEY = RegistryKey.of(Registry.BIOME_KEY, id("${biome.getRegistryName()}"));
+    public static final RegistryKey<Biome> ${biome}_KEY = RegistryKey.of(Registry.BIOME_KEY, id("${biome.getRegistryName()}"));
 </#list>
 
 	@Override
