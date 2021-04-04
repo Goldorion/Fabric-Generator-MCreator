@@ -1,4 +1,7 @@
 # Changelogs:
+## 1.1
+* [Bugfix #102] Some block triggers caused build errors
+
 ## 1.0.2
 * [Bugfix #99] Repair items could not use custom tools
 * [Bugfix #101] Select a map color on custom blocks caused a build error
