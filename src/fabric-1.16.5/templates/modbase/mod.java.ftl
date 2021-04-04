@@ -82,8 +82,8 @@ public class ${JavaModName} implements ModInitializer {
 
 <#list w.getElementsOfType("PLANT") as plant>
 	<#assign ge = plant.getGeneratableElement()>
-	public static final Block ${block}_BLOCK = Registry.register(Registry.BLOCK, id("${block.getRegistryName()}"), new ${plant}FlowerBlock());
-	public static final BlockItem ${block}_ITEM = Registry.register(Registry.ITEM, id("${block.getRegistryName()}"), new BlockItem(${plant}_BLOCK, new Item.Settings().group(${ge.creativeTab})));
+	public static final Block ${plant}_BLOCK = Registry.register(Registry.BLOCK, id("${plant.getRegistryName()}"), new ${plant}FlowerBlock());
+	public static final BlockItem ${plant}_ITEM = Registry.register(Registry.ITEM, id("${plant.getRegistryName()}"), new BlockItem(${plant}_BLOCK, new Item.Settings().group(${ge.creativeTab})));
 </#list>
 
 <#list w.getElementsOfType("ARMOR") as armor>
@@ -112,6 +112,10 @@ public class ${JavaModName} implements ModInitializer {
 	<#if ge.registerPotionType>
 	public static final Potion ${potion}_POTION = Registry.register(Registry.POTION, id("${potion.getRegistryName()}_potion"), ${potion}Effect.POTION_INSTANCE);
 	</#if>
+</#list>
+
+<#list w.getElementsOfType("BIOME") as biome>
+    public static final RegistryKey<Biome> $[biome}_KEY = RegistryKey.of(Registry.BIOME_KEY, id("${biome.getRegistryName()}"));
 </#list>
 
 	@Override

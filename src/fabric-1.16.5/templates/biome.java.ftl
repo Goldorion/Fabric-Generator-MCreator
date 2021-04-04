@@ -22,11 +22,11 @@ package ${package}.world.biomes;
 
 public class ${name}Biome {
     private static Biome theBiome;
-    private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> SURFACE_BUILDER = SurfaceBuilder.DEFAULT.withConfig(new TernarySurfaceConfig(${mappedBlockToBlockStateCode(data.groundBlock)}, ${mappedBlockToBlockStateCode(data.undergroundBlock)}, ${mappedBlockToBlockStateCode(data.undergroundBlock)}));
-    public static final RegistryKey<Biome> BIOME_KEY = RegistryKey.of(Registry.BIOME_KEY, new Identifier("${modid}", "${registryname}"));
+    private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> SURFACE_BUILDER = SurfaceBuilder.DEFAULT.withConfig(new TernarySurfaceConfig(${mappedBlockToBlockStateCode(data.groundBlock)},
+        ${mappedBlockToBlockStateCode(data.undergroundBlock)}, ${mappedBlockToBlockStateCode(data.undergroundBlock)}));
 
     public static void init() {
-        Registry.register(BuiltinRegistries.CONFIGURED_SURFACE_BUILDER, BIOME_KEY.getValue(), SURFACE_BUILDER);
+        Registry.register(BuiltinRegistries.CONFIGURED_SURFACE_BUILDER, ${JavaModName}.${name}_KEY.getValue(), SURFACE_BUILDER);
         BiomeEffects effects = new BiomeEffects.Builder()
             .fogColor(${data.airColor?has_content?then(data.airColor.getRGB(), 12638463)})
             .waterColor(${data.waterColor?has_content?then(data.waterColor.getRGB(), 4159204)})

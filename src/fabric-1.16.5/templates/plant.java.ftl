@@ -51,7 +51,7 @@ public class ${name}Block extends <#if data.plantType == "normal">Flower<#elseif
 		</#if>
 		<#if data.jumpFactor != 1.0>
 		     .jumpVelocityMultiplier(${data.jumpFactor}f)
-		</#if
+		</#if>
         <#if data.plantType == "growapable" || data.forceTicking>
             .ticksRandomly()
         </#if>

@@ -1,6 +1,7 @@
 # Changelogs:
-## 1.0.2
+## 1.1
 * [Bugfix #99] Repair items could not use custom tools
+* [Bugfix] Custom plants caused the workspace did not compile
 
 ## 1.0.1
 * Updated to MCreator EAP 2021.12313
@@ -65,7 +66,7 @@
 
 ## 1.0.0-pre4
 * Updated to 1.16.3
-* Fixed a crash with modmenu
+* [Bugfix] Fixed a crash with modmenu
 
 ## 1.0.0-pre3
 * Updated to 1.16.3 rc-1
@@ -93,13 +94,13 @@
 The plugins now require [Cloth Commons](https://github.com/ClothCreators/ClothCommons) to work.
 
 * Added all mappings (1.16.2 and before)
-* Fixed x y z dependencies in global triggers
-* Fixed #47
-* Fixed #51
+* [Bugfix] Fixed x y z dependencies in global triggers
+* [Bugfix #47]
+* [Bugfix #51]
 
 ## 1.0.0-alpha3
 - Updated the generator to Minecraft 1.16.2
-- Fixed #48 
+- [Bugfix #48]
 
 ## 1.0.0-alpha2
 - Added overlays
@@ -107,7 +108,7 @@ The plugins now require [Cloth Commons](https://github.com/ClothCreators/ClothCo
 - Added key bindings (They still have bugs)
 - Added commands
 - Added enchantments
-- Fixed all (or almost, an option for the items has been deactivated for the moment) elements of the first alpha version.
+- [Bugfixes] Fixed all (or almost, an option for the items has been deactivated for the moment) elements of the first alpha version.
 
 ## 1.0.0-alpha1
 - Items (inventory is not supported yet)
@@ -126,8 +127,8 @@ The plugins now require [Cloth Commons](https://github.com/ClothCreators/ClothCo
 - Tags
 
 ## 0.6.1
-* Fixed #32
-* Fixed #33
+* [Bugfix #32]
+* [Bugfix #33]
 * Updated fabric API
 
 ## 0.6.0
@@ -150,12 +151,12 @@ The plugins now require [Cloth Commons](https://github.com/ClothCreators/ClothCo
 * Added support for enchantability on Items
 * Added support for melee damage on Items
 * Added tool tags for tools
-* Added support for luminance on Blocks
+* Added support for the luminance on Blocks
 * Added support for light opacity on Blocks
 * Added the ability to add custom fuels (and it works this time)
 * The base mod now includes mod menu
 * Food can now have custom eating time
-* Updated loom to 0.4.26
+* Updated Loom to 0.4.26
 * Added support for block transparency
 * Added support for connected block sides
 * Added support for block tick rate (Does nothing for now)
@@ -180,8 +181,8 @@ The plugins now require [Cloth Commons](https://github.com/ClothCreators/ClothCo
 - **[Bugfix #5] Smelting, Blasting, Smoking, Campfire recipe types didn't work.**
 
 ## 0.4.1
-* Fixed some block materials having wrong mapping names
-* Fixed block sounds having wrong mapping names
+* [Bugfix] Fixed some block materials having wrong mapping names
+* [Bugfix] Fixed block sounds having wrong mapping names
 * Added more block materials
 * Changed block materials
 
@@ -190,9 +191,9 @@ The plugins now require [Cloth Commons](https://github.com/ClothCreators/ClothCo
 * Added support for the maximal damage for items
 * The generator has now its own workspace type. Your old workspaces can be broken. It is recommended to create a new workspace.
 * Removed Block Render (Didn't work)
-* Fixed Fuel element
-* The main class had nothing inside if you make a block
-* Fixed Block element
+* [Bugfix] Fixed Fuel element
+* [Bugfix] The main class had nothing inside if you make a block
+* [Bugfix] Fixed Block element
 
 ## 0.3.0
 * Added Basic Block Element:
@@ -204,7 +205,7 @@ The plugins now require [Cloth Commons](https://github.com/ClothCreators/ClothCo
 
 
 ## 0.2.1
-* Fixed bugs
+* [Bugfix] Fixed bugs
 * Removed ItemGroup feature, will be re-added later
 * Added Recipe, Tag, Function, Advancement, and Loot Table Features
 
