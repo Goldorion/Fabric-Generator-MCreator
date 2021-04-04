@@ -3,7 +3,7 @@
 * [Bugfix #99] Repair items could not use custom tools
 * [Bugfix #101] Select a map color on custom blocks caused a build error
 * [Bugfix] Some Material mappings were wrong  
-* [Bugfix] Custom plants caused the workspace did not compile
+* [Bugfix] Custom plants prevented the workspace compilation
 
 ## 1.0.1
 * Updated to MCreator EAP 2021.12313
