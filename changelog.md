@@ -1,7 +1,9 @@
 # Changelogs:
-## 1.1
+## 1.0.2
 * [Bugfix #99] Repair items could not use custom tools
 * [Bugfix #101] Select a map color on custom blocks caused a build error
+* [Bugfix #102] Some block triggers caused build errors
+* [Bugfix #102] Several world procedure blocks caused a build error  
 * [Bugfix] Some Material mappings were wrong  
 * [Bugfix] Custom plants prevented the workspace compilation
 

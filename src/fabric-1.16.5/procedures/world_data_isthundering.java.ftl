@@ -1,1 +1,1 @@
-(world.getWorld().isThundering())
+(world.isThundering())

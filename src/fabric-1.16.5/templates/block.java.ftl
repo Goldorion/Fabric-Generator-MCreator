@@ -304,6 +304,7 @@ public class ${name}Block extends
             int x = pos.getX();
             int y = pos.getY();
             int z = pos.getZ();
+            Entity entity = player;
 			<@procedureOBJToCode data.onDestroyedByPlayer/>
         }
     </#if>
@@ -311,7 +312,7 @@ public class ${name}Block extends
     <#if hasProcedure(data.onDestroyedByExplosion)>
 		@Override
         public void onDestroyedByExplosion(World world, BlockPos pos, Explosion explosion) {
-            super.onDestroyedByExplosion(world, pos, e);
+            super.onDestroyedByExplosion(world, pos, explosion);
             int x = pos.getX();
             int y = pos.getY();
             int z = pos.getZ();

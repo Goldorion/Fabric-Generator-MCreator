@@ -1,1 +1,1 @@
-(world.getWorld().getTimeOfDay())
+(world.getTimeOfDay())

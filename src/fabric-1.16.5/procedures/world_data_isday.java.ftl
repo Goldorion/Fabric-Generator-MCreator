@@ -1,1 +1,1 @@
-(world.getWorld().isDay())
+(world.isDay())

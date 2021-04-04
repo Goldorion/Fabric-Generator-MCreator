@@ -1,1 +1,1 @@
-(world.getWorld().isClient())
+(world.isClient())
