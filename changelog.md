@@ -2,6 +2,7 @@
 ## 1.1
 * [Bugfix #99] Repair items could not use custom tools
 * [Bugfix #101] Select a map color on custom blocks caused a build error
+* [Bugfix] Some Material mappings were wrong  
 * [Bugfix] Custom plants caused the workspace did not compile
 
 ## 1.0.1
