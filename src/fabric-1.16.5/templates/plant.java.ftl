@@ -32,9 +32,9 @@ public class ${name}Block extends <#if data.plantType == "normal">Flower<#elseif
     public ${name}Block() {
         super(<#if data.plantType == "normal">StatusEffects.SATURATION, 0,</#if>
         <#if generator.map(data.colorOnMap, "mapcolors") != "DEFAULT">
-        FabricBlockSettings.of(MaterialColor.PLANT, MaterialColor.${generator.map(data.colorOnMap, "mapcolors")})
+        FabricBlockSettings.of(Material.PLANT, MaterialColor.${generator.map(data.colorOnMap, "mapcolors")})
         <#else>
-        FabricBlockSettings.of(MaterialColor.PLANT)
+        FabricBlockSettings.of(Material.PLANT)
         </#if>
             .sounds(BlockSoundGroup.${data.soundOnStep})
         <#if data.unbreakable>
