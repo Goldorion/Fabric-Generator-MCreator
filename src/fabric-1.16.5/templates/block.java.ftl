@@ -100,6 +100,9 @@ public class ${name}Block extends
         <#if data.tickRandomly>
            .ticksRandomly()
         </#if>
+        <#if generator.map(data.colorOnMap, "mapcolors") != "DEFAULT">
+		   .materialColor(MaterialColor.${generator.map(data.colorOnMap, "mapcolors")})
+        </#if>
         );
 
         <#if data.rotationMode == 1 || data.rotationMode == 3>
@@ -222,13 +225,6 @@ public class ${name}Block extends
         @Environment(EnvType.CLIENT)
         public ItemStack getPickStack(BlockView world, BlockPos pos, BlockState state) {
             return new ItemStack(${mappedMCItemToItemStackCode(data.creativePickItem, 1)});
-        }
-    </#if>
-
-    <#if generator.map(data.colorOnMap, "mapcolors") != "DEFAULT">
-		@Override
-        public MapColor getDefaultMapColor() {
-            return MapColor.${generator.map(data.colorOnMap, "mapcolors")};
         }
     </#if>
 
