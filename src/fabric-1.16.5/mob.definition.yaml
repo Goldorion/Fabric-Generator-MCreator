@@ -3,8 +3,6 @@ templates:
     name: "@SRCROOT/@BASEPACKAGEPATH/entity/@NAMEEntity.java"
   - template: entity/entity_renderer.java.ftl
     name: "@SRCROOT/@BASEPACKAGEPATH/entity/render/@NAMEEntityRenderer.java"
-  - template: entity/entity_model.java.ftl
-    name: "@SRCROOT/@BASEPACKAGEPATH/entity/model/@NAMEEntityModel.java"
   - template: json/spawn_egg.json.ftl
     writer: json
     name: "@MODASSETSROOT/models/item/@registryname_spawn_egg.json"

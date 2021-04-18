@@ -107,7 +107,7 @@ public class ${name}Entity extends AnimalEntity {
         </#if>
 
         <#if data.spawnThisMob>
-        BiomeModifications.create(new Identifier("${name}_entity_spawn")).add(ModificationPhase.ADDITIONS,
+        BiomeModifications.create(new Identifier("${modid}", "${name?lower_case}_entity_spawn")).add(ModificationPhase.ADDITIONS,
                 BiomeSelectors.<#if data.restrictionBiomes?has_content>includeByKey(<@biomeKeys data.restrictionBiomes/>)<#else>all()</#if>, ctx -> ctx.getSpawnSettings().addSpawn(${generator.map(data.mobSpawningType, "mobspawntypes")},
                         new SpawnSettings.SpawnEntry(ENTITY, ${data.spawningProbability}, ${data.minNumberOfMobsPerGroup}, ${data.maxNumberOfMobsPerGroup})));
         </#if>
