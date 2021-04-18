@@ -59,9 +59,14 @@ public class ClientInit implements ClientModInitializer{
     <#list w.getElementsOfType("BLOCK") as block>
         BlockRenderLayerMap.INSTANCE.putBlock(${JavaModName}.${block}_BLOCK, RenderLayer.getCutoutMipped());
     </#list>
-        <#list w.getElementsOfType("CODE") as code>
-            ${code}CustomCode.initializeClient();
-        </#list>
+
+	<#list w.getElementsOfType("MOB") as entity>
+		${entity}EntityRenderer.clientInit();
+	</#list>
+
+    <#list w.getElementsOfType("CODE") as code>
+        ${code}CustomCode.initializeClient();
+    </#list>
 
         HudRenderCallback.EVENT.register((matrices, tickDelta) -> {
         <#list w.getElementsOfType("OVERLAY") as overlay>

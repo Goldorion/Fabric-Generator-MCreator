@@ -18,6 +18,9 @@ class Globals {
     }
 }
 
+// workaround for IDEA-265203
+System.setProperty("user.dir", projectDir.toString())
+
 task build(type: Zip) {
     from 'src'
     archiveName = Globals.getArchiveName()
