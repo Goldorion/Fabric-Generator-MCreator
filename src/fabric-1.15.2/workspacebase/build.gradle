@@ -7,8 +7,8 @@ sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
 archivesBaseName = 'modid'
-version = '1.0'
-group = 'com.modid'
+version = '1.0.0'
+group = 'com.yourname.modid'
 
 dependencies {
 	// Minecraft version

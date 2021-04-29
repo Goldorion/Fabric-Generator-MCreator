@@ -1,25 +1,26 @@
 name: Minecraft Fabric for 1.15.2 (@buildfileversion)
-basefeatures: [model_json,model_obj]
-partial_support: [armor,biome]
-status: stable
+basefeatures: [model_json, model_obj]
+partial_support: [armor, biome]
+status: dev
 buildfileversion: 0.8.8+build.202
 
 gradle:
-  setup_task: genSources
+  setup_task: tasks
   run_client: runClient
   run_server: runServer
-  export_file: "build/libs/sources.jar"
+  export_file: "build/libs/modid.jar"
 
 source_root: "@WORKSPACEROOT/src/main/java"
 res_root: "@WORKSPACEROOT/src/main/resources"
 mod_assets_root: "@RESROOT/assets/@modid"
 mod_data_root: "@RESROOT/data/@modid"
 
+structures_dir: "@MODDATAROOT/structures"
 sounds_dir: "@MODASSETSROOT/sounds"
 other_textures_dir: "@MODASSETSROOT/textures"
 block_textures_dir: "@MODASSETSROOT/textures/blocks"
 item_textures_dir: "@MODASSETSROOT/textures/items"
-armor_textures_dir: "@MODASSETSROOT/textures/models/armor"
+armor_textures_dir: "@RESROOT/assets/minecraft/textures/models/armor"
 
 base_templates:
 - template: modbase/mod.java.ftl
