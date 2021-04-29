@@ -6,7 +6,7 @@ A plugin for [MCreator](https://mcreator.net/), a code generator to create Minec
 
 This project is not official. It is not affiliated with the respective owners and maintainers of Fabric, Minecraft, or MCreator. Do not expect any official support from their communities.
 
-**The Current targeted Minecraft Version within this Branch is 1.15.2**
+**The Current targeted Minecraft Version within this Branch is 1.15.2**,
 return to [default branch](https://github.com/ClothCreators/Fabric-Generator-MCreator) for 1.16.5
 
 ## Features
