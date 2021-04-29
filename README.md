@@ -46,7 +46,7 @@ Install like any other plugin: Launch MCreator -> Open preferences -> Manage plu
 
 ## Important Information
 - Make sure you use MCreator 2021.1 
-- Back up your workspace before updating to a newer version of the plugin.
+- Back up your workspace before attempting to use this branch of the plugin.
 - Mods will also require [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api) to function properly, so when you want to play your mod, make sure you have fabric api.
 
 ## Important Information
