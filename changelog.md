@@ -1,30 +1,6 @@
 # Changelogs:
-## 0.6.2-alpha3
-- minor updates to generator for partial revival
-
-## 0.6.2-alpha2
-- Added overlays
-- Added music discs
-- Added key bindings (They still have bugs)
-- Added commands
-- Added enchantments
-- [Bugfixes] Fixed all (or almost, an option for the items has been deactivated for the moment) elements of the first alpha version.
-
 ## 0.6.2-alpha1
-- Items (inventory is not supported yet)
-- Blocks (block entities are not supported yet)
-- Armor
-- Tools
-- Food
-- Fuel
-- Item groups
-- Procedures (77 procedure blocks, and 4 global triggers)
-- Custom code
-- Recipes
-- Advancements
-- Loot tables
-- Functions
-- Tags
+- minor updates to generator for partial revival
 
 ## 0.6.1
 * [Bugfix #32]
