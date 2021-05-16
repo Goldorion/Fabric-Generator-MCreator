@@ -100,6 +100,16 @@ public class ${name}Entity extends ${extendsClass}Entity {
         </#if>
     }
 
+	<#if data.hasAI>
+		@Override
+        protected void initGoals() {
+            super.initGoals();
+			<#if aicode??>
+                ${aicode}
+            </#if>
+		}
+	</#if>
+
     <#if data.stepSound?has_content && data.stepSound.getMappedValue()?has_content>
         @Override
         public void playStepSound(BlockPos pos, BlockState state) {
