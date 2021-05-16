@@ -38,10 +38,18 @@ public class ${name}Entity extends AnimalEntity {
             .build()
     );
 
+    <#if data.isBoss>
+        private final ServerBossBar bossBar;
+    </#if>
+
     protected ${name}Entity(EntityType<? extends ${name}Entity> entityType, World world) {
         super(entityType, world);
-		setAiDisabled(${(!data.hasAI)});
-		experiencePoints = ${data.xpAmount};
+		this.setAiDisabled(${(!data.hasAI)});
+		this.experiencePoints = ${data.xpAmount};
+
+        <#if data.isBoss>
+            this.bossBar = new ServerBossBar(this.getDisplayName(), BossBar.Color.${data.bossBarColor}, BossBar.Style.${data.bossBarType});
+        </#if>
 
 		<#if data.mobLabel?has_content >
             setCustomName(new StringTextComponent("${data.mobLabel}"));
@@ -76,6 +84,34 @@ public class ${name}Entity extends AnimalEntity {
             this.navigation = new BirdNavigation(this, this.world);
         </#if>
     }
+
+    <#if data.isBoss>
+        @Override
+        public void readCustomDataFromTag(CompoundTag tag) {
+            super.readCustomDataFromTag(tag);
+            if (this.hasCustomName()) {
+             this.bossBar.setName(this.getDisplayName());
+            }
+        }
+
+        @Override
+        public void setCustomName(@Nullable Text name) {
+            super.setCustomName(name);
+            this.bossBar.setName(this.getDisplayName());
+        }
+
+        @Override
+        protected void mobTick() {
+            super.mobTick();
+            this.bossBar.setPercent(this.getHealth() / this.getMaxHealth());
+        }
+
+        @Override
+        public void onStartedTrackingBy(ServerPlayerEntity player) {
+            super.onStartedTrackingBy(player);
+            this.bossBar.addPlayer(player);
+        }
+    </#if>
 
     public static void init() {
         FabricDefaultAttributeRegistry.register(ENTITY, ${name}Entity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, ${data.health})
