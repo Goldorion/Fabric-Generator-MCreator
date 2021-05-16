@@ -85,6 +85,42 @@ public class ${name}Entity extends AnimalEntity {
         </#if>
     }
 
+    <#if data.stepSound?has_content && data.stepSound.getMappedValue()?has_content>
+     		@Override public void playStepSound(BlockPos pos, BlockState state) {
+     			this.playSound(<#if data.stepSound?contains(modid)>${JavaModName}.${data.stepSound?remove_beginning(modid + ":")}Event<#elseif (data.stepSound?length > 0)>
+                               SoundEvents.${data.stepSound}<#else>null</#if>, 0.15f, 1);
+     		}
+    </#if>
+
+    @Nullable
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return <#if data.livingSound?contains(modid)>${JavaModName}.${data.livingSound?remove_beginning(modid + ":")}Event<#elseif (data.livingSound?length > 0)>
+               SoundEvents.${data.livingSound}<#else>null</#if>;
+    }
+
+    @Nullable
+	@Override
+	protected SoundEvent getHurtSound(DamageSource source) {
+		return <#if data.hurtSound?contains(modid)>${JavaModName}.${data.hurtSound?remove_beginning(modid + ":")}Event<#elseif (data.hurtSound?length > 0)>
+                SoundEvents.${data.hurtSound}<#else>null</#if>;
+	}
+
+    @Nullable
+	@Override
+	protected SoundEvent getDeathSound() {
+		return <#if data.deathSound?contains(modid)>${JavaModName}.${data.deathSound?remove_beginning(modid + ":")}Event<#elseif (data.deathSound?length > 0)>
+                 SoundEvents.${data.deathSound}<#else>null</#if>;
+	}
+
+    <#if data.stepSound?has_content && data.stepSound.getMappedValue()?has_content>
+	@Override
+	public void playStepSound(BlockPos pos, BlockState blockIn) {
+	    this.playSound(<#if data.stepSound?contains(modid)>${JavaModName}.${data.stepSound?remove_beginning(modid + ":")}Event
+	        <#elseif (data.stepSound?length > 0)>SoundEvents.${data.stepSound}<#else>null</#if>, 0.15f, 1);
+	}
+	</#if>
+
     <#if data.isBoss>
         @Override
         public void readCustomDataFromTag(CompoundTag tag) {
