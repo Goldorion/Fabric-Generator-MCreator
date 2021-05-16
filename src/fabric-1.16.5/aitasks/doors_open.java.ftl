@@ -1,6 +1,6 @@
 <#if !data.flyingMob>
 <#include "aiconditions.java.ftl">
-this.goalSelector.addGoal(${customBlockIndex+1}, new DoorInteract(this) {
+this.goalSelector.add(${customBlockIndex+1}, new DoorInteract(this) {
 			@Override
 			protected void setDoorOpen(boolean open) {
 				super.setDoorOpen(true);

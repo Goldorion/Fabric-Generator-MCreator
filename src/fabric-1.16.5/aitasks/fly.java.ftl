@@ -1,6 +1,6 @@
 <#-- @formatter:off -->
 <#include "aiconditions.java.ftl">
-this.goalSelector.addGoal(${customBlockIndex+1}, new WanderAroundFarGoal(this, ${field$speed}, 20) {
+this.goalSelector.add(${customBlockIndex+1}, new WanderAroundFarGoal(this, ${field$speed}, 20) {
 
     @Override
     protected Vec3d getWanderTarget() {

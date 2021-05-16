@@ -17,6 +17,7 @@ along with MCreatorFabricGenerator.  If not, see <https://www.gnu.org/licenses/>
 
 <#-- @formatter:off -->
 <#include "../biomes.java.ftl">
+<#include "../mcitems.ftl">
 <#include "../procedures.java.ftl">
 <#include "../particles.java.ftl">
 
@@ -106,6 +107,12 @@ public class ${name}Entity extends ${extendsClass}Entity {
             super.initGoals();
 			<#if aicode??>
                 ${aicode}
+            </#if>
+
+            <#if data.breedable>
+                this.goalSelector.add(2, new AnimalMateGoal(this, 1.0D));
+                this.goalSelector.add(3, new TemptGoal(this, 1.0D, false, Ingredient.ofItems(
+                <#list data.breedTriggerItems as breedTriggerItem>${mappedMCItemToItemStackCode(breedTriggerItem,1)}<#if breedTriggerItem?has_next>,</#if></#list>)));
             </#if>
 		}
 	</#if>
@@ -317,12 +324,54 @@ public class ${name}Entity extends ${extendsClass}Entity {
     }
     </#if>
 
-    <#if hasProcedure(data.onRightClickedOn)>
+    <#if hasProcedure(data.onRightClickedOn) || data.tameable>
 	    @Override
-	    protected ActionResult interactMob(PlayerEntity sourceentity, Hand hand) {
+	    public ActionResult interactMob(PlayerEntity sourceentity, Hand hand) {
 		    ItemStack itemstack = sourceentity.getMainHandStack();
 		    ActionResult retval = ActionResult.success(!this.world.isClient());
-		    
+		    <#if data.tameable>
+                Item item = itemstack.getItem();
+            	if (itemstack.getItem() instanceof SpawnEggItem) {
+            		retval = super.interactMob(sourceentity, hand);
+            	} else if (!this.world.isClient()) {
+            		retval = (this.isTamed() && this.isOwner(sourceentity) || this.isBreedingItem(itemstack))
+            	    ? ActionResult.success(!this.world.isClient()) : ActionResult.PASS;
+            	} else {
+            		if (this.isTamed()) {
+            			if (this.isOwner(sourceentity)) {
+            	            if (item.isFood() && this.isBreedingItem(itemstack) && this.getHealth() < this.getMaxHealth()) {
+				                itemstack.decrement(1);
+            		            this.heal((float)item.getFoodComponent().getHunger());
+            		            retval = ActionResult.success(!this.world.isClient());
+            	            } else if (this.isBreedingItem(itemstack) && this.getHealth() < this.getMaxHealth()) {
+				                itemstack.decrement(1);
+            		            this.heal(4);
+            		            retval = ActionResult.success(!this.world.isClient());
+            	            } else {
+            		            retval = super.interactMob(sourceentity, hand);
+            	            }
+            			}
+            		} else if (this.isBreedingItem(itemstack)) {
+				        itemstack.decrement(1);
+            			if (this.random.nextInt(3) == 0 && !this.isTamed()) {
+            	            this.setOwner(sourceentity);
+            	            this.world.sendEntityStatus(this, (byte) 7);
+            			} else {
+            	            this.world.sendEntityStatus(this, (byte) 6);
+            			}
+
+            			this.setPersistent();
+            			retval = ActionResult.success(!this.world.isClient());
+            		} else {
+            			retval = super.interactMob(sourceentity, hand);
+            			if (retval == ActionResult.SUCCESS || retval == ActionResult.CONSUME)
+            	            this.setPersistent();
+            		}
+            	}
+            <#else>
+            	super.interactMob(sourceentity, hand);
+            			</#if>
+            			
 			double x = this.getX();
 			double y = this.getY();
 			double z = this.getZ();
@@ -402,10 +451,9 @@ public class ${name}Entity extends ${extendsClass}Entity {
     }
 
     <#if data.breedable>
-        @Nullable
         @Override
         public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
-            return null;
+            return ENTITY.create(world);
         }
 	</#if>
 
