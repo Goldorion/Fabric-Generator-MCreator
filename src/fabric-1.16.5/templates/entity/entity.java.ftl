@@ -102,17 +102,19 @@ public class ${name}Entity extends ${extendsClass}Entity {
 
     <#if data.stepSound?has_content && data.stepSound.getMappedValue()?has_content>
      		@Override public void playStepSound(BlockPos pos, BlockState state) {
-     this.playSound(<#if data.stepSound?contains(modid)>${JavaModName}.${data.stepSound?remove_beginning(modid + ":")}Event<#elseif (data.stepSound?length > 0)>
+        @Override
+        public void playStepSound(BlockPos pos, BlockState state) {
+            this.playSound(<#if data.stepSound?contains(modid)>${JavaModName}.${data.stepSound?remove_beginning(modid + ":")}Event<#elseif (data.stepSound?length > 0)>
                                SoundEvents.${data.stepSound}<#else>null</#if>, 0.15f, 1);
-     		}
+     	}
     </#if>
 
     <#if !data.mobDrop.isEmpty()>
         @Override
-    	    protected void dropLoot(DamageSource source, boolean causedByPlayer) {
-    		    super.dropLoot(source, causedByPlayer);
-    		    this.dropStack((${mappedMCItemToItemStackCode(data.mobDrop, 1)});
-    	    }
+    	protected void dropLoot(DamageSource source, boolean causedByPlayer) {
+    	    super.dropLoot(source, causedByPlayer);
+    	    this.dropStack((${mappedMCItemToItemStackCode(data.mobDrop, 1)});
+    	}
     </#if>
 
     @Nullable
@@ -177,12 +179,36 @@ public class ${name}Entity extends ${extendsClass}Entity {
         public void tick() {
             super.tick();
 	        double x = this.getX();
-		    double y = this.getY();
-		    double z = this.getZ();
+	    	double y = this.getY();
+	    	double z = this.getZ();
             Random random = this.random;
             Entity entity = this;
             <@particles data.particleSpawningShape data.particleToSpawn data.particleSpawningRadious data.particleAmount data.particleCondition/>
         }
+    </#if>
+
+	<#if hasProcedure(data.onStruckByLightning)>
+	@Override public void onStruckByLightning(ServerWorld serverWorld, LightningEntity lightningEntity) {
+		super.onStruckByLightning(serverWorld, lightningEntity);
+		double x = this.getX();
+		double y = this.getY();
+		double z = this.getZ();
+		Entity entity = this;
+		<@procedureOBJToCode data.onStruckByLightning/>
+	}
+    </#if>
+
+	<#if hasProcedure(data.whenMobFalls) || data.flyingMob>
+		@Override
+		public boolean handleFallDamage(float l, float d) {
+		    double x = this.getX();
+			double y = this.getY();
+			double z = this.getZ();
+			Entity entity = this;
+			<@procedureOBJToCode data.whenMobFalls/>
+
+			return super.handleFallDamage(l, d);
+		}
     </#if>
 
     <#if hasProcedure(data.whenMobIsHurt) || data.immuneToArrows || data.immuneToFallDamage
@@ -192,9 +218,9 @@ public class ${name}Entity extends ${extendsClass}Entity {
         @Override
         	public boolean damage(DamageSource source, float amount) {
         	    <#if hasProcedure(data.whenMobIsHurt)>
-		            double x = this.getX();
-		            double y = this.getY();
-		            double z = this.getZ();
+	            double x = this.getX();
+	            double y = this.getY();
+	            double z = this.getZ();
                 	Entity entity = this;
                 	Entity sourceentity = source.getAttacker();
                 	<@procedureOBJToCode data.whenMobIsHurt/>
@@ -202,56 +228,132 @@ public class ${name}Entity extends ${extendsClass}Entity {
                 
                 <#if data.immuneToArrows>
                 	if (source.getSource() instanceof ArrowEntity)
-                		return false;
+                	return false;
                 </#if>
                 <#if data.immuneToPlayer>
                 	if (source.getSource() instanceof PlayerEntity)
-                		return false;
+                	return false;
                 </#if>
                 <#if data.immuneToPotions>
                 	if (source.getSource() instanceof PotionEntity)
-                		return false;
+                	return false;
                 </#if>
                 <#if data.immuneToFallDamage>
                 	if (source == DamageSource.FALL)
-                		return false;
+                	return false;
                 </#if>
                 <#if data.immuneToCactus>
                 	if (source == DamageSource.CACTUS)
-                		return false;
+                	return false;
                 </#if>
                 <#if data.immuneToDrowning>
                 	if (source == DamageSource.DROWN)
-                		return false;
+                	return false;
                 </#if>
                 <#if data.immuneToLightning>
                 	if (source == DamageSource.LIGHTNING_BOLT)
-                		return false;
+                	return false;
                 </#if>
                 <#if data.immuneToExplosion>
                 	if (source.isExplosive())
-                		return false;
+                	return false;
                 </#if>
                 <#if data.immuneToTrident>
                 	if (source.getName().equals("trident"))
-                		return false;
+                	return false;
                 </#if>
                 <#if data.immuneToAnvil>
                 	if (source == DamageSource.ANVIL)
-                		return false;
+                	return false;
                 </#if>
                 <#if data.immuneToDragonBreath>
                 	if (source == DamageSource.DRAGON_BREATH)
-                		return false;
+                	return false;
                 </#if>
                 <#if data.immuneToWither>
                 	if (source == DamageSource.WITHER)
-                		return false;
+                	return false;
                 	if (source.getName().equals("witherSkull"))
-                		return false;
+                	return false;
                 </#if>
-        		return super.damage(source, amount);
+        	return super.damage(source, amount);
         	}
+    </#if>
+
+	<#if hasProcedure(data.whenMobDies)>
+	@Override
+	public void onDeath(DamageSource source) {
+		super.onDeath(source);
+		double x = this.getX();
+		double y = this.getY();
+		double z = this.getZ();
+		Entity sourceentity = source.getAttacker();
+		Entity entity = this;
+		<@procedureOBJToCode data.whenMobDies/>
+	}
+        </#if>
+
+	<#if hasProcedure(data.onInitialSpawn)>
+	@Nullable
+    @Override
+    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable CompoundTag entityTag) {
+        EntityData retval = super.initialize(world, difficulty, spawnReason, entityData, entityTag);
+		double x = this.getX();
+		double y = this.getY();
+		double z = this.getZ();
+		Entity entity = this;
+		<@procedureOBJToCode data.onInitialSpawn/>
+
+        return retval;
+    }
+    </#if>
+
+    <#if hasProcedure(data.onRightClickedOn)>
+	    @Override
+	    protected ActionResult interactMob(PlayerEntity sourceentity, Hand hand) {
+		    ItemStack itemstack = sourceentity.getMainHandStack();
+		    ActionResult retval = ActionResult.success(!this.world.isClient());
+		    
+			double x = this.getX();
+			double y = this.getY();
+			double z = this.getZ();
+			Entity entity = this;
+			<@procedureOBJToCode data.onRightClickedOn/>
+		    return retval;
+		}    
+    </#if>
+
+	<#if hasProcedure(data.whenThisMobKillsAnother)>
+	public void updateKilledAdvancementCriterion(Entity entity, int score, DamageSource damageSource) {
+		super.updateKilledAdvancementCriterion(entity, score, damageSource);
+			double x = this.getX();
+			double y = this.getY();
+			double z = this.getZ();
+			Entity sourceentity = this;
+			<@procedureOBJToCode data.whenThisMobKillsAnother/>
+		}
+    </#if>
+
+	<#if hasProcedure(data.onMobTickUpdate)>
+		@Override public void baseTick() {
+			super.baseTick();
+			double x = this.getX();
+			double y = this.getY();
+			double z = this.getZ();
+			Entity entity = this;
+			<@procedureOBJToCode data.onMobTickUpdate/>
+		}
+    </#if>
+
+	<#if hasProcedure(data.onPlayerCollidesWith)>
+		@Override public void onPlayerCollision(PlayerEntity sourceentity) {
+			super.onPlayerCollision(sourceentity);
+			Entity entity = this;
+			double x = this.getX();
+			double y = this.getY();
+			double z = this.getZ();
+			<@procedureOBJToCode data.onPlayerCollidesWith/>
+		}
     </#if>
 
     public static void init() {
@@ -278,7 +380,7 @@ public class ${name}Entity extends ${extendsClass}Entity {
     </#if>
                 );
 
-		<#if data.hasSpawnEgg>
+	<#if data.hasSpawnEgg>
         Registry.register(Registry.ITEM, ${JavaModName}.id("${registryname}_spawn_egg"),
                 new SpawnEggItem(ENTITY, ${data.spawnEggBaseColor.getRGB()}, ${data.spawnEggDotColor.getRGB()}, new FabricItemSettings()<#if data.creativeTab??>.group(${data.creativeTab})<#else>.group(ItemGroup.MISC)</#if>));
         </#if>
