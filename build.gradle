@@ -54,7 +54,7 @@ task launch {
             }
         } else if (Os.isFamily(Os.FAMILY_WINDOWS)) {
             try {
-                ProcessBuilder builder = new ProcessBuilder("C://Program Files/Pylo/MCreatorEAP20211b12313/mcreator.exe")
+                ProcessBuilder builder = new ProcessBuilder("C://Program Files/Pylo/MCreator/mcreator.exe")
                 builder.redirectOutput(ProcessBuilder.Redirect.INHERIT)
                 builder.redirectError(ProcessBuilder.Redirect.INHERIT)
                 builder.start()
