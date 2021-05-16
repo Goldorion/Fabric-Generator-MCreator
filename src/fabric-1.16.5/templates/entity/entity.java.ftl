@@ -171,6 +171,19 @@ public class ${name}Entity extends ${extendsClass}Entity {
         }
     </#if>
 
+    <#if data.spawnParticles>
+        @Override
+        public void tick() {
+            super.tick();
+	        double x = this.getX();
+		    double y = this.getY();
+		    double z = this.getZ();
+            Random random = this.random;
+            Entity entity = this;
+            <@particles data.particleSpawningShape data.particleToSpawn data.particleSpawningRadious data.particleAmount data.particleCondition/>
+        }
+        </#if>
+
     <#if hasProcedure(data.whenMobIsHurt) || data.immuneToArrows || data.immuneToFallDamage
     || data.immuneToCactus || data.immuneToDrowning || data.immuneToLightning || data.immuneToPotions
     || data.immuneToPlayer || data.immuneToExplosion || data.immuneToTrident || data.immuneToAnvil
