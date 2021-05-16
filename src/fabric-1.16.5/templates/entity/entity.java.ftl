@@ -18,6 +18,7 @@ along with MCreatorFabricGenerator.  If not, see <https://www.gnu.org/licenses/>
 <#-- @formatter:off -->
 <#include "../biomes.java.ftl">
 <#include "../procedures.java.ftl">
+<#include "../particles.java.ftl">
 
 package ${package}.entity;
 
@@ -46,7 +47,7 @@ public class ${name}Entity extends ${extendsClass}Entity {
             ${JavaModName}.id("${registryname}"),
             FabricEntityTypeBuilder.create(${generator.map(data.mobSpawningType, "mobspawntypes")}, ${name}Entity::new)
             .dimensions(EntityDimensions.fixed(${data.modelWidth}f, ${data.modelHeight}f))
-            <#if data.immuneToFire>.immuneToFire()</#if>
+            <#if data.immuneToFire>.firImmune()</#if>
             .trackRangeBlocks(${data.trackingRange})
             .forceTrackedVelocityUpdates(true).trackedUpdateRate(3)
             .build()
@@ -182,7 +183,7 @@ public class ${name}Entity extends ${extendsClass}Entity {
             Entity entity = this;
             <@particles data.particleSpawningShape data.particleToSpawn data.particleSpawningRadious data.particleAmount data.particleCondition/>
         }
-        </#if>
+    </#if>
 
     <#if hasProcedure(data.whenMobIsHurt) || data.immuneToArrows || data.immuneToFallDamage
     || data.immuneToCactus || data.immuneToDrowning || data.immuneToLightning || data.immuneToPotions
