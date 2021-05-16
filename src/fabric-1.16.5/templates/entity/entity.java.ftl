@@ -25,7 +25,21 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRe
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 
 @SuppressWarnings("deprecation")
-public class ${name}Entity extends AnimalEntity {
+<#assign extendsClass = "Passive">
+	<#if data.aiBase != "(none)" >
+	    <#assign extendsClass = data.aiBase>
+	<#else>
+	    <#assign extendsClass = data.mobBehaviourType.replace("Mob", "Hostile").replace("Creature", "Passive")>
+	</#if>
+
+	<#if data.breedable>
+	    <#assign extendsClass = "Animal">
+	</#if>
+
+	<#if data.tameable>
+		<#assign extendsClass = "Tameable">
+	</#if>
+public class ${name}Entity extends ${extendsClass}Entity {
 
     public static final EntityType<${name}Entity> ENTITY = Registry.register(
             Registry.ENTITY_TYPE,
@@ -74,7 +88,7 @@ public class ${name}Entity extends AnimalEntity {
         </#if>
         <#if !data.equipmentLeggings.isEmpty()>
             this.equipLootStack(
-					EquipmentSlot.LEGS, ${mappedMCItemToItemStackCode(data.equipmentLeggings, 1)});
+		EquipmentSlot.LEGS, ${mappedMCItemToItemStackCode(data.equipmentLeggings, 1)});
         </#if>
         <#if !data.equipmentBoots.isEmpty()>
             this.equipLootStack(EquipmentSlot.FEET, ${mappedMCItemToItemStackCode(data.equipmentBoots, 1)});
@@ -87,9 +101,17 @@ public class ${name}Entity extends AnimalEntity {
 
     <#if data.stepSound?has_content && data.stepSound.getMappedValue()?has_content>
      		@Override public void playStepSound(BlockPos pos, BlockState state) {
-     			this.playSound(<#if data.stepSound?contains(modid)>${JavaModName}.${data.stepSound?remove_beginning(modid + ":")}Event<#elseif (data.stepSound?length > 0)>
+     this.playSound(<#if data.stepSound?contains(modid)>${JavaModName}.${data.stepSound?remove_beginning(modid + ":")}Event<#elseif (data.stepSound?length > 0)>
                                SoundEvents.${data.stepSound}<#else>null</#if>, 0.15f, 1);
      		}
+    </#if>
+
+    <#if !data.mobDrop.isEmpty()>
+        @Override
+    	    protected void dropLoot(DamageSource source, boolean causedByPlayer) {
+    		    super.dropLoot(source, causedByPlayer);
+    		    this.dropStack((${mappedMCItemToItemStackCode(data.mobDrop, 1)});
+    	    }
     </#if>
 
     @Nullable
@@ -149,13 +171,82 @@ public class ${name}Entity extends AnimalEntity {
         }
     </#if>
 
+    <#if hasProcedure(data.whenMobIsHurt) || data.immuneToArrows || data.immuneToFallDamage
+    || data.immuneToCactus || data.immuneToDrowning || data.immuneToLightning || data.immuneToPotions
+    || data.immuneToPlayer || data.immuneToExplosion || data.immuneToTrident || data.immuneToAnvil
+    || data.immuneToDragonBreath || data.immuneToWither>
+        @Override
+        	public boolean damage(DamageSource source, float amount) {
+        	    <#if hasProcedure(data.whenMobIsHurt)>
+		            double x = this.getX();
+		            double y = this.getY();
+		            double z = this.getZ();
+                	Entity entity = this;
+                	Entity sourceentity = source.getAttacker();
+                	<@procedureOBJToCode data.whenMobIsHurt/>
+                </#if>
+                
+                <#if data.immuneToArrows>
+                	if (source.getSource() instanceof ArrowEntity)
+                		return false;
+                </#if>
+                <#if data.immuneToPlayer>
+                	if (source.getSource() instanceof PlayerEntity)
+                		return false;
+                </#if>
+                <#if data.immuneToPotions>
+                	if (source.getSource() instanceof PotionEntity)
+                		return false;
+                </#if>
+                <#if data.immuneToFallDamage>
+                	if (source == DamageSource.FALL)
+                		return false;
+                </#if>
+                <#if data.immuneToCactus>
+                	if (source == DamageSource.CACTUS)
+                		return false;
+                </#if>
+                <#if data.immuneToDrowning>
+                	if (source == DamageSource.DROWN)
+                		return false;
+                </#if>
+                <#if data.immuneToLightning>
+                	if (source == DamageSource.LIGHTNING_BOLT)
+                		return false;
+                </#if>
+                <#if data.immuneToExplosion>
+                	if (source.isExplosive())
+                		return false;
+                </#if>
+                <#if data.immuneToTrident>
+                	if (source.getName().equals("trident"))
+                		return false;
+                </#if>
+                <#if data.immuneToAnvil>
+                	if (source == DamageSource.ANVIL)
+                		return false;
+                </#if>
+                <#if data.immuneToDragonBreath>
+                	if (source == DamageSource.DRAGON_BREATH)
+                		return false;
+                </#if>
+                <#if data.immuneToWither>
+                	if (source == DamageSource.WITHER)
+                		return false;
+                	if (source.getName().equals("witherSkull"))
+                		return false;
+                </#if>
+        		return super.damage(source, amount);
+        	}
+    </#if>
+
     public static void init() {
         FabricDefaultAttributeRegistry.register(ENTITY, ${name}Entity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, ${data.health})
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, ${data.movementSpeed})
                 .add(EntityAttributes.GENERIC_ARMOR, ${data.armorBaseValue})
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, ${data.attackStrength})
 
-			    <#if (data.knockbackResistance > 0)>
+    <#if (data.knockbackResistance > 0)>
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, ${data.knockbackResistance})
                 </#if>
 
@@ -164,13 +255,13 @@ public class ${name}Entity extends AnimalEntity {
                 </#if>
 
 
-			    <#if data.flyingMob>
+    <#if data.flyingMob>
                 .add(EntityAttributes.GENERIC_FLYING_SPEED, 10)
                 </#if>
 
-			    <#if data.aiBase == "Zombie">
-			    .add(EntityAttributes.ZOMBIE_SPAWN_REINFORCEMENTS)
-			    </#if>
+    <#if data.aiBase == "Zombie">
+    .add(EntityAttributes.ZOMBIE_SPAWN_REINFORCEMENTS)
+    </#if>
                 );
 
 		<#if data.hasSpawnEgg>
@@ -185,11 +276,13 @@ public class ${name}Entity extends AnimalEntity {
         </#if>
     }
 
-    @Nullable
-    @Override
-    public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
-        return null;
-    }
+    <#if data.breedable>
+        @Nullable
+        @Override
+        public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
+            return null;
+        }
+	</#if>
 
     <#if hasCondition(data.spawningCondition)>
     @Override
