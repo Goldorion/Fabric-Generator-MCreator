@@ -19,10 +19,53 @@ along with MCreatorFabricGenerator.  If not, see <https://www.gnu.org/licenses/>
 
 package ${package}.entity.render;
 
-public class ${name}EntityRenderer extends MobEntityRenderer<${name}Entity, ${name}EntityRenderer.${data.mobModelName}> {
+import net.fabricmc.api.Environment;
+
+<#assign modelClass = data.mobModelName>
+<#assign modelMethod = data.mobModelName>
+
+<#if data.mobModelName == "Chicken">
+    <#assign modelClass = "ChickenEntityModel">
+    <#assign modelMethod = "ChickenEntityModel<>()">
+<#elseif data.mobModelName == "Cow">
+    <#assign modelClass = "CowEntityModel">
+    <#assign modelMethod = "CowEntityModel<>()">
+<#elseif data.mobModelName == "Creeper">
+    <#assign modelClass = "CreeperEntityModel">
+    <#assign modelMethod = "CreeperEntityModel<>()">
+<#elseif data.mobModelName == "Ghast">
+    <#assign modelClass = "GhastEntityModel">
+    <#assign modelMethod = "GhastEntityModel<>()">
+<#elseif data.mobModelName == "Pig">
+    <#assign modelClass = "PigEntityModel">
+    <#assign modelMethod = "PigEntityModel<>()">
+<#elseif data.mobModelName == "Slime">
+    <#assign modelClass = "SlimeEntityModel">
+    <#assign modelMethod = "SlimeEntityModel<>(0)">
+<#elseif data.mobModelName == "Spider">
+    <#assign modelClass = "SpiderEntityModel">
+    <#assign modelMethod = "SpiderEntityModel<>()">
+<#elseif data.mobModelName == "Villager">
+    <#assign modelClass = "VillagerResemblingModel">
+    <#assign modelMethod = "VillagerResemblingModel<>(0)">
+<#elseif data.mobModelName == "Silverfish">
+    <#assign modelClass = "SilverfishEntityModel">
+    <#assign modelMethod = "SilverfishEntityModel<>()">
+<#elseif !data.isBuiltInModel()>
+    <#assign modelClass = "${name}EntityRenderer.${data.mobModelName}">
+    <#assign modelMethod = "${data.mobModelName}<>()">
+<#else>
+    <#assign modelClass = "BipedEntityModel">
+    <#assign modelMethod = "BipedEntityModel<>(0)">
+</#if>
+
+public class ${name}EntityRenderer extends MobEntityRenderer<${name}Entity, ${modelClass}<${name}Entity>> {
 
     public ${name}EntityRenderer(EntityRenderDispatcher entityRenderDispatcher) {
-        super(entityRenderDispatcher, new ${data.mobModelName}(), ${data.modelShadowSize}f);
+        super(entityRenderDispatcher, new ${modelMethod}, ${data.modelShadowSize}f);
+        <#if data.mobModelGlowTexture?has_content>
+            this.addFeature(new GlowingLayer<>(this));
+        </#if>
     }
 
     public static void clientInit() {
@@ -33,6 +76,22 @@ public class ${name}EntityRenderer extends MobEntityRenderer<${name}Entity, ${na
     public Identifier getTexture(${name}Entity entity) {
         return new Identifier("${modid}:textures/${data.mobModelTexture}");
     }
+
+    <#if data.mobModelGlowTexture?has_content>
+    @Environment(EnvType.CLIENT)
+    private static class GlowingLayer<T extends Entity, M extends EntityModel<T>> extends FeatureRenderer<T, M> {
+        public GlowingLayer(FeatureRendererContext<T, M> context) {
+            super(context);
+        }
+
+        @Override
+        public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, T entity, float limbAngle, float limbDistance,
+                           float tickDelta, float animationProgress, float headYaw, float headPitch) {
+            VertexConsumer vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEyes(new Identifier("${modid}:textures/${data.mobModelGlowTexture}")));
+            this.getContextModel().render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, 1, 1, 1, 1);
+        }
+    }
+    </#if>
 
 	<#if data.getModelCode()?? && !data.isBuiltInModel() >
 	<#assign entityName>
