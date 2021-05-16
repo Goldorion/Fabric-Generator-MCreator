@@ -1,6 +1,7 @@
 # Changelogs:
 ## 1.1
 * [Bugfix #102] Some block triggers caused build errors
+* [Bugfix] Some sound mappings did not work properly
 
 ## 1.0.2
 * [Bugfix #99] Repair items could not use custom tools
