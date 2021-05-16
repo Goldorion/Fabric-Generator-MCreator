@@ -47,7 +47,7 @@ public class ${name}Entity extends ${extendsClass}Entity {
             ${JavaModName}.id("${registryname}"),
             FabricEntityTypeBuilder.create(${generator.map(data.mobSpawningType, "mobspawntypes")}, ${name}Entity::new)
             .dimensions(EntityDimensions.fixed(${data.modelWidth}f, ${data.modelHeight}f))
-            <#if data.immuneToFire>.firImmune()</#if>
+            <#if data.immuneToFire>.fireImmune()</#if>
             .trackRangeBlocks(${data.trackingRange})
             .forceTrackedVelocityUpdates(true).trackedUpdateRate(3)
             .build()
@@ -101,7 +101,6 @@ public class ${name}Entity extends ${extendsClass}Entity {
     }
 
     <#if data.stepSound?has_content && data.stepSound.getMappedValue()?has_content>
-     		@Override public void playStepSound(BlockPos pos, BlockState state) {
         @Override
         public void playStepSound(BlockPos pos, BlockState state) {
             this.playSound(<#if data.stepSound?contains(modid)>${JavaModName}.${data.stepSound?remove_beginning(modid + ":")}Event<#elseif (data.stepSound?length > 0)>
