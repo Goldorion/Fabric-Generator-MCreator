@@ -16,10 +16,10 @@ along with MCreatorFabricGenerator.  If not, see <https://www.gnu.org/licenses/>
 -->
 
 <#-- @formatter:off -->
-<#include "../biomes.java.ftl">
-<#include "../mcitems.ftl">
-<#include "../procedures.java.ftl">
-<#include "../particles.java.ftl">
+<#include "biomes.java.ftl">
+<#include "mcitems.ftl">
+<#include "procedures.java.ftl">
+<#include "particles.java.ftl">
 
 package ${package}.entity;
 

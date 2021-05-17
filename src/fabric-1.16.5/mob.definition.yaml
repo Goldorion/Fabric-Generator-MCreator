@@ -1,7 +1,7 @@
 templates:
-  - template: entity/entity.java.ftl
+  - template: entity.java.ftl
     name: "@SRCROOT/@BASEPACKAGEPATH/entity/@NAMEEntity.java"
-  - template: entity/entity_renderer.java.ftl
+  - template: entity_renderer.java.ftl
     name: "@SRCROOT/@BASEPACKAGEPATH/entity/render/@NAMEEntityRenderer.java"
   - template: json/spawn_egg.json.ftl
     writer: json

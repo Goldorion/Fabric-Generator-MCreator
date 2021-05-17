@@ -1,5 +1,7 @@
 # Changelogs:
 ## 1.1
+### Snapshot 1
+* [#83] Added support for custom living entities
 * [Bugfix #102] Some block triggers caused build errors
 * [Bugfix] Some sound mappings did not work properly
 
