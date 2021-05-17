@@ -106,33 +106,41 @@ public class ${name}Block extends <#if data.plantType == "normal">Flower<#elseif
         }
     </#if>
 
-    <#if data.dropAmount != 1 && !(data.customDrop?? && !data.customDrop.isEmpty())>
-		@Override
-        public List<ItemStack> getDroppedStacks(BlockState state, LootContext.Builder builder) {
-            List<ItemStack> dropsOriginal = super.getDrops(state, builder);
-            if(!dropsOriginal.isEmpty()) {
-                return dropsOriginal;
+    <#if !data.useLootTableForDrops>
+        <#if data.dropAmount != 1 && !(data.customDrop?? && !data.customDrop.isEmpty())>
+	    	@Override
+            public List<ItemStack> getDroppedStacks(BlockState state, LootContext.Builder builder) {
+                List<ItemStack> dropsOriginal = super.getDrops(state, builder);
+                if(!dropsOriginal.isEmpty())
+                    return dropsOriginal;
+                return Collections.singletonList(new ItemStack(this, ${data.dropAmount}));
             }
-            return Collections.singletonList(new ItemStack(this, ${data.dropAmount}));
-        }
-    <#elseif data.customDrop?? && !data.customDrop.isEmpty()>
-		@Override
-        public List<ItemStack> getDroppedStacks(BlockState state, LootContext.Builder builder) {
-            List<ItemStack> dropsOriginal = super.getDroppedStacks(state, builder);
-            if(!dropsOriginal.isEmpty()) {
-                return dropsOriginal;
+        <#elseif data.customDrop?? && !data.customDrop.isEmpty()>
+	    	@Override
+            public List<ItemStack> getDroppedStacks(BlockState state, LootContext.Builder builder) {
+                List<ItemStack> dropsOriginal = super.getDroppedStacks(state, builder);
+                if(!dropsOriginal.isEmpty())
+                    return dropsOriginal;
+                return Collections.singletonList(new ItemStack(${mappedMCItemToItemStackCode(data.customDrop, data.dropAmount)}));
+         }
+        <#elseif data.blockBase?has_content && data.blockBase == "Slab">
+	    	@Override
+            public List<ItemStack> getDroppedStacks(BlockState state, LootContext.Builder builder) {
+                List<ItemStack> dropsOriginal = super.getDroppedStacks(state, builder);
+                if(!dropsOriginal.isEmpty())
+                    return dropsOriginal;
+
+                return Collections.singletonList(new ItemStack(this, state.get(TYPE) == SlabType.DOUBLE ? 2 : 1));
             }
-            return Collections.singletonList(new ItemStack(${mappedMCItemToItemStackCode(data.customDrop, data.dropAmount)}));
-        }
-    <#else>
-		@Override
-        public List<ItemStack> getDroppedStacks(BlockState state, LootContext.Builder builder){
-            List<ItemStack> dropsOriginal = super.getDroppedStacks(state, builder);
-            if(!dropsOriginal.isEmpty()) {
-                return dropsOriginal;
+        <#else>
+	    	@Override
+            public List<ItemStack> getDroppedStacks(BlockState state, LootContext.Builder builder){
+                List<ItemStack> dropsOriginal = super.getDroppedStacks(state, builder);
+                if(!dropsOriginal.isEmpty())
+                    return dropsOriginal;
+                return Collections.singletonList(new ItemStack(this, 1));
             }
-            return Collections.singletonList(new ItemStack(this, 1));
-        }
+        </#if>
     </#if>
 
     <#if hasProcedure(data.onTickUpdate) || data.plantType == "growapable">
