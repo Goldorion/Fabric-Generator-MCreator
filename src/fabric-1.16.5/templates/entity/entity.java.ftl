@@ -99,6 +99,31 @@ public class ${name}Entity extends ${extendsClass}Entity {
             this.moveControl = new FlightMoveControl(this, 10, true);
             this.navigation = new BirdNavigation(this, this.world);
         </#if>
+
+        <#if data.waterMob>
+        this.moveControl = new MoveControl(this) {
+            @Override public void tick() {
+                if (this.entity.isSubmergedIn(FluidTags.WATER))
+                    this.entity.setVelocity(this.entity.getVelocity().add(0, 0.005d, 0));
+
+                if (this.state == MoveControl.State.MOVE_TO && !this.entity.getNavigation().isIdle()) {
+                    double dx = this.targetX - this.entity.getX();
+                    double dy = this.targetY - this.entity.getY();
+                    double dz = this.targetZ - this.entity.getZ();
+                    dy = dy / (double) MathHelper.sqrt(dx * dx + dy * dy + dz * dz);
+                    this.entity.yaw = this.changeAngle(this.entity.yaw,
+                        (float)(MathHelper.atan2(dz, dx) * (double) (180 / (float) Math.PI)) - 90, 90);
+                    this.entity.bodyYaw = this.entity.yaw;
+                    this.entity.setMovementSpeed(MathHelper.lerp(0.125f, this.entity.getMovementSpeed(),
+                        (float)(this.speed * this.entity.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED))));
+                    this.entity.setVelocity(this.entity.getVelocity().add(0, this.entity.getMovementSpeed() * dy * 0.1, 0));
+                    } else {
+                        this.entity.setMovementSpeed(0);
+                    }
+            }
+        };
+        this.navigation = new SwimNavigation(this, this.world);
+        </#if>
     }
 
     public static void init() {
@@ -107,22 +132,22 @@ public class ${name}Entity extends ${extendsClass}Entity {
                 .add(EntityAttributes.GENERIC_ARMOR, ${data.armorBaseValue})
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, ${data.attackStrength})
 
-    <#if (data.knockbackResistance > 0)>
+            <#if (data.knockbackResistance > 0)>
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, ${data.knockbackResistance})
-                </#if>
+            </#if>
 
-                <#if (data.attackKnockback > 0)>
+            <#if (data.attackKnockback > 0)>
                 .add(EntityAttributes.GENERIC_ATTACK_KNOCKBACK, ${data.attackKnockback})
-                </#if>
+            </#if>
 
-    <#if data.flyingMob>
+            <#if data.flyingMob>
                 .add(EntityAttributes.GENERIC_FLYING_SPEED, 10)
-                </#if>
+            </#if>
 
-    <#if data.aiBase == "Zombie">
-    .add(EntityAttributes.ZOMBIE_SPAWN_REINFORCEMENTS)
-    </#if>
-                );
+            <#if data.aiBase == "Zombie">
+                .add(EntityAttributes.ZOMBIE_SPAWN_REINFORCEMENTS)
+            </#if>
+        );
 
 	<#if data.hasSpawnEgg>
         Registry.register(Registry.ITEM, ${JavaModName}.id("${registryname}_spawn_egg"),
@@ -144,6 +169,13 @@ public class ${name}Entity extends ${extendsClass}Entity {
                 ${aicode}
             </#if>
 		}
+	</#if>
+
+	<#if data.waterMob>
+	    @Override
+    	    public boolean canBreatheInWater() {
+    		    return true;
+    	    }
 	</#if>
 
     <#if data.stepSound?has_content && data.stepSound.getMappedValue()?has_content>
