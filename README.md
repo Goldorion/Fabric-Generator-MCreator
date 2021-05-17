@@ -7,33 +7,52 @@ This project is not official. It is not affiliated with the respective owners an
 
 ## Features
 Note: Mod elements listed are not all fully implemented
-* Advancements
-* Armor
-* Biomes
-* Blocks
-* Commands
+### Full supported
+* Advancement
+* Biome
+* Command
 * Custom code
-* Dimension
-* Enchantment
+* Enchantment 
 * Food
+  Note: On Entity swing trigger is missing due to Fabric
 * Fuel
-* Functions
-* Items
-* Item groups
-* Key Bindings
-* Loot tables
-* Music Discs
+* Function
+* Key binding
+* Loot table
+* Music disc
+  Note: On Entity swing trigger is missing due to Fabric
 * Overlay
+* Potion
+* Recipe
+
+### Partial support (almost fully supported)
+* Dimension
+  Note: Custom portal and triggers are missing
+* Items
+  Note: Item inventory and Damage on crafting table are missing
+  Note: On Entity swing trigger is missing due to Fabric
+* Item group
+  Note: Re-order creative tabs is missing
+* Living entities
+  Note: Flying entities, ranged item and entity inventory are missing
+* Tool
+  Note: Damage on crafting table are missing
+  Note: On Entity swing trigger is missing due to Fabric
+  
+### Partial support
+* Armor
+* Blocks
 * Plants
 * Procedures
-* Potions
-* Recipes
-* Tags
-* Tools
 
-## Building Instructions
-- Clone the repository
-- Run `./gradlew build` to get the zip file in `build/`, or run `./gradlew install` to directly build and install the plugin to the mcreator plugin folder
+### Not supported
+* Fluid
+* Game rule
+* GUI
+* Painting
+* Particle
+* Ranged item  
+* Structure spawn
 
 ## Installation Instructions
 Pre-built binaries can be found on the [Release page of this repository](https://github.com/ClothCreators/MCreatorFabricGenerator/releases).
@@ -41,16 +60,13 @@ Pre-built binaries can be found on the [Release page of this repository](https:/
 Install like any other plugin: Launch MCreator -> Open preferences -> Manage plugins -> Load Plugin -> Find your downloaded zip file -> **Restart MCreator**.
 
 ## Important Information
-- Make sure you use the MCreator 2021.1 EAP 2021.1.03117
+- Make sure you use MCreator 2021.1 
 - Back up your workspace before updating to a newer version of the plugin.
 - Mods will also require [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api) to function properly, so when you want to play your mod, make sure you have fabric api.
 
 ## Credits/License
-
 Lead Dev - [Goldorion](https://github.com/Goldorion), [BoogieMonster1O1](https://github.com/BoogieMonster1O1)
-
 Contributors - crispy_chips1234, Klemen, U1timateJ7
-
 Thanks to all of you helping in reporting bugs, testing or anything else.
 
 The plugin's MCreator forum page is [here](https://mcreator.net/forum/60201/fabric-generator-plugin).
