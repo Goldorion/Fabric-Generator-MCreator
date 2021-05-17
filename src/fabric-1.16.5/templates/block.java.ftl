@@ -78,6 +78,7 @@ public class ${name}Block extends
            .luminance(${data.luminance})
         <#if data.destroyTool != "Not specified">
 		   .breakByTool(FabricToolTags.${data.destroyTool?upper_case}S, ${data.breakHarvestLevel})
+		   .requiresTool()
         </#if>
         <#if data.isNotColidable>
             .noCollision()
