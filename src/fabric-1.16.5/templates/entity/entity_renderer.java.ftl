@@ -53,13 +53,13 @@ import net.fabricmc.api.Environment;
     <#assign modelMethod = "SilverfishEntityModel<>()">
 <#elseif !data.isBuiltInModel()>
     <#assign modelClass = "${name}EntityRenderer.${data.mobModelName}">
-    <#assign modelMethod = "${data.mobModelName}<>()">
+    <#assign modelMethod = "${data.mobModelName}()">
 <#else>
     <#assign modelClass = "BipedEntityModel">
     <#assign modelMethod = "BipedEntityModel<>(0)">
 </#if>
 
-public class ${name}EntityRenderer extends MobEntityRenderer<${name}Entity, ${modelClass}<${name}Entity>> {
+public class ${name}EntityRenderer extends MobEntityRenderer<${name}Entity, ${modelClass}<#if data.isBuiltInModel()><${name}Entity></#if>> {
 
     public ${name}EntityRenderer(EntityRenderDispatcher entityRenderDispatcher) {
         super(entityRenderDispatcher, new ${modelMethod}, ${data.modelShadowSize}f);

@@ -101,18 +101,47 @@ public class ${name}Entity extends ${extendsClass}Entity {
         </#if>
     }
 
+    public static void init() {
+        FabricDefaultAttributeRegistry.register(ENTITY, ${name}Entity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, ${data.health})
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, ${data.movementSpeed})
+                .add(EntityAttributes.GENERIC_ARMOR, ${data.armorBaseValue})
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, ${data.attackStrength})
+
+    <#if (data.knockbackResistance > 0)>
+                .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, ${data.knockbackResistance})
+                </#if>
+
+                <#if (data.attackKnockback > 0)>
+                .add(EntityAttributes.GENERIC_ATTACK_KNOCKBACK, ${data.attackKnockback})
+                </#if>
+
+    <#if data.flyingMob>
+                .add(EntityAttributes.GENERIC_FLYING_SPEED, 10)
+                </#if>
+
+    <#if data.aiBase == "Zombie">
+    .add(EntityAttributes.ZOMBIE_SPAWN_REINFORCEMENTS)
+    </#if>
+                );
+
+	<#if data.hasSpawnEgg>
+        Registry.register(Registry.ITEM, ${JavaModName}.id("${registryname}_spawn_egg"),
+                new SpawnEggItem(ENTITY, ${data.spawnEggBaseColor.getRGB()}, ${data.spawnEggDotColor.getRGB()}, new FabricItemSettings()<#if data.creativeTab??>.group(${data.creativeTab})<#else>.group(ItemGroup.MISC)</#if>));
+        </#if>
+
+        <#if data.spawnThisMob>
+        BiomeModifications.create(new Identifier("${modid}", "${name?lower_case}_entity_spawn")).add(ModificationPhase.ADDITIONS,
+                BiomeSelectors.<#if data.restrictionBiomes?has_content>includeByKey(<@biomeKeys data.restrictionBiomes/>)<#else>all()</#if>, ctx -> ctx.getSpawnSettings().addSpawn(${generator.map(data.mobSpawningType, "mobspawntypes")},
+                        new SpawnSettings.SpawnEntry(ENTITY, ${data.spawningProbability}, ${data.minNumberOfMobsPerGroup}, ${data.maxNumberOfMobsPerGroup})));
+        </#if>
+    }
+
 	<#if data.hasAI>
 		@Override
         protected void initGoals() {
             super.initGoals();
 			<#if aicode??>
                 ${aicode}
-            </#if>
-
-            <#if data.breedable>
-                this.goalSelector.add(2, new AnimalMateGoal(this, 1.0D));
-                this.goalSelector.add(3, new TemptGoal(this, 1.0D, false, Ingredient.ofItems(
-                <#list data.breedTriggerItems as breedTriggerItem>${mappedMCItemToItemStackCode(breedTriggerItem,1)}<#if breedTriggerItem?has_next>,</#if></#list>)));
             </#if>
 		}
 	</#if>
@@ -188,6 +217,12 @@ public class ${name}Entity extends ${extendsClass}Entity {
             super.onStartedTrackingBy(player);
             this.bossBar.addPlayer(player);
         }
+
+	    @Override
+	    public void onStoppedTrackingBy(ServerPlayerEntity player) {
+		    super.onStoppedTrackingBy(player);
+		    this.bossBar.removePlayer(player);
+	    }
     </#if>
 
     <#if data.spawnParticles>
@@ -327,51 +362,55 @@ public class ${name}Entity extends ${extendsClass}Entity {
     <#if hasProcedure(data.onRightClickedOn) || data.tameable>
 	    @Override
 	    public ActionResult interactMob(PlayerEntity sourceentity, Hand hand) {
-		    ItemStack itemstack = sourceentity.getMainHandStack();
-		    ActionResult retval = ActionResult.success(!this.world.isClient());
-		    <#if data.tameable>
-                Item item = itemstack.getItem();
-            	if (itemstack.getItem() instanceof SpawnEggItem) {
-            		retval = super.interactMob(sourceentity, hand);
-            	} else if (!this.world.isClient()) {
-            		retval = (this.isTamed() && this.isOwner(sourceentity) || this.isBreedingItem(itemstack))
-            	    ? ActionResult.success(!this.world.isClient()) : ActionResult.PASS;
-            	} else {
-            		if (this.isTamed()) {
-            			if (this.isOwner(sourceentity)) {
-            	            if (item.isFood() && this.isBreedingItem(itemstack) && this.getHealth() < this.getMaxHealth()) {
-				                itemstack.decrement(1);
-            		            this.heal((float)item.getFoodComponent().getHunger());
-            		            retval = ActionResult.success(!this.world.isClient());
-            	            } else if (this.isBreedingItem(itemstack) && this.getHealth() < this.getMaxHealth()) {
-				                itemstack.decrement(1);
-            		            this.heal(4);
-            		            retval = ActionResult.success(!this.world.isClient());
-            	            } else {
-            		            retval = super.interactMob(sourceentity, hand);
-            	            }
-            			}
-            		} else if (this.isBreedingItem(itemstack)) {
-				        itemstack.decrement(1);
-            			if (this.random.nextInt(3) == 0 && !this.isTamed()) {
-            	            this.setOwner(sourceentity);
-            	            this.world.sendEntityStatus(this, (byte) 7);
-            			} else {
-            	            this.world.sendEntityStatus(this, (byte) 6);
-            			}
+		    ItemStack itemstack = sourceentity.getStackInHand(hand);
+            ActionResult retval = ActionResult.success(this.world.isClient);
+        <#if data.tameable>
+            Item item = itemstack.getItem();
+            if (this.world.isClient) {
+                if (this.isTamed() && this.isOwner(sourceentity)) {
+                    return ActionResult.SUCCESS;
+                } else {
+                    return !this.isBreedingItem(itemstack) || !(this.getHealth() < this.getMaxHealth()) && this.isTamed() ? ActionResult.PASS : ActionResult.SUCCESS;
+                }
+            } else {
+                if (this.isTamed()) {
+                    if (this.isOwner(sourceentity)) {
+                        if (!(item instanceof DyeItem)) {
+                            if (item.isFood() && this.isBreedingItem(itemstack) && this.getHealth() < this.getMaxHealth()) {
+                                this.eat(sourceentity, itemstack);
+                                this.heal((float)item.getFoodComponent().getHunger());
+                                return ActionResult.CONSUME;
+                            }
 
-            			this.setPersistent();
-            			retval = ActionResult.success(!this.world.isClient());
-            		} else {
-            			retval = super.interactMob(sourceentity, hand);
-            			if (retval == ActionResult.SUCCESS || retval == ActionResult.CONSUME)
-            	            this.setPersistent();
-            		}
-            	}
-            <#else>
-            	super.interactMob(sourceentity, hand);
-            			</#if>
-            			
+                            retval = super.interactMob(sourceentity, hand);
+                            if (!retval.isAccepted() || this.isBaby()) {
+                                this.setSitting(!this.isSitting());
+                            }
+
+                            return retval;
+                        }
+                    }
+                } else if (this.isBreedingItem(itemstack)) {
+                    this.eat(sourceentity, itemstack);
+                    if (this.random.nextInt(3) == 0) {
+                        this.setOwner(sourceentity);
+                        this.setSitting(true);
+                        this.world.sendEntityStatus(this, (byte)7);
+                    } else {
+                        this.world.sendEntityStatus(this, (byte)6);
+                    }
+
+                    this.setPersistent();
+                    return ActionResult.CONSUME;
+                }
+
+                retval = super.interactMob(sourceentity, hand);
+                if (retval.isAccepted()) {
+                    this.setPersistent();
+                }
+            }
+        </#if>
+
 			double x = this.getX();
 			double y = this.getY();
 			double z = this.getZ();
@@ -414,43 +453,20 @@ public class ${name}Entity extends ${extendsClass}Entity {
 		}
     </#if>
 
-    public static void init() {
-        FabricDefaultAttributeRegistry.register(ENTITY, ${name}Entity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, ${data.health})
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, ${data.movementSpeed})
-                .add(EntityAttributes.GENERIC_ARMOR, ${data.armorBaseValue})
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, ${data.attackStrength})
-
-    <#if (data.knockbackResistance > 0)>
-                .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, ${data.knockbackResistance})
-                </#if>
-
-                <#if (data.attackKnockback > 0)>
-                .add(EntityAttributes.GENERIC_ATTACK_KNOCKBACK, ${data.attackKnockback})
-                </#if>
-
-
-    <#if data.flyingMob>
-                .add(EntityAttributes.GENERIC_FLYING_SPEED, 10)
-                </#if>
-
-    <#if data.aiBase == "Zombie">
-    .add(EntityAttributes.ZOMBIE_SPAWN_REINFORCEMENTS)
-    </#if>
-                );
-
-	<#if data.hasSpawnEgg>
-        Registry.register(Registry.ITEM, ${JavaModName}.id("${registryname}_spawn_egg"),
-                new SpawnEggItem(ENTITY, ${data.spawnEggBaseColor.getRGB()}, ${data.spawnEggDotColor.getRGB()}, new FabricItemSettings()<#if data.creativeTab??>.group(${data.creativeTab})<#else>.group(ItemGroup.MISC)</#if>));
-        </#if>
-
-        <#if data.spawnThisMob>
-        BiomeModifications.create(new Identifier("${modid}", "${name?lower_case}_entity_spawn")).add(ModificationPhase.ADDITIONS,
-                BiomeSelectors.<#if data.restrictionBiomes?has_content>includeByKey(<@biomeKeys data.restrictionBiomes/>)<#else>all()</#if>, ctx -> ctx.getSpawnSettings().addSpawn(${generator.map(data.mobSpawningType, "mobspawntypes")},
-                        new SpawnSettings.SpawnEntry(ENTITY, ${data.spawningProbability}, ${data.minNumberOfMobsPerGroup}, ${data.maxNumberOfMobsPerGroup})));
-        </#if>
-    }
-
     <#if data.breedable>
+	    @Override
+	    public boolean isBreedingItem(ItemStack stack) {
+		    if (stack == null)
+			    return false;
+
+            <#list data.breedTriggerItems as breedTriggerItem>
+			    if (${mappedMCItemToItemStackCode(breedTriggerItem,1)}.asItem() == stack.getItem())
+				    return true;
+            </#list>
+
+			return false;
+	    }
+
         @Override
         public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
             return ENTITY.create(world);
