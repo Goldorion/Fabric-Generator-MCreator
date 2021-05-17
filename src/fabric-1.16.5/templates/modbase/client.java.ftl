@@ -33,9 +33,12 @@ package ${package};
 
 import net.fabricmc.fabric.api.blockrenderlayer.v1.*;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import ${package}.client;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 
+@Environment(EnvType.CLIENT)
 public class ClientInit implements ClientModInitializer{
 
     <#list w.getElementsOfType("KEYBIND") as keybind>
@@ -56,9 +59,14 @@ public class ClientInit implements ClientModInitializer{
     <#list w.getElementsOfType("BLOCK") as block>
         BlockRenderLayerMap.INSTANCE.putBlock(${JavaModName}.${block}_BLOCK, RenderLayer.getCutoutMipped());
     </#list>
-        <#list w.getElementsOfType("CODE") as code>
-            ${code}CustomCode.initializeClient();
-        </#list>
+
+	<#list w.getElementsOfType("MOB") as entity>
+		${entity}EntityRenderer.clientInit();
+	</#list>
+
+    <#list w.getElementsOfType("CODE") as code>
+        ${code}CustomCode.initializeClient();
+    </#list>
 
         HudRenderCallback.EVENT.register((matrices, tickDelta) -> {
         <#list w.getElementsOfType("OVERLAY") as overlay>

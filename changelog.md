@@ -1,4 +1,10 @@
 # Changelogs:
+## 1.1
+### Snapshot 1
+* [#83] Added support for custom living entities
+* [Bugfix #102] Some block triggers caused build errors
+* [Bugfix] Some sound mappings did not work properly
+
 ## 1.0.2
 * [Bugfix #99] Repair items could not use custom tools
 * [Bugfix #101] Select a map color on custom blocks caused a build error

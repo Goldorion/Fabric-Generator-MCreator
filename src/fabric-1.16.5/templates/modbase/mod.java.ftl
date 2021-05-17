@@ -1,5 +1,5 @@
 <#--
-This file is part of MCreatorFabricGenerator.
+This file is part of Fabric-Generator-MCreator.
 
 MCreatorFabricGenerator is free software: you can redistribute it and/or modify
 it under the terms of the GNU Lesser General Public License as published by
@@ -135,6 +135,10 @@ public class ${JavaModName} implements ModInitializer {
 
 		<#list w.getElementsOfType("BIOME") as biome>
 			${biome}Biome.init();
+		</#list>
+
+		<#list w.getElementsOfType("MOB") as entity>
+			${entity}Entity.init();
 		</#list>
 
 		<#list sounds as sound>
