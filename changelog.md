@@ -3,6 +3,7 @@
 ### Snapshot 1
 * [#83] Added support for custom living entities
   Note: Flying entities are not 100% implemented. Entity inventory and Ranged attacks are not implemented.
+* Added minimum and maximal enchantment level parameters  
 * [Bugfix #102] Some block triggers caused build errors
 * [Bugfix #105] Blocks mined with a tool using a lower harvest level dropped. 
 * [Bugfix] Some sound mappings did not work properly
