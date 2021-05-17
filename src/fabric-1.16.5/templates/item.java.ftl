@@ -55,20 +55,21 @@ public class ${name}Item extends Item {
     public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
         return (float)(${data.toolType}F);
     }
+    <#if data.enableMeleeDamage>
+        @Override
+        public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(EquipmentSlot slot) {
+            if (slot == EquipmentSlot.MAINHAND) {
+                return ImmutableMultimap.of(
+                        EntityAttributes.GENERIC_ATTACK_DAMAGE,
+                        new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "item_damage", (double) ${data.damageVsEntity - 2}, EntityAttributeModifier.Operation.ADDITION),
 
-    @Override
-    public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(EquipmentSlot slot) {
-        if (slot == EquipmentSlot.MAINHAND) {
-            return ImmutableMultimap.of(
-                    EntityAttributes.GENERIC_ATTACK_DAMAGE,
-                    new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "item_damage", (double) ${data.damageVsEntity - 2}, EntityAttributeModifier.Operation.ADDITION),
-
-                    EntityAttributes.GENERIC_ATTACK_SPEED,
-                    new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_ID, "item_attack_speed", -2.4, EntityAttributeModifier.Operation.ADDITION)
-            );
+                        EntityAttributes.GENERIC_ATTACK_SPEED,
+                        new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_ID, "item_attack_speed", -2.4, EntityAttributeModifier.Operation.ADDITION)
+                );
+            }
+            return super.getAttributeModifiers(slot);
         }
-        return super.getAttributeModifiers(slot);
-    }
+	</#if>
 
 <#if data.hasGlow>
     @Environment(EnvType.CLIENT)
