@@ -102,7 +102,8 @@ public class ${name}Entity extends ${extendsClass}Entity {
 
         <#if data.waterMob>
         this.moveControl = new MoveControl(this) {
-            @Override public void tick() {
+            @Override
+            public void tick() {
                 if (this.entity.isSubmergedIn(FluidTags.WATER))
                     this.entity.setVelocity(this.entity.getVelocity().add(0, 0.005d, 0));
 
@@ -270,6 +271,56 @@ public class ${name}Entity extends ${extendsClass}Entity {
         }
     </#if>
 
+    <#if data.ridable && (data.canControlForward || data.canControlStrafe)>
+        @Override
+        public void travel(Vec3d dir) {
+        <#if data.canControlForward || data.canControlStrafe>
+		    Entity entity = this.getPassengerList().isEmpty() ? null : (Entity) this.getPassengerList().get(0);
+			if (this.hasPlayerRider()) {
+			    this.yaw = entity.yaw;
+				this.prevYaw = this.yaw;
+				this.pitch = entity.pitch * 0.5F;
+				this.setRotation(this.yaw, this.pitch);
+				this.flyingSpeed = this.getMovementSpeed() * 0.15F;
+				this.bodyYaw = entity.yaw;
+				this.headYaw = entity.yaw;
+				this.stepHeight = 1.0F;
+
+			    if (entity instanceof LivingEntity) {
+				    this.setMovementSpeed((float) this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED));
+
+			    <#if data.canControlForward>
+				    float forward = ((LivingEntity) entity).forwardSpeed;
+			    <#else>
+				    float forward = 0;
+			    </#if>
+
+			    <#if data.canControlStrafe>
+			    	float strafe = ((LivingEntity) entity).sidewaysSpeed;
+			    <#else>
+			    	float strafe = 0;
+			    </#if>
+
+			        super.travel(new Vec3d(strafe, 0, forward));
+		        }
+
+			    this.prevHorizontalSpeed = this.horizontalSpeed;
+			    double d1 = this.getX() - this.prevX;
+			    double d0 = this.getZ() - this.prevZ;
+			    float f1 = MathHelper.sqrt(d1 * d1 + d0 * d0) * 4.0F;
+			    if (f1 > 1.0F) f1 = 1.0F;
+			    this.horizontalSpeed += (f1 - this.horizontalSpeed) * 0.4F;
+			    this.limbAngle += this.horizontalSpeed;
+			    return;
+			}
+			this.stepHeight = 0.5F;
+			this.flyingSpeed = 0.02F;
+		</#if>
+
+		super.travel(dir);
+	}
+    </#if>
+
 	<#if hasProcedure(data.onStruckByLightning)>
 	@Override public void onStruckByLightning(ServerWorld serverWorld, LightningEntity lightningEntity) {
 		super.onStruckByLightning(serverWorld, lightningEntity);
@@ -391,7 +442,7 @@ public class ${name}Entity extends ${extendsClass}Entity {
     }
     </#if>
 
-    <#if hasProcedure(data.onRightClickedOn) || data.tameable>
+    <#if hasProcedure(data.onRightClickedOn) || data.tameable || data.ridable>
 	    @Override
 	    public ActionResult interactMob(PlayerEntity sourceentity, Hand hand) {
 		    ItemStack itemstack = sourceentity.getStackInHand(hand);
@@ -441,6 +492,10 @@ public class ${name}Entity extends ${extendsClass}Entity {
                     this.setPersistent();
                 }
             }
+        </#if>
+
+		<#if data.ridable>
+            sourceentity.startRiding(this);
         </#if>
 
 			double x = this.getX();
