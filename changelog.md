@@ -1,5 +1,8 @@
 # Changelogs:
 ## 1.1
+### Snapshot 2
+* [Bugfix #110] GROUND and PLANT step sounds had the wrong sound.
+
 ### Snapshot 1
 * [#83] Added support for custom living entities
   Note: Flying entities are not 100% implemented. Entity inventory and Ranged attacks are not implemented.
