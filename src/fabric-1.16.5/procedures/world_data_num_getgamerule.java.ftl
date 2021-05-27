@@ -1,5 +1,5 @@
 <#if generator.map(field$gamerulesnumber, "gamerules") != "null">
-    world.getWorldInfo().getGameRules().getInt(${generator.map(field$gamerulesnumber, "gamerules")})
+    world.getGameRules().getInt(${generator.map(field$gamerulesnumber, "gamerules")})
 <#else>
     0
 </#if>
