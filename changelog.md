@@ -2,6 +2,7 @@
 ## 1.1
 ### Snapshot 2
 * Added a complete support for the game rule mod element
+* Added new world procedure blocks: get logic game rule, get number game rule, set logic game rule and set number game rule  
 * [Bugfix #110] GROUND and PLANT step sounds had the wrong sound.
 
 ### Snapshot 1
