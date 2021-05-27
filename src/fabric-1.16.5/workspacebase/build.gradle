@@ -11,11 +11,11 @@ group = 'com.yourname.modid'
 
 dependencies {
 	minecraft "com.mojang:minecraft:1.16.5"
-	mappings "net.fabricmc:yarn:1.16.5+build.5:v2"
+	mappings "net.fabricmc:yarn:1.16.5+build.9:v2"
 	modImplementation "net.fabricmc:fabric-loader:0.11.3"
 
 	//Fabric api
-	modImplementation "net.fabricmc.fabric-api:fabric-api:0.32.5+1.16"
+	modImplementation "net.fabricmc.fabric-api:fabric-api:0.34.6+1.16"
 }
 
 processResources {
