@@ -17,6 +17,7 @@ Note: Mod elements listed are not all fully implemented
   Note: On Entity swing trigger is missing due to Fabric
 * Fuel
 * Function
+* Game rule
 * Key binding
 * Loot table
 * Music disc
@@ -47,7 +48,6 @@ Note: Mod elements listed are not all fully implemented
 
 ### Not supported
 * Fluid
-* Game rule
 * GUI
 * Painting
 * Particle

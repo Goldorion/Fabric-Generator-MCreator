@@ -118,6 +118,15 @@ public class ${JavaModName} implements ModInitializer {
     public static final RegistryKey<Biome> ${biome}_KEY = RegistryKey.of(Registry.BIOME_KEY, id("${biome.getRegistryName()}"));
 </#list>
 
+<#list w.getElementsOfType("GAMERULE") as gamerule>
+    <#assign ge = gamerule.getGeneratableElement()>
+	<#if ge.type == "Number">
+        public static final GameRules.Key<GameRules.IntRule> ${gamerule} = ${gamerule}GameRule.gamerule;
+    <#else>
+        public static final GameRules.Key<GameRules.BooleanRule> ${gamerule} = ${gamerule}GameRule.gamerule;
+    </#if>
+</#list>
+
 	@Override
 	public void onInitialize() {
 		LOGGER.info("Initializing ${JavaModName}");

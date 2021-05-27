@@ -1,6 +1,7 @@
 # Changelogs:
 ## 1.1
 ### Snapshot 2
+* Added a complete support for the game rule mod element
 * [Bugfix #110] GROUND and PLANT step sounds had the wrong sound.
 
 ### Snapshot 1
