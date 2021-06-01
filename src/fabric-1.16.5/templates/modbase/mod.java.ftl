@@ -136,8 +136,14 @@ public class ${JavaModName} implements ModInitializer {
 	    </#list>
 
 	    <#list w.getElementsOfType("BLOCK") as block>
-	        <#if block.getGeneratableElement().spawnWorldTypes > 0>
+	        <#if (block.getGeneratableElement().spawnWorldTypes?size > 0)>
 	            ${block}Block.Generation.init();
+	        </#if>
+	    </#list>
+
+	    <#list w.getElementsOfType("PLANT") as plant>
+	        <#if (plant.getGeneratableElement().spawnWorldTypes?size > 0)>
+	            ${plant}Block.Generation.init();
 	        </#if>
 	    </#list>
 
