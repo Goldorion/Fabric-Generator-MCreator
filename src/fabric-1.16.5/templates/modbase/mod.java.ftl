@@ -130,9 +130,16 @@ public class ${JavaModName} implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		LOGGER.info("Initializing ${JavaModName}");
-	<#list w.getElementsOfType("FUEL") as fuel>
-		${fuel}Fuel.initialize();
-	</#list>
+
+	    <#list w.getElementsOfType("FUEL") as fuel>
+		    ${fuel}Fuel.initialize();
+	    </#list>
+
+	    <#list w.getElementsOfType("BLOCK") as block>
+	        <#if block.getGeneratableElement().spawnWorldTypes > 0>
+	            ${block}Block.Generation.init();
+	        </#if>
+	    </#list>
 
 		<#list w.getElementsOfType("PROCEDURE") as procedure>
 			new ${procedure}Procedure();

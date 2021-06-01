@@ -355,6 +355,97 @@ public class ${name}Block extends
 			<@procedureOBJToCode data.onEntityWalksOn/>
         }
     </#if>
+
+    <#if (data.spawnWorldTypes?size > 0)>
+        private static class CustomRuleTest extends RuleTest {
+            static final CustomRuleTest INSTANCE = new CustomRuleTest();
+            static final com.mojang.serialization.Codec<CustomRuleTest> codec = com.mojang.serialization.Codec.unit(() -> INSTANCE);
+
+            public boolean test(BlockState blockAt, Random random) {
+                boolean blockCriteria = false;
+
+                <#list data.blocksToReplace as replacementBlock>
+            	    if (blockAt.getBlock() == ${mappedBlockToBlockStateCode(replacementBlock)}.getBlock())
+                        blockCriteria = true;
+            	</#list>
+
+            	return blockCriteria;
+            }
+
+            protected RuleTestType<?> getType() {
+                return Generation.CUSTOM_MATCH;
+            }
+        }
+
+    	public static class Generation {
+            private static final RuleTestType<CustomRuleTest> CUSTOM_MATCH = Registry.register(Registry.RULE_TEST, new Identifier("${modid}", "${registryname}_match"), () -> CustomRuleTest.codec);
+            public static final Feature<OreFeatureConfig> feature = Registry.register(Registry.FEATURE, new Identifier("${modid}", "${registryname}"), new OreFeature(OreFeatureConfig.CODEC) {
+                @Override
+                public boolean generate(StructureWorldAccess worldAccess, ChunkGenerator generator, Random rand, BlockPos pos, OreFeatureConfig config) {
+                    World world = worldAccess.toServerWorld();
+                    RegistryKey<World> dimensionType = world.getRegistryKey();
+                    boolean dimensionCriteria = false;
+                    <#list data.spawnWorldTypes as worldType>
+                        <#if worldType=="Surface">
+                    		if(dimensionType == World.OVERWORLD)
+                    			dimensionCriteria = true;
+                    	<#elseif worldType=="Nether">
+                    		if(dimensionType == World.NETHER)
+                    			dimensionCriteria = true;
+                    	<#elseif worldType=="End">
+                    		if(dimensionType == World.END)
+                    			dimensionCriteria = true;
+                    	<#else>
+                    		if(dimensionType == RegistryKey.of(Registry.DIMENSION,
+                    		        new Identifier("${generator.getResourceLocationForModElement(worldType.toString().replace("CUSTOM:", ""))}")))
+                    			dimensionCriteria = true;
+                        </#if>
+                    </#list>
+
+                    if (!dimensionCriteria)
+                        return false;
+
+                    <#if hasCondition(data.generateCondition)>
+                        int x = pos.getX();
+                   	    int y = pos.getY();
+                   	    int z = pos.getZ();
+                   	    if (!<@procedureOBJToConditionCode data.generateCondition/>)
+                   	        return false;
+                   	</#if>
+
+                    return super.generate(worldAccess, generator, rand, pos, config);
+                }
+            });
+
+                private static final ConfiguredFeature<?, ?> CONFIG_FEATURE = feature.configure(new OreFeatureConfig(
+                        CustomRuleTest.INSTANCE,
+                        ${JavaModName}.${name}_BLOCK.getDefaultState(), ${data.frequencyOnChunk}))
+                        .rangeOf(${data.maxGenerateHeight})
+                        .spreadHorizontally()
+                        .repeat(${data.frequencyPerChunks});
+                        
+                public static void init() {
+                    RegistryKey<ConfiguredFeature<?, ?>> configFeatKey = RegistryKey.of(Registry.CONFIGURED_FEATURE_WORLDGEN,
+                            new Identifier("${modid}", "${registryname}"));
+                    Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, configFeatKey.getValue(), CONFIG_FEATURE);
+                    Predicate<BiomeSelectionContext> biomeSelector = BiomeSelectors.
+                        <#if data.restrictionBiomes?has_content>
+                            includeByKey(
+                             <#list data.restrictionBiomes as restrictionBiome>
+                                <#if restrictionBiome?starts_with(modid)>
+                                    ${JavaModName}.${restrictionBiome.getUnmappedValue().replace("CUSTOM:", "")}_KEY<#if restrictionBiome?has_next>,</#if>
+                                <#else>
+                                    BiomeKeys.${restrictionBiome}<#if restrictionBiome?has_next>,</#if>
+                                </#if>
+                             </#list>
+                             );
+                        <#else>
+                            all();
+                        </#if>
+                    BiomeModifications.addFeature(biomeSelector, GenerationStep.Feature.UNDERGROUND_ORES, configFeatKey);
+                }
+            }
+    </#if>
 }
 
 <#-- @formatter:on -->
