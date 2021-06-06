@@ -1,15 +1,14 @@
 # Changelogs:
 ## 1.1
-### Snapshot 2
 * Updated Fabric API to 0.34.6
 * Added a complete support for the game rule mod element
 * Added support for block generation parameters
-* Added support for all plant generation types and parameters  
+* Added support for all plant generation types and generation parameters  
 * Added new world procedure blocks: get logic game rule, get number game rule, set logic game rule and set number game rule
 * Added complete support for Tick randomly
 * Added a new block trigger: Update tick
 * Updated the tag mod element to support entities  
-* Added new block bases: [#104] Stairs, door,fence, fence gate
+* Added new block bases: [#104] Stairs, door, fence, fence gate
 * [Bugfix #110] GROUND and PLANT step sounds had the wrong sound.
 * [Bugfix] Transparency on custom plants was black.
 * [Bugfix] Update tick trigger for plants caused a build error.
