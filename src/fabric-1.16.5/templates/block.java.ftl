@@ -35,7 +35,11 @@ public class ${name}Block extends
     <#if data.hasGravity>
         FallingBlock
     <#elseif data.blockBase?has_content>
+        <#if data.blockBase == "TrapDoor">
+        TrapdoorBlock
+        <#else>
         ${data.blockBase}Block
+        </#if>
     <#else>
         Block
     </#if>{
@@ -112,6 +116,14 @@ public class ${name}Block extends
             FlammableBlockRegistry.getDefaultInstance().add(this, ${data.flammability}, ${data.fireSpreadSpeed});
         </#if>
     }
+
+    <#if data.blockBase?has_content && data.blockBase == "Fence">
+		@Override public boolean canConnect(BlockState state, boolean checkattach, Direction face) {
+    	  boolean flag = state.getBlock() instanceof FenceBlock && state.getMaterial() == this.material;
+    	  boolean flag1 = state.getBlock() instanceof FenceGateBlock && FenceGateBlock.canWallConnect(state, face);
+    	  return !cannotConnect(state.getBlock()) && checkattach || flag || flag1;
+   		}
+	</#if>
 
     <#if data.specialInfo?has_content>
 		@Override
@@ -242,6 +254,11 @@ public class ${name}Block extends
         <#elseif data.customDrop?? && !data.customDrop.isEmpty()>
 	    	@Override
             public List<ItemStack> getDroppedStacks(BlockState state, LootContext.Builder builder) {
+				<#if data.blockBase?has_content && data.blockBase == "Door">
+				if(state.get(Properties.DOUBLE_BLOCK_HALF) != DoubleBlockHalf.LOWER)
+					return Collections.emptyList();
+				</#if>
+
                 List<ItemStack> dropsOriginal = super.getDroppedStacks(state, builder);
                 if(!dropsOriginal.isEmpty())
                     return dropsOriginal;
@@ -259,6 +276,11 @@ public class ${name}Block extends
         <#else>
 	    	@Override
             public List<ItemStack> getDroppedStacks(BlockState state, LootContext.Builder builder){
+				<#if data.blockBase?has_content && data.blockBase == "Door">
+				if(state.get(Properties.DOUBLE_BLOCK_HALF) != DoubleBlockHalf.LOWER)
+					return Collections.emptyList();
+				</#if>
+
                 List<ItemStack> dropsOriginal = super.getDroppedStacks(state, builder);
                 if(!dropsOriginal.isEmpty())
                     return dropsOriginal;
@@ -267,10 +289,10 @@ public class ${name}Block extends
         </#if>
     </#if>
 
-    <#if (hasProcedure(data.onTickUpdate) && !data.tickRandomly) || hasProcedure(data.onBlockAdded) ) >
+    <#if (hasProcedure(data.onTickUpdate) && !data.tickRandomly) || hasProcedure(data.onBlockAdded)>
 		@Override
         public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify) {
-            super.onBlockAdded(state, world, pos, oldState, moving);
+            super.onBlockAdded(state, world, pos, oldState, notify);
             int x = pos.getX();
             int y = pos.getY();
             int z = pos.getZ();

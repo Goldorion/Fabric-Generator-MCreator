@@ -230,6 +230,61 @@ templates:
     writer: json
     name: "@MODASSETSROOT/models/block/@registryname_noside_alt.json"
 
+  # TX: Door templates
+  - template: json/txblock/pane_item.json.ftl
+    condition: "blockBase %= Door"
+    writer: json
+    name: "@MODASSETSROOT/models/item/@registryname.json"
+  - template: json/txblock/door_states.json.ftl
+    condition: "blockBase %= Door"
+    writer: json
+    name: "@MODASSETSROOT/blockstates/@registryname.json"
+  - template: json/txblock/door_top.json.ftl
+    condition: "blockBase %= Door"
+    writer: json
+    name: "@MODASSETSROOT/models/block/@registryname_top.json"
+  - template: json/txblock/door_top_hinge.json.ftl
+    condition: "blockBase %= Door"
+    writer: json
+    name: "@MODASSETSROOT/models/block/@registryname_top_hinge.json"
+  - template: json/txblock/door_bottom.json.ftl
+    condition: "blockBase %= Door"
+    writer: json
+    name: "@MODASSETSROOT/models/block/@registryname_bottom.json"
+  - template: json/txblock/door_bottom_hinge.json.ftl
+    condition: "blockBase %= Door"
+    writer: json
+    name: "@MODASSETSROOT/models/block/@registryname_bottom_hinge.json"
+
+  # TX: FenceGate templates
+  - template: json/txblock/fence_gate_item.json.ftl
+    condition: "blockBase %= FenceGate"
+    writer: json
+    name: "@MODASSETSROOT/models/item/@registryname.json"
+  - template: json/txblock/fence_gate_states.json.ftl
+    condition: "blockBase %= FenceGate"
+    writer: json
+    name: "@MODASSETSROOT/blockstates/@registryname.json"
+  - template: json/txblock/fence_gate.json.ftl
+    condition: "blockBase %= FenceGate"
+    writer: json
+    name: "@MODASSETSROOT/models/block/@registryname.json"
+  - template: json/txblock/fence_gate_open.json.ftl
+    deleteWhenConditionFalse: true
+    condition: "blockBase %= FenceGate"
+    writer: json
+    name: "@MODASSETSROOT/models/block/@registryname_open.json"
+  - template: json/txblock/fence_gate_wall.json.ftl
+    deleteWhenConditionFalse: true
+    condition: "blockBase %= FenceGate"
+    writer: json
+    name: "@MODASSETSROOT/models/block/@registryname_wall.json"
+  - template: json/txblock/fence_gate_wall_open.json.ftl
+    deleteWhenConditionFalse: true
+    condition: "blockBase %= FenceGate"
+    writer: json
+    name: "@MODASSETSROOT/models/block/@registryname_wall_open.json"
+
 localizationkeys:
   - key: block.@modid.@registryname
     mapto: name
