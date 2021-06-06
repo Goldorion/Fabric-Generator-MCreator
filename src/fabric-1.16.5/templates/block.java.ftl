@@ -52,58 +52,52 @@ public class ${name}Block extends
         }
     </#if>
 
+    <#macro blockProperties>
+    	FabricBlockSettings.of(Material.${data.material})
+    		.sounds(BlockSoundGroup.${data.soundOnStep})
+    		<#if data.unbreakable>
+    			.strength(-1, 3600000)
+    		<#else>
+    			.strength(${data.hardness}f, ${data.resistance}f)
+    		</#if>
+    			.luminance(${data.luminance})
+    		<#if data.destroyTool != "Not specified">
+    			.breakByTool(FabricToolTags.${data.destroyTool?upper_case}S, ${data.breakHarvestLevel})
+    			.requiresTool()
+    		</#if>
+    		<#if data.isNotColidable>
+    			.noCollision()
+    		</#if>
+    		<#if data.slipperiness != 0.6>
+                .slipperiness(${data.slipperiness}F)
+            </#if>
+            <#if data.hasTransparency || (data.blockBase?has_content && data.blockBase == "Leaves")>
+                .nonOpaque()
+            </#if>
+            		<#if data.emissiveRendering>
+               .emissiveLighting(${name}Block::always)
+            </#if>
+            <#if data.speedFactor != 1.0>
+               .velocityMultiplier(${data.speedFactor}f)
+            		</#if>
+            		<#if data.jumpFactor != 1.0>
+            		    .jumpVelocityMultiplier(${data.jumpFactor}f)
+            		</#if>
+            <#if data.tickRandomly>
+               .ticksRandomly()
+            </#if>
+            <#if generator.map(data.colorOnMap, "mapcolors") != "DEFAULT">
+            		   .materialColor(MaterialColor.${generator.map(data.colorOnMap, "mapcolors")})
+            </#if>
+    </#macro>
+
     public ${name}Block() {
         <#if data.blockBase?has_content && data.blockBase == "Stairs">
-        super(new Block(Block.Properties.create(Material.ROCK)
-        	<#if data.unbreakable>
-        	.hardnessAndResistance(-1, 3600000)
-        	<#else>
-        	.hardnessAndResistance(${data.hardness}f, ${data.resistance}f)
-        	</#if>
-        	).getDefaultState(),
-        <#elseif data.blockBase?has_content && data.blockBase == "Wall">
-        super(
-        <#elseif data.blockBase?has_content && data.blockBase == "Fence">
-        super(
+            super(new Block(<@blockProperties/>).getDefaultState(),
         <#else>
-        super(
+        	super(
         </#if>
-        FabricBlockSettings.of(Material.${data.material})
-            .sounds(BlockSoundGroup.${data.soundOnStep})
-        <#if data.unbreakable>
-           .strength(-1, 3600000)
-        <#else>
-           .strength(${data.hardness}F, ${data.resistance}F)
-        </#if>
-           .luminance(${data.luminance})
-        <#if data.destroyTool != "Not specified">
-		   .breakByTool(FabricToolTags.${data.destroyTool?upper_case}S, ${data.breakHarvestLevel})
-		   .requiresTool()
-        </#if>
-        <#if data.isNotColidable>
-            .noCollision()
-        </#if>
-        <#if data.slipperiness != 0.6>
-            .slipperiness(${data.slipperiness}F)
-        </#if>
-        <#if data.hasTransparency || (data.blockBase?has_content && data.blockBase == "Leaves")>
-            .nonOpaque()
-        </#if>
-		<#if data.emissiveRendering>
-           .emissiveLighting(${name}Block::always)
-        </#if>
-        <#if data.speedFactor != 1.0>
-           .velocityMultiplier(${data.speedFactor}f)
-		</#if>
-		<#if data.jumpFactor != 1.0>
-		    .jumpVelocityMultiplier(${data.jumpFactor}f)
-		</#if>
-        <#if data.tickRandomly>
-           .ticksRandomly()
-        </#if>
-        <#if generator.map(data.colorOnMap, "mapcolors") != "DEFAULT">
-		   .materialColor(MaterialColor.${generator.map(data.colorOnMap, "mapcolors")})
-        </#if>
+        <@blockProperties/>
         );
 
         <#if data.rotationMode == 1 || data.rotationMode == 3>
@@ -273,7 +267,7 @@ public class ${name}Block extends
         </#if>
     </#if>
 
-    <#if (hasProcedure(data.onBlockAdded)) >
+    <#if (hasProcedure(data.onTickUpdate) && !data.tickRandomly) || hasProcedure(data.onBlockAdded) ) >
 		@Override
         public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify) {
             super.onBlockAdded(state, world, pos, oldState, moving);
@@ -281,6 +275,9 @@ public class ${name}Block extends
             int y = pos.getY();
             int z = pos.getZ();
 
+			<#if !data.tickRandomly>
+			    world.getBlockTickScheduler().schedule(new BlockPos(x, y, z), this, ${data.tickRate});
+			</#if>
 			<@procedureOBJToCode data.onBlockAdded/>
         }
     </#if>
@@ -354,6 +351,23 @@ public class ${name}Block extends
             int z = pos.getZ();
 			<@procedureOBJToCode data.onEntityWalksOn/>
         }
+    </#if>
+
+    <#if hasProcedure(data.onTickUpdate)>
+	    @Override
+	    public void <#if data.tickRandomly && (data.blockBase?has_content && data.blockBase == "Stairs")>randomTick<#else>scheduledTick</#if>
+	            (BlockState state, ServerWorld world, BlockPos pos, Random random) {
+		    super.<#if data.tickRandomly && (data.blockBase?has_content && data.blockBase == "Stairs")>randomTick<#else>scheduledTick</#if>(state, world, pos, random);
+			int x = pos.getX();
+			int y = pos.getY();
+			int z = pos.getZ();
+
+			<@procedureOBJToCode data.onTickUpdate/>
+
+			<#if !data.tickRandomly>
+			    world.getBlockTickScheduler().schedule(new BlockPos(x, y, z), this, ${data.tickRate});
+			</#if>
+	    }
     </#if>
 
     <#if (data.spawnWorldTypes?size > 0)>

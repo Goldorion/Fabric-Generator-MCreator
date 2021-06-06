@@ -59,7 +59,7 @@ public class ClientInit implements ClientModInitializer{
     </#list>
 
     <#list w.getElementsOfType("PLANT") as plant>
-        BlockRenderLayerMap.INSTANCE.putBlock(${JavaModName}.${block}_BLOCK, RenderLayer.getCutoutMipped());
+        BlockRenderLayerMap.INSTANCE.putBlock(${JavaModName}.${plant}_BLOCK, RenderLayer.getCutoutMipped());
     </#list>
 
 	<#list w.getElementsOfType("MOB") as entity>

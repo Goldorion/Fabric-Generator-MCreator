@@ -5,7 +5,10 @@
 * Added a complete support for the game rule mod element
 * Added support for block generation parameters
 * Added support for all plant generation types and parameters  
-* Added new world procedure blocks: get logic game rule, get number game rule, set logic game rule and set number game rule  
+* Added new world procedure blocks: get logic game rule, get number game rule, set logic game rule and set number game rule
+* Added  complete support for Tick randomly
+* Added a new block trigger: Update tick  
+* [#104] Added full support for the stair block base
 * [Bugfix #110] GROUND and PLANT step sounds had the wrong sound.
 * [Bugfix] Transparency on custom plants was black.
 * [Bugfix] Update tick trigger for plants caused a build error.
