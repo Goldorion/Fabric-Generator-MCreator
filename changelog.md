@@ -7,7 +7,8 @@
 * Added support for all plant generation types and parameters  
 * Added new world procedure blocks: get logic game rule, get number game rule, set logic game rule and set number game rule
 * Added  complete support for Tick randomly
-* Added a new block trigger: Update tick  
+* Added a new block trigger: Update tick
+* Updated the tag mod element to support entities  
 * [#104] Added full support for the stair block base
 * [Bugfix #110] GROUND and PLANT step sounds had the wrong sound.
 * [Bugfix] Transparency on custom plants was black.
