@@ -246,7 +246,7 @@ public class ${name}Block extends
         <#if data.dropAmount != 1 && !(data.customDrop?? && !data.customDrop.isEmpty())>
 	    	@Override
             public List<ItemStack> getDroppedStacks(BlockState state, LootContext.Builder builder) {
-                List<ItemStack> dropsOriginal = super.getDrops(state, builder);
+                List<ItemStack> dropsOriginal = super.getDroppedStacks(state, builder);
                 if(!dropsOriginal.isEmpty())
                     return dropsOriginal;
                 return Collections.singletonList(new ItemStack(this, ${data.dropAmount}));
