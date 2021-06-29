@@ -1,4 +1,8 @@
 # Changelogs:
+## 1.2
+* Updated Fabric API to 0.36.0
+* [Bugfix #118] The drop of custom block caused a build error.
+
 ## 1.1
 * Updated Fabric API to 0.34.6
 * Added a complete support for the game rule mod element
