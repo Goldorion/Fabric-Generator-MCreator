@@ -1,6 +1,6 @@
 # Changelogs:
-## 1.1.1
-* Note: This version will not be loaded on MCreator 2021.2 (including snapshots). 
+## 1.2
+Note: This version will not be loaded on MCreator 2021.2 (including snapshots). 
 2021.2 snapshots make several major changes, making the current version incompatible with them.
 Another version will be made to support entirely MCreator 2021.2
 * Updated to Fabric API 0.37.1
