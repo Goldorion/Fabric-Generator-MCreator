@@ -12,8 +12,8 @@
   "logical_height": 256,
   "infiniburn": "minecraft:infiniburn_overworld",
   <#if data.imitateOverworldBehaviour>
-  "min_y": -64,
-  "height": 384,
+  "min_y": 0,
+  "height": 256,
   <#else>
   "min_y": 0,
   "height": 256,

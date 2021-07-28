@@ -1,4 +1,6 @@
 # Changelogs:
+## 1.3
+* [Bugfix] Custom dimensions did not use right values for the dimension's height.
 ## 1.2
 Note: This version will not be loaded on MCreator 2021.2 (including snapshots). 
 2021.2 snapshots make several major changes, making the current version incompatible with them.
