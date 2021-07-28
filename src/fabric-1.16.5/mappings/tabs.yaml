@@ -1,6 +1,6 @@
 _default: ItemGroup.MISC
 _mcreator_prefix: "CUSTOM:"
-_mcreator_map_template: "@JavaModName.@NAME"
+_mcreator_map_template: "@NAME.get()"
 No creative tab entry: null
 BUILDING_BLOCKS: ItemGroup.BUILDING_BLOCKS
 DECORATIONS: ItemGroup.DECORATIONS

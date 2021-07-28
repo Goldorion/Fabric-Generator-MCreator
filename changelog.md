@@ -6,6 +6,7 @@ Another version will be made to support entirely MCreator 2021.2
 * Updated to Fabric API 0.37.1
 * [Bugfix #113] Workspaces could not build properly.
 * [Bugfix #118] The drop of custom block caused a build error.
+* [Bugfix #131] Blocks and items did not appear in custom creative tabs
 
 ## 1.1
 * Updated Fabric API to 0.34.6

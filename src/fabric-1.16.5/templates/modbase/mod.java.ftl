@@ -70,10 +70,6 @@ public class ${JavaModName} implements ModInitializer {
 	public static final Item ${disc}_ITEM = Registry.register(Registry.ITEM, id("${disc.getRegistryName()}"), new ${disc}MusicDisc());
 </#list>
 
-<#list w.getElementsOfType("TAB") as group>
- 	public static final ItemGroup ${group} = ${group}ItemGroup.get();
-</#list>
-
 <#list w.getElementsOfType("BLOCK") as block>
 	<#assign ge = block.getGeneratableElement()>
 	public static final Block ${block}_BLOCK = Registry.register(Registry.BLOCK, id("${block.getRegistryName()}"), new ${block}Block());
