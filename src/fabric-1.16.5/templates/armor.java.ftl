@@ -124,7 +124,7 @@ public class ${name}ArmorMaterial implements ArmorMaterial {
     }
 
     public float getKnockbackResistance() {
-        return 0f;
+        return ${data.knockbackResistance}f;
     }
 }
 <#-- @formatter:on -->
