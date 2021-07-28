@@ -3,7 +3,7 @@ basefeatures: [model_json, model_java, variables]
 partial_support: [armor, block, dimension, entity, item, plant, procedure]
 status: dev
 buildfileversion: 0.37.1
-subversion: 1.0.2
+subversion: 1.1
 
 gradle:
   setup_task: tasks
