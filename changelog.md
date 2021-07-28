@@ -4,6 +4,7 @@
 2021.2 snapshots make several major changes, making the current version incompatible with them.
 Another version will be made to support entirely MCreator 2021.2
 * Updated to Fabric API 0.37.1
+* Improved generated code for custom armors
 * [#124] Added support for tooltips for each armor item
 * [Bugfix #113] Workspaces could not build properly.
 * [Bugfix #118] The drop of custom block caused a build error.

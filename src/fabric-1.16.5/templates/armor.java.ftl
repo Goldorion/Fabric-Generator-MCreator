@@ -27,16 +27,10 @@ import ${package}.${JavaModName};
 public class ${name}ArmorMaterial implements ArmorMaterial {
 
     private static final int[] BASE_DURABILITY = new int[]{13, 15, 16, 11};
-
-    public static final ${name}ArmorMaterial ${name?upper_case} = new ${name}ArmorMaterial("${data.armorTextureFile}", ${data.maxDamage}, new int[]{${data.damageValueBoots}, ${data.damageValueLeggings}, ${data.damageValueBody}, ${data.damageValueHelmet}}, ${data.enchantability},
-      <#if data.equipSound?contains(modid)>${JavaModName}.${data.equipSound?remove_beginning(modid + ":")}Event<#elseif (data.equipSound?length > 0)>
-      SoundEvents.${data.equipSound}<#else>null</#if>,
-        ${data.toughness}F, 0F, () -> {
-            return Ingredient.ofItems(<#if data.repairItems?has_content><#list data.repairItems as repairItem>${mappedMCItemToItemStackCodeNoItemStackValue(repairItem)?replace("Blocks.", "Items.")}<#if repairItem?has_next>,</#if></#list><#else>Items.AIR</#if>);
-    });
+    private static final int[] PROTECTION_VALUES = new int[]{${data.damageValueBoots}, ${data.damageValueLeggings}, ${data.damageValueBody}, ${data.damageValueHelmet}};
 
     <#if data.enableHelmet>
-        public static final Item HELMET = new ArmorItem(${name}ArmorMaterial.${name?upper_case}, EquipmentSlot.HEAD,
+        public static final Item HELMET = new ArmorItem(new ${name}ArmorMaterial(), EquipmentSlot.HEAD,
             new Item.Settings()<#if data.enableHelmet>.group(${data.creativeTab})</#if>) <#if data.helmetSpecialInfo?has_content> {
                 @Override
                 @Environment(EnvType.CLIENT)
@@ -49,7 +43,7 @@ public class ${name}ArmorMaterial implements ArmorMaterial {
    </#if>
 
     <#if data.enableBody>
-        public static final Item CHESTPLATE = new ArmorItem(${name}ArmorMaterial.${name?upper_case}, EquipmentSlot.CHEST,
+        public static final Item CHESTPLATE = new ArmorItem(new ${name}ArmorMaterial(), EquipmentSlot.CHEST,
             new Item.Settings()<#if data.enableBody>.group(${data.creativeTab})</#if>) <#if data.bodySpecialInfo?has_content> {
                 @Override
                 @Environment(EnvType.CLIENT)
@@ -62,7 +56,7 @@ public class ${name}ArmorMaterial implements ArmorMaterial {
    </#if>
 
     <#if data.enableLeggings>
-        public static final Item LEGGINGS = new ArmorItem(${name}ArmorMaterial.${name?upper_case}, EquipmentSlot.LEGS,
+        public static final Item LEGGINGS = new ArmorItem(new ${name}ArmorMaterial(), EquipmentSlot.LEGS,
             new Item.Settings()<#if data.enableLeggings>.group(${data.creativeTab})</#if>) <#if data.leggingsSpecialInfo?has_content> {
                 @Override
                 @Environment(EnvType.CLIENT)
@@ -75,7 +69,7 @@ public class ${name}ArmorMaterial implements ArmorMaterial {
    </#if>
 
     <#if data.enableBoots>
-        public static final Item BOOTS = new ArmorItem(${name}ArmorMaterial.${name?upper_case}, EquipmentSlot.FEET,
+        public static final Item BOOTS = new ArmorItem(new ${name}ArmorMaterial(), EquipmentSlot.FEET,
             new Item.Settings()<#if data.enableBoots>.group(${data.creativeTab})</#if>) <#if data.bootsSpecialInfo?has_content> {
                 @Override
                 @Environment(EnvType.CLIENT)
@@ -87,57 +81,50 @@ public class ${name}ArmorMaterial implements ArmorMaterial {
        }</#if>;
    </#if>
 
-    private final String name;
-    private final int durabilityMultiplier;
-    private final int[] armorValues;
-    private final int enchantability;
-    private final SoundEvent equipSound;
-    private final float toughness;
-    private final float knockbackResistance;
-    private final Lazy<Ingredient> repairIngredient;
-
-    private ${name}ArmorMaterial(String name, int durabilityMultiplier, int[] armorValueArr, int enchantability, SoundEvent soundEvent, float toughness, float knockbackResistance, Supplier<Ingredient> repairIngredient) {
-        this.name = name;
-        this.durabilityMultiplier = durabilityMultiplier;
-        this.armorValues = armorValueArr;
-        this.enchantability = enchantability;
-        this.equipSound = soundEvent;
-        this.toughness = toughness;
-        this.knockbackResistance = knockbackResistance;
-        this.repairIngredient = new Lazy(repairIngredient);
-    }
-
     public int getDurability(EquipmentSlot equipmentSlot_1) {
-        return BASE_DURABILITY[equipmentSlot_1.getEntitySlotId()] * this.durabilityMultiplier;
+        return BASE_DURABILITY[equipmentSlot_1.getEntitySlotId()] * ${data.maxDamage};
     }
 
     public int getProtectionAmount(EquipmentSlot equipmentSlot_1) {
-        return this.armorValues[equipmentSlot_1.getEntitySlotId()];
+        return PROTECTION_VALUES[equipmentSlot_1.getEntitySlotId()];
     }
 
     public int getEnchantability() {
-        return this.enchantability;
+        return ${data.enchantability};
     }
 
     public SoundEvent getEquipSound() {
-        return this.equipSound;
+        return <#if data.equipSound?contains(modid)>${JavaModName}.${data.equipSound?remove_beginning(modid + ":")}Event
+            <#elseif (data.equipSound?length > 0)>
+                SoundEvents.${data.equipSound}
+            <#else>
+                null
+            </#if>;
     }
 
     public Ingredient getRepairIngredient() {
-        return this.repairIngredient.get();
+        return Ingredient.ofItems(
+            <#if data.repairItems?has_content>
+                <#list data.repairItems as repairItem>
+                    ${mappedMCItemToItemStackCodeNoItemStackValue(repairItem)?replace("Blocks.", "Items.")}<#if repairItem?has_next>,</#if>
+               </#list>
+            <#else>
+                Items.AIR
+            </#if>
+        );
     }
 
     @Environment(EnvType.CLIENT)
     public String getName() {
-        return this.name;
+        return "${data.armorTextureFile}";
     }
 
     public float getToughness() {
-        return this.toughness;
+        return  ${data.toughness}F;
     }
 
     public float getKnockbackResistance() {
-        return this.knockbackResistance;
+        return 0f;
     }
 }
 <#-- @formatter:on -->
