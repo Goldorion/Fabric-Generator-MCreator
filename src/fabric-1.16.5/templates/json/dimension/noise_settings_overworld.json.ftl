@@ -11,13 +11,8 @@
   "default_block": ${mappedMCItemToBlockStateJSON(data.mainFillerBlock)},
   "default_fluid": ${mappedMCItemToBlockStateJSON(data.fluidBlock)},
   "noise": {
-  <#if data.imitateOverworldBehaviour>
-    "min_y": -64,
-    "height": 384,
-  <#else>
     "min_y": 0,
     "height": 256,
-  </#if>
     "density_factor": 1,
     "density_offset": -0.46875,
     "size_horizontal": 1,
