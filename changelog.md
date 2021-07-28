@@ -1,6 +1,10 @@
 # Changelogs:
-## 1.2
-* Updated Fabric API to 0.36.0
+## 1.1.1
+* Note: This version will not be loaded on MCreator 2021.2 (including snapshots). 
+2021.2 snapshots make several major changes, making the current version incompatible with them.
+Another version will be made to support entirely MCreator 2021.2
+* Updated to Fabric API 0.37.1
+* [Bugfix #113] Workspaces could not build properly.
 * [Bugfix #118] The drop of custom block caused a build error.
 
 ## 1.1
