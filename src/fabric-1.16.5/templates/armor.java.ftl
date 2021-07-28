@@ -26,15 +26,17 @@ import ${package}.${JavaModName};
 
 public class ${name}ArmorMaterial implements ArmorMaterial {
 
-public static final ${name}ArmorMaterial ${name?upper_case} = new ${name}ArmorMaterial("${data.armorTextureFile}", ${data.maxDamage}, new int[]{${data.damageValueBoots}, ${data.damageValueLeggings}, ${data.damageValueBody}, ${data.damageValueHelmet}}, ${data.enchantability},
-  <#if data.equipSound?contains(modid)>${JavaModName}.${data.equipSound?remove_beginning(modid + ":")}Event<#elseif (data.equipSound?length > 0)>
-  SoundEvents.${data.equipSound}<#else>null</#if>,
-${data.toughness}F, 0F, () -> {
-return Ingredient.ofItems(<#if data.repairItems?has_content><#list data.repairItems as repairItem>${mappedMCItemToItemStackCodeNoItemStackValue(repairItem)?replace("Blocks.", "Items.")}<#if repairItem?has_next>,</#if></#list><#else>Items.AIR</#if>);
+    private static final int[] BASE_DURABILITY = new int[]{13, 15, 16, 11};
+
+    public static final ${name}ArmorMaterial ${name?upper_case} = new ${name}ArmorMaterial("${data.armorTextureFile}", ${data.maxDamage}, new int[]{${data.damageValueBoots}, ${data.damageValueLeggings}, ${data.damageValueBody}, ${data.damageValueHelmet}}, ${data.enchantability},
+      <#if data.equipSound?contains(modid)>${JavaModName}.${data.equipSound?remove_beginning(modid + ":")}Event<#elseif (data.equipSound?length > 0)>
+      SoundEvents.${data.equipSound}<#else>null</#if>,
+        ${data.toughness}F, 0F, () -> {
+            return Ingredient.ofItems(<#if data.repairItems?has_content><#list data.repairItems as repairItem>${mappedMCItemToItemStackCodeNoItemStackValue(repairItem)?replace("Blocks.", "Items.")}<#if repairItem?has_next>,</#if></#list><#else>Items.AIR</#if>);
     });
 
     <#if data.enableHelmet>
-        public static final ArmorItem HELMET = new ArmorItem(${name}ArmorMaterial.${name?upper_case}, EquipmentSlot.HEAD,
+        public static final Item HELMET = new ArmorItem(${name}ArmorMaterial.${name?upper_case}, EquipmentSlot.HEAD,
             new Item.Settings()<#if data.enableHelmet>.group(${data.creativeTab})</#if>) <#if data.helmetSpecialInfo?has_content> {
                 @Override
                 @Environment(EnvType.CLIENT)
@@ -47,7 +49,7 @@ return Ingredient.ofItems(<#if data.repairItems?has_content><#list data.repairIt
    </#if>
 
     <#if data.enableBody>
-        public static final ArmorItem CHESTPLATE = new ArmorItem(${name}ArmorMaterial.${name?upper_case}, EquipmentSlot.CHEST,
+        public static final Item CHESTPLATE = new ArmorItem(${name}ArmorMaterial.${name?upper_case}, EquipmentSlot.CHEST,
             new Item.Settings()<#if data.enableBody>.group(${data.creativeTab})</#if>) <#if data.bodySpecialInfo?has_content> {
                 @Override
                 @Environment(EnvType.CLIENT)
@@ -60,7 +62,7 @@ return Ingredient.ofItems(<#if data.repairItems?has_content><#list data.repairIt
    </#if>
 
     <#if data.enableLeggings>
-        public static final ArmorItem LEGGINGS = new ArmorItem(${name}ArmorMaterial.${name?upper_case}, EquipmentSlot.LEGS,
+        public static final Item LEGGINGS = new ArmorItem(${name}ArmorMaterial.${name?upper_case}, EquipmentSlot.LEGS,
             new Item.Settings()<#if data.enableLeggings>.group(${data.creativeTab})</#if>) <#if data.leggingsSpecialInfo?has_content> {
                 @Override
                 @Environment(EnvType.CLIENT)
@@ -73,7 +75,7 @@ return Ingredient.ofItems(<#if data.repairItems?has_content><#list data.repairIt
    </#if>
 
     <#if data.enableBoots>
-        public static final ArmorItem BOOTS = new ArmorItem(${name}ArmorMaterial.${name?upper_case}, EquipmentSlot.FEET,
+        public static final Item BOOTS = new ArmorItem(${name}ArmorMaterial.${name?upper_case}, EquipmentSlot.FEET,
             new Item.Settings()<#if data.enableBoots>.group(${data.creativeTab})</#if>) <#if data.bootsSpecialInfo?has_content> {
                 @Override
                 @Environment(EnvType.CLIENT)
@@ -85,7 +87,6 @@ return Ingredient.ofItems(<#if data.repairItems?has_content><#list data.repairIt
        }</#if>;
    </#if>
 
-    private static final int[] BASE_DURABILITY = {13, 15, 16, 11};
     private final String name;
     private final int durabilityMultiplier;
     private final int[] armorValues;
