@@ -45,13 +45,13 @@ Note: Mod elements listed are not all fully implemented
 * Blocks
 * Plants
 * Procedures
+* Ranged item
 
 ### Not supported
 * Fluid
 * GUI
 * Painting
 * Particle
-* Ranged item  
 * Structure spawn
 
 ## Installation Instructions
