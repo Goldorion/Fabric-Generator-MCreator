@@ -5,6 +5,7 @@
 Another version will be made to support entirely MCreator 2021.2
 * Updated to Fabric API 0.37.1
 * Improved generated code for custom armors
+* Added support for the painting mod element
 * [#124] Added support for tooltips for each armor item
 * Added knockback resistance support for custom armors
 * [Bugfix #113] Workspaces could not build properly.

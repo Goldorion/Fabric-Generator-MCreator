@@ -127,6 +127,12 @@ public class ${JavaModName} implements ModInitializer {
     </#if>
 </#list>
 
+<#list w.getElementsOfType("PAINTING") as painting>
+    <#assign ge = painting.getGeneratableElement()>
+        public static final PaintingMotive ${painting} = Registry.register(Registry.PAINTING_MOTIVE,
+            id("${painting.getRegistryName()}"), ${painting}Painting.painting);
+</#list>
+
 	@Override
 	public void onInitialize() {
 		LOGGER.info("Initializing ${JavaModName}");
