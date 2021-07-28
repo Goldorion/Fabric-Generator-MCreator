@@ -26,13 +26,8 @@
       "offset": -1
     },
     "size_horizontal": 1,
-  <#if data.imitateOverworldBehaviour>
-    "min_y": -64,
-    "height": 384,
-  <#else>
     "min_y": 0,
     "height": 128,
-  </#if>
     "sampling": {
       "xz_scale": 1.0,
       "y_scale": 3.0,
