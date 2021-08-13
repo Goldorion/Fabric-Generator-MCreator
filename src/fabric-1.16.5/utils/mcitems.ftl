@@ -225,3 +225,17 @@
     </#if>
     <#return '{ "Name": "minecraft:air" }'>
 </#function>
+
+<#function mappedBlockToBlock mappedBlock>
+    <#if mappedBlock?starts_with("/*@BlockState*/")>
+        <#return mappedBlock?replace("/*@BlockState*/","") + ".getBlock()">
+    <#elseif mappedBlock?starts_with("CUSTOM:")>
+        <#if !mappedBlock?contains(".")>
+            <#return mappedElementToClassName(mappedBlock) + ".block">
+        <#else>
+            <#return mappedElementToClassName(mappedBlock) + "." + generator.getElementExtension(mappedBlock)>
+        </#if>
+    <#else>
+        <#return mappedBlock>
+    </#if>
+</#function>
