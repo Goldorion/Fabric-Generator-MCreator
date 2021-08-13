@@ -169,9 +169,14 @@ public class ${JavaModName} implements ModInitializer {
 			${entity}Entity.init();
 		</#list>
 
+		<#list w.getElementsOfType("STRUCTURE") as structure>
+			${structure}Structure.init();
+		</#list>
+
 		<#list sounds as sound>
   			Registry.register(Registry.SOUND_EVENT, ${JavaModName}.${sound}_ID, ${JavaModName}.${sound}Event);
 		</#list>
+
 
 		CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> {
 			<#list w.getElementsOfType("COMMAND") as command>
