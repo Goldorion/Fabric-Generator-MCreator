@@ -1,6 +1,8 @@
 # Changelogs:
 ## 1.3
+* Added custom structure spawn mod element
 * [Bugfix] Imitate overworld behaviopur parameter caused a crash.
+
 ## 1.2
 Note: This version will not be loaded on MCreator 2021.2 (including snapshots). 
 2021.2 snapshots make several major changes, making the current version incompatible with them.
