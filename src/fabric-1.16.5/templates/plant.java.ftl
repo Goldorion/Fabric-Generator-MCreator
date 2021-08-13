@@ -173,6 +173,19 @@ public class ${name}Block extends <#if data.plantType == "normal">Flower<#elseif
         }
     </#if>
 
+    <#if hasProcedure(data.onRandomUpdateEvent)>
+		@Environment(EnvType.CLIENT)
+		@Override
+		public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
+			super.randomDisplayTick(state, world, pos, random);
+			PlayerEntity entity = MinecraftClient.getInstance().player;
+			int x = pos.getX();
+			int y = pos.getY();
+			int z = pos.getZ();
+			<@procedureOBJToCode data.onRandomUpdateEvent/>
+		}
+    </#if>
+
     <#if hasProcedure(data.onNeighbourBlockChanges)>
 		@Override
         public void neighborUpdate(World world, BlockPos pos, Block block, BlockPos posFrom, boolean notify) {

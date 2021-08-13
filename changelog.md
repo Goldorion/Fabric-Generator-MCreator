@@ -2,6 +2,8 @@
 ## 1.3
 * Added custom structure spawn mod element
 * Added custom particle mod element
+* Added Particle properties support for blocks
+* Added support for Client display random tick for custom blocks and plants
 * [Bugfix] Imitate overworld behaviopur parameter caused a crash.
 
 ## 1.2

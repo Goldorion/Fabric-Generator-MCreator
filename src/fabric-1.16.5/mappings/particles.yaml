@@ -1,3 +1,5 @@
+_mcreator_prefix: "CUSTOM:"
+_mcreator_map_template: "ClientInit.@NAME_PARTICLE"
 _default: ParticleTypes.CRIT
 SPELL_MOB_AMBIENT: ParticleTypes.AMBIENT_ENTITY_EFFECT
 VILLAGER_ANGRY: ParticleTypes.ANGRY_VILLAGER

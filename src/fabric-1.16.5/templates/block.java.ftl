@@ -20,6 +20,7 @@ along with MCreatorFabricGenerator.  If not, see <https://www.gnu.org/licenses/>
 <#include "procedures.java.ftl">
 <#include "mcitems.ftl">
 <#include "boundingboxes.java.ftl">
+<#include "particles.java.ftl">
 
 package ${package}.block;
 
@@ -390,6 +391,23 @@ public class ${name}Block extends
 			    world.getBlockTickScheduler().schedule(new BlockPos(x, y, z), this, ${data.tickRate});
 			</#if>
 	    }
+    </#if>
+
+    <#if hasProcedure(data.onRandomUpdateEvent) || data.spawnParticles>
+		@Environment(EnvType.CLIENT)
+		@Override
+		public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
+			super.randomDisplayTick(state, world, pos, random);
+			PlayerEntity entity = MinecraftClient.getInstance().player;
+			int x = pos.getX();
+			int y = pos.getY();
+			int z = pos.getZ();
+			<#if data.spawnParticles>
+                <@particles data.particleSpawningShape data.particleToSpawn data.particleSpawningRadious
+                data.particleAmount data.particleCondition/>
+            </#if>
+			<@procedureOBJToCode data.onRandomUpdateEvent/>
+		}
     </#if>
 
     <#if (data.spawnWorldTypes?size > 0)>
