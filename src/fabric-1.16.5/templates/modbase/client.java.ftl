@@ -50,8 +50,8 @@ public class ClientInit implements ClientModInitializer{
 
     <#list w.getElementsOfType("PARTICLE") as particle>
         <#assign ge = particle.getGeneratableElement()>
-        public static final DefaultParticleType ${particle}_PARTICLE = Registry.register(Registry.PARTICLE_TYPE, "${modid}:${ge.getRegistryName()}",
-            FabricParticleTypes.simple(${ge.alwaysShow));
+        public static final DefaultParticleType ${particle}_PARTICLE = Registry.register(Registry.PARTICLE_TYPE, "${modid}:${particle.getRegistryName()}",
+            FabricParticleTypes.simple(${ge.alwaysShow}));
     </#list>
 
     @Override
