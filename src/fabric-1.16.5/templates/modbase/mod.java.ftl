@@ -177,7 +177,6 @@ public class ${JavaModName} implements ModInitializer {
   			Registry.register(Registry.SOUND_EVENT, ${JavaModName}.${sound}_ID, ${JavaModName}.${sound}Event);
 		</#list>
 
-
 		CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> {
 			<#list w.getElementsOfType("COMMAND") as command>
 			${command}Command.register(dispatcher);
