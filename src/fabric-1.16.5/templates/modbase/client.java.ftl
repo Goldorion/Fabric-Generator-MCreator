@@ -31,18 +31,27 @@ along with MCreatorFabricGenerator.  If not, see <https://www.gnu.org/licenses/>
 
 package ${package};
 
-import net.fabricmc.fabric.api.blockrenderlayer.v1.*;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import ${package}.client;
+import net.fabricmc.fabric.api.blockrenderlayer.v1.*;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
+import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
+import ${package}.client;
 
 @Environment(EnvType.CLIENT)
 public class ClientInit implements ClientModInitializer{
 
     <#list w.getElementsOfType("KEYBIND") as keybind>
         public static final KeyBinding ${keybind}_KEY = KeyBindingHelper.registerKeyBinding(new ${keybind}KeyBinding());
+    </#list>
+
+    <#list w.getElementsOfType("PARTICLE") as particle>
+        <#assign ge = particle.getGeneratableElement()>
+        public static final DefaultParticleType ${particle}_PARTICLE = Registry.register(Registry.PARTICLE_TYPE, "${modid}:${ge.getRegistryName()}",
+            FabricParticleTypes.simple(${ge.alwaysShow));
     </#list>
 
     @Override
@@ -68,6 +77,10 @@ public class ClientInit implements ClientModInitializer{
 
     <#list w.getElementsOfType("CODE") as code>
         ${code}CustomCode.initializeClient();
+    </#list>
+
+    <#list w.getElementsOfType("PARTICLE") as particle>
+        ParticleFactoryRegistry.getInstance().register(${particle}_PARTICLE, ${particle}Particle.CustomParticleFactory::new);
     </#list>
 
         HudRenderCallback.EVENT.register((matrices, tickDelta) -> {

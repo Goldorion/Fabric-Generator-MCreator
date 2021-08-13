@@ -18,13 +18,18 @@ Note: Mod elements listed are not all fully implemented
 * Fuel
 * Function
 * Game rule
+* Item group
+  Note: Re-order creative tabs is missing
 * Key binding
 * Loot table
 * Music disc
   Note: On Entity swing trigger is missing due to Fabric
 * Overlay
+* Painting
+* Particle
 * Potion
 * Recipe
+* Structure spawn
 
 ### Partial support (almost fully supported)
 * Dimension
@@ -32,8 +37,6 @@ Note: Mod elements listed are not all fully implemented
 * Items
   Note: Item inventory and Damage on crafting table are missing
   Note: On Entity swing trigger is missing due to Fabric
-* Item group
-  Note: Re-order creative tabs is missing
 * Living entities
   Note: Flying entities, ranged item and entity inventory are missing
 * Tool
@@ -50,9 +53,6 @@ Note: Mod elements listed are not all fully implemented
 ### Not supported
 * Fluid
 * GUI
-* Painting
-* Particle
-* Structure spawn
 
 ## Installation Instructions
 Pre-built binaries can be found on the [Release page of this repository](https://github.com/ClothCreators/MCreatorFabricGenerator/releases).

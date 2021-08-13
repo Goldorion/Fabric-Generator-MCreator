@@ -1,6 +1,7 @@
 # Changelogs:
 ## 1.3
 * Added custom structure spawn mod element
+* Added custom particle mod element
 * [Bugfix] Imitate overworld behaviopur parameter caused a crash.
 
 ## 1.2
