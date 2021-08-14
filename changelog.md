@@ -4,7 +4,8 @@
 * Added custom particle mod element
 * Added Particle properties support for blocks
 * Added support for Client display random tick for custom blocks and plants
-* [Bugfix] Imitate overworld behaviopur parameter caused a crash.
+* [Bugfix] Imitate overworld behaviour parameter caused a crash.
+* [Bugfix] Custom enchantments didn't compile due to the class duplicated inside the same class
 * [Bugfix #133] Spawn XP orb procedure block caused a build error
 
 ## 1.2
