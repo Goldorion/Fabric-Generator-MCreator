@@ -5,6 +5,7 @@
 * Added Particle properties support for blocks
 * Added support for Client display random tick for custom blocks and plants
 * [Bugfix] Imitate overworld behaviopur parameter caused a crash.
+* [Bugfix #133] Spawn XP orb procedure block caused a build error
 
 ## 1.2
 Note: This version will not be loaded on MCreator 2021.2 (including snapshots). 

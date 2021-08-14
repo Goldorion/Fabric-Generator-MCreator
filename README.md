@@ -40,7 +40,7 @@ Note: Mod elements listed are not all fully implemented
 * Living entities
   Note: Flying entities, ranged item and entity inventory are missing
 * Tool
-  Note: Damage on crafting table are missing
+  Note: Damage on crafting table is missing
   Note: On Entity swing trigger is missing due to Fabric
   
 ### Partial support
