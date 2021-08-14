@@ -399,9 +399,9 @@ public class ${name}Block extends
 		public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
 			super.randomDisplayTick(state, world, pos, random);
 			PlayerEntity entity = MinecraftClient.getInstance().player;
-			int x = pos.getX();
-			int y = pos.getY();
-			int z = pos.getZ();
+			double x = pos.getX();
+			double y = pos.getY();
+			double z = pos.getZ();
 			<#if data.spawnParticles>
                 <@particles data.particleSpawningShape data.particleToSpawn data.particleSpawningRadious
                 data.particleAmount data.particleCondition/>
