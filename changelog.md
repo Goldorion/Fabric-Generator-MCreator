@@ -6,7 +6,8 @@
 * Added support for Client display random tick for custom blocks and plants
 * [Bugfix] Imitate overworld behaviour parameter caused a crash.
 * [Bugfix] Custom enchantments didn't compile due to the class duplicated inside the same class
-* [Bugfix #133] Spawn XP orb procedure block caused a build error
+* [Bugfix] Fix enchantment mappings
+* [Bugfix #133] Spawn XP orb and Add enchantment to itemstack procedure blocks caused a build error
 
 ## 1.2
 Note: This version will not be loaded on MCreator 2021.2 (including snapshots). 
