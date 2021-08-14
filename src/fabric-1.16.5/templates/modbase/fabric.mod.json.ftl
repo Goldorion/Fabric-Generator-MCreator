@@ -15,7 +15,7 @@
 </#if>
   "contact": {
     "homepage": "${settings.getWebsiteURL()}",
-    "sources": "https://github.com/ClothCreators/MCreatorFabricGenerator"
+    "sources": "https://github.com/ClothCreators/Fabric-Generator-MCreator"
   },
   "license": "${settings.getLicense()}",
 <#if settings.getModPicture()?has_content>

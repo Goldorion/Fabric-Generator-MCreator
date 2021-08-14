@@ -15,4 +15,4 @@ Since we have limited time, we would love to accept pull requests to get things 
 * Do not commit with CRLF line endings. Also Try adding a newline at the end of each file. 
 * Do not use mixins. Fabric Api has, or will soon have all the required modules. 
 
-You must also follow the [Code Of Conduct](https://github.com/ClothCreators/MCreatorFabricGenerator/blob/1.15.2/CODE_OF_CONDUCT.md).
+You must also follow the [Code Of Conduct](https://github.com/Goldorion/Fabric-Generator-MCreator/blob/1.15.2/CODE_OF_CONDUCT.md).

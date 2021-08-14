@@ -55,7 +55,7 @@ Note: Mod elements listed are not all fully implemented
 * GUI
 
 ## Installation Instructions
-Pre-built binaries can be found on the [Release page of this repository](https://github.com/ClothCreators/MCreatorFabricGenerator/releases).
+Pre-built binaries can be found on the [Release page of this repository](https://github.com/Goldorion/Fabric-Generator-MCreator/releases).
 
 Install like any other plugin: Launch MCreator -> Open preferences -> Manage plugins -> Load Plugin -> Find your downloaded zip file -> **Restart MCreator**.
 
