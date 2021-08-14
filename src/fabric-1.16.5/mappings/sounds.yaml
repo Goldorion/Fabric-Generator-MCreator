@@ -30,7 +30,7 @@ block.chest.locked: BLOCK_CHEST_LOCKED
 block.chest.open: BLOCK_CHEST_OPEN
 block.chorus_flower.death: BLOCK_CHORUS_FLOWER_DEATH
 block.chorus_flower.grow: BLOCK_CHORUS_FLOWER_GROW
-block.cloth.break: BLOCK_WOOL_PLACE
+block.cloth.break: BLOCK_WOOL_BREAK
 block.cloth.fall: BLOCK_WOOL_FALL
 block.cloth.hit: BLOCK_WOOL_HIT
 block.cloth.place: BLOCK_WOOL_PLACE
@@ -85,7 +85,7 @@ block.metal.place: BLOCK_METAL_PLACE
 block.metal.step: BLOCK_METAL_STEP
 block.metal_pressureplate.click_off: BLOCK_METAL_PRESSUREPLATE_CLICK_OFF
 block.metal_pressureplate.click_on: BLOCK_METAL_PRESSUREPLATE_CLICK_ON
-block.note.basedrum: BLOCK_NOTE_BASEDRUM
+block.note.basedrum: BLOCK_NOTE_BLOCK_BASEDRUM
 block.note.bass: BLOCK_NOTE_BLOCK_BASS
 block.note.bell: BLOCK_NOTE_BLOCK_BELL
 block.note.chime: BLOCK_NOTE_BLOCK_CHIME
