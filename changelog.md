@@ -1,5 +1,6 @@
 # Changelogs:
 ## 1.3
+Note: Except if a major bug is found, this version is the last one supporting MCreator 2021.1.
 * Added custom structure spawn mod element
 * Added custom particle mod element
 * Added Particle properties support for blocks
