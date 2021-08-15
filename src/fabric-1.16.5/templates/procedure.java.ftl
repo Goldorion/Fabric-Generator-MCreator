@@ -23,6 +23,8 @@ import java.util.HashMap;
 
 public class ${name}Procedure {
 
+    ${trigger_code}
+
     public static <#if return_type??>${return_type.getJavaType(generator.getWorkspace())}<#else>void</#if> executeProcedure(Map<String, Object> dependencies){
         <#list dependencies as dependency>
             if(dependencies.get("${dependency.getName()}")==null){
@@ -39,10 +41,12 @@ public class ${name}Procedure {
             </#if>
         </#list>
 
+		<#list localvariables as var>
+			<@var.getType().getScopeDefinition(generator.getWorkspace(), "LOCAL")['init']?interpret/>
+		</#list>
+
         ${procedurecode}
     }
-
-    ${trigger_code}
 
 }
 <#-- @formatter:on -->
