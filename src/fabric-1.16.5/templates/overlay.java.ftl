@@ -60,13 +60,13 @@ public class ${name}Overlay {
                 <#assign x = (component.x/2 - 213)?round>
                 <#assign y = (component.y/2 - 120)?round>
                 <#if component.getClass().getSimpleName() == "Label">
-						<#if hasCondition(component.displayCondition)>
+						<#if hasProcedure(component.displayCondition)>
 						if (<@procedureOBJToConditionCode component.displayCondition/>)
 						</#if>
 						    MinecraftClient.getInstance().textRenderer.draw(matrices, "${translateTokens(JavaConventions.escapeStringForJava(component.text))}",
                                     posX + ${x}, posY + ${y}, ${component.color.getRGB()});
                 <#elseif component.getClass().getSimpleName() == "Image">
-						<#if hasCondition(component.displayCondition)>
+						<#if hasProcedure(component.displayCondition)>
 						if (<@procedureOBJToConditionCode component.displayCondition/>) {
 						</#if>
 						    RenderSystem.disableDepthTest();
@@ -82,7 +82,7 @@ public class ${name}Overlay {
       					    RenderSystem.enableDepthTest();
       					    RenderSystem.enableAlphaTest();
       					    RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-						<#if hasCondition(component.displayCondition)>
+						<#if hasProcedure(component.displayCondition)>
 						}
 						</#if>
                 </#if>

@@ -92,7 +92,7 @@ public class ${name}Particle extends SpriteBillboardParticle {
 		    }
 		</#if>
 
-		<#if hasCondition(data.additionalExpiryCondition)>
+		<#if hasProcedure(data.additionalExpiryCondition)>
 		    double x = this.x;
 		    double y = this.y;
 		    double z = this.z;

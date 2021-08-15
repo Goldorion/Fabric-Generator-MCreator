@@ -1,4 +1,11 @@
 # Changelogs:
+## 1.4
+Note: Incompatible with MCreator 2021.2.31709 and older
+* Update to MCreator 2021.2
+* Added support for custom potion and custom potion effect (the split)
+* Added missing features for custom potion effects
+* 
+
 ## 1.3
 Note: Except if a major bug is found, this version is the last one supporting MCreator 2021.1.
 * Added custom structure spawn mod element

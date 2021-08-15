@@ -31,24 +31,14 @@ along with Fabric-Generator-MCreator.  If not, see <https://www.gnu.org/licenses
 
 package ${package};
 
-import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.blockrenderlayer.v1.*;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
-import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
-import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
-import ${package}.client;
-
 @Environment(EnvType.CLIENT)
 public class ClientInit implements ClientModInitializer{
 
-    <#list w.getElementsOfType("KEYBIND") as keybind>
+    <#list w.getElementsOfType("keybind") as keybind>
         public static final KeyBinding ${keybind}_KEY = KeyBindingHelper.registerKeyBinding(new ${keybind}KeyBinding());
     </#list>
 
-    <#list w.getElementsOfType("PARTICLE") as particle>
+    <#list w.getElementsOfType("particle") as particle>
         <#assign ge = particle.getGeneratableElement()>
         public static final DefaultParticleType ${particle}_PARTICLE = Registry.register(Registry.PARTICLE_TYPE, "${modid}:${particle.getRegistryName()}",
             FabricParticleTypes.simple(${ge.alwaysShow}));
@@ -56,7 +46,7 @@ public class ClientInit implements ClientModInitializer{
 
     @Override
     public void onInitializeClient(){
-    <#list w.getElementsOfType("BLOCK") as block>
+    <#list w.getElementsOfType("block") as block>
         <#assign ge = block.getGeneratableElement()>
         <#if ge.transparencyType == "CUTOUT">
 		    BlockRenderLayerMap.INSTANCE.putBlock(${block}_BLOCK, RenderLayer.getCutout());
@@ -67,30 +57,30 @@ public class ClientInit implements ClientModInitializer{
         </#if>
     </#list>
 
-    <#list w.getElementsOfType("PLANT") as plant>
+    <#list w.getElementsOfType("plant") as plant>
         BlockRenderLayerMap.INSTANCE.putBlock(${JavaModName}.${plant}_BLOCK, RenderLayer.getCutoutMipped());
     </#list>
 
-	<#list w.getElementsOfType("MOB") as entity>
+	<#list w.getElementsOfType("livingentity") as entity>
 		${entity}EntityRenderer.clientInit();
 	</#list>
 
-    <#list w.getElementsOfType("CODE") as code>
+    <#list w.getElementsOfType("code") as code>
         ${code}CustomCode.initializeClient();
     </#list>
 
-    <#list w.getElementsOfType("PARTICLE") as particle>
+    <#list w.getElementsOfType("particle") as particle>
         ParticleFactoryRegistry.getInstance().register(${particle}_PARTICLE, ${particle}Particle.CustomParticleFactory::new);
     </#list>
 
         HudRenderCallback.EVENT.register((matrices, tickDelta) -> {
-        <#list w.getElementsOfType("OVERLAY") as overlay>
+        <#list w.getElementsOfType("overlay") as overlay>
             ${overlay}Overlay.render(matrices, tickDelta);
         </#list>
         });
 
         ClientTickEvents.END_CLIENT_TICK.register((client) -> {
-            <#list w.getElementsOfType("KEYBIND") as keybind>
+            <#list w.getElementsOfType("keybind") as keybind>
             if(((${keybind}KeyBinding) ${keybind}_KEY).isPressed() && !((${keybind}KeyBinding) ${keybind}_KEY).wasPressed()){
                 ((${keybind}KeyBinding) ${keybind}_KEY).keyPressed(client.player);
             }

@@ -21,53 +21,13 @@ along with Fabric-Generator-MCreator.  If not, see <https://www.gnu.org/licenses
 
 package ${package}.potion;
 
-import net.minecraft.entity.effect.*;
-import net.minecraft.potion.*;
-
-public class ${name}Effect extends StatusEffect {
-
-	public ${name}Effect() {
-		super(
-			StatusEffectType.<#if data.isBad>HARMFUL<#elseif data.isBenefitical>BENEFICIAL<#else>NEUTRAL</#if>,
-			${data.color.getRGB()});
-	}
-	
-	@Override public boolean isInstant() {
-        return ${data.isInstant};
-    }
-		
-	@Override
-	public boolean canApplyUpdateEffect(int duration, int amplifier) {
-		return true;
-	}
-
-	<#if hasProcedure(data.onActiveTick)>
-	@Override
-	public void applyUpdateEffect(LivingEntity entity, int amplifier) {
-		World world = entity.world;
-		int x = (int) entity.getX();
-		int y = (int) entity.getY();
-		int z = (int) entity.getZ();
-		<@procedureOBJToCode data.onActiveTick/>
-	}
-	</#if>
-
-	<#if data.registerPotionType>
-	public static class ${name}Potion extends Potion {
+public class ${name}Potion extends Potion {
 
 		public ${name}Potion() {
-			super(new StatusEffectInstance(INSTANCE, 3600));
+			super(
+			<#list data.effects as effect>
+			new StatusEffectInstance(${effect.effect?replace("Effect.effect", ".potion")?replace("Potion.potion", "PotionEffect.potion")}, ${effect.duration}, ${effect.amplifier}, ${effect.ambient}, ${effect.showParticles})<#if effect?has_next>,</#if>
+			</#list>);
 		}
-
-	}
-	</#if>
-
-	public static final StatusEffect INSTANCE = new ${name}Effect() {
-	};
-
-	<#if data.registerPotionType>
-	public static final Potion POTION_INSTANCE = new ${name}Potion() {
-	};
-	</#if>
 }
 <#-- @formatter:on -->

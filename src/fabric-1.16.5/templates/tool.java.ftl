@@ -263,7 +263,7 @@ public class ${name}Tool {
     @Environment(EnvType.CLIENT)
     @Override
     public boolean hasGlint(ItemStack stack) {
-    <#if hasCondition(data.glowCondition)>
+    <#if hasProcedure(data.glowCondition)>
         PlayerEntity entity = MinecraftClient.getInstance().player;
         World world = entity.world;
         double x = entity.getPos().getX();

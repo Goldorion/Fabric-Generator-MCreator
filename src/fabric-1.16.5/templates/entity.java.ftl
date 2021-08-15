@@ -560,7 +560,7 @@ public class ${name}Entity extends ${extendsClass}Entity {
         }
 	</#if>
 
-    <#if hasCondition(data.spawningCondition)>
+    <#if hasProcedure(data.spawningCondition)>
     @Override
     public boolean canSpawn(WorldView w) {
         World world = getEntityWorld();

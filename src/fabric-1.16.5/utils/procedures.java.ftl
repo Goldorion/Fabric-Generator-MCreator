@@ -1,23 +1,21 @@
+<#-- @formatter:off -->
+
 <#macro procedureToCode name dependencies customVals={}>
     {
-            java.util.HashMap<String, Object> $_dependencies=new java.util.HashMap<>();
-    	<#list dependencies as dependency>
+		Map<String, Object> $_dependencies = new HashMap<>();
+
+        <#list dependencies as dependency>
             <#if !customVals[dependency.getName()]?? >
-		        $_dependencies.put("${dependency.getName()}",${dependency.getName()});
+	    	    $_dependencies.put("${dependency.getName()}",${dependency.getName()});
             </#if>
         </#list>
+
         <#list customVals as key, value>
-            $_dependencies.put("${key}",${value});
+        $_dependencies.put("${key}",${value});
         </#list>
 
-    ${(name)}Procedure.executeProcedure($_dependencies);
-        }
-</#macro>
-
-<#macro procedureOBJToCode object="">
-    <#if object?? && object?has_content && object.getName() != "null">
-        <@procedureToCode name=object.getName() dependencies=object.getDependencies(generator.getWorkspace()) />
-    </#if>
+        ${(name)}Procedure.executeProcedure($_dependencies);
+	}
 </#macro>
 
 <#macro procedureToRetvalCode name dependencies customVals={}>
@@ -42,18 +40,50 @@
     ))
 </#macro>
 
-<#function hasProcedure object="">
-    <#return object?? && object?has_content && object.getName() != "null">
-</#function>
+<#macro procedureOBJToCode object="">
+    <#if hasProcedure(object)>
+        <@procedureToCode name=object.getName() dependencies=object.getDependencies(generator.getWorkspace()) />
+    </#if>
+</#macro>
 
 <#macro procedureOBJToConditionCode object="">
-    <#if object?? && object?has_content && object.getName() != "null">
+    <#if hasProcedure(object)>
         <@procedureToRetvalCode name=object.getName() dependencies=object.getDependencies(generator.getWorkspace()) />
     <#else>
         true
     </#if>
 </#macro>
 
-<#function hasCondition object="">
-    <#return object?? && object?has_content && object.getName() != "null">
+<#macro procedureOBJToNumberCode object="">
+    <#if hasProcedure(object)>
+        <@procedureToRetvalCode name=object.getName() dependencies=object.getDependencies(generator.getWorkspace()) />
+    <#else>
+        0
+    </#if>
+</#macro>
+
+<#macro procedureOBJToItemstackCode object="">
+    <#if hasProcedure(object)>
+        /*@ItemStack*/ <@procedureToRetvalCode name=object.getName() dependencies=object.getDependencies(generator.getWorkspace()) />
+    <#else>
+        /*@ItemStack*/ ItemStack.EMPTY
+    </#if>
+</#macro>
+
+<#macro procedureOBJToActionResultTypeCode object="">
+    <#if hasProcedure(object)>
+        <@procedureToRetvalCode name=object.getName() dependencies=object.getDependencies(generator.getWorkspace()) />
+    <#else>
+        ActionResultType.PASS
+    </#if>
+</#macro>
+
+<#function hasProcedure object="">
+    <#return object?? && object?has_content && object.getName()?has_content && object.getName() != "null">
 </#function>
+
+<#function hasReturnValue object="">
+    <#return hasProcedure(object) && object.hasReturnValue(generator.getWorkspace())>
+</#function>
+
+<#-- @formatter:on -->

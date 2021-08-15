@@ -31,12 +31,10 @@ along with Fabric-Generator-MCreator.  If not, see <https://www.gnu.org/licenses
 
 package ${package};
 
-import net.fabricmc.api.DedicatedServerModInitializer;
-
 public class ServerInit implements DedicatedServerModInitializer{
     @Override
     public void onInitializeServer() {
-        <#list w.getElementsOfType("CODE") as code>
+        <#list w.getElementsOfType("code") as code>
             ${code}CustomCode.initializeServer();
         </#list>
     }
