@@ -120,6 +120,7 @@ public class ${name}Item extends Item {
 <#if hasProcedure(data.onRightClickedOnBlock)>
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
+        ActionResult retval = super.useOnBlock(context);
         World world = context.getWorld();
         BlockPos pos = context.getBlockPos();
         PlayerEntity entity = context.getPlayer();
@@ -128,8 +129,12 @@ public class ${name}Item extends Item {
         int y = pos.getY();
         int z = pos.getZ();
         ItemStack itemstack = context.getItem();
-			<@procedureOBJToCode data.onRightClickedOnBlock/>
-        return ActionResult.PASS;
+		<#if hasReturnValue(data.onRightClickedOnBlock)>
+            return <@procedureOBJToActionResultTypeCode data.onRightClickedOnBlock/>;
+        <#else>
+            <@procedureOBJToCode data.onRightClickedOnBlock/>
+            return retval;
+        </#if
     }
 </#if>
 

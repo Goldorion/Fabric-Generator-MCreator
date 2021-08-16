@@ -9,6 +9,7 @@ Note: Incompatible with MCreator 2021.2.31709 and older
 * Added support for new block parameters: Custom sound set, Redstone properties, placing condition, on right-clicked and on block placed by triggers
 * Added support for new features for enchantments
 * Added support for blockstate, direction and action result variable types
+* Added support for Action Result return value in triggers
 * Added Global session scope support
 * Added the new plugin update checking system
 * Added support for Is immune to fire for custom armors

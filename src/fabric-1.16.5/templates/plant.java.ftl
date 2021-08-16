@@ -246,8 +246,12 @@ public class ${name}Block extends <#if data.plantType == "normal">Flower<#elseif
             BlockPos pos = hit.getBlockPos();
             BlockState state = world.getBlockState(pos);
             Direction direction = hit.getFace();
-			<@procedureOBJToCode data.onRightClicked/>
-            return ActionResult.SUCCESS;
+			<#if hasReturnValue(data.onRightClicked)>
+                return <@procedureOBJToActionResultTypeCode data.onRightClicked/>;
+            <#else>
+                <@procedureOBJToCode data.onRightClicked/>
+            	return ActionResultType.SUCCESS;
+            </#if>
         }
     </#if>
 
