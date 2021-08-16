@@ -2,7 +2,7 @@
 ## 1.4
 Note: Incompatible with MCreator 2021.2.31709 and older
 * Update to MCreator 2021.2
-* Disabled all unsupported parameters for armor, biome, block, enchantment, food, living entity, music disc, potion effect mod elements
+* Disabled all unsupported parameters for armor, biome, block, enchantment, food, item, living entity, music disc, potion effect mod elements
 * Added support for custom potion and custom potion effect (the split)
 * Added missing features for custom potion effects
 * Added support for new block bases: End rod, Pressure plate and Button

@@ -36,10 +36,8 @@ public class ${name}Item extends Item {
 	    .fireproof()
 	</#if>
         .rarity(Rarity.${data.rarity})
-        <#if data.stayInGridWhenCrafting>
-            <#if data.recipeRemainder?? && !data.recipeRemainder.isEmpty()>
-                .recipeRemainder(${mappedMCItemToItemStackCodeNoItemStackValue(data.recipeRemainder)})
-            </#if>
+        <#if data.recipeRemainder?? && !data.recipeRemainder.isEmpty()>
+            .recipeRemainder(${mappedMCItemToItemStackCodeNoItemStackValue(data.recipeRemainder)})
         </#if>
         );
     }
@@ -173,7 +171,7 @@ public class ${name}Item extends Item {
     }
 </#if>
 
-<#if hasProcedure(data.onRightClickedInAir) || (data.guiBoundTo?has_content && data.guiBoundTo != "<NONE>")>
+<#if hasProcedure(data.onRightClickedInAir)>
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack itemstack = super.use(world, user, hand).getResult();
