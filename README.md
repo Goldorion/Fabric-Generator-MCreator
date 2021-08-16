@@ -10,7 +10,6 @@ Mod elements listed are not all fully implemented
 Unsupported fields in full supported mod elements are features from Forge only. They are not available with Fabric yet.
 ### Full supported
 * Advancement
-* Biome
 * Command
 * Custom code
 * Enchantment 
@@ -20,7 +19,7 @@ Unsupported fields in full supported mod elements are features from Forge only. 
 * Function
 * Game rule
 * Item group
-  Note: Re-order creative tabs is missing
+  Missing: Re-order creative tabs
 * Key binding
 * Loot table
 * Music disc
@@ -36,15 +35,17 @@ Unsupported fields in full supported mod elements are features from Forge only. 
 ### Partial support (almost fully supported)
 * Armor
   Missing: Custom models
+* Biome
+  Missing: Custom vine and fruit for custom tree
 * Dimension
-  Note: Custom portal and triggers are missing
+  Missing: Custom portal and triggers
 * Items
-  Note: Item inventory and Damage on crafting table are missing
+  Missing: Item inventory and Damage on crafting table
   Note: On Entity swing trigger is missing due to Fabric
 * Living entities
-  Note: Flying entities, ranged item and entity inventory are missing
+  Missing: Flying entities, ranged item and entity inventory
 * Tool
-  Note: Damage on crafting table is missing
+  Missing: Damage on crafting table
   Note: On Entity swing trigger is missing due to Fabric
   
 ### Partial support

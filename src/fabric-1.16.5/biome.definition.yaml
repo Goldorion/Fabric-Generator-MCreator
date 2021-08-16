@@ -5,3 +5,5 @@ templates:
 localizationkeys:
   - key: biome.@modid.@registryname
     mapto: name
+
+field_exclusions: [ treeVines, treeFruits, biomeDictionaryTypes ]
