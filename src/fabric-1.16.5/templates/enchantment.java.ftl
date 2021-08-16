@@ -68,13 +68,14 @@ public class ${name}Enchantment extends Enchantment {
         return ${data.isTreasureEnchantment};
     }
 
-    public boolean isCurse() {
+    @Override
+    public boolean isCursed() {
         return ${data.isCurse};
     }
 
     @Override
     public boolean isAvailableForEnchantedBookOffer() {
-        return ${data.isAllowedOnBooks};
+        return ${data.canVillagerTrade};
     }
 }
 
