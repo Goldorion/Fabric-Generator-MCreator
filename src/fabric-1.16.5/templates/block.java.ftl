@@ -24,12 +24,6 @@ along with Fabric-Generator-MCreator.  If not, see <https://www.gnu.org/licenses
 
 package ${package}.block;
 
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.fabricmc.fabric.api.tools.FabricToolTags;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.registry.*;
-import net.fabricmc.fabric.api.tool.attribute.v1.*;
 import ${package}.*;
 
 public class ${name}Block extends
@@ -59,7 +53,15 @@ public class ${name}Block extends
 
     <#macro blockProperties>
     	FabricBlockSettings.of(Material.${data.material})
-    		.sounds(BlockSoundGroup.${data.soundOnStep})
+    	    <#if data.isCustomSoundType>
+    	        .sounds(new BlockSoundGroup(1.0f, 1.0f, new SoundEvent(new Identifier("${data.breakSound}")),
+    	            new SoundEvent(new Identifier("${data.stepSound}")),
+    	            new SoundEvent(new Identifier("${data.placeSound}")),
+    	            new SoundEvent(new Identifier("${data.hitSound}")),
+    	            new SoundEvent(new Identifier("${data.fallSound}"))))
+    	    <#else>
+    		    .sounds(BlockSoundGroup.${data.soundOnStep})
+    		</#if>
     		<#if data.unbreakable>
     			.strength(-1, 3600000)
     		<#else>
@@ -79,20 +81,20 @@ public class ${name}Block extends
             <#if data.hasTransparency || (data.blockBase?has_content && data.blockBase == "Leaves")>
                 .nonOpaque()
             </#if>
-            		<#if data.emissiveRendering>
+            <#if data.emissiveRendering>
                .emissiveLighting(${name}Block::always)
             </#if>
             <#if data.speedFactor != 1.0>
                .velocityMultiplier(${data.speedFactor}f)
-            		</#if>
-            		<#if data.jumpFactor != 1.0>
-            		    .jumpVelocityMultiplier(${data.jumpFactor}f)
-            		</#if>
+            </#if>
+            <#if data.jumpFactor != 1.0>
+                .jumpVelocityMultiplier(${data.jumpFactor}f)
+            </#if>
             <#if data.tickRandomly>
                .ticksRandomly()
             </#if>
             <#if generator.map(data.colorOnMap, "mapcolors") != "DEFAULT">
-            		   .materialColor(MaterialColor.${generator.map(data.colorOnMap, "mapcolors")})
+                .materialColor(MaterialColor.${generator.map(data.colorOnMap, "mapcolors")})
             </#if>
     </#macro>
 
@@ -243,6 +245,26 @@ public class ${name}Block extends
         }
     </#if>
 
+	<#if data.canProvidePower && data.emittedRedstonePower??>
+		@Override
+		public boolean emitsRedstonePower(BlockState state) {
+			return true;
+		}
+
+		@Override
+		public int getWeakPower(BlockState blockstate, BlockView blockView, BlockPos pos, Direction side) {
+			<#if hasProcedure(data.emittedRedstonePower)>
+				int x = pos.getX();
+				int y = pos.getY();
+				int z = pos.getZ();
+				World world = (World) blockView;
+				return (int) <@procedureOBJToNumberCode data.emittedRedstonePower/>;
+			<#else>
+				return ${data.emittedRedstonePower.getFixedValue()};
+			</#if>
+		}
+	</#if>
+
     <#if !data.useLootTableForDrops>
         <#if data.dropAmount != 1 && !(data.customDrop?? && !data.customDrop.isEmpty())>
 	    	@Override
@@ -288,6 +310,60 @@ public class ${name}Block extends
                 return Collections.singletonList(new ItemStack(this, 1));
             }
         </#if>
+    </#if>
+
+	<#if hasProcedure(data.placingCondition)>
+		@Override
+		public boolean canPlaceAt(BlockState blockstate, WorldView worldIn, BlockPos pos) {
+			if (worldIn instanceof IWorld) {
+				World world = (WorldView) worldIn;
+				int x = pos.getX();
+				int y = pos.getY();
+				int z = pos.getZ();
+				return <@procedureOBJToConditionCode data.placingCondition/>;
+			}
+			return super.canPlaceAt(blockstate, worldIn, pos);
+		}
+	</#if>
+
+    <#if hasProcedure(data.onRightClicked)>
+		@Override
+		public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+			super.onUse(blockstate, world, pos, entity, hand, hit);
+
+			int x = pos.getX();
+			int y = pos.getY();
+			int z = pos.getZ();
+
+			<#if hasProcedure(data.onRightClicked)>
+				double hitX = hit.getHitVec().x;
+				double hitY = hit.getHitVec().y;
+				double hitZ = hit.getHitVec().z;
+				Direction direction = hit.getFace();
+				<#if hasReturnValue(data.onRightClicked)>
+				    ActionResult result = <@procedureOBJToActionResultTypeCode data.onRightClicked/>;
+				<#else>
+				    <@procedureOBJToCode data.onRightClicked/>
+				</#if>
+			</#if>
+
+        	<#if !hasReturnValue(data.onRightClicked)>
+			    return ActionResult.SUCCESS;
+			<#else>
+			    return result;
+			</#if>
+		}
+    </#if>
+
+    <#if hasProcedure(data.onBlockPlayedBy)>
+		@Override
+		public void onPlaced(World world, BlockPos pos, BlockState blockstate, LivingEntity entity, ItemStack itemstack) {
+			super.onPlaced(world, pos, blockstate, entity, itemstack);
+			int x = pos.getX();
+			int y = pos.getY();
+			int z = pos.getZ();
+			<@procedureOBJToCode data.onBlockPlayedBy/>
+		}
     </#if>
 
     <#if (hasProcedure(data.onTickUpdate) && !data.tickRandomly) || hasProcedure(data.onBlockAdded)>
