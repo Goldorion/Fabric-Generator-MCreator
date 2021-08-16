@@ -2,11 +2,13 @@
 ## 1.4
 Note: Incompatible with MCreator 2021.2.31709 and older
 * Update to MCreator 2021.2
+* Disabled all unsupported parameters for armors, potion effect
 * Added support for custom potion and custom potion effect (the split)
 * Added missing features for custom potion effects
 * Added support for blockstate, direction and action result variable types
 * Added Global session scope support
 * Added the new plugin update checking system
+* Added support for Is immune to fire for custom armors
 
 ## 1.3
 Note: Except if a major bug is found, this version is the last one supporting MCreator 2021.1.

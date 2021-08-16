@@ -6,8 +6,10 @@ This project is not official. It is not affiliated with the respective owners an
 **The Current targeted Minecraft Version is 1.16.5**
 
 ## Features
-Note: Mod elements listed are not all fully implemented
+Mod elements listed are not all fully implemented
+Unsupported fields in full supported mod elements are features from Forge only. They are not available with Fabric yet.
 ### Full supported
+* Armor
 * Advancement
 * Biome
 * Command
@@ -45,7 +47,6 @@ Note: Mod elements listed are not all fully implemented
   Note: On Entity swing trigger is missing due to Fabric
   
 ### Partial support
-* Armor
 * Blocks
 * Plants
 * Procedures

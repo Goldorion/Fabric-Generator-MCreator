@@ -35,3 +35,7 @@ localizationkeys:
     mapto: leggingsName
   - key: item.@modid.@registryname_boots
     mapto: bootsName
+
+field_exclusions: [ helmetModel, helmetModelPart, helmetModelTexture, onHelmetTick, bodyModel, bodyModelPart, bodyModelTexture, armsModelPartL,
+                    armsModelPartR, onBodyTick, leggingsModel, leggingsModelPartL, leggingsModelPartR, leggingsModelTexture, onLeggingsTick, bootsModel,
+                    bootsModelPartL, bootsModelPartR, bootsModelTexture, onBootsTick]
