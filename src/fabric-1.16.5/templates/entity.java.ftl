@@ -494,7 +494,12 @@ public class ${name}Entity extends ${extendsClass}Entity {
 			double y = this.getY();
 			double z = this.getZ();
 			Entity entity = this;
-			<@procedureOBJToCode data.onRightClickedOn/>
+			<#if hasReturnValue(data.onRightClickedOn)>
+				return <@procedureOBJToActionResultTypeCode data.onRightClickedOn/>;
+			<#else>
+				<@procedureOBJToCode data.onRightClickedOn/>
+				return retval;
+			</#if>
 		    return retval;
 		}    
     </#if>

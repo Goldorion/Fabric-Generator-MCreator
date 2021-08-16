@@ -14,7 +14,6 @@ Unsupported fields in full supported mod elements are features from Forge only. 
 * Custom code
 * Enchantment 
 * Food
-  Note: On Entity swing trigger is missing due to Fabric
 * Fuel
 * Function
 * Game rule
@@ -36,9 +35,7 @@ Unsupported fields in full supported mod elements are features from Forge only. 
 * Armor
   Missing: Custom models
 * Biome
-  Missing: Custom vine and fruit for custom tree
 * Dimension
-  Missing: Custom portal and triggers
 * Items
   Missing: Item inventory and Damage on crafting table
   Note: On Entity swing trigger is missing due to Fabric
