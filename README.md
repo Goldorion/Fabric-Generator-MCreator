@@ -9,7 +9,6 @@ This project is not official. It is not affiliated with the respective owners an
 Mod elements listed are not all fully implemented
 Unsupported fields in full supported mod elements are features from Forge only. They are not available with Fabric yet.
 ### Full supported
-* Armor
 * Advancement
 * Biome
 * Command
@@ -35,6 +34,8 @@ Unsupported fields in full supported mod elements are features from Forge only. 
 * Structure spawn
 
 ### Partial support (almost fully supported)
+* Armor
+  Missing: Custom models
 * Dimension
   Note: Custom portal and triggers are missing
 * Items
