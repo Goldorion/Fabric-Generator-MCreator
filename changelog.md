@@ -5,7 +5,8 @@ Note: Incompatible with MCreator 2021.2.31709 and older
 * Disabled all unsupported parameters for armor, biome, block, potion effect mod elements
 * Added support for custom potion and custom potion effect (the split)
 * Added missing features for custom potion effects
-* Added support for new block parameters: Custom sound set, redstone properties, placing condition, on right-clicked and on block placed by triggers
+* Added support for new block bases: End rod, Pressure plate and Button
+* Added support for new block parameters: Custom sound set, Redstone properties, placing condition, on right-clicked and on block placed by triggers
 * Added support for blockstate, direction and action result variable types
 * Added Global session scope support
 * Added the new plugin update checking system

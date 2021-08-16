@@ -31,9 +31,11 @@ public class ${name}Block extends
         FallingBlock
     <#elseif data.blockBase?has_content>
         <#if data.blockBase == "TrapDoor">
-        TrapdoorBlock
+            TrapdoorBlock
+        <#elseif data.blockBase == "Button">
+            <#if (data.material.getUnmappedValue() == "WOOD") || (data.material.getUnmappedValue() == "NETHER_WOOD")>Wooden<#else>Stone</#if>ButtonBlock
         <#else>
-        ${data.blockBase}Block
+            ${data.blockBase}Block
         </#if>
     <#else>
         Block
@@ -101,6 +103,12 @@ public class ${name}Block extends
     public ${name}Block() {
         <#if data.blockBase?has_content && data.blockBase == "Stairs">
             super(new Block(<@blockProperties/>).getDefaultState(),
+		<#elseif data.blockBase?has_content && data.blockBase == "PressurePlate">
+	        <#if (data.material.getUnmappedValue() == "WOOD") || (data.material.getUnmappedValue() == "NETHER_WOOD")>
+			    super(ActivationRule.EVERYTHING,
+			<#else>
+			    super(ActivationRule.MOBS,
+			</#if>
         <#else>
         	super(
         </#if>
