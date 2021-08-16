@@ -23,9 +23,6 @@ along with Fabric-Generator-MCreator.  If not, see <https://www.gnu.org/licenses
 
 package ${package}.entity;
 
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
-
 @SuppressWarnings("deprecation")
 <#assign extendsClass = "Passive">
 	<#if data.aiBase != "(none)" >
@@ -182,8 +179,7 @@ public class ${name}Entity extends ${extendsClass}Entity {
     <#if data.stepSound?has_content && data.stepSound.getMappedValue()?has_content>
         @Override
         public void playStepSound(BlockPos pos, BlockState state) {
-            this.playSound(<#if data.stepSound?contains(modid)>${JavaModName}.${data.stepSound?remove_beginning(modid + ":")}Event<#elseif (data.stepSound?length > 0)>
-                               SoundEvents.${data.stepSound}<#else>null</#if>, 0.15f, 1);
+            this.playSound(new SoundEvent(new Identifier("${data.stepSound}"), 0.15f, 1);
      	}
     </#if>
 
@@ -198,29 +194,25 @@ public class ${name}Entity extends ${extendsClass}Entity {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return <#if data.livingSound?contains(modid)>${JavaModName}.${data.livingSound?remove_beginning(modid + ":")}Event<#elseif (data.livingSound?length > 0)>
-               SoundEvents.${data.livingSound}<#else>null</#if>;
+        return new SoundEvent(new Identifier("${data.livingSound}");
     }
 
     @Nullable
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return <#if data.hurtSound?contains(modid)>${JavaModName}.${data.hurtSound?remove_beginning(modid + ":")}Event<#elseif (data.hurtSound?length > 0)>
-                SoundEvents.${data.hurtSound}<#else>null</#if>;
+		return new SoundEvent(new Identifier("${data.hurtSound}");
 	}
 
     @Nullable
 	@Override
 	protected SoundEvent getDeathSound() {
-		return <#if data.deathSound?contains(modid)>${JavaModName}.${data.deathSound?remove_beginning(modid + ":")}Event<#elseif (data.deathSound?length > 0)>
-                 SoundEvents.${data.deathSound}<#else>null</#if>;
+		return new SoundEvent(new Identifier("${data.deathSound}");
 	}
 
     <#if data.stepSound?has_content && data.stepSound.getMappedValue()?has_content>
 	@Override
 	public void playStepSound(BlockPos pos, BlockState blockIn) {
-	    this.playSound(<#if data.stepSound?contains(modid)>${JavaModName}.${data.stepSound?remove_beginning(modid + ":")}Event
-	        <#elseif (data.stepSound?length > 0)>SoundEvents.${data.stepSound}<#else>null</#if>, 0.15f, 1);
+	    this.playSound(new SoundEvent(new Identifier("${data.stepSound}"), 0.15f, 1);
 	}
 	</#if>
 

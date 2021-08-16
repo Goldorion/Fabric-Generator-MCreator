@@ -20,8 +20,6 @@ along with Fabric-Generator-MCreator.  If not, see <https://www.gnu.org/licenses
 
 package ${package}.item;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import ${package}.${JavaModName};
 
 public class ${name}ArmorMaterial implements ArmorMaterial {
@@ -94,12 +92,7 @@ public class ${name}ArmorMaterial implements ArmorMaterial {
     }
 
     public SoundEvent getEquipSound() {
-        return <#if data.equipSound?contains(modid)>${JavaModName}.${data.equipSound?remove_beginning(modid + ":")}Event
-            <#elseif (data.equipSound?length > 0)>
-                SoundEvents.${data.equipSound}
-            <#else>
-                null
-            </#if>;
+        return new SoundEvent(new Identifier("${data.equipSound}"));
     }
 
     public Ingredient getRepairIngredient() {

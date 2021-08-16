@@ -21,15 +21,9 @@ along with Fabric-Generator-MCreator.  If not, see <https://www.gnu.org/licenses
 
 package ${package}.item;
 
-import net.minecraft.util.registry.Registry;
-
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-
 public class ${name}MusicDisc extends MusicDiscItem {
     public ${name}MusicDisc() {
-			super(0, (net.minecraft.sound.SoundEvent) <#if data.music?contains(modid)>${JavaModName}.${data.music?remove_beginning(modid + ":")}Event
-			<#elseif (data.music?length > 0)>SoundEvents.${data.music}<#else>null</#if>,
+			super(0, new SoundEvent(new Identifier("${data.music}"),
                     new FabricItemSettings().group(${data.creativeTab}).maxCount(1).rarity(Rarity.RARE));
     }
 

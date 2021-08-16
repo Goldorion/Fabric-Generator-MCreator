@@ -38,13 +38,13 @@ public class ${name}Biome {
             .loopSound((net.minecraft.sound.SoundEvent) <#if data.ambientSound?contains(modid)>${JavaModName}.${data.ambientSound?remove_beginning(modid + ":")}Event<#else>SoundEvents.${data.ambientSound}</#if>)
             </#if>
             <#if data.moodSound?has_content && data.moodSound.getMappedValue()?has_content>
-            .moodSound(new BiomeModdSound((net.minecraft.sound.SoundEvent) <#if data.moodSound?contains(modid)>${JavaModName}.${data.moodSound?remove_beginning(modid + ":")}Event<#else>SoundEvents.${data.moodSound}</#if>, ${data.moodSoundDelay}, 8, 2))
+            .moodSound(new BiomeModdSound(new SoundEvent(new Identifier("${data.moodSound}"), ${data.moodSoundDelay}, 8, 2))
             </#if>
             <#if data.additionsSound?has_content && data.additionsSound.getMappedValue()?has_content>
-            .additionsSound(new BiomeAdditionsSound((net.minecraft.sound.SoundEvent) <#if data.additionsSound?contains(modid)>${JavaModName}.${data.additionsSound?remove_beginning(modid + ":")}Event<#else>SoundEvents.${data.additionsSound}</#if>, 0.0111D))
+            .additionsSound(new BiomeAdditionsSound(new SoundEvent(new Identifier("${data.additionsSound}"), 0.0111D))
             </#if>
             <#if data.music?has_content && data.music.getMappedValue()?has_content>
-            .music(new MusicSound((net.minecraft.sound.SoundEvent) <#if data.music?contains(modid)>${JavaModName}.${data.music?remove_beginning(modid + ":")}Event<#else>SoundEvents.${data.music}</#if>, 12000, 24000, true))
+            .music(new MusicSound(new SoundEvent(new Identifier("${data.music}"), 12000, 24000, true))
             </#if>
             <#if data.spawnParticles>
             .particleConfig(new BiomeParticleConfig(${data.particleToSpawn}, ${data.particlesProbability / 100}f))
@@ -213,11 +213,11 @@ public class ${name}Biome {
         <#list data.spawnEntries as spawnEntry>
             <#assign entity = generator.map(spawnEntry.entity.getUnmappedValue(), "entities", 1)!"null">
             <#if entity != "null">
-        <#if !entity.toString().contains(".CustomEntity")>
-						spawnBuilder.spawn(${generator.map(spawnEntry.spawnType, "mobspawntypes")}, new SpawnSettings.SpawnEntry(EntityType.${entity}, ${spawnEntry.weight}, ${spawnEntry.minGroup}, ${spawnEntry.maxGroup}));
-        <#else>
-						spawnBuilder.spawn(${generator.map(spawnEntry.spawnType, "mobspawntypes")}, new SpawnSettings.SpawnEntry((${entity.toString().replace(".CustomEntity", "")}.entity, ${spawnEntry.weight}, ${spawnEntry.minGroup}, ${spawnEntry.maxGroup}));
-        </#if>
+                <#if !entity.toString().contains(".CustomEntity")>
+		            spawnBuilder.spawn(${generator.map(spawnEntry.spawnType, "mobspawntypes")}, new SpawnSettings.SpawnEntry(EntityType.${entity}, ${spawnEntry.weight}, ${spawnEntry.minGroup}, ${spawnEntry.maxGroup}));
+                <#else>
+                    spawnBuilder.spawn(${generator.map(spawnEntry.spawnType, "mobspawntypes")}, new SpawnSettings.SpawnEntry((${entity.toString().replace(".CustomEntity", "")}.entity, ${spawnEntry.weight}, ${spawnEntry.minGroup}, ${spawnEntry.maxGroup}));
+                </#if>
             </#if>
         </#list>
 
