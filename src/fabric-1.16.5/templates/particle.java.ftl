@@ -20,10 +20,6 @@ along with Fabric-Generator-MCreator.  If not, see <https://www.gnu.org/licenses
 
 package ${package}.client.particle;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-
-
 @Environment(EnvType.CLIENT)
 public class ${name}Particle extends SpriteBillboardParticle {
 

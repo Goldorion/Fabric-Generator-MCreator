@@ -21,8 +21,6 @@ along with Fabric-Generator-MCreator.  If not, see <https://www.gnu.org/licenses
 
 package ${package}.item;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import com.google.common.collect.*;
 
 public class ${name}Tool {

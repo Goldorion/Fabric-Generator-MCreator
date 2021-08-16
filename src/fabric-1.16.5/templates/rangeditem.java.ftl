@@ -21,12 +21,6 @@ along with Fabric-Generator-MCreator.  If not, see <https://www.gnu.org/licenses
 
 package ${package}.item;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
-import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
-import net.fabricmc.loader.api.FabricLoader;
-
 public class ${name}RangedItem extends Item {
     public static final EntityType<CustomProjectileEntity> ENTITY_TYPE = Registry.register(
             Registry.ENTITY_TYPE,

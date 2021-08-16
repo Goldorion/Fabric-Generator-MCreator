@@ -19,8 +19,6 @@ along with Fabric-Generator-MCreator.  If not, see <https://www.gnu.org/licenses
 
 package ${package}.entity.render;
 
-import net.fabricmc.api.Environment;
-
 <#assign modelClass = data.mobModelName>
 <#assign modelMethod = data.mobModelName>
 

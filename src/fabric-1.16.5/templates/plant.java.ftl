@@ -23,11 +23,6 @@ along with Fabric-Generator-MCreator.  If not, see <https://www.gnu.org/licenses
 
 package ${package}.block;
 
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.fabricmc.loader.api.FabricLoader;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-
 public class ${name}Block extends <#if data.plantType == "normal">Flower<#elseif data.plantType == "growapable">SugarCane</#if>Block <#if data.hasTileEntity>implements BlockEntityProvider</#if>{
     public ${name}Block() {
         super(<#if data.plantType == "normal">StatusEffects.SATURATION, 0,</#if>

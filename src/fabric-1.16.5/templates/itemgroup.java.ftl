@@ -20,8 +20,6 @@ along with Fabric-Generator-MCreator.  If not, see <https://www.gnu.org/licenses
 
 package ${package}.item;
 
-import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
-
 public final class ${name}ItemGroup {
     public static ItemGroup get(){
         return ITEM_GROUP;
