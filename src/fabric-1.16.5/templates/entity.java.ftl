@@ -176,13 +176,6 @@ public class ${name}Entity extends ${extendsClass}Entity {
     	    }
 	</#if>
 
-    <#if data.stepSound?has_content && data.stepSound.getMappedValue()?has_content>
-        @Override
-        public void playStepSound(BlockPos pos, BlockState state) {
-            this.playSound(new SoundEvent(new Identifier("${data.stepSound}"), 0.15f, 1);
-     	}
-    </#if>
-
     <#if !data.mobDrop.isEmpty()>
         @Override
     	protected void dropLoot(DamageSource source, boolean causedByPlayer) {
@@ -191,28 +184,29 @@ public class ${name}Entity extends ${extendsClass}Entity {
     	}
     </#if>
 
-    @Nullable
-    @Override
-    protected SoundEvent getAmbientSound() {
-        return new SoundEvent(new Identifier("${data.livingSound}");
-    }
+    <#if data.livingSound.getMappedValue()?has_content>
+        @Override
+        protected SoundEvent getAmbientSound() {
+            return new SoundEvent(new Identifier("${data.livingSound}"));
+        }
+    </#if>
 
-    @Nullable
+
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return new SoundEvent(new Identifier("${data.hurtSound}");
+		return new SoundEvent(new Identifier("${data.hurtSound}"));
 	}
 
-    @Nullable
+
 	@Override
 	protected SoundEvent getDeathSound() {
-		return new SoundEvent(new Identifier("${data.deathSound}");
+		return new SoundEvent(new Identifier("${data.deathSound}"));
 	}
 
     <#if data.stepSound?has_content && data.stepSound.getMappedValue()?has_content>
 	@Override
 	public void playStepSound(BlockPos pos, BlockState blockIn) {
-	    this.playSound(new SoundEvent(new Identifier("${data.stepSound}"), 0.15f, 1);
+	    this.playSound(new SoundEvent(new Identifier("${data.stepSound}")), 0.15f, 1);
 	}
 	</#if>
 
@@ -544,7 +538,7 @@ public class ${name}Entity extends ${extendsClass}Entity {
 			    return false;
 
             <#list data.breedTriggerItems as breedTriggerItem>
-			    if (${mappedMCItemToItemStackCode(breedTriggerItem,1)}.asItem() == stack.getItem())
+			    if (${mappedMCItemToItem(breedTriggerItem)} == stack.getItem())
 				    return true;
             </#list>
 

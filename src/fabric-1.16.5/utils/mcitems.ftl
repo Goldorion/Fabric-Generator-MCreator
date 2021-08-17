@@ -30,7 +30,18 @@
 </#function>
 
 <#function mappedMCItemToItem mappedBlock>
-    <#return mappedMCItemToItemStackCode(mappedBlock, 1)>
+    <#if mappedBlock?starts_with("/*@ItemStack*/")>
+        <#return mappedBlock?replace("/*@ItemStack*/", "") + ".getItem()">
+    <#elseif mappedBlock?starts_with("CUSTOM:")>
+        <#if !mappedBlock?contains(".")>
+            <#return mappedElementToClassName(mappedBlock) + ".block"
+            + generator.isRecipeTypeBlockOrBucket(mappedBlock)?then(".asItem()","")>
+        <#else>
+            <#return mappedElementToClassName(mappedBlock) + "." + generator.getElementExtension(mappedBlock)>
+        </#if>
+    <#else>
+        <#return mappedBlock + mappedBlock?contains("Blocks.")?then(".asItem()","")>
+    </#if>
 </#function>
 
 <#function mappedMCItemToItemStackCodeNoItemStackValue mappedBlock>
