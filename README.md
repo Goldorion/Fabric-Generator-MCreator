@@ -32,18 +32,17 @@ Unsupported fields in full supported mod elements are features from Forge only. 
 
 ### Partial support (almost fully supported)
 * Armor
-  Missing: Custom models
 * Biome
 * Dimension
-* Items
-* Living entities
-* Plants
+* Item
+* Living entity
+* Plant
+* Ranged item
 * Tool
   
 ### Partial support
-* Blocks
-* Procedures
-* Ranged item
+* Block
+* Procedure
 
 ### Not supported
 * Fluid

@@ -42,7 +42,7 @@ public class ${name}RangedItem extends Item {
 
     @Override
     public UseAction getUseAction(ItemStack stack) {
-        return UseAction.BOW;
+        return UseAction.${data.animation?upper_case};
     }
 
     @Override
@@ -100,32 +100,32 @@ public class ${name}RangedItem extends Item {
     </#if>
 
     <#if data.shootConstantly>
-	@Override
-    public void usageTick(World world, LivingEntity entityLiving, ItemStack itemstack, int remainingUseTicks) {
-	    if (!world.isClient() && entityLiving instanceof ServerPlayerEntity) {
-	        ServerPlayerEntity entity = (ServerPlayerEntity) entityLiving;
-	        double x = entity.getX();
-	        double y = entity.getY();
-	        double z = entity.getZ();
-	        if (<@procedureOBJToConditionCode data.useCondition/>) {
-	            <@arrowShootCode/>
-                entity.stopUsingItem();
+	    @Override
+        public void usageTick(World world, LivingEntity entityLiving, ItemStack itemstack, int remainingUseTicks) {
+	        if (!world.isClient() && entityLiving instanceof ServerPlayerEntity) {
+	            ServerPlayerEntity entity = (ServerPlayerEntity) entityLiving;
+	            double x = entity.getX();
+	            double y = entity.getY();
+	            double z = entity.getZ();
+	            if (<@procedureOBJToConditionCode data.useCondition/>) {
+	                <@arrowShootCode/>
+                    entity.stopUsingItem();
+	            }
 	        }
 	    }
-	}
     <#else>
-    @Override
-    public void onStoppedUsing(ItemStack itemstack, World world, LivingEntity entityLiving, int timeLeft) {
-        if (!world.isClient() && entityLiving instanceof ServerPlayerEntity) {
-            ServerPlayerEntity entity = (ServerPlayerEntity) entityLiving;
-            double x = entity.getX();
-            double y = entity.getY();
-            double z = entity.getZ();
-            if (<@procedureOBJToConditionCode data.useCondition/>) {
-                <@arrowShootCode/>
+        @Override
+        public void onStoppedUsing(ItemStack itemstack, World world, LivingEntity entityLiving, int timeLeft) {
+            if (!world.isClient() && entityLiving instanceof ServerPlayerEntity) {
+                ServerPlayerEntity entity = (ServerPlayerEntity) entityLiving;
+                double x = entity.getX();
+                double y = entity.getY();
+                double z = entity.getZ();
+                if (<@procedureOBJToConditionCode data.useCondition/>) {
+                    <@arrowShootCode/>
+                }
             }
         }
-    }
     </#if>
 
     public static class CustomProjectileEntity extends PersistentProjectileEntity implements FlyingItemEntity {
@@ -145,32 +145,32 @@ public class ${name}RangedItem extends Item {
         @Environment(EnvType.CLIENT)
         public ItemStack getStack() {
 			<#if !data.bulletItemTexture.isEmpty()>
-			return new ItemStack(${mappedMCItemToItemStackCode(data.bulletItemTexture, 1)});
+			    return ${mappedMCItemToItemStackCode(data.bulletItemTexture, 1)};
             <#else>
-			return ItemStack.EMPTY;
+			    return ItemStack.EMPTY;
             </#if>
         }
 
         @Override
         protected ItemStack asItemStack() {
 			<#if !data.ammoItem.isEmpty()>
-			return new ItemStack(${mappedMCItemToItemStackCode(data.ammoItem, 1)});
+			    return ${mappedMCItemToItemStackCode(data.ammoItem, 1)};
             <#else>
-			return ItemStack.EMPTY;
+			    return ItemStack.EMPTY;
             </#if>
         }
 
 		<#if hasProcedure(data.onBulletHitsPlayer)>
-		@Override
-        public void onPlayerCollision(PlayerEntity entity) {
-            super.onPlayerCollision(entity);
-            Entity sourceentity = this.getOwner();
-            double x = this.getX();
-            double y = this.getY();
-            double z = this.getZ();
-            World world = this.world;
-			<@procedureOBJToCode data.onBulletHitsPlayer/>
-        }
+		    @Override
+            public void onPlayerCollision(PlayerEntity entity) {
+                super.onPlayerCollision(entity);
+                Entity sourceentity = this.getOwner();
+                double x = this.getX();
+                double y = this.getY();
+                double z = this.getZ();
+                World world = this.world;
+			    <@procedureOBJToCode data.onBulletHitsPlayer/>
+            }
         </#if>
 
         @Override
@@ -218,7 +218,7 @@ public class ${name}RangedItem extends Item {
         double x = entity.getX();
         double y = entity.getY();
         double z = entity.getZ();
-        world.playSound((PlayerEntity) null, (double) x, (double) y, (double) z, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1, 1F / (random.nextFloat() * 0.5F + 1) + (power / 2));
+        world.playSound((PlayerEntity) null, (double) x, (double) y, (double) z, new SoundEvent(new Identifier("${data.actionSound}")), SoundCategory.PLAYERS, 1, 1F / (random.nextFloat() * 0.5F + 1) + (power / 2));
 
         return arrow;
     }
@@ -242,7 +242,7 @@ public class ${name}RangedItem extends Item {
         double x = entity.getX();
         double y = entity.getY();
         double z = entity.getZ();
-        entity.world.playSound((PlayerEntity) null, (double) x, (double) y, (double) z, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1, 1F / (new Random().nextFloat() * 0.5F + 1));
+        entity.world.playSound((PlayerEntity) null, (double) x, (double) y, (double) z, new SoundEvent(new Identifier("${data.actionSound}")), SoundCategory.PLAYERS, 1, 1F / (new Random().nextFloat() * 0.5F + 1));
 
         return arrow;
     }
@@ -250,12 +250,12 @@ public class ${name}RangedItem extends Item {
 
 <#macro arrowShootCode>
     <#if !data.ammoItem.isEmpty()>
-	ItemStack stack = RangedWeaponItem.getHeldProjectile(entity, e -> e.getItem() == new ItemStack(${mappedMCItemToItem(data.ammoItem)}).getItem());
+	ItemStack stack = RangedWeaponItem.getHeldProjectile(entity, e -> e.getItem() == ${mappedMCItemToItem(data.ammoItem)});
 
 	if(stack == ItemStack.EMPTY) {
             for (int i = 0; i < entity.inventory.main.size(); i++) {
 			ItemStack teststack = entity.inventory.main.get(i);
-			if(teststack != null && teststack.getItem() == new ItemStack(${mappedMCItemToItem(data.ammoItem)}).getItem()) {
+			if(teststack != null && teststack.getItem() == ${mappedMCItemToItem(data.ammoItem)}) {
 				stack = teststack;
 				break;
 			}
@@ -273,7 +273,7 @@ public class ${name}RangedItem extends Item {
 	if (entity.abilities.creativeMode) {
 		entityarrow.pickupType = PersistentProjectileEntity.PickupPermission.CREATIVE_ONLY;
 	} else {
-		if (new ItemStack(${mappedMCItemToItemStackCode(data.ammoItem, 1)}).isDamageable()){
+		if (${mappedMCItemToItemStackCode(data.ammoItem, 1)}.isDamageable()){
 			if (stack.damage(1, new Random(31100L), entity)) {
 				stack.decrement(1);
 				stack.setDamage(0);
@@ -287,7 +287,7 @@ public class ${name}RangedItem extends Item {
 		}
 	}
     <#else>
-	eentityarrow.pickupType = PersistentProjectileEntity.PickupPermission.DISALLOWED;
+	entityarrow.pickupType = PersistentProjectileEntity.PickupPermission.DISALLOWED;
     </#if>
 
     <#if hasProcedure(data.onRangedItemUsed)>
