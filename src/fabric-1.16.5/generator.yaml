@@ -1,5 +1,5 @@
 name: Minecraft Fabric for 1.16.5 - @buildfileversion
-basefeatures: [model_json, model_java, variables]
+basefeatures: [model_json, model_java]
 partial_support: [armor, block, dimension, item, mob, plant, procedure, rangeditem]
 status: dev
 buildfileversion: 0.37.1

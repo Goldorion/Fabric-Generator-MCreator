@@ -43,6 +43,8 @@ Unsupported fields in full supported mod elements are features from Forge only. 
 ### Partial support
 * Block
 * Procedure
+* Variables
+  // Global scopes, except Global session, are missing.
 
 ### Not supported
 * Fluid
