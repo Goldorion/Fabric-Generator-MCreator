@@ -23,15 +23,23 @@ along with Fabric-Generator-MCreator.  If not, see <https://www.gnu.org/licenses
 
 package ${package}.block;
 
-public class ${name}Block extends <#if data.plantType == "normal">Flower<#elseif data.plantType == "growapable">SugarCane</#if>Block <#if data.hasTileEntity>implements BlockEntityProvider</#if>{
+public class ${name}Block extends <#if data.plantType == "normal">Flower<#elseif data.plantType == "growapable">SugarCane<#elseif data.plantType == "double">TallPlant</#if>Block <#if data.hasTileEntity>implements BlockEntityProvider</#if>{
     public ${name}Block() {
-        super(<#if data.plantType == "normal">StatusEffects.SATURATION, 0,</#if>
+        super(<#if data.plantType == "normal">${generator.map(data.suspiciousStewEffect, "effects")}, ${data.suspiciousStewDuration},</#if>
         <#if generator.map(data.colorOnMap, "mapcolors") != "DEFAULT">
         FabricBlockSettings.of(Material.PLANT, MaterialColor.${generator.map(data.colorOnMap, "mapcolors")})
         <#else>
         FabricBlockSettings.of(Material.PLANT)
         </#if>
-            .sounds(BlockSoundGroup.${data.soundOnStep})
+    	<#if data.isCustomSoundType>
+    	    .sounds(new BlockSoundGroup(1.0f, 1.0f, new SoundEvent(new Identifier("${data.breakSound}")),
+    	        new SoundEvent(new Identifier("${data.stepSound}")),
+    	        new SoundEvent(new Identifier("${data.placeSound}")),
+    	        new SoundEvent(new Identifier("${data.hitSound}")),
+    	        new SoundEvent(new Identifier("${data.fallSound}"))))
+    	<#else>
+    	    .sounds(BlockSoundGroup.${data.soundOnStep})
+    	</#if>
         <#if data.unbreakable>
             .strength(-1, 3600000)
         <#else>
@@ -57,7 +65,7 @@ public class ${name}Block extends <#if data.plantType == "normal">Flower<#elseif
         </#if>
     }
 
-    <#if data.boundingBoxes?? && !data.blockBase?? && !data.isFullCube()>
+    <#if data.customBoundingBox && data.boundingBoxes??>
 		@Override
         public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
 			<#if data.isBoundingBoxEmpty()>
@@ -101,6 +109,13 @@ public class ${name}Block extends <#if data.plantType == "normal">Flower<#elseif
         }
     </#if>
 
+    <#if data.creativePickItem?? && !data.creativePickItem.isEmpty()>
+        @Environment(EnvType.CLIENT)
+        public ItemStack getPickStack(BlockView world, BlockPos pos, BlockState state) {
+            return new ItemStack(${mappedMCItemToItemStackCode(data.creativePickItem, 1)});
+        }
+    </#if>
+
     <#if !data.useLootTableForDrops>
         <#if data.dropAmount != 1 && !(data.customDrop?? && !data.customDrop.isEmpty())>
 	    	@Override
@@ -138,6 +153,72 @@ public class ${name}Block extends <#if data.plantType == "normal">Flower<#elseif
         </#if>
     </#if>
 
+	<#if (data.canBePlacedOn?size > 0) || hasProcedure(data.placingCondition)>
+		<#if data.plantType != "growapable">
+            @Override
+            public boolean canPlantOnTop(BlockState state, BlockView worldIn, BlockPos pos) {
+        	    <#if hasProcedure(data.placingCondition)>
+        	        boolean additionalCondition = true;
+        		    if (worldIn instanceof World) {
+        		        World world = (World) worldIn;
+        			    int x = pos.getX();
+        			    int y = pos.getY() + 1;
+        			    int z = pos.getZ();
+        			    BlockState blockstate = world.getBlockState(pos.up());
+        			    additionalCondition = <@procedureOBJToConditionCode data.placingCondition/>;
+        		    }
+        	    </#if>
+
+        	    Block ground = state.getBlock();
+        	    return
+        	    <#if (data.canBePlacedOn?size > 0)>(
+        	        <#list data.canBePlacedOn as canBePlacedOn>
+        		        ground == ${mappedBlockToBlock(canBePlacedOn)}
+        			    <#if canBePlacedOn?has_next>||</#if>
+        		    </#list>)
+        	    </#if>
+        	    <#if (data.canBePlacedOn?size > 0) && hasProcedure(data.placingCondition)> && </#if>
+        	    <#if hasProcedure(data.placingCondition)> additionalCondition </#if>;
+            }
+        </#if>
+
+		@Override
+		public boolean canPlaceAt(BlockState blockstate, WorldView worldIn, BlockPos pos) {
+			BlockPos blockpos = pos.down();
+			BlockState groundState = worldIn.getBlockState(blockpos);
+			Block ground = groundState.getBlock();
+
+			<#if data.plantType = "normal">
+				return this.canPlantOnTop(groundState, worldIn, blockpos)
+			<#elseif data.plantType == "growapable">
+				<#if hasProcedure(data.placingCondition)>
+				    boolean additionalCondition = true;
+				    if (worldIn instanceof World) {
+					    World world = (World) worldIn;
+					    int x = pos.getX();
+					    int y = pos.getY();
+					    int z = pos.getZ();
+					    additionalCondition = <@procedureOBJToConditionCode data.placingCondition/>;
+				    }
+				</#if>
+
+				return ground == this ||
+				<#if (data.canBePlacedOn?size > 0)>(
+					<#list data.canBePlacedOn as canBePlacedOn>
+					ground == ${mappedBlockToBlock(canBePlacedOn)}
+					<#if canBePlacedOn?has_next>||</#if>
+				</#list>)</#if>
+				<#if (data.canBePlacedOn?size > 0) && hasProcedure(data.placingCondition)> && </#if>
+				<#if hasProcedure(data.placingCondition)> additionalCondition </#if>
+			<#else>
+				if (blockstate.get(HALF) == DoubleBlockHalf.UPPER)
+					return groundState.isOf(this) && groundState.get(HALF) == DoubleBlockHalf.LOWER;
+				else
+					return this.canPlantOnTop(groundState, worldIn, blockpos)
+			</#if>;
+		}
+	</#if>
+
     <#if hasProcedure(data.onTickUpdate) || data.plantType == "growapable">
 		@Override
         public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
@@ -165,6 +246,17 @@ public class ${name}Block extends <#if data.plantType == "normal">Flower<#elseif
                 }
             }
             </#if>
+        }
+    </#if>
+
+    <#if hasProcedure(data.onBlockAdded)>
+		@Override
+        public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify) {
+            super.onBlockAdded(state, world, pos, oldState, notify);
+            int x = pos.getX();
+            int y = pos.getY();
+            int z = pos.getZ();
+			<@procedureOBJToCode data.onBlockAdded/>
         }
     </#if>
 
@@ -253,6 +345,17 @@ public class ${name}Block extends <#if data.plantType == "normal">Flower<#elseif
             	return ActionResultType.SUCCESS;
             </#if>
         }
+    </#if>
+
+    <#if hasProcedure(data.onBlockPlacedBy)>
+		@Override
+		public void onPlaced(World world, BlockPos pos, BlockState blockstate, LivingEntity entity, ItemStack itemstack) {
+			super.onPlaced(world, pos, blockstate, entity, itemstack);
+			int x = pos.getX();
+			int y = pos.getY();
+			int z = pos.getZ();
+			<@procedureOBJToCode data.onBlockPlayedBy/>
+		}
     </#if>
 
     <#if data.hasTileEntity>

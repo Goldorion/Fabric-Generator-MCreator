@@ -22,7 +22,6 @@ Unsupported fields in full supported mod elements are features from Forge only. 
 * Key binding
 * Loot table
 * Music disc
-  Note: On Entity swing trigger is missing due to Fabric
 * Overlay
 * Painting
 * Particle
@@ -37,17 +36,14 @@ Unsupported fields in full supported mod elements are features from Forge only. 
 * Biome
 * Dimension
 * Items
-  Missing: Item inventory and Damage on crafting table
-  Note: On Entity swing trigger is missing due to Fabric
 * Living entities
-  Missing: Flying entities, ranged item and entity inventory
+* Plants
 * Tool
   Missing: Damage on crafting table
   Note: On Entity swing trigger is missing due to Fabric
   
 ### Partial support
 * Blocks
-* Plants
 * Procedures
 * Ranged item
 

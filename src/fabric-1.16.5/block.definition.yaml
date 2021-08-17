@@ -348,4 +348,4 @@ localizationkeys:
 
 field_exclusions: [ tintType, isItemTinted, isWaterloggable, displayFluidOverlay, plantsGrowOn, beaconColorModifier, isLadder, enchantPowerBonus, aiPathNodeType, hasInventory,
                     openGUIOnRightClick, guiBoundTo, inventorySize, inventoryStackSize, inventoryDropWhenDestroyed, inventoryComparatorPower, outSlotIDs, inSlotIDs,
-                    hasEnergyStorage, isFluidTank, energyInitial, energyCapacity, energyMaxReceive, energyMaxExtract, fluidCapacity, fluidRestrictions, pane8 ]
+                    hasEnergyStorage, isFluidTank, energyInitial, energyCapacity, energyMaxReceive, energyMaxExtract, fluidCapacity, fluidRestrictions ]
