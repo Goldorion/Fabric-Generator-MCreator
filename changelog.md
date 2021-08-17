@@ -1,5 +1,6 @@
 # Changelogs:
 ## 1.4
+### Snapshot 1
 Note: Incompatible with MCreator 2021.2.31709 and older
 * Update to MCreator 2021.2
 * Improved generated code style in some places
@@ -47,6 +48,7 @@ Another version will be made to support entirely MCreator 2021.2
 * [Bugfix #131] Blocks and items did not appear in custom creative tabs
 
 ## 1.1
+### Release
 * Updated Fabric API to 0.34.6
 * Added a complete support for the game rule mod element
 * Added support for block generation parameters
