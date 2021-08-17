@@ -29,7 +29,7 @@ public class ${name}ArmorMaterial implements ArmorMaterial {
 
     <#if data.enableHelmet>
         public static final Item HELMET = new ArmorItem(new ${name}ArmorMaterial(), EquipmentSlot.HEAD,
-            new Item.Settings()<#if data.enableHelmet>.group(${data.creativeTab})</#if><#if data.immuneToFire>.fireproof()</#if>) <#if data.helmetSpecialInfo?has_content> {
+            new Item.Settings()<#if data.enableHelmet>.group(${data.creativeTab})</#if><#if data.helmetImmuneToFire>.fireproof()</#if>) <#if data.helmetSpecialInfo?has_content> {
                 @Override
                 @Environment(EnvType.CLIENT)
                 public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
@@ -42,7 +42,7 @@ public class ${name}ArmorMaterial implements ArmorMaterial {
 
     <#if data.enableBody>
         public static final Item CHESTPLATE = new ArmorItem(new ${name}ArmorMaterial(), EquipmentSlot.CHEST,
-            new Item.Settings()<#if data.enableBody>.group(${data.creativeTab})</#if><#if data.immuneToFire>.fireproof()</#if>) <#if data.bodySpecialInfo?has_content> {
+            new Item.Settings()<#if data.enableBody>.group(${data.creativeTab})</#if><#if data.bodyImmuneToFire>.fireproof()</#if>) <#if data.bodySpecialInfo?has_content> {
                 @Override
                 @Environment(EnvType.CLIENT)
                 public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
@@ -55,7 +55,7 @@ public class ${name}ArmorMaterial implements ArmorMaterial {
 
     <#if data.enableLeggings>
         public static final Item LEGGINGS = new ArmorItem(new ${name}ArmorMaterial(), EquipmentSlot.LEGS,
-            new Item.Settings()<#if data.enableLeggings>.group(${data.creativeTab})</#if><#if data.immuneToFire>.fireproof()</#if>) <#if data.leggingsSpecialInfo?has_content> {
+            new Item.Settings()<#if data.enableLeggings>.group(${data.creativeTab})</#if><#if data.leggingsImmuneToFire>.fireproof()</#if>) <#if data.leggingsSpecialInfo?has_content> {
                 @Override
                 @Environment(EnvType.CLIENT)
                 public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
@@ -68,7 +68,7 @@ public class ${name}ArmorMaterial implements ArmorMaterial {
 
     <#if data.enableBoots>
         public static final Item BOOTS = new ArmorItem(new ${name}ArmorMaterial(), EquipmentSlot.FEET,
-            new Item.Settings()<#if data.enableBoots>.group(${data.creativeTab})</#if><#if data.immuneToFire>.fireproof()</#if>) <#if data.bootsSpecialInfo?has_content> {
+            new Item.Settings()<#if data.enableBoots>.group(${data.creativeTab})</#if><#if data.bootsImmuneToFire>.fireproof()</#if>) <#if data.bootsSpecialInfo?has_content> {
                 @Override
                 @Environment(EnvType.CLIENT)
                 public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
