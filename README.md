@@ -39,8 +39,6 @@ Unsupported fields in full supported mod elements are features from Forge only. 
 * Living entities
 * Plants
 * Tool
-  Missing: Damage on crafting table
-  Note: On Entity swing trigger is missing due to Fabric
   
 ### Partial support
 * Blocks

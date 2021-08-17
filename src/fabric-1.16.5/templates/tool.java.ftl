@@ -67,24 +67,34 @@ public class ${name}Tool {
 
 </#if>
 
+<#macro itemProperties>
+    protected CustomToolItem() {
+        super(new FabricItemSettings()
+            .group(${data.creativeTab})
+            .maxDamage(${data.usageCount})
+            <#if data.immuneToFire>.fireproof()</#if>
+            );
+    }
+
+    @Override
+    public int getEnchantability() {
+        return ${data.enchantability};
+    }
+
+</#macro>
+
 <#if data.toolType=="Special">
-    public static class CustomToolItem extends Item {
-        public CustomToolItem() {
-            super(new FabricItemSettings().group(${data.creativeTab}).maxDamage(${data.usageCount})<#if data.immuneToFire>.fireproof()</#if>);
-        }
+    private static class CustomToolItem extends Item {
+
+        <@itemProperties/>
 
         @Override
         public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
 			 <#list data.blocksAffected as restrictionBlock>
-                 if (blockstate.getBlock() == ${mappedBlockToBlockStateCode(restrictionBlock)}.getBlock())
-                 	return ${data.efficiency}f;
+                if (blockstate.getBlock() == ${mappedBlockToBlock(restrictionBlock)})
+                    return ${data.efficiency}f;
              </#list>
             return 0;
-        }
-
-        @Override
-        public int getEnchantability() {
-            return ${data.enchantability};
         }
 
         @Override
@@ -108,12 +118,10 @@ public class ${name}Tool {
             stack.damageItem(1, miner, i -> i.sendBreakAnimation(EquipmentSlotType.MAINHAND));
             return true;
         }
-    };
+    }
 <#elseif data.toolType=="MultiTool">
-    public static class CustomToolItem extends Item {
-        public CustomToolItem() {
-            super(new FabricItemSettings().group(${data.creativeTab}).maxDamage(${data.usageCount})<#if data.immuneToFire>.fireproof()</#if>);
-        }
+    private static class CustomToolItem extends Item {
+        <@itemProperties/>
 
         @Override
         public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(EquipmentSlot slot) {
@@ -132,7 +140,7 @@ public class ${name}Tool {
 
         @Override
         public float getDestroySpeed(ItemStack itemstack, BlockState blockstate) {
-            return ${data.efficiency}F;
+            return ${data.efficiency}f;
         }
 
         @Override
@@ -146,12 +154,30 @@ public class ${name}Tool {
             stack.damageItem(1, miner, i -> i.sendBreakAnimation(EquipmentSlotType.MAINHAND));
             return true;
         }
+    }
+<#elseif data.toolType == "Shears">
+    private static class CustomToolItem extends ShearsItem {
+        <@itemProperties/>
 
         @Override
-        public int getEnchantability() {
-            return ${data.enchantability};
+        public float getDestroySpeed(ItemStack itemstack, BlockState blockstate) {
+            return ${data.efficiency}f;
         }
-    };
+<#elseif (data.toolType == "Fishing rod")>
+    private static class CustomToolItem extends FishingRodItem {
+        <@itemProperties/>
+
+		<#if data.repairItems?has_content>
+		    @Override
+            public boolean canRepair(ItemStack toRepair, ItemStack repair) {
+                return
+                <#list data.repairItems as repairItem>
+                	repair.getItem() == ${mappedMCItemToItem(repairItem)}
+                	<#if repairItem?has_next>||</#if>
+                </#list>;
+            }
+        </#if>
+	}
 </#if>
 
     public static final Item INSTANCE = new
@@ -213,6 +239,18 @@ public class ${name}Tool {
             </#if>
         }
     </#if>
+
+	<#if hasProcedure(data.onBlockDestroyedWithTool)>
+		@Override
+		public boolean postMine(ItemStack itemstack, World world, BlockState blockstate, BlockPos pos, LivingEntity entity){
+			boolean retval = super.postMine(itemstack,world,blockstate,pos,entity);
+			int x = pos.getX();
+			int y = pos.getY();
+			int z = pos.getZ();
+			<@procedureOBJToCode data.onBlockDestroyedWithTool/>
+			return retval;
+		}
+	</#if>
 
 <#if hasProcedure(data.onEntityHitWith)>
     @Override

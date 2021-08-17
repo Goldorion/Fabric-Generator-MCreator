@@ -2,12 +2,14 @@
 ## 1.4
 Note: Incompatible with MCreator 2021.2.31709 and older
 * Update to MCreator 2021.2
-* Disabled all unsupported parameters for armor, biome, block, enchantment, food, item, living entity, music disc, plant, potion effect mod elements
+* Disabled all unsupported parameters for armor, biome, block, enchantment, food, item, living entity, music disc, plant, potion effect, tool mod elements
 * Added support for custom potion and custom potion effect (the split)
 * Added missing features for custom potion effects
 * Added support for new block bases: End rod, Pressure plate and Button
+* Added support for the fishing rod tool type
 * Added support for new block parameters: Custom sound set, Redstone properties, placing condition, on right-clicked and on block placed by triggers
 * Added support for new plant parameters: Double plant, Custom sound set, Creative pick item, Placing condition, Custom set of blocks a plant can be placed/grow on, On block added and On block placed by triggers
+* Added support for a new tool parameter: When block destroyed with tool trigger
 * Added support for new features for enchantments
 * Added support for blockstate, direction and action result variable types
 * Added support for Action Result return value in triggers

@@ -33,11 +33,11 @@
     <#if mappedBlock?starts_with("/*@ItemStack*/")>
         <#return mappedBlock?replace("/*@ItemStack*/", "") + ".getItem()">
     <#elseif mappedBlock?starts_with("CUSTOM:")>
-        <#if !mappedBlock?contains(".")>
-            <#return mappedElementToClassName(mappedBlock) + ".block"
-            + generator.isRecipeTypeBlockOrBucket(mappedBlock)?then(".asItem()","")>
+        <#if !mappedBlock.toString().contains(".")>
+            <#return JavaModName + "." + (generator.getElementPlainName(mappedBlock)) + "_ITEM">
         <#else>
-            <#return mappedElementToClassName(mappedBlock) + "." + generator.getElementExtension(mappedBlock)>
+            <#return JavaModName + "." + (generator.getElementPlainName(mappedBlock)) + "."
+                + generator.getElementExtension(mappedBlock)>
         </#if>
     <#else>
         <#return mappedBlock + mappedBlock?contains("Blocks.")?then(".asItem()","")>
