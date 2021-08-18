@@ -6,7 +6,7 @@
 * Added support for new logic related procedure blocks: Advancement is equal to, compare dimension id, compare entities, compare itemstacks, compare items
 * Added support for new blocks related procedure blocks: block is fertilizable, is fluid, is fluid source, is valid position, is waterloggable, NBT logic get, NBT logic set, get hardness, is solid, get light level, get opacity, convert block to item, Provided blockstate
 * Added support for new direction related procedure blocks: Compare axes, x offset, y, offset, z offset, rotate clockwise, rotate counterclockwise
-* Added support for new entity related procedure blocks: Add exhaustion, add potion, add potion (advanced), add recipe, check creature type, deal custom damage, get dimension ID, get absorption, get armor slot item, get flying speed, get oxygen, get saturation, get scoreboard score, get walk speed, get owner, get riding entity, get target entity, has no gravity
+* Added support for new entity related procedure blocks: Add exhaustion, add potion, add potion (advanced), add recipe, check creature type, deal custom damage, get dimension ID, get absorption, get armor slot item, get flying speed, get oxygen, get saturation, get scoreboard score, get walk speed, get owner, get riding entity, get target entity, has no gravity, has recipe, is elytra flying, is tagged in, is alive, is blocking, is child, is immune to explosions, is immune to fire, is in lava, is in water, is in water or bubble column, is invisible, is invulnerable, is leashed, is non boss, is on ground, is tamed, is tamed by, make ride, make tamed
 ### Snapshot 1
 Note: Incompatible with MCreator 2021.2.31709 and older
 * Update to MCreator 2021.2
