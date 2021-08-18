@@ -234,13 +234,20 @@ public class ${name}Biome {
         biomeBuilder.precipitation(Biome.Precipitation.<#if (data.rainingPossibility > 0)><#if (data.temperature > 0.15)>RAIN<#else>SNOW</#if><#else>NONE</#if>);
         theBiome = biomeBuilder.build();
         Registry.register(BuiltinRegistries.BIOME, ${JavaModName}.${name}_KEY.getValue(), theBiome);
-        OverworldBiomes.addContinentalBiome(${JavaModName}.${name}_KEY, OverworldClimate.${data.biomeType?replace("WARM", "TEMPERATE")?replace("DESERT", "DRY")}, ${data.biomeWeight}d);
-    }
-
-    private static int getSkyColor(float temperature) {
-        float f = temperature / 3.0F;
-        f = MathHelper.clamp(f, -1.0F, 1.0F);
-        return MathHelper.hsvToRgb(0.62222224F - f * 0.05F, 0.5F + f * 0.1F, 1.0F);
+        <#if data.spawnBiome>
+                    OverworldBiomes.addContinentalBiome(${JavaModName}.${name}_KEY, OverworldClimate.${data.biomeType?replace("WARM", "TEMPERATE")?replace("DESERT", "DRY")}, ${data.biomeWeight}d);
+        </#if>
+        <#if data.biomeDictionaryTypes?has_content>
+            <#list data.biomeDictionaryTypes as type>
+                <#if type = "NETHER">
+        	        NetherBiomes.addNetherBiome(${JavaModName}.${name}_KEY, new Biome.MixedNoisePoint(${data.temperature}f, ${data.temperature}f, ${data.heightVariation}f, 0, ${1 / data.biomeWeight}f));
+        	    <#elseif type = "VOID">
+        	        TheEndBiomes.addSmallIslandsBiome(${JavaModName}.${name}_KEY, ${data.biomeWeight}d);
+        	    <#elseif type = "RARE">
+        	        TheEndBiomes.addHighlandsBiome(${JavaModName}.${name}_KEY, ${data.biomeWeight}d);
+        	    </#if>
+            </#list>
+        </#if>
     }
 }
 <#-- @formatter:on -->

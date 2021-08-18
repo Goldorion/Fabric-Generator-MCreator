@@ -1,5 +1,7 @@
 # Changelogs:
 ## 1.4
+* Added the possibility to generate custom biomes in the Nether and The End.
+  // Read the tooltip of the biome dictionnary.
 ### Snapshot 1
 Note: Incompatible with MCreator 2021.2.31709 and older
 * Update to MCreator 2021.2
