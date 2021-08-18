@@ -2,6 +2,8 @@
 ## 1.4
 * Added the possibility to generate custom biomes in the Nether and The End.
   // Read the tooltip of the biome dictionnary.
+* Added support for new procedure blocks: Action result type, Advancement is equal to
+* Added support for new blocks related procedure blocks: block is fertilizable, is fluid, is fluid source, is valid position, is waterloggable
 ### Snapshot 1
 Note: Incompatible with MCreator 2021.2.31709 and older
 * Update to MCreator 2021.2
