@@ -2,8 +2,9 @@
 ## 1.4
 * Added the possibility to generate custom biomes in the Nether and The End.
   // Read the tooltip of the biome dictionnary.
-* Added support for new procedure blocks: Action result type, Advancement is equal to, compare dimension id
+* Added support for new procedure blocks: Action result type, Advancement is equal to, compare dimension id, compare entities, compare itemstacks, compare items
 * Added support for new blocks related procedure blocks: block is fertilizable, is fluid, is fluid source, is valid position, is waterloggable, NBT logic get, NBT logic set, get hardness, is solid, get light level, get opacity, convert block to item, Provided blockstate
+* Added support for new direction related procedure blocks: Compare axes, x offset, y, offset, z offset, rotate clockwise, rotate counterclockwise
 ### Snapshot 1
 Note: Incompatible with MCreator 2021.2.31709 and older
 * Update to MCreator 2021.2
