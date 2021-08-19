@@ -56,7 +56,7 @@ Pre-built binaries can be found on the [Release page of this repository](https:/
 Install like any other plugin: Launch MCreator -> Open preferences -> Manage plugins -> Load Plugin -> Find your downloaded zip file -> **Restart MCreator**.
 
 ## Important Information
-- Make sure you use MCreator 2021.2
+- Make sure you use MCreator 2021.2.33614 or a newer version
 - Back up your workspace before updating to a newer version of the plugin.
 - Mods will also require [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api) to function properly, so when you want to play your mod, make sure you have fabric api.
 

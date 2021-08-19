@@ -1,8 +1,9 @@
 # Changelogs:
 ## 1.4
+### Release
 * Added the possibility to generate custom biomes in the Nether and The End.
   // Read the tooltip of the biome dictionnary.
-* Added supprt for the Action Result Type procedure block
+* Added support for the Action Result Type procedure block
 * Added support for new logic related procedure blocks: Advancement is equal to, compare dimension id, compare entities, compare itemstacks, compare items
 * Added support for new blocks related procedure blocks: Block is fertilizable, is valid position, is waterloggable, NBT logic get, NBT logic set, get hardness, is solid, get light level, get opacity, convert block to item, Provided blockstate, Item to block
 * Added support for new fluid related procedure blocks: Is fluid, is fluid source, get fluid at
@@ -22,7 +23,7 @@ Note: Incompatible with MCreator 2021.2.31709 and older
 * Added support for new block parameters: Custom sound set, Redstone properties, placing condition, on right-clicked and on block placed by triggers
 * Added support for new plant parameters: Double plant, Custom sound set, Creative pick item, Placing condition, Custom set of blocks a plant can be placed/grow on, On block added and On block placed by triggers
 * Added support for a new tool parameter: When block destroyed with tool trigger
-* Added support for new features for enchantments
+* Added support for new enchantment features
 * Added support for new ranged item parameters: Action sound and animation
 * Added support for blockstate, direction and action result variable types
 * Added support for Action Result return value in triggers
