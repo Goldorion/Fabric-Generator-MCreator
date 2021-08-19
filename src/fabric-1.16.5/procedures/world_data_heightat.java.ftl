@@ -1,0 +1,1 @@
+(world.getTopY(Heightmap.Type.${field$heightType}, (int) ${input$x}, (int) ${input$z}))
