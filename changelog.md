@@ -3,6 +3,7 @@
 [Bugfix] Right click in air tool trigger caused a build error.
 [Bugfix] Custom shears caused a build error
 [Bugfix] Special and multi tool weren't fully supported (causing build errors)
+[Bugfix #139] Selecting the Nether or the End dimensions in plant generation caused a build error
 
 ## 1.4
 ### Release
