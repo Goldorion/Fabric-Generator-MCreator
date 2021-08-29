@@ -260,7 +260,7 @@ public class ${name}Block extends
 		}
 
 		@Override
-		public int getWeakPower(BlockState blockstate, BlockView blockView, BlockPos pos, Direction side) {
+		public int getWeakRedstonePower(BlockState blockstate, BlockView blockView, BlockPos pos, Direction side) {
 			<#if hasProcedure(data.emittedRedstonePower)>
 				int x = pos.getX();
 				int y = pos.getY();
