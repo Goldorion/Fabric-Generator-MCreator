@@ -1,4 +1,9 @@
 # Changelogs:
+## 1.4.1
+[Bugfix] Right click in air tool trigger caused a build error.
+[Bugfix] Custom shears caused a build error
+[Bugfix]
+
 ## 1.4
 ### Release
 * Added the possibility to generate custom biomes in the Nether and The End.

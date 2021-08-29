@@ -100,7 +100,7 @@ public class ${name}Tool {
         @Override
         public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(EquipmentSlot slot) {
             Multimap<String, EntityAttributeModifier> multimap = super.getAttributeModifiers(slot);
-            if (slot == EquipmentSlotType.MAINHAND) {
+            if (slot == EquipmentSlot.MAINHAND) {
                 multimap.put(EntityAttributes.GENERIC_ATTACK_DAMAGE.getTranslationKey(), new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "item_damage", (double) ${data.damageVsEntity - 2}, EntityAttributeModifier.Operation.ADDITION));
                 multimap.put(EntityAttributes.GENERIC_ATTACK_SPEED.getTranslationKey(), new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_ID, "item_attack_speed", -2.4, EntityAttributeModifier.Operation.ADDITION));
             }
@@ -115,7 +115,7 @@ public class ${name}Tool {
 
         @Override
         public boolean postMine(ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity miner) {
-            stack.damageItem(1, miner, i -> i.sendBreakAnimation(EquipmentSlotType.MAINHAND));
+            stack.damageItem(1, miner, i -> i.sendBreakAnimation(EquipmentSlot.MAINHAND));
             return true;
         }
     }
@@ -126,7 +126,7 @@ public class ${name}Tool {
         @Override
         public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(EquipmentSlot slot) {
             Multimap<String, EntityAttributeModifier> multimap = super.getAttributeModifiers(slot);
-            if (slot == EquipmentSlotType.MAINHAND) {
+            if (slot == EquipmentSlot.MAINHAND) {
                 multimap.put(EntityAttributes.GENERIC_ATTACK_DAMAGE.getTranslationKey(), new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "item_damage", (double) ${data.damageVsEntity - 2}, EntityAttributeModifier.Operation.ADDITION));
                 multimap.put(EntityAttributes.GENERIC_ATTACK_SPEED.getTranslationKey(), new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_ID, "item_attack_speed", -2.4, EntityAttributeModifier.Operation.ADDITION));
             }
@@ -139,19 +139,19 @@ public class ${name}Tool {
         }
 
         @Override
-        public float getDestroySpeed(ItemStack itemstack, BlockState blockstate) {
+        public float getMiningSpeedMultiplier(ItemStack itemstack, BlockState blockstate) {
             return ${data.efficiency}f;
         }
 
         @Override
         public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-            stack.damageItem(1, attacker, i -> i.sendToolBreakStatus(EquipmentSlot.MAINHAND));
+            stack.damageItem(1, attacker, i -> i.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND));
             return true;
         }
 
         @Override
         public boolean postMine(ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity miner) {
-            stack.damageItem(1, miner, i -> i.sendBreakAnimation(EquipmentSlotType.MAINHAND));
+            stack.damageItem(1, miner, i -> i.sendBreakAnimation(EquipmentSlot.MAINHAND));
             return true;
         }
     }
@@ -160,8 +160,9 @@ public class ${name}Tool {
         <@itemProperties/>
 
         @Override
-        public float getDestroySpeed(ItemStack itemstack, BlockState blockstate) {
+        public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
             return ${data.efficiency}f;
+        }
         }
 <#elseif (data.toolType == "Fishing rod")>
     private static class CustomToolItem extends FishingRodItem {
@@ -182,20 +183,7 @@ public class ${name}Tool {
 
     public static final Item INSTANCE = new
 <#if data.toolType == "Pickaxe" || data.toolType == "Axe" || data.toolType == "Sword" || data.toolType == "Spade" || data.toolType == "Hoe">${data.toolType.toString().replace("Spade", "Shovel")}Item(${name?upper_case}_TOOL_MATERIAL, 0, (float) ${data.attackSpeed - 4}, (new FabricItemSettings().group(${data.creativeTab})<#if data.immuneToFire>.fireproof()</#if>))
-<#elseif data.toolType == "Shears">ShearsItem((new FabricItemSettings().group(${data.creativeTab})<#if data.immuneToFire>.fireproof()</#if>))
 <#else>CustomToolItem()</#if>{
-
-        <#if data.toolType == "Shears">
-            @Override
-            public int getEnchantability() {
-                return ${data.enchantability};
-            }
-
-            @Override
-            public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
-                return ${data.efficiency}f;
-            }
-        </#if>
 
         <#if data.specialInfo?has_content>
         @Override
@@ -209,13 +197,14 @@ public class ${name}Tool {
 
         <#if hasProcedure(data.onRightClickedInAir)>
         @Override
-        public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-            ItemStack itemstack = super.use(world, user, hand).getResult();
-            int x = (int) entity.getPosX();
-            int y = (int) entity.getPosY();
-            int z = (int) entity.getPosZ();
+        public TypedActionResult<ItemStack> use(World world, PlayerEntity entity, Hand hand) {
+			TypedActionResult<ItemStack> retval = super.use(world, entity, hand);
+			ItemStack itemstack = retval.getValue();
+            int x = (int) entity.getX();
+            int y = (int) entity.getY();
+            int z = (int) entity.getZ();
                 <@procedureOBJToCode data.onRightClickedInAir/>
-            return super.use(world, user, hand);
+            return super.use(world, entity, hand);
         }
         </#if>
 
