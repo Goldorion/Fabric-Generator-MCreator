@@ -43,22 +43,13 @@ task launch {
         if (Globals.getOSName().contains('windows')) {
             try {
                 exec {
-                    workingDir "C://Program Files/Pylo/MCreatorEAP20212b33614/"
+                    workingDir "C://Program Files/Pylo/MCreator/"
                     commandLine 'cmd', '/c', 'mcreator.bat'
                 }
             } catch (IOException e) {
                 throw new RuntimeException("Could not launch MCreator! Please make sure you have installed it to C://Program Files/", e)
             }
-        } /* else if (Globals.getOSName().contains('mac') || Globals.getOSName().contains('OS X') || Globals.getOSName().contains('linux')) {
-            try {
-                ProcessBuilder builder = new ProcessBuilder("/Applications/MCreator.app/Contents/MacOS/mcreator")
-                builder.redirectOutput(ProcessBuilder.Redirect.INHERIT)
-                builder.redirectError(ProcessBuilder.Redirect.INHERIT)
-                builder.start()
-            } catch (IOException e) {
-                throw new RuntimeException("Could not launch MCreator! Please make sure you have installed it to /Applications/", e)
-            }
-        } */
+        }
     }
 }
 
