@@ -434,10 +434,10 @@ public class ${name}Block extends <#if data.plantType == "normal">Flower<#elseif
                 				if(dimensionType == World.OVERWORLD)
                 					dimensionCriteria = true;
                 			<#elseif worldType=="Nether">
-                				if(dimensionType == World.THE_NETHER)
+                				if(dimensionType == World.NETHER)
                 					dimensionCriteria = true;
                 			<#elseif worldType=="End">
-                				if(dimensionType == World.THE_END)
+                				if(dimensionType == World.END)
                 					dimensionCriteria = true;
                 			<#else>
                 				if(dimensionType == RegistryKey.of(Registry.DIMENSION, new Identifier("${generator.getResourceLocationForModElement(worldType.toString().replace("CUSTOM:", ""))}")))
@@ -486,10 +486,10 @@ public class ${name}Block extends <#if data.plantType == "normal">Flower<#elseif
              			        if(dimensionType == World.OVERWORLD)
                 					dimensionCriteria = true;
                 			<#elseif worldType=="Nether">
-             			    	if(dimensionType == World.THE_NETHER)
+             			    	if(dimensionType == World.NETHER)
                 					dimensionCriteria = true;
                 			<#elseif worldType=="End">
-             			    	if(dimensionType == World.THE_END)
+             			    	if(dimensionType == World.END)
                 					dimensionCriteria = true;
                 			<#else>
                     		    if(dimensionType == RegistryKey.of(Registry.DIMENSION,
