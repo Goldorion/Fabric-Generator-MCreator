@@ -19,10 +19,10 @@ PlainsTallGrass: PlainsTallGrass
 ReedsAndPumpkins: DefaultVegetation
 SavannaTrees: SavannaTrees
 SedimentDisks: DefaultDisks
-SwampClayDisks: Clay
+SwampClayDisks: ClayDisk
 SwampVegetation: SwampVegetation
 TaigaGrassAndMushrooms: TaigaGrass
 TaigaGrassDeadBushesMushrooms: GiantTaigaGrass
-TaigaLargeFerns: LargeFern
+TaigaLargeFerns: LargeFerns
 TaigaRocks: MossyRocks
 TallSeagrassLush: SeagrassOnStone
