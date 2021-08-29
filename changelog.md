@@ -2,6 +2,7 @@
 ## 1.5
 * [Bugfix] Custom biome sounds caused a build error
 * [Bugfix] BerryBushes, SwampClayDisk and TaigaLargeFerns default features caused a build due to a wrong value
+* [Bugfix #143] Ray tracing procedure blocks cause a build error
 
 ## 1.4.1
 * [Bugfix] Right-click in air tool trigger caused a build error.
