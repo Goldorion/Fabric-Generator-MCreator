@@ -1,8 +1,8 @@
 # Changelogs:
 ## 1.4.1
-* [Bugfix] Right click in air tool trigger caused a build error.
+* [Bugfix] Right-click in air tool trigger caused a build error.
 * [Bugfix] Custom shears caused a build error
-* [Bugfix] Special and multi tool weren't fully supported (causing build errors)
+* [Bugfix] Special and multi-tool weren't fully supported (causing build errors)
 * [Bugfix #139] Selecting the Nether or the End dimensions in the plant generation caused a build error
 * [Bugfix #142] Enabling the `Does emit redstone` property for custom blocks caused a build error
 
