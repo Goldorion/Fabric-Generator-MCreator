@@ -1,6 +1,7 @@
 # Changelogs:
 ## 1.5
 * [Bugfix] Custom biome sounds caused a build error
+* [Bugfix] BerryBushes default mapping caused a build due to the wrong value
 
 ## 1.4.1
 * [Bugfix] Right-click in air tool trigger caused a build error.
