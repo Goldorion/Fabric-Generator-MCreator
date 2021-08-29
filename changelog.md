@@ -1,4 +1,7 @@
 # Changelogs:
+## 1.5
+* [Bugfix] Custom biome sounds caused a build error
+
 ## 1.4.1
 * [Bugfix] Right-click in air tool trigger caused a build error.
 * [Bugfix] Custom shears caused a build error

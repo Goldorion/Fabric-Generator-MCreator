@@ -35,16 +35,16 @@ public class ${name}Biome {
             .grassColor(${data.grassColor?has_content?then(data.grassColor.getRGB(), 9470285)})
             .foliageColor(${data.foliageColor?has_content?then(data.foliageColor.getRGB(), 10387789)})
             <#if data.ambientSound?has_content && data.ambientSound.getMappedValue()?has_content>
-            .loopSound((net.minecraft.sound.SoundEvent) <#if data.ambientSound?contains(modid)>${JavaModName}.${data.ambientSound?remove_beginning(modid + ":")}Event<#else>SoundEvents.${data.ambientSound}</#if>)
+            .loopSound(new SoundEvent(new Identifier("${data.ambientSound}")))
             </#if>
             <#if data.moodSound?has_content && data.moodSound.getMappedValue()?has_content>
-            .moodSound(new BiomeModdSound(new SoundEvent(new Identifier("${data.moodSound}"), ${data.moodSoundDelay}, 8, 2))
+            .moodSound(new BiomeMoodSound(new SoundEvent(new Identifier("${data.moodSound}")), ${data.moodSoundDelay}, 8, 2))
             </#if>
             <#if data.additionsSound?has_content && data.additionsSound.getMappedValue()?has_content>
-            .additionsSound(new BiomeAdditionsSound(new SoundEvent(new Identifier("${data.additionsSound}"), 0.0111D))
+            .additionsSound(new BiomeAdditionsSound(new SoundEvent(new Identifier("${data.additionsSound}")), 0.0111D))
             </#if>
             <#if data.music?has_content && data.music.getMappedValue()?has_content>
-            .music(new MusicSound(new SoundEvent(new Identifier("${data.music}"), 12000, 24000, true))
+            .music(new MusicSound(new SoundEvent(new Identifier("${data.music}")), 12000, 24000, true))
             </#if>
             <#if data.spawnParticles>
             .particleConfig(new BiomeParticleConfig(${data.particleToSpawn}, ${data.particlesProbability / 100}f))
