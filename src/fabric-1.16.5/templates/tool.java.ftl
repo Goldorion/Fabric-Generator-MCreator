@@ -97,25 +97,28 @@ public class ${name}Tool {
             return 0;
         }
 
-        @Override
-        public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(EquipmentSlot slot) {
-            Multimap<String, EntityAttributeModifier> multimap = super.getAttributeModifiers(slot);
-            if (slot == EquipmentSlot.MAINHAND) {
-                multimap.put(EntityAttributes.GENERIC_ATTACK_DAMAGE.getTranslationKey(), new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "item_damage", (double) ${data.damageVsEntity - 2}, EntityAttributeModifier.Operation.ADDITION));
-                multimap.put(EntityAttributes.GENERIC_ATTACK_SPEED.getTranslationKey(), new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_ID, "item_attack_speed", -2.4, EntityAttributeModifier.Operation.ADDITION));
-            }
-            return multimap;
-        }
+		@Override
+		public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(EquipmentSlot slot) {
+			if (slot == EquipmentSlot.MAINHAND) {
+				ImmutableMultimap.Builder<EntityAttribute, EntityAttributeModifier> builder = ImmutableMultimap.builder();
+				builder.putAll(super.getAttributeModifiers(slot));
+				builder.put(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "Tool modifier", ${data.damageVsEntity - 2}, EntityAttributeModifier.Operation.ADDITION));
+				builder.put(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_ID, "Tool modifier", ${data.attackSpeed - 4}, EntityAttributeModifier.Operation.ADDITION));
+				return builder.build();
+			}
+
+			return super.getAttributeModifiers(slot);
+		}
 
         @Override
         public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-            stack.damageItem(2, attacker, i -> i.sendToolBreakStatus(EquipmentSlot.MAINHAND));
+            stack.damage(2, attacker, i -> i.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND));
             return true;
         }
 
         @Override
         public boolean postMine(ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity miner) {
-            stack.damageItem(1, miner, i -> i.sendBreakAnimation(EquipmentSlot.MAINHAND));
+            stack.damage(1, miner, i -> i.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND));
             return true;
         }
     }
@@ -123,20 +126,18 @@ public class ${name}Tool {
     private static class CustomToolItem extends Item {
         <@itemProperties/>
 
-        @Override
-        public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(EquipmentSlot slot) {
-            Multimap<String, EntityAttributeModifier> multimap = super.getAttributeModifiers(slot);
-            if (slot == EquipmentSlot.MAINHAND) {
-                multimap.put(EntityAttributes.GENERIC_ATTACK_DAMAGE.getTranslationKey(), new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "item_damage", (double) ${data.damageVsEntity - 2}, EntityAttributeModifier.Operation.ADDITION));
-                multimap.put(EntityAttributes.GENERIC_ATTACK_SPEED.getTranslationKey(), new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_ID, "item_attack_speed", -2.4, EntityAttributeModifier.Operation.ADDITION));
-            }
-            return multimap;
-        }
+		@Override
+		public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(EquipmentSlot slot) {
+			if (slot == EquipmentSlot.MAINHAND) {
+				ImmutableMultimap.Builder<EntityAttribute, EntityAttributeModifier> builder = ImmutableMultimap.builder();
+				builder.putAll(super.getAttributeModifiers(slot));
+				builder.put(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "Tool modifier", ${data.damageVsEntity - 2}, EntityAttributeModifier.Operation.ADDITION));
+				builder.put(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_ID, "Tool modifier", ${data.attackSpeed - 4}, EntityAttributeModifier.Operation.ADDITION));
+				return builder.build();
+			}
 
-        @Override
-        public boolean canHarvestBlock(BlockState state) {
-            return ${data.harvestLevel} >= state.getHarvestLevel();
-        }
+			return super.getAttributeModifiers(slot);
+		}
 
         @Override
         public float getMiningSpeedMultiplier(ItemStack itemstack, BlockState blockstate) {
@@ -145,13 +146,13 @@ public class ${name}Tool {
 
         @Override
         public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-            stack.damageItem(1, attacker, i -> i.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND));
+            stack.damage(1, attacker, i -> i.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND));
             return true;
         }
 
         @Override
         public boolean postMine(ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity miner) {
-            stack.damageItem(1, miner, i -> i.sendBreakAnimation(EquipmentSlot.MAINHAND));
+            stack.damage(1, miner, i -> i.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND));
             return true;
         }
     }

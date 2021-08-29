@@ -2,7 +2,7 @@
 ## 1.4.1
 [Bugfix] Right click in air tool trigger caused a build error.
 [Bugfix] Custom shears caused a build error
-[Bugfix]
+[Bugfix] Special and multi tool weren't fully supported (causing build errors)
 
 ## 1.4
 ### Release
