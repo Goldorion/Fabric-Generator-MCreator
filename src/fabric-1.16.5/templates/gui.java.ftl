@@ -153,17 +153,20 @@ public class ${name}Gui {
 	}
 
 	public static class ButtonPressedMessage extends PacketByteBuf {
-        public ButtonPressedMessage(int buttonID) {
+        public ButtonPressedMessage(int buttonID, int x, int y, int z) {
             super(Unpooled.buffer());
 			writeInt(buttonID);
+			writeInt(x);
+			writeInt(y);
+			writeInt(z);
         }
 
         public static void apply(MinecraftServer server, ServerPlayerEntity entity, ServerPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender) {
 			int buttonID = buf.readInt();
+            int x = buf.readInt();
+            int y = buf.readInt();
+            int z = buf.readInt();
             server.execute(() -> {
-                double x = entity.getX();
-                double y = entity.getY();
-                double z = entity.getZ();
                 World world = entity.getServerWorld();
 		        <#assign btid = 0>
                 <#list data.components as component>
