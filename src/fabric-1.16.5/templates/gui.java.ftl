@@ -163,9 +163,9 @@ public class ${name}Gui {
 
         public static void apply(MinecraftServer server, ServerPlayerEntity entity, ServerPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender) {
 			int buttonID = buf.readInt();
-            int x = buf.readInt();
-            int y = buf.readInt();
-            int z = buf.readInt();
+            double x = buf.readInt();
+            double y = buf.readInt();
+            double z = buf.readInt();
             server.execute(() -> {
                 World world = entity.getServerWorld();
 		        <#assign btid = 0>
