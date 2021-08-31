@@ -183,7 +183,7 @@ public class ${name}GuiWindow extends HandledScreen<${name}Gui.GuiContainerMod> 
 				this.addButton(new ButtonWidget(this.x + ${(component.x - mx/2)?int}, this.y + ${(component.y - my/2)?int},
 					${component.width}, ${component.height}, new LiteralText("${component.text}"), e -> {
 						if (<@procedureOBJToConditionCode component.displayCondition/>) {
-			                ClientPlayNetworking.send(${JavaModName}.id("${name?lower_case}"), new ${name}Gui.ButtonPressedMessage(${btid}, x, y, z));
+			                ClientPlayNetworking.send(${JavaModName}.id("${name?lower_case}_button_${btid}"), new ${name}Gui.ButtonPressedMessage(${btid}, x, y, z));
 						}
 					}
 				)
@@ -207,9 +207,11 @@ public class ${name}GuiWindow extends HandledScreen<${name}Gui.GuiContainerMod> 
 	}
 
 	public static void screenInit() {
+	<#assign btid = 0>
 	<#list data.components as component>
 	<#if component.getClass().getSimpleName() == "Button">
-	    ServerPlayNetworking.registerGlobalReceiver(${JavaModName}.id("${name?lower_case}"), ${name}Gui.ButtonPressedMessage::apply);
+	    ServerPlayNetworking.registerGlobalReceiver(${JavaModName}.id("${name?lower_case}_button_${btid}"), ${name}Gui.ButtonPressedMessage::apply);
+	    <#assign btid +=1>
 	</#if>
 	</#list>
 	}
