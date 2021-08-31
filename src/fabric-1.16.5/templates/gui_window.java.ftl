@@ -150,15 +150,15 @@ public class ${name}GuiWindow extends HandledScreen<${name}Gui.GuiContainerMod> 
 		<#list data.components as component>
 			<#if component.getClass().getSimpleName() == "TextField">
 				${component.name} = new TextFieldWidget(this.textRenderer, this.x + ${(component.x - mx/2)?int}, this.y + ${(component.y - my/2)?int},
-				${component.width}, ${component.height}, new StringTextComponent("${component.placeholder}"))
+				${component.width}, ${component.height}, new LiteralText("${component.placeholder}"))
 				<#if component.placeholder?has_content>
 				{
 					{
 						setSuggestion("${component.placeholder}");
 					}
 
-					@Override public void writeText(String text) {
-						super.writeText(text);
+					@Override public void write(String text) {
+						super.write(text);
 
 						if(getText().isEmpty())
 							setSuggestion("${component.placeholder}");
@@ -166,8 +166,8 @@ public class ${name}GuiWindow extends HandledScreen<${name}Gui.GuiContainerMod> 
 							setSuggestion(null);
 					}
 
-					@Override public void setCursorPosition(int pos) {
-						super.setCursorPosition(pos);
+					@Override public void setCursor(int pos) {
+						super.setCursor(pos);
 
 						if(getText().isEmpty())
 							setSuggestion("${component.placeholder}");
@@ -177,7 +177,7 @@ public class ${name}GuiWindow extends HandledScreen<${name}Gui.GuiContainerMod> 
 				}
 				</#if>;
                 guistate.put("text:${component.name}", ${component.name});
-				${component.name}.setMaxStringLength(32767);
+				${component.name}.setMaxLength(32767);
                 this.children.add(this.${component.name});
 			<#elseif component.getClass().getSimpleName() == "Button">
 				this.addButton(new ButtonWidget(this.x + ${(component.x - mx/2)?int}, this.y + ${(component.y - my/2)?int},
