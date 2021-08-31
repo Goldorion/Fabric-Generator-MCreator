@@ -45,26 +45,11 @@ public class ${name}Gui {
 			this.world = inv.player.world;
 			BlockPos pos = null;
 			if (data != null) {
-				pos = entity.getBlockPos();
-				this.x = pos.getX();
-				this.y = pos.getY();
-				this.z = pos.getZ();
-			}
-		}
-
-		public GuiContainerMod(int id, PlayerInventory inv, PlayerEntity player) {
-			super(${JavaModName}.${name}ScreenType, id);
-
-			this.entity = inv.player;
-			this.world = inv.player.world;
-
-			BlockPos pos = null;
-			if (player != null) {
-				pos = player.getBlockPos();
-				this.x = pos.getX();
-				this.y = pos.getY();
-				this.z = pos.getZ();
-			}
+                pos = data.readBlockPos();
+                this.x = pos.getX();
+                this.y = pos.getY();
+                this.z = pos.getZ();
+            }
 
 			<#if hasProcedure(data.onOpen)>
 				<@procedureOBJToCode data.onOpen/>
