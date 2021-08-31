@@ -124,6 +124,10 @@ public class ${JavaModName} implements ModInitializer {
             id("${painting.getRegistryName()}"), ${painting}Painting.painting);
 </#list>
 
+<#list w.getElementsOfType("gui") as gui>
+	public static final ScreenHandlerType<${gui}Gui.GuiContainerMod> ${gui}ScreenType = ScreenHandlerRegistry.registerExtended(id("${gui.getRegistryName()}"), ${gui}Gui.GuiContainerMod::new);
+</#list>
+
 	@Override
 	public void onInitialize() {
 		LOGGER.info("Initializing ${JavaModName}");
@@ -162,6 +166,10 @@ public class ${JavaModName} implements ModInitializer {
 
 		<#list w.getElementsOfType("structure") as structure>
 			${structure}Structure.init();
+		</#list>
+
+		<#list w.getElementsOfType("gui") as gui>
+			${gui}GuiWindow.screenInit();
 		</#list>
 
 		<#list sounds as sound>

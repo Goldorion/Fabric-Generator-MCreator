@@ -25,38 +25,9 @@ along with Fabric-Generator-MCreator.  If not, see <https://www.gnu.org/licenses
 
 package ${package}.screen;
 
-@${JavaModName}Elements.ModElement.Tag public class ${name}Gui extends ${JavaModName}Elements.ModElement {
+public class ${name}Gui {
 
 	public static HashMap guistate = new HashMap();
-
-	private static ContainerType<GuiContainerMod> containerType = null;
-
-	public ${name}Gui(${JavaModName}Elements instance) {
-		super(instance, ${data.getModElement().getSortID()});
-
-		elements.addNetworkMessage(ButtonPressedMessage.class, ButtonPressedMessage::buffer, ButtonPressedMessage::new, ButtonPressedMessage::handler);
-		elements.addNetworkMessage(GUISlotChangedMessage.class, GUISlotChangedMessage::buffer, GUISlotChangedMessage::new, GUISlotChangedMessage::handler);
-
-		containerType = new ContainerType<>(new GuiContainerModFactory());
-
-		FMLJavaModLoadingContext.get().getModEventBus().register(new ContainerRegisterHandler());
-
-		<#if hasProcedure(data.onTick)>
-		MinecraftForge.EVENT_BUS.register(this);
-		</#if>
-	}
-
-	private static class ContainerRegisterHandler {
-
-		@SubscribeEvent public void registerContainer(RegistryEvent.Register<ContainerType<?>> event) {
-			event.getRegistry().register(containerType.setRegistryName("${registryname}"));
-		}
-
-	}
-
-	@OnlyIn(Dist.CLIENT) public void initElements() {
-		DeferredWorkQueue.runLater(() -> ScreenManager.registerFactory(containerType, ${name}GuiWindow::new));
-	}
 
 	<#if hasProcedure(data.onTick)>
 		@SubscribeEvent public void onPlayerTick(TickEvent.PlayerTickEvent event) {
@@ -71,141 +42,42 @@ package ${package}.screen;
 		}
 	</#if>
 
-	public static class GuiContainerModFactory implements IContainerFactory {
+	public static class GuiContainerMod extends ScreenHandler implements Supplier<Map<Integer, Slot>> {
 
-		public GuiContainerMod create(int id, PlayerInventory inv, PacketByteBuf extraData) {
-			return new GuiContainerMod(id, inv, extraData);
-		}
-
-	}
-
-	public static class GuiContainerMod extends Container implements Supplier<Map<Integer, Slot>> {
-
-		World world;
-		PlayerEntity entity;
-		int x, y, z;
-
-		private IItemHandler internal;
+		public World world;
+		public PlayerEntity entity;
+		public int x, y, z;
 
 		private Map<Integer, Slot> customSlots = new HashMap<>();
 
 		private boolean bound = false;
 
-		public GuiContainerMod(int id, PlayerInventory inv, PacketByteBuf extraData) {
-			super(containerType, id);
-
+		public GuiContainerMod(int id, PlayerInventory inv, PacketByteBuf data) {
+			super(${JavaModName}.${name}ScreenType, id);
 			this.entity = inv.player;
 			this.world = inv.player.world;
-
-			this.internal = new ItemStackHandler(${data.getMaxSlotID() + 1});
-
 			BlockPos pos = null;
-			if (extraData != null) {
-				pos = extraData.readBlockPos();
+			if (data != null) {
+				pos = entity.getBlockPos();
 				this.x = pos.getX();
 				this.y = pos.getY();
 				this.z = pos.getZ();
 			}
+		}
 
-			<#if data.type == 1>
-				if (pos != null) {
-					if (extraData.readableBytes() == 1) { // bound to item
-						byte hand = extraData.readByte();
-						ItemStack itemstack;
-						if(hand == 0)
-							itemstack = this.entity.getHeldItemMainhand();
-						else
-							itemstack = this.entity.getHeldItemOffhand();
-						itemstack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(capability -> {
-							this.internal = capability;
-							this.bound = true;
-						});
-					} else if (extraData.readableBytes() > 1) {
-						extraData.readByte(); // drop padding
-						Entity entity = world.getEntityByID(extraData.readVarInt());
-						if(entity != null)
-							entity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(capability -> {
-								this.internal = capability;
-								this.bound = true;
-							});
-					} else { // might be bound to block
-						TileEntity ent = inv.player != null ? inv.player.world.getTileEntity(pos) : null;
-						if (ent != null) {
-							ent.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(capability -> {
-								this.internal = capability;
-								this.bound = true;
-							});
-						}
-					}
-				}
+		public GuiContainerMod(int id, PlayerInventory inv, PlayerEntity player) {
+			super(${JavaModName}.${name}ScreenType, id);
 
-				<#list data.components as component>
-					<#if component.getClass().getSimpleName()?ends_with("Slot")>
-						<#assign slotnum += 1>
-            	    this.customSlots.put(${component.id}, this.addSlot(new SlotItemHandler(internal, ${component.id},
-						${(component.x - mx / 2)?int + 1},
-						${(component.y - my / 2)?int + 1}) {
+			this.entity = inv.player;
+			this.world = inv.player.world;
 
-            	    	<#if component.disableStackInteraction>
-						@Override public boolean canTakeStack(PlayerEntity player) {
-							return false;
-						}
-            	    	</#if>
-
-						<#if hasProcedure(component.onSlotChanged)>
-            	        @Override public void onSlotChanged() {
-							super.onSlotChanged();
-							GuiContainerMod.this.slotChanged(${component.id}, 0, 0);
-						}
-						</#if>
-
-						<#if hasProcedure(component.onTakenFromSlot)>
-            	        @Override public ItemStack onTake(PlayerEntity entity, ItemStack stack) {
-							ItemStack retval = super.onTake(entity, stack);
-							GuiContainerMod.this.slotChanged(${component.id}, 1, 0);
-							return retval;
-						}
-						</#if>
-
-						<#if hasProcedure(component.onStackTransfer)>
-            	        @Override public void onSlotChange(ItemStack a, ItemStack b) {
-							super.onSlotChange(a, b);
-							GuiContainerMod.this.slotChanged(${component.id}, 2, b.getCount() - a.getCount());
-						}
-						</#if>
-
-						<#if component.disableStackInteraction>
-							@Override public boolean isItemValid(ItemStack stack) {
-								return false;
-							}
-            	        <#elseif component.getClass().getSimpleName() == "InputSlot">
-							<#if component.inputLimit.toString()?has_content>
-            	             @Override public boolean isItemValid(ItemStack stack) {
-								 return (${mappedMCItemToItem(component.inputLimit)} == stack.getItem());
-							 }
-							</#if>
-						<#elseif component.getClass().getSimpleName() == "OutputSlot">
-            	            @Override public boolean isItemValid(ItemStack stack) {
-								return false;
-							}
-						</#if>
-					}));
-					</#if>
-				</#list>
-
-				<#assign coffx = ((data.width - 176) / 2 + data.inventoryOffsetX)?int>
-				<#assign coffy = ((data.height - 166) / 2 + data.inventoryOffsetY)?int>
-
-            	int si;
-				int sj;
-
-				for (si = 0; si < 3; ++si)
-					for (sj = 0; sj < 9; ++sj)
-						this.addSlot(new Slot(inv, sj + (si + 1) * 9, ${coffx} + 8 + sj * 18, ${coffy}+ 84 + si * 18));
-
-				for (si = 0; si < 9; ++si)
-					this.addSlot(new Slot(inv, si, ${coffx} + 8 + si * 18, ${coffy} + 142));
-			</#if>
+			BlockPos pos = null;
+			if (player != null) {
+				pos = player.getBlockPos();
+				this.x = pos.getX();
+				this.y = pos.getY();
+				this.z = pos.getZ();
+			}
 
 			<#if hasProcedure(data.onOpen)>
 				<@procedureOBJToCode data.onOpen/>
@@ -216,7 +88,8 @@ package ${package}.screen;
 			return customSlots;
 		}
 
-		@Override public boolean canInteractWith(PlayerEntity player) {
+		@Override
+		public boolean canUse(PlayerEntity player) {
 			return true;
 		}
 
@@ -307,144 +180,33 @@ package ${package}.screen;
 		</#if>
 	}
 
-	public static class ButtonPressedMessage implements Packet<ServerPlayPacketListener> {
+	public static class ButtonPressedMessage extends PacketByteBuf {
+	    int buttonID;
+        public ButtonPressedMessage(int buttonID) {
+            super(Unpooled.buffer());
+            this.buttonID = buttonID;
+        }
 
-		int buttonID, x, y, z;
-
-		public ButtonPressedMessage(PacketByteBuf buffer) {
-			this.buttonID = buffer.readInt();
-			this.x = buffer.readInt();
-			this.y = buffer.readInt();
-			this.z = buffer.readInt();
-		}
-
-		public ButtonPressedMessage(int buttonID, int x, int y, int z) {
-			this.buttonID = buttonID;
-			this.x = x;
-			this.y = y;
-			this.z = z;
-		}
-
-		public static void buffer(ButtonPressedMessage message, PacketByteBuf buffer) {
-			buffer.writeInt(message.buttonID);
-			buffer.writeInt(message.x);
-			buffer.writeInt(message.y);
-			buffer.writeInt(message.z);
-		}
-
-		public static void handler(ButtonPressedMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
-			NetworkEvent.Context context = contextSupplier.get();
-			context.enqueueWork(() -> {
-				PlayerEntity entity = context.getSender();
-				int buttonID = message.buttonID;
-				int x = message.x;
-				int y = message.y;
-				int z = message.z;
-
-				handleButtonAction(entity, buttonID, x, y, z);
-			});
-			context.setPacketHandled(true);
-		}
-
-	}
-
-	public static class GUISlotChangedMessage {
-
-		int slotID, x, y, z, changeType, meta;
-
-		public GUISlotChangedMessage(int slotID, int x, int y, int z, int changeType, int meta) {
-			this.slotID = slotID;
-			this.x = x;
-			this.y = y;
-			this.z = z;
-			this.changeType = changeType;
-			this.meta = meta;
-		}
-
-		public GUISlotChangedMessage(PacketByteBuf buffer) {
-			this.slotID = buffer.readInt();
-			this.x = buffer.readInt();
-			this.y = buffer.readInt();
-			this.z = buffer.readInt();
-			this.changeType = buffer.readInt();
-			this.meta = buffer.readInt();
-		}
-
-		public static void buffer(GUISlotChangedMessage message, PacketByteBuf buffer) {
-			buffer.writeInt(message.slotID);
-			buffer.writeInt(message.x);
-			buffer.writeInt(message.y);
-			buffer.writeInt(message.z);
-			buffer.writeInt(message.changeType);
-			buffer.writeInt(message.meta);
-		}
-
-		public static void handler(GUISlotChangedMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
-			NetworkEvent.Context context = contextSupplier.get();
-			context.enqueueWork(() -> {
-				PlayerEntity entity = context.getSender();
-				int slotID = message.slotID;
-				int changeType = message.changeType;
-				int meta = message.meta;
-				int x = message.x;
-				int y = message.y;
-				int z = message.z;
-
-				handleSlotAction(entity, slotID, changeType, meta, x, y, z);
-			});
-			context.setPacketHandled(true);
-		}
-
-	}
-
-	static void handleButtonAction(PlayerEntity entity, int buttonID, int x, int y, int z) {
-		World world = entity.world;
-
-		// security measure to prevent arbitrary chunk generation
-		if (!world.isBlockLoaded(new BlockPos(x, y, z)))
-			return;
-
-		<#assign btid = 0>
-        <#list data.components as component>
-			<#if component.getClass().getSimpleName() == "Button">
-				<#if hasProcedure(component.onClick)>
-        	    	if (buttonID == ${btid}) {
-        	    	    <@procedureOBJToCode component.onClick/>
-					}
-				</#if>
-				<#assign btid +=1>
-			</#if>
-		</#list>
-	}
-
-	private static void handleSlotAction(PlayerEntity entity, int slotID, int changeType, int meta, int x, int y, int z) {
-		World world = entity.world;
-
-		// security measure to prevent arbitrary chunk generation
-		if (!world.isBlockLoaded(new BlockPos(x, y, z)))
-			return;
-
-		<#list data.components as component>
-			<#if component.getClass().getSimpleName()?ends_with("Slot")>
-				<#if hasProcedure(component.onSlotChanged)>
-					if (slotID == ${component.id} && changeType == 0) {
-						<@procedureOBJToCode component.onSlotChanged/>
-					}
-				</#if>
-				<#if hasProcedure(component.onTakenFromSlot)>
-					if (slotID == ${component.id} && changeType == 1) {
-						<@procedureOBJToCode component.onTakenFromSlot/>
-					}
-				</#if>
-				<#if hasProcedure(component.onStackTransfer)>
-					if (slotID == ${component.id} && changeType == 2) {
-						int amount = meta;
-						<@procedureOBJToCode component.onStackTransfer/>
-					}
-				</#if>
-			</#if>
-		</#list>
-	}
+        public static void apply(MinecraftServer server, ServerPlayerEntity entity, ServerPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender) {
+            server.execute(() -> {
+                double x = entity.getX();
+                double y = entity.getY();
+                double z = entity.getZ();
+                World world = entity.getServerWorld();
+		        <#assign btid = 0>
+                <#list data.components as component>
+                    <#if component.getClass().getSimpleName() == "Button">
+				        <#if hasProcedure(component.onClick)>
+        	    	        if (buf.readByte() == ${btid}) {
+        	    	            <@procedureOBJToCode component.onClick/>
+					        }
+				        </#if>
+				        <#assign btid +=1>
+			        </#if>
+                </#list>
+            });
+        }
+    }
 
 }
 <#-- @formatter:on -->

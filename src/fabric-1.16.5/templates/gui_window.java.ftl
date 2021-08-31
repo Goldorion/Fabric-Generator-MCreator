@@ -183,11 +183,7 @@ public class ${name}GuiWindow extends HandledScreen<${name}Gui.GuiContainerMod> 
 				this.addButton(new ButtonWidget(this.x + ${(component.x - mx/2)?int}, this.y + ${(component.y - my/2)?int},
 					${component.width}, ${component.height}, new LiteralText("${component.text}"), e -> {
 						if (<@procedureOBJToConditionCode component.displayCondition/>) {
-				            ClientPlayNetworkHandler clientPlayNetworkHandler = client.getNetworkHandler();
-						    if (clientPlayNetworkHandler != null) {
-                        	    clientPlayNetworkHandler.sendPacket(new ${name}Gui.ButtonPressedMessage(${btid}, x, y, z));
-                        	    ${name}Gui.handleButtonAction(entity, ${btid}, x, y, z);
-                        	}
+			                ClientPlayNetworking.send(${JavaModName}.id("${name?lower_case}"), new ${name}Gui.ButtonPressedMessage(${btid}));
 						}
 					}
 				)
@@ -208,6 +204,14 @@ public class ${name}GuiWindow extends HandledScreen<${name}Gui.GuiContainerMod> 
                 this.addButton(${component.name});
 			</#if>
 		</#list>
+	}
+
+	public static void screenInit() {
+	<#list data.components as component>
+	<#if component.getClass().getSimpleName() == "Button">
+	    ServerPlayNetworking.registerGlobalReceiver(${JavaModName}.id("${name?lower_case}"), ${name}Gui.ButtonPressedMessage::apply);
+	</#if>
+	</#list>
 	}
 
 }
