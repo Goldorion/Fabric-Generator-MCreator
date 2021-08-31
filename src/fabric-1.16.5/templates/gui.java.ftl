@@ -29,19 +29,6 @@ public class ${name}Gui {
 
 	public static HashMap guistate = new HashMap();
 
-	<#if hasProcedure(data.onTick)>
-		@SubscribeEvent public void onPlayerTick(TickEvent.PlayerTickEvent event) {
-			PlayerEntity entity = event.player;
-			if(event.phase == TickEvent.Phase.END && entity.openContainer instanceof GuiContainerMod) {
-				World world = entity.world;
-				double x = entity.getPosX();
-				double y = entity.getPosY();
-				double z = entity.getPosZ();
-				<@procedureOBJToCode data.onTick/>
-			}
-		}
-	</#if>
-
 	public static class GuiContainerMod extends ScreenHandler implements Supplier<Map<Integer, Slot>> {
 
 		public World world;
@@ -181,13 +168,13 @@ public class ${name}Gui {
 	}
 
 	public static class ButtonPressedMessage extends PacketByteBuf {
-	    int buttonID;
         public ButtonPressedMessage(int buttonID) {
             super(Unpooled.buffer());
-            this.buttonID = buttonID;
+			writeInt(buttonID);
         }
 
         public static void apply(MinecraftServer server, ServerPlayerEntity entity, ServerPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender) {
+			int buttonID = buf.readInt();
             server.execute(() -> {
                 double x = entity.getX();
                 double y = entity.getY();
@@ -197,7 +184,7 @@ public class ${name}Gui {
                 <#list data.components as component>
                     <#if component.getClass().getSimpleName() == "Button">
 				        <#if hasProcedure(component.onClick)>
-        	    	        if (buf.readByte() == ${btid}) {
+        	    	        if (buttonID == ${btid}) {
         	    	            <@procedureOBJToCode component.onClick/>
 					        }
 				        </#if>

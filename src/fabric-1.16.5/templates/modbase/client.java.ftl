@@ -79,6 +79,10 @@ public class ClientInit implements ClientModInitializer{
         </#list>
         });
 
+        <#list w.getElementsOfType("gui") as gui>
+            ScreenRegistry.register(${JavaModName}.${gui}ScreenType, ${gui}GuiWindow::new);
+        </#list>
+
         ClientTickEvents.END_CLIENT_TICK.register((client) -> {
             <#list w.getElementsOfType("keybind") as keybind>
             if(((${keybind}KeyBinding) ${keybind}_KEY).isPressed() && !((${keybind}KeyBinding) ${keybind}_KEY).wasPressed()){
