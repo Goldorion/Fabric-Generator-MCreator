@@ -28,7 +28,7 @@ package ${package}.client.gui.screen;
 public class ${name}GuiWindow extends HandledScreen<${name}Gui.GuiContainerMod> {
 
 	private World world;
-	private int x, y, z;
+	private int positionX, positionY, positionZ;
 	private PlayerEntity entity;
 
 	private final static HashMap guistate = ${name}Gui.guistate;
@@ -44,9 +44,9 @@ public class ${name}GuiWindow extends HandledScreen<${name}Gui.GuiContainerMod> 
 	public ${name}GuiWindow(${name}Gui.GuiContainerMod container, PlayerInventory inventory, Text text) {
 		super(container, inventory, text);
 		this.world = container.world;
-		this.x = container.x;
-		this.y = container.y;
-		this.z = container.z;
+		this.positionX = container.x;
+		this.positionY = container.y;
+		this.positionZ = container.z;
 		this.entity = container.entity;
 		this.backgroundWidth = ${data.width};
 		this.backgroundHeight = ${data.height};
@@ -183,7 +183,7 @@ public class ${name}GuiWindow extends HandledScreen<${name}Gui.GuiContainerMod> 
 				this.addButton(new ButtonWidget(this.x + ${(component.x - mx/2)?int}, this.y + ${(component.y - my/2)?int},
 					${component.width}, ${component.height}, new LiteralText("${component.text}"), e -> {
 						if (<@procedureOBJToConditionCode component.displayCondition/>) {
-			                ClientPlayNetworking.send(${JavaModName}.id("${name?lower_case}_button_${btid}"), new ${name}Gui.ButtonPressedMessage(${btid}, x, y, z));
+			                ClientPlayNetworking.send(${JavaModName}.id("${name?lower_case}_button_${btid}"), new ${name}Gui.ButtonPressedMessage(${btid}, positionX, positionY, positionZ));
 						}
 					}
 				)
