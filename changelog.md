@@ -1,5 +1,7 @@
 # Changelogs:
 ## 1.5
+* Added full support for custom GUIs
+* Added support for following GUI related procedure blocks: Get text in textfield, Is checkbox checked, Set text in textfield
 * [Bugfix] Custom biome sounds caused a build error
 * [Bugfix] BerryBushes, SwampClayDisk and TaigaLargeFerns default features caused a build due to a wrong value
 * [Bugfix #143] Ray tracing procedure blocks cause a build error
