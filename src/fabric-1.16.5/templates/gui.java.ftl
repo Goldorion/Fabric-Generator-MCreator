@@ -39,10 +39,13 @@ public class ${name}Gui {
 
 		private boolean bound = false;
 
+		private final Inventory inventory;
+
 		public GuiContainerMod(int id, PlayerInventory inv, PacketByteBuf data) {
 			super(${JavaModName}.${name}ScreenType, id);
 			this.entity = inv.player;
 			this.world = inv.player.world;
+			this.inventory = new SimpleInventory(${data.getMaxSlotID() + 1});
 			BlockPos pos = null;
 			if (data != null) {
                 pos = data.readBlockPos();
@@ -52,84 +55,53 @@ public class ${name}Gui {
             }
 
 			<#if data.type == 1>
-				if (pos != null) {
-					if (data.readableBytes() == 1) { // bound to item
-						byte hand = data.readByte();
-						ItemStack itemstack;
-						if(hand == 0)
-							itemstack = this.entity.getMainHandStack();
-						else
-							itemstack = this.entity.getOffHandStack();
-						itemstack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(capability -> {
-							this.internal = capability;
-							this.bound = true;
-						});
-					} else if (data.readableBytes() > 1) {
-						data.readByte(); // drop padding
-						Entity entity = world.getEntityById(data.readVarInt());
-						if(entity != null)
-							entity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(capability -> {
-								this.internal = capability;
-								this.bound = true;
-							});
-					} else { // might be bound to block
-						BlockEntity ent = inv.player != null ? inv.player.world.getBlockEntity(pos) : null;
-						if (ent != null) {
-							ent.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(capability -> {
-								this.internal = capability;
-								this.bound = true;
-							});
-						}
-					}
-				}
-
 				<#list data.components as component>
 					<#if component.getClass().getSimpleName()?ends_with("Slot")>
 						<#assign slotnum += 1>
-            	    this.customSlots.put(${component.id}, this.addSlot(new SlotItemHandler(internal, ${component.id},
+            	    this.customSlots.put(${component.id}, this.addSlot(new Slot(this.inventory, ${component.id},
 						${(component.x - mx / 2)?int + 1},
 						${(component.y - my / 2)?int + 1}) {
 
             	    	<#if component.disableStackInteraction>
-						@Override public boolean canTakeStack(PlayerEntity player) {
+						@Override public boolean canTakeItems(PlayerEntity player) {
 							return false;
 						}
             	    	</#if>
 
 						<#if hasProcedure(component.onSlotChanged)>
-            	        @Override public void onSlotChanged() {
-							super.onSlotChanged();
+            	        @Override public void markDirty() {
+							super.markDirty();
 							GuiContainerMod.this.slotChanged(${component.id}, 0, 0);
 						}
 						</#if>
 
 						<#if hasProcedure(component.onTakenFromSlot)>
-            	        @Override public ItemStack onTake(PlayerEntity entity, ItemStack stack) {
-							ItemStack retval = super.onTake(entity, stack);
+            	        @Override public ItemStack onTakeItem(PlayerEntity entity, ItemStack stack) {
+							ItemStack retval = super.onTakeItem(entity, stack);
 							GuiContainerMod.this.slotChanged(${component.id}, 1, 0);
 							return retval;
 						}
 						</#if>
 
 						<#if hasProcedure(component.onStackTransfer)>
-            	        @Override public void onSlotChange(ItemStack a, ItemStack b) {
-							super.onSlotChange(a, b);
+            	        @Override public void onQuickTransfer(ItemStack a, ItemStack b) {
+							super.onQuickTransfer(a, b);
 							GuiContainerMod.this.slotChanged(${component.id}, 2, b.getCount() - a.getCount());
 						}
 						</#if>
 
 						<#if component.disableStackInteraction>
-							@Override public boolean isItemValid(ItemStack stack) {
+							@Override public boolean canInsert(ItemStack stack) {
 								return false;
 							}
             	        <#elseif component.getClass().getSimpleName() == "InputSlot">
 							<#if component.inputLimit.toString()?has_content>
-            	             @Override public boolean isItemValid(ItemStack stack) {
+            	             @Override public boolean canInsert(ItemStack stack) {
 								 return (${mappedMCItemToItem(component.inputLimit)} == stack.getItem());
 							 }
 							</#if>
 						<#elseif component.getClass().getSimpleName() == "OutputSlot">
-            	            @Override public boolean isItemValid(ItemStack stack) {
+            	            @Override public boolean canInsert(ItemStack stack) {
 								return false;
 							}
 						</#if>
@@ -162,135 +134,33 @@ public class ${name}Gui {
 
 		@Override
 		public boolean canUse(PlayerEntity player) {
-			return true;
+			return this.inventory.canPlayerUse(player);
 		}
 
 		<#if data.type == 1>
-		@Override public ItemStack transferSlot(PlayerEntity playerIn, int index) {
-			ItemStack itemstack = ItemStack.EMPTY;
-			Slot slot = (Slot) this.slots.get(index);
-
-			if (slot != null && slot.hasStack()) {
-				ItemStack itemstack1 = slot.getStack();
-				itemstack = itemstack1.copy();
-
-				if (index < ${slotnum}) {
-					if (!this.insertItem(itemstack1, ${slotnum}, this.slots.size(), true)) {
-						return ItemStack.EMPTY;
-					}
-					slot.onQuickTransfer(itemstack1, itemstack);
-				} else if (!this.insertItem(itemstack1, 0, ${slotnum}, false)) {
-					if (index < ${slotnum} + 27) {
-						if (!this.insertItem(itemstack1, ${slotnum} + 27, this.slots.size(), true)) {
-							return ItemStack.EMPTY;
-						}
-					} else {
-						if (!this.insertItem(itemstack1, ${slotnum}, ${slotnum} + 27, false)) {
-							return ItemStack.EMPTY;
-						}
-					}
-					return ItemStack.EMPTY;
-				}
-
-				if (itemstack1.getCount() == 0) {
-					slot.setStack(ItemStack.EMPTY);
-				} else {
-					slot.markDirty();
-				}
-
-				if (itemstack1.getCount() == itemstack.getCount()) {
-					return ItemStack.EMPTY;
-				}
-
-				slot.onTakeItem(playerIn, itemstack1);
-			}
-			return itemstack;
-		}
-
 		@Override
-		protected boolean insertItem(ItemStack stack, int startIndex, int endIndex, boolean fromLast) {
-            boolean bl = false;
-            int i = startIndex;
-            if (fromLast) {
-            	i = endIndex - 1;
-            }
+        public ItemStack transferSlot(PlayerEntity player, int invSlot) {
+        	ItemStack newStack = ItemStack.EMPTY;
+        	Slot slot = this.slots.get(invSlot);
+        	if (slot != null && slot.hasStack()) {
+        		ItemStack originalStack = slot.getStack();
+        		newStack = originalStack.copy();
+        		if (invSlot < this.inventory.size()) {
+        			if (!this.insertItem(originalStack, this.inventory.size(), this.slots.size(), true)) {
+        				return ItemStack.EMPTY;
+        			}
+        		} else if (!this.insertItem(originalStack, 0, this.inventory.size(), false)) {
+        			return ItemStack.EMPTY;
+        		}
 
-            Slot slot2;
-            ItemStack itemStack;
-            if (stack.isStackable()) {
-            	while(!stack.isEmpty()) {
-            		if (fromLast) {
-            			if (i < startIndex) {
-            				break;
-            			}
-            		} else if (i >= endIndex) {
-            			break;
-            		}
+        		if (originalStack.isEmpty()) {
+        			slot.setStack(ItemStack.EMPTY);
+        		} else {
+        			slot.markDirty();
+        		}
+        	}
 
-            		slot2 = (Slot)this.slots.get(i);
-            		itemStack = slot2.getStack();
-            		if (slot2.canInsert(itemStack) && !itemStack.isEmpty()) {
-            			int j = itemStack.getCount() + stack.getCount();
-            			if (j <= stack.getMaxCount()) {
-            				stack.setCount(0);
-            				itemStack.setCount(j);
-            				slot2.setStack(itemStack);
-            				bl = true;
-            			} else if (itemStack.getCount() < stack.getMaxCount()) {
-            				stack.decrement(stack.getMaxCount() - itemStack.getCount());
-            				itemStack.setCount(stack.getMaxCount());
-            				slot2.setStack(itemStack);
-            				bl = true;
-            			}
-            		}
-
-            		if (fromLast) {
-            			--i;
-            		} else {
-            			++i;
-            		}
-            	}
-            }
-
-            if (!stack.isEmpty()) {
-            	if (fromLast) {
-            		i = endIndex - 1;
-            	} else {
-            		i = startIndex;
-            	}
-
-            	while(true) {
-            		if (fromLast) {
-            			if (i < startIndex) {
-            				break;
-            			}
-            		} else if (i >= endIndex) {
-            			break;
-            		}
-
-            		slot2 = (Slot)this.slots.get(i);
-            		itemStack = slot2.getStack();
-            		if (itemStack.isEmpty() && slot2.canInsert(stack)) {
-            			if (stack.getCount() > slot2.getMaxItemCount()) {
-            				slot2.setStack(stack.split(slot2.getMaxItemCount()));
-            			} else {
-            				slot2.setStack(stack.split(stack.getCount()));
-            			}
-
-            			slot2.setStack(itemStack);
-            			bl = true;
-            			break;
-            		}
-
-            		if (fromLast) {
-            			--i;
-            		} else {
-            			++i;
-            		}
-            	}
-            }
-
-            return bl;
+        	return newStack;
         }
 
 		@Override
@@ -324,6 +194,12 @@ public class ${name}Gui {
 			}
 		}
 
+		private void slotChanged(int slotid, int ctype, int meta) {
+			if(this.world != null && this.world.isClient()) {
+				ClientPlayNetworking.send(${JavaModName}.id("${name?lower_case}_slot_" + slotid), new GUISlotChangedMessage(slotid, x, y, z, ctype, meta));
+			}
+		}
+
 		</#if>
 	}
 
@@ -353,6 +229,50 @@ public class ${name}Gui {
 				        </#if>
 				        <#assign btid +=1>
 			        </#if>
+                </#list>
+            });
+        }
+    }
+
+	public static class GUISlotChangedMessage extends PacketByteBuf {
+        public GUISlotChangedMessage(int slotID, int x, int y, int z, int changeType, int meta) {
+            super(Unpooled.buffer());
+			writeInt(slotID);
+			writeInt(x);
+			writeInt(y);
+			writeInt(z);
+			writeInt(changeType);
+			writeInt(meta);
+        }
+
+        public static void apply(MinecraftServer server, ServerPlayerEntity entity, ServerPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender) {
+			int slotID = buf.readInt();
+            double x = buf.readInt();
+            double y = buf.readInt();
+            double z = buf.readInt();
+            int changeType = buf.readInt();
+            int meta = buf.readInt();
+            server.execute(() -> {
+                World world = entity.getServerWorld();
+		        <#list data.components as component>
+                    <#if component.getClass().getSimpleName()?ends_with("Slot")>
+                    	<#if hasProcedure(component.onSlotChanged)>
+                    		if (slotID == ${component.id} && changeType == 0) {
+                    			<@procedureOBJToCode component.onSlotChanged/>
+                    		}
+                    	</#if>
+                    	<#if hasProcedure(component.onTakenFromSlot)>
+                    		if (slotID == ${component.id} && changeType == 1) {
+                    			<@procedureOBJToCode component.onTakenFromSlot/>
+                    		}
+                    	</#if>
+                    	<#if hasProcedure(component.onStackTransfer)>
+                    		if (slotID == ${component.id} && changeType == 2) {
+                    			int amount = meta;
+                    			<@procedureOBJToCode component.onStackTransfer/>
+                    		}
+                    	</#if>
+                    </#if>
                 </#list>
             });
         }

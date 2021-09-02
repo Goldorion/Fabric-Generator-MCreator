@@ -212,6 +212,8 @@ public class ${name}GuiWindow extends HandledScreen<${name}Gui.GuiContainerMod> 
 	<#if component.getClass().getSimpleName() == "Button">
 	    ServerPlayNetworking.registerGlobalReceiver(${JavaModName}.id("${name?lower_case}_button_${btid}"), ${name}Gui.ButtonPressedMessage::apply);
 	    <#assign btid +=1>
+	<#elseif component.getClass().getSimpleName()?ends_with("Slot")>
+	    ServerPlayNetworking.registerGlobalReceiver(${JavaModName}.id("${name?lower_case}_slot_${component.id}"), ${name}Gui.GUISlotChangedMessage::apply);
 	</#if>
 	</#list>
 	}
