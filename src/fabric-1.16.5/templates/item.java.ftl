@@ -176,9 +176,9 @@ public class ${name}Item extends Item {
     public TypedActionResult<ItemStack> use(World world, PlayerEntity entity, Hand hand) {
 		TypedActionResult<ItemStack> retval = super.use(world, entity, hand);
 		ItemStack itemstack = retval.getValue();
-        int x = (int) entity.getPos().getX();
-        int y = (int) entity.getPos().getY();
-        int z = (int) entity.getPos().getZ();
+        double x = entity.getPos().getX();
+        double y = entity.getPos().getY();
+        double z = entity.getPos().getZ();
             <@procedureOBJToCode data.onRightClickedInAir/>
         return super.use(world, entity, hand);
     }
