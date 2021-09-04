@@ -2,9 +2,14 @@
 ## 1.5
 * Added full support for custom GUIs
 * Added support for following GUI related procedure blocks: Get text in textfield, Is checkbox checked, Set text in textfield
+
+## 1.4.2
 * [Bugfix] Custom biome sounds caused a build error
 * [Bugfix] BerryBushes, SwampClayDisk and TaigaLargeFerns default features caused a build due to a wrong value
+* [Bugfix] On initial spawn entity trigger caused a build error when a procedure was selected
 * [Bugfix #143] Ray tracing procedure blocks cause a build error
+* [Bugfix #145] Enabling the boss bar in custom entities caused a build error
+* [Bugfix #146, #147, #148] Mod elements having an element selected inside a block/item selector always failed to build.
 
 ## 1.4.1
 * [Bugfix] Right-click in air tool trigger caused a build error.

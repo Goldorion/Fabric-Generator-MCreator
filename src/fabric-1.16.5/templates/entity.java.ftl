@@ -180,7 +180,7 @@ public class ${name}Entity extends ${extendsClass}Entity {
         @Override
     	protected void dropLoot(DamageSource source, boolean causedByPlayer) {
     	    super.dropLoot(source, causedByPlayer);
-    	    this.dropStack((${mappedMCItemToItemStackCode(data.mobDrop, 1)});
+    	    this.dropStack(${mappedMCItemToItemStackCode(data.mobDrop, 1)});
     	}
     </#if>
 
@@ -212,8 +212,8 @@ public class ${name}Entity extends ${extendsClass}Entity {
 
     <#if data.isBoss>
         @Override
-        public void readCustomDataFromTag(CompoundTag tag) {
-            super.readCustomDataFromTag(tag);
+        public void readCustomDataFromNbt(NbtCompound tag) {
+            super.readCustomDataFromNbt(tag);
             if (this.hasCustomName()) {
              this.bossBar.setName(this.getDisplayName());
             }
@@ -416,7 +416,7 @@ public class ${name}Entity extends ${extendsClass}Entity {
 	<#if hasProcedure(data.onInitialSpawn)>
 	@Nullable
     @Override
-    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable CompoundTag entityTag) {
+    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityTag) {
         EntityData retval = super.initialize(world, difficulty, spawnReason, entityData, entityTag);
 		double x = this.getX();
 		double y = this.getY();
