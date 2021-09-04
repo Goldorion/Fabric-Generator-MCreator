@@ -33,7 +33,7 @@ public class ${name}Gui {
 
 		public World world;
 		public PlayerEntity entity;
-		public int x, y, z;
+		public int x, y, z = 0;
 
 		private Map<Integer, Slot> customSlots = new HashMap<>();
 
@@ -42,20 +42,24 @@ public class ${name}Gui {
 		private final Inventory inventory;
 
 		public GuiContainerMod(int id, PlayerInventory inv, PacketByteBuf data) {
+			this(id, inv, new SimpleInventory(${data.getMaxSlotID() + 1}));
+			BlockPos pos;
+			if (data != null) {
+				pos = data.readBlockPos();
+				this.x = pos.getX();
+				this.y = pos.getY();
+				this.z = pos.getZ();
+			}
+		}
+
+		public GuiContainerMod(int id, PlayerInventory inv, Inventory inventory) {
 			super(${JavaModName}.${name}ScreenType, id);
 			this.entity = inv.player;
 			this.world = inv.player.world;
-			this.inventory = new SimpleInventory(${data.getMaxSlotID() + 1});
-			BlockPos pos = null;
-			if (data != null) {
-                pos = data.readBlockPos();
-                this.x = pos.getX();
-                this.y = pos.getY();
-                this.z = pos.getZ();
-            }
+			this.inventory = inventory;
 
 			<#if data.type == 1>
-				<#list data.components as component>
+			    <#list data.components as component>
 					<#if component.getClass().getSimpleName()?ends_with("Slot")>
 						<#assign slotnum += 1>
             	    this.customSlots.put(${component.id}, this.addSlot(new Slot(this.inventory, ${component.id},
@@ -134,7 +138,7 @@ public class ${name}Gui {
 
 		@Override
 		public boolean canUse(PlayerEntity player) {
-			return this.inventory.canPlayerUse(player);
+			return true;
 		}
 
 		<#if data.type == 1>
@@ -170,28 +174,6 @@ public class ${name}Gui {
 			<#if hasProcedure(data.onClosed)>
 				<@procedureOBJToCode data.onClosed/>
 			</#if>
-
-			if (!bound && (playerIn instanceof ServerPlayerEntity)) {
-				if (!playerIn.isAlive() || playerIn instanceof ServerPlayerEntity && ((ServerPlayerEntity)playerIn).isDisconnected()) {
-					for(int j = 0; j < slots.size(); ++j) {
-						<#list data.components as component>
-							<#if component.getClass().getSimpleName()?ends_with("Slot") && !component.dropItemsWhenNotBound>
-								if(j == ${component.id}) continue;
-							</#if>
-						</#list>
-						playerIn.dropItem(slots.get(j).takeStack(slots.get(j).getStack().getCount()), false);
-					}
-				} else {
-					for(int i = 0; i < slots.size(); ++i) {
-						<#list data.components as component>
-							<#if component.getClass().getSimpleName()?ends_with("Slot") && !component.dropItemsWhenNotBound>
-								if(i == ${component.id}) continue;
-							</#if>
-						</#list>
-						playerIn.inventory.offerOrDrop(playerIn.world, slots.get(i).takeStack(slots.get(i).getStack().getCount()));
-					}
-				}
-			}
 		}
 
 		private void slotChanged(int slotid, int ctype, int meta) {

@@ -39,6 +39,9 @@ public class ${name}Block extends
         </#if>
     <#else>
         Block
+    </#if>
+    <#if data.hasInventory>
+        implements BlockEntityProvider
     </#if>{
 
     <#if data.rotationMode == 1 || data.rotationMode == 3>
@@ -293,7 +296,7 @@ public class ${name}Block extends
                 List<ItemStack> dropsOriginal = super.getDroppedStacks(state, builder);
                 if(!dropsOriginal.isEmpty())
                     return dropsOriginal;
-                return Collections.singletonList(new ItemStack(${mappedMCItemToItemStackCode(data.customDrop, data.dropAmount)}));
+                return Collections.singletonList(${mappedMCItemToItemStackCode(data.customDrop, data.dropAmount)});
          }
         <#elseif data.blockBase?has_content && data.blockBase == "Slab">
 	    	@Override
@@ -334,14 +337,24 @@ public class ${name}Block extends
 		}
 	</#if>
 
-    <#if hasProcedure(data.onRightClicked)>
+    <#if hasProcedure(data.onRightClicked) || data.shouldOpenGUIOnRightClick()>
 		@Override
-		public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-			super.onUse(blockstate, world, pos, entity, hand, hit);
+		public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity entity, Hand hand, BlockHitResult hit) {
+			super.onUse(state, world, pos, entity, hand, hit);
 
 			int x = pos.getX();
 			int y = pos.getY();
 			int z = pos.getZ();
+
+			<#if data.shouldOpenGUIOnRightClick()>
+			    if (!world.isClient) {
+                    NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
+
+                    if (screenHandlerFactory != null) {
+                        entity.openHandledScreen(screenHandlerFactory);
+                    }
+                }
+			</#if>
 
 			<#if hasProcedure(data.onRightClicked)>
 				double hitX = hit.getHitVec().x;
@@ -492,6 +505,143 @@ public class ${name}Block extends
             </#if>
 			<@procedureOBJToCode data.onRandomUpdateEvent/>
 		}
+    </#if>
+
+	<#if data.hasInventory>
+	    @Override
+        public NamedScreenHandlerFactory createScreenHandlerFactory(BlockState state, World world, BlockPos pos) {
+            BlockEntity blockEntity = world.getBlockEntity(pos);
+            return blockEntity instanceof NamedScreenHandlerFactory ? (NamedScreenHandlerFactory)blockEntity : null;
+        }
+
+	    @Override
+	    public BlockEntity createBlockEntity(BlockView world) {
+		    return new CustomBlockEntity();
+	    }
+
+        @Override
+        public BlockRenderType getRenderType(BlockState state) {
+            return BlockRenderType.MODEL;
+        }
+
+        <#if data.inventoryDropWhenDestroyed>
+		@Override 
+		public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
+   		   if (state.getBlock() != newState.getBlock()) {
+                BlockEntity be = world.getBlockEntity(pos);
+
+           	    if (be instanceof Inventory) {
+           	    	ItemScatterer.spawn(world, pos, (Inventory) be);
+           	    	world.updateComparators(pos, this);
+           	    }
+
+           	    super.onStateReplaced(state, world, pos, newState, moved);
+           }
+   		}
+            </#if>
+
+        <#if data.inventoryComparatorPower>
+            @Override 
+            public boolean hasComparatorOutput(BlockState state) {
+			    return true;
+		    }
+
+	        @Override
+            public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
+                return ScreenHandler.calculateComparatorOutput(world.getBlockEntity(pos));
+            }
+        </#if>
+    </#if>
+
+    <#if data.hasInventory>
+    public static class CustomBlockEntity extends LootableContainerBlockEntity implements ExtendedScreenHandlerFactory, SidedInventory {
+
+		private DefaultedList<ItemStack> stacks = DefaultedList.<ItemStack>ofSize(size(), ItemStack.EMPTY);
+
+		public CustomBlockEntity() {
+			super(${JavaModName}.${name}_BLOCK_ENTITY);
+		}
+
+		@Override
+		public int size() {
+			return ${data.inventorySize};
+		}
+
+		@Override
+		public boolean isEmpty() {
+            for (ItemStack itemstack : this.stacks)
+        	    if (!itemstack.isEmpty())
+        		    return false;
+        	return true;
+        }
+
+        @Override
+        protected Text getContainerName() {
+            return new LiteralText("${registryname}");
+        }
+
+		@Override public int getMaxCountPerStack() {
+			return ${data.inventoryStackSize};
+		}
+
+		@Override
+		public ScreenHandler createScreenHandler(int syncId, PlayerInventory inv) {
+			<#if !data.guiBoundTo?has_content || data.guiBoundTo == "<NONE>" || !(data.guiBoundTo)?has_content>
+				return Generic3x3ContainerScreenHandler.Generic3x3ContainerScreenHandler(syncId, player, this);
+			<#else>
+				return new ${(data.guiBoundTo)}Gui.GuiContainerMod(syncId, inv, this);
+			</#if>
+		}
+
+        @Override
+        public Text getDisplayName() {
+            return new LiteralText("${data.name}");
+        }
+
+		@Override
+		public DefaultedList<ItemStack> getInvStackList() {
+			return stacks;
+		}
+
+		@Override
+		protected void setInvStackList(DefaultedList<ItemStack> stacks) {
+		this.stacks = stacks;
+		}
+
+		@Override
+		public boolean isValid(int slot, ItemStack stack) {
+			<#list data.inventoryOutSlotIDs as id>
+			    if (slot == ${id})
+					return false;
+			</#list>
+			return true;
+		}
+
+        <#-- START: SidedInventory -->
+		@Override
+		public int[] getAvailableSlots(Direction side) {
+			return IntStream.range(0, this.size()).toArray();
+		}
+
+		@Override public boolean canInsert(int index, ItemStack stack, @Nullable Direction direction) {
+			return this.isValid(index, stack);
+		}
+
+		@Override
+		public boolean canExtract(int index, ItemStack stack, Direction direction) {
+			<#list data.inventoryInSlotIDs as id>
+			    if (index == ${id})
+					return false;
+			</#list>
+			return true;
+		}
+		<#-- END: SidedInventory -->
+
+        @Override
+        public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
+            buf.writeBlockPos(pos);
+        }
+	}
     </#if>
 
     <#if (data.spawnWorldTypes?size > 0)>
