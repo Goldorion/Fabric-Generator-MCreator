@@ -2,6 +2,7 @@
 ## 1.5
 * Added full support for custom GUIs
 * Added support for Block entity (Block's inventory)
+* Added support for item inventory
 * Added support for following GUI related procedure blocks: Get text in textfield, Is checkbox checked, Set text in textfield
 * [Bugfix] Using the custom drop option in custom blocks caused a build error (due to a changed from the last version)
 * [Bugfix] On block right-clicked block trigger caused a build error

@@ -143,28 +143,45 @@ public class ${name}Gui {
 
 		<#if data.type == 1>
 		@Override
-        public ItemStack transferSlot(PlayerEntity player, int invSlot) {
-        	ItemStack newStack = ItemStack.EMPTY;
-        	Slot slot = this.slots.get(invSlot);
-        	if (slot != null && slot.hasStack()) {
-        		ItemStack originalStack = slot.getStack();
-        		newStack = originalStack.copy();
-        		if (invSlot < this.inventory.size()) {
-        			if (!this.insertItem(originalStack, this.inventory.size(), this.slots.size(), true)) {
-        				return ItemStack.EMPTY;
-        			}
-        		} else if (!this.insertItem(originalStack, 0, this.inventory.size(), false)) {
-        			return ItemStack.EMPTY;
-        		}
+        public ItemStack transferSlot(PlayerEntity player, int index) {
+			ItemStack itemstack = ItemStack.EMPTY;
+			Slot slot = (Slot) this.slots.get(index);
 
-        		if (originalStack.isEmpty()) {
-        			slot.setStack(ItemStack.EMPTY);
-        		} else {
-        			slot.markDirty();
-        		}
-        	}
+			if (slot != null && slot.hasStack()) {
+				ItemStack itemstack1 = slot.getStack();
+				itemstack = itemstack1.copy();
 
-        	return newStack;
+				if (index < ${slotnum}) {
+					if (!this.insertItem(itemstack1, ${slotnum}, this.slots.size(), true)) {
+						return ItemStack.EMPTY;
+					}
+					slot.onSlotChange(itemstack1, itemstack);
+				} else if (!this.insertItem(itemstack1, 0, ${slotnum}, false)) {
+					if (index < ${slotnum} + 27) {
+						if (!this.insertItem(itemstack1, ${slotnum} + 27, this.slots.size(), true)) {
+							return ItemStack.EMPTY;
+						}
+					} else {
+						if (!this.insertItem(itemstack1, ${slotnum}, ${slotnum} + 27, false)) {
+							return ItemStack.EMPTY;
+						}
+					}
+					return ItemStack.EMPTY;
+				}
+
+				if (itemstack1.getCount() == 0) {
+					slot.setStack(ItemStack.EMPTY);
+				} else {
+					slot.markDirty();
+				}
+
+				if (itemstack1.getCount() == itemstack.getCount()) {
+					return ItemStack.EMPTY;
+				}
+
+				slot.onTakeItem(player, itemstack1);
+			}
+			return itemstack;
         }
 
 		@Override

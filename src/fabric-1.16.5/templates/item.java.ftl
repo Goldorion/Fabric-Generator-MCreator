@@ -171,7 +171,7 @@ public class ${name}Item extends Item {
     }
 </#if>
 
-<#if hasProcedure(data.onRightClickedInAir)>
+<#if hasProcedure(data.onRightClickedInAir) || (data.guiBoundTo?has_content && data.guiBoundTo != "<NONE>")>
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity entity, Hand hand) {
 		TypedActionResult<ItemStack> retval = super.use(world, entity, hand);
@@ -179,9 +179,140 @@ public class ${name}Item extends Item {
         double x = entity.getPos().getX();
         double y = entity.getPos().getY();
         double z = entity.getPos().getZ();
-            <@procedureOBJToCode data.onRightClickedInAir/>
+
+        <#if data.guiBoundTo?has_content && data.guiBoundTo != "<NONE>">
+		    entity.openHandledScreen(new ExtendedScreenHandlerFactory() {
+                @Override
+            	public ScreenHandler createMenu(int syncId, PlayerInventory inventory, PlayerEntity player) {
+            	    return new ${(data.guiBoundTo)}Gui.GuiContainerMod(syncId, inventory, new CustomItemInventory(itemstack));
+            	}
+
+            	@Override
+            	public Text getDisplayName() {
+            		return itemstack.getName();
+            	}
+
+            	@Override
+            	public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
+            		buf.writeBlockPos(BlockPos.ORIGIN);
+            	}
+            });
+		</#if>
+
+        <@procedureOBJToCode data.onRightClickedInAir/>
         return super.use(world, entity, hand);
     }
+</#if>
+
+
+<#if data.guiBoundTo?has_content && data.guiBoundTo != "<NONE>">
+	public static class CustomItemInventory implements SidedInventory {
+		private final ItemStack stack;
+		private final DefaultedList<ItemStack> items = DefaultedList.ofSize(${data.inventorySize}, ItemStack.EMPTY);
+
+		CustomItemInventory(ItemStack stack) {
+			this.stack = stack;
+			NbtCompound tag = stack.getSubTag("Items");
+
+			if (tag != null) {
+				Inventories.readNbt(tag, items);
+			}
+		}
+
+		public DefaultedList<ItemStack> getItems() {
+			return items;
+		}
+
+		@Override
+		public int[] getAvailableSlots(Direction side) {
+			int[] result = new int[getItems().size()];
+
+			for (int i = 0; i < result.length; i++) {
+				result[i] = i;
+			}
+
+			return result;
+		}
+
+		@Override
+		public int getMaxCountPerStack() {
+			return ${data.inventoryStackSize};
+		}
+
+		@Override
+		public boolean canInsert(int slot, ItemStack stack, @Nullable Direction dir) {
+			return true;
+		}
+
+		@Override
+		public boolean canExtract(int slot, ItemStack stack, Direction dir) {
+			return true;
+		}
+
+		@Override
+		public int size() {
+			return getItems().size();
+		}
+
+		@Override
+		public boolean isEmpty() {
+			for (int i = 0; i < size(); i++) {
+				ItemStack stack = getStack(i);
+
+				if (!stack.isEmpty()) {
+					return false;
+				}
+			}
+
+			return true;
+		}
+
+		@Override
+		public ItemStack getStack(int slot) {
+			return getItems().get(slot);
+		}
+
+		@Override
+		public ItemStack removeStack(int slot, int amount) {
+			ItemStack result = Inventories.splitStack(getItems(), slot, amount);
+
+			if (!result.isEmpty()) {
+				markDirty();
+			}
+
+			return result;
+		}
+
+		@Override
+		public ItemStack removeStack(int slot) {
+			return Inventories.removeStack(getItems(), slot);
+		}
+
+		@Override
+		public void setStack(int slot, ItemStack stack) {
+			getItems().set(slot, stack);
+
+			if (stack.getCount() > getMaxCountPerStack()) {
+				stack.setCount(getMaxCountPerStack());
+			}
+		}
+
+		@Override
+		public void markDirty() {
+			NbtCompound tag = stack.getOrCreateSubTag("Items");
+			Inventories.writeNbt(tag, items);
+		}
+
+		@Override
+		public boolean canPlayerUse(PlayerEntity player) {
+			return true;
+		}
+
+		@Override
+		public void clear() {
+			getItems().clear();
+		}
+	}
 </#if>
 }
 <#-- @formatter:on -->
