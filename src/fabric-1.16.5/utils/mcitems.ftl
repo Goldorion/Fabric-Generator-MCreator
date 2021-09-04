@@ -15,18 +15,23 @@
 </#function>
 
 <#function mappedMCItemToItemStackCode mappedBlock amount>
-    <#if mappedBlock.toString().contains("/*@ItemStack*/")>
+    <#if mappedBlock?starts_with("/*@ItemStack*/")>
         <#return mappedBlock?replace("/*@ItemStack*/", "")>
-    <#elseif mappedBlock.toString().startsWith("CUSTOM:")>
-        <#if !mappedBlock.toString().contains(".")>
-            <#return JavaModName + "." + (generator.getElementPlainName(mappedBlock)) + "_ITEM">
+    <#elseif mappedBlock?starts_with("CUSTOM:")>
+        <#if !mappedBlock?contains(".")>
+            <#return "new ItemStack("+ mappedElementToClassName(mappedBlock)
+            + (amount == 1)?then(")",", (int)(" + amount + "))")>
         <#else>
-            <#return JavaModName + "." + (generator.getElementPlainName(mappedBlock)) + "."
-            + generator.getElementExtension(mappedBlock) + ", (int)(" + amount + ")">
+            <#return "new ItemStack("+ mappedElementToClassName(mappedBlock) + "."
+            + generator.getElementExtension(mappedBlock) + (amount == 1)?then(")",", (int)(" + amount + "))")>
         </#if>
     <#else>
-        <#return mappedBlock.toString().split("#")[0] + ", (int)(" + amount + ")">
+        <#return "new ItemStack(" + mappedBlock + (amount == 1)?then(")",", (int)(" + amount + "))")>
     </#if>
+</#function>
+
+<#function mappedElementToClassName mappedElement>
+    <#return JavaModName + "." + generator.getElementPlainName(mappedElement) + generator.isRecipeTypeBlockOrBucket(mappedElement)?then("_BLOCK", "_ITEM")>
 </#function>
 
 <#function mappedMCItemToItem mappedBlock>

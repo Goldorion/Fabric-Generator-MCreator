@@ -5,6 +5,7 @@
 * [Bugfix] On initial spawn entity trigger caused a build error when a procedure was selected
 * [Bugfix #143] Ray tracing procedure blocks cause a build error
 * [Bugfix #145] Enabling the boss bar iun custom entities caused a build error
+* [Bugfix #146, #147, #148] Mod elements having an element selected inside a block/item selector always failed to build.
 
 ## 1.4.1
 * [Bugfix] Right-click in air tool trigger caused a build error.

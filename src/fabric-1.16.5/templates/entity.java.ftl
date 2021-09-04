@@ -180,7 +180,7 @@ public class ${name}Entity extends ${extendsClass}Entity {
         @Override
     	protected void dropLoot(DamageSource source, boolean causedByPlayer) {
     	    super.dropLoot(source, causedByPlayer);
-    	    this.dropStack((${mappedMCItemToItemStackCode(data.mobDrop, 1)});
+    	    this.dropStack(${mappedMCItemToItemStackCode(data.mobDrop, 1)});
     	}
     </#if>
 
