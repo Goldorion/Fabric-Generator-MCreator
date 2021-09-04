@@ -173,13 +173,14 @@ public class ${name}Item extends Item {
 
 <#if hasProcedure(data.onRightClickedInAir)>
     @Override
-    public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-        ItemStack itemstack = super.use(world, user, hand).getResult();
+    public TypedActionResult<ItemStack> use(World world, PlayerEntity entity, Hand hand) {
+		TypedActionResult<ItemStack> retval = super.use(world, entity, hand);
+		ItemStack itemstack = retval.getValue();
         int x = (int) entity.getPos().getX();
         int y = (int) entity.getPos().getY();
         int z = (int) entity.getPos().getZ();
             <@procedureOBJToCode data.onRightClickedInAir/>
-        return super.use(world, user, hand);
+        return super.use(world, entity, hand);
     }
 </#if>
 }

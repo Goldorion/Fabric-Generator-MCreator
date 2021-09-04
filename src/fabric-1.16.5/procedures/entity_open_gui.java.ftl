@@ -2,7 +2,7 @@
 {
 	Entity _ent = ${input$entity};
 	if(_ent instanceof ServerPlayerEntity) {
-		_ent.openHandledScreen(new ExtendedScreenHandlerFactory() {
+		((ServerPlayerEntity) _ent).openHandledScreen(new ExtendedScreenHandlerFactory() {
 		    BlockPos _pos = new BlockPos((int)${input$x},(int)${input$y},(int)${input$z});
 			@Override
 			public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
@@ -18,7 +18,7 @@
 			public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
 				return new ${(field$guiname)}Gui.GuiContainerMod(syncId, inv, new PacketByteBuf(Unpooled.buffer()).writeBlockPos(_pos));
 			}
-		}
+		});
 	}
 }
-<#-- @formatter:on -->}
+<#-- @formatter:on -->

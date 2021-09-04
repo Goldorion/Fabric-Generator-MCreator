@@ -2,6 +2,9 @@
 ## 1.5
 * Added full support for custom GUIs
 * Added support for following GUI related procedure blocks: Get text in textfield, Is checkbox checked, Set text in textfield
+* [Bugfix] Using the custom drop option in custom blocks caused a build error (due to a changed from the last version)
+* [Bugfix] On block right-clicked block trigger caused a build error
+* [Bugfix] Right-click in air item trigger caused a build error.
 
 ## 1.4.2
 * [Bugfix] Custom biome sounds caused a build error
