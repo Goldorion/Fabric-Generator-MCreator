@@ -18,6 +18,7 @@ Unsupported fields in full supported mod elements are features from Forge only. 
 * Function
 * Game rule
 * GUI
+* Item
 * Item group
   Missing: Re-order creative tabs
 * Key binding
@@ -35,7 +36,6 @@ Unsupported fields in full supported mod elements are features from Forge only. 
 * Armor
 * Biome
 * Dimension
-* Item
 * Living entity
 * Plant
 * Ranged item
