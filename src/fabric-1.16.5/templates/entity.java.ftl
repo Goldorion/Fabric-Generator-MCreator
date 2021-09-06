@@ -212,14 +212,6 @@ public class ${name}Entity extends ${extendsClass}Entity {
 
     <#if data.isBoss>
         @Override
-        public void readCustomDataFromNbt(NbtCompound tag) {
-            super.readCustomDataFromNbt(tag);
-            if (this.hasCustomName()) {
-             this.bossBar.setName(this.getDisplayName());
-            }
-        }
-
-        @Override
         public void setCustomName(@Nullable Text name) {
             super.setCustomName(name);
             this.bossBar.setName(this.getDisplayName());
@@ -428,7 +420,47 @@ public class ${name}Entity extends ${extendsClass}Entity {
     }
     </#if>
 
-    <#if hasProcedure(data.onRightClickedOn) || data.tameable || data.ridable>
+	<#if data.guiBoundTo?has_content && data.guiBoundTo != "<NONE>">
+	private final SimpleInventory inventory = new SimpleInventory(${data.inventorySize}) {
+		@Override
+		public int getMaxCountPerStack() {
+			return ${data.inventoryStackSize};
+		}
+	};
+
+   	@Override protected void dropInventory() {
+		super.dropInventory();
+		for(int i = 0; i < inventory.size(); ++i) {
+			ItemStack itemstack = inventory.getStack(i);
+			if (!itemstack.isEmpty() && !EnchantmentHelper.hasVanishingCurse(itemstack)) {
+			this.dropStack(itemstack);
+			}
+		}
+	}
+
+	@Override public void writeCustomDataToNbt(NbtCompound compound) {
+      	super.writeCustomDataToNbt(compound);
+		compound.put("InventoryCustom", inventory.toNbtList());
+	}
+    </#if>
+
+	<#if data.isBoss || (data.guiBoundTo?has_content && data.guiBoundTo != "<NONE>")>
+    @Override
+    public void readCustomDataFromNbt(NbtCompound tag) {
+        super.readCustomDataFromNbt(tag);
+        <#if data.isBoss>
+            if (this.hasCustomName())
+                this.bossBar.setName(this.getDisplayName());
+        </#if>
+        <#if data.guiBoundTo?has_content && data.guiBoundTo != "<NONE>">
+		    NbtElement inventoryCustom = tag.get("InventoryCustom");
+		    if (inventoryCustom instanceof NbtCompound)
+			    inventory.readNbtList((NbtList) inventoryCustom);
+        </#if>
+    }
+    </#if>
+
+    <#if hasProcedure(data.onRightClickedOn) || data.tameable || data.ridable || (data.guiBoundTo?has_content && data.guiBoundTo != "<NONE>")>
 	    @Override
 	    public ActionResult interactMob(PlayerEntity sourceentity, Hand hand) {
 		    ItemStack itemstack = sourceentity.getStackInHand(hand);
@@ -484,6 +516,25 @@ public class ${name}Entity extends ${extendsClass}Entity {
             sourceentity.startRiding(this);
         </#if>
 
+        <#if data.guiBoundTo?has_content && data.guiBoundTo != "<NONE>">
+		    sourceentity.openHandledScreen(new ExtendedScreenHandlerFactory() {
+			    @Override
+			    public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
+				buf.writeBlockPos(getBlockPos());
+			    }
+
+			    @Override
+			    public Text getDisplayName() {
+			    	return new LiteralText(getEntityName());
+			    }
+
+			    @Override
+			    public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
+			    	return new ${(data.guiBoundTo)}Gui.GuiContainerMod(syncId, inv, inventory);
+			    }
+		    });
+        </#if>
+
 			double x = this.getX();
 			double y = this.getY();
 			double z = this.getZ();
@@ -494,7 +545,6 @@ public class ${name}Entity extends ${extendsClass}Entity {
 				<@procedureOBJToCode data.onRightClickedOn/>
 				return retval;
 			</#if>
-		    return retval;
 		}    
     </#if>
 

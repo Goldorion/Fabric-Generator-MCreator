@@ -67,6 +67,9 @@ public class ${JavaModName} implements ModInitializer {
 	<#assign ge = block.getGeneratableElement()>
 	public static final Block ${block}_BLOCK = Registry.register(Registry.BLOCK, id("${block.getRegistryName()}"), new ${block}Block());
 	public static final BlockItem ${block}_ITEM = Registry.register(Registry.ITEM, id("${block.getRegistryName()}"), new BlockItem(${block}_BLOCK, new Item.Settings().group(${ge.creativeTab})));
+	<#if ge.hasInventory>
+	public static final BlockEntityType<${block}Block.CustomBlockEntity> ${block}_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, id("${block.getRegistryName()}"), BlockEntityType.Builder.create(${block}Block.CustomBlockEntity::new, ${block}_BLOCK).build(null));
+	</#if>
 </#list>
 
 <#list w.getElementsOfType("plant") as plant>
@@ -124,6 +127,10 @@ public class ${JavaModName} implements ModInitializer {
             id("${painting.getRegistryName()}"), ${painting}Painting.painting);
 </#list>
 
+<#list w.getElementsOfType("gui") as gui>
+	public static final ScreenHandlerType<${gui}Gui.GuiContainerMod> ${gui}ScreenType = ScreenHandlerRegistry.registerExtended(id("${gui.getRegistryName()}"), ${gui}Gui.GuiContainerMod::new);
+</#list>
+
 	@Override
 	public void onInitialize() {
 		LOGGER.info("Initializing ${JavaModName}");
@@ -162,6 +169,10 @@ public class ${JavaModName} implements ModInitializer {
 
 		<#list w.getElementsOfType("structure") as structure>
 			${structure}Structure.init();
+		</#list>
+
+		<#list w.getElementsOfType("gui") as gui>
+			${gui}GuiWindow.screenInit();
 		</#list>
 
 		<#list sounds as sound>

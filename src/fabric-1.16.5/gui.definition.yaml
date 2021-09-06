@@ -1,0 +1,7 @@
+templates:
+  - template: gui.java.ftl
+    name: "@SRCROOT/@BASEPACKAGEPATH/screen/@NAMEGui.java"
+  - template: gui_window.java.ftl
+    name: "@SRCROOT/@BASEPACKAGEPATH/client/gui/screen/@NAMEGuiWindow.java"
+
+field_exclusions: [onTick]

@@ -15,4 +15,4 @@ localizationkeys:
     mapto: name
 
 field_exclusions: [ onEntitySwing, onDroppedByPlayer, stayInGridWhenCrafting, damageOnCrafting, hasDispenseBehavior, dispenseSuccessCondition,
-                    dispenseResultItemstack, guiBoundTo, inventorySize, inventoryStackSize ]
+                    dispenseResultItemstack ]

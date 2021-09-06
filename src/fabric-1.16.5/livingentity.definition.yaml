@@ -16,4 +16,4 @@ localizationkeys:
   - key: entity.@modid.@registryname
     mapto: mobName
 
-field_exclusions: [ flyingMob, guiBoundTo, inventoryStackSize, inventorySize, spawnInDungeons, ranged, rangedItemType, rangedAttackItem ]
+field_exclusions: [ flyingMob, spawnInDungeons, ranged, rangedItemType, rangedAttackItem ]
