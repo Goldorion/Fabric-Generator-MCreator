@@ -155,7 +155,7 @@ public class ${name}Gui {
 					if (!this.insertItem(itemstack1, ${slotnum}, this.slots.size(), true)) {
 						return ItemStack.EMPTY;
 					}
-					slot.onSlotChange(itemstack1, itemstack);
+					slot.onQuickTransfer(itemstack1, itemstack);
 				} else if (!this.insertItem(itemstack1, 0, ${slotnum}, false)) {
 					if (index < ${slotnum} + 27) {
 						if (!this.insertItem(itemstack1, ${slotnum} + 27, this.slots.size(), true)) {
