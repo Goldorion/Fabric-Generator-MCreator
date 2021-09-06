@@ -31,6 +31,7 @@ Unsupported fields in full supported mod elements are features from Forge only. 
 * Potion
 * Recipe
 * Structure spawn
+* Tool
 
 ### Partial support (almost fully supported)
 * Armor
@@ -40,7 +41,6 @@ Unsupported fields in full supported mod elements are features from Forge only. 
 * Living entity
 * Plant
 * Ranged item
-* Tool
   
 ### Partial support
 * Procedure

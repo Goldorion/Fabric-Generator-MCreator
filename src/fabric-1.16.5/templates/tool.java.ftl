@@ -185,6 +185,14 @@ public class ${name}Tool {
     public static final Item INSTANCE = new
 <#if data.toolType == "Pickaxe" || data.toolType == "Axe" || data.toolType == "Sword" || data.toolType == "Spade" || data.toolType == "Hoe">${data.toolType.toString().replace("Spade", "Shovel")}Item(${name?upper_case}_TOOL_MATERIAL, 0, (float) ${data.attackSpeed - 4}, (new FabricItemSettings().group(${data.creativeTab})<#if data.immuneToFire>.fireproof()</#if>))
 <#else>CustomToolItem()</#if>{
+	    <#if data.stayInGridWhenCrafting>
+		    @Override public boolean hasRecipeRemainder() {
+		    	return true;
+		    }
+		    @Override public boolean canRepair(ItemStack stack, ItemStack ingredient) {
+                return false;
+            }
+	    </#if>
 
         <#if data.specialInfo?has_content>
         @Override

@@ -14,4 +14,4 @@ localizationkeys:
   - key: item.@modid.@registryname
     mapto: name
 
-field_exclusions: [ onEntitySwing, stayInGridWhenCrafting ]
+field_exclusions: [ onEntitySwing ]
