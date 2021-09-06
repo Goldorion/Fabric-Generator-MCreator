@@ -4,7 +4,7 @@ this.goalSelector.add(${customBlockIndex+1}, new WanderAroundFarGoal(this, ${fie
 
     @Override
     protected Vec3d getWanderTarget() {
-		Random random = ${name}Entity.this.getRNG();
+		Random random = ${name}Entity.this.getRandom();
 		double dir_x = ${name}Entity.this.getX() + ((random.nextFloat() * 2 - 1) * 16);
 		double dir_y = ${name}Entity.this.getY() + ((random.nextFloat() * 2 - 1) * 16);
 		double dir_z = ${name}Entity.this.getZ() + ((random.nextFloat() * 2 - 1) * 16);
