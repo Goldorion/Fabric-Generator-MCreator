@@ -17,6 +17,7 @@ Unsupported fields in full supported mod elements are features from Forge only. 
 * Fuel
 * Function
 * Game rule
+* GUI
 * Item group
   Missing: Re-order creative tabs
 * Key binding
@@ -48,7 +49,6 @@ Unsupported fields in full supported mod elements are features from Forge only. 
 
 ### Not supported
 * Fluid
-* GUI
 
 ## Installation Instructions
 Pre-built binaries can be found on the [Release page of this repository](https://github.com/Goldorion/Fabric-Generator-MCreator/releases).
