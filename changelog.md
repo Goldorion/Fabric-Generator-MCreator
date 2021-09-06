@@ -12,7 +12,7 @@
 * Added support for custom dispenser behaviour for custom items
 * [#111] Added "Does item stay in crafting grid" item and tool parameter support
 * [#152] Added support for the immediatesourcentity dependency for bullet triggers in ranged items
-* [Bugfix] Using the custom drop option in custom blocks caused a build error (due to a changed from the last version)
+* [Bugfix] Using the custom drop option in custom blocks caused a build error (due to a change from the last version)
 * [Bugfix] On block right-clicked block trigger caused a build error
 * [Bugfix] Right-click in air item trigger caused a build error.
 * [Bugfix] Biomes using a custom entity didn't build properly
