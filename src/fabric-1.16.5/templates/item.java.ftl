@@ -37,7 +37,7 @@ public class ${name}Item extends Item {
 	</#if>
         .rarity(Rarity.${data.rarity})
         <#if data.recipeRemainder?? && !data.recipeRemainder.isEmpty()>
-            .recipeRemainder(${mappedMCItemToItemStackCodeNoItemStackValue(data.recipeRemainder)})
+            .recipeRemainder(${mappedMCItemToItem(data.recipeRemainder)})
         </#if>
         );
     }
@@ -71,6 +71,15 @@ public class ${name}Item extends Item {
 				}
 			});
 		}
+	</#if>
+
+	<#if data.stayInGridWhenCrafting>
+		@Override public boolean hasRecipeRemainder() {
+			return true;
+		}
+		@Override public boolean canRepair(ItemStack stack, ItemStack ingredient) {
+            return false;
+        }
 	</#if>
 
     @Override
