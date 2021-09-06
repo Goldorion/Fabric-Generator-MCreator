@@ -169,6 +169,7 @@ public class ${name}RangedItem extends Item {
                 double y = this.getY();
                 double z = this.getZ();
                 World world = this.world;
+			    Entity imediatesourceentity = this;
 			    <@procedureOBJToCode data.onBulletHitsPlayer/>
             }
         </#if>
@@ -183,6 +184,7 @@ public class ${name}RangedItem extends Item {
 				double y = this.getY();
 				double z = this.getZ();
 				World world = this.world;
+			    Entity imediatesourceentity = this;
                 <@procedureOBJToCode data.onBulletHitsEntity/>
             </#if>
         }
@@ -195,6 +197,7 @@ public class ${name}RangedItem extends Item {
             double z = this.getZ();
             World world = this.world;
             Entity entity = this.getOwner();
+			Entity imediatesourceentity = this;
 			<@procedureOBJToCode data.onBulletFlyingTick/>
             if (this.inGround) {
 			    <@procedureOBJToCode data.onBulletHitsBlock/>
