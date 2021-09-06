@@ -139,7 +139,7 @@ public class ${name}Entity extends ${extendsClass}Entity {
             </#if>
 
             <#if data.flyingMob>
-                .add(EntityAttributes.GENERIC_FLYING_SPEED, 10)
+                .add(EntityAttributes.GENERIC_FLYING_SPEED, ${data.movementSpeed})
             </#if>
 
             <#if data.aiBase == "Zombie">
@@ -236,10 +236,26 @@ public class ${name}Entity extends ${extendsClass}Entity {
 	    }
     </#if>
 
-    <#if data.spawnParticles>
+    <#if data.flyingMob>
+		@Override
+        protected void fall(double heightDifference, boolean onGround, BlockState landedState, BlockPos landedPosition) {
+        }
+
+        @Override
+        public void setNoGravity(boolean noGravity) {
+            super.setNoGravity(true);
+        }
+    </#if>
+
+    <#if data.spawnParticles || data.flyingMob>
         @Override
         public void tick() {
             super.tick();
+
+			<#if data.flyingMob>
+			this.setNoGravity(true);
+			</#if>
+
 	        double x = this.getX();
 	    	double y = this.getY();
 	    	double z = this.getZ();
@@ -319,7 +335,11 @@ public class ${name}Entity extends ${extendsClass}Entity {
 			Entity entity = this;
 			<@procedureOBJToCode data.whenMobFalls/>
 
-			return super.handleFallDamage(l, d);
+			<#if data.flyingMob >
+				return false;
+			<#else>
+			    return super.handleFallDamage(l, d);
+			</#if>
 		}
     </#if>
 
