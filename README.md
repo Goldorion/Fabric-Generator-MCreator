@@ -35,6 +35,7 @@ Unsupported fields in full supported mod elements are features from Forge only. 
 ### Partial support (almost fully supported)
 * Armor
 * Biome
+* Block
 * Dimension
 * Living entity
 * Plant
@@ -42,7 +43,6 @@ Unsupported fields in full supported mod elements are features from Forge only. 
 * Tool
   
 ### Partial support
-* Block
 * Procedure
 * Variables
   // Global scopes, except Global session, are missing.
