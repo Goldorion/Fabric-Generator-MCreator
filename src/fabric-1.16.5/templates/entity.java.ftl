@@ -256,12 +256,14 @@ public class ${name}Entity extends ${extendsClass}Entity {
 			this.setNoGravity(true);
 			</#if>
 
-	        double x = this.getX();
-	    	double y = this.getY();
-	    	double z = this.getZ();
-            Random random = this.random;
-            Entity entity = this;
-            <@particles data.particleSpawningShape data.particleToSpawn data.particleSpawningRadious data.particleAmount data.particleCondition/>
+            <#if data.spawnParticles>
+	            double x = this.getX();
+	    	    double y = this.getY();
+	    	    double z = this.getZ();
+                Random random = this.random;
+                Entity entity = this;
+                <@particles data.particleSpawningShape data.particleToSpawn data.particleSpawningRadious data.particleAmount data.particleCondition/>
+            </#if>
         }
     </#if>
 
