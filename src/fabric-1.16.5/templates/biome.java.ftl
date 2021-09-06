@@ -213,10 +213,10 @@ public class ${name}Biome {
         <#list data.spawnEntries as spawnEntry>
             <#assign entity = generator.map(spawnEntry.entity.getUnmappedValue(), "entities", 1)!"null">
             <#if entity != "null">
-                <#if !entity.toString().contains(".CustomEntity")>
+                <#if !entity.toString().contains(".ENTITY")>
 		            spawnBuilder.spawn(${generator.map(spawnEntry.spawnType, "mobspawntypes")}, new SpawnSettings.SpawnEntry(EntityType.${entity}, ${spawnEntry.weight}, ${spawnEntry.minGroup}, ${spawnEntry.maxGroup}));
                 <#else>
-                    spawnBuilder.spawn(${generator.map(spawnEntry.spawnType, "mobspawntypes")}, new SpawnSettings.SpawnEntry((${entity.toString().replace(".CustomEntity", "")}.entity, ${spawnEntry.weight}, ${spawnEntry.minGroup}, ${spawnEntry.maxGroup}));
+                    spawnBuilder.spawn(${generator.map(spawnEntry.spawnType, "mobspawntypes")}, new SpawnSettings.SpawnEntry(${entity.toString()}, ${spawnEntry.weight}, ${spawnEntry.minGroup}, ${spawnEntry.maxGroup}));
                 </#if>
             </#if>
         </#list>

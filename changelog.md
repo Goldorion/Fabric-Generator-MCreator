@@ -13,6 +13,7 @@
 * [Bugfix] Using the custom drop option in custom blocks caused a build error (due to a changed from the last version)
 * [Bugfix] On block right-clicked block trigger caused a build error
 * [Bugfix] Right-click in air item trigger caused a build error.
+* [Bugfix] Biomes using a custom entity didn't build properly
 * [Bugfix #152] Entities with the Biped model now display equipped items
 
 ## 1.4.2
