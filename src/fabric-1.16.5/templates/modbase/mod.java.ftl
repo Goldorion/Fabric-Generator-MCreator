@@ -151,6 +151,12 @@ public class ${JavaModName} implements ModInitializer {
 	        </#if>
 	    </#list>
 
+	    <#list w.getElementsOfType("item") as item>
+	        <#if (item.getGeneratableElement().hasDispenseBehavior)>
+	            ${item}Item.init();
+	        </#if>
+	    </#list>
+
 		<#list w.getElementsOfType("procedure") as procedure>
 			new ${procedure}Procedure();
 		</#list>

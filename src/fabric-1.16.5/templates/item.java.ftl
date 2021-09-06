@@ -42,6 +42,37 @@ public class ${name}Item extends Item {
         );
     }
 
+	<#if data.hasDispenseBehavior>
+		public static void init() {
+			DispenserBlock.registerBehavior(${JavaModName}.${name}_ITEM, new FallibleItemDispenserBehavior() {
+				public ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
+					ItemStack itemstack = stack.copy();
+					World world = pointer.getWorld();
+					Direction direction = pointer.getBlockState().get(DispenserBlock.FACING);
+					int x = pointer.getBlockPos().getX();
+					int y = pointer.getBlockPos().getY();
+					int z = pointer.getBlockPos().getZ();
+
+					this.setSuccess(<@procedureOBJToConditionCode data.dispenseSuccessCondition/>);
+
+					<#if hasProcedure(data.dispenseResultItemstack)>
+						boolean success = this.isSuccess();
+						<#if hasReturnValue(data.dispenseResultItemstack)>
+							return <@procedureOBJToItemstackCode data.dispenseResultItemstack/>;
+						<#else>
+							<@procedureOBJToCode data.dispenseResultItemstack/>
+							if(success) itemstack.decrement(1);
+							return itemstack;
+						</#if>
+					<#else>
+						if(this.isSuccess()) itemstack.decrement(1);
+						return itemstack;
+					</#if>
+				}
+			});
+		}
+	</#if>
+
     @Override
     public int getMaxUseTime(ItemStack itemstack) {
         return ${data.useDuration};

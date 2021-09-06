@@ -9,6 +9,7 @@
   slot, remove items, Set item in slot, Get text in textfield, Is checkbox checked, Set text in textfield
 * Add support for flying entities
 * Added following AI task blocks: Attack fly, Break blocks, Fly, Move indoors
+* Added support for custom dispenser behaviour for custom items
 * [#152] Added support for the immediatesourcentity dependency for bullet triggers in ranged items
 * [Bugfix] Using the custom drop option in custom blocks caused a build error (due to a changed from the last version)
 * [Bugfix] On block right-clicked block trigger caused a build error

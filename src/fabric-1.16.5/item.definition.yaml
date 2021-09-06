@@ -14,5 +14,4 @@ localizationkeys:
   - key: item.@modid.@registryname
     mapto: name
 
-field_exclusions: [ onEntitySwing, onDroppedByPlayer, stayInGridWhenCrafting, damageOnCrafting, hasDispenseBehavior, dispenseSuccessCondition,
-                    dispenseResultItemstack ]
+field_exclusions: [ onEntitySwing, onDroppedByPlayer, stayInGridWhenCrafting, damageOnCrafting]
