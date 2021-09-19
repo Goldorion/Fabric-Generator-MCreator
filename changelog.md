@@ -1,5 +1,9 @@
 # Changelogs:
 
+## 1.5.1
+* [Bugfix #152] Entities with the Biped model now display equipped items
+  * The fix was applied to chicken models 
+
 ## 1.5
 
 * Added full support for custom GUIs

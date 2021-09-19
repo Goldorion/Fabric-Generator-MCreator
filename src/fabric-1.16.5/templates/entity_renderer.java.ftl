@@ -62,7 +62,7 @@ public class ${name}EntityRenderer extends MobEntityRenderer<${name}Entity, ${mo
     public ${name}EntityRenderer(EntityRenderDispatcher entityRenderDispatcher) {
         super(entityRenderDispatcher, new ${modelMethod}, ${data.modelShadowSize}f);
 
-        <#if data.mobModelName == "Chicken">
+        <#if data.mobModelName == "Biped">
 		    this.addFeature(new ArmorFeatureRenderer<>(this, new BipedEntityModel<>(0.5f), new BipedEntityModel<>(1)));
 		    this.addFeature(new HeldItemFeatureRenderer<>(this));
         </#if>
