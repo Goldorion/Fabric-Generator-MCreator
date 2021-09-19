@@ -2,7 +2,8 @@
 
 ## 1.5.1
 * [Bugfix #152] Entities with the Biped model now display equipped items
-  * The fix was applied to chicken models 
+  * The fix was applied to chicken models
+* [Bugfix] Some AI task blocks prevented the entity to build
 
 ## 1.5
 
