@@ -1,10 +1,8 @@
-import jdk.internal.misc.OSEnvironment
-
 import java.nio.file.Files
 
 class Globals {
     private static final def ARCHIVE_NAME = "generator-fabric"
-    private static final def MINECRAFT_VERSION = "1.16.5"
+    private static final def MINECRAFT_VERSION = "1.17.1"
 
     static def getArchiveName() {
         return ARCHIVE_NAME + "-" + MINECRAFT_VERSION + ".zip"
@@ -43,7 +41,7 @@ task launch {
         if (Globals.getOSName().contains('windows')) {
             try {
                 exec {
-                    workingDir "C://Program Files/Pylo/MCreator/"
+                    workingDir "C://Program Files/Pylo/MCreator20213/"
                     commandLine 'cmd', '/c', 'mcreator.bat'
                 }
             } catch (IOException e) {

@@ -1,1 +1,0 @@
-((${input$entity} instanceof PlayerEntity)?((PlayerEntity)${input$entity}).getHungerManager().getFoodLevel():0)

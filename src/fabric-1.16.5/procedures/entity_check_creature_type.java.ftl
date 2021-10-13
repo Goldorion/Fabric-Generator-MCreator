@@ -1,1 +1,0 @@
-(${input$entity} instanceof LivingEntity ? (((LivingEntity) ${input$entity}).getGroup() == EntityGroup.${field$type}) : false)

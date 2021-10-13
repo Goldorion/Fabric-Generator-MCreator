@@ -1,2 +1,0 @@
-<#include "aiconditions.java.ftl">
-this.goalSelector.add(${customBlockIndex+1}, new LookAtEntityGoal(this, ${generator.map(field$entity, "entities")?remove_ending(".ENTITY")}.class,(float)${field$radius})<@conditionCode field$condition/>);

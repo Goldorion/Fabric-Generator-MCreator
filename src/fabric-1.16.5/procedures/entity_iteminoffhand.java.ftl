@@ -1,1 +1,0 @@
-/*@ItemStack*/((${input$entity} instanceof LivingEntity)?((LivingEntity)${input$entity}).getOffHandStack():ItemStack.EMPTY)
