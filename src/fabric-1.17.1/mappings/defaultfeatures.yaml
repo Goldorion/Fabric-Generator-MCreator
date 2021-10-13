@@ -1,9 +1,11 @@
 _default: null
+AmethystGeodes: AmethystGeodes
 Bamboo: BambooJungleTrees
 BerryBushes: SweetBerryBushes
 Caves: LandCarvers
 DeadBushes: DesertDeadBushes
 DesertFeatures: DesertFeatures
+Dripstone: Dripstone
 ExtraEmeraldOre: EmeraldOre
 ExtraGoldOre: ExtraGoldOre
 Fossils: Fossils
@@ -12,6 +14,7 @@ InfestedStone: InfestedStone
 JungleGrass: JungleGrass
 JungleTreeForest: JungleTrees
 Lakes: DefaultLakes
+LushCavesDecoration: LushCavesDecoration
 MonsterRooms: Dungeons
 OceanCaves: OceanCarvers
 Ores: DefaultOres

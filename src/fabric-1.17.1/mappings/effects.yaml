@@ -1,6 +1,6 @@
 _default: StatusEffects.SPEED
 _mcreator_prefix: "CUSTOM:"
-_mcreator_map_template: "@JavaModName.@NAME_STATUS_EFFECT"
+_mcreator_map_template: "@JavaModNameStatusEffects.@REGISTRYNAME"
 SPEED: StatusEffects.SPEED
 SLOWNESS: StatusEffects.SLOWNESS
 HASTE: StatusEffects.HASTE

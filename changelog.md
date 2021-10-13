@@ -1,5 +1,8 @@
 # Changelogs:
 
+## 1.6
+* Added base support for Fabric 1.17.1
+
 ## 1.5.1
 * [Bugfix #150] Entities with the Biped model now display equipped items
   * The fix was applied to chicken models

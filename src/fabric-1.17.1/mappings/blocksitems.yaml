@@ -1,5 +1,7 @@
 _mcreator_prefix: "CUSTOM:"
-_bypass_prefix: "TAG:"
+_bypass_prefix:
+  - "TAG:"
+  - "POTION:"
 _default:
   - Blocks.AIR
   - "air"
@@ -34,8 +36,8 @@ Blocks.GRASS:
   - Blocks.GRASS_BLOCK
   - "grass_block"
 Blocks.GRASS_PATH:
-  - Blocks.GRASS_PATH
-  - "grass_path"
+  - Blocks.DIRT_PATH
+  - "dirt_path"
 Blocks.MYCELIUM:
   - Blocks.MYCELIUM
   - "mycelium"
@@ -159,6 +161,33 @@ Blocks.DIAMOND_ORE:
 Blocks.EMERALD_ORE:
   - Blocks.EMERALD_ORE
   - "emerald_ore"
+Blocks.COPPER_ORE:
+  - Blocks.COPPER_ORE
+  - "copper_ore"
+Blocks.DEEPSLATE_COAL_ORE:
+  - Blocks.DEEPSLATE_COAL_ORE
+  - "deepslate_coal_ore"
+Blocks.DEEPSLATE_IRON_ORE:
+  - Blocks.DEEPSLATE_IRON_ORE
+  - "deepslate_iron_ore"
+Blocks.DEEPSLATE_REDSTONE_ORE:
+  - Blocks.DEEPSLATE_REDSTONE_ORE
+  - "deepslate_redstone_ore"
+Blocks.DEEPSLATE_GOLD_ORE:
+  - Blocks.DEEPSLATE_GOLD_ORE
+  - "deepslate_gold_ore"
+Blocks.DEEPSLATE_LAPIS_ORE:
+  - Blocks.DEEPSLATE_LAPIS_ORE
+  - "deepslate_lapis_ore"
+Blocks.DEEPSLATE_DIAMOND_ORE:
+  - Blocks.DEEPSLATE_DIAMOND_ORE
+  - "deepslate_diamond_ore"
+Blocks.DEEPSLATE_EMERALD_ORE:
+  - Blocks.DEEPSLATE_EMERALD_ORE
+  - "deepslate_emerald_ore"
+Blocks.DEEPSLATE_COPPER_ORE:
+  - Blocks.DEEPSLATE_COPPER_ORE
+  - "deepslate_copper_ore"
 Blocks.QUARTZ_ORE:
   - Blocks.NETHER_QUARTZ_ORE
   - "nether_quartz_ore"
@@ -249,6 +278,12 @@ Blocks.LEAVES2#0:
 Blocks.LEAVES2#1:
   - Blocks.DARK_OAK_LEAVES
   - "dark_oak_leaves"
+Blocks.AZALEA_LEAVES:
+  - Blocks.AZALEA_LEAVES
+  - "azalea_leaves"
+Blocks.FLOWERING_AZALEA_LEAVES:
+  - Blocks.FLOWERING_AZALEA_LEAVES
+  - "flowering_azalea_leaves"
 Blocks.SPONGE:
   - Blocks.SPONGE
   - "sponge"
@@ -260,7 +295,7 @@ Blocks.SPONGE#1:
   - "wet_sponge"
 Blocks.SANDSTONE:
   - Blocks.SANDSTONE
-  - sandstone"
+  - "sandstone"
 Blocks.SANDSTONE#0:
   - Blocks.SANDSTONE
   - "sandstone"
@@ -720,6 +755,9 @@ Blocks.PUMPKIN_STEM:
 Blocks.VINE:
   - Blocks.VINE
   - "vine"
+Blocks.GLOW_LICHEN:
+  - Blocks.GLOW_LICHEN
+  - "glow_lichen"
 Blocks.WATERLILY:
   - Blocks.LILY_PAD
   - "lily_pad"
@@ -732,6 +770,15 @@ Blocks.BREWING_STAND:
 Blocks.CAULDRON:
   - Blocks.CAULDRON
   - "cauldron"
+Blocks.WATER_CAULDRON:
+  - Blocks.WATER_CAULDRON
+  - "water_cauldron"
+Blocks.LAVA_CAULDRON:
+  - Blocks.LAVA_CAULDRON
+  - "lava_cauldron"
+Blocks.POWDER_SNOW_CAULDRON:
+  - Blocks.POWDER_SNOW_CAULDRON
+  - "powder_snow_cauldron"
 Blocks.END_PORTAL:
   - Blocks.END_PORTAL
   - "end_portal"
@@ -795,6 +842,9 @@ Blocks.MONSTER_EGG#4:
 Blocks.MONSTER_EGG#5:
   - Blocks.INFESTED_CHISELED_STONE_BRICKS
   - "infested_chiseled_stone_bricks"
+Blocks.MONSTER_EGG#6:
+  - Blocks.INFESTED_DEEPSLATE
+  - "infested_deepslate"
 Blocks.WOODEN_SLAB:
   - Blocks.OAK_SLAB
   - "#minecraft:wooden_slabs"
@@ -2199,6 +2249,9 @@ Blocks.BASALT:
 Blocks.POLISHED_BASALT:
   - Blocks.POLISHED_BASALT
   - "polished_basalt"
+Blocks.SMOOTH_BASALT:
+  - Blocks.SMOOTH_BASALT
+  - "smooth_basalt"
 Blocks.SOUL_TORCH:
   - Blocks.SOUL_TORCH
   - "soul_torch"
@@ -2433,6 +2486,366 @@ Blocks.CRACKED_NETHER_BRICKS:
 Blocks.QUARTZ_BRICKS:
   - Blocks.QUARTZ_BRICKS
   - "quartz_bricks"
+Blocks.CANDLE:
+  - Blocks.CANDLE
+  - "#minecraft:candles"
+Blocks.CANDLE#0:
+  - Blocks.CANDLE
+  - "candle"
+Blocks.CANDLE#1:
+  - Blocks.WHITE_CANDLE
+  - "white_candle"
+Blocks.CANDLE#2:
+  - Blocks.ORANGE_CANDLE
+  - "orange_candle"
+Blocks.CANDLE#3:
+  - Blocks.MAGENTA_CANDLE
+  - "magenta_candle"
+Blocks.CANDLE#4:
+  - Blocks.LIGHT_BLUE_CANDLE
+  - "light_blue_candle"
+Blocks.CANDLE#5:
+  - Blocks.YELLOW_CANDLE
+  - "yellow_candle"
+Blocks.CANDLE#6:
+  - Blocks.LIME_CANDLE
+  - "lime_candle"
+Blocks.CANDLE#7:
+  - Blocks.PINK_CANDLE
+  - "pink_candle"
+Blocks.CANDLE#8:
+  - Blocks.GRAY_CANDLE
+  - "gray_candle"
+Blocks.CANDLE#9:
+  - Blocks.LIGHT_GRAY_CANDLE
+  - "light_gray_candle"
+Blocks.CANDLE#10:
+  - Blocks.CYAN_CANDLE
+  - "cyan_candle"
+Blocks.CANDLE#11:
+  - Blocks.PURPLE_CANDLE
+  - "purple_candle"
+Blocks.CANDLE#12:
+  - Blocks.BLUE_CANDLE
+  - "blue_candle"
+Blocks.CANDLE#13:
+  - Blocks.BROWN_CANDLE
+  - "brown_candle"
+Blocks.CANDLE#14:
+  - Blocks.GREEN_CANDLE
+  - "green_candle"
+Blocks.CANDLE#15:
+  - Blocks.RED_CANDLE
+  - "red_candle"
+Blocks.CANDLE#16:
+  - Blocks.BLACK_CANDLE
+  - "black_candle"
+Blocks.CANDLE_CAKE:
+  - Blocks.CANDLE_CAKE
+  - "#minecraft:candle_cakes"
+Blocks.CANDLE_CAKE#0:
+  - Blocks.CANDLE_CAKE
+  - "candle_cake"
+Blocks.CANDLE_CAKE#1:
+  - Blocks.WHITE_CANDLE_CAKE
+  - "white_candle_cake"
+Blocks.CANDLE_CAKE#2:
+  - Blocks.ORANGE_CANDLE_CAKE
+  - "orange_candle_cake"
+Blocks.CANDLE_CAKE#3:
+  - Blocks.MAGENTA_CANDLE_CAKE
+  - "magenta_candle_cake"
+Blocks.CANDLE_CAKE#4:
+  - Blocks.LIGHT_BLUE_CANDLE_CAKE
+  - "light_blue_candle_cake"
+Blocks.CANDLE_CAKE#5:
+  - Blocks.YELLOW_CANDLE_CAKE
+  - "yellow_candle_cake"
+Blocks.CANDLE_CAKE#6:
+  - Blocks.LIME_CANDLE_CAKE
+  - "lime_candle_cake"
+Blocks.CANDLE_CAKE#7:
+  - Blocks.PINK_CANDLE_CAKE
+  - "pink_candle_cake"
+Blocks.CANDLE_CAKE#8:
+  - Blocks.GRAY_CANDLE_CAKE
+  - "gray_candle_cake"
+Blocks.CANDLE_CAKE#9:
+  - Blocks.LIGHT_GRAY_CANDLE_CAKE
+  - "light_gray_candle_cake"
+Blocks.CANDLE_CAKE#10:
+  - Blocks.CYAN_CANDLE_CAKE
+  - "cyan_candle_cake"
+Blocks.CANDLE_CAKE#11:
+  - Blocks.PURPLE_CANDLE_CAKE
+  - "purple_candle_cake"
+Blocks.CANDLE_CAKE#12:
+  - Blocks.BLUE_CANDLE_CAKE
+  - "blue_candle_cake"
+Blocks.CANDLE_CAKE#13:
+  - Blocks.BROWN_CANDLE_CAKE
+  - "brown_candle_cake"
+Blocks.CANDLE_CAKE#14:
+  - Blocks.GREEN_CANDLE_CAKE
+  - "green_candle_cake"
+Blocks.CANDLE_CAKE#15:
+  - Blocks.RED_CANDLE_CAKE
+  - "red_candle_cake"
+Blocks.CANDLE_CAKE#16:
+  - Blocks.BLACK_CANDLE_CAKE
+  - "black_candle_cake"
+Blocks.AMETHYST_BLOCK:
+  - Blocks.AMETHYST_BLOCK
+  - "amethyst_block"
+Blocks.BUDDING_AMETHYST:
+  - Blocks.BUDDING_AMETHYST
+  - "budding_amethyst"
+Blocks.AMETHYST_CLUSTER:
+  - Blocks.AMETHYST_CLUSTER
+  - "amethyst_cluster"
+Blocks.LARGE_AMETHYST_BUD:
+  - Blocks.LARGE_AMETHYST_BUD
+  - "large_amethyst_bud"
+Blocks.MEDIUM_AMETHYST_BUD:
+  - Blocks.MEDIUM_AMETHYST_BUD
+  - "medium_amethyst_bud"
+Blocks.SMALL_AMETHYST_BUD:
+  - Blocks.SMALL_AMETHYST_BUD
+  - "small_amethyst_bud"
+Blocks.TUFF:
+  - Blocks.TUFF
+  - "tuff"
+Blocks.CALCITE:
+  - Blocks.CALCITE
+  - "calcite"
+Blocks.TINTED_GLASS:
+  - Blocks.TINTED_GLASS
+  - "tinted_glass"
+Blocks.POWDER_SNOW:
+  - Blocks.POWDER_SNOW
+  - "powder_snow"
+Blocks.SCULK_SENSOR:
+  - Blocks.SCULK_SENSOR
+  - "sculk_sensor"
+Blocks.OXIDIZED_COPPER:
+  - Blocks.OXIDIZED_COPPER
+  - "oxidized_copper"
+Blocks.WEATHERED_COPPER:
+  - Blocks.WEATHERED_COPPER
+  - "weathered_copper"
+Blocks.EXPOSED_COPPER:
+  - Blocks.EXPOSED_COPPER
+  - "exposed_copper"
+Blocks.COPPER_BLOCK:
+  - Blocks.COPPER_BLOCK
+  - "copper_block"
+Blocks.OXIDIZED_CUT_COPPER:
+  - Blocks.OXIDIZED_CUT_COPPER
+  - "oxidized_cut_copper"
+Blocks.WEATHERED_CUT_COPPER:
+  - Blocks.WEATHERED_CUT_COPPER
+  - "weathered_cut_copper"
+Blocks.EXPOSED_CUT_COPPER:
+  - Blocks.EXPOSED_CUT_COPPER
+  - "exposed_cut_copper"
+Blocks.CUT_COPPER:
+  - Blocks.CUT_COPPER
+  - "cut_copper"
+Blocks.OXIDIZED_CUT_COPPER_STAIRS:
+  - Blocks.OXIDIZED_CUT_COPPER_STAIRS
+  - "oxidized_cut_copper_stairs"
+Blocks.WEATHERED_CUT_COPPER_STAIRS:
+  - Blocks.WEATHERED_CUT_COPPER_STAIRS
+  - "weathered_cut_copper_stairs"
+Blocks.EXPOSED_CUT_COPPER_STAIRS:
+  - Blocks.EXPOSED_CUT_COPPER_STAIRS
+  - "exposed_cut_copper_stairs"
+Blocks.CUT_COPPER_STAIRS:
+  - Blocks.CUT_COPPER_STAIRS
+  - "cut_copper_stairs"
+Blocks.OXIDIZED_CUT_COPPER_SLAB:
+  - Blocks.OXIDIZED_CUT_COPPER_SLAB
+  - "oxidized_cut_copper_slab"
+Blocks.WEATHERED_CUT_COPPER_SLAB:
+  - Blocks.WEATHERED_CUT_COPPER_SLAB
+  - "weathered_cut_copper_slab"
+Blocks.EXPOSED_CUT_COPPER_SLAB:
+  - Blocks.EXPOSED_CUT_COPPER_SLAB
+  - "exposed_cut_copper_slab"
+Blocks.CUT_COPPER_SLAB:
+  - Blocks.CUT_COPPER_SLAB
+  - "cut_copper_slab"
+Blocks.WAXED_COPPER_BLOCK:
+  - Blocks.WAXED_COPPER_BLOCK
+  - "waxed_copper_block"
+Blocks.WAXED_WEATHERED_COPPER:
+  - Blocks.WAXED_WEATHERED_COPPER
+  - "waxed_weathered_copper"
+Blocks.WAXED_EXPOSED_COPPER:
+  - Blocks.WAXED_EXPOSED_COPPER
+  - "waxed_exposed_copper"
+Blocks.WAXED_OXIDIZED_COPPER:
+  - Blocks.WAXED_OXIDIZED_COPPER
+  - "waxed_oxidized_copper"
+Blocks.WAXED_OXIDIZED_CUT_COPPER:
+  - Blocks.WAXED_OXIDIZED_CUT_COPPER
+  - "waxed_oxidized_cut_copper"
+Blocks.WAXED_WEATHERED_CUT_COPPER:
+  - Blocks.WAXED_WEATHERED_CUT_COPPER
+  - "waxed_weathered_cut_copper"
+Blocks.WAXED_EXPOSED_CUT_COPPER:
+  - Blocks.WAXED_EXPOSED_CUT_COPPER
+  - "waxed_exposed_cut_copper"
+Blocks.WAXED_CUT_COPPER:
+  - Blocks.WAXED_CUT_COPPER
+  - "waxed_cut_copper"
+Blocks.WAXED_OXIDIZED_CUT_COPPER_STAIRS:
+  - Blocks.WAXED_OXIDIZED_CUT_COPPER_STAIRS
+  - "waxed_oxidized_cut_copper_stairs"
+Blocks.WAXED_WEATHERED_CUT_COPPER_STAIRS:
+  - Blocks.WAXED_WEATHERED_CUT_COPPER_STAIRS
+  - "waxed_weathered_cut_copper_stairs"
+Blocks.WAXED_EXPOSED_CUT_COPPER_STAIRS:
+  - Blocks.WAXED_EXPOSED_CUT_COPPER_STAIRS
+  - "waxed_exposed_cut_copper_stairs"
+Blocks.WAXED_CUT_COPPER_STAIRS:
+  - Blocks.WAXED_CUT_COPPER_STAIRS
+  - "waxed_cut_copper_stairs"
+Blocks.WAXED_OXIDIZED_CUT_COPPER_SLAB:
+  - Blocks.WAXED_OXIDIZED_CUT_COPPER_SLAB
+  - "waxed_oxidized_cut_copper_slab"
+Blocks.WAXED_WEATHERED_CUT_COPPER_SLAB:
+  - Blocks.WAXED_WEATHERED_CUT_COPPER_SLAB
+  - "waxed_weathered_cut_copper_slab"
+Blocks.WAXED_EXPOSED_CUT_COPPER_SLAB:
+  - Blocks.WAXED_EXPOSED_CUT_COPPER_SLAB
+  - "waxed_exposed_cut_copper_slab"
+Blocks.WAXED_CUT_COPPER_SLAB:
+  - Blocks.WAXED_CUT_COPPER_SLAB
+  - "waxed_cut_copper_slab"
+Blocks.LIGHTNING_ROD:
+  - Blocks.LIGHTNING_ROD
+  - "lightning_rod"
+Blocks.POINTED_DRIPSTONE:
+  - Blocks.POINTED_DRIPSTONE
+  - "pointed_dripstone"
+Blocks.DRIPSTONE_BLOCK:
+  - Blocks.DRIPSTONE_BLOCK
+  - "dripstone_block"
+Blocks.CAVE_VINES:
+  - Blocks.CAVE_VINES
+  - "cave_vines"
+Blocks.CAVE_VINES_PLANT:
+  - Blocks.CAVE_VINES_PLANT
+  - "cave_vines_plant"
+Blocks.SPORE_BLOSSOM:
+  - Blocks.SPORE_BLOSSOM
+  - "spore_blossom"
+Blocks.AZALEA:
+  - Blocks.AZALEA
+  - "azalea"
+Blocks.FLOWERING_AZALEA:
+  - Blocks.FLOWERING_AZALEA
+  - "flowering_azalea"
+Blocks.MOSS_CARPET:
+  - Blocks.MOSS_CARPET
+  - "moss_carpet"
+Blocks.MOSS_BLOCK:
+  - Blocks.MOSS_BLOCK
+  - "moss_block"
+Blocks.BIG_DRIPLEAF:
+  - Blocks.BIG_DRIPLEAF
+  - "big_dripleaf"
+Blocks.BIG_DRIPLEAF_STEM:
+  - Blocks.BIG_DRIPLEAF_STEM
+  - "big_dripleaf_stem"
+Blocks.SMALL_DRIPLEAF:
+  - Blocks.SMALL_DRIPLEAF
+  - "small_dripleaf"
+Blocks.HANGING_ROOTS:
+  - Blocks.HANGING_ROOTS
+  - "hanging_roots"
+Blocks.ROOTED_DIRT:
+  - Blocks.ROOTED_DIRT
+  - "rooted_dirt"
+Blocks.DEEPSLATE:
+  - Blocks.DEEPSLATE
+  - "deepslate"
+Blocks.COBBLED_DEEPSLATE:
+  - Blocks.COBBLED_DEEPSLATE
+  - "cobbled_deepslate"
+Blocks.COBBLED_DEEPSLATE_STAIRS:
+  - Blocks.COBBLED_DEEPSLATE_STAIRS
+  - "cobbled_deepslate_stairs"
+Blocks.COBBLED_DEEPSLATE_SLAB:
+  - Blocks.COBBLED_DEEPSLATE_SLAB
+  - "cobbled_deepslate_slab"
+Blocks.COBBLED_DEEPSLATE_WALL:
+  - Blocks.COBBLED_DEEPSLATE_WALL
+  - "cobbled_deepslate_wall"
+Blocks.POLISHED_DEEPSLATE:
+  - Blocks.POLISHED_DEEPSLATE
+  - "polished_deepslate"
+Blocks.POLISHED_DEEPSLATE_STAIRS:
+  - Blocks.POLISHED_DEEPSLATE_STAIRS
+  - "polished_deepslate_stairs"
+Blocks.POLISHED_DEEPSLATE_SLAB:
+  - Blocks.POLISHED_DEEPSLATE_SLAB
+  - "polished_deepslate_slab"
+Blocks.POLISHED_DEEPSLATE_WALL:
+  - Blocks.POLISHED_DEEPSLATE_WALL
+  - "polished_deepslate_wall"
+Blocks.DEEPSLATE_TILES:
+  - Blocks.DEEPSLATE_TILES
+  - "deepslate_tiles"
+Blocks.DEEPSLATE_TILE_STAIRS:
+  - Blocks.DEEPSLATE_TILE_STAIRS
+  - "deepslate_tile_stairs"
+Blocks.DEEPSLATE_TILE_SLAB:
+  - Blocks.DEEPSLATE_TILE_SLAB
+  - "deepslate_tile_slab"
+Blocks.DEEPSLATE_TILE_WALL:
+  - Blocks.DEEPSLATE_TILE_WALL
+  - "deepslate_tile_wall"
+Blocks.DEEPSLATE_BRICKS:
+  - Blocks.DEEPSLATE_BRICKS
+  - "deepslate_bricks"
+Blocks.DEEPSLATE_BRICK_STAIRS:
+  - Blocks.DEEPSLATE_BRICK_STAIRS
+  - "deepslate_brick_stairs"
+Blocks.DEEPSLATE_BRICK_SLAB:
+  - Blocks.DEEPSLATE_BRICK_SLAB
+  - "deepslate_brick_slab"
+Blocks.DEEPSLATE_BRICK_WALL:
+  - Blocks.DEEPSLATE_BRICK_WALL
+  - "deepslate_brick_wall"
+Blocks.CHISELED_DEEPSLATE:
+  - Blocks.CHISELED_DEEPSLATE
+  - "chiseled_deepslate"
+Blocks.CRACKED_DEEPSLATE_BRICKS:
+  - Blocks.CRACKED_DEEPSLATE_BRICKS
+  - "cracked_deepslate_bricks"
+Blocks.CRACKED_DEEPSLATE_TILES:
+  - Blocks.CRACKED_DEEPSLATE_TILES
+  - "cracked_deepslate_tiles"
+Blocks.RAW_IRON_BLOCK:
+  - Blocks.RAW_IRON_BLOCK
+  - "raw_iron_block"
+Blocks.RAW_GOLD_BLOCK:
+  - Blocks.RAW_GOLD_BLOCK
+  - "raw_gold_block"
+Blocks.RAW_COPPER_BLOCK:
+  - Blocks.RAW_COPPER_BLOCK
+  - "raw_copper_block"
+Blocks.LIGHT:
+  - Blocks.LIGHT
+  - "light"
+Blocks.POTTED_AZALEA_BUSH:
+  - Blocks.POTTED_AZALEA
+  - "potted_azalea_bush"
+Blocks.POTTED_FLOWERING_AZALEA_BUSH:
+  - Blocks.POTTED_FLOWERING_AZALEA
+  - "potted_flowering_azalea_bush"
 Items.DYE:
   - Items.INK_SAC
   - "ink_sac"
@@ -2529,6 +2942,9 @@ Items.EMERALD:
 Items.QUARTZ:
   - Items.QUARTZ
   - "quartz"
+Items.COPPER_INGOT:
+  - Items.COPPER_INGOT
+  - "copper_ingot"
 Items.NETHER_STAR:
   - Items.NETHER_STAR
   - "nether_star"
@@ -3469,7 +3885,7 @@ Items.THING_BANNER_PATTERN:
   - Items.MOJANG_BANNER_PATTERN
   - "mojang_banner_pattern"
 Items.GLOBE_BANNER_PATTERN:
-  - Items.GLOBE_BANNER_PATTERN
+  - Items.GLOBE_BANNER_PATTER
   - "globe_banner_pattern"
 Items.SWEET_BERRIES:
   - Items.SWEET_BERRIES
@@ -3546,3 +3962,45 @@ Items.MUSIC_DISC_PIGSTEP:
 Items.PIGLIN_BANNER_PATTERN:
   - Items.PIGLIN_BANNER_PATTERN
   - "piglin_banner_pattern"
+Items.AXOLOTL_SPAWN_EGG:
+  - Items.AXOLOTL_SPAWN_EGG
+  - "axolotl_spawn_egg"
+Items.GLOW_SQUID_SPAWN_EGG:
+  - Items.GLOW_SQUID_SPAWN_EGG
+  - "glow_squid_spawn_egg"
+Items.GOAT_SPAWN_EGG:
+  - Items.GOAT_SPAWN_EGG
+  - "goat_spawn_egg"
+Items.AXOLOTL_BUCKET:
+  - Items.AXOLOTL_BUCKET
+  - "axolotl_bucket"
+Items.POWDER_SNOW_BUCKET:
+  - Items.POWDER_SNOW_BUCKET
+  - "powder_snow_bucket"
+Items.GLOW_BERRIES:
+  - Items.GLOW_BERRIES
+  - "glow_berries"
+Items.GLOW_INK_SAC:
+  - Items.GLOW_INK_SAC
+  - "glow_ink_sac"
+Items.GLOW_ITEM_FRAME:
+  - Items.GLOW_ITEM_FRAME
+  - "glow_item_frame"
+Items.AMETHYST_SHARD:
+  - Items.AMETHYST_SHARD
+  - "amethyst_shard"
+Items.BUNDLE:
+  - Items.BUNDLE
+  - "bundle"
+Items.RAW_IRON:
+  - Items.RAW_IRON
+  - "raw_iron"
+Items.RAW_GOLD:
+  - Items.RAW_GOLD
+  - "raw_gold"
+Items.RAW_COPPER:
+  - Items.RAW_COPPER
+  - "raw_copper"
+Items.SPYGLASS:
+  - Items.SPYGLASS
+  - "spyglass"
