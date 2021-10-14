@@ -12,7 +12,7 @@
         <#assign depsBuilder += ["\"" + key + "\", " + value]>
     </#list>
 
-    ${(name)}Procedure.execute(ImmutableMap.<String, Object>builder()<#list depsBuilder as dep>.put(${dep})</#list>.build())
+    ${(name)}Procedure.execute(com.google.common.collect.ImmutableMap.<String, Object>builder()<#list depsBuilder as dep>.put(${dep})</#list>.build())
 </#macro>
 
 <#macro procedureToCode name dependencies customVals={}>
