@@ -3,7 +3,7 @@
 ## 1.6
 
 * Added base support for Fabric 1.17.1
-* Added support for mod elements: advancement, recipe
+* Added support for mod elements: advancement, loot table, recipe
 
 ## 1.5.1
 
