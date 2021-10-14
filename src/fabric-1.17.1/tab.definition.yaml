@@ -1,5 +1,5 @@
 localizationkeys:
-  - key: itemGroup.tab@registryname
+  - key: itemGroup.@modid.@registryname
     mapto: name
 
 global_templates:
