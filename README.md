@@ -3,10 +3,10 @@ A plugin for [MCreator](https://mcreator.net/), a code generator to create Minec
 
 This project is not official. It is not affiliated with the respective owners and maintainers of Fabric, Minecraft, or MCreator. Do not expect any official support from their communities.
 
-**The Current targeted Minecraft Version is 1.17.1**
+**The current targeted Minecraft version is 1.17.1.**
+**The 1.17.1 version is still W.I.P. to get features of the last 1.16.5 version.**
 
 ## Features
-Mod elements listed are not all fully implemented
 Unsupported fields in full supported mod elements are features from Forge only. They are not available with Fabric yet.
 ### Full supported
 * Advancement
@@ -33,7 +33,7 @@ Unsupported fields in full supported mod elements are features from Forge only. 
 * Structure spawn
 * Tool
 
-### Partial support (almost fully supported)
+### Partially supported (almost completed)
 * Armor
 * Biome
 * Block
@@ -42,12 +42,12 @@ Unsupported fields in full supported mod elements are features from Forge only. 
 * Plant
 * Ranged item
   
-### Partial support
+### Partially supported
 * Procedure
 * Variables
   // Global scopes, except Global session, are missing.
 
-### Not supported
+### Unsupported
 * Fluid
 
 ## Installation Instructions
