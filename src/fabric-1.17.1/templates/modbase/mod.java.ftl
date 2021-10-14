@@ -44,6 +44,7 @@ public class ${JavaModName} implements ModInitializer {
 		LOGGER.info("Initializing ${JavaModName}");
 
 		<#if w.hasElementsOfType("fuel")>${JavaModName}Fuels.load();</#if>
+		<#if w.hasSounds()>${JavaModName}Sounds.load();</#if>
 		<#if w.hasElementsOfType("tab")>${JavaModName}Tabs.load();</#if>
 	}
 }
