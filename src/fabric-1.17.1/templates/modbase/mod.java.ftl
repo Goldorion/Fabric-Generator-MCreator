@@ -46,6 +46,7 @@ public class ${JavaModName} implements ModInitializer {
 		<#if w.hasElementsOfType("fuel")>${JavaModName}Fuels.load();</#if>
 		<#if w.hasElementsOfType("tab")>${JavaModName}Tabs.load();</#if>
 		<#if w.hasElementsOfType("gamerule")>${JavaModName}GameRules.load();</#if>
+		<#if w.hasElementsOfType("painting")>${JavaModName}Paintings.load();</#if>
 	}
 }
 <#-- @formatter:on -->

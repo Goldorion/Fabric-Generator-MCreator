@@ -26,7 +26,7 @@ package ${package}.init;
 
 public class ${JavaModName}Paintings {
 
-	static {
+	public static void load() {
 		<#list paintings as painting>
 		    Registry.register(Registry.PAINTING_MOTIVE, new Identifier("${modid}", "${painting.getModElement().getRegistryName()}"), new PaintingMotive(${painting.width}, ${painting.height}));
         </#list>
