@@ -3,7 +3,7 @@
 ## 1.6
 
 * Added base support for Fabric 1.17.1
-* Added support for mod elements: advancement, creative tab, custom element, fuel, function, game rule, loot table, recipe, tag
+* Added support for mod elements: advancement, creative tab, custom element, fuel, function, game rule, loot table, painting, recipe, tag
 
 ## 1.5.1
 
