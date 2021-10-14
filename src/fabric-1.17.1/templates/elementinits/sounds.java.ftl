@@ -34,10 +34,10 @@ public class ${JavaModName}Sounds {
 	    public static SoundEvent ${sound?upper_case} = new SoundEvent(new Identifier("${modid}", "${sound}"));
 	</#list>
 
-	public static void load() {
+	static {
 	    <#list sounds as sound>
             Registry.register(Registry.SOUND_EVENT, new Identifier("${modid}", "${sound}"), ${sound?upper_case});
-        </#list>
+	    </#list>
 	}
 
 }
