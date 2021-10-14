@@ -1,11 +1,14 @@
 # Changelogs:
 
 ## 1.6
+
 * Added base support for Fabric 1.17.1
+* Added support for mod elements: advancement
 
 ## 1.5.1
+
 * [Bugfix #150] Entities with the Biped model now display equipped items
-  * The fix was applied to chicken models
+    * The fix was applied to chicken models
 * [Bugfix] Some AI task blocks prevented the entity to build
 
 ## 1.5
