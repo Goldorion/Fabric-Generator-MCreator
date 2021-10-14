@@ -6,3 +6,5 @@ global_templates:
   - template: elementinits/tabs.java.ftl
     writer: java
     name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameTabs.java"
+
+field_exclusions: [ showSearch ]
