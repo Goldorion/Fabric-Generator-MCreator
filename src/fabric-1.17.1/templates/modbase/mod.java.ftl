@@ -41,6 +41,8 @@ public class ${JavaModName} implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		LOGGER.info("Initializing ${JavaModName}");
+
+		<#if w.hasElementsOfType("fuel")>${JavaModName}Fuels.load();</#if>
 	}
 }
 <#-- @formatter:on -->
