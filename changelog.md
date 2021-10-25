@@ -1,5 +1,8 @@
 # Changelogs:
 
+## 1.5.2
+* [Bugfix #164] Food elements did not generate files
+
 ## 1.5.1
 * [Bugfix #150] Entities with the Biped model now display equipped items
   * The fix was applied to chicken models

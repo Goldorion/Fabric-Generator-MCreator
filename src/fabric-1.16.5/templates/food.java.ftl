@@ -100,6 +100,7 @@ public class ${name}Item extends Item {
         World world = target.world;
 			<@procedureOBJToCode data.onEntityHitWith/>
         return true;
+import net.minecraft.sounds.SoundEvent;
     }
 </#if>
 
@@ -134,7 +135,7 @@ public class ${name}Item extends Item {
         <#else>
             <@procedureOBJToCode data.onRightClickedOnBlock/>
             return retval;
-        </#if
+        </#if>
     }
 </#if>
 
