@@ -1,1 +1,1 @@
-(world.getBlockState(new BlockPos((int)${input$x},(int)${input$y},(int)${input$z})).isSolidBlock())
+(world.getBlockState(new BlockPos((int)${input$x},(int)${input$y},(int)${input$z})).isSolidBlock(world, new BlockPos((int)${input$x},(int)${input$y},(int)${input$z})))

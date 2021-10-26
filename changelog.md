@@ -2,6 +2,7 @@
 
 ## 1.5.3
 * [Bugfix] Fix Get fuel power of procedure block
+* [Bugfix] Fix Is blockat solid procedure block
 * [Bugfix] Fix music disc build error
 * [Bugfix #166] Fix the On food eaten food trigger
 
