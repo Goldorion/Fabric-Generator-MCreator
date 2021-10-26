@@ -23,7 +23,7 @@ package ${package}.item;
 
 public class ${name}MusicDisc extends MusicDiscItem {
     public ${name}MusicDisc() {
-			super(0, new SoundEvent(new Identifier("${data.music}"),
+			super(0, new SoundEvent(new Identifier("${data.music}")),
                     new FabricItemSettings().group(${data.creativeTab}).maxCount(1).rarity(Rarity.RARE));
     }
 
