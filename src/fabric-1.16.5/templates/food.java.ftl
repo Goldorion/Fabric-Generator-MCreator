@@ -142,11 +142,11 @@ import net.minecraft.sounds.SoundEvent;
     <#if hasProcedure(data.onEaten)>
         @Override
         public ItemStack finishUsing(ItemStack itemStack, World world, LivingEntity entity) {
-            int x = (int) entity.getPosX();
-            int y = (int) entity.getPosY();
-            int z = (int) entity.getPosZ();
+            int x = (int) entity.getX();
+            int y = (int) entity.getY();
+            int z = (int) entity.getZ();
 			<@procedureOBJToCode data.onEaten/>
-            return super.onItemUseFinish(itemStack, world, entity);
+            return super.finishUsing(itemStack, world, entity);
         }
     </#if>
 
