@@ -4,6 +4,6 @@
         if(be == null) {
             return "";
         }
-        return be.getTileData().getString(tag);
+        return be.toInitialChunkDataNbt().getString(tag);
     }
 }.getValue(new BlockPos((int)${input$x},(int)${input$y},(int)${input$z}), ${input$tagName}))

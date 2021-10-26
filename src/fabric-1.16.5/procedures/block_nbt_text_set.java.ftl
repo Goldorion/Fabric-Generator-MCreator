@@ -3,7 +3,7 @@ if(!world.isClient()) {
     BlockEntity _be = world.getBlockEntity(_bp);
     BlockState _bs = world.getBlockState(_bp);
     if(_be != null){
-        _be.toTag(new CompoundTag()).putString(${input$tagName}, ${input$tagValue});
+        _be.writeNbt(new NbtCompound()).putString(${input$tagName}, ${input$tagValue});
     }
     world.onBlockChanged(_bp, _bs, _bs);
 }

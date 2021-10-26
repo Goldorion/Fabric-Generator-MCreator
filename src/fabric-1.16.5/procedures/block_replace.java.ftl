@@ -7,7 +7,7 @@
         BlockState _bso = world.getBlockState(_bp);
         for(Map.Entry<Property<?>, Comparable<?>> entry : _bso.getEntries().entrySet()) {
             Property _property = _bs.getBlock().getStateManager().getProperty(entry.getKey().getName());
-            if (_bs.has(_property)){
+            if (_bs.contains(_property)){
                 _bs = _bs.with(_property, (Comparable) entry.getValue());
             }
         }
@@ -15,10 +15,10 @@
 
     <#if field$nbt?lower_case == "true">
         BlockEntity _te = world.getBlockEntity(_bp);
-        CompoundTag _bnbt = null;
+        NbtCompound _bnbt = null;
         if(_te != null) {
-            _bnbt = _te.toTag(new CompoundNBT());
-            _te.remove();
+            _bnbt = _te.writeNbt(new NbtCompound());
+            _te.markRemoved();
         }
     </#if>
 
