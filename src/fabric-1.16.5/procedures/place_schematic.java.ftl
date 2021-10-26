@@ -5,10 +5,10 @@ if(world instanceof ServerWorld) {
 	if(template!=null){
 		template.place((ServerWorld) world,
 			new BlockPos((int) ${input$x},(int) ${input$y},(int) ${input$z}),
-				new PlacementSettings()
+				new StructurePlacementData()
 						.setRotation(BlockRotation.${field$rotation!'NONE'})
 						.setMirror(BlockMirror.${field$mirror!'NONE'})
-						.setChunk(null)
-						.setIgnoreEntities(false), ((World) world).rand);
+						.setChunkPosition(null)
+						.setIgnoreEntities(false), ((World) world).random);
 	}
 }

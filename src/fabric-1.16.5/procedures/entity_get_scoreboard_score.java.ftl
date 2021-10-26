@@ -2,9 +2,9 @@
 	public int getScore(String score){
 		if(${input$entity} instanceof PlayerEntity) {
 			Scoreboard _sc = ((PlayerEntity)${input$entity}).getScoreboard();
-			ScoreObjective _so = _sc.getNullableObjective(score);
+			ScoreboardObjective _so = _sc.getNullableObjective(score);
 			if (_so != null) {
-				ScoreboardPlayerScore _scr = _sc.getObjective(((PlayerEntity)${input$entity}).getEntityName(), _so);
+				ScoreboardPlayerScore _scr = _sc.getPlayerScore(${input$entity}.getEntityName(), _so);
 				return _scr.getScore();
 			}
 		}

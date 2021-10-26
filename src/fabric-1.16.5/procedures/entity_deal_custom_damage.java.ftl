@@ -1,3 +1,3 @@
 if (${input$entity} instanceof LivingEntity) {
-    ((LivingEntity) ${input$entity}).damage(new DamageSource(${input$localization_text}).bypassesArmor(), (float) ${input$damage_number});
+    ((LivingEntity) ${input$entity}).damage(new EntityDamageSource(${input$localization_text}, ${input$entity}), (float) ${input$damage_number});
 }

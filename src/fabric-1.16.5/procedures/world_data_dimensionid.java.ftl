@@ -1,1 +1,1 @@
-(world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD)
+(world instanceof World ? (((World) world).getRegistryKey()) : World.OVERWORLD)

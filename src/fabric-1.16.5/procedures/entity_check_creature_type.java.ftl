@@ -1,1 +1,1 @@
-(${input$entity} instanceof LivingEntity ? (((LivingEntity) ${input$entity}).getGroup() == EntityGroup.${field$type}) : false)
+(${input$entity} instanceof LivingEntity && (((LivingEntity) ${input$entity}).getGroup() == EntityGroup.${field$type?replace("UNDEFINED", "DEFAULT")}))

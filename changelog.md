@@ -1,7 +1,7 @@
 # Changelogs:
 
 ## 1.5.3
-* [Bugfix] Fix Get fuel power of, Is blockat solid, replace block and get/set logic/text block NBT Tag of block procedure blocks
+* [Bugfix] Fix Get fuel power of, Is blockat solid, replace block, get/set logic/text block NBT Tag of block, get enchantment level of itemstack, get smelting result, place structure, run function, set global spawn, set time, spawn item entity, get biome at, get dimension id procedure blocks
 * [Bugfix] Fix music disc build error
 * [Bugfix #166] Fix the On food eaten food trigger
 

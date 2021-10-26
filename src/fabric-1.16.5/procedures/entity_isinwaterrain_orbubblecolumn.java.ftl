@@ -1,1 +1,1 @@
-(${input$entity}.isInWaterRainOrBubbleColumn())
+(${input$entity}.isTouchingWaterOrRain())
