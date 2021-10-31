@@ -1,10 +1,10 @@
 templates:
   - template: potioneffect.java.ftl
-    name: "@SRCROOT/@BASEPACKAGEPATH/potion/@NAMEStatusEffect.java"
+    name: "@SRCROOT/@BASEPACKAGEPATH/potion/@NAMEMobEffect.java"
 
 global_templates:
   - template: elementinits/potioneffects.java.ftl
-    name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameStatusEffects.java"
+    name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameMobEffects.java"
 
 localizationkeys:
   - key: effect.@modid.@registryname

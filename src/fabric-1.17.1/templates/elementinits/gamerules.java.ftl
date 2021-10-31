@@ -28,9 +28,9 @@ public class ${JavaModName}GameRules {
 
     <#list gamerules as gamerule>
 	    <#if gamerule.type == "Number">
-    	    public static GameRules.Key<GameRules.IntRule> ${gamerule.getModElement().getRegistryNameUpper()};
+    	    public static GameRules.Key<GameRules.IntegerValue> ${gamerule.getModElement().getRegistryNameUpper()};
         <#else>
-    	    public static GameRules.Key<GameRules.BooleanRule> ${gamerule.getModElement().getRegistryNameUpper()};
+    	    public static GameRules.Key<GameRules.BooleanValue> ${gamerule.getModElement().getRegistryNameUpper()};
         </#if>
     </#list>
 

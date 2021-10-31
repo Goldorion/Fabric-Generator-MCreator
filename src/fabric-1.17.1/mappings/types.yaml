@@ -5,9 +5,9 @@ logic: boolean
 blockstate: BlockState
 itemstack: ItemStack
 direction: Direction
-world: World
+world: LevelAccessor
 entity: Entity
 map: HashMap
 advancement: Advancement
-dimensiontype: RegistryKey<World>
-actionresulttype: ActionResult
+dimensiontype: ResourceKey<Level>
+actionresulttype: InteractionResult

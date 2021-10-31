@@ -1,7 +1,7 @@
 public ${name}Procedure() {
-	ServerTickEvents.END_WORLD_TICK.register((world) -> {
+	ServerTickEvents.END_WORLD_TICK.register((level) -> {
 		Map<String, Object> dependencies = new HashMap<>();
-		dependencies.put("world",world);
+		dependencies.put("world", level);
 		execute(dependencies);
 	});
 }

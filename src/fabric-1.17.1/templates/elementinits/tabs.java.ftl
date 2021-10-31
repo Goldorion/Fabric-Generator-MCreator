@@ -29,13 +29,13 @@ package ${package}.init;
 public class ${JavaModName}Tabs {
 
     <#list tabs as tab>
-        public static ItemGroup TAB_${tab.getModElement().getRegistryNameUpper()};
+        public static CreativeModeTab TAB_${tab.getModElement().getRegistryNameUpper()};
     </#list>
 
 	public static void load() {
         <#list tabs as tab>
         TAB_${tab.getModElement().getRegistryNameUpper()} = FabricItemGroupBuilder
-                    .create(new Identifier("${modid}","${tab.getModElement().getRegistryName()}"))
+                    .create(new ResourceLocation("${modid}","${tab.getModElement().getRegistryName()}"))
                     .icon(()-> ${mappedMCItemToItemStackCode(tab.icon, 1)})
                     .build();
         </#list>

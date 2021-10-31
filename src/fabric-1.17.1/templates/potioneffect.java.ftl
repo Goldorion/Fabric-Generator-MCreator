@@ -21,70 +21,69 @@ along with Fabric-Generator-MCreator.  If not, see <https://www.gnu.org/licenses
 
 package ${package}.potion;
 
-public class ${name}StatusEffect extends StatusEffect {
+public class ${name}MobEffect extends MobEffect {
 
-	public ${name}StatusEffect() {
-		super(
-			StatusEffectCategory.<#if data.isBad>HARMFUL<#elseif data.isBenefitical>BENEFICIAL<#else>NEUTRAL</#if>,
-			${data.color.getRGB()});
+	public ${name}MobEffect() {
+		super(MobEffectCategory.<#if data.isBad>HARMFUL<#elseif data.isBenefitical>BENEFICIAL<#else>NEUTRAL</#if>, ${data.color.getRGB()});
 	}
-	
-	@Override public boolean isInstant() {
-        return ${data.isInstant};
-    }
+
+	@Override public String getDescriptionId() {
+		return "effect.${modid}.${registryname}";
+	}
+
+	<#if data.isInstant>
+	    @Override public boolean isInstantenous() {
+	   	    return true;
+   	    }
+   	</#if>
 
 	<#if hasProcedure(data.onStarted)>
-	    <#if data.isInstant>
-		    @Override
-		    public void applyInstantEffect(Entity source, Entity indirectSource, LivingEntity entity, int amplifier, double health) {
-				World world = entity.world;
-				double x = entity.getX();
-				double y = entity.getY();
-				double z = entity.getZ();
-				<@procedureOBJToCode data.onStarted/>
-			}
+		<#if data.isInstant>
+		    @Override public void applyInstantenousEffect(Entity source, Entity indirectSource, LivingEntity entity, int amplifier, double health) {
+			    Level world = entity.level;
+			    double x = entity.getX();
+			    double y = entity.getY();
+			    double z = entity.getZ();
+			    <@procedureOBJToCode data.onStarted/>
+		    }
 		<#else>
-			@Override
-			public void onApplied(LivingEntity entity, AttributeContainer attributeMapIn, int amplifier) {
-				World world = entity.world;
-				double x = entity.getX();
-				double y = entity.getY();
-				double z = entity.getZ();
-				<@procedureOBJToCode data.onStarted/>
-			}
-			</#if>
+		    @Override public void addAttributeModifiers(LivingEntity entity, AttributeMap attributeMap, int amplifier) {
+			    Level world = entity.level;
+			    double x = entity.getX();
+			    double y = entity.getY();
+			    double z = entity.getZ();
+			    <@procedureOBJToCode data.onStarted/>
+		    }
 		</#if>
-
-    <#if hasProcedure(data.onExpired)>
-		@Override
-		public void onRemoved(LivingEntity entity, AttributeContainer attributeMapIn, int amplifier) {
-    		super.onRemoved(entity, attributeMapIn, amplifier);
-    		World world = entity.world;
-			double x = entity.getX();
-			double y = entity.getY();
-			double z = entity.getZ();
-			<@procedureOBJToCode data.onExpired/>
-		}
 	</#if>
 
 	<#if hasProcedure(data.onActiveTick)>
-	    @Override
-	    public void applyUpdateEffect(LivingEntity entity, int amplifier) {
-	        World world = entity.world;
-			double x = entity.getX();
-			double y = entity.getY();
-			double z = entity.getZ();
+	    @Override public void applyEffectTick(LivingEntity entity, int amplifier) {
+		    Level world = entity.level;
+		    double x = entity.getX();
+		    double y = entity.getY();
+		    double z = entity.getZ();
 		    <@procedureOBJToCode data.onActiveTick/>
-	    }
+	}
 	</#if>
 
-	@Override
-	public boolean canApplyUpdateEffect(int duration, int amplifier) {
-	    <#if hasProcedure(data.activeTickCondition)>
-			return <@procedureOBJToConditionCode data.activeTickCondition/>;
-		<#else>
-			return true;
-		</#if>
+   	<#if hasProcedure(data.onExpired)>
+	    @Override public void removeAttributeModifiers(LivingEntity entity, AttributeMap attributeMap, int amplifier) {
+   		    super.removeAttributeModifiers(entity, attributeMap, amplifier);
+   		    Level world = entity.level;
+		    double x = entity.getX();
+		    double y = entity.getY();
+		    double z = entity.getZ();
+		    <@procedureOBJToCode data.onExpired/>
+	}
+	</#if>
+
+	@Override public boolean isDurationEffectTick(int duration, int amplifier) {
+		    <#if hasProcedure(data.activeTickCondition)>
+		        return <@procedureOBJToConditionCode data.activeTickCondition/>;
+		    <#else>
+		        return true;
+		    </#if>
 	}
 }
 <#-- @formatter:on -->

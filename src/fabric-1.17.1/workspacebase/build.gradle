@@ -11,7 +11,7 @@ group = 'com.yourname.modid'
 
 dependencies {
     minecraft "com.mojang:minecraft:1.17.1"
-    mappings "net.fabricmc:yarn:1.17.1+build.63:v2"
+    mappings loom.officialMojangMappings()
     modImplementation "net.fabricmc:fabric-loader:0.12.4"
 
     //Fabric api

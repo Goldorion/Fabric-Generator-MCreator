@@ -26,17 +26,15 @@
 
 package ${package}.init;
 
-import net.minecraft.sound.SoundEvent;
-
 public class ${JavaModName}Sounds {
 
 	<#list sounds as sound>
-	    public static SoundEvent ${sound?upper_case} = new SoundEvent(new Identifier("${modid}", "${sound}"));
+	    public static SoundEvent ${sound?upper_case} = new SoundEvent(new ResourceLocation("${modid}", "${sound}"));
 	</#list>
 
 	static {
 	    <#list sounds as sound>
-            Registry.register(Registry.SOUND_EVENT, new Identifier("${modid}", "${sound}"), ${sound?upper_case});
+            Registry.register(Registry.SOUND_EVENT, new ResourceLocation("${modid}", "${sound}"), ${sound?upper_case});
 	    </#list>
 	}
 

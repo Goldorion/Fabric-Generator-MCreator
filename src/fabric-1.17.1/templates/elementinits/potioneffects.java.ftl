@@ -24,15 +24,15 @@
 
 package ${package}.init;
 
-public class ${JavaModName}StatusEffects {
+public class ${JavaModName}MobEffects {
 
 	<#list potioneffects as effect>
-	    public static StatusEffect ${effect.getModElement().getRegistryNameUpper()} = new ${effect.getModElement().getName()}StatusEffect();
+	    public static MobEffect ${effect.getModElement().getRegistryNameUpper()} = new ${effect.getModElement().getName()}MobEffect();
 	</#list>
 
 	static {
 	    <#list potioneffects as effect>
-	        Registry.register(Registry.STATUS_EFFECT, new Identifier("${modid}", "${effect.getModElement().getRegistryName()}"), ${effect.getModElement().getRegistryNameUpper()});
+	        Registry.register(Registry.MOB_EFFECT, new ResourceLocation("${modid}", "${effect.getModElement().getRegistryName()}"), ${effect.getModElement().getRegistryNameUpper()});
         </#list>
 	}
 }

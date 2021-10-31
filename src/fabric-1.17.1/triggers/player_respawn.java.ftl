@@ -4,7 +4,7 @@ public ${name}Procedure() {
 		dependencies.put("x", newPlayer.getX());
 		dependencies.put("y", newPlayer.getY());
 		dependencies.put("z", newPlayer.getZ());
-		dependencies.put("world", newPlayer.world);
+		dependencies.put("world", newPlayer.level);
 		dependencies.put("entity", newPlayer);
 		dependencies.put("oldEntity", oldPlayer);
 		execute(dependencies);

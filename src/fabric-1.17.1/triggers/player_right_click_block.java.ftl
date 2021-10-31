@@ -1,15 +1,12 @@
 public ${name}Procedure() {
-	UseBlockCallback.EVENT.register((player, world, hand, hitResult) -> {
+	UseBlockCallback.EVENT.register((player, level, hand, hitResult) -> {
 		Map<String, Object> dependencies = new HashMap<>();
-		double i=(int) player.getX();
-		double j=(int) player.getY();
-		double k=(int) player.getZ();
-		dependencies.put("world",world);
-		dependencies.put("entity" ,player);
-		dependencies.put("x" ,i);
-		dependencies.put("y" ,j);
-		dependencies.put("z" ,k);
+		dependencies.put("world",level);
+		dependencies.put("entity", player);
+		dependencies.put("x", player.getX());
+		dependencies.put("y", player.getY());
+		dependencies.put("z", player.getZ());
 		execute(dependencies);
-		return ActionResult.PASS;
+		return InteractionResult.PASS;
 	});
 }

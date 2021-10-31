@@ -1,8 +1,8 @@
-_default: SpawnGroup.MONSTER
-monster: SpawnGroup.MONSTER
-creature: SpawnGroup.CREATURE
-ambient: SpawnGroup.AMBIENT
-waterCreature: SpawnGroup.WATER_CREATURE
-waterAmbient: SpawnGroup.WATER_AMBIENT
-undergroundWaterCreature: SpawnGroup.UNDERGROUND_WATER_CREATURE
-misc: SpawnGroup.MISC
+_default: MobCategory.MONSTER
+monster: MobCategory.MONSTER
+creature: MobCategory.CREATURE
+ambient: MobCategory.AMBIENT
+undergroundWaterCreature: MobCategory.UNDERGROUND_WATER_CREATURE
+waterCreature: MobCategory.WATER_CREATURE
+waterAmbient: MobCategory.WATER_AMBIENT
+misc: MobCategory.MISC

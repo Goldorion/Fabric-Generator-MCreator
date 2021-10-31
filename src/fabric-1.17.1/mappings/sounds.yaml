@@ -587,8 +587,8 @@ ui.toast.out: ui.toast.out
 ui.toast.challenge_complete: ui.toast.challenge_complete
 weather.rain: weather.rain
 weather.rain.above: weather.rain.above
-item.axe.scrape: item.axe.scrape
 item.axe.strip: item.axe.strip
+item.axe.scrape: item.axe.scrape
 block.bamboo.break: block.bamboo.break
 block.bamboo.fall: block.bamboo.fall
 block.bamboo.hit: block.bamboo.hit
@@ -758,7 +758,7 @@ block.smoker.smoke: block.smoker.smoke
 entity.squid.squirt: entity.squid.squirt
 block.sweet_berry_bush.break: block.sweet_berry_bush.break
 block.sweet_berry_bush.place: block.sweet_berry_bush.place
-item.sweet_berries.pick_from_bush: item.sweet_berries.pick_from_bush
+item.sweet_berries.pick_from_bush: block.sweet_berry_bush.pick_berries
 item.trident.hit: item.trident.hit
 item.trident.hit_ground: item.trident.hit_ground
 item.trident.return: item.trident.return
