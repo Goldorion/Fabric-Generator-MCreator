@@ -1,0 +1,14 @@
+templates:
+  - template: biome.java.ftl
+    name: "@SRCROOT/@BASEPACKAGEPATH/world/biome/@NAMEBiome.java"
+
+global_templates:
+  - template: elementinits/biomes.java.ftl
+    writer: java
+    name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameBiomes.java"
+
+localizationkeys:
+  - key: biome.@modid.@registryname
+    mapto: name
+
+field_exclusions: [ treeVines, treeFruits ]
