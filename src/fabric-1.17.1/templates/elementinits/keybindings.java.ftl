@@ -18,18 +18,27 @@
 
 <#-- @formatter:off -->
 
+<#include "../procedures.java.ftl">
+
 /*
  *    MCreator note: This file will be REGENERATED on each build.
  */
 
 package ${package}.init;
 
-public class ${JavaModName}Commands {
+public class ${JavaModName}KeyMappings {
+
+    <#list keybinds as keybind>
+	    public static final KeyMapping ${keybind.getModElement().getRegistryNameUpper()} = new KeyMapping(
+			    "key.${modid}.${keybind.getModElement().getRegistryName()}", GLFW.GLFW_KEY_${generator.map(keybind.triggerKey, "keybuttons")},
+			    "key.categories.${keybind.keyBindingCategoryKey}");
+    </#list>
 
 	public static void load() {
-	    CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> {
-            <#list commands as command>
-        	    ${command.getModElement().getName()}Command.register(dispatcher);
+	    ClientTickEvents.END_CLIENT_TICK.register((client) -> {
+            <#list keybinds as keybind>
+			    if(${keybind.getModElement().getRegistryNameUpper()}.isDown() || ${keybind.getModElement().getRegistryNameUpper()}.consumeClick())
+				    ${keybind.getModElement().getName()}Message.pressAction(client.player, ${keybind.getModElement().getRegistryNameUpper()});
             </#list>
         });
 	}

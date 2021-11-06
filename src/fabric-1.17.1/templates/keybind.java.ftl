@@ -17,23 +17,37 @@
 -->
 
 <#-- @formatter:off -->
+<#include "procedures.java.ftl">
 
-/*
- *    MCreator note: This file will be REGENERATED on each build.
- */
+package ${package}.network;
 
-package ${package}.init;
+import ${package}.${JavaModName};
 
-public class ${JavaModName}Commands {
+public class ${name}Message {
 
-	public static void load() {
-	    CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> {
-            <#list commands as command>
-        	    ${command.getModElement().getName()}Command.register(dispatcher);
-            </#list>
-        });
-	}
+	<#if hasProcedure(data.onKeyPressed) || hasProcedure(data.onKeyReleased)>
+    	public static void pressAction(Player entity, KeyMapping key) {
+    		Level world = entity.level;
+    		double x = entity.getX();
+    		double y = entity.getY();
+    		double z = entity.getZ();
 
+    		// security measure to prevent arbitrary chunk generation
+    		if (!world.hasChunkAt(entity.blockPosition()))
+    			return;
+
+    		<#if hasProcedure(data.onKeyPressed)>
+    		    if(key.isDown()) {
+    			    <@procedureOBJToCode data.onKeyPressed/>
+    		    }
+    		</#if>
+
+    		<#if hasProcedure(data.onKeyReleased)>
+                if(key.consumeClick()) {
+    			    <@procedureOBJToCode data.onKeyReleased/>
+    		    }
+    		</#if>
+    	}
+    </#if>
 }
-
 <#-- @formatter:on -->

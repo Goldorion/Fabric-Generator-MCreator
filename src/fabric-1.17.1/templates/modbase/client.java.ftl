@@ -37,6 +37,7 @@ public class ClientInit implements ClientModInitializer {
 
     @Override
     public void onInitializeClient(){
+		<#if w.hasElementsOfType("keybind")>${JavaModName}KeyMappings.load();</#if>
     }
 }
 
