@@ -34,6 +34,7 @@ package ${package};
 
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import ${package}.init.*;
 
 public class ${JavaModName} implements ModInitializer {
 
@@ -51,6 +52,7 @@ public class ${JavaModName} implements ModInitializer {
 		<#if w.hasElementsOfType("biome")>${JavaModName}Biomes.load();</#if>
 		<#if w.hasElementsOfType("painting")>${JavaModName}Paintings.load();</#if>
 		<#if w.hasElementsOfType("procedure")>${JavaModName}Procedures.load();</#if>
+		<#if w.hasElementsOfType("command")>${JavaModName}Commands.load();</#if>
 	}
 }
 <#-- @formatter:on -->
