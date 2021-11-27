@@ -3,7 +3,7 @@
 ## 1.6
 
 * Added base support for Fabric 1.17.1
-* Added support for mod elements: advancement, biome, command, creative tab, custom element, fuel, function, game rule, key binding, loot table, painting, particle, potion effect, procedure, recipe, tag
+* Added support for mod elements: advancement, biome, command, creative tab, custom element, enchantment, fuel, function, game rule, key binding, loot table, painting, particle, potion effect, procedure, recipe, tag
 * Added support for new global triggers: Player in bed, Player respawns and Player wakes up
 
 ## 1.5.1
