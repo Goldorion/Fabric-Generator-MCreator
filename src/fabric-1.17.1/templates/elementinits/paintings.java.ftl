@@ -28,7 +28,7 @@ public class ${JavaModName}Paintings {
 
 	public static void load() {
 		<#list paintings as painting>
-		    Registry.register(Registry.MOTIVE, new ResourceLocation("${modid}", "${painting.getModElement().getRegistryName()}"), new Motive(${painting.width}, ${painting.height}));
+		    Registry.register(Registry.MOTIVE, new ResourceLocation(${JavaModName}.MODID, "${painting.getModElement().getRegistryName()}"), new Motive(${painting.width}, ${painting.height}));
         </#list>
 	}
 
