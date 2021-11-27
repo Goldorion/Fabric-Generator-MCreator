@@ -39,7 +39,7 @@ public class ${name}Item extends Item {
 	</#if>
 
 	<#if data.hasGlow>
-	@Override @OnlyIn(Dist.CLIENT) public boolean isFoil(ItemStack itemstack) {
+	@Override @Environment(EnvType.CLIENT) public boolean isFoil(ItemStack itemstack) {
 		<#if hasProcedure(data.glowCondition)>
 		Player entity = Minecraft.getInstance().player;
 		Level world = entity.level;
