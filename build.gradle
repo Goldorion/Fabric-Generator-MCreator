@@ -1,10 +1,12 @@
-import jdk.internal.misc.OSEnvironment
-
 import java.nio.file.Files
 
 class Globals {
-    private static final def ARCHIVE_NAME = "generator-fabric-1.16.5"
-    public static final def MCREATOR_ROOT_FOLDER = "C://Program Files/Pylo/MCreator/"
+    private static final def ARCHIVE_NAME = "generator-fabric-1.16.5" // The name of the exported file
+
+    // You can change the root folder of your OS if you have a custom installation
+    public static final def MCREATOR_ROOT_FOLDER_WINDOWS = "C://Program Files/Pylo/MCreator/" // Default path on Windows
+    public static def MCREATOR_ROOT_FOLDER_MAC_LINUX = "/Applications/MCreator.app/Contents/MacOS/mcreator"
+    // Default path on macOS and Linux
 
     static def getArchiveName() {
         return ARCHIVE_NAME + ".zip"
@@ -18,14 +20,16 @@ class Globals {
 // workaround for IDEA-265203
 System.setProperty("user.dir", projectDir.toString())
 
-task build(type: Zip) {
+task exportPlugin(type: Zip) {
+    group("mcreator_plugins")
     from 'src'
     archiveFileName = Globals.getArchiveName()
     destinationDirectory = file('build/')
 }
 
 task install {
-    dependsOn build
+    dependsOn exportPlugin
+    group("mcreator_plugins")
     doLast {
         System.out.println("Installing plugin...")
         if (Globals.getOSName().contains('mac') || Globals.getOSName().contains('OS X') || Globals.getOSName().contains('linux')) {
@@ -36,18 +40,30 @@ task install {
     }
 }
 
-task launch {
+task runMCreator {
     dependsOn install
+    group("mcreator_plugins")
     doLast {
         System.out.println("Launching MCreator...")
         if (Globals.getOSName().contains('windows')) {
             try {
                 exec {
-                    workingDir Globals.MCREATOR_ROOT_FOLDER
+                    workingDir Globals.MCREATOR_ROOT_FOLDER_WINDOWS
                     commandLine 'cmd', '/c', 'mcreator.bat'
                 }
             } catch (IOException e) {
-                throw new RuntimeException("Could not launch MCreator! Please make sure you have installed it to C://Program Files/", e)
+                //noinspection GroovyAssignabilityCheck
+                throw new RuntimeException("Could not launch MCreator! Please make sure you have installed it to " + Globals.MCREATOR_ROOT_FOLDER_WINDOWS, e)
+            }
+        } else if (Globals.getOSName().contains('mac') || Globals.getOSName().contains('OS X') || Globals.getOSName().contains('linux')) {
+            try {
+                ProcessBuilder builder = new ProcessBuilder(Globals.MCREATOR_ROOT_FOLDER_MAC_LINUX)
+                builder.redirectOutput(ProcessBuilder.Redirect.INHERIT)
+                builder.redirectError(ProcessBuilder.Redirect.INHERIT)
+                builder.start()
+            } catch (IOException e) {
+                //noinspection GroovyAssignabilityCheck
+                throw new RuntimeException("Could not launch MCreator! Please make sure you have installed it to " + Globals.MCREATOR_ROOT_FOLDER_MAC_LINUX, e)
             }
         }
     }
