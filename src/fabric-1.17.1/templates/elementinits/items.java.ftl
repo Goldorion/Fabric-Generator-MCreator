@@ -34,8 +34,13 @@ public class ${JavaModName}Items {
 
     public static void load() {
         <#list items as item>
-            ${item.getModElement().getRegistryNameUpper()} = Registry.register(Registry.ITEM,
-                new ResourceLocation(${JavaModName}.MODID, "${item.getModElement().getRegistryName()}"), new ${item.getModElement().getName()}Item());
+            <#if item.getModElement().getType().getBaseType()?string == "BLOCK">
+            ${item.getModElement().getRegistryNameUpper()} = Registry.register(Registry.ITEM,new ResourceLocation(${JavaModName}.MODID,
+                "${item.getModElement().getRegistryName()}"), new BlockItem(${JavaModName}Blocks.${item.getModElement().getRegistryNameUpper()}, new Item.Properties().tab(${item.creativeTab})));
+            <#else>
+                ${item.getModElement().getRegistryNameUpper()} = Registry.register(Registry.ITEM,
+                    new ResourceLocation(${JavaModName}.MODID, "${item.getModElement().getRegistryName()}"), new ${item.getModElement().getName()}Item());
+            </#if>
         </#list>
 
     }

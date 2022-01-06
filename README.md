@@ -27,6 +27,7 @@ Unsupported fields in full supported mod elements are features from Forge only. 
 * Overlay
 * Painting
 * Particle
+* Plant
 * Potion Effect
 * Potion
 * Recipe
@@ -39,7 +40,6 @@ Unsupported fields in full supported mod elements are features from Forge only. 
 * Block
 * Dimension
 * Living entity
-* Plant
 * Ranged item
   
 ### Partially supported

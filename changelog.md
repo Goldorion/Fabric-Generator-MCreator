@@ -5,11 +5,19 @@
 * Added base support for Fabric 1.17.1
 * Added support for mod elements: advancement, biome, command, creative tab, custom element, enchantment, food, fuel, function, game rule, key binding, loot table, music disc, overlay, painting, particle, potion effect, potion item, procedure, recipe, structure, tag
 * Added support for new global triggers: Player in bed, Player respawns and Player wakes up
+* Added support for tinted plants
+
+## 1.5.3
+* [Bugfix] Fix Get fuel power of, Is blockat solid, replace block, get/set logic/text block NBT Tag of block, get enchantment level of itemstack, get smelting result, place structure, run function, set global spawn, set time, spawn item entity, get biome at, get dimension id procedure blocks
+* [Bugfix] Fix music disc build error
+* [Bugfix #166] Fix the On food eaten food trigger
+
+## 1.5.2
+* [Bugfix #164] Food elements did not generate files
 
 ## 1.5.1
-
 * [Bugfix #150] Entities with the Biped model now display equipped items
-    * The fix was applied to chicken models
+  * The fix was applied to chicken models
 * [Bugfix] Some AI task blocks prevented the entity to build
 
 ## 1.5

@@ -1,6 +1,6 @@
 <#--
  # This file is part of Fabric-Generator-MCreator.
- # Copyright (C) 2020-2021, Goldorion, opensource contributors
+ # Copyright (C) 2020-2022, Goldorion, opensource contributors
  #
  # Fabric-Generator-MCreator is free software: you can redistribute it and/or modify
  # it under the terms of the GNU Lesser General Public License as published by
@@ -40,6 +40,7 @@ public class ClientInit implements ClientModInitializer {
 		<#if w.hasElementsOfType("keybind")>${JavaModName}KeyMappings.load();</#if>
 		<#if w.hasElementsOfType("particle")>${JavaModName}Particles.load();</#if>
 		<#if w.hasElementsOfType("overlay")>${JavaModName}Overlays.load();</#if>
+		<#if w.hasElementsOfBaseType("block")>${JavaModName}Blocks.clientLoad();</#if>
     }
 }
 
