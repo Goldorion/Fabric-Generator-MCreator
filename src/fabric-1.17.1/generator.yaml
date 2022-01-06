@@ -1,6 +1,6 @@
 name: Minecraft Fabric for 1.17.1 - @buildfileversion
 status: dev
-buildfileversion: 0.43.1
+buildfileversion: 0.45.2
 subversion: 1.2.2
 
 gradle:
