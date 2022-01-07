@@ -30,19 +30,26 @@
 -->
 
 <#-- @formatter:off -->
-package ${package}.block.entity;
 
-public class ${name}BlockEntity extends BlockEntity {
-	public ${name}BlockEntity(BlockPos pos, BlockState state) {
-		super(${JavaModName}BlockEntities.${data.getModElement().getRegistryNameUpper()}, pos, state);
-	}
+/*
+ *    MCreator note: This file will be REGENERATED on each build.
+ */
 
-	@Override public ClientboundBlockEntityDataPacket getUpdatePacket() {
-		return new ClientboundBlockEntityDataPacket(this.worldPosition, 0, this.getUpdateTag());
-	}
+package ${package}.init;
 
-	@Override public CompoundTag getUpdateTag() {
-		return this.save(new CompoundTag());
-	}
+public class ${JavaModName}BlockEntities {
+
+	<#list blockentities as blockentity>
+	public static BlockEntityType<?> ${blockentity.getModElement().getRegistryNameUpper()};
+    </#list>
+
+    public static void load() {
+        <#list blockentities as blockentity>
+            ${blockentity.getModElement().getRegistryNameUpper()} = Registry.register(Registry.BLOCK_ENTITY_TYPE, new ResourceLocation(${JavaModName}.MODID,
+                "${blockentity.getModElement().getRegistryName()}"), FabricBlockEntityTypeBuilder.create(${blockentity.getModElement().getName()}BlockEntity::new,
+                ${JavaModName}Blocks.${blockentity.getModElement().getRegistryNameUpper()}).build(null));
+        </#list>
+    }
+
 }
 <#-- @formatter:on -->
