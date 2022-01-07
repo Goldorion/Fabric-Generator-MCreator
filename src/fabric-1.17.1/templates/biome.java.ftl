@@ -318,7 +318,7 @@ public class ${name}Biome {
         <#if data.biomeDictionaryTypes?has_content>
             <#list data.biomeDictionaryTypes as type>
                 <#if type = "NETHER">
-                    NetherBiomes.addNetherBiome(${JavaModName}Biomes.${registryname?upper_case}, new Biome.ClimateParameters(${data.temperature}f, ${data.temperature}f, ${data.heightVariation}f, 0, ${1 / data.biomeWeight}f));
+                    NetherBiomes.addNetherBiome(${JavaModName}Biomes.${registryname?upper_case}, new Biome.ClimateParameters(${data.temperature}f, ${data.temperature}f, ${data.heightVariation}f, 0, ${data.biomeWeight}/1024f));
                 <#elseif type = "VOID">
                     TheEndBiomes.addSmallIslandsBiome(${JavaModName}Biomes.${registryname?upper_case}, ${data.biomeWeight}d);
                 <#elseif type = "RARE">

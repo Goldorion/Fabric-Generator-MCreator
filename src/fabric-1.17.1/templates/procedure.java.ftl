@@ -41,10 +41,6 @@ public class ${name}Procedure {
     			</#if>
     		</#list>
 
-    		<#list localvariables as var>
-    			<@var.getType().getScopeDefinition(generator.getWorkspace(), "LOCAL")['init']?interpret/>
-    		</#list>
-
     		${procedurecode}
     	}
 
