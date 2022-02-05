@@ -6,6 +6,7 @@
 * Added support for mod elements: advancement, biome, command, creative tab, custom element, enchantment, food, fuel, function, game rule, key binding, loot table, music disc, overlay, painting, particle, potion effect, potion item, procedure, recipe, structure, tag
 * Added support for new global triggers: Player in bed, Player respawns and Player wakes up
 * Added support for tinted plants
+* Added support for 55 new procedure blocks
 
 ## 1.5.3
 * [Bugfix] Fix Get fuel power of, Is blockat solid, replace block, get/set logic/text block NBT Tag of block, get enchantment level of itemstack, get smelting result, place structure, run function, set global spawn, set time, spawn item entity, get biome at, get dimension id procedure blocks
