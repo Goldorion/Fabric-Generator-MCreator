@@ -12,7 +12,7 @@ group = 'com.yourname.modid'
 dependencies {
     minecraft "com.mojang:minecraft:1.17.1"
     mappings loom.officialMojangMappings()
-    modImplementation "net.fabricmc:fabric-loader:0.12.12"
+    modImplementation "net.fabricmc:fabric-loader:0.13.1"
 
     //Fabric api
     modImplementation "net.fabricmc.fabric-api:fabric-api:${generator.getGeneratorBuildFileVersion()}+1.17"
