@@ -40,13 +40,17 @@ package ${package}.init;
 public class ${JavaModName}Blocks {
 
     <#list blocks as block>
-        public static Block ${block.getModElement().getRegistryNameUpper()};
+        <#if block.getModElement().getTypeString() != "dimension">
+            public static Block ${block.getModElement().getRegistryNameUpper()};
+        </#if>
     </#list>
 
     public static void load() {
         <#list blocks as block>
-            ${block.getModElement().getRegistryNameUpper()} = Registry.register(Registry.BLOCK, new ResourceLocation(${JavaModName}.MODID,
-                "${block.getModElement().getRegistryName()}"), new ${block.getModElement().getName()}Block());
+            <#if block.getModElement().getTypeString() != "dimension">
+                ${block.getModElement().getRegistryNameUpper()} = Registry.register(Registry.BLOCK, new ResourceLocation(${JavaModName}.MODID,
+                    "${block.getModElement().getRegistryName()}"), new ${block.getModElement().getName()}Block());
+            </#if>
         </#list>
     }
 

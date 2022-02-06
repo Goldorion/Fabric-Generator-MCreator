@@ -29,7 +29,9 @@ package ${package}.init;
 public class ${JavaModName}Items {
 
     <#list items as item>
-        public static Item ${item.getModElement().getRegistryNameUpper()};
+        <#if item.getModElement().getTypeString() != "dimension">
+            public static Item ${item.getModElement().getRegistryNameUpper()};
+        </#if>
     </#list>
 
     public static void load() {
@@ -38,8 +40,10 @@ public class ${JavaModName}Items {
             ${item.getModElement().getRegistryNameUpper()} = Registry.register(Registry.ITEM,new ResourceLocation(${JavaModName}.MODID,
                 "${item.getModElement().getRegistryName()}"), new BlockItem(${JavaModName}Blocks.${item.getModElement().getRegistryNameUpper()}, new Item.Properties().tab(${item.creativeTab})));
             <#else>
-                ${item.getModElement().getRegistryNameUpper()} = Registry.register(Registry.ITEM,
-                    new ResourceLocation(${JavaModName}.MODID, "${item.getModElement().getRegistryName()}"), new ${item.getModElement().getName()}Item());
+                <#if item.getModElement().getTypeString() != "dimension">
+                    ${item.getModElement().getRegistryNameUpper()} = Registry.register(Registry.ITEM,
+                        new ResourceLocation(${JavaModName}.MODID, "${item.getModElement().getRegistryName()}"), new ${item.getModElement().getName()}Item());
+                </#if>
             </#if>
         </#list>
 
