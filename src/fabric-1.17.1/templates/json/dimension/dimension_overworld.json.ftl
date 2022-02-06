@@ -33,8 +33,8 @@
         "island_noise_override": false,
         "amplified": false,
         "sampling": {
-          "xz_scale": 0.9999999814507745,
-          "y_scale": 0.9999999814507745,
+          "xz_scale": 1,
+          "y_scale": 1,
           "xz_factor": 80,
           "y_factor": 160
         },
