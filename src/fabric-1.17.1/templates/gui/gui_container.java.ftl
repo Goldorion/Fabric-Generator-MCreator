@@ -49,6 +49,8 @@ public class ${name}Menu extends AbstractContainerMenu implements Supplier<Map<I
 	public final Player entity;
 	public int x, y, z;
 
+	private BlockPos pos;
+
 	private final Container inventory;
 
 	private final Map<Integer, Slot> customSlots = new HashMap<>();
@@ -56,23 +58,24 @@ public class ${name}Menu extends AbstractContainerMenu implements Supplier<Map<I
 	private boolean bound = false;
 
 	public ${name}Menu(int id, Inventory inv, FriendlyByteBuf extraData) {
-		super(${JavaModName}Menus.${data.getModElement().getRegistryNameUpper()}, id);
-
-		this.entity = inv.player;
-		this.world = inv.player.level;
-
-		BlockPos pos = null;
+		this(id, inv, new SimpleContainer(${data.getMaxSlotID() + 1}));
 		if (extraData != null) {
 			pos = extraData.readBlockPos();
 			this.x = pos.getX();
 			this.y = pos.getY();
 			this.z = pos.getZ();
 		}
+	}
 
-		this.inventory = new SimpleContainer(${data.getMaxSlotID() + 1});
+	public ${name}Menu(int id, Inventory inv, Container container) {
+		super(${JavaModName}Menus.${data.getModElement().getRegistryNameUpper()}, id);
+
+		this.entity = inv.player;
+		this.world = inv.player.level;
+
+		this.inventory = container;
 
 		<#if data.type == 1>
-			if (pos != null) {
 			<#list data.components as component>
 				<#if component.getClass().getSimpleName()?ends_with("Slot")>
 					<#assign slotnum += 1>
@@ -123,7 +126,6 @@ public class ${name}Menu extends AbstractContainerMenu implements Supplier<Map<I
                             }
                         </#if>
 				}));
-			}
 			</#if>
 			</#list>
 

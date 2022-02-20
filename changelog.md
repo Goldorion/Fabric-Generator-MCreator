@@ -3,7 +3,7 @@
 ## 1.6
 
 * Added base support for Fabric 1.17.1
-* Added support for mod elements: advancement, biome, command, creative tab, custom element, dimension, enchantment, food, fuel, function, game rule, gui, key binding, loot table, music disc, overlay, painting, particle, potion effect, potion item, procedure, recipe, structure, tag
+* Added support for mod elements: advancement, biome, command, creative tab, custom element, dimension, enchantment, food, fuel, function, game rule, gui, item, key binding, loot table, music disc, overlay, painting, particle, potion effect, potion item, procedure, recipe, structure, tag
 * Added support for new global triggers: Player in bed, Player respawns and Player wakes up
 * Added support for tinted plants
 * Added support for 55 new procedure blocks

@@ -44,6 +44,9 @@ public class ${JavaModName}Items {
                     ${item.getModElement().getRegistryNameUpper()} = Registry.register(Registry.ITEM,
                         new ResourceLocation(${JavaModName}.MODID, "${item.getModElement().getRegistryName()}"), new ${item.getModElement().getName()}Item());
                 </#if>
+                <#if item.getModElement().getTypeString() == "item" && item.hasDispenseBehavior>
+                    ${item.getModElement().getName()}Item.init();
+                </#if>
             </#if>
         </#list>
 
