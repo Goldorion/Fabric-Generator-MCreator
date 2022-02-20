@@ -59,6 +59,7 @@ public class ${JavaModName} implements ModInitializer {
 		<#if w.hasElementsOfType("procedure")>${JavaModName}Procedures.load();</#if>
 		<#if w.hasElementsOfType("command")>${JavaModName}Commands.load();</#if>
 		<#if w.hasElementsOfType("fuel")>${JavaModName}Fuels.load();</#if>
+		<#if w.hasElementsOfType("gui")>${JavaModName}Menus.load();</#if>
 	}
 }
 <#-- @formatter:on -->

@@ -32,8 +32,7 @@
 
 package ${package};
 
-@Environment(EnvType.CLIENT)
-public class ClientInit implements ClientModInitializer {
+@Environment(EnvType.CLIENT) public class ClientInit implements ClientModInitializer {
 
     @Override
     public void onInitializeClient(){
@@ -41,6 +40,7 @@ public class ClientInit implements ClientModInitializer {
 		<#if w.hasElementsOfType("particle")>${JavaModName}Particles.load();</#if>
 		<#if w.hasElementsOfType("overlay")>${JavaModName}Overlays.load();</#if>
 		<#if w.hasElementsOfBaseType("block")>${JavaModName}Blocks.clientLoad();</#if>
+		<#if w.hasElementsOfType("gui")>${JavaModName}Screens.load();</#if>
     }
 }
 
