@@ -14,6 +14,10 @@ dependencies {
     mappings loom.officialMojangMappings()
     modImplementation "net.fabricmc:fabric-loader:0.13.1"
 
+    loom {
+        accessWidenerPath = file("src/main/resources/${settings.getModID()}.accesswidener")
+    }
+
     //Fabric api
     modImplementation "net.fabricmc.fabric-api:fabric-api:${generator.getGeneratorBuildFileVersion()}+1.17"
 }

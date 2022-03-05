@@ -56,13 +56,13 @@ Pre-built binaries can be found on the [Release page of this repository](https:/
 Install like any other plugin: Launch MCreator -> Open preferences -> Manage plugins -> Load Plugin -> Find your downloaded zip file -> **Restart MCreator**.
 
 ## Important Information
-- Make sure you use MCreator 2021.2.33614 or a newer version
+- Make sure you use MCreator 2021.3 or a newer version
 - Back up your workspace before updating to a newer version of the plugin.
 - Mods will also require [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api) to function properly, so when you want to play your mod, make sure you have fabric api.
 
 ## Credits/License
-Lead Dev - [Goldorion](https://github.com/Goldorion), [BoogieMonster1O1](https://github.com/BoogieMonster1O1)
-Contributors - crispy_chips1234, Klemen, U1timateJ7
+Lead Dev - [Goldorion](https://github.com/Goldorion)
+Contributors - crispy_chips1234, Klemen, U1timateJ7, BoogieMonster1O1
 Thanks to all of you helping in reporting bugs, testing or anything else.
 
 The plugin's MCreator forum page is [here](https://mcreator.net/forum/60201/fabric-generator-plugin).
