@@ -32,15 +32,9 @@ public class ${JavaModName}EntityRenderers {
     public static void load() {
         <#list entities as entity>
             <#if entity.getModElement().getTypeString() == "rangeditem">
-            <#if entity.isCustomModel()>
-                event.registerEntityRenderer(${JavaModName}Entities.${entity.getModElement().getRegistryNameUpper()}, ${entity.getModElement().getName()}Renderer::new);
+                EntityRendererRegistry.register(${JavaModName}Entities.${entity.getModElement().getRegistryNameUpper()}, ThrownItemRenderer::new);
             <#else>
-                event.registerEntityRenderer(${JavaModName}Entities.${entity.getModElement().getRegistryNameUpper()}, ThrownItemRenderer::new);
-            </#if>
-            <#else>
-                EntityRendererRegistry.register(${JavaModName}Entities.${entity.getModElement().getRegistryNameUpper()}, (context) -> {
-                    return new ${entity.getModElement().getName()}Renderer(context);
-                });
+                EntityRendererRegistry.register(${JavaModName}Entities.${entity.getModElement().getRegistryNameUpper()}, ${entity.getModElement().getName()}Renderer::new);
             </#if>
         </#list>
     }

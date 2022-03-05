@@ -37,10 +37,8 @@ public class ${JavaModName}Entities {
     public static void load() {
         <#list entities as entity>
             <#if entity.getModElement().getTypeString() == "rangeditem">
-                public static final EntityType<${entity.getModElement().getName()}Entity> ${entity.getModElement().getRegistryNameUpper()} =
-                            register("projectile_${entity.getModElement().getRegistryName()}", EntityType.Builder.<${entity.getModElement().getName()}Entity>
-                                of(${entity.getModElement().getName()}Entity::new, MobCategory.MISC).setCustomClientFactory(${entity.getModElement().getName()}Entity::new)
-                                .setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(1).sized(0.5f, 0.5f));
+                ${entity.getModElement().getRegistryNameUpper()} = Registry.register(Registry.ENTITY_TYPE, new ResourceLocation(${JavaModName}.MODID, "${entity.getModElement().getRegistryName()}"),
+                        createArrowEntityType(${entity.getModElement().getName()}Entity::new));
             <#else>
                 ${entity.getModElement().getRegistryNameUpper()} = Registry.register(Registry.ENTITY_TYPE, new ResourceLocation(${JavaModName}.MODID, "${entity.getModElement().getRegistryName()}"),
                         FabricEntityTypeBuilder.create(${generator.map(entity.mobSpawningType, "mobspawntypes")}, ${entity.getModElement().getName()}Entity::new)
@@ -48,10 +46,16 @@ public class ${JavaModName}Entities {
                             .trackRangeBlocks(${entity.trackingRange})
                             .forceTrackedVelocityUpdates(true).trackedUpdateRate(3)
                             .build());
-            </#if>
+
             ${entity.getModElement().getName()}Entity.init();
             FabricDefaultAttributeRegistry.register(${entity.getModElement().getRegistryNameUpper()}, ${entity.getModElement().getName()}Entity.createAttributes());
+            </#if>
         </#list>
+    }
+
+    private static <T extends Entity> EntityType<T> createArrowEntityType(EntityType.EntityFactory<T> factory) {
+        return FabricEntityTypeBuilder.create(MobCategory.MISC, factory).dimensions(EntityDimensions.fixed(0.5f, 0.5f))
+                .trackRangeBlocks(1).trackedUpdateRate(64).build();
     }
 
 }

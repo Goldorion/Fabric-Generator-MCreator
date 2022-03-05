@@ -41,7 +41,7 @@ package ${package};
 		<#if w.hasElementsOfType("overlay")>${JavaModName}Overlays.load();</#if>
 		<#if w.hasElementsOfBaseType("block")>${JavaModName}Blocks.clientLoad();</#if>
 		<#if w.hasElementsOfType("gui")>${JavaModName}Screens.load();</#if>
-		<#if hasJavaModels()>${JavaModName}Models.load();</#if>
+		<#if w.hasJavaModels()>${JavaModName}Models.load();</#if>
 		<#if w.hasElementsOfType("livingentity")>${JavaModName}EntityRenderers.load();</#if>
     }
 }
