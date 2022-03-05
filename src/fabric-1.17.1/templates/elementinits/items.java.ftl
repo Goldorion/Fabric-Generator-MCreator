@@ -66,6 +66,11 @@ public class ${JavaModName}Items {
                 ${item.getModElement().getRegistryNameUpper()}_BOOTS = Registry.register(Registry.ITEM,
                     new ResourceLocation(${JavaModName}.MODID, "${item.getModElement().getRegistryName()}_boots"), new ${item.getModElement().getName()}Item.Boots());
             </#if>
+        <#elseif item.getModElement().getTypeString() == "livingentity">
+            ${item.getModElement().getRegistryNameUpper()} = Registry.register(Registry.ITEM,new ResourceLocation(${JavaModName}.MODID,
+                "${item.getModElement().getRegistryName()}_spawn_egg"), new SpawnEggItem(${JavaModName}Entities.${item.getModElement().getRegistryNameUpper()},
+                    ${item.spawnEggBaseColor.getRGB()}, ${item.spawnEggDotColor.getRGB()}, new Item.Properties() <#if item.creativeTab??>.tab(${item.creativeTab})<#else>
+                        .tab(CreativeModeTab.TAB_MISC)</#if>));
         <#elseif item.getModElement().getType().getBaseType()?string == "BLOCK">
             ${item.getModElement().getRegistryNameUpper()} = Registry.register(Registry.ITEM,new ResourceLocation(${JavaModName}.MODID,
                 "${item.getModElement().getRegistryName()}"), new BlockItem(${JavaModName}Blocks.${item.getModElement().getRegistryNameUpper()}, new Item.Properties().tab(${item.creativeTab})));
