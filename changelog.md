@@ -2,12 +2,18 @@
 
 ## 1.6
 
+### 1.16-beta-1
 * Added base support for Fabric 1.17.1
-* Added support for mod elements: advancement, armor, biome, block, command, creative tab, custom element, dimension, enchantment, food, fuel, function, game rule, gui, item, key binding, living entity, loot table, music disc, overlay, painting, particle, potion effect, potion item, procedure, ranged item, recipe, structure, tag, tool
+* Added support for mod elements: advancement, armor, biome, block, command, creative tab, custom element, dimension, enchantment, food, fuel, function, game rule, gui, item, key binding, living entity, loot table, music disc, overlay, painting, particle, potion effect, potion item, procedure, ranged item, recipe, structure, tag, tool and variables
 * Added support for new global triggers: Player in bed, Player respawns and Player wakes up
 * Added support for water loggable blocks
 * Added support for tinted plants and blocks
-* Added support for 55 new procedure blocks
+* Added support for following block procedure blocks: Play break effect, is side solid
+* Added support for following direction procedure blocks: For each direction, for each horizontal direction, direction iterator, direction random
+* Added support for following direction procedure blocks: Check player game mode, Get entity shoot power, Get entity slot, For each slot of entity inventory, Get entity look face, Get/Set logic/number/string entity NBT tag, Get potion effect level, Get potion effect remaining, Remove item, Remove recipe, remove specific potion effect, Remove xp, remove xp level, Run function, send chat, set flying, set food level, set main hand item, set offhand item, set no gravity, set oxygen, set rotation, set saturation, set scoreboard score, set slot, set sneaking, set spawn, set sprinting, set in cobweb, size height, size width, submerged height, xp level, logic entity compare
+* Added support for following item procedure blocks: bucket to fluid, 
+* Added support for misc procedure blocks: Get dimension id, get localized text
+* Added support for following world procedure blocks: shoot arrow, spawn entity, spawn entity with rotation, spawn entity with rotation and velocity, strike lightning, get number of players on the server, entity in range, entity in range exists, entity in range foreach, spawn falling block, switch world, use bone meal
 
 ## 1.5.3
 * [Bugfix] Fix Get fuel power of, Is blockat solid, replace block, get/set logic/text block NBT Tag of block, get enchantment level of itemstack, get smelting result, place structure, run function, set global spawn, set time, spawn item entity, get biome at, get dimension id procedure blocks
