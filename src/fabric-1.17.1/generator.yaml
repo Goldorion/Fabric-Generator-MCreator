@@ -32,6 +32,9 @@ base_templates:
 - template: modbase/client.java.ftl
   name: "@SRCROOT/@BASEPACKAGEPATH/ClientInit.java"
   canLock: true
+- template: modbase/variableslist.java.ftl
+  name: "@SRCROOT/@BASEPACKAGEPATH/network/@JavaModNameVariables.java"
+  condition: hasVariables()
 - template: elementinits/javamodels.java.ftl
   name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameModels.java"
   condition: hasJavaModels()
