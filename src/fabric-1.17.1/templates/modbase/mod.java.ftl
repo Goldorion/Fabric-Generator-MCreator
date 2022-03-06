@@ -53,7 +53,7 @@ public class ${JavaModName} implements ModInitializer {
 		<#if w.hasElementsOfType("livingentity")>${JavaModName}Entities.load();</#if>
 		<#if w.hasElementsOfBaseType("block")>${JavaModName}Blocks.load();</#if>
 		<#if w.hasElementsOfBaseType("item")>${JavaModName}Items.load();</#if>
-		<#if w.hasElementsOfBaseType("blockentity")>${JavaModName}Blocks.load();</#if>
+		<#if w.hasElementsOfBaseType("blockentity")>${JavaModName}BlockEntities.load();</#if>
 		<#if w.hasElementsOfType("biome")>${JavaModName}Biomes.load();</#if>
 		<#if w.hasElementsOfBaseType("feature")>${JavaModName}Features.load();</#if>
 		<#if w.hasElementsOfType("painting")>${JavaModName}Paintings.load();</#if>

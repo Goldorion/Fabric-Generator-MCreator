@@ -28,7 +28,11 @@ public class ${JavaModName}Features {
 
 	public static void load() {
     <#list features as feature>
-		<#if feature.getModElement().getTypeString() == "plant">
+		<#if feature.getModElement().getTypeString() == "block">
+		    register("${feature.getModElement().getRegistryName()}", ${feature.getModElement().getName()}Feature.FEATURE,
+                ${feature.getModElement().getName()}Feature.CONFIGURED_FEATURE,
+            	${feature.getModElement().getName()}Feature.GENERATE_BIOMES, GenerationStep.Decoration.UNDERGROUND_ORES);
+		<#elseif feature.getModElement().getTypeString() == "plant">
 		    register("${feature.getModElement().getRegistryName()}", ${feature.getModElement().getName()}Feature.FEATURE,
 		        ${feature.getModElement().getName()}Feature.CONFIGURED_FEATURE,
 		        ${feature.getModElement().getName()}Feature.GENERATE_BIOMES, GenerationStep.Decoration.VEGETAL_DECORATION);
@@ -40,7 +44,6 @@ public class ${JavaModName}Features {
 		</#if>
     </#list>
 	}
-
 
 	private static void register(String registryName, Feature feature, ConfiguredFeature<?, ?> configFeature, Predicate<BiomeSelectionContext> biomes, GenerationStep.Decoration genStep) {
 	    Registry.register(Registry.FEATURE, new ResourceLocation(${JavaModName}.MODID, registryName), feature);

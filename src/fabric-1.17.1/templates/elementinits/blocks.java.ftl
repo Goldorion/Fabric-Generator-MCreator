@@ -43,12 +43,8 @@ public class ${JavaModName}Blocks {
 
     public static void clientLoad() {
         <#list blocks as block>
-            <#if block.getModElement().getTypeString() == "block">
-                <#if block.transparencyType != "SOLID" || block.hasTransparency>
+            <#if block.getModElement().getTypeString() == "block" || block.getModElement().getTypeString() == "plant">
                     ${block.getModElement().getName()}Block.clientInit();
-                </#if>
-            <#elseif block.getModElement().getTypeString() == "plant">
-                ${block.getModElement().getName()}Block.clientInit();
             </#if>
         </#list>
     }

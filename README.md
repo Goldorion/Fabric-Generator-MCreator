@@ -10,6 +10,7 @@ This project is not official. It is not affiliated with the respective owners an
 Unsupported fields in full supported mod elements are features from Forge only. They are not available with Fabric yet.
 ### Full supported
 * Advancement
+* Block
 * Command
 * Custom code
 * Enchantment 
@@ -37,7 +38,6 @@ Unsupported fields in full supported mod elements are features from Forge only. 
 ### Partially supported (almost completed)
 * Armor
 * Biome
-* Block
 * Dimension
 * Living entity
 * Ranged item

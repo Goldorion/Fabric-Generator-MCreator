@@ -3,9 +3,10 @@
 ## 1.6
 
 * Added base support for Fabric 1.17.1
-* Added support for mod elements: advancement, armor, biome, command, creative tab, custom element, dimension, enchantment, food, fuel, function, game rule, gui, item, key binding, living entity, loot table, music disc, overlay, painting, particle, potion effect, potion item, procedure, ranged item, recipe, structure, tag, tool
+* Added support for mod elements: advancement, armor, biome, block, command, creative tab, custom element, dimension, enchantment, food, fuel, function, game rule, gui, item, key binding, living entity, loot table, music disc, overlay, painting, particle, potion effect, potion item, procedure, ranged item, recipe, structure, tag, tool
 * Added support for new global triggers: Player in bed, Player respawns and Player wakes up
-* Added support for tinted plants
+* Added support for water loggable blocks
+* Added support for tinted plants and blocks
 * Added support for 55 new procedure blocks
 
 ## 1.5.3
@@ -19,7 +20,7 @@
 ## 1.5.1
 * [Bugfix #150] Entities with the Biped model now display equipped items
   * The fix was applied to chicken models
-* [Bugfix] Some AI task blocks prevented the entity to build
+* [Bugfix] Some AI tasks blocks prevented the entity to build
 
 ## 1.5
 
