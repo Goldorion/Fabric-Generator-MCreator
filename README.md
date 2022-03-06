@@ -4,7 +4,6 @@ A plugin for [MCreator](https://mcreator.net/), a code generator to create Minec
 This project is not official. It is not affiliated with the respective owners and maintainers of Fabric, Minecraft, or MCreator. Do not expect any official support from their communities.
 
 **The current targeted Minecraft version is 1.17.1.**
-**The 1.17.1 version is still W.I.P. to get features of the last 1.16.5 version.**
 
 ## Features
 Unsupported fields in full supported mod elements are features from Forge only. They are not available with Fabric yet.
@@ -62,9 +61,10 @@ Install like any other plugin: Launch MCreator -> Open preferences -> Manage plu
 
 ## Credits/License
 Lead Dev - [Goldorion](https://github.com/Goldorion)
-Contributors - crispy_chips1234, Klemen, U1timateJ7, BoogieMonster1O1
-Thanks to all of you helping in reporting bugs, testing or anything else.
+Contributors (previous Minecraft versions) - crispy_chips1234, Klemen, U1timateJ7, BoogieMonster1O1
+This generator re-uses a lot of the code used by the official Forge 1.17.1 generator.
 
+The plugin's MCreator page is [here](https://mcreator.net/plugin/64512/mcreator-fabric-generator}).
 The plugin's MCreator forum page is [here](https://mcreator.net/forum/60201/fabric-generator-plugin).
 
 Licensed under the GNU Lesser General Public License, version 3.0  
