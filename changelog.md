@@ -2,7 +2,7 @@
 
 ## 1.6
 
-### 1.16-beta-1
+### 1.6-beta-1
 * Added base support for Fabric 1.17.1
 * Added support for mod elements: advancement, armor, biome, block, command, creative tab, custom element, dimension, enchantment, food, fuel, function, game rule, gui, item, key binding, living entity, loot table, music disc, overlay, painting, particle, potion effect, potion item, procedure, ranged item, recipe, structure, tag, tool and variables
 * Added support for new global triggers: Player in bed, Player respawns and Player wakes up
