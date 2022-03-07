@@ -5,7 +5,7 @@
   "info": {
     "name": "Minecraft Fabric 1.17.1 Generator",
     "version": "1.6-beta-1",
-    "description": "A Mcreator Fabric generator",
+    "description": "An Mcreator Fabric generator plugin",
     "author": "Goldorion",
     "credits": "Thank you to all contributors and Forge 1.17.1 generator for the code",
     "updateJSONURL": "https://raw.githubusercontent.com/Goldorion/Fabric-Generator-MCreator/1.17.1/update.json",
