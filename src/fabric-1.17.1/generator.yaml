@@ -53,7 +53,7 @@ base_templates:
   condition: hasSounds()
 - template: modbase/accesswidener.ftl
   writer: file
-  name: "@RESROOT/META-INF/@modid.accesswidener"
+  name: "@RESROOT/@modid.accesswidener"
 
 language_file:
   format: json
