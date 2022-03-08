@@ -1,6 +1,13 @@
 # Changelogs:
 
 ## 1.6
+### 1.7-beta-2
+* Fixed #180
+  * Note: If you already opened a workspace, follow these steps:
+    1. Close your workspace and go inside your workspace's folder
+    2. Open in Notepad or another text editor the `.mcreator` file
+    3. Search `currentGenerator`, inside `workspaceSettings` and replace `fabric-1.17.1` by `fabric-1.16.5` (Install it!)
+    4. Save, close, re-open your workspace, and re-select Fabric 1.17.1
 
 ### 1.6-beta-1
 * Added base support for Fabric 1.17.1
