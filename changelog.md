@@ -7,6 +7,7 @@
 * [Bugfix #188] Selecting mega spruce tree type in biomes made the game crashed
 * [Bugfix #192] Local variables were not generated
 * [Bugfix #187] Several advancement triggers did not work properly
+* [Bugfix] Some recipes had problems
 
 ### 1.6-beta-2
 * Fixed #180
