@@ -1,7 +1,10 @@
 # Changelogs:
 
 ## 1.6
-### 1.7-beta-2
+### 1.6-beta-3
+* Updated to 2022.1
+
+### 1.6-beta-2
 * Fixed #180
   * Note: If you already opened a workspace, follow these steps:
     1. Close your workspace and go inside your workspace's folder

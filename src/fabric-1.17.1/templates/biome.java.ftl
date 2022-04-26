@@ -330,7 +330,16 @@ public class ${name}Biome {
         </#if>
 
         <#if data.spawnBiome>
-            OverworldBiomes.addContinentalBiome(${JavaModName}Biomes.${registryname?upper_case}, OverworldClimate.${data.biomeType?replace("WARM", "TEMPERATE")?replace("DESERT", "DRY")}, ${data.biomeWeight}d);
+            OverworldBiomes.addContinentalBiome(${JavaModName}Biomes.${registryname?upper_case}, OverworldClimate.
+            <#if (data.temperature < -0.25)>
+                ICY
+            <#elseif (data.temperature > -0.25) && (data.temperature <= 0.15)>
+                COOL
+            <#elseif (data.temperature > 0.15) && (data.temperature <= 1.0)>
+            	TEMPERATE
+            <#elseif (data.temperature > 1.0)>
+            	DRY
+            </#if>, ${data.biomeWeight}d);
         </#if>
 
         return biome;
