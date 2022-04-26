@@ -15,7 +15,7 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:0.13.1"
 
     loom {
-        accessWidenerPath = file("src/main/resources/${settings.getModID()}.accesswidener")
+        accessWidenerPath = file("src/main/resources/modid.accesswidener")
     }
 
     //Fabric api

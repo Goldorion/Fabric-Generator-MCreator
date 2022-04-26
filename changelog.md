@@ -3,6 +3,7 @@
 ## 1.6
 ### 1.6-beta-3
 * Updated to 2022.1
+* Fix the access widener problem
 
 ### 1.6-beta-2
 * Fixed #180

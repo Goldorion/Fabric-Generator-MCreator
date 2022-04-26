@@ -38,6 +38,6 @@
     "minecraft": "1.17.x",
     "java": ">=16"
   },
-  "accessWidener" : "${settings.getModID()}.accesswidener"
+  "accessWidener" : "modid.accesswidener"
 }
 <#-- @formatter:on -->
