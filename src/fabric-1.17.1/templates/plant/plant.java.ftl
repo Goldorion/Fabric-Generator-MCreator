@@ -261,8 +261,6 @@ public class ${name}Block extends <#if data.plantType == "normal">Flower<#elseif
 
 	<@onEntityCollides data.onEntityCollides/>
 
-	<@onDestroyedByPlayer data.onDestroyedByPlayer/>
-
 	<@onDestroyedByExplosion data.onDestroyedByExplosion/>
 
 	<@onStartToDestroy data.onStartToDestroy/>

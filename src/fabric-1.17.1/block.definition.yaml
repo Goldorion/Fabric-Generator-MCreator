@@ -397,4 +397,5 @@ global_templates:
     condition: ${w.hasBlocksMineableWith('hoe')}
 
 field_exclusions: [ displayFluidOverlay, plantsGrowOn, beaconColorModifier, isLadder, enchantPowerBonus, aiPathNodeType,
-                    hasEnergyStorage, isFluidTank, energyInitial, energyCapacity, energyMaxReceive, energyMaxExtract, fluidCapacity, fluidRestrictions ]
+                    hasEnergyStorage, isFluidTank, energyInitial, energyCapacity, energyMaxReceive, energyMaxExtract, fluidCapacity, fluidRestrictions,
+                    onDestroyedByPlayer ]

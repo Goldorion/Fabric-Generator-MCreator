@@ -1,6 +1,9 @@
 # Changelogs:
 
 ## 1.6
+## 1.6-beta-4
+* [Bugfix #197] Disable "When block destroyed by player" block/plant trigger
+
 ### 1.6-beta-3
 * Updated to 2022.1
 * Fix the access widener problem

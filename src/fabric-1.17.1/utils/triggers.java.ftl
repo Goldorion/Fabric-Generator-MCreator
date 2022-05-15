@@ -168,23 +168,6 @@
 
 
 <#-- Block-related triggers -->
-<#macro onDestroyedByPlayer procedure="">
-<#if hasProcedure(procedure)>
-@Override public boolean removedByPlayer(BlockState blockstate, Level world, BlockPos pos, Player entity, boolean willHarvest, FluidState fluid) {
-	boolean retval = super.removedByPlayer(blockstate, world, pos, entity, willHarvest, fluid);
-	<@procedureCode procedure, {
-		"x": "pos.getX()",
-		"y": "pos.getY()",
-		"z": "pos.getZ()",
-		"world": "world",
-		"entity": "entity",
-		"blockstate": "blockstate"
-	}/>
-	return retval;
-}
-</#if>
-</#macro>
-
 <#macro onDestroyedByExplosion procedure="">
 <#if hasProcedure(procedure)>
 @Override public void wasExploded(Level world, BlockPos pos, Explosion e) {
