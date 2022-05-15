@@ -2,7 +2,9 @@
 
 ## 1.6
 ## 1.6-beta-4
-* [Bugfix #197] Disable "When block destroyed by player" block/plant trigger
+(Unsupported by Fabric)
+* [Bugfix #197] Disabled "When block destroyed by player" block/plant trigger
+* [Bugfix #198] Removed entity NBT related procedure blocks
 
 ### 1.6-beta-3
 * Updated to 2022.1
