@@ -1,6 +1,6 @@
 <#--
  # This file is part of Fabric-Generator-MCreator.
- # Copyright (C) 2020-2021, Goldorion, opensource contributors
+ # Copyright (C) 2020-2022, Goldorion, opensource contributors
  #
  # Fabric-Generator-MCreator is free software: you can redistribute it and/or modify
  # it under the terms of the GNU Lesser General Public License as published by
@@ -19,6 +19,7 @@
 <#-- @formatter:off -->
 
 <#include "../mcitems.ftl">
+<#include "../procedures.java.ftl">
 
 /*
  *    MCreator note: This file will be REGENERATED on each build.
@@ -26,12 +27,25 @@
 
 package ${package}.init;
 
-public class ${JavaModName}Fuels {
+public class ${JavaModName}ItemExtensions {
 
     public static void load() {
-        <#list fuels as fuel>
-            FuelRegistry.INSTANCE.add(${mappedMCItemToItem(fuel.block)}, ${fuel.power});
+		<#compress>
+        <#list itemextensions as extension>
+            <#if extension.hasDispenseBehavior>
+                ${extension.getModElement().getName()}DispenseBehaviour.init();
+            </#if>
+
+            <#if extension.enableFuel>
+                <#if hasProcedure(extension.fuelSuccessCondition)>if (<@procedureOBJToConditionCode extension.fuelSuccessCondition/>)</#if>
+                    <#if hasProcedure(extension.fuelPower)>
+                        FuelRegistry.INSTANCE.add(${mappedMCItemToItem(extension.item)}, (int) <@procedureOBJToNumberCode extension.fuelPower/>);
+                    <#else>
+                        FuelRegistry.INSTANCE.add(${mappedMCItemToItem(extension.item)}, ${extension.fuelPower.getFixedValue()});
+                    </#if>
+            </#if>
         </#list>
+		</#compress>
     }
 
 }

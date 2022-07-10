@@ -1,0 +1,13 @@
+templates:
+  - template: dispensebehaviour.java.ftl
+    condition: hasDispenseBehavior
+    deleteWhenConditionFalse: true
+    name: "@SRCROOT/@BASEPACKAGEPATH/item/extension/@NAMEDispenseBehaviour.java"
+
+global_templates:
+  - template: elementinits/itemextensions.java.ftl
+    writer: java
+    deleteWhenConditionFalse: true
+    name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameItemExtensions.java"
+
+field_exclusions: [ compostLayerChance ]

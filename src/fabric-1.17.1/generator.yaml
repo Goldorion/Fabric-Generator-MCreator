@@ -1,7 +1,7 @@
 name: Minecraft Fabric for 1.17.1 - @buildfileversion
 status: dev
 buildfileversion: 0.46.1
-subversion: 1.4
+subversion: 1.5
 
 java_models:
   key: mojmap-1.17.x
@@ -23,7 +23,11 @@ sounds_dir: "@MODASSETSROOT/sounds"
 other_textures_dir: "@MODASSETSROOT/textures"
 block_textures_dir: "@MODASSETSROOT/textures/blocks"
 item_textures_dir: "@MODASSETSROOT/textures/items"
-armor_textures_dir: "@RESROOT/assets/minecraft/textures/models/armor"
+entity_textures_dir: "@MODASSETSROOT/textures/entities"
+effect_textures_dir: "@MODASSETSROOT/textures/mob_effect"
+particle_textures_dir: "@MODASSETSROOT/textures/particle"
+screen_textures_dir: "@MODASSETSROOT/textures/screens"
+armor_textures_dir: "@MODASSETSROOT/textures/models/armor"
 
 base_templates:
 - template: modbase/mod.java.ftl
