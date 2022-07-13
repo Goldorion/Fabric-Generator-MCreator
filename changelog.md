@@ -7,8 +7,9 @@
 * Added support for the new Item extension mod element
 * Added support for the new command arguments
 * Added support for the new texture categories
-* Added support for new block features: requires correct tool option and projectile hits the block
+* Added support for new block features: pitch rotation, requires correct tool option and projectile hits the block
 * Added support for new plant features: is solid option, projectile hits the block and entity walked on the plant
+* [Bugfix] Checkboxes in custom GUIs had too big of a click region
 
 ### 1.6-beta-4
 (Unsupported by Fabric)
