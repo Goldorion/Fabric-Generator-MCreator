@@ -11,15 +11,15 @@ Unsupported fields in full supported mod elements are features from Forge only. 
 * Advancement
 * Block
 * Command
+* Creative tab
 * Custom code
 * Enchantment 
 * Food
-* Fuel
 * Function
 * Game rule
 * GUI
 * Item
-* Item group
+* Item extension
   Missing: Re-order creative tabs
 * Key binding
 * Loot table
@@ -48,6 +48,7 @@ Unsupported fields in full supported mod elements are features from Forge only. 
 
 ### Unsupported
 * Fluid
+* Villager trade
 
 ## Installation Instructions
 Pre-built binaries can be found on the [Release page of this repository](https://github.com/Goldorion/Fabric-Generator-MCreator/releases).

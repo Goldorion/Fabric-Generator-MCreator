@@ -44,6 +44,10 @@ public class ${JavaModName}ItemExtensions {
                         FuelRegistry.INSTANCE.add(${mappedMCItemToItem(extension.item)}, ${extension.fuelPower.getFixedValue()});
                     </#if>
             </#if>
+
+            <#if (extension.compostLayerChance > 0)>
+		        ComposterBlock.COMPOSTABLES.put(${mappedMCItemToItem(extension.item)}, ${extension.compostLayerChance}f);
+            </#if>
         </#list>
 		</#compress>
     }

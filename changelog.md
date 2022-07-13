@@ -1,6 +1,9 @@
 # Changelogs:
 
 ## 1.6
+
+## 
+
 ## 1.6-beta-4
 (Unsupported by Fabric)
 * [Bugfix #197] Disabled "When block destroyed by player" block/plant trigger
