@@ -67,7 +67,7 @@ public class ${name}Block extends
 	<#else>
 		FabricBlockSettings.of(Material.${data.material})
 	</#if>
-    		<#if data.destroyTool != "Not specified">
+    		<#if data.requiresCorrectTool>
     			.breakByTool(FabricToolTags.${data.destroyTool?upper_case}S, ${data.breakHarvestLevel})
     			.requiresTool()
     		</#if>
@@ -92,7 +92,7 @@ public class ${name}Block extends
 			<#if data.luminance != 0>
 				.lightLevel(s -> ${data.luminance})
 			</#if>
-			<#if data.destroyTool != "Not specified">
+            <#if data.requiresCorrectTool>
 				.requiresCorrectToolForDrops()
 			</#if>
 			<#if data.isNotColidable>
@@ -468,6 +468,8 @@ public class ${name}Block extends
 	<@onEntityCollides data.onEntityCollides/>
 
 	<@onEntityWalksOn data.onEntityWalksOn/>
+
+	<@onHitByProjectile data.onHitByProjectile/>
 
 	<@onBlockPlacedBy data.onBlockPlayedBy/>
 

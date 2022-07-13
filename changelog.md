@@ -2,9 +2,15 @@
 
 ## 1.6
 
-## 
+### Release
+* Updated to MCreator 2022.2
+* Added support for the new Item extension mod element
+* Added support for the new command arguments
+* Added support for the new texture categories
+* Added support for new block features: requires correct tool option and projectile hits the block
+* Added support for new plant features: is solid option, projectile hits the block and entity walked on the plant
 
-## 1.6-beta-4
+### 1.6-beta-4
 (Unsupported by Fabric)
 * [Bugfix #197] Disabled "When block destroyed by player" block/plant trigger
 * [Bugfix #198] Removed entity NBT related procedure blocks

@@ -47,14 +47,13 @@ public class ${name}Block extends <#if data.plantType == "normal">Flower<#elseif
 	public ${name}Block() {
 		super(<#if data.plantType == "normal">${generator.map(data.suspiciousStewEffect, "effects")}, ${data.suspiciousStewDuration},</#if>
 		<#if generator.map(data.colorOnMap, "mapcolors") != "DEFAULT">
-		BlockBehaviour.Properties.of(Material.PLANT, MaterialColor.${generator.map(data.colorOnMap, "mapcolors")})
+		    BlockBehaviour.Properties.of(Material.PLANT, MaterialColor.${generator.map(data.colorOnMap, "mapcolors")})
 		<#else>
-		BlockBehaviour.Properties.of(Material.PLANT)
+		    BlockBehaviour.Properties.of(Material.PLANT)
 		</#if>
 		<#if data.plantType == "growapable" || data.forceTicking>
-		.randomTicks()
+		    .randomTicks()
 		</#if>
-		.noCollission()
 		<#if data.isCustomSoundType>
 			.sound(new SoundType(1.0f, 1.0f, new SoundEvent(new ResourceLocation("${data.breakSound}")),
 			new SoundEvent(new ResourceLocation("${data.stepSound}")),
@@ -65,27 +64,35 @@ public class ${name}Block extends <#if data.plantType == "normal">Flower<#elseif
 			.sound(SoundType.${data.soundOnStep})
 		</#if>
 		<#if data.unbreakable>
-		.strength(-1, 3600000)
+		    .strength(-1, 3600000)
 		<#elseif (data.hardness == 0) && (data.resistance == 0)>
-		.instabreak()
+		    .instabreak()
 		<#else>
-		.strength(${data.hardness}f, ${data.resistance}f)
+		    .strength(${data.hardness}f, ${data.resistance}f)
 		</#if>
 		<#if data.emissiveRendering>
-		.hasPostProcess((bs, br, bp) -> true).emissiveRendering((bs, br, bp) -> true)
+		    .hasPostProcess((bs, br, bp) -> true).emissiveRendering((bs, br, bp) -> true)
 		</#if>
 		<#if data.speedFactor != 1.0>
-		.speedFactor(${data.speedFactor}f)
+		    .speedFactor(${data.speedFactor}f)
 		</#if>
 		<#if data.jumpFactor != 1.0>
-		.jumpFactor(${data.jumpFactor}f)
+		    .jumpFactor(${data.jumpFactor}f)
 		</#if>
 		<#if data.luminance != 0>
-		.lightLevel(s -> ${data.luminance})
+		    .lightLevel(s -> ${data.luminance})
 		</#if>
 		<#if !data.useLootTableForDrops && (data.dropAmount == 0)>
-		.noDrops()
+		    .noDrops()
 		</#if>
+		<#if data.isSolid>
+        .noOcclusion()
+            <#if (data.customBoundingBox && data.boundingBoxes??) || (data.offsetType != "NONE")>
+        	    .dynamicShape()
+        	</#if>
+        <#else>
+            .noCollission()
+        </#if>
 	    );
 
 	    <#if data.flammability != 0 && data.fireSpreadSpeed != 0>
@@ -268,6 +275,10 @@ public class ${name}Block extends <#if data.plantType == "normal">Flower<#elseif
 	<@onBlockPlacedBy data.onBlockPlacedBy/>
 
 	<@onBlockRightClicked data.onRightClicked/>
+
+	<@onEntityWalksOn data.onEntityWalksOn/>
+
+	<@onHitByProjectile data.onHitByProjectile/>
 
 	<#if data.hasTileEntity>
 	@Override public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
