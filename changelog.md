@@ -7,8 +7,10 @@
 * Added support for the new Item extension mod element
 * Added support for the new command arguments
 * Added support for the new texture categories
-* Added support for new block features: pitch rotation, requires correct tool option and projectile hits the block
-* Added support for new plant features: is solid option, projectile hits the block and entity walked on the plant
+* Added new block features: pitch rotation, requires correct tool option and projectile hits the block
+* Added new plant features: is solid option, projectile hits the block and entity walked on the plant
+* Added blockstate management procedure blocks to universally read, write and modify block states
+* Added entity procedures: for each passenger, for each direct passenger, get passenger that is controlling entity, and get lowest ridden entity
 * [Bugfix] Checkboxes in custom GUIs had too big of a click region
 
 ### 1.6-beta-4
