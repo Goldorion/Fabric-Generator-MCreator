@@ -101,7 +101,7 @@ public class ${name}Feature extends OreFeature {
 		static final RuleTestType<${name}FeatureRuleTest> CUSTOM_MATCH = Registry.register(Registry.RULE_TEST,
 				new ResourceLocation("${modid}:${registryname}_match"), () -> codec);
 
-		public boolean test(BlockState blockAt, Random random) {
+		public boolean test(BlockState blockAt, RandomSource random) {
 			boolean blockCriteria = false;
 
 			<#list data.blocksToReplace as replacementBlock>

@@ -117,7 +117,7 @@ public class ${name}Entity extends AbstractArrow implements ItemSupplier {
 			this.discard();
 	}
 
-	public static ${name}Entity shoot(Level world, LivingEntity entity, Random random, float power, double damage, int knockback) {
+	public static ${name}Entity shoot(Level world, LivingEntity entity, RandomSource random, float power, double damage, int knockback) {
 		${name}Entity entityarrow = new ${name}Entity(${JavaModName}Entities.${data.getModElement().getRegistryNameUpper()}, entity, world);
 		entityarrow.shoot(entity.getViewVector(1).x, entity.getViewVector(1).y, entity.getViewVector(1).z, power * 2, 0);
 		entityarrow.setSilent(true);
@@ -155,7 +155,7 @@ public class ${name}Entity extends AbstractArrow implements ItemSupplier {
 		double y = entity.getY();
 		double z = entity.getZ();
 		entity.level.playSound((Player) null, (double) x, (double) y, (double) z, new SoundEvent(new ResourceLocation("${data.actionSound}")),
-		        SoundSource.PLAYERS, 1, 1f / (new Random().nextFloat() * 0.5f + 1));
+		        SoundSource.PLAYERS, 1, 1f / (new RandomSource().nextFloat() * 0.5f + 1));
 
 		return entityarrow;
 	}

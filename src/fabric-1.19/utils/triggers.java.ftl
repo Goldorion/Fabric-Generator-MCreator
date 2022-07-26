@@ -311,7 +311,7 @@
 
 <#macro onAnimateTick procedure="">
 <#if hasProcedure(procedure)>
-@Override public void animateTick(BlockState blockstate, Level world, BlockPos pos, Random random) {
+@Override public void animateTick(BlockState blockstate, Level world, BlockPos pos, RandomSource random) {
 	super.animateTick(blockstate, world, pos, random);
 	<@procedureCode procedure, {
 	   	"x": "pos.getX()",
@@ -327,7 +327,7 @@
 
 <#macro onBlockTick procedure="" scheduleTick=false tickRate=0>
 <#if hasProcedure(procedure)>
-@Override public void tick(BlockState blockstate, ServerLevel world, BlockPos pos, Random random) {
+@Override public void tick(BlockState blockstate, ServerLevel world, BlockPos pos, RandomSource random) {
 	super.tick(blockstate, world, pos, random);
 	<@procedureCode procedure, {
 		"x": "pos.getX()",

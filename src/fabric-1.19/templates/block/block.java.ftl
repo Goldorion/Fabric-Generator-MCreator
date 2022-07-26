@@ -32,6 +32,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
+import net.fabricmc.api.Environment;
 
 public class ${name}Block extends
 			<#if data.hasGravity>
@@ -441,7 +442,7 @@ public class ${name}Block extends
 
 	<#if hasProcedure(data.onTickUpdate)>
 	@Override public void <#if data.tickRandomly && (data.blockBase?has_content && data.blockBase == "Stairs")>randomTick<#else>tick</#if>
-			(BlockState blockstate, ServerLevel world, BlockPos pos, Random random) {
+			(BlockState blockstate, ServerLevel world, BlockPos pos, RandomSource random) {
 		super.<#if data.tickRandomly && (data.blockBase?has_content && data.blockBase == "Stairs")>randomTick<#else>tick</#if>(blockstate, world, pos, random);
 		int x = pos.getX();
 		int y = pos.getY();
@@ -457,7 +458,7 @@ public class ${name}Block extends
 
 	<#if hasProcedure(data.onRandomUpdateEvent) || data.spawnParticles>
 	@Environment(EnvType.CLIENT) @Override
-	public void animateTick(BlockState blockstate, Level world, BlockPos pos, Random random) {
+	public void animateTick(BlockState blockstate, Level world, BlockPos pos, RandomSource random) {
 		super.animateTick(blockstate, world, pos, random);
 		Player entity = Minecraft.getInstance().player;
 		int x = pos.getX();

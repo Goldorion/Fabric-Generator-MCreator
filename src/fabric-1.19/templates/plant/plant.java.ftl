@@ -244,7 +244,7 @@ public class ${name}Block extends <#if data.plantType == "normal">Flower<#elseif
 	<@onBlockTick data.onTickUpdate, false, 0/>
 
 	<#if data.plantType == "growapable">
-	@Override public void randomTick(BlockState blockstate, ServerLevel world, BlockPos blockpos, Random random) {
+	@Override public void randomTick(BlockState blockstate, ServerLevel world, BlockPos blockpos, RandomSource random) {
 		if (world.isEmptyBlock(blockpos.above())) {
 			int i = 1;
 			for(;world.getBlockState(blockpos.below(i)).is(this); ++i);
