@@ -1,10 +1,11 @@
-name: Minecraft Fabric for 1.17.1 - @buildfileversion
+name: Minecraft Fabric for 1.19 - @buildfileversion
 status: dev
-buildfileversion: 0.46.1
+buildfileversion: 0.58.0
 subversion: 1.5
 
 java_models:
-  key: mojmap-1.17.x
+  key: mojmap-1.19.x
+  compatible: [mojmap-1.17.x, mojmap-1.18.x]
   requested_key_words: [ModelPart, ~ModelRenderer]
 
 gradle:
@@ -55,9 +56,6 @@ base_templates:
 - template: elementinits/sounds.java.ftl
   name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameSounds.java"
   condition: hasSounds()
-- template: modbase/accesswidener.ftl
-  writer: file
-  name: "@RESROOT/modid.accesswidener"
 
 language_file:
   format: json

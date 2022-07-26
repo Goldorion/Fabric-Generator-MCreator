@@ -33,10 +33,10 @@
   },
 
   "depends": {
-    "fabricloader": ">=0.12.12",
+    "fabricloader": ">=0.14.8",
     "fabric": "*",
-    "minecraft": "1.17.x",
-    "java": ">=16"
+    "minecraft": "~1.19",
+    "java": ">=17"
   },
   "accessWidener" : "modid.accesswidener"
 }

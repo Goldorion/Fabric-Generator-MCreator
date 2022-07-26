@@ -1,25 +1,21 @@
 plugins {
-    id 'fabric-loom' version '0.10-SNAPSHOT'
+    id 'fabric-loom' version '0.12-SNAPSHOT'
 }
 
-sourceCompatibility = JavaVersion.VERSION_16
-targetCompatibility = JavaVersion.VERSION_16
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
 
 archivesBaseName = 'modid'
 version = '1.0.0'
 group = 'com.yourname.modid'
 
 dependencies {
-    minecraft "com.mojang:minecraft:1.17.1"
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
     mappings loom.officialMojangMappings()
-    modImplementation "net.fabricmc:fabric-loader:0.13.1"
-
-    loom {
-        accessWidenerPath = file("src/main/resources/modid.accesswidener")
-    }
+    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
     //Fabric api
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${generator.getGeneratorBuildFileVersion()}+1.17"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 }
 
 processResources {
@@ -33,7 +29,7 @@ processResources {
 tasks.withType(JavaCompile).configureEach {
     it.options.encoding = "UTF-8"
 
-    def targetVersion = 16
+    def targetVersion = 17
     if (JavaVersion.current().isJava9Compatible()) {
         it.options.release = targetVersion
     }
