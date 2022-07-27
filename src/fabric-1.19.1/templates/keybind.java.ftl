@@ -25,7 +25,12 @@ package ${package}.network;
 
 import ${package}.${JavaModName};
 
-public class ${name}Message {
+public class ${name}Message extends FriendlyByteBuf {
+
+	public ${name}Message(int type, int pressedms) {
+		writeInt(type);
+		writeInt(pressedms);
+	}
 
 	<#if hasProcedure(data.onKeyPressed) || hasProcedure(data.onKeyReleased)>
     	public static void pressAction(Player entity, KeyMapping key) {

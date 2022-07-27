@@ -1,6 +1,6 @@
-name: Minecraft Fabric for 1.19 - @buildfileversion
+name: Minecraft Fabric for 1.19.1 - @buildfileversion
 status: dev
-buildfileversion: 0.58.0
+buildfileversion: 0.58.4
 subversion: 1.5
 
 java_models:
