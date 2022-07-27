@@ -25,6 +25,7 @@
 package ${package}.init;
 
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.fabricmc.api.Environment;
 
 @Environment(EnvType.CLIENT)
 public class ${JavaModName}EntityRenderers {

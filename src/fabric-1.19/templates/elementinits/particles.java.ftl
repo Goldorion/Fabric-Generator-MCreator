@@ -23,6 +23,8 @@
 
 package ${package}.init;
 
+import net.fabricmc.api.Environment;
+
 @Environment(EnvType.CLIENT) public class ${JavaModName}Particles {
 
 	<#list particles as particle>

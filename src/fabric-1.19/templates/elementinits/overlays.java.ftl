@@ -23,6 +23,8 @@
 
 package ${package}.init;
 
+import net.fabricmc.api.Environment;
+
 @Environment(EnvType.CLIENT) public class ${JavaModName}Overlays {
 
 	public static void load() {

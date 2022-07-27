@@ -32,6 +32,7 @@
 <#-- @formatter:off -->
 
 package ${package}.item.inventory;
+import net.fabricmc.api.Environment;
 
 @Environment(EnvType.CLIENT)
 public class ${name}Inventory implements WorldlyContainer {

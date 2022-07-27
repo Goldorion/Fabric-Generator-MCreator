@@ -22,6 +22,7 @@
 <#include "procedures.java.ftl">
 
 package ${package}.client.particle;
+import net.fabricmc.api.Environment;
 
 @Environment(EnvType.CLIENT) public class ${name}Particle extends TextureSheetParticle {
 
