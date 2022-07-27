@@ -4,7 +4,7 @@
   "weight":  11,
   "info": {
     "name": "Minecraft Fabric 1.17.1 Generator",
-    "version": "1.6",
+    "version": "1.6.1",
     "description": "A Fabric generator",
     "author": "Goldorion",
     "credits": "Thank you to all contributors and built-in MCreator generators.",

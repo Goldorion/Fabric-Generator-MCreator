@@ -1,5 +1,8 @@
 # Changelogs:
 
+## 1.6.1
+* [Bugfix] It is now possible to change to this generator.
+
 ## 1.6
 
 ### Release
