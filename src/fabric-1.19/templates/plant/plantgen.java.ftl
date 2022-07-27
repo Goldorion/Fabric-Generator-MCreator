@@ -35,28 +35,48 @@
 
 package ${package}.world.features.plants;
 
-import com.mojang.serialization.Codec;
+public class ${name}Feature extends RandomPatchFeature {
 
-public class ${name}Feature extends <#if data.plantType == "normal" && data.staticPlantGenerationType == "Flower">DefaultFlowerFeature<#else>RandomPatchFeature</#if> {
-	public static final ${name}Feature FEATURE = (${name}Feature) new ${name}Feature();
-	public static final ConfiguredFeature<?, ?> CONFIGURED_FEATURE = FEATURE
-				.configured(
-					new RandomPatchConfiguration.GrassConfigurationBuilder(
-						new SimpleStateProvider(${JavaModName}Blocks.${data.getModElement().getRegistryNameUpper()}.defaultBlockState()),
-						<#if data.plantType == "double">DoublePlantPlacer.INSTANCE
-						<#elseif data.plantType == "normal">SimpleBlockPlacer.INSTANCE
-						<#else>new ColumnPlacer(BiasedToBottomInt.of(2, 4))
-						</#if>
-					)
-					.tries(${data.patchSize})
-					<#if data.plantType == "growapable">.xspread(4).yspread(0).zspread(4).noProjection()</#if>
-					<#if data.plantType == "double" && data.doublePlantGenerationType == "Flower">.noProjection()</#if>
-					.build()
-				)
-				.decorated(FeatureDecorator.HEIGHTMAP<#if (data.plantType == "normal" && data.staticPlantGenerationType == "Grass") || data.plantType == "growapable">_SPREAD_DOUBLE</#if>.configured(new HeightmapConfiguration(Heightmap.Types.MOTION_BLOCKING)))
-				.squared()
-				<#if !(data.plantType == "growapable")>.rarity(32)</#if>
-				.count(${data.frequencyOnChunks});
+	public static ${name}Feature FEATURE = null;
+    public static Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> CONFIGURED_FEATURE = null;
+    public static Holder<PlacedFeature> PLACED_FEATURE = null;
+
+    public static Feature<?> feature() {
+    	FEATURE = new ${name}Feature();
+    	CONFIGURED_FEATURE = FeatureUtils.register("${modid}:${registryname}", FEATURE,
+    		<#if data.plantType == "growapable">
+    			FeatureUtils.simpleRandomPatchConfiguration(${data.patchSize}, PlacementUtils.filtered(
+    			        Feature.BLOCK_COLUMN, BlockColumnConfiguration.simple(BiasedToBottomInt.of(2, 4),
+    					        BlockStateProvider.simple(${JavaModName}Blocks.${data.getModElement().getRegistryNameUpper()}.defaultBlockState())),
+    						    BlockPredicate.allOf(BlockPredicate.ONLY_IN_AIR_PREDICATE,
+    							BlockPredicate.wouldSurvive(${JavaModName}Blocks.${data.getModElement().getRegistryNameUpper()}.defaultBlockState(), BlockPos.ZERO))
+    			))
+    		<#else>
+    			FeatureUtils.simplePatchConfiguration(Feature.SIMPLE_BLOCK,
+    					new SimpleBlockConfiguration(BlockStateProvider.simple(${JavaModName}Blocks.${data.getModElement().getRegistryNameUpper()}.defaultBlockState())),
+    					List.of(), ${data.patchSize})
+    		</#if>
+    	);
+    	PLACED_FEATURE = PlacementUtils.register("${modid}:${registryname}", CONFIGURED_FEATURE,
+    			List.of(
+   			CountPlacement.of(${data.frequencyOnChunks}),
+    		<#if (data.plantType == "normal" && data.staticPlantGenerationType == "Flower") ||
+    		    (data.plantType == "double" && data.doublePlantGenerationType == "Flower") || data.plantType == "growapable">
+    		    RarityFilter.onAverageOnceEvery(32),
+    		</#if>
+    		InSquarePlacement.spread(),
+    		<#if data.generateAtAnyHeight>
+    			PlacementUtils.FULL_RANGE
+    		<#else>
+    		PlacementUtils.HEIGHTMAP<#if
+    			(data.plantType == "normal" && data.staticPlantGenerationType == "Grass") ||
+    			(data.plantType == "double" && data.doublePlantGenerationType == "Grass") ||
+    			data.plantType == "growapable">_WORLD_SURFACE</#if>
+    		</#if>,
+    		BiomeFilter.biome()
+    	));
+    	return FEATURE;
+    }
 
 	public static final Predicate<BiomeSelectionContext> GENERATE_BIOMES = BiomeSelectors.
         <#if data.restrictionBiomes?has_content>
@@ -69,33 +89,28 @@ public class ${name}Feature extends <#if data.plantType == "normal" && data.stat
            all()
         </#if>;
 
+	private final Set<ResourceKey<Level>> generate_dimensions = Set.of(
+		<#list data.spawnWorldTypes as worldType>
+			<#if worldType == "Surface">
+				Level.OVERWORLD
+			<#elseif worldType == "Nether">
+				Level.NETHER
+			<#elseif worldType == "End">
+				Level.END
+			<#else>
+				ResourceKey.create(Registry.DIMENSION_REGISTRY,
+						new ResourceLocation("${generator.getResourceLocationForModElement(worldType.toString().replace("CUSTOM:", ""))}"))
+			</#if><#sep>,
+		</#list>
+	);
+
 	public ${name}Feature() {
 		super(RandomPatchConfiguration.CODEC);
 	}
 
 	public boolean place(FeaturePlaceContext<RandomPatchConfiguration> context) {
 		WorldGenLevel world = context.level();
-		ResourceKey<Level> dimensionType = world.getLevel().dimension();
-		boolean dimensionCriteria = false;
-
-		<#list data.spawnWorldTypes as worldType>
-			<#if worldType=="Surface">
-				if(dimensionType == Level.OVERWORLD)
-					dimensionCriteria = true;
-			<#elseif worldType=="Nether">
-				if(dimensionType == Level.NETHER)
-					dimensionCriteria = true;
-			<#elseif worldType=="End">
-				if(dimensionType == Level.END)
-					dimensionCriteria = true;
-			<#else>
-				if(dimensionType == ResourceKey.create(Registry.DIMENSION_REGISTRY,
-						new ResourceLocation("${generator.getResourceLocationForModElement(worldType.toString().replace("CUSTOM:", ""))}")))
-					dimensionCriteria = true;
-			</#if>
-		</#list>
-
-		if(!dimensionCriteria)
+		if (!generate_dimensions.contains(world.getLevel().dimension()))
 			return false;
 
 		<#if hasProcedure(data.generateCondition)>

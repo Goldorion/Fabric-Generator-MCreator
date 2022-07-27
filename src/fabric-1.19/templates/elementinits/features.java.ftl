@@ -32,7 +32,7 @@ public class ${JavaModName}Features {
 		    register("${feature.getModElement().getRegistryName()}", ${feature.getModElement().getName()}Feature.feature(),
             	${feature.getModElement().getName()}Feature.GENERATE_BIOMES, GenerationStep.Decoration.UNDERGROUND_ORES);
 		<#elseif feature.getModElement().getTypeString() == "plant">
-		    register("${feature.getModElement().getRegistryName()}", ${feature.getModElement().getName()}Feature.FEATURE,
+		    register("${feature.getModElement().getRegistryName()}", ${feature.getModElement().getName()}Feature.feature(),
 		        ${feature.getModElement().getName()}Feature.GENERATE_BIOMES, GenerationStep.Decoration.VEGETAL_DECORATION);
 		<#elseif feature.getModElement().getTypeString() == "structure">
 		    register("${feature.getModElement().getRegistryName()}", ${feature.getModElement().getName()}Feature.FEATURE,
