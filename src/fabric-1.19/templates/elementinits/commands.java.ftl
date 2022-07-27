@@ -27,9 +27,9 @@ package ${package}.init;
 public class ${JavaModName}Commands {
 
 	public static void load() {
-	    CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> {
+	    CommandRegistrationCallback.EVENT.register((dispatcher, commandBuildContext, dedicated) -> {
             <#list commands as command>
-        	    ${command.getModElement().getName()}Command.register(dispatcher);
+        	    ${command.getModElement().getName()}Command.register(dispatcher, commandBuildContext);
             </#list>
         });
 	}

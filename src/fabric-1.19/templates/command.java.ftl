@@ -25,7 +25,7 @@ package ${package}.command;
 
 public class ${name}Command {
 
-	public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
+	public static void register(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext commandBuildContext) {
 		dispatcher.register(Commands.literal("${data.commandName}")
 			<#if data.permissionLevel != "No requirement">.requires(s -> s.hasPermission(${data.permissionLevel}))</#if>
 			${argscode}

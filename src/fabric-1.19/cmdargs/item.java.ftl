@@ -1,1 +1,1 @@
-.then(Commands.argument("${field$name}", ItemArgument.item())${statement$args})
+.then(Commands.argument("${field$name}", ItemArgument.item(commandBuildContext))${statement$args})

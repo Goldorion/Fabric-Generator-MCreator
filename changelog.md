@@ -1,5 +1,13 @@
 # Changelogs:
 
+## 1.7
+
+### 1.7-beta-1
+* Added base support for Fabric 1.19
+* Added support for mod elements: advancement, armor, block, code, command, function, item, loot table, plant, procedure, recipe, tab, tag, tool
+* [Bugfix] Add item to player's inventory caused a build error
+
+
 ## 1.6
 
 ### Release
