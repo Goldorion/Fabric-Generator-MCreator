@@ -32,6 +32,8 @@
 
 package ${package}.client.gui;
 
+import net.fabricmc.api.Environment;
+
 @Environment(EnvType.CLIENT)
 public class ${name}Overlay {
 
@@ -69,7 +71,7 @@ public class ${name}Overlay {
 		if (<@procedureOBJToConditionCode data.displayCondition/>) {
 			<#if data.baseTexture?has_content>
 				RenderSystem.setShaderTexture(0, new ResourceLocation("${modid}:textures/screens/${data.baseTexture}"));
-				Minecraft.getInstance().gui.blit(matrices, 0, 0, 0, 0, w, h, w, h);
+				GuiComponent.blit(matrices, 0, 0, 0, 0, w, h, w, h);
 			</#if>
 
 			<#list data.components as component>
@@ -86,7 +88,7 @@ public class ${name}Overlay {
 				if (<@procedureOBJToConditionCode component.displayCondition/>) {
 				</#if>
 				RenderSystem.setShaderTexture(0, new ResourceLocation("${modid}:textures/screens/${component.image}"));
-				Minecraft.getInstance().gui.blit(matrices, posX + ${x}, posY + ${y}, 0, 0,
+				GuiComponent.blit(matrices, posX + ${x}, posY + ${y}, 0, 0,
 					${component.getWidth(w.getWorkspace())}, ${component.getHeight(w.getWorkspace())},
 					${component.getWidth(w.getWorkspace())}, ${component.getHeight(w.getWorkspace())});
 
