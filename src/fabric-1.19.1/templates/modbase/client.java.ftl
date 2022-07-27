@@ -38,7 +38,7 @@ import net.fabricmc.api.Environment;
     @Override
     public void onInitializeClient(){
 		<#if w.hasElementsOfType("keybind")>${JavaModName}KeyMappings.load();</#if>
-		<#if w.hasElementsOfType("particle")>${JavaModName}Particles.load();</#if>
+		<#if w.hasElementsOfType("particle")>${JavaModName}ParticleTypes.load();</#if>
 		<#if w.hasElementsOfType("overlay")>${JavaModName}Overlays.load();</#if>
 		<#if w.hasElementsOfBaseType("block")>${JavaModName}Blocks.clientLoad();</#if>
 		<#if w.hasElementsOfType("gui")>${JavaModName}Screens.load();</#if>

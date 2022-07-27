@@ -25,7 +25,7 @@ package ${package}.init;
 
 import net.fabricmc.api.Environment;
 
-@Environment(EnvType.CLIENT) public class ${JavaModName}Particles {
+@Environment(EnvType.CLIENT) public class ${JavaModName}ParticleTypes {
 
 	<#list particles as particle>
         public static final SimpleParticleType ${particle.getModElement().getRegistryNameUpper()} = Registry.register(

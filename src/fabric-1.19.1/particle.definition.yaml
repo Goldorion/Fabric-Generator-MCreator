@@ -7,4 +7,4 @@ templates:
 
 global_templates:
   - template: elementinits/particles.java.ftl
-    name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameParticles.java"
+    name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameParticleTypes.java"

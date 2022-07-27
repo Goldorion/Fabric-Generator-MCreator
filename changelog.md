@@ -4,7 +4,7 @@
 
 ### 1.7-beta-1
 * Added base support for Fabric 1.19
-* Added support for mod elements: advancement, armor, block, code, command, enchantment, function, game rule, item, item extension, loot table, music disc, overlay, plant, potion, potion effect, procedure, ranged item, recipe, tab, tag, tool
+* Added support for mod elements: advancement, armor, block, code, command, enchantment, function, game rule, item, item extension, living entity, loot table, music disc, overlay, plant, potion, potion effect, procedure, ranged item, recipe, tab, tag, tool
 * [Bugfix] Add item to player's inventory caused a build error
 
 

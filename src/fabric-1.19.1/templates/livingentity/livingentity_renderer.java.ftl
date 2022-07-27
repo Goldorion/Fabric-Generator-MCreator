@@ -21,6 +21,8 @@
 <#-- @formatter:off -->
 package ${package}.client.renderer;
 
+import net.fabricmc.api.Environment;
+
 <#assign humanoid = false>
 <#assign model = "HumanoidModel">
 
