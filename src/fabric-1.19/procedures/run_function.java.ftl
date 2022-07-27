@@ -1,5 +1,5 @@
 <#include "mcelements.ftl">
-if(world instanceof ServerLevel _level && _level.getServer() != null) {
+if (world instanceof ServerLevel _level && _level.getServer() != null) {
 	Optional<CommandFunction> _fopt = _level.getServer().getFunctions().get(${toResourceLocation(input$function)});
 	if(_fopt.isPresent())
 		_level.getServer().getFunctions().execute(_fopt.get(),

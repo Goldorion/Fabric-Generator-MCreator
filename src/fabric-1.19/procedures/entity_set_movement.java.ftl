@@ -1,1 +1,1 @@
-${input$entity}.setDeltaMovement(${input$vx},${input$vy},${input$vz});
+${input$entity}.setDeltaMovement(new Vec3(${input$vx}, ${input$vy}, ${input$vz}));

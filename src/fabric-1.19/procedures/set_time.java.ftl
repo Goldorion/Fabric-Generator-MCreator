@@ -1,1 +1,1 @@
-if(world instanceof ServerLevel _level) _level.setDayTime(${opt.toInt(input$time)});
+if (world instanceof ServerLevel _level) _level.setDayTime(${opt.toInt(input$time)});

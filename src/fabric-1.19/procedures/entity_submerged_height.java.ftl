@@ -1,10 +1,9 @@
-new Object() {
-    public double getSubmergedHeight(Entity entity) {
-        for (net.minecraft.tags.Tag<Fluid> tag : FluidTags.getStaticTags()) {
-            if (entity.level.getFluidState(entity.blockPosition()).is(tag)) {
-                return entity.getFluidHeight(tag);
-            }
+(new Object() {
+    public double getSubmergedHeight(Entity _entity) {
+        for (TagKey<Fluid> _fldtag : Registry.FLUID.getTagNames().toList()) {
+            if (_entity.level.getFluidState(entity.blockPosition()).is(_fldtag))
+                return _entity.getFluidHeight(_fldtag);
         }
         return 0;
     }
-}.getSubmergedHeight(${input$entity})
+}.getSubmergedHeight(${input$entity}))

@@ -1,1 +1,1 @@
-/*@int*/(${input$entity} instanceof Player _plr ? _plr.experienceLevel:0)
+/*@int*/(${input$entity} instanceof Player _plr ? _plr.experienceLevel : 0)

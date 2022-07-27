@@ -1,1 +1,1 @@
-if(${input$entity} instanceof LivingEntity _entity) _entity.setHealth(${opt.toFloat(input$health)});
+if (${input$entity} instanceof LivingEntity _entity) _entity.setHealth(${opt.toFloat(input$health)});

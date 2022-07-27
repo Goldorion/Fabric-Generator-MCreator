@@ -1,1 +1,1 @@
-ActionResult.${field$type}
+InteractionResult.${field$type}

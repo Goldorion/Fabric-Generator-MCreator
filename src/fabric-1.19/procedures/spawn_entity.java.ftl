@@ -1,6 +1,6 @@
 <#assign entity = generator.map(field$entity, "entities", 1)!"null">
 <#if entity != "null">
-if(world instanceof ServerLevel _level) {
+if (world instanceof ServerLevel _level) {
 	Entity entityToSpawn = new ${generator.map(field$entity, "entities", 0)}(${entity}, _level);
 	entityToSpawn.moveTo(${input$x}, ${input$y}, ${input$z}, world.getRandom().nextFloat() * 360F, 0);
 
