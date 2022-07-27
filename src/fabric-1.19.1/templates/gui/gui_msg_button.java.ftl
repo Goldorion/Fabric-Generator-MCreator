@@ -38,10 +38,10 @@ public class ${name}ButtonMessage extends FriendlyByteBuf {
 
     public ${name}ButtonMessage(int buttonID, int x, int y, int z) {
         super(Unpooled.buffer());
-			writeInt(buttonID);
-			writeInt(x);
-			writeInt(y);
-			writeInt(z);
+		writeInt(buttonID);
+		writeInt(x);
+		writeInt(y);
+		writeInt(z);
     }
 
     public static void apply(MinecraftServer server, ServerPlayer entity, ServerGamePacketListenerImpl handler, FriendlyByteBuf buf, PacketSender responseSender) {

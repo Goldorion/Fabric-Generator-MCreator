@@ -61,6 +61,7 @@ public class ${JavaModName} implements ModInitializer {
 		<#if w.hasElementsOfType("command")>${JavaModName}Commands.load();</#if>
 		<#if w.hasElementsOfType("itemextension")>${JavaModName}ItemExtensions.load();</#if>
 		<#if w.hasElementsOfType("gui")>${JavaModName}Menus.load();</#if>
+		<#if w.hasElementsOfType("keybind")>${JavaModName}KeyMappings.serverLoad();</#if>
 	}
 }
 <#-- @formatter:on -->

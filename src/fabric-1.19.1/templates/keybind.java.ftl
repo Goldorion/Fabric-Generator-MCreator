@@ -27,34 +27,37 @@ import ${package}.${JavaModName};
 
 public class ${name}Message extends FriendlyByteBuf {
 
-	public ${name}Message(int type, int pressedms) {
-		writeInt(type);
-		writeInt(pressedms);
+	public ${name}Message(boolean isDown, boolean consumeClick) {
+		super(Unpooled.buffer());
+		writeBoolean(isDown);
+		writeBoolean(consumeClick);
 	}
 
-	<#if hasProcedure(data.onKeyPressed) || hasProcedure(data.onKeyReleased)>
-    	public static void pressAction(Player entity, KeyMapping key) {
-    		Level world = entity.level;
-    		double x = entity.getX();
-    		double y = entity.getY();
-    		double z = entity.getZ();
+    public static void apply(MinecraftServer server, ServerPlayer entity, ServerGamePacketListenerImpl handler, FriendlyByteBuf buf, PacketSender responseSender) {
+        boolean isDown = buf.readBoolean();
+        boolean consumeClick = buf.readBoolean();
+        server.execute(() -> {
+            Level world = entity.level;
+            double x = entity.getX();
+            double y = entity.getY();
+            double z = entity.getZ();
 
-    		// security measure to prevent arbitrary chunk generation
-    		if (!world.hasChunkAt(entity.blockPosition()))
-    			return;
+            // security measure to prevent arbitrary chunk generation
+            if (!world.hasChunkAt(entity.blockPosition()))
+                return;
 
-    		<#if hasProcedure(data.onKeyPressed)>
-    		    if(key.isDown()) {
-    			    <@procedureOBJToCode data.onKeyPressed/>
-    		    }
-    		</#if>
+            <#if hasProcedure(data.onKeyPressed)>
+                if(isDown) {
+                    <@procedureOBJToCode data.onKeyPressed/>
+                }
+            </#if>
 
-    		<#if hasProcedure(data.onKeyReleased)>
-                if(key.consumeClick()) {
-    			    <@procedureOBJToCode data.onKeyReleased/>
-    		    }
-    		</#if>
-    	}
-    </#if>
+            <#if hasProcedure(data.onKeyReleased)>
+                if(consumeClick) {
+                    <@procedureOBJToCode data.onKeyReleased/>
+                }
+            </#if>
+        });
+    }
 }
 <#-- @formatter:on -->
