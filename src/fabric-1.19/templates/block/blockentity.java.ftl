@@ -21,6 +21,8 @@
 <#-- @formatter:off -->
 package ${package}.block.entity;
 
+import javax.annotation.Nullable;
+
 public class ${name}BlockEntity extends RandomizableContainerBlockEntity implements ExtendedScreenHandlerFactory, WorldlyContainer {
 
 	private NonNullList<ItemStack> stacks = NonNullList.<ItemStack>withSize(${data.inventorySize}, ItemStack.EMPTY);
@@ -38,22 +40,19 @@ public class ${name}BlockEntity extends RandomizableContainerBlockEntity impleme
 		ContainerHelper.loadAllItems(compound, this.stacks);
 	}
 
-	@Override public CompoundTag save(CompoundTag compound) {
-		super.save(compound);
-
-		if (!this.trySaveLootTable(compound)) {
-			ContainerHelper.saveAllItems(compound, this.stacks);
-		}
-
-		return compound;
-	}
+	@Override
+    public void saveAdditional(CompoundTag compound) {
+    	super.saveAdditional(compound);
+    	if (!this.trySaveLootTable(compound))
+    		ContainerHelper.saveAllItems(compound, this.stacks);
+    }
 
 	@Override public ClientboundBlockEntityDataPacket getUpdatePacket() {
-		return new ClientboundBlockEntityDataPacket(this.worldPosition, 0, this.getUpdateTag());
+		return ClientboundBlockEntityDataPacket.create(this);
 	}
 
 	@Override public CompoundTag getUpdateTag() {
-		return this.save(new CompoundTag());
+		return this.saveWithoutMetadata();
 	}
 
 	@Override public int getContainerSize() {
@@ -68,7 +67,7 @@ public class ${name}BlockEntity extends RandomizableContainerBlockEntity impleme
 	}
 
 	@Override public Component getDefaultName() {
-		return new TextComponent("${registryname}");
+		return Component.literal("${registryname}");
 	}
 
 	@Override public int getMaxStackSize() {
@@ -84,7 +83,7 @@ public class ${name}BlockEntity extends RandomizableContainerBlockEntity impleme
 	}
 
 	@Override public Component getDisplayName() {
-		return new TextComponent("${data.name}");
+		return Component.literal("${data.name}");
 	}
 
 	@Override protected NonNullList<ItemStack> getItems() {

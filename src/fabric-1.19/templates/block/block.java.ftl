@@ -72,8 +72,7 @@ public class ${name}Block extends
 		FabricBlockSettings.of(Material.${data.material})
 	</#if>
     		<#if data.requiresCorrectTool>
-    			.breakByTool(FabricToolTags.${data.destroyTool?upper_case}S, ${data.breakHarvestLevel})
-    			.requiresTool()
+    			.requiresCorrectToolForDrops()
     		</#if>
 			<#if data.isCustomSoundType>
 				.sound(new ForgeSoundType(1.0f, 1.0f, () -> new SoundEvent(new ResourceLocation("${data.breakSound}")),
@@ -175,7 +174,7 @@ public class ${name}Block extends
 	@Override public void appendHoverText(ItemStack itemstack, BlockGetter world, List<Component> list, TooltipFlag flag) {
 		super.appendHoverText(itemstack, world, list, flag);
 		<#list data.specialInfo as entry>
-		list.add(new TextComponent("${JavaConventions.escapeStringForJava(entry)}"));
+		list.add(Component.literal("${JavaConventions.escapeStringForJava(entry)}"));
 	    </#list>
 	}
 	</#if>

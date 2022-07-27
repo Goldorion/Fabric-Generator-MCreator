@@ -37,7 +37,6 @@
     "fabric": "*",
     "minecraft": "~1.19",
     "java": ">=17"
-  },
-  "accessWidener" : "modid.accesswidener"
+  }
 }
 <#-- @formatter:on -->

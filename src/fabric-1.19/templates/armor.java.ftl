@@ -26,6 +26,7 @@
 package ${package}.item;
 
 import net.minecraft.sounds.SoundEvent;
+import net.fabricmc.api.Environment;
 
 public abstract class ${name}Item extends ArmorItem {
 
@@ -89,7 +90,7 @@ public abstract class ${name}Item extends ArmorItem {
 		@Override public void appendHoverText(ItemStack itemstack, Level world, List<Component> list, TooltipFlag flag) {
 		super.appendHoverText(itemstack, world, list, flag);
 			<#list data.helmetSpecialInfo as entry>
-			list.add(new TextComponent("${JavaConventions.escapeStringForJava(entry)}"));
+			list.add(Component.literal("${JavaConventions.escapeStringForJava(entry)}"));
 			</#list>
 		}
 		</#if>
@@ -107,7 +108,7 @@ public abstract class ${name}Item extends ArmorItem {
 		@Override public void appendHoverText(ItemStack itemstack, Level world, List<Component> list, TooltipFlag flag) {
 		super.appendHoverText(itemstack, world, list, flag);
 			<#list data.bodySpecialInfo as entry>
-			list.add(new TextComponent("${JavaConventions.escapeStringForJava(entry)}"));
+			list.add(Component.literal("${JavaConventions.escapeStringForJava(entry)}"));
 			</#list>
 		}
 		</#if>
@@ -125,7 +126,7 @@ public abstract class ${name}Item extends ArmorItem {
 		@Override public void appendHoverText(ItemStack itemstack, Level world, List<Component> list, TooltipFlag flag) {
 		super.appendHoverText(itemstack, world, list, flag);
 			<#list data.leggingsSpecialInfo as entry>
-			list.add(new TextComponent("${JavaConventions.escapeStringForJava(entry)}"));
+			list.add(Component.literal("${JavaConventions.escapeStringForJava(entry)}"));
 			</#list>
 		}
 		</#if>
@@ -143,7 +144,7 @@ public abstract class ${name}Item extends ArmorItem {
 		@Override public void appendHoverText(ItemStack itemstack, Level world, List<Component> list, TooltipFlag flag) {
 		super.appendHoverText(itemstack, world, list, flag);
 			<#list data.bootsSpecialInfo as entry>
-			list.add(new TextComponent("${JavaConventions.escapeStringForJava(entry)}"));
+			list.add(Component.literal("${JavaConventions.escapeStringForJava(entry)}"));
 			</#list>
 		}
 		</#if>

@@ -59,7 +59,7 @@ public class ${name}Entity extends ${extendsClass} {
 		setNoAi(${(!data.hasAI)});
 
 		<#if data.mobLabel?has_content >
-        	setCustomName(new TextComponent("${data.mobLabel}"));
+        	setCustomName(Component.literal("${data.mobLabel}"));
         	setCustomNameVisible(true);
         </#if>
 
@@ -372,7 +372,7 @@ public class ${name}Entity extends ${extendsClass} {
 
                     	@Override
                     	public Component getDisplayName() {
-                    		return new TextComponent("${data.mobName}");
+                    		return Component.literal("${data.mobName}");
                     	}
 
                     	@Override

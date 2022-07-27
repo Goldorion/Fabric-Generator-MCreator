@@ -396,6 +396,39 @@ global_templates:
     deleteWhenConditionFalse: true
     condition: ${w.hasBlocksMineableWith('hoe')}
 
+  - template: block/mineable_level_tag.json.ftl
+    writer: json
+    variables: level=0
+    name: "@RESROOT/data/fabric/tags/blocks/mineable/needs_tool_level_0.json"
+  - template: block/mineable_level_tag.json.ftl
+    writer: json
+    variables: level=1
+    name: "@RESROOT/data/fabric/tags/blocks/mineable/needs_tool_level_1.json"
+  - template: block/mineable_level_tag.json.ftl
+    writer: json
+    variables: level=2
+    name: "@RESROOT/data/fabric/tags/blocks/mineable/needs_tool_level_2.json"
+  - template: block/mineable_level_tag.json.ftl
+    writer: json
+    variables: level=3
+    name: "@RESROOT/data/fabric/tags/blocks/mineable/needs_tool_level_3.json"
+  - template: block/mineable_level_tag.json.ftl
+    writer: json
+    variables: level=4
+    name: "@RESROOT/data/fabric/tags/blocks/mineable/needs_tool_level_4.json"
+  - template: block/mineable_level_tag.json.ftl
+    writer: json
+    variables: level=5
+    name: "@RESROOT/data/fabric/tags/blocks/mineable/needs_tool_level_5.json"
+  - template: block/mineable_level_tag.json.ftl
+    writer: json
+    variables: level=6
+    name: "@RESROOT/data/fabric/tags/blocks/mineable/needs_tool_level_6.json"
+  - template: block/mineable_level_tag.json.ftl
+    writer: json
+    variables: level=7
+    name: "@RESROOT/data/fabric/tags/blocks/mineable/needs_tool_level_7.json"
+
 field_exclusions: [ displayFluidOverlay, plantsGrowOn, beaconColorModifier, isLadder, enchantPowerBonus, aiPathNodeType,
                     hasEnergyStorage, isFluidTank, energyInitial, energyCapacity, energyMaxReceive, energyMaxExtract, fluidCapacity, fluidRestrictions,
                     onDestroyedByPlayer ]

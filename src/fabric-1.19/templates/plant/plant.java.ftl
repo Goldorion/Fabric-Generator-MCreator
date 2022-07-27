@@ -133,7 +133,7 @@ public class ${name}Block extends <#if data.plantType == "normal">Flower<#elseif
 	@Override public void appendHoverText(ItemStack itemstack, BlockGetter world, List<Component> list, TooltipFlag flag) {
 		super.appendHoverText(itemstack, world, list, flag);
 		<#list data.specialInfo as entry>
-		list.add(new TextComponent("${JavaConventions.escapeStringForJava(entry)}"));
+		list.add(Component.literal("${JavaConventions.escapeStringForJava(entry)}"));
 		</#list>
 	}
 	</#if>

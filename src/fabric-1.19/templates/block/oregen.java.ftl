@@ -2,6 +2,7 @@
  # MCreator (https://mcreator.net/)
  # Copyright (C) 2012-2020, Pylo
  # Copyright (C) 2020-2021, Pylo, opensource contributors
+ # Copyright (C) 2020-2022, Goldorion, opensource contributors
  #
  # This program is free software: you can redistribute it and/or modify
  # it under the terms of the GNU General Public License as published by
@@ -36,11 +37,22 @@ package ${package}.world.features.ores;
 
 public class ${name}Feature extends OreFeature {
 
-	public static final ${name}Feature FEATURE = (${name}Feature) new ${name}Feature();
-	public static final ConfiguredFeature<?, ?> CONFIGURED_FEATURE = FEATURE
-				.configured(new OreConfiguration(${name}FeatureRuleTest.INSTANCE, ${JavaModName}Blocks.${data.getModElement().getRegistryNameUpper()}.defaultBlockState(), ${data.frequencyOnChunk}))
-				.range(new RangeDecoratorConfiguration(UniformHeight.of(VerticalAnchor.absolute(${data.minGenerateHeight}), VerticalAnchor.absolute(${data.maxGenerateHeight}))))
-				.squared().count(${data.frequencyPerChunks});
+	public static ${name}Feature FEATURE = null;
+    	public static Holder<ConfiguredFeature<OreConfiguration, ?>> CONFIGURED_FEATURE = null;
+    	public static Holder<PlacedFeature> PLACED_FEATURE = null;
+
+    	public static Feature<?> feature() {
+    		FEATURE = new ${name}Feature();
+    		CONFIGURED_FEATURE = FeatureUtils.register("${modid}:${registryname}", FEATURE,
+    				new OreConfiguration(${name}FeatureRuleTest.INSTANCE, ${JavaModName}Blocks.${data.getModElement().getRegistryNameUpper()}.defaultBlockState(), ${data.frequencyOnChunk})
+    		);
+    		PLACED_FEATURE = PlacementUtils.register("${modid}:${registryname}", CONFIGURED_FEATURE, List.of(
+    				CountPlacement.of(${data.frequencyPerChunks}), InSquarePlacement.spread(),
+    				HeightRangePlacement.${data.generationShape?lower_case}(VerticalAnchor.absolute(${data.minGenerateHeight}), VerticalAnchor.absolute(${data.maxGenerateHeight})),
+    				BiomeFilter.biome()
+    		));
+    		return FEATURE;
+    	}
 
     public static final Predicate<BiomeSelectionContext> GENERATE_BIOMES = BiomeSelectors.
         <#if data.restrictionBiomes?has_content>
