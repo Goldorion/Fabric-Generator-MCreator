@@ -3692,6 +3692,12 @@ Items.RECORD_11:
 Items.RECORD_WAIT:
   - Items.MUSIC_DISC_WAIT
   - "music_disc_wait"
+Items.MUSIC_DISC_PIGSTEP:
+  - Items.MUSIC_DISC_PIGSTEP
+  - "music_disc_pigstep"
+Items.MUSIC_DISC_OTHERSIDE:
+  - Items.MUSIC_DISC_OTHERSIDE
+  - "music_disc_otherside"
 Items.SKULL:
   - Items.SKELETON_SKULL
   - "skeleton_skull"
@@ -3956,9 +3962,6 @@ Items.ZOGLIN_SPAWN_EGG:
 Items.WARPED_FUNGUS_ON_A_STICK:
   - Items.WARPED_FUNGUS_ON_A_STICK
   - "warped_fungus_on_a_stick"
-Items.MUSIC_DISC_PIGSTEP:
-  - Items.MUSIC_DISC_PIGSTEP
-  - "music_disc_pigstep"
 Items.PIGLIN_BANNER_PATTERN:
   - Items.PIGLIN_BANNER_PATTERN
   - "piglin_banner_pattern"

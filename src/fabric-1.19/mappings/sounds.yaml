@@ -568,6 +568,14 @@ music.nether.basalt_deltas: music.nether.basalt_deltas
 music.nether.soul_sand_valley: music.nether.soul_sand_valley
 music.nether.crimson_forest: music.nether.crimson_forest
 music.nether.warped_forest: music.nether.warped_forest
+music.overworld.dripstone_caves: music.overworld.dripstone_caves
+music.overworld.grove: music.overworld.grove
+music.overworld.jagged_peaks: music.overworld.jagged_peaks
+music.overworld.lush_caves: music.overworld.lush_caves
+music.overworld.meadow: music.overworld.meadow
+music.overworld.frozen_peaks: music.overworld.frozen_peaks
+music.overworld.snow_slopes: music.overworld.snowy_slopes
+music.overworld.stony_peaks: music.overworld.stony_peaks
 record.11: music_disc.11
 record.13: music_disc.13
 record.blocks: music_disc.blocks
@@ -581,6 +589,7 @@ record.strad: music_disc.strad
 record.wait: music_disc.wait
 record.ward: music_disc.ward
 record.pigstep: music_disc.pigstep
+record.otherside: music_disc.otherside
 ui.button.click: ui.button.click
 ui.toast.in: ui.toast.in
 ui.toast.out: ui.toast.out
@@ -633,6 +642,7 @@ block.conduit.ambient.short: block.conduit.ambient.short
 block.conduit.attack.target: block.conduit.attack.target
 block.conduit.deactivate: block.conduit.deactivate
 block.crop.break: block.crop.break
+block.growing_plant.crop: block.growing_plant.crop
 item.crop.plant: item.crop.plant
 item.crossbow.hit: item.crossbow.hit
 item.crossbow.loading_end: item.crossbow.loading_end
@@ -1196,3 +1206,6 @@ block.tuff.place: block.tuff.place
 block.tuff.step: block.tuff.step
 item.bone_meal.use: item.bone_meal.use
 item.dye.use: item.dye.use
+item.bundle.drop_contents: item.bundle.drop_contents
+item.bundle.insert: item.bundle.insert
+item.bundle.remove_one: item.bundle.remove_one
