@@ -24,6 +24,8 @@
 
 package ${package}.entity;
 
+import net.fabricmc.api.Environment;
+
 @Environment(EnvType.CLIENT) 
 public class ${name}Entity extends AbstractArrow implements ItemSupplier {
 
@@ -155,7 +157,7 @@ public class ${name}Entity extends AbstractArrow implements ItemSupplier {
 		double y = entity.getY();
 		double z = entity.getZ();
 		entity.level.playSound((Player) null, (double) x, (double) y, (double) z, new SoundEvent(new ResourceLocation("${data.actionSound}")),
-		        SoundSource.PLAYERS, 1, 1f / (new RandomSource().nextFloat() * 0.5f + 1));
+		        SoundSource.PLAYERS, 1, 1f / (RandomSource.create().nextFloat() * 0.5f + 1));
 
 		return entityarrow;
 	}

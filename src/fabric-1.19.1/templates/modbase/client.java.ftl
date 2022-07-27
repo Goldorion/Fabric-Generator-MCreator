@@ -43,7 +43,7 @@ import net.fabricmc.api.Environment;
 		<#if w.hasElementsOfBaseType("block")>${JavaModName}Blocks.clientLoad();</#if>
 		<#if w.hasElementsOfType("gui")>${JavaModName}Screens.load();</#if>
 		<#if w.hasJavaModels()>${JavaModName}Models.load();</#if>
-		<#if w.hasElementsOfType("livingentity")>${JavaModName}EntityRenderers.load();</#if>
+		<#if w.hasElementsOfBaseType("entity")>${JavaModName}EntityRenderers.load();</#if>
     }
 }
 

@@ -27,6 +27,8 @@ package ${package}.item;
 
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.fabricmc.api.Environment;
+import net.minecraft.world.entity.player.Player;
 
 public class ${name}Item extends Item {
 

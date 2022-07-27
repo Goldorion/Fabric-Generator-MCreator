@@ -30,10 +30,10 @@ public class ${name}Item extends RecordItem {
 	public ${name}Item() {
 		<#if data.music.getUnmappedValue().startsWith("CUSTOM:")>
 		super(0, ${JavaModName}Sounds.${data.music?replace(modid + ":", "")?upper_case},
-				new Item.Properties().tab(${data.creativeTab}).stacksTo(1).rarity(Rarity.RARE));
+				new Item.Properties().tab(${data.creativeTab}).stacksTo(1).rarity(Rarity.RARE), 0);
 		<#else>
 		super(0, new SoundEvent(new ResourceLocation("${data.music}")),
-				new Item.Properties().tab(${data.creativeTab}).stacksTo(1).rarity(Rarity.RARE));
+				new Item.Properties().tab(${data.creativeTab}).stacksTo(1).rarity(Rarity.RARE), 0);
 		</#if>
 	}
 
