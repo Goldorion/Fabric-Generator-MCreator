@@ -3,10 +3,13 @@
 ## 1.7
 
 ### 1.7-beta-1
-* Added base support for Fabric 1.19
-* Added support for mod elements: advancement, armor, block, code, command, enchantment, function, game rule, gui, item, item extension, key bind, living entity, loot table, music disc, overlay, plant, potion, potion effect, procedure, ranged item, recipe, structure, tab, tag, tool
+* Added base support for Fabric 1.19.1
+* Added support for mod elements: advancement, armor, biome, block, code, command, enchantment, function, game rule, gui, item, item extension, key bind, living entity, loot table, music disc, overlay, plant, potion, potion effect, procedure, ranged item, recipe, structure, tab, tag, tool
+* Added some minor features from 2022.2 snapshots
 * [Bugfix] Add item to player's inventory caused a build error
 
+Notes: 1.19 mappings will come after official data lists are updated. Biomes are far from being as in the 1.17.1 generator because I will now need to use TerraBlender to generate biomes in the overworld. Even if I support Nether and End gens, I can't apply surface rules currently and so, I will also need TerraBlender.
+Dimensions are also not done because they changed once again between 1.18.2 and 1.19, and I didn't find how to port them.
 
 ## 1.6
 

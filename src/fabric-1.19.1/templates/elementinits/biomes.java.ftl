@@ -22,6 +22,8 @@
  *    MCreator note: This file will be REGENERATED on each build.
  */
 
+<#include "../mcitems.ftl">
+
 package ${package}.init;
 
 public class ${JavaModName}Biomes {

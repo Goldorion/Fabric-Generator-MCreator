@@ -1,5 +1,5 @@
 name: Minecraft Fabric for 1.19.1 - @buildfileversion
-status: dev
+status: experimental
 buildfileversion: 0.58.4
 subversion: 1.5
 
