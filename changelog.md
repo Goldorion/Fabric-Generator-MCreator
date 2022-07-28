@@ -2,6 +2,9 @@
 
 ## 1.7
 
+### 1.7-beta-2
+* [Bugfix #211] Mods could not be exported
+
 ### 1.7-beta-1
 * Added base support for Fabric 1.19.1
 * Added support for mod elements: advancement, armor, biome, block, code, command, enchantment, function, game rule, gui, item, item extension, key bind, living entity, loot table, music disc, overlay, plant, potion, potion effect, procedure, ranged item, recipe, structure, tab, tag, tool
