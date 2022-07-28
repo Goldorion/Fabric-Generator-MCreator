@@ -3,7 +3,7 @@ A plugin for [MCreator](https://mcreator.net/), a code generator to create Minec
 
 This project is not official. It is not affiliated with the respective owners and maintainers of Fabric, Minecraft, or MCreator. Do not expect any official support from their communities.
 
-**The current targeted Minecraft version is 1.17.1.**
+**The current targeted Minecraft version is 1.19.1.**
 
 ## Features
 Unsupported fields in full supported mod elements are features from Forge only. They are not available with Fabric yet.
@@ -36,17 +36,17 @@ Unsupported fields in full supported mod elements are features from Forge only. 
 
 ### Partially supported (almost completed)
 * Armor
-* Biome
-* Dimension
 * Living entity
 * Ranged item
   
 ### Partially supported
+* Biome
 * Procedure
 * Variables
   // Global scopes, except Global session, are missing.
 
 ### Unsupported
+* Dimension
 * Fluid
 * Villager trade
 
@@ -56,14 +56,14 @@ Pre-built binaries can be found on the [Release page of this repository](https:/
 Install like any other plugin: Launch MCreator -> Open preferences -> Manage plugins -> Load Plugin -> Find your downloaded zip file -> **Restart MCreator**.
 
 ## Important Information
-- Make sure you use MCreator 2021.1.18711 or a newer version
+- Make sure you use MCreator 2022.2.31711 or a newer version
 - Back up your workspace before updating to a newer version of the plugin.
 - Mods will also require [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api) to function properly, so when you want to play your mod, make sure you have fabric api.
 
 ## Credits/License
-Lead Dev - [Goldorion](https://github.com/Goldorion)
+Dev - [Goldorion](https://github.com/Goldorion)
 Contributors (previous Minecraft versions) - crispy_chips1234, Klemen, U1timateJ7, BoogieMonster1O1
-This generator re-uses a lot of the code used by the official Forge 1.17.1 generator.
+This generator re-uses code used from the official Forge 1.17.1-1.18.2 generators.
 
 The plugin's MCreator page is [here](https://mcreator.net/plugin/64512/mcreator-fabric-generator}).
 The plugin's MCreator forum page is [here](https://mcreator.net/forum/60201/fabric-generator-plugin).

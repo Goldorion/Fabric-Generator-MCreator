@@ -10,6 +10,7 @@
 
 Notes: 1.19 mappings will come after official data lists are updated. Biomes are far from being as in the 1.17.1 generator because I will now need to use TerraBlender to generate biomes in the overworld. Even if I support Nether and End gens, I can't apply surface rules currently and so, I will also need TerraBlender.
 Dimensions are also not done because they changed once again between 1.18.2 and 1.19, and I didn't find how to port them.
+You can also expect several bugs, mostly when using procedure blocks.
 
 ## 1.6
 
