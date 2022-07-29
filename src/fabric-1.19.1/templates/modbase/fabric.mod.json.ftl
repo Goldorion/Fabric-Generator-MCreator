@@ -37,6 +37,9 @@
     "fabric": "*",
     "minecraft": "~1.19",
     "java": ">=17"
-  }
+  }<#if w.hasToolsOfType("Fishing rod")>,
+  "mixins": [
+    "${settings.getModID()}.mixins.json"
+  ]</#if>
 }
 <#-- @formatter:on -->

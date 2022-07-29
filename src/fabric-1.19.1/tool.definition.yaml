@@ -16,6 +16,18 @@ templates:
     condition: "renderType #= 1"
     name: "@MODASSETSROOT/models/item/@registryname.json"
 
+global_templates:
+  - template: mixins/fishhookmixin.java.ftl
+    writer: java
+    condition: ${w.hasToolsOfType("Fishing rod")}
+    deleteWhenConditionFalse: true
+    name: "@SRCROOT/@BASEPACKAGEPATH/mixins/@JavaModNameFishingHookMixin.java"
+  - template: mixins/entitymixin.java.ftl
+    writer: java
+    condition: ${w.hasToolsOfType("Fishing rod")}
+    deleteWhenConditionFalse: true
+    name: "@SRCROOT/@BASEPACKAGEPATH/mixins/EntityMixin.java"
+
 localizationkeys:
   - key: item.@modid.@registryname
     mapto: name

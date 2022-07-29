@@ -293,31 +293,17 @@ public class ${name}Item extends FishingRodItem {
 				itemstack.hurtAndBreak(entity.fishing.retrieve(itemstack), entity, i -> i.broadcastBreakEvent(hand));
 			}
 			world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.FISHING_BOBBER_RETRIEVE, SoundSource.NEUTRAL, 1, 0.4f / (world.getRandom().nextFloat() * 0.4f + 0.8f));
-			world.gameEvent(entity, GameEvent.FISHING_ROD_REEL_IN, entity);
+			entity.gameEvent(GameEvent.ITEM_INTERACT_FINISH);
 		} else {
 			world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.FISHING_BOBBER_THROW, SoundSource.NEUTRAL, 0.5f, 0.4f / (world.getRandom().nextFloat() * 0.4f + 0.8f));
 			if (!world.isClientSide()) {
 				int k = EnchantmentHelper.getFishingSpeedBonus(itemstack);
 				int j = EnchantmentHelper.getFishingLuckBonus(itemstack);
-				world.addFreshEntity(new FishingHook(entity, world, j, k) {
-
-					@Override public boolean shouldStopFishing(Player player) {
-						if (!player.isRemoved() && player.isAlive() &&
-								(player.getMainHandItem().is(${JavaModName}Items.${data.getModElement().getRegistryNameUpper()}) ||
-								player.getOffhandItem().is(${JavaModName}Items.${data.getModElement().getRegistryNameUpper()}))
-								&& !(this.distanceToSqr(player) > 1024)) {
-							return false;
-						} else {
-							this.discard();
-							return true;
-						}
-					}
-
-				});
+				world.addFreshEntity(new FishingHook(entity, world, j, k));
 			}
 
 			entity.awardStat(Stats.ITEM_USED.get(this));
-			world.gameEvent(entity, GameEvent.FISHING_ROD_CAST, entity);
+			entity.gameEvent(GameEvent.ITEM_INTERACT_FINISH);
 		}
 		
 		<#if hasProcedure(data.onRightClickedInAir)>
