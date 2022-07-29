@@ -3,6 +3,7 @@
 ## 1.7
 
 ### 1.7-beta-3
+* Custom Java models can no longer be imported (currently unsupported)
 * [Bugfix #214] The play sound procedure block caused a build error
 * [Bugfix] Custom sound types for blocks caused a build error
 * [Bugfix] Tamable entities could cause a build error
