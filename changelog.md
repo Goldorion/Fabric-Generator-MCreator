@@ -7,6 +7,7 @@
 * [Bugfix] Custom sound types for blocks caused a build error
 * [Bugfix] Tamable entities could cause a build error
 * [Bugfix] Get fuel power procedure block caused a build error
+* Some other minor fixes and changes
 
 ### 1.7-beta-2
 * Disable some generation parameters in the biome mod element (they were not implemented)
