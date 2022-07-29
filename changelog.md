@@ -3,6 +3,7 @@
 ## 1.7
 
 ### 1.7-beta-2
+* Disable some generation parameters in the biome mod element
 * [Bugfix #211] Mods could not be exported
 
 ### 1.7-beta-1
