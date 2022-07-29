@@ -3,7 +3,10 @@
 ## 1.7
 
 ### 1.7-beta-2
-* Disable some generation parameters in the biome mod element
+* [Bugfix #214] The play sound procedure block caused a build error
+
+### 1.7-beta-2
+* Disable some generation parameters in the biome mod element (they were not implemented)
 * [Bugfix #211] Mods could not be exported
 * [Bugfix] Fix fishing rods causing a build error
 
