@@ -411,7 +411,7 @@ public class ${name}Entity extends ${extendsClass} {
 					}
 				} else if (this.isFood(itemstack)) {
 					this.usePlayerItem(sourceentity, hand, itemstack);
-					if (this.random.nextInt(3) == 0 && !net.minecraftforge.event.ForgeEventFactory.onAnimalTame(this, sourceentity)) {
+					if (this.random.nextInt(3) == 0) {
 						this.tame(sourceentity);
 						this.level.broadcastEntityEvent(this, (byte) 7);
 					} else {
