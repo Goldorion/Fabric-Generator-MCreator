@@ -2,6 +2,9 @@
 
 ## 1.7
 
+### 1.7-beta-4
+* [Bugfix] Custom armors had a black and purple renderer
+
 ### 1.7-beta-3
 * Custom Java models can no longer be imported (currently unsupported)
 * [Bugfix #214] The play sound procedure block caused a build error

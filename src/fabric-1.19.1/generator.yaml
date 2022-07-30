@@ -1,7 +1,7 @@
 name: Minecraft Fabric for 1.19.1 - @buildfileversion
 status: experimental
 buildfileversion: 0.58.4
-subversion: 1.6.1
+subversion: 1.6.2
 
 #java_models:
 #  key: mojmap-1.19.x
@@ -28,7 +28,7 @@ entity_textures_dir: "@MODASSETSROOT/textures/entities"
 effect_textures_dir: "@MODASSETSROOT/textures/mob_effect"
 particle_textures_dir: "@MODASSETSROOT/textures/particle"
 screen_textures_dir: "@MODASSETSROOT/textures/screens"
-armor_textures_dir: "@MODASSETSROOT/textures/models/armor"
+armor_textures_dir: "@RESROOT/assets/minecraft/textures/models/armor"
 
 base_templates:
 - template: modbase/mod.java.ftl
