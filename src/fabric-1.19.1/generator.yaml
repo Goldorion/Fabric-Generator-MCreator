@@ -3,10 +3,10 @@ status: experimental
 buildfileversion: 0.58.4
 subversion: 1.6.2
 
-#java_models:
-#  key: mojmap-1.19.x
-#  compatible: [mojmap-1.17.x, mojmap-1.18.x]
-#  requested_key_words: [ModelPart, ~ModelRenderer]
+java_models:
+  key: mojmap-1.19.x
+  compatible: [mojmap-1.17.x, mojmap-1.18.x]
+  requested_key_words: [ModelPart, ~ModelRenderer]
 
 gradle:
   setup_task: tasks
@@ -61,6 +61,12 @@ base_templates:
 - template: elementinits/sounds.java.ftl
   name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameSounds.java"
   condition: hasSounds()
+
+sources_setup_tasks:
+  - task: copy_models
+    type: JAVA_viatemplate
+    template: javamodel.java.ftl
+    to: "@SRCROOT/@BASEPACKAGEPATH/client/model"
 
 language_file:
   format: json

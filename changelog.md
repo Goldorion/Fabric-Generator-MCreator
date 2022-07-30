@@ -3,6 +3,7 @@
 ## 1.7
 
 ### 1.7-beta-4
+* [#202] Added support for custom Java models for entities
 * [Bugfix] Custom armors had a black and purple renderer
 
 ### 1.7-beta-3
