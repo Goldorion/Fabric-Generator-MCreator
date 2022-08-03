@@ -1,1 +1,1 @@
-${input$entity}.setCustomName(new TextComponent(${input$displayname}));
+${input$entity}.setCustomName(Component.literal(${input$displayname}));
