@@ -2,6 +2,10 @@
 
 ## 1.7
 
+### 1.7-beta-5
+* [#220] A Gradle task is now executed to decompile the code (to open it)
+* [Bugfix #219 #221] Multiple procedure blocks caused a build error due to the usage of `new TextComponent`
+
 ### 1.7-beta-4
 * [#202] Added support for custom Java models for entities (Same as Forge 1.18.2)
 * [Bugfix] Custom armors had a black and purple renderer

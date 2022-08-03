@@ -1,7 +1,7 @@
 name: Minecraft Fabric for 1.19.1 - @buildfileversion
 status: experimental
 buildfileversion: 0.58.4
-subversion: 1.6.2
+subversion: 1.6.3
 
 java_models:
   key: mojmap-1.19.x
@@ -9,7 +9,7 @@ java_models:
   requested_key_words: [ModelPart, ~ModelRenderer]
 
 gradle:
-  setup_task: tasks
+  setup_task: tasks genSourcesWithCfr
   run_client: runClient
   run_server: runServer
   export_file: "build/libs/modid-1.0.0.jar"
