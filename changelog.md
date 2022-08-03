@@ -4,6 +4,7 @@
 
 ### 1.7-beta-5
 * [#220] A Gradle task is now executed to decompile the code (to open it)
+* [Bugfix #217] Execute commands procedure blocks could not be used
 * [Bugfix #219 #221] Multiple procedure blocks caused a build error due to the usage of `new TextComponent`
 
 ### 1.7-beta-4
