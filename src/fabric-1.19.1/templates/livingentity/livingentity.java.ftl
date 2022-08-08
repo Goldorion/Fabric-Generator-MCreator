@@ -175,22 +175,44 @@ public class ${name}Entity extends ${extendsClass} {
 
    	<#if data.livingSound.getMappedValue()?has_content>
 	@Override public SoundEvent getAmbientSound() {
-		return new SoundEvent(new ResourceLocation("${data.livingSound}"));
+	    <#assign s=data.livingSound>
+        <#if s.getUnmappedValue().startsWith("CUSTOM:")>
+        return ${JavaModName}Sounds.${s?replace(modid + ":", "")?upper_case};
+        <#else>
+        return SoundEvents.${(s?starts_with("ambient")||s?starts_with("music")||s?starts_with("ui")||s?starts_with("weather"))?string(s?upper_case?replace(".", "_"),s?keep_after(".")?upper_case?replace(".", "_"))};
+        </#if>
 	}
 	</#if>
 
    	<#if data.stepSound?has_content && data.stepSound.getMappedValue()?has_content>
 	@Override public void playStepSound(BlockPos pos, BlockState blockIn) {
-		this.playSound(new SoundEvent(new ResourceLocation("${data.stepSound}")), 0.15f, 1);
+		this.playSound(
+	    <#assign s=data.stepSound>
+        <#if s.getUnmappedValue().startsWith("CUSTOM:")>
+        ${JavaModName}Sounds.${s?replace(modid + ":", "")?upper_case}
+        <#else>
+        SoundEvents.${(s?starts_with("ambient")||s?starts_with("music")||s?starts_with("ui")||s?starts_with("weather"))?string(s?upper_case?replace(".", "_"),s?keep_after(".")?upper_case?replace(".", "_"))}
+        </#if>
+        , 0.15f, 1);
 	}
 	</#if>
 
 	@Override public SoundEvent getHurtSound(DamageSource ds) {
-		return new SoundEvent(new ResourceLocation("${data.hurtSound}"));
+	    <#assign s=data.hurtSound>
+        <#if s.getUnmappedValue().startsWith("CUSTOM:")>
+        return ${JavaModName}Sounds.${s?replace(modid + ":", "")?upper_case};
+        <#else>
+        return SoundEvents.${(s?starts_with("ambient")||s?starts_with("music")||s?starts_with("ui")||s?starts_with("weather"))?string(s?upper_case?replace(".", "_"),s?keep_after(".")?upper_case?replace(".", "_"))};
+        </#if>
 	}
 
 	@Override public SoundEvent getDeathSound() {
-		return new SoundEvent(new ResourceLocation("${data.deathSound}"));
+	    <#assign s=data.deathSound>
+        <#if s.getUnmappedValue().startsWith("CUSTOM:")>
+        return ${JavaModName}Sounds.${s?replace(modid + ":", "")?upper_case};
+        <#else>
+        return SoundEvents.${(s?starts_with("ambient")||s?starts_with("music")||s?starts_with("ui")||s?starts_with("weather"))?string(s?upper_case?replace(".", "_"),s?keep_after(".")?upper_case?replace(".", "_"))};
+        </#if>
 	}
 
 	<#if hasProcedure(data.onStruckByLightning)>

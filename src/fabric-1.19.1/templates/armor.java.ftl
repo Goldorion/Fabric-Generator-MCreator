@@ -45,8 +45,13 @@ public abstract class ${name}Item extends ArmorItem {
 			}
 
 			@Override public SoundEvent getEquipSound() {
-				<#if data.equipSound??>
-				    return new SoundEvent(new ResourceLocation("${data.equipSound}"));
+				<#if data.equipSound.getMappedValue()?has_content>
+				    <#if data.equipSound.getUnmappedValue().startsWith("CUSTOM:")>
+                    return ${JavaModName}Sounds.${data.equipSound?replace(modid + ":", "")?upper_case};
+                    <#else>
+                    <#assign s=data.equipSound>
+                    return SoundEvents.${(s?starts_with("ambient")||s?starts_with("music")||s?starts_with("ui")||s?starts_with("weather"))?string(s?upper_case?replace(".", "_"),s?keep_after(".")?upper_case?replace(".", "_"))};
+                    </#if>
 				<#else>
 				    return null;
 				</#if>

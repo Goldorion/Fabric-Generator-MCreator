@@ -56,11 +56,37 @@ public class ${name}Block extends <#if data.plantType == "normal">Flower<#elseif
 		    .randomTicks()
 		</#if>
 		<#if data.isCustomSoundType>
-			.sound(new SoundType(1.0f, 1.0f, new SoundEvent(new ResourceLocation("${data.breakSound}")),
-			new SoundEvent(new ResourceLocation("${data.stepSound}")),
-			new SoundEvent(new ResourceLocation("${data.placeSound}")),
-			new SoundEvent(new ResourceLocation("${data.hitSound}")),
-			new SoundEvent(new ResourceLocation("${data.fallSound}"))))
+			.sound(new SoundType(1.0f, 1.0f,
+            <#assign s=data.breakSound>
+            <#if s.getUnmappedValue().startsWith("CUSTOM:")>
+            ${JavaModName}Sounds.${s?replace(modid + ":", "")?upper_case},
+            <#else>
+            SoundEvents.${(s?starts_with("ambient")||s?starts_with("music")||s?starts_with("ui")||s?starts_with("weather"))?string(s?upper_case?replace(".", "_"),s?keep_after(".")?upper_case?replace(".", "_"))},
+            </#if>
+            <#assign s=data.stepSound>
+            <#if s.getUnmappedValue().startsWith("CUSTOM:")>
+            ${JavaModName}Sounds.${s?replace(modid + ":", "")?upper_case},
+            <#else>
+            SoundEvents.${(s?starts_with("ambient")||s?starts_with("music")||s?starts_with("ui")||s?starts_with("weather"))?string(s?upper_case?replace(".", "_"),s?keep_after(".")?upper_case?replace(".", "_"))},
+            </#if>
+            <#assign s=data.placeSound>
+            <#if s.getUnmappedValue().startsWith("CUSTOM:")>
+            ${JavaModName}Sounds.${s?replace(modid + ":", "")?upper_case},
+            <#else>
+            SoundEvents.${(s?starts_with("ambient")||s?starts_with("music")||s?starts_with("ui")||s?starts_with("weather"))?string(s?upper_case?replace(".", "_"),s?keep_after(".")?upper_case?replace(".", "_"))},
+            </#if>
+            <#assign s=data.hitSound>
+            <#if s.getUnmappedValue().startsWith("CUSTOM:")>
+            ${JavaModName}Sounds.${s?replace(modid + ":", "")?upper_case},
+            <#else>
+            SoundEvents.${(s?starts_with("ambient")||s?starts_with("music")||s?starts_with("ui")||s?starts_with("weather"))?string(s?upper_case?replace(".", "_"),s?keep_after(".")?upper_case?replace(".", "_"))},
+            </#if>
+            <#assign s=data.fallSound>
+            <#if s.getUnmappedValue().startsWith("CUSTOM:")>
+            ${JavaModName}Sounds.${s?replace(modid + ":", "")?upper_case},
+            <#else>
+            SoundEvents.${(s?starts_with("ambient")||s?starts_with("music")||s?starts_with("ui")||s?starts_with("weather"))?string(s?upper_case?replace(".", "_"),s?keep_after(".")?upper_case?replace(".", "_"))}
+            </#if>))
 		<#else>
 			.sound(SoundType.${data.soundOnStep})
 		</#if>
