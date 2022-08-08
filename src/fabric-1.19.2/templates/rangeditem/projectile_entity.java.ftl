@@ -131,7 +131,18 @@ public class ${name}Entity extends AbstractArrow implements ItemSupplier {
 		</#if>
 		world.addFreshEntity(entityarrow);
 
-		world.playSound((Player) null, entity.getX(), entity.getY(), entity.getZ(), new SoundEvent(new ResourceLocation("${data.actionSound}")),
+		world.playSound((Player) null, entity.getX(), entity.getY(), entity.getZ(),
+		        <#assign s=data.actionSound>
+		        <#if s.getMappedValue()?has_content>
+				    <#if s.getUnmappedValue().startsWith("CUSTOM:")>
+                    ${JavaModName}Sounds.${s?replace(modid + ":", "")?upper_case}
+                    <#else>
+                    SoundEvents.${(s?starts_with("ambient")||s?starts_with("music")||s?starts_with("ui")||s?starts_with("weather"))?string(s?upper_case?replace(".", "_"),s?keep_after(".")?upper_case?replace(".", "_"))}
+                    </#if>
+				<#else>
+				    SoundEvents.ARROW_SHOOT
+				</#if>
+		        ,
 		        SoundSource.PLAYERS, 1, 1f / (random.nextFloat() * 0.5f + 1) + (power / 2));
 
 		return entityarrow;
@@ -156,7 +167,17 @@ public class ${name}Entity extends AbstractArrow implements ItemSupplier {
 		double x = entity.getX();
 		double y = entity.getY();
 		double z = entity.getZ();
-		entity.level.playSound((Player) null, (double) x, (double) y, (double) z, new SoundEvent(new ResourceLocation("${data.actionSound}")),
+		entity.level.playSound((Player) null, (double) x, (double) y, (double) z,
+		        <#assign s=data.actionSound>
+		        <#if s.getMappedValue()?has_content>
+				    <#if s.getUnmappedValue().startsWith("CUSTOM:")>
+                    ${JavaModName}Sounds.${s?replace(modid + ":", "")?upper_case}
+                    <#else>
+                    SoundEvents.${(s?starts_with("ambient")||s?starts_with("music")||s?starts_with("ui")||s?starts_with("weather"))?string(s?upper_case?replace(".", "_"),s?keep_after(".")?upper_case?replace(".", "_"))}
+                    </#if>
+				<#else>
+				    SoundEvents.ARROW_SHOOT
+				</#if>,
 		        SoundSource.PLAYERS, 1, 1f / (RandomSource.create().nextFloat() * 0.5f + 1));
 
 		return entityarrow;

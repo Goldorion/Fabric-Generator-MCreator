@@ -69,16 +69,44 @@ public class ${name}Biome {
             .foliageColorOverride(${data.foliageColor?has_content?then(data.foliageColor.getRGB(), 10387789)})
             .grassColorOverride(${data.grassColor?has_content?then(data.grassColor.getRGB(), 9470285)})
             <#if data.ambientSound?has_content && data.ambientSound.getMappedValue()?has_content>
-                .ambientLoopSound(new SoundEvent(new ResourceLocation("${data.ambientSound}")))
+                .ambientLoopSound(
+                <#assign s=data.ambientSound>
+                <#if s.getUnmappedValue().startsWith("CUSTOM:")>
+                ${JavaModName}Sounds.${s?replace(modid + ":", "")?upper_case}
+                <#else>
+                SoundEvents.${(s?starts_with("ambient")||s?starts_with("music")||s?starts_with("ui")||s?starts_with("weather"))?string(s?upper_case?replace(".", "_"),s?keep_after(".")?upper_case?replace(".", "_"))}
+                </#if>
+                )
             </#if>
             <#if data.moodSound?has_content && data.moodSound.getMappedValue()?has_content>
-                .ambientMoodSound(new AmbientMoodSettings(new SoundEvent(new ResourceLocation("${data.moodSound}")), ${data.moodSoundDelay}, 8, 2))
+                .ambientMoodSound(new AmbientMoodSettings(
+                <#assign s=data.moodSound>
+                <#if s.getUnmappedValue().startsWith("CUSTOM:")>
+                ${JavaModName}Sounds.${s?replace(modid + ":", "")?upper_case}
+                <#else>
+                SoundEvents.${(s?starts_with("ambient")||s?starts_with("music")||s?starts_with("ui")||s?starts_with("weather"))?string(s?upper_case?replace(".", "_"),s?keep_after(".")?upper_case?replace(".", "_"))}
+                </#if>
+                , 8, 2, 2.0D))
             </#if>
             <#if data.additionsSound?has_content && data.additionsSound.getMappedValue()?has_content>
-                .ambientAdditionsSound(new AmbientAdditionsSettings(new SoundEvent(new ResourceLocation("${data.additionsSound}")), 0.0111D))
+                .ambientAdditionsSound(new AmbientAdditionsSettings(
+                <#assign s=data.additionsSound>
+                <#if s.getUnmappedValue().startsWith("CUSTOM:")>
+                ${JavaModName}Sounds.${s?replace(modid + ":", "")?upper_case}
+                <#else>
+                SoundEvents.${(s?starts_with("ambient")||s?starts_with("music")||s?starts_with("ui")||s?starts_with("weather"))?string(s?upper_case?replace(".", "_"),s?keep_after(".")?upper_case?replace(".", "_"))}
+                </#if>
+                , 0.0111D))
             </#if>
             <#if data.music?has_content && data.music.getMappedValue()?has_content>
-                .backgroundMusic(new Music(new SoundEvent(new ResourceLocation("${data.music}")), 12000, 24000, true))
+                .backgroundMusic(new Music(
+                <#assign s=data.music>
+                <#if s.getUnmappedValue().startsWith("CUSTOM:")>
+                ${JavaModName}Sounds.${s?replace(modid + ":", "")?upper_case}
+                <#else>
+                SoundEvents.${(s?starts_with("ambient")||s?starts_with("music")||s?starts_with("ui")||s?starts_with("weather"))?string(s?upper_case?replace(".", "_"),s?keep_after(".")?upper_case?replace(".", "_"))}
+                </#if>
+                , 12000, 24000, true))
             </#if>
             <#if data.spawnParticles>
                 .ambientParticle(new AmbientParticleSettings(${data.particleToSpawn}, ${data.particlesProbability / 100}f))
