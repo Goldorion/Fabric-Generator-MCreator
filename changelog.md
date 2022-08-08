@@ -2,6 +2,10 @@
 
 ## 1.7
 
+## 1.7-beta-6
+* Updated to Minecraft 1.19.2 and Fabric API 0.59.0
+* [Bugfix #229] Generated blocks, plants or structures caused a build error.
+
 ### 1.7-beta-5
 * [#220] A Gradle task is now executed to decompile the code (to open it)
 * [Bugfix #217] Execute commands procedure blocks could not be used
