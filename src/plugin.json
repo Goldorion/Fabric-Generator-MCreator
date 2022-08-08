@@ -1,9 +1,9 @@
 {
-  "id": "generator-fabric-1.19.1",
+  "id": "generator-fabric-1.19..2",
   "minversion": 202200231711,
   "weight":  11,
   "info": {
-    "name": "Minecraft Fabric 1.19.1 Generator",
+    "name": "Minecraft Fabric 1.19.2 Generator",
     "version": "1.7-beta-5",
     "description": "A Fabric generator",
     "author": "Goldorion",
