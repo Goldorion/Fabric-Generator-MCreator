@@ -120,6 +120,10 @@ public class ${name}Block extends <#if data.plantType == "normal">Flower<#elseif
         <#else>
             .noCollission()
         </#if>
+
+        <#if data.offsetType != "XZ">
+        .offsetType(BlockBehaviour.OffsetType.${data.offsetType})
+        </#if>
 	    );
 
 	    <#if data.flammability != 0 && data.fireSpreadSpeed != 0>
@@ -147,12 +151,6 @@ public class ${name}Block extends <#if data.plantType == "normal">Flower<#elseif
 	<#if data.isReplaceable>
 	@Override public boolean canBeReplaced(BlockState state, BlockPlaceContext useContext) {
 		return useContext.getItemInHand().getItem() != this.asItem();
-	}
-	</#if>
-
-	<#if data.offsetType != "XZ">
-	@Override public BlockBehaviour.OffsetType getOffsetType() {
-		return BlockBehaviour.OffsetType.${data.offsetType};
 	}
 	</#if>
 

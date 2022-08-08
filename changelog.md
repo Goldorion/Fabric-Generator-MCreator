@@ -4,7 +4,9 @@
 
 ## 1.7-beta-6
 * Updated to Minecraft 1.19.2 and Fabric API 0.59.0
+* [#223] fabric.mod.json is now lockable
 * [Bugfix #229] Generated blocks, plants or structures caused a build error.
+* [Bugfix] Random offset plant parameter caused a build error when changed.
 
 ### 1.7-beta-5
 * [#220] A Gradle task is now executed to decompile the code (to open it)

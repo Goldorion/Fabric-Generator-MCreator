@@ -8,7 +8,7 @@
     "description": "A Fabric generator",
     "author": "Goldorion",
     "credits": "Thank you to all contributors and built-in MCreator generators.",
-    "updateJSONURL": "https://raw.githubusercontent.com/Goldorion/Fabric-Generator-MCreator/1.19/update.json",
+    "updateJSONURL": "https://raw.githubusercontent.com/Goldorion/Fabric-Generator-MCreator/1.19.2/update.json",
     "pluginPageID": 64512
   }
 }
