@@ -46,11 +46,7 @@ base_templates:
 - template: modbase/fabric.mod.json.ftl
   writer: json
   name: "@RESROOT/fabric.mod.json"
-- template: modbase/fabric.mod.json.ftl
-  writer: json
-  condition: ${w.hasToolsOfType("Fishing rod")}
-  deleteWhenConditionFalse: true
-  name: "@RESROOT/@modid.mod.json"
+  canLock: true
 - template: "modbase/pack.mcmeta.ftl"
   writer: json
   name: "@RESROOT/pack.mcmeta"
