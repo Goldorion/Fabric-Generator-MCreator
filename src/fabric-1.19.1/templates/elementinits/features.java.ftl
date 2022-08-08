@@ -43,9 +43,9 @@ public class ${JavaModName}Features {
 	}
 
 	private static void register(String registryName, Feature feature, Predicate<BiomeSelectionContext> biomes, GenerationStep.Decoration genStep) {
-     		Registry.register(Registry.FEATURE, new ResourceLocation(Fabric119Mod.MODID, registryName), feature);
+     		Registry.register(Registry.FEATURE, new ResourceLocation(${JavaModName}.MODID, registryName), feature);
      		BiomeModifications.addFeature(biomes, genStep, ResourceKey.create(Registry.PLACED_FEATURE_REGISTRY,
-     		        new ResourceLocation(Fabric119Mod.MODID, registryName)));
+     		        new ResourceLocation(${JavaModName}.MODID, registryName)));
      	}
 
 }
