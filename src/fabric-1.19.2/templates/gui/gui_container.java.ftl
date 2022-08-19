@@ -89,42 +89,42 @@ public class ${name}Menu extends AbstractContainerMenu implements Supplier<Map<I
 					    }
         	    	    </#if>
 
-                        <#if hasProcedure(component.onSlotChanged)>
-                        @Override public void setChanged() {
-                            super.setChanged();
-                            slotChanged(${component.id}, 0, 0);
-                        }
-                        </#if>
+                    <#if hasProcedure(component.onSlotChanged)>
+                    @Override public void setChanged() {
+                        super.setChanged();
+                        slotChanged(${component.id}, 0, 0);
+                    }
+                    </#if>
 
-                        <#if hasProcedure(component.onTakenFromSlot)>
-                        @Override public void onTake(Player entity, ItemStack stack) {
-                            super.onTake(entity, stack);
-                            slotChanged(${component.id}, 1, 0);
-                        }
-                        </#if>
+                    <#if hasProcedure(component.onTakenFromSlot)>
+                    @Override public void onTake(Player entity, ItemStack stack) {
+                        super.onTake(entity, stack);
+                        slotChanged(${component.id}, 1, 0);
+                    }
+                    </#if>
 
-                        <#if hasProcedure(component.onStackTransfer)>
-                        @Override public void onQuickCraft(ItemStack a, ItemStack b) {
-                            super.onQuickCraft(a, b);
-                            slotChanged(${component.id}, 2, b.getCount() - a.getCount());
-                        }
-                        </#if>
+                    <#if hasProcedure(component.onStackTransfer)>
+                    @Override public void onQuickCraft(ItemStack a, ItemStack b) {
+                        super.onQuickCraft(a, b);
+                        slotChanged(${component.id}, 2, b.getCount() - a.getCount());
+                    }
+                    </#if>
 
-                        <#if component.disableStackInteraction>
-                            @Override public boolean mayPlace(ItemStack stack) {
-                                return false;
-                            }
-                        <#elseif component.getClass().getSimpleName() == "InputSlot">
-                            <#if component.inputLimit.toString()?has_content>
-                             @Override public boolean mayPlace(ItemStack stack) {
-                                 return (${mappedMCItemToItem(component.inputLimit)} == stack.getItem());
-                             }
-                            </#if>
-                        <#elseif component.getClass().getSimpleName() == "OutputSlot">
-                            @Override public boolean mayPlace(ItemStack stack) {
-                                return false;
-                            }
+                    <#if component.disableStackInteraction>
+                        @Override public boolean mayPlace(ItemStack stack) {
+                        return false;
+                        }
+                    <#elseif component.getClass().getSimpleName() == "InputSlot">
+                        <#if component.inputLimit.toString()?has_content>
+                         @Override public boolean mayPlace(ItemStack stack) {
+                         return (${mappedMCItemToItem(component.inputLimit)} == stack.getItem());
+                         }
                         </#if>
+                    <#elseif component.getClass().getSimpleName() == "OutputSlot">
+                        @Override public boolean mayPlace(ItemStack stack) {
+                        return false;
+                        }
+                    </#if>
 				}));
 			</#if>
 			</#list>
@@ -179,7 +179,7 @@ public class ${name}Menu extends AbstractContainerMenu implements Supplier<Map<I
 				if (itemstack1.getCount() == 0) {
 					slot.set(ItemStack.EMPTY);
 				} else {
-					slot.set(itemstack);
+					slot.setChanged();
 				}
 
 				if (itemstack1.getCount() == itemstack.getCount()) {
@@ -191,64 +191,11 @@ public class ${name}Menu extends AbstractContainerMenu implements Supplier<Map<I
 			return itemstack;
 		}
 
-		<#-- #47997 -->
-		protected boolean moveItemStackTo(ItemStack itemstack, int i, int j, boolean bl) {
-                ItemStack itemstack2;
-                Slot slot = this.slots.get(i);
-                boolean bl2 = false;
-                int k = i;
-                if (bl) {
-                    k = j - 1;
-                }
-                if (itemstack.isStackable()) {
-                    while (slot.mayPlace(itemstack) && !itemstack.isEmpty() && (bl ? k >= i : k < j)) {
-                        slot = this.slots.get(k);
-                        itemstack2 = slot.getItem();
-                        if (!itemstack2.isEmpty() && ItemStack.isSameItemSameTags(itemstack, itemstack2)) {
-                            int l = itemstack2.getCount() + itemstack.getCount();
-                            if (l <= itemstack.getMaxStackSize()) {
-                                itemstack.setCount(0);
-                                itemstack2.setCount(l);
-                                slot.set(itemstack);
-                                bl2 = true;
-                            } else if (itemstack2.getCount() < itemstack.getMaxStackSize()) {
-                                itemstack.shrink(itemstack.getMaxStackSize() - itemstack2.getCount());
-                                itemstack2.setCount(itemstack.getMaxStackSize());
-                                slot.set(itemstack);
-                                bl2 = true;
-                            }
-                        }
-                        if (bl) {
-                            --k;
-                            continue;
-                        }
-                        ++k;
-                    }
-                }
-                if (slot.mayPlace(itemstack) && !itemstack.isEmpty()) {
-                    k = bl ? j - 1 : i;
-                    while (bl ? k >= i : k < j) {
-                        slot = this.slots.get(k);
-                        itemstack2 = slot.getItem();
-                        if (itemstack2.isEmpty() && slot.mayPlace(itemstack)) {
-                            if (itemstack.getCount() > slot.getMaxStackSize()) {
-                                slot.set(itemstack.split(slot.getMaxStackSize()));
-                            } else {
-                                slot.set(itemstack.split(itemstack.getCount()));
-                            }
-                            slot.set(itemstack);
-                            bl2 = true;
-                            break;
-                        }
-                        if (bl) {
-                            --k;
-                            continue;
-                        }
-                        ++k;
-                    }
-                }
-                return bl2;
-            }
+        <#-- #47997 -->
+		@Override ${mcc.getMethod("net.minecraft.world.inventory.AbstractContainerMenu", "moveItemStackTo", "ItemStack", "int", "int", "boolean")
+		    .replace("Slot slot;", "Slot slot = this.slots.get(i);")
+			.replace("slot.setChanged();", "slot.set(itemStack);")
+			.replace("!itemStack.isEmpty()", "slot.mayPlace(itemStack) && !itemStack.isEmpty()")}
 
 		@Override public void removed(Player playerIn) {
 			super.removed(playerIn);
@@ -261,7 +208,7 @@ public class ${name}Menu extends AbstractContainerMenu implements Supplier<Map<I
 		<#if data.hasSlotEvents()>
 		private void slotChanged(int slotid, int ctype, int meta) {
 		    if(this.world != null && this.world.isClientSide())
-                ClientPlayNetworking.send(new ResourceLocation(${JavaModName}.MODID, "${name?lower_case}_slot_" + slotid), new ${name}SlotMessage(slotid, x, y, z, ctype, meta));
+            ClientPlayNetworking.send(new ResourceLocation(${JavaModName}.MODID, "${name?lower_case}_slot_" + slotid), new ${name}SlotMessage(slotid, x, y, z, ctype, meta));
 		}
 		</#if>
 	</#if>
