@@ -44,23 +44,30 @@ public class ${name}Item extends Item {
 		super(new Item.Properties()
 				.tab(${data.creativeTab})
 				<#if data.hasInventory()>
-				.stacksTo(1)
+				    .stacksTo(1)
 				<#elseif data.damageCount != 0>
-				.durability(${data.damageCount})
+				    .durability(${data.damageCount})
 				<#else>
-				.stacksTo(${data.stackSize})
+				    .stacksTo(${data.stackSize})
 				</#if>
 				<#if data.immuneToFire>
-				.fireResistant()
+				    .fireResistant()
 				</#if>
 				.rarity(Rarity.${data.rarity})
+				<#if data.stayInGridWhenCrafting>
+				    <#if data.recipeRemainder?? && !data.recipeRemainder.isEmpty()>
+				        .craftRemainder(${mappedMCItemToItemCode(data.recipeRemainder, 1)})
+				    <#else>
+				        .craftRemainder(${JavaModName}Items.${data.getModElement().getRegistryNameUpper()})
+				    </#if>
+				</#if>
 				<#if data.isFood>
-				.food((new FoodProperties.Builder())
-				    .nutrition(${data.nutritionalValue})
-                	.saturationMod(${data.saturation}f)
-                    <#if data.isAlwaysEdible>.alwaysEat()</#if>
-                    <#if data.isMeat>.meat()</#if>
-                    .build())
+                    .food((new FoodProperties.Builder())
+                        .nutrition(${data.nutritionalValue})
+                        .saturationMod(${data.saturation}f)
+                        <#if data.isAlwaysEdible>.alwaysEat()</#if>
+                        <#if data.isMeat>.meat()</#if>
+                        .build())
                 </#if>
 		);
 	}
@@ -76,27 +83,17 @@ public class ${name}Item extends Item {
 			return true;
 		}
 
-		<#if data.recipeRemainder?? && !data.recipeRemainder.isEmpty()>
-			@Override public ItemStack getContainerItem(ItemStack itemstack) {
-			    return ${mappedMCItemToItemStackCode(data.recipeRemainder, 1)};
-        	}
-		<#else>
-			@Override public ItemStack getContainerItem(ItemStack itemstack) {
-				return new ItemStack(this);
-			}
-
-			<#if data.damageCount != 0>
-			@Override public boolean isRepairable(ItemStack itemstack) {
-				return false;
-			}
-			</#if>
+		<#if !data.recipeRemainder?? && data.recipeRemainder.isEmpty() && (data.damageCount != 0)>
+            @Override public boolean isRepairable(ItemStack itemstack) {
+                return false;
+            }
 		</#if>
 	</#if>
 
 	<#if data.enchantability != 0>
-	@Override public int getEnchantmentValue() {
-		return ${data.enchantability};
-	}
+        @Override public int getEnchantmentValue() {
+            return ${data.enchantability};
+        }
 	</#if>
 
 	@Override public int getUseDuration(ItemStack itemstack) {

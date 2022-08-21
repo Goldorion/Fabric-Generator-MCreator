@@ -8,6 +8,7 @@
 * [Bugfix #222] Enabling the waterloggable option for custom blocks caused a build error
 * [Bugfix #229] Generated blocks, plants or structures caused a build error.
 * [Bugfix #231] Sounds did not play on servers
+* [Bugfix #238] Stay in crafting grid option caused a build error
 * [Bugfix] Random offset plant parameter caused a build error when changed.
 
 ### 1.7-beta-5
