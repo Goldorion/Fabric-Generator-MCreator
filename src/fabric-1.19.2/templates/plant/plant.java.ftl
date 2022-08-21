@@ -163,12 +163,6 @@ public class ${name}Block extends <#if data.plantType == "normal">Flower<#elseif
 	}
 	</#if>
 
-	<#if data.creativePickItem?? && !data.creativePickItem.isEmpty()>
-	@Override public ItemStack getPickBlock(BlockState state, HitResult target, BlockGetter world, BlockPos pos, Player player) {
-		return ${mappedMCItemToItemStackCode(data.creativePickItem, 1)};
-	}
-	</#if>
-
 	<#if !(data.useLootTableForDrops || (data.dropAmount == 0))>
 		<#if data.dropAmount != 1 && !(data.customDrop?? && !data.customDrop.isEmpty())>
 		@Override public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {

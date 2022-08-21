@@ -389,12 +389,6 @@ public class ${name}Block extends
 	}
 	</#if>
 
-	<#if data.creativePickItem?? && !data.creativePickItem.isEmpty()>
-	@Override public ItemStack getPickBlock(BlockState state, HitResult target, BlockGetter world, BlockPos pos, Player player) {
-		return ${mappedMCItemToItemStackCode(data.creativePickItem, 1)};
-	}
-	</#if>
-
 	<#if data.offsetType != "NONE">
 	@Override public Block.OffsetType getOffsetType() {
 		return Block.OffsetType.${data.offsetType};

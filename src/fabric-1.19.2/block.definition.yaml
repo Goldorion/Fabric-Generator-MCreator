@@ -429,6 +429,6 @@ global_templates:
     variables: level=7
     name: "@RESROOT/data/fabric/tags/blocks/mineable/needs_tool_level_7.json"
 
-field_exclusions: [ displayFluidOverlay, plantsGrowOn, beaconColorModifier, isLadder, enchantPowerBonus, aiPathNodeType,
+field_exclusions: [ creativePickItem, displayFluidOverlay, plantsGrowOn, beaconColorModifier, isLadder, enchantPowerBonus, aiPathNodeType,
                     hasEnergyStorage, isFluidTank, energyInitial, energyCapacity, energyMaxReceive, energyMaxExtract, fluidCapacity, fluidRestrictions,
                     onDestroyedByPlayer ]

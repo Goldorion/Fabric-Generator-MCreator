@@ -9,6 +9,7 @@
 * [Bugfix #229] Generated blocks, plants or structures caused a build error.
 * [Bugfix #231] Sounds did not play on servers
 * [Bugfix #238] Stay in crafting grid option caused a build error
+* [Bugfix #243] Disabled the creative pick item parameter for blocks and plants (Forge feature)
 * [Bugfix] Random offset plant parameter caused a build error when changed.
 
 ### 1.7-beta-5

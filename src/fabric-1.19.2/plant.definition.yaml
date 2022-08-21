@@ -67,4 +67,4 @@ localizationkeys:
   - key: block.@modid.@registryname
     mapto: name
 
-field_exclusions: [ aiPathNodeType, growapableSpawnType ]
+field_exclusions: [ creativePickItem, aiPathNodeType, growapableSpawnType ]
