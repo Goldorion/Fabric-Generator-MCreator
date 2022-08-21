@@ -3,7 +3,7 @@ A plugin for [MCreator](https://mcreator.net/), a code generator to create Minec
 
 This project is not official. It is not affiliated with the respective owners and maintainers of Fabric, Minecraft, or MCreator. Do not expect any official support from their communities.
 
-**The current targeted Minecraft version is 1.19.1.**
+**The current targeted Minecraft version is 1.19.2.**
 
 ## Features
 Unsupported fields in full supported mod elements are features from Forge only. They are not available with Fabric yet.
@@ -56,7 +56,7 @@ Pre-built binaries can be found on the [Release page of this repository](https:/
 Install like any other plugin: Launch MCreator -> Open preferences -> Manage plugins -> Load Plugin -> Find your downloaded zip file -> **Restart MCreator**.
 
 ## Important Information
-- Make sure you use MCreator 2022.2.31711 or a newer version
+- Make sure you use MCreator 2022.2 or a newer version
 - Back up your workspace before updating to a newer version of the plugin.
 - Mods will also require [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api) to function properly, so when you want to play your mod, make sure you have fabric api.
 
