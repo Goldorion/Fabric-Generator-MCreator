@@ -27,6 +27,7 @@ package ${package}.item;
 
 import com.google.common.collect.Multimap;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.fabricmc.api.Environment;
 
 <#if data.toolType == "Pickaxe" || data.toolType == "Axe" || data.toolType == "Sword" || data.toolType == "Spade"
 		|| data.toolType == "Hoe" || data.toolType == "Shears" || data.toolType == "MultiTool">

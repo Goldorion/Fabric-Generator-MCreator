@@ -2,6 +2,9 @@
 
 ## 1.7
 
+## 1.7-beta-7
+* [Bugfix #246] Enabling the glowing effect on custom tools caused a build error due to a wrong import
+
 ## 1.7-beta-6
 * Updated to Minecraft 1.19.2 and Fabric API 0.59.0
 * [#223] fabric.mod.json is now lockable
