@@ -4,10 +4,10 @@
   "weight":  11,
   "info": {
     "name": "Minecraft Fabric 1.19.2 Generator",
-    "version": "1.7-beta-6",
+    "version": "1.7-beta-7",
     "description": "A Fabric generator",
     "author": "Goldorion",
-    "credits": "Thank you to all contributors and built-in MCreator generators.",
+    "credits": "Thank you to all contributors and supporters on Ko-fi",
     "updateJSONURL": "https://raw.githubusercontent.com/Goldorion/Fabric-Generator-MCreator/1.19.2/update.json",
     "pluginPageID": 64512
   }
