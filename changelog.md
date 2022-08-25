@@ -5,6 +5,7 @@
 ## 1.7-beta-7
 * [Bugfix #245] Selecting specific biomes to generate a feature caused a build error
 * [Bugfix #246] Enabling the glowing effect on custom tools caused a build error due to a wrong import
+* [Bugfix #247] Changing the block's tick rate could cause a build error in some cases
 
 ## 1.7-beta-6
 * Updated to Minecraft 1.19.2 and Fabric API 0.59.0

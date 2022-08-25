@@ -470,7 +470,7 @@ public class ${name}Block extends
 		<@procedureOBJToCode data.onTickUpdate/>
 
 		<#if data.shouldScheduleTick()>
-		world.getBlockTicks().scheduleTick(pos, this, ${data.tickRate});
+		world.scheduleTick(pos, this, ${data.tickRate});
 		</#if>
 	}
 	</#if>
