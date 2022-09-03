@@ -117,8 +117,8 @@ public class ${name}Feature extends OreFeature {
 			boolean blockCriteria = false;
 
 			<#list data.blocksToReplace as replacementBlock>
-			if(blockAt.getBlock() == ${mappedBlockToBlock(replacementBlock)})
-				blockCriteria = true;
+                if(blockAt.getBlock() == ${mappedBlockToBlock(replacementBlock)})
+                    blockCriteria = true;
 			</#list>
 
 			return blockCriteria;
