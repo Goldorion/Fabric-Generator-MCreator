@@ -1,6 +1,6 @@
 {
-    "pack": {
-        "pack_format": 7,
-        "description": "${modid} resources"
-    }
+	"pack": {
+		"pack_format": 7,
+		"description": "${modid} resources"
+	}
 }

@@ -19,7 +19,7 @@
 <#-- @formatter:off -->
 
 /*
- *    MCreator note: This file will be REGENERATED on each build.
+ *	MCreator note: This file will be REGENERATED on each build.
  */
 
 <#include "../mcitems.ftl">
@@ -28,15 +28,15 @@ package ${package}.init;
 
 public class ${JavaModName}Biomes {
 
-    <#list biomes as biome>
-        public static ResourceKey<Biome> ${biome.getModElement().getRegistryNameUpper()} = ResourceKey.create(Registry.BIOME_REGISTRY,
-            new ResourceLocation(${JavaModName}.MODID, "${biome.getModElement().getRegistryName()}"));
-    </#list>
+	<#list biomes as biome>
+		public static ResourceKey<Biome> ${biome.getModElement().getRegistryNameUpper()} = ResourceKey.create(Registry.BIOME_REGISTRY,
+			new ResourceLocation(${JavaModName}.MODID, "${biome.getModElement().getRegistryName()}"));
+	</#list>
 
 	public static void load() {
-	    <#list biomes as biome>
-	        ${biome.getModElement().getName()}Biome.createBiome();
-        </#list>
+		<#list biomes as biome>
+			${biome.getModElement().getName()}Biome.createBiome();
+		</#list>
 	}
 
 }

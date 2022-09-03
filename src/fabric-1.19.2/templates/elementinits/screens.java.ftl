@@ -19,18 +19,18 @@
 <#-- @formatter:off -->
 
 /*
- *    MCreator note: This file will be REGENERATED on each build.
+ *	MCreator note: This file will be REGENERATED on each build.
  */
 
 package ${package}.init;
 
 public class ${JavaModName}Screens {
 
-    public static void load() {
-        <#list guis as gui>
-            ScreenRegistry.register(${JavaModName}Menus.${gui.getModElement().getRegistryNameUpper()}, ${gui.getModElement().getName()}Screen::new);
-        </#list>
-    }
+	public static void load() {
+		<#list guis as gui>
+			ScreenRegistry.register(${JavaModName}Menus.${gui.getModElement().getRegistryNameUpper()}, ${gui.getModElement().getName()}Screen::new);
+		</#list>
+	}
 
 }
 

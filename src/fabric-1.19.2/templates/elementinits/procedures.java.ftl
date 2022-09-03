@@ -19,7 +19,7 @@
 <#-- @formatter:off -->
 
 /*
- *    MCreator note: This file will be REGENERATED on each build.
+ *	MCreator note: This file will be REGENERATED on each build.
  */
 
 package ${package}.init;
@@ -27,11 +27,11 @@ package ${package}.init;
 @SuppressWarnings("InstantiationOfUtilityClass")
 public class ${JavaModName}Procedures {
 
-    public static void load() {
-        <#list procedures as procedure>
+	public static void load() {
+		<#list procedures as procedure>
 			new ${procedure.getModElement().getName()}Procedure();
-        </#list>
-    }
+		</#list>
+	}
 
 
 }

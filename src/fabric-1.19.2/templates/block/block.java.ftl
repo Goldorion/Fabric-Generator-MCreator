@@ -34,6 +34,7 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.api.Environment;
 
+<#compress>
 public class ${name}Block extends
 			<#if data.hasGravity>
 					FallingBlock
@@ -50,6 +51,7 @@ public class ${name}Block extends
 				<#if data.hasInventory><#if data.isWaterloggable>,</#if>EntityBlock</#if>
 			</#if>
 {
+	public static BlockBehaviour.Properties PROPERTIES = <@blockProperties/>;
 
 	<#if data.rotationMode == 1 || data.rotationMode == 3>
 		public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
@@ -66,11 +68,11 @@ public class ${name}Block extends
 	</#if>
 
 	<#macro blockProperties>
-	<#if generator.map(data.colorOnMap, "mapcolors") != "DEFAULT">
-		FabricBlockSettings.of(Material.${data.material},MaterialColor.${generator.map(data.colorOnMap, "mapcolors")})
-	<#else>
-		FabricBlockSettings.of(Material.${data.material})
-	</#if>
+		<#if generator.map(data.colorOnMap, "mapcolors") != "DEFAULT">
+			FabricBlockSettings.of(Material.${data.material},MaterialColor.${generator.map(data.colorOnMap, "mapcolors")})
+		<#else>
+			FabricBlockSettings.of(Material.${data.material})
+		</#if>
 			<#if data.requiresCorrectTool>
 				.requiresCorrectToolForDrops()
 			</#if>
@@ -160,7 +162,7 @@ public class ${name}Block extends
 
 	public ${name}Block() {
 		<#if data.blockBase?has_content && data.blockBase == "Stairs">
-			super(new Block(<@blockProperties/>).defaultBlockState(),
+			super(${JavaModName}Blocks.${data.getModElement().getRegistryNameUpper()}_INNER.defaultBlockState(),
 		<#elseif data.blockBase?has_content && data.blockBase == "PressurePlate">
 			<#if (data.material.getUnmappedValue() == "WOOD") || (data.material.getUnmappedValue() == "NETHER_WOOD")>
 				super(Sensitivity.EVERYTHING,
@@ -170,7 +172,7 @@ public class ${name}Block extends
 		<#else>
 			super(
 		</#if>
-		<@blockProperties/>
+		PROPERTIES
 		);
 
 		<#if data.rotationMode != 0 || data.isWaterloggable>
@@ -261,37 +263,37 @@ public class ${name}Block extends
 				<#if data.enablePitch>
 					.setValue(FACE, faceForDirection(context.getNearestLookingDirection()))
 				</#if>
-				    .setValue(FACING, context.getHorizontalDirection().getOpposite())
+					.setValue(FACING, context.getHorizontalDirection().getOpposite())
 				<#elseif data.rotationMode == 2>
-				    .setValue(FACING, context.getNearestLookingDirection().getOpposite())
+					.setValue(FACING, context.getNearestLookingDirection().getOpposite())
 				<#elseif data.rotationMode == 4>
-				    .setValue(FACING, context.getClickedFace())
+					.setValue(FACING, context.getClickedFace())
 				<#elseif data.rotationMode == 5>
-				    .setValue(AXIS, context.getClickedFace().getAxis())
+					.setValue(AXIS, context.getClickedFace().getAxis())
 				</#if>
 				<#if data.isWaterloggable>
-				    .setValue(WATERLOGGED, flag)
+					.setValue(WATERLOGGED, flag)
 				</#if>;
 		<#elseif data.rotationMode == 3>
-            if (context.getClickedFace().getAxis() == Direction.Axis.Y)
-                return this.defaultBlockState()
-                        <#if data.enablePitch>
-                            .setValue(FACE, context.getClickedFace().getOpposite() == Direction.UP ? AttachFace.CEILING : AttachFace.FLOOR)
-                            .setValue(FACING, context.getHorizontalDirection())
-                        <#else>
-                             .setValue(FACING, Direction.NORTH)
-                        </#if>
-                        <#if data.isWaterloggable>
-                            .setValue(WATERLOGGED, flag)
-                        </#if>;
-            return this.defaultBlockState()
-                <#if data.enablePitch>
-                    .setValue(FACE, AttachFace.WALL)
-                </#if>
-                .setValue(FACING, context.getClickedFace())
-                <#if data.isWaterloggable>
-                    .setValue(WATERLOGGED, flag)
-                </#if>;
+			if (context.getClickedFace().getAxis() == Direction.Axis.Y)
+				return this.defaultBlockState()
+						<#if data.enablePitch>
+							.setValue(FACE, context.getClickedFace().getOpposite() == Direction.UP ? AttachFace.CEILING : AttachFace.FLOOR)
+							.setValue(FACING, context.getHorizontalDirection())
+						<#else>
+							 .setValue(FACING, Direction.NORTH)
+						</#if>
+						<#if data.isWaterloggable>
+							.setValue(WATERLOGGED, flag)
+						</#if>;
+			return this.defaultBlockState()
+				<#if data.enablePitch>
+					.setValue(FACE, AttachFace.WALL)
+				</#if>
+				.setValue(FACING, context.getClickedFace())
+				<#if data.isWaterloggable>
+					.setValue(WATERLOGGED, flag)
+				</#if>;
 		</#if>
 	}
 	</#if>
@@ -347,111 +349,111 @@ public class ${name}Block extends
 	</#if>
 
 	<#if data.isWaterloggable || hasProcedure(data.placingCondition)>
-        @Override public BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor world, BlockPos currentPos, BlockPos facingPos) {
-            <#if data.isWaterloggable>
-                if (state.getValue(WATERLOGGED)) {
-                    world.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
-                }
-            </#if>
-            return <#if hasProcedure(data.placingCondition)>
-            !state.canSurvive(world, currentPos) ? Blocks.AIR.defaultBlockState() :
-            </#if> super.updateShape(state, facing, facingState, world, currentPos, facingPos);
-        }
+		@Override public BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor world, BlockPos currentPos, BlockPos facingPos) {
+			<#if data.isWaterloggable>
+				if (state.getValue(WATERLOGGED)) {
+					world.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
+				}
+			</#if>
+			return <#if hasProcedure(data.placingCondition)>
+			!state.canSurvive(world, currentPos) ? Blocks.AIR.defaultBlockState() :
+			</#if> super.updateShape(state, facing, facingState, world, currentPos, facingPos);
+		}
 	</#if>
 
 	<#if data.isReplaceable>
-        @Override public boolean canBeReplaced(BlockState state, BlockPlaceContext context) {
-            return context.getItemInHand().getItem() != this.asItem();
-        }
+		@Override public boolean canBeReplaced(BlockState state, BlockPlaceContext context) {
+			return context.getItemInHand().getItem() != this.asItem();
+		}
 	</#if>
 
 	<#if data.canProvidePower && data.emittedRedstonePower??>
-        @Override public boolean isSignalSource(BlockState state) {
-            return true;
-        }
+		@Override public boolean isSignalSource(BlockState state) {
+			return true;
+		}
 
-        @Override public int getSignal(BlockState blockstate, BlockGetter blockAccess, BlockPos pos, Direction side) {
-            <#if hasProcedure(data.emittedRedstonePower)>
-                int x = pos.getX();
-                int y = pos.getY();
-                int z = pos.getZ();
-                Level world = (Level) blockAccess;
-                return (int) <@procedureOBJToNumberCode data.emittedRedstonePower/>;
-            <#else>
-                return ${data.emittedRedstonePower.getFixedValue()};
-            </#if>
-        }
+		@Override public int getSignal(BlockState blockstate, BlockGetter blockAccess, BlockPos pos, Direction side) {
+			<#if hasProcedure(data.emittedRedstonePower)>
+				int x = pos.getX();
+				int y = pos.getY();
+				int z = pos.getZ();
+				Level world = (Level) blockAccess;
+				return (int) <@procedureOBJToNumberCode data.emittedRedstonePower/>;
+			<#else>
+				return ${data.emittedRedstonePower.getFixedValue()};
+			</#if>
+		}
 	</#if>
 
 	<#if data.fireSpreadSpeed != 0>
-        @Override public int getFireSpreadSpeed(BlockState state, BlockGetter world, BlockPos pos, Direction face) {
-            return ${data.fireSpreadSpeed};
-        }
+		@Override public int getFireSpreadSpeed(BlockState state, BlockGetter world, BlockPos pos, Direction face) {
+			return ${data.fireSpreadSpeed};
+		}
 	</#if>
 
 	<#if data.offsetType != "NONE">
-        @Override public Block.OffsetType getOffsetType() {
-            return Block.OffsetType.${data.offsetType};
-        }
+		@Override public Block.OffsetType getOffsetType() {
+			return Block.OffsetType.${data.offsetType};
+		}
 	</#if>
 
 	<#if data.reactionToPushing != "NORMAL">
-        @Override public PushReaction getPistonPushReaction(BlockState state) {
-            return PushReaction.${data.reactionToPushing};
-        }
+		@Override public PushReaction getPistonPushReaction(BlockState state) {
+			return PushReaction.${data.reactionToPushing};
+		}
 	</#if>
 
 	<#if data.canRedstoneConnect>
-        @Override
-        public boolean canConnectRedstone(BlockState state, BlockGetter world, BlockPos pos, Direction side) {
-            return true;
-        }
+		@Override
+		public boolean canConnectRedstone(BlockState state, BlockGetter world, BlockPos pos, Direction side) {
+			return true;
+		}
 	</#if>
 
 	<#if !(data.useLootTableForDrops || (data.dropAmount == 0))>
 		<#if data.dropAmount != 1 && !(data.customDrop?? && !data.customDrop.isEmpty())>
-            @Override public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
-                <#if data.blockBase?has_content && data.blockBase == "Door">
-                if(state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) != DoubleBlockHalf.LOWER)
-                    return Collections.emptyList();
-                </#if>
+			@Override public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
+				<#if data.blockBase?has_content && data.blockBase == "Door">
+				if(state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) != DoubleBlockHalf.LOWER)
+					return Collections.emptyList();
+				</#if>
 
-                List<ItemStack> dropsOriginal = super.getDrops(state, builder);
-                if(!dropsOriginal.isEmpty())
-                    return dropsOriginal;
-                return Collections.singletonList(new ItemStack(this, ${data.dropAmount}));
-            }
+				List<ItemStack> dropsOriginal = super.getDrops(state, builder);
+				if(!dropsOriginal.isEmpty())
+					return dropsOriginal;
+				return Collections.singletonList(new ItemStack(this, ${data.dropAmount}));
+			}
 		<#elseif data.customDrop?? && !data.customDrop.isEmpty()>
-            @Override public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
-                <#if data.blockBase?has_content && data.blockBase == "Door">
-                    if(state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) != DoubleBlockHalf.LOWER)
-                        return Collections.emptyList();
-                </#if>
+			@Override public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
+				<#if data.blockBase?has_content && data.blockBase == "Door">
+					if(state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) != DoubleBlockHalf.LOWER)
+						return Collections.emptyList();
+				</#if>
 
-                List<ItemStack> dropsOriginal = super.getDrops(state, builder);
-                if(!dropsOriginal.isEmpty())
-                    return dropsOriginal;
-                return Collections.singletonList(${mappedMCItemToItemStackCode(data.customDrop, data.dropAmount)});
-            }
+				List<ItemStack> dropsOriginal = super.getDrops(state, builder);
+				if(!dropsOriginal.isEmpty())
+					return dropsOriginal;
+				return Collections.singletonList(${mappedMCItemToItemStackCode(data.customDrop, data.dropAmount)});
+			}
 		<#elseif data.blockBase?has_content && data.blockBase == "Slab">
-            @Override public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
-                List<ItemStack> dropsOriginal = super.getDrops(state, builder);
-                if(!dropsOriginal.isEmpty())
-                    return dropsOriginal;
-                return Collections.singletonList(new ItemStack(this, state.getValue(TYPE) == SlabType.DOUBLE ? 2 : 1));
-            }
+			@Override public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
+				List<ItemStack> dropsOriginal = super.getDrops(state, builder);
+				if(!dropsOriginal.isEmpty())
+					return dropsOriginal;
+				return Collections.singletonList(new ItemStack(this, state.getValue(TYPE) == SlabType.DOUBLE ? 2 : 1));
+			}
 		<#else>
-            @Override public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
-                <#if data.blockBase?has_content && data.blockBase == "Door">
-                    if(state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) != DoubleBlockHalf.LOWER)
-                        return Collections.emptyList();
-                </#if>
+			@Override public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
+				<#if data.blockBase?has_content && data.blockBase == "Door">
+					if(state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) != DoubleBlockHalf.LOWER)
+						return Collections.emptyList();
+				</#if>
 
-                List<ItemStack> dropsOriginal = super.getDrops(state, builder);
-                if(!dropsOriginal.isEmpty())
-                    return dropsOriginal;
-                return Collections.singletonList(new ItemStack(this, 1));
-            }
+				List<ItemStack> dropsOriginal = super.getDrops(state, builder);
+				if(!dropsOriginal.isEmpty())
+					return dropsOriginal;
+				return Collections.singletonList(new ItemStack(this, 1));
+			}
 		</#if>
 	</#if>
 
@@ -460,37 +462,37 @@ public class ${name}Block extends
 	<@onRedstoneOrNeighborChanged data.onRedstoneOn, data.onRedstoneOff, data.onNeighbourBlockChanges/>
 
 	<#if hasProcedure(data.onTickUpdate)>
-        @Override public void <#if data.tickRandomly && (data.blockBase?has_content && data.blockBase == "Stairs")>randomTick<#else>tick</#if>
-                (BlockState blockstate, ServerLevel world, BlockPos pos, RandomSource random) {
-            super.<#if data.tickRandomly && (data.blockBase?has_content && data.blockBase == "Stairs")>randomTick<#else>tick</#if>(blockstate, world, pos, random);
-            int x = pos.getX();
-            int y = pos.getY();
-            int z = pos.getZ();
+		@Override public void <#if data.tickRandomly && (data.blockBase?has_content && data.blockBase == "Stairs")>randomTick<#else>tick</#if>
+				(BlockState blockstate, ServerLevel world, BlockPos pos, RandomSource random) {
+			super.<#if data.tickRandomly && (data.blockBase?has_content && data.blockBase == "Stairs")>randomTick<#else>tick</#if>(blockstate, world, pos, random);
+			int x = pos.getX();
+			int y = pos.getY();
+			int z = pos.getZ();
 
-            <@procedureOBJToCode data.onTickUpdate/>
+			<@procedureOBJToCode data.onTickUpdate/>
 
-            <#if data.shouldScheduleTick()>
-            world.scheduleTick(pos, this, ${data.tickRate});
-            </#if>
-        }
+			<#if data.shouldScheduleTick()>
+			world.scheduleTick(pos, this, ${data.tickRate});
+			</#if>
+		}
 	</#if>
 
 	<#if hasProcedure(data.onRandomUpdateEvent) || data.spawnParticles>
-        @Environment(EnvType.CLIENT) @Override
-        public void animateTick(BlockState blockstate, Level world, BlockPos pos, RandomSource random) {
-            super.animateTick(blockstate, world, pos, random);
-            Player entity = Minecraft.getInstance().player;
-            int x = pos.getX();
-            int y = pos.getY();
-            int z = pos.getZ();
-            <#if data.spawnParticles>
-                <#if hasProcedure(data.particleCondition)>
-                    if(<@procedureOBJToConditionCode data.particleCondition/>)
-                </#if>
-                <@particles data.particleSpawningShape data.particleToSpawn data.particleSpawningRadious data.particleAmount/>
-            </#if>
-            <@procedureOBJToCode data.onRandomUpdateEvent/>
-        }
+		@Environment(EnvType.CLIENT) @Override
+		public void animateTick(BlockState blockstate, Level world, BlockPos pos, RandomSource random) {
+			super.animateTick(blockstate, world, pos, random);
+			Player entity = Minecraft.getInstance().player;
+			int x = pos.getX();
+			int y = pos.getY();
+			int z = pos.getZ();
+			<#if data.spawnParticles>
+				<#if hasProcedure(data.particleCondition)>
+					if(<@procedureOBJToConditionCode data.particleCondition/>)
+				</#if>
+				<@particles data.particleSpawningShape data.particleToSpawn data.particleSpawningRadious data.particleAmount/>
+			</#if>
+			<@procedureOBJToCode data.onRandomUpdateEvent/>
+		}
 	</#if>
 
 	<@onDestroyedByExplosion data.onDestroyedByExplosion/>
@@ -506,38 +508,38 @@ public class ${name}Block extends
 	<@onBlockPlacedBy data.onBlockPlayedBy/>
 
 	<#if hasProcedure(data.onRightClicked) || data.shouldOpenGUIOnRightClick()>
-        @Override
-        public InteractionResult use(BlockState blockstate, Level world, BlockPos pos, Player entity, InteractionHand hand, BlockHitResult hit) {
-            super.use(blockstate, world, pos, entity, hand, hit);
-            <#if data.hasInventory>
-                if (!world.isClientSide){
-                    MenuProvider menuProvider = blockstate.getMenuProvider(world, pos);
-                    if (menuProvider != null)
-                        entity.openMenu(menuProvider);
-                }
-            </#if>
+		@Override
+		public InteractionResult use(BlockState blockstate, Level world, BlockPos pos, Player entity, InteractionHand hand, BlockHitResult hit) {
+			super.use(blockstate, world, pos, entity, hand, hit);
+			<#if data.hasInventory>
+				if (!world.isClientSide){
+					MenuProvider menuProvider = blockstate.getMenuProvider(world, pos);
+					if (menuProvider != null)
+						entity.openMenu(menuProvider);
+				}
+			</#if>
 
-            <#if hasProcedure(data.onRightClicked)>
-                int x = pos.getX();
-                int y = pos.getY();
-                int z = pos.getZ();
-                double hitX = hit.getLocation().x;
-                double hitY = hit.getLocation().y;
-                double hitZ = hit.getLocation().z;
-                Direction direction = hit.getDirection();
-                <#if hasReturnValueOf(data.onRightClicked, "actionresulttype")>
-                    InteractionResult result = <@procedureOBJToInteractionResultCode data.onRightClicked/>;
-                <#else>
-                    <@procedureOBJToCode data.onRightClicked/>
-                </#if>
-            </#if>
+			<#if hasProcedure(data.onRightClicked)>
+				int x = pos.getX();
+				int y = pos.getY();
+				int z = pos.getZ();
+				double hitX = hit.getLocation().x;
+				double hitY = hit.getLocation().y;
+				double hitZ = hit.getLocation().z;
+				Direction direction = hit.getDirection();
+				<#if hasReturnValueOf(data.onRightClicked, "actionresulttype")>
+					InteractionResult result = <@procedureOBJToInteractionResultCode data.onRightClicked/>;
+				<#else>
+					<@procedureOBJToCode data.onRightClicked/>
+				</#if>
+			</#if>
 
-            <#if data.shouldOpenGUIOnRightClick() || !hasReturnValueOf(data.onRightClicked, "actionresulttype")>
-                return InteractionResult.SUCCESS;
-            <#else>
-                return result;
-            </#if>
-        }
+			<#if data.shouldOpenGUIOnRightClick() || !hasReturnValueOf(data.onRightClicked, "actionresulttype")>
+				return InteractionResult.SUCCESS;
+			<#else>
+				return result;
+			</#if>
+		}
 	</#if>
 
 	<#if data.hasInventory>
@@ -558,31 +560,31 @@ public class ${name}Block extends
 		}
 
 		<#if data.inventoryDropWhenDestroyed>
-            @Override public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
-                if (state.getBlock() != newState.getBlock()) {
-                    BlockEntity blockEntity = world.getBlockEntity(pos);
-                    if (blockEntity instanceof ${name}BlockEntity be) {
-                        Containers.dropContents(world, pos, be);
-                        world.updateNeighbourForOutputSignal(pos, this);
-                    }
+			@Override public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
+				if (state.getBlock() != newState.getBlock()) {
+					BlockEntity blockEntity = world.getBlockEntity(pos);
+					if (blockEntity instanceof ${name}BlockEntity be) {
+						Containers.dropContents(world, pos, be);
+						world.updateNeighbourForOutputSignal(pos, this);
+					}
 
-                    super.onRemove(state, world, pos, newState, isMoving);
-                }
-            }
+					super.onRemove(state, world, pos, newState, isMoving);
+				}
+			}
 		</#if>
 
 		<#if data.inventoryComparatorPower>
-            @Override public boolean hasAnalogOutputSignal(BlockState state) {
-                return true;
-            }
+			@Override public boolean hasAnalogOutputSignal(BlockState state) {
+				return true;
+			}
 
-            @Override public int getAnalogOutputSignal(BlockState blockState, Level world, BlockPos pos) {
-                BlockEntity tileentity = world.getBlockEntity(pos);
-                if (tileentity instanceof ${name}BlockEntity be)
-                    return AbstractContainerMenu.getRedstoneSignalFromContainer(be);
-                else
-                    return 0;
-            }
+			@Override public int getAnalogOutputSignal(BlockState blockState, Level world, BlockPos pos) {
+				BlockEntity tileentity = world.getBlockEntity(pos);
+				if (tileentity instanceof ${name}BlockEntity be)
+					return AbstractContainerMenu.getRedstoneSignalFromContainer(be);
+				else
+					return 0;
+			}
 		</#if>
 	</#if>
 
@@ -635,4 +637,5 @@ public class ${name}Block extends
 		}
 
 }
+</#compress>
 <#-- @formatter:on -->

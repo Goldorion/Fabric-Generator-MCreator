@@ -36,33 +36,33 @@ package ${package}.network;
 
 public class ${name}ButtonMessage extends FriendlyByteBuf {
 
-    public ${name}ButtonMessage(int buttonID, int x, int y, int z) {
-        super(Unpooled.buffer());
+	public ${name}ButtonMessage(int buttonID, int x, int y, int z) {
+		super(Unpooled.buffer());
 		writeInt(buttonID);
 		writeInt(x);
 		writeInt(y);
 		writeInt(z);
-    }
+	}
 
-    public static void apply(MinecraftServer server, ServerPlayer entity, ServerGamePacketListenerImpl handler, FriendlyByteBuf buf, PacketSender responseSender) {
+	public static void apply(MinecraftServer server, ServerPlayer entity, ServerGamePacketListenerImpl handler, FriendlyByteBuf buf, PacketSender responseSender) {
 		int buttonID = buf.readInt();
-        double x = buf.readInt();
-        double y = buf.readInt();
-        double z = buf.readInt();
-        server.execute(() -> {
-        Level world = entity.getLevel();
-		    <#assign btid = 0>
-        <#list data.components as component>
-            <#if component.getClass().getSimpleName() == "Button">
-				    <#if hasProcedure(component.onClick)>
-    	    	    if (buttonID == ${btid}) {
-    	    	        <@procedureOBJToCode component.onClick/>
-					    }
-				    </#if>
-				    <#assign btid +=1>
-			    </#if>
-        </#list>
-        });
-    }
+		double x = buf.readInt();
+		double y = buf.readInt();
+		double z = buf.readInt();
+		server.execute(() -> {
+		Level world = entity.getLevel();
+			<#assign btid = 0>
+		<#list data.components as component>
+			<#if component.getClass().getSimpleName() == "Button">
+					<#if hasProcedure(component.onClick)>
+					if (buttonID == ${btid}) {
+						<@procedureOBJToCode component.onClick/>
+						}
+					</#if>
+					<#assign btid +=1>
+				</#if>
+		</#list>
+		});
+	}
 }
 <#-- @formatter:on -->

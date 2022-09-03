@@ -36,46 +36,46 @@ package ${package}.network;
 
 public class ${name}SlotMessage extends FriendlyByteBuf {
 
-    public ${name}SlotMessage(int slotID, int x, int y, int z, int changeType, int meta) {
-        super(Unpooled.buffer());
+	public ${name}SlotMessage(int slotID, int x, int y, int z, int changeType, int meta) {
+		super(Unpooled.buffer());
 			writeInt(slotID);
 			writeInt(x);
 			writeInt(y);
 			writeInt(z);
 			writeInt(changeType);
 			writeInt(meta);
-    }
+	}
 
-    public static void apply(MinecraftServer server, ServerPlayer entity, ServerGamePacketListenerImpl handler, FriendlyByteBuf buf, PacketSender responseSender) {
+	public static void apply(MinecraftServer server, ServerPlayer entity, ServerGamePacketListenerImpl handler, FriendlyByteBuf buf, PacketSender responseSender) {
 		int slotID = buf.readInt();
-        double x = buf.readInt();
-        double y = buf.readInt();
-        double z = buf.readInt();
-        int changeType = buf.readInt();
-        int meta = buf.readInt();
-        server.execute(() -> {
-            Level world = entity.getLevel();
-            <#list data.components as component>
-                <#if component.getClass().getSimpleName()?ends_with("Slot")>
-                	<#if hasProcedure(component.onSlotChanged)>
-                		if (slotID == ${component.id} && changeType == 0) {
-                			<@procedureOBJToCode component.onSlotChanged/>
-                		}
-                	</#if>
-                	<#if hasProcedure(component.onTakenFromSlot)>
-                		if (slotID == ${component.id} && changeType == 1) {
-                			<@procedureOBJToCode component.onTakenFromSlot/>
-                		}
-                	</#if>
-                	<#if hasProcedure(component.onStackTransfer)>
-                		if (slotID == ${component.id} && changeType == 2) {
-                			int amount = meta;
-                			<@procedureOBJToCode component.onStackTransfer/>
-                		}
-                	</#if>
-                </#if>
-            		</#list>
-        });
-    }
+		double x = buf.readInt();
+		double y = buf.readInt();
+		double z = buf.readInt();
+		int changeType = buf.readInt();
+		int meta = buf.readInt();
+		server.execute(() -> {
+			Level world = entity.getLevel();
+			<#list data.components as component>
+				<#if component.getClass().getSimpleName()?ends_with("Slot")>
+					<#if hasProcedure(component.onSlotChanged)>
+						if (slotID == ${component.id} && changeType == 0) {
+							<@procedureOBJToCode component.onSlotChanged/>
+						}
+					</#if>
+					<#if hasProcedure(component.onTakenFromSlot)>
+						if (slotID == ${component.id} && changeType == 1) {
+							<@procedureOBJToCode component.onTakenFromSlot/>
+						}
+					</#if>
+					<#if hasProcedure(component.onStackTransfer)>
+						if (slotID == ${component.id} && changeType == 2) {
+							int amount = meta;
+							<@procedureOBJToCode component.onStackTransfer/>
+						}
+					</#if>
+				</#if>
+					</#list>
+		});
+	}
 }
 <#-- @formatter:on -->

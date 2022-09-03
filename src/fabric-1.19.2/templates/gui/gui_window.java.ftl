@@ -46,9 +46,9 @@ public class ${name}Screen extends AbstractContainerScreen<${name}Menu> {
 
 	<#list data.components as component>
 		<#if component.getClass().getSimpleName() == "TextField">
-	    EditBox ${component.name};
+		EditBox ${component.name};
 		<#elseif component.getClass().getSimpleName() == "Checkbox">
-	    Checkbox ${component.name};
+		Checkbox ${component.name};
 		</#if>
 	</#list>
 
@@ -117,8 +117,8 @@ public class ${name}Screen extends AbstractContainerScreen<${name}Menu> {
 
 		<#list data.components as component>
 			<#if component.getClass().getSimpleName() == "TextField">
-		    if(${component.name}.isFocused())
-		    	return ${component.name}.keyPressed(key, b, c);
+			if(${component.name}.isFocused())
+				return ${component.name}.keyPressed(key, b, c);
 			</#if>
 		</#list>
 
@@ -140,7 +140,7 @@ public class ${name}Screen extends AbstractContainerScreen<${name}Menu> {
 				<#if hasProcedure(component.displayCondition)>
 				if (<@procedureOBJToConditionCode component.displayCondition/>)
 				</#if>
-		    	this.font.draw(poseStack, "${translateTokens(JavaConventions.escapeStringForJava(component.text))}",
+				this.font.draw(poseStack, "${translateTokens(JavaConventions.escapeStringForJava(component.text))}",
 					${(component.x - mx / 2)?int}, ${(component.y - my / 2)?int}, ${component.color.getRGB()});
 			</#if>
 		</#list>
@@ -186,7 +186,7 @@ public class ${name}Screen extends AbstractContainerScreen<${name}Menu> {
 					}
 				}
 				</#if>;
-                ${name}Menu.guistate.put("text:${component.name}", ${component.name});
+				${name}Menu.guistate.put("text:${component.name}", ${component.name});
 				${component.name}.setMaxLength(32767);
 				this.addWidget(this.${component.name});
 			<#elseif component.getClass().getSimpleName() == "Button">
@@ -194,12 +194,12 @@ public class ${name}Screen extends AbstractContainerScreen<${name}Menu> {
 					${component.width}, ${component.height}, Component.literal("${component.text}"), e -> {
 							<#if hasProcedure(component.onClick)>
 							if (<@procedureOBJToConditionCode component.displayCondition/>)
-							    ClientPlayNetworking.send(new ResourceLocation("${modid + ":" + name?lower_case}_button_" + ${btid}), new ${name}ButtonMessage(${btid}, x, y, z));
+								ClientPlayNetworking.send(new ResourceLocation("${modid + ":" + name?lower_case}_button_" + ${btid}), new ${name}ButtonMessage(${btid}, x, y, z));
 							</#if>
 					}
 				)
-                <#if hasProcedure(component.displayCondition)>
-                {
+				<#if hasProcedure(component.displayCondition)>
+				{
 					@Override public void render(PoseStack ms, int gx, int gy, float ticks) {
 						if (<@procedureOBJToConditionCode component.displayCondition/>)
 							super.render(ms, gx, gy, ticks);
@@ -208,28 +208,28 @@ public class ${name}Screen extends AbstractContainerScreen<${name}Menu> {
 				</#if>);
 				<#assign btid +=1>
 			<#elseif component.getClass().getSimpleName() == "Checkbox">
-            	${component.name} = new Checkbox(this.leftPos + ${(component.x - mx/2)?int}, this.topPos + ${(component.y - my/2)?int},
+				${component.name} = new Checkbox(this.leftPos + ${(component.x - mx/2)?int}, this.topPos + ${(component.y - my/2)?int},
 						20, 20, Component.literal("${component.text}"), <#if hasProcedure(component.isCheckedProcedure)>
-            	    <@procedureOBJToConditionCode component.isCheckedProcedure/><#else>false</#if>);
-                ${name}Menu.guistate.put("checkbox:${component.name}", ${component.name});
-                this.addRenderableWidget(${component.name});
+					<@procedureOBJToConditionCode component.isCheckedProcedure/><#else>false</#if>);
+				${name}Menu.guistate.put("checkbox:${component.name}", ${component.name});
+				this.addRenderableWidget(${component.name});
 			</#if>
 		</#list>
 	}
 
 	public static void screenInit() {
-    	<#assign btid = 0>
-    	<#list data.components as component>
-    	<#if component.getClass().getSimpleName() == "Button">
-    	    ServerPlayNetworking.registerGlobalReceiver(new ResourceLocation(${JavaModName}.MODID, "${name?lower_case}_button_${btid}"), ${name}ButtonMessage::apply);
-    	    <#assign btid +=1>
-    	<#elseif component.getClass().getSimpleName()?ends_with("Slot")>
-    	    <#if data.hasSlotEvents()>
-    	    ServerPlayNetworking.registerGlobalReceiver(new ResourceLocation(${JavaModName}.MODID, "${name?lower_case}_slot_${btid}"), ${name}SlotMessage::apply);
-    	    </#if>
-    	</#if>
-    	</#list>
-    }
+		<#assign btid = 0>
+		<#list data.components as component>
+		<#if component.getClass().getSimpleName() == "Button">
+			ServerPlayNetworking.registerGlobalReceiver(new ResourceLocation(${JavaModName}.MODID, "${name?lower_case}_button_${btid}"), ${name}ButtonMessage::apply);
+			<#assign btid +=1>
+		<#elseif component.getClass().getSimpleName()?ends_with("Slot")>
+			<#if data.hasSlotEvents()>
+			ServerPlayNetworking.registerGlobalReceiver(new ResourceLocation(${JavaModName}.MODID, "${name?lower_case}_slot_${btid}"), ${name}SlotMessage::apply);
+			</#if>
+		</#if>
+		</#list>
+	}
 
 }
 <#-- @formatter:on -->

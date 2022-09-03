@@ -19,7 +19,7 @@
 <#-- @formatter:off -->
 
 /*
- *    MCreator note: This file will be REGENERATED on each build.
+ *	MCreator note: This file will be REGENERATED on each build.
  */
 
 package ${package}.init;
@@ -28,8 +28,8 @@ public class ${JavaModName}Paintings {
 
 	public static void load() {
 		<#list paintings as painting>
-		    Registry.register(Registry.PAINTING_VARIANT, new ResourceLocation(${JavaModName}.MODID, "${painting.getModElement().getRegistryName()}"), new PaintingVariant(${painting.width}, ${painting.height}));
-        </#list>
+			Registry.register(Registry.PAINTING_VARIANT, new ResourceLocation(${JavaModName}.MODID, "${painting.getModElement().getRegistryName()}"), new PaintingVariant(${painting.width}, ${painting.height}));
+		</#list>
 	}
 
 }

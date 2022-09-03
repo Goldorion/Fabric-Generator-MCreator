@@ -22,18 +22,18 @@ import ${package}.mixins.EntityMixin;
 @Mixin(FishingHook.class)
 public abstract class ${JavaModName}FishingHookMixin extends EntityMixin {
 
-    @Inject(method = "shouldStopFishing", at = @At("HEAD"), cancellable = true)
-    public void shouldStopFishing(Player player, CallbackInfoReturnable<Boolean> cir) {
-        ItemStack itemStack = player.getMainHandItem();
-        ItemStack itemStack2 = player.getOffhandItem();
-        <#list tools as tool>
-            <#if tool.toolType == "Fishing rod">
-                if (player.isRemoved() || !player.isAlive() || !itemStack.is(${JavaModName}Items.${tool.getModElement().getRegistryNameUpper()}) && !itemStack2.is(${JavaModName}Items.${tool.getModElement().getRegistryNameUpper()}) || this.distanceToSqr(player) > 1024.0) {
-                    this.discard();
-                    cir.setReturnValue(true);
-                }
-            </#if>
-        </#list>
-    }
+	@Inject(method = "shouldStopFishing", at = @At("HEAD"), cancellable = true)
+	public void shouldStopFishing(Player player, CallbackInfoReturnable<Boolean> cir) {
+		ItemStack itemStack = player.getMainHandItem();
+		ItemStack itemStack2 = player.getOffhandItem();
+		<#list tools as tool>
+			<#if tool.toolType == "Fishing rod">
+				if (player.isRemoved() || !player.isAlive() || !itemStack.is(${JavaModName}Items.${tool.getModElement().getRegistryNameUpper()}) && !itemStack2.is(${JavaModName}Items.${tool.getModElement().getRegistryNameUpper()}) || this.distanceToSqr(player) > 1024.0) {
+					this.discard();
+					cir.setReturnValue(true);
+				}
+			</#if>
+		</#list>
+	}
 }
 <#-- @formatter:on -->

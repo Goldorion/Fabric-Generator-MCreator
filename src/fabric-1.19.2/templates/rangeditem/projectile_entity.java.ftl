@@ -26,6 +26,7 @@ package ${package}.entity;
 
 import net.fabricmc.api.Environment;
 
+<#compress>
 @Environment(EnvType.CLIENT) 
 public class ${name}Entity extends AbstractArrow implements ItemSupplier {
 
@@ -43,18 +44,18 @@ public class ${name}Entity extends AbstractArrow implements ItemSupplier {
 
 	@Override @Environment(EnvType.CLIENT) public ItemStack getItem() {
 		<#if !data.bulletItemTexture.isEmpty()>
-		return ${mappedMCItemToItemStackCode(data.bulletItemTexture, 1)};
-    	<#else>
-		return null;
-    	</#if>
+			return ${mappedMCItemToItemStackCode(data.bulletItemTexture, 1)};
+		<#else>
+			return null;
+		</#if>
 	}
 
 	@Override protected ItemStack getPickupItem() {
 		<#if !data.ammoItem.isEmpty()>
-		return ${mappedMCItemToItemStackCode(data.ammoItem, 1)};
-    	<#else>
-		return null;
-    	</#if>
+			return ${mappedMCItemToItemStackCode(data.ammoItem, 1)};
+		<#else>
+			return null;
+		</#if>
 	}
 
 	@Override protected void doPostHurtEffects(LivingEntity entity) {
@@ -63,43 +64,43 @@ public class ${name}Entity extends AbstractArrow implements ItemSupplier {
 	}
 
 	<#if hasProcedure(data.onBulletHitsPlayer)>
-	@Override public void playerTouch(Player entity) {
-		super.playerTouch(entity);
-		Entity sourceentity = this.getOwner();
-		Entity imediatesourceentity = this;
-		double x = this.getX();
-		double y = this.getY();
-		double z = this.getZ();
-		Level world = this.level;
-		<@procedureOBJToCode data.onBulletHitsPlayer/>
-	}
+		@Override public void playerTouch(Player entity) {
+			super.playerTouch(entity);
+			Entity sourceentity = this.getOwner();
+			Entity imediatesourceentity = this;
+			double x = this.getX();
+			double y = this.getY();
+			double z = this.getZ();
+			Level world = this.level;
+			<@procedureOBJToCode data.onBulletHitsPlayer/>
+		}
 	</#if>
 
 	<#if hasProcedure(data.onBulletHitsEntity)>
-	@Override public void onHitEntity(EntityHitResult entityHitResult) {
-		super.onHitEntity(entityHitResult);
-		Entity entity = entityHitResult.getEntity();
-		Entity sourceentity = this.getOwner();
-		Entity imediatesourceentity = this;
-		double x = this.getX();
-		double y = this.getY();
-		double z = this.getZ();
-		Level world = this.level;
-		<@procedureOBJToCode data.onBulletHitsEntity/>
-	}
+		@Override public void onHitEntity(EntityHitResult entityHitResult) {
+			super.onHitEntity(entityHitResult);
+			Entity entity = entityHitResult.getEntity();
+			Entity sourceentity = this.getOwner();
+			Entity imediatesourceentity = this;
+			double x = this.getX();
+			double y = this.getY();
+			double z = this.getZ();
+			Level world = this.level;
+			<@procedureOBJToCode data.onBulletHitsEntity/>
+		}
 	</#if>
 
 	<#if hasProcedure(data.onBulletHitsBlock)>
-	@Override public void onHitBlock(BlockHitResult blockHitResult) {
-		super.onHitBlock(blockHitResult);
-		double x = blockHitResult.getBlockPos().getX();
-		double y = blockHitResult.getBlockPos().getY();
-		double z = blockHitResult.getBlockPos().getZ();
-		Level world = this.level;
-		Entity entity = this.getOwner();
-		Entity imediatesourceentity = this;
-		<@procedureOBJToCode data.onBulletHitsBlock/>
-	}
+		@Override public void onHitBlock(BlockHitResult blockHitResult) {
+			super.onHitBlock(blockHitResult);
+			double x = blockHitResult.getBlockPos().getX();
+			double y = blockHitResult.getBlockPos().getY();
+			double z = blockHitResult.getBlockPos().getZ();
+			Level world = this.level;
+			Entity entity = this.getOwner();
+			Entity imediatesourceentity = this;
+			<@procedureOBJToCode data.onBulletHitsBlock/>
+		}
 	</#if>
 
 	@Override public void tick() {
@@ -132,18 +133,17 @@ public class ${name}Entity extends AbstractArrow implements ItemSupplier {
 		world.addFreshEntity(entityarrow);
 
 		world.playSound((Player) null, entity.getX(), entity.getY(), entity.getZ(),
-		        <#assign s=data.actionSound>
-		        <#if s.getMappedValue()?has_content>
-				    <#if s.getUnmappedValue().startsWith("CUSTOM:")>
-                    ${JavaModName}Sounds.${s?replace(modid + ":", "")?upper_case}
-                    <#else>
-                    SoundEvents.${(s?starts_with("ambient")||s?starts_with("music")||s?starts_with("ui")||s?starts_with("weather"))?string(s?upper_case?replace(".", "_"),s?keep_after(".")?upper_case?replace(".", "_"))}
-                    </#if>
+				<#assign s=data.actionSound>
+				<#if s.getMappedValue()?has_content>
+					<#if s.getUnmappedValue().startsWith("CUSTOM:")>
+						${JavaModName}Sounds.${s?replace(modid + ":", "")?upper_case}
+					<#else>
+						SoundEvents.${(s?starts_with("ambient")||s?starts_with("music")||s?starts_with("ui")||s?starts_with("weather"))?string(s?upper_case?replace(".", "_"),s?keep_after(".")?upper_case?replace(".", "_"))}
+					</#if>
 				<#else>
-				    SoundEvents.ARROW_SHOOT
-				</#if>
-		        ,
-		        SoundSource.PLAYERS, 1, 1f / (random.nextFloat() * 0.5f + 1) + (power / 2));
+					SoundEvents.ARROW_SHOOT
+				</#if>,
+				SoundSource.PLAYERS, 1, 1f / (random.nextFloat() * 0.5f + 1) + (power / 2));
 
 		return entityarrow;
 	}
@@ -168,21 +168,21 @@ public class ${name}Entity extends AbstractArrow implements ItemSupplier {
 		double y = entity.getY();
 		double z = entity.getZ();
 		entity.level.playSound((Player) null, (double) x, (double) y, (double) z,
-		        <#assign s=data.actionSound>
-		        <#if s.getMappedValue()?has_content>
-				    <#if s.getUnmappedValue().startsWith("CUSTOM:")>
-                    ${JavaModName}Sounds.${s?replace(modid + ":", "")?upper_case}
-                    <#else>
-                    SoundEvents.${(s?starts_with("ambient")||s?starts_with("music")||s?starts_with("ui")||s?starts_with("weather"))?string(s?upper_case?replace(".", "_"),s?keep_after(".")?upper_case?replace(".", "_"))}
-                    </#if>
+				<#assign s=data.actionSound>
+				<#if s.getMappedValue()?has_content>
+					<#if s.getUnmappedValue().startsWith("CUSTOM:")>
+						${JavaModName}Sounds.${s?replace(modid + ":", "")?upper_case}
+					<#else>
+						SoundEvents.${(s?starts_with("ambient")||s?starts_with("music")||s?starts_with("ui")||s?starts_with("weather"))?string(s?upper_case?replace(".", "_"),s?keep_after(".")?upper_case?replace(".", "_"))}
+					</#if>
 				<#else>
-				    SoundEvents.ARROW_SHOOT
+					SoundEvents.ARROW_SHOOT
 				</#if>,
-		        SoundSource.PLAYERS, 1, 1f / (RandomSource.create().nextFloat() * 0.5f + 1));
+				SoundSource.PLAYERS, 1, 1f / (RandomSource.create().nextFloat() * 0.5f + 1));
 
 		return entityarrow;
 	}
 
 }
-
+</#compress>
 <#-- @formatter:on -->

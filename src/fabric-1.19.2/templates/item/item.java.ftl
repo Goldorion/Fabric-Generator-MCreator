@@ -44,39 +44,39 @@ public class ${name}Item extends Item {
 		super(new Item.Properties()
 				.tab(${data.creativeTab})
 				<#if data.hasInventory()>
-				    .stacksTo(1)
+					.stacksTo(1)
 				<#elseif data.damageCount != 0>
-				    .durability(${data.damageCount})
+					.durability(${data.damageCount})
 				<#else>
-				    .stacksTo(${data.stackSize})
+					.stacksTo(${data.stackSize})
 				</#if>
 				<#if data.immuneToFire>
-				    .fireResistant()
+					.fireResistant()
 				</#if>
 				.rarity(Rarity.${data.rarity})
 				<#if data.stayInGridWhenCrafting>
-				    <#if data.recipeRemainder?? && !data.recipeRemainder.isEmpty()>
-				        .craftRemainder(${mappedMCItemToItem(data.recipeRemainder)})
-				    <#else>
-				        .craftRemainder(${JavaModName}Items.${data.getModElement().getRegistryNameUpper()})
-				    </#if>
+					<#if data.recipeRemainder?? && !data.recipeRemainder.isEmpty()>
+						.craftRemainder(${mappedMCItemToItem(data.recipeRemainder)})
+					<#else>
+						.craftRemainder(${JavaModName}Items.${data.getModElement().getRegistryNameUpper()})
+					</#if>
 				</#if>
 				<#if data.isFood>
-                    .food((new FoodProperties.Builder())
-                        .nutrition(${data.nutritionalValue})
-                        .saturationMod(${data.saturation}f)
-                        <#if data.isAlwaysEdible>.alwaysEat()</#if>
-                        <#if data.isMeat>.meat()</#if>
-                        .build())
-                </#if>
+					.food((new FoodProperties.Builder())
+						.nutrition(${data.nutritionalValue})
+						.saturationMod(${data.saturation}f)
+						<#if data.isAlwaysEdible>.alwaysEat()</#if>
+						<#if data.isMeat>.meat()</#if>
+						.build())
+				</#if>
 		);
 	}
 
 	<#if data.hasNonDefaultAnimation()>
-        @Override public UseAnim getUseAnimation(ItemStack itemstack) {
-            return UseAnim.${data.animation?upper_case};
-        }
-    </#if>
+		@Override public UseAnim getUseAnimation(ItemStack itemstack) {
+			return UseAnim.${data.animation?upper_case};
+		}
+	</#if>
 
 	<#if data.stayInGridWhenCrafting>
 		@Override public boolean hasCraftingRemainingItem() {
@@ -84,16 +84,16 @@ public class ${name}Item extends Item {
 		}
 
 		<#if !data.recipeRemainder?? && data.recipeRemainder.isEmpty() && (data.damageCount != 0)>
-            @Override public boolean isRepairable(ItemStack itemstack) {
-                return false;
-            }
+			@Override public boolean isRepairable(ItemStack itemstack) {
+				return false;
+			}
 		</#if>
 	</#if>
 
 	<#if data.enchantability != 0>
-        @Override public int getEnchantmentValue() {
-            return ${data.enchantability};
-        }
+		@Override public int getEnchantmentValue() {
+			return ${data.enchantability};
+		}
 	</#if>
 
 	@Override public int getUseDuration(ItemStack itemstack) {
@@ -101,9 +101,9 @@ public class ${name}Item extends Item {
 	}
 
 	<#if data.toolType != 1>
-        @Override public float getDestroySpeed(ItemStack par1ItemStack, BlockState par2Block) {
-            return ${data.toolType}F;
-        }
+		@Override public float getDestroySpeed(ItemStack par1ItemStack, BlockState par2Block) {
+			return ${data.toolType}F;
+		}
 	</#if>
 
 	<#if data.enableMeleeDamage>
@@ -118,104 +118,104 @@ public class ${name}Item extends Item {
 		}
 	</#if>
 
-    <#if data.hasGlow>
-        @Override public boolean isFoil(ItemStack itemstack) {
-            <#if hasProcedure(data.glowCondition)>
-            Player entity = Minecraft.getInstance().player;
-            Level world = entity.level;
-            double x = entity.getX();
-            double y = entity.getY();
-            double z = entity.getZ();
-            return <@procedureOBJToConditionCode data.glowCondition/>;
-            <#else>
-            return true;
-            </#if>
-        }
+	<#if data.hasGlow>
+		@Override public boolean isFoil(ItemStack itemstack) {
+			<#if hasProcedure(data.glowCondition)>
+			Player entity = Minecraft.getInstance().player;
+			Level world = entity.level;
+			double x = entity.getX();
+			double y = entity.getY();
+			double z = entity.getZ();
+			return <@procedureOBJToConditionCode data.glowCondition/>;
+			<#else>
+			return true;
+			</#if>
+		}
 	</#if>
 
 	<#if data.destroyAnyBlock>
-        @Override public boolean isCorrectToolForDrops(BlockState state) {
-            return true;
-        }
-    </#if>
-
-    <#if data.specialInfo?has_content>
-        @Override public void appendHoverText(ItemStack itemstack, Level world, List<Component> list, TooltipFlag flag) {
-            super.appendHoverText(itemstack, world, list, flag);
-            <#list data.specialInfo as entry>
-            list.add(Component.literal("${JavaConventions.escapeStringForJava(entry)}"));
-            </#list>
-        }
+		@Override public boolean isCorrectToolForDrops(BlockState state) {
+			return true;
+		}
 	</#if>
 
-    <#if hasProcedure(data.onRightClickedInAir) || data.hasInventory()>
-        @Override public InteractionResultHolder<ItemStack> use(Level world, Player entity, InteractionHand hand) {
-            InteractionResultHolder<ItemStack> ar = super.use(world, entity, hand);
-            ItemStack itemstack = ar.getObject();
-            double x = entity.getX();
-            double y = entity.getY();
-            double z = entity.getZ();
+	<#if data.specialInfo?has_content>
+		@Override public void appendHoverText(ItemStack itemstack, Level world, List<Component> list, TooltipFlag flag) {
+			super.appendHoverText(itemstack, world, list, flag);
+			<#list data.specialInfo as entry>
+			list.add(Component.literal("${JavaConventions.escapeStringForJava(entry)}"));
+			</#list>
+		}
+	</#if>
 
-            <#if data.hasInventory()>
-                entity.openMenu(new ExtendedScreenHandlerFactory() {
-                    @Override
-                    public AbstractContainerMenu createMenu(int syncId, Inventory inventory, Player player) {
-                        return new ${data.guiBoundTo}Menu(syncId, inventory, new ${name}Inventory(itemstack));
-                    }
+	<#if hasProcedure(data.onRightClickedInAir) || data.hasInventory()>
+		@Override public InteractionResultHolder<ItemStack> use(Level world, Player entity, InteractionHand hand) {
+			InteractionResultHolder<ItemStack> ar = super.use(world, entity, hand);
+			ItemStack itemstack = ar.getObject();
+			double x = entity.getX();
+			double y = entity.getY();
+			double z = entity.getZ();
 
-                    @Override
-                    public Component getDisplayName() {
-                        return itemstack.getDisplayName();
-                    }
+			<#if data.hasInventory()>
+				entity.openMenu(new ExtendedScreenHandlerFactory() {
+					@Override
+					public AbstractContainerMenu createMenu(int syncId, Inventory inventory, Player player) {
+						return new ${data.guiBoundTo}Menu(syncId, inventory, new ${name}Inventory(itemstack));
+					}
 
-                    @Override
-                    public void writeScreenOpeningData(ServerPlayer player, FriendlyByteBuf buf) {
-                        buf.writeBlockPos(BlockPos.ZERO);
-                    }
-                });
-            </#if>
+					@Override
+					public Component getDisplayName() {
+						return itemstack.getDisplayName();
+					}
 
-            <@procedureOBJToCode data.onRightClickedInAir/>
-            return ar;
-        }
-    </#if>
+					@Override
+					public void writeScreenOpeningData(ServerPlayer player, FriendlyByteBuf buf) {
+						buf.writeBlockPos(BlockPos.ZERO);
+					}
+				});
+			</#if>
 
-    <#if hasProcedure(data.onFinishUsingItem) || data.hasEatResultItem()>
-        @Override public ItemStack finishUsingItem(ItemStack itemstack, Level world, LivingEntity entity) {
-            ItemStack retval =
-        	    <#if data.hasEatResultItem()>
-        		    ${mappedMCItemToItemStackCode(data.eatResultItem, 1)};
-        		</#if>
-        	super.finishUsingItem(itemstack, world, entity);
+			<@procedureOBJToCode data.onRightClickedInAir/>
+			return ar;
+		}
+	</#if>
 
-        	<#if hasProcedure(data.onFinishUsingItem)>
-        		double x = entity.getX();
-        	    double y = entity.getY();
-        		double z = entity.getZ();
-        		<@procedureOBJToCode data.onFinishUsingItem/>
-        	</#if>
+	<#if hasProcedure(data.onFinishUsingItem) || data.hasEatResultItem()>
+		@Override public ItemStack finishUsingItem(ItemStack itemstack, Level world, LivingEntity entity) {
+			ItemStack retval =
+				<#if data.hasEatResultItem()>
+					${mappedMCItemToItemStackCode(data.eatResultItem, 1)};
+				</#if>
+			super.finishUsingItem(itemstack, world, entity);
 
-        	<#if data.hasEatResultItem()>
-        		if (itemstack.isEmpty()) {
-        			return retval;
-        		} else {
-        			if (entity instanceof Player player && !player.getAbilities().instabuild) {
-        				if (!player.getInventory().add(retval))
-        					player.drop(retval, false);
-        			}
-        			return itemstack;
-        		}
-        	<#else>
-        		return retval;
-        	</#if>
-        }
-    </#if>
+			<#if hasProcedure(data.onFinishUsingItem)>
+				double x = entity.getX();
+				double y = entity.getY();
+				double z = entity.getZ();
+				<@procedureOBJToCode data.onFinishUsingItem/>
+			</#if>
 
-    <@onItemUsedOnBlock data.onRightClickedOnBlock/>
+			<#if data.hasEatResultItem()>
+				if (itemstack.isEmpty()) {
+					return retval;
+				} else {
+					if (entity instanceof Player player && !player.getAbilities().instabuild) {
+						if (!player.getInventory().add(retval))
+							player.drop(retval, false);
+					}
+					return itemstack;
+				}
+			<#else>
+				return retval;
+			</#if>
+		}
+	</#if>
+
+	<@onItemUsedOnBlock data.onRightClickedOnBlock/>
 
 	<@onEntityHitWith data.onEntityHitWith/>
 
-    <@onCrafted data.onCrafted/>
+	<@onCrafted data.onCrafted/>
 
 	<@onStoppedUsing data.onStoppedUsing/>
 

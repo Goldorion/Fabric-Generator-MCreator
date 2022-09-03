@@ -29,26 +29,26 @@ import net.minecraft.world.level.biome.Biomes;
 public class ${name}Feature extends Feature<NoneFeatureConfiguration> {
 
 	public static ${name}Feature FEATURE = null;
-    public static Holder<ConfiguredFeature<NoneFeatureConfiguration, ?>> CONFIGURED_FEATURE = null;
-    public static Holder<PlacedFeature> PLACED_FEATURE = null;
+	public static Holder<ConfiguredFeature<NoneFeatureConfiguration, ?>> CONFIGURED_FEATURE = null;
+	public static Holder<PlacedFeature> PLACED_FEATURE = null;
 
-    public static Feature<?> feature() {
-    	FEATURE = new ${name}Feature();
-    	CONFIGURED_FEATURE = FeatureUtils.register("${modid}:${registryname}", FEATURE, FeatureConfiguration.NONE);
-    	PLACED_FEATURE = PlacementUtils.register("${modid}:${registryname}", CONFIGURED_FEATURE, List.of());
-    	return FEATURE;
-    }
+	public static Feature<?> feature() {
+		FEATURE = new ${name}Feature();
+		CONFIGURED_FEATURE = FeatureUtils.register("${modid}:${registryname}", FEATURE, FeatureConfiguration.NONE);
+		PLACED_FEATURE = PlacementUtils.register("${modid}:${registryname}", CONFIGURED_FEATURE, List.of());
+		return FEATURE;
+	}
 
 	public static final Predicate<BiomeSelectionContext> GENERATE_BIOMES = BiomeSelectors.
-        <#if data.restrictionBiomes?has_content>
-            includeByKey(
-                <#list data.restrictionBiomes as restrictionBiome>
-                    ResourceKey.create(Registry.BIOME_REGISTRY, new ResourceLocation("${restrictionBiome}"))<#if restrictionBiome?has_next>,</#if>
-                </#list>
-            )
-        <#else>
-            all()
-        </#if>;
+		<#if data.restrictionBiomes?has_content>
+			includeByKey(
+				<#list data.restrictionBiomes as restrictionBiome>
+					ResourceKey.create(Registry.BIOME_REGISTRY, new ResourceLocation("${restrictionBiome}"))<#if restrictionBiome?has_next>,</#if>
+				</#list>
+			)
+		<#else>
+			all()
+		</#if>;
 
 	private final Set<ResourceKey<Level>> generate_dimensions = Set.of(
 		<#list data.spawnWorldTypes as worldType>

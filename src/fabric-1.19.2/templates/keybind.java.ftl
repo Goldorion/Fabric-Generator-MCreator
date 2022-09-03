@@ -33,31 +33,31 @@ public class ${name}Message extends FriendlyByteBuf {
 		writeBoolean(consumeClick);
 	}
 
-    public static void apply(MinecraftServer server, ServerPlayer entity, ServerGamePacketListenerImpl handler, FriendlyByteBuf buf, PacketSender responseSender) {
-        boolean isDown = buf.readBoolean();
-        boolean consumeClick = buf.readBoolean();
-        server.execute(() -> {
-            Level world = entity.level;
-            double x = entity.getX();
-            double y = entity.getY();
-            double z = entity.getZ();
+	public static void apply(MinecraftServer server, ServerPlayer entity, ServerGamePacketListenerImpl handler, FriendlyByteBuf buf, PacketSender responseSender) {
+		boolean isDown = buf.readBoolean();
+		boolean consumeClick = buf.readBoolean();
+		server.execute(() -> {
+			Level world = entity.level;
+			double x = entity.getX();
+			double y = entity.getY();
+			double z = entity.getZ();
 
-            // security measure to prevent arbitrary chunk generation
-            if (!world.hasChunkAt(entity.blockPosition()))
-                return;
+			// security measure to prevent arbitrary chunk generation
+			if (!world.hasChunkAt(entity.blockPosition()))
+				return;
 
-            <#if hasProcedure(data.onKeyPressed)>
-                if(isDown) {
-                    <@procedureOBJToCode data.onKeyPressed/>
-                }
-            </#if>
+			<#if hasProcedure(data.onKeyPressed)>
+				if(isDown) {
+					<@procedureOBJToCode data.onKeyPressed/>
+				}
+			</#if>
 
-            <#if hasProcedure(data.onKeyReleased)>
-                if(consumeClick) {
-                    <@procedureOBJToCode data.onKeyReleased/>
-                }
-            </#if>
-        });
-    }
+			<#if hasProcedure(data.onKeyReleased)>
+				if(consumeClick) {
+					<@procedureOBJToCode data.onKeyReleased/>
+				}
+			</#if>
+		});
+	}
 }
 <#-- @formatter:on -->

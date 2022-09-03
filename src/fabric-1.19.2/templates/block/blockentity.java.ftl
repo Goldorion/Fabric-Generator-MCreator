@@ -41,11 +41,11 @@ public class ${name}BlockEntity extends RandomizableContainerBlockEntity impleme
 	}
 
 	@Override
-    public void saveAdditional(CompoundTag compound) {
-    	super.saveAdditional(compound);
-    	if (!this.trySaveLootTable(compound))
-    		ContainerHelper.saveAllItems(compound, this.stacks);
-    }
+	public void saveAdditional(CompoundTag compound) {
+		super.saveAdditional(compound);
+		if (!this.trySaveLootTable(compound))
+			ContainerHelper.saveAllItems(compound, this.stacks);
+	}
 
 	@Override public ClientboundBlockEntityDataPacket getUpdatePacket() {
 		return ClientboundBlockEntityDataPacket.create(this);
@@ -77,9 +77,9 @@ public class ${name}BlockEntity extends RandomizableContainerBlockEntity impleme
 	@Override public AbstractContainerMenu createMenu(int id, Inventory inventory) {
 			<#if !data.guiBoundTo?has_content || data.guiBoundTo == "<NONE>" || !(data.guiBoundTo)?has_content>
 				return ChestMenu.threeRows(id, inventory);
-            <#else>
+			<#else>
 				return new ${data.guiBoundTo}Menu(id, inventory, this);
-            </#if>
+			</#if>
 	}
 
 	@Override public Component getDisplayName() {
@@ -96,9 +96,9 @@ public class ${name}BlockEntity extends RandomizableContainerBlockEntity impleme
 
 	@Override public boolean canPlaceItem(int index, ItemStack stack) {
 			<#list data.inventoryOutSlotIDs as id>
-			    if (index == ${id})
+				if (index == ${id})
 					return false;
-            </#list>
+			</#list>
 		return true;
 	}
 
@@ -113,9 +113,9 @@ public class ${name}BlockEntity extends RandomizableContainerBlockEntity impleme
 
 	@Override public boolean canTakeItemThroughFace(int index, ItemStack stack, Direction direction) {
 			<#list data.inventoryInSlotIDs as id>
-			    if (index == ${id})
+				if (index == ${id})
 					return false;
-            </#list>
+			</#list>
 		return true;
 	}
 	<#-- END: ISidedInventory -->

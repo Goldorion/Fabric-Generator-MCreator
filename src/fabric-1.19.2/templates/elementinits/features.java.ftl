@@ -19,7 +19,7 @@
 <#-- @formatter:off -->
 
 /*
- *    MCreator note: This file will be REGENERATED on each build.
+ *	MCreator note: This file will be REGENERATED on each build.
  */
 
 package ${package}.init;
@@ -27,26 +27,26 @@ package ${package}.init;
 public class ${JavaModName}Features {
 
 	public static void load() {
-    <#list features as feature>
+	<#list features as feature>
 		<#if feature.getModElement().getTypeString() == "block">
-		    register("${feature.getModElement().getRegistryName()}", ${feature.getModElement().getName()}Feature.feature(),
-            	${feature.getModElement().getName()}Feature.GENERATE_BIOMES, GenerationStep.Decoration.UNDERGROUND_ORES);
+			register("${feature.getModElement().getRegistryName()}", ${feature.getModElement().getName()}Feature.feature(),
+				${feature.getModElement().getName()}Feature.GENERATE_BIOMES, GenerationStep.Decoration.UNDERGROUND_ORES);
 		<#elseif feature.getModElement().getTypeString() == "plant">
-		    register("${feature.getModElement().getRegistryName()}", ${feature.getModElement().getName()}Feature.feature(),
-		        ${feature.getModElement().getName()}Feature.GENERATE_BIOMES, GenerationStep.Decoration.VEGETAL_DECORATION);
+			register("${feature.getModElement().getRegistryName()}", ${feature.getModElement().getName()}Feature.feature(),
+				${feature.getModElement().getName()}Feature.GENERATE_BIOMES, GenerationStep.Decoration.VEGETAL_DECORATION);
 		<#elseif feature.getModElement().getTypeString() == "structure">
-		    register("${feature.getModElement().getRegistryName()}", ${feature.getModElement().getName()}Feature.feature(),
-		        ${feature.getModElement().getName()}Feature.GENERATE_BIOMES, GenerationStep.Decoration.
-		        <#if feature.spawnLocation=="Air">RAW_GENERATION<#elseif feature.spawnLocation=="Underground">UNDERGROUND_STRUCTURES<#else>SURFACE_STRUCTURES</#if>);
+			register("${feature.getModElement().getRegistryName()}", ${feature.getModElement().getName()}Feature.feature(),
+				${feature.getModElement().getName()}Feature.GENERATE_BIOMES, GenerationStep.Decoration.
+				<#if feature.spawnLocation=="Air">RAW_GENERATION<#elseif feature.spawnLocation=="Underground">UNDERGROUND_STRUCTURES<#else>SURFACE_STRUCTURES</#if>);
 		</#if>
-    </#list>
+	</#list>
 	}
 
 	private static void register(String registryName, Feature feature, Predicate<BiomeSelectionContext> biomes, GenerationStep.Decoration genStep) {
-     		Registry.register(Registry.FEATURE, new ResourceLocation(${JavaModName}.MODID, registryName), feature);
-     		BiomeModifications.addFeature(biomes, genStep, ResourceKey.create(Registry.PLACED_FEATURE_REGISTRY,
-     		        new ResourceLocation(${JavaModName}.MODID, registryName)));
-     	}
+	 		Registry.register(Registry.FEATURE, new ResourceLocation(${JavaModName}.MODID, registryName), feature);
+	 		BiomeModifications.addFeature(biomes, genStep, ResourceKey.create(Registry.PLACED_FEATURE_REGISTRY,
+	 				new ResourceLocation(${JavaModName}.MODID, registryName)));
+	 	}
 
 }
 

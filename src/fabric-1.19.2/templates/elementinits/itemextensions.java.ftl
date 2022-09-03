@@ -22,35 +22,35 @@
 <#include "../procedures.java.ftl">
 
 /*
- *    MCreator note: This file will be REGENERATED on each build.
+ *	MCreator note: This file will be REGENERATED on each build.
  */
 
 package ${package}.init;
 
 public class ${JavaModName}ItemExtensions {
 
-    public static void load() {
+	public static void load() {
 		<#compress>
-        <#list itemextensions as extension>
-            <#if extension.hasDispenseBehavior>
-                ${extension.getModElement().getName()}DispenseBehaviour.init();
-            </#if>
+		<#list itemextensions as extension>
+			<#if extension.hasDispenseBehavior>
+				${extension.getModElement().getName()}DispenseBehaviour.init();
+			</#if>
 
-            <#if extension.enableFuel>
-                <#if hasProcedure(extension.fuelSuccessCondition)>if (<@procedureOBJToConditionCode extension.fuelSuccessCondition/>)</#if>
-                    <#if hasProcedure(extension.fuelPower)>
-                        FuelRegistry.INSTANCE.add(${mappedMCItemToItem(extension.item)}, (int) <@procedureOBJToNumberCode extension.fuelPower/>);
-                    <#else>
-                        FuelRegistry.INSTANCE.add(${mappedMCItemToItem(extension.item)}, ${extension.fuelPower.getFixedValue()});
-                    </#if>
-            </#if>
+			<#if extension.enableFuel>
+				<#if hasProcedure(extension.fuelSuccessCondition)>if (<@procedureOBJToConditionCode extension.fuelSuccessCondition/>)</#if>
+					<#if hasProcedure(extension.fuelPower)>
+						FuelRegistry.INSTANCE.add(${mappedMCItemToItem(extension.item)}, (int) <@procedureOBJToNumberCode extension.fuelPower/>);
+					<#else>
+						FuelRegistry.INSTANCE.add(${mappedMCItemToItem(extension.item)}, ${extension.fuelPower.getFixedValue()});
+					</#if>
+			</#if>
 
-            <#if (extension.compostLayerChance > 0)>
-		        ComposterBlock.COMPOSTABLES.put(${mappedMCItemToItem(extension.item)}, ${extension.compostLayerChance}f);
-            </#if>
-        </#list>
+			<#if (extension.compostLayerChance > 0)>
+				ComposterBlock.COMPOSTABLES.put(${mappedMCItemToItem(extension.item)}, ${extension.compostLayerChance}f);
+			</#if>
+		</#list>
 		</#compress>
-    }
+	}
 
 }
 

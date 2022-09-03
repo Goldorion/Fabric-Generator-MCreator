@@ -38,32 +38,32 @@ package ${package}.world.features.ores;
 public class ${name}Feature extends OreFeature {
 
 	public static ${name}Feature FEATURE = null;
-    	public static Holder<ConfiguredFeature<OreConfiguration, ?>> CONFIGURED_FEATURE = null;
-    	public static Holder<PlacedFeature> PLACED_FEATURE = null;
+		public static Holder<ConfiguredFeature<OreConfiguration, ?>> CONFIGURED_FEATURE = null;
+		public static Holder<PlacedFeature> PLACED_FEATURE = null;
 
-    	public static Feature<?> feature() {
-    		FEATURE = new ${name}Feature();
-    		CONFIGURED_FEATURE = FeatureUtils.register("${modid}:${registryname}", FEATURE,
-    				new OreConfiguration(${name}FeatureRuleTest.INSTANCE, ${JavaModName}Blocks.${data.getModElement().getRegistryNameUpper()}.defaultBlockState(), ${data.frequencyOnChunk})
-    		);
-    		PLACED_FEATURE = PlacementUtils.register("${modid}:${registryname}", CONFIGURED_FEATURE, List.of(
-    				CountPlacement.of(${data.frequencyPerChunks}), InSquarePlacement.spread(),
-    				HeightRangePlacement.${data.generationShape?lower_case}(VerticalAnchor.absolute(${data.minGenerateHeight}), VerticalAnchor.absolute(${data.maxGenerateHeight})),
-    				BiomeFilter.biome()
-    		));
-    		return FEATURE;
-    	}
+		public static Feature<?> feature() {
+			FEATURE = new ${name}Feature();
+			CONFIGURED_FEATURE = FeatureUtils.register("${modid}:${registryname}", FEATURE,
+					new OreConfiguration(${name}FeatureRuleTest.INSTANCE, ${JavaModName}Blocks.${data.getModElement().getRegistryNameUpper()}.defaultBlockState(), ${data.frequencyOnChunk})
+			);
+			PLACED_FEATURE = PlacementUtils.register("${modid}:${registryname}", CONFIGURED_FEATURE, List.of(
+					CountPlacement.of(${data.frequencyPerChunks}), InSquarePlacement.spread(),
+					HeightRangePlacement.${data.generationShape?lower_case}(VerticalAnchor.absolute(${data.minGenerateHeight}), VerticalAnchor.absolute(${data.maxGenerateHeight})),
+					BiomeFilter.biome()
+			));
+			return FEATURE;
+		}
 
-    public static final Predicate<BiomeSelectionContext> GENERATE_BIOMES = BiomeSelectors.
-        <#if data.restrictionBiomes?has_content>
-            includeByKey(
-                <#list data.restrictionBiomes as restrictionBiome>
-                    ResourceKey.create(Registry.BIOME_REGISTRY, new ResourceLocation("${restrictionBiome}"))<#if restrictionBiome?has_next>,</#if>
-                </#list>
-            )
-        <#else>
-           all()
-        </#if>;
+	public static final Predicate<BiomeSelectionContext> GENERATE_BIOMES = BiomeSelectors.
+		<#if data.restrictionBiomes?has_content>
+			includeByKey(
+				<#list data.restrictionBiomes as restrictionBiome>
+					ResourceKey.create(Registry.BIOME_REGISTRY, new ResourceLocation("${restrictionBiome}"))<#if restrictionBiome?has_next>,</#if>
+				</#list>
+			)
+		<#else>
+		   all()
+		</#if>;
 
 	public ${name}Feature() {
 		super(OreConfiguration.CODEC);
@@ -74,18 +74,18 @@ public class ${name}Feature extends OreFeature {
 		ResourceKey<Level> dimensionType = world.getLevel().dimension();
 		boolean dimensionCriteria = false;
 
-        <#list data.spawnWorldTypes as worldType>
+		<#list data.spawnWorldTypes as worldType>
 			<#if worldType=="Surface">
-        		if(dimensionType == Level.OVERWORLD)
+				if(dimensionType == Level.OVERWORLD)
 					dimensionCriteria = true;
 			<#elseif worldType=="Nether">
-        		if(dimensionType == Level.NETHER)
+				if(dimensionType == Level.NETHER)
 					dimensionCriteria = true;
 			<#elseif worldType=="End">
-        		if(dimensionType == Level.END)
+				if(dimensionType == Level.END)
 					dimensionCriteria = true;
 			<#else>
-        		if(dimensionType == ResourceKey.create(Registry.DIMENSION_REGISTRY,
+				if(dimensionType == ResourceKey.create(Registry.DIMENSION_REGISTRY,
 						new ResourceLocation("${generator.getResourceLocationForModElement(worldType.toString().replace("CUSTOM:", ""))}")))
 					dimensionCriteria = true;
 			</#if>
@@ -94,11 +94,11 @@ public class ${name}Feature extends OreFeature {
 		if(!dimensionCriteria)
 			return false;
 
-        <#if hasProcedure(data.generateCondition)>
-        int x = context.origin().getX();
-        int y = context.origin().getY();
-        int z = context.origin().getZ();
-        if (!<@procedureOBJToConditionCode data.generateCondition/>)
+		<#if hasProcedure(data.generateCondition)>
+		int x = context.origin().getX();
+		int y = context.origin().getY();
+		int z = context.origin().getZ();
+		if (!<@procedureOBJToConditionCode data.generateCondition/>)
 			return false;
 		</#if>
 
@@ -117,8 +117,8 @@ public class ${name}Feature extends OreFeature {
 			boolean blockCriteria = false;
 
 			<#list data.blocksToReplace as replacementBlock>
-                if(blockAt.getBlock() == ${mappedBlockToBlock(replacementBlock)})
-                    blockCriteria = true;
+				if(blockAt.getBlock() == ${mappedBlockToBlock(replacementBlock)})
+					blockCriteria = true;
 			</#list>
 
 			return blockCriteria;

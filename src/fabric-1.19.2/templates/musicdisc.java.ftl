@@ -29,28 +29,28 @@ public class ${name}Item extends RecordItem {
 
 	public ${name}Item() {
 		<#if data.music.getUnmappedValue().startsWith("CUSTOM:")>
-		super(0, ${JavaModName}Sounds.${data.music?replace(modid + ":", "")?upper_case},
-				new Item.Properties().tab(${data.creativeTab}).stacksTo(1).rarity(Rarity.RARE), 0);
+			super(0, ${JavaModName}Sounds.${data.music?replace(modid + ":", "")?upper_case},
+					new Item.Properties().tab(${data.creativeTab}).stacksTo(1).rarity(Rarity.RARE), 0);
 		<#else>
 		<#assign s=data.music>
-		super(0, SoundEvents.${(s?starts_with("ambient")||s?starts_with("music")||s?starts_with("ui")||s?starts_with("weather"))?string(s?upper_case?replace(".", "_"),s?keep_after(".")?upper_case?replace(".", "_"))},
-				new Item.Properties().tab(${data.creativeTab}).stacksTo(1).rarity(Rarity.RARE), 0);
+			super(0, SoundEvents.${(s?starts_with("ambient")||s?starts_with("music")||s?starts_with("ui")||s?starts_with("weather"))?string(s?upper_case?replace(".", "_"),s?keep_after(".")?upper_case?replace(".", "_"))},
+					new Item.Properties().tab(${data.creativeTab}).stacksTo(1).rarity(Rarity.RARE), 0);
 		</#if>
 	}
 
 	<#if data.hasGlow>
-	@Override @Environment(EnvType.CLIENT) public boolean isFoil(ItemStack itemstack) {
-		return true;
-	}
+		@Override @Environment(EnvType.CLIENT) public boolean isFoil(ItemStack itemstack) {
+			return true;
+		}
 	</#if>
 
 	<#if data.specialInfo?has_content>
-	@Override public void appendHoverText(ItemStack itemstack, Level world, List<Component> list, TooltipFlag flag) {
-		super.appendHoverText(itemstack, world, list, flag);
-		<#list data.specialInfo as entry>
-		list.add(Component.literal("${JavaConventions.escapeStringForJava(entry)}"));
-		</#list>
-	}
+		@Override public void appendHoverText(ItemStack itemstack, Level world, List<Component> list, TooltipFlag flag) {
+			super.appendHoverText(itemstack, world, list, flag);
+			<#list data.specialInfo as entry>
+				list.add(Component.literal("${JavaConventions.escapeStringForJava(entry)}"));
+			</#list>
+		}
 	</#if>
 
 	<@onRightClickedInAir data.onRightClickedInAir/>

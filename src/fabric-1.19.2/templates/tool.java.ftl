@@ -61,7 +61,7 @@ public class ${name}Item extends ${data.toolType?replace("Spade", "Shovel")?repl
 					return Ingredient.of(
 							<#list data.repairItems as repairItem>
 							${mappedMCItemToItemStackCode(repairItem,1)}<#if repairItem?has_next>,</#if>
-                    </#list>
+					</#list>
 							);
 					<#else>
 					return Ingredient.EMPTY;
@@ -90,12 +90,12 @@ public class ${name}Item extends ${data.toolType?replace("Spade", "Shovel")?repl
 
 	<#if data.toolType=="Shears">
 		@Override public int getEnchantmentValue() {
-    	    return ${data.enchantability};
-    	}
+			return ${data.enchantability};
+		}
 
-    	@Override public float getDestroySpeed(ItemStack stack, BlockState blockstate) {
-    		return ${data.efficiency}f;
-    	}
+		@Override public float getDestroySpeed(ItemStack stack, BlockState blockstate) {
+			return ${data.efficiency}f;
+		}
 	<#elseif data.toolType=="MultiTool">
 		@Override public boolean isCorrectToolForDrops(BlockState blockstate) {
 			int tier = ${data.harvestLevel};
@@ -128,7 +128,7 @@ public class ${name}Item extends ${data.toolType?replace("Spade", "Shovel")?repl
 
 			return super.getDefaultAttributeModifiers(equipmentSlot);
 		}
-    </#if>
+	</#if>
 
 	<#if data.toolType=="MultiTool">
 		@Override public boolean hurtEnemy(ItemStack stack, LivingEntity entity, LivingEntity sourceentity) {
@@ -155,30 +155,30 @@ public class ${name}Item extends ${data.toolType?replace("Spade", "Shovel")?repl
 		}
 	<#else>
 		<#if hasProcedure(data.onBlockDestroyedWithTool)>
-    	@Override public boolean mineBlock(ItemStack itemstack, Level world, BlockState blockstate, BlockPos pos, LivingEntity entity){
+		@Override public boolean mineBlock(ItemStack itemstack, Level world, BlockState blockstate, BlockPos pos, LivingEntity entity){
 			boolean retval = super.mineBlock(itemstack, world, blockstate, pos, entity);
 			int x = pos.getX();
 			int y = pos.getY();
 			int z = pos.getZ();
-            <@procedureOBJToCode data.onBlockDestroyedWithTool/>
+			<@procedureOBJToCode data.onBlockDestroyedWithTool/>
 			return retval;
 		}
 		</#if>
 
 		<#if hasProcedure(data.onEntityHitWith)>
-    	@Override public boolean hurtEnemy(ItemStack itemstack, LivingEntity entity, LivingEntity sourceentity) {
+		@Override public boolean hurtEnemy(ItemStack itemstack, LivingEntity entity, LivingEntity sourceentity) {
 			boolean retval = super.hurtEnemy(itemstack, entity, sourceentity);
 			double x = entity.getX();
 			double y = entity.getY();
 			double z = entity.getZ();
 			Level world = entity.level;
-    		<@procedureOBJToCode data.onEntityHitWith/>
+			<@procedureOBJToCode data.onEntityHitWith/>
 			return retval;
 		}
 		</#if>
-    </#if>
+	</#if>
 
-    <@onRightClickedInAir data.onRightClickedInAir/>
+	<@onRightClickedInAir data.onRightClickedInAir/>
 
 	<@commonMethods/>
 
@@ -186,9 +186,9 @@ public class ${name}Item extends ${data.toolType?replace("Spade", "Shovel")?repl
 <#elseif data.toolType=="Special">
 public class ${name}Item extends Item {
 
-    public ${name}Item() {
-	    super(new Item.Properties()
-		    .tab(${data.creativeTab})
+	public ${name}Item() {
+		super(new Item.Properties()
+			.tab(${data.creativeTab})
 			.durability(${data.usageCount})
 			<#if data.immuneToFire>
 			.fireResistant()
@@ -197,7 +197,7 @@ public class ${name}Item extends Item {
 	}
 
 	@Override public float getDestroySpeed(ItemStack itemstack, BlockState blockstate) {
-    	return List.of(
+		return List.of(
 			<#list data.blocksAffected as restrictionBlock>
 			${mappedBlockToBlock(restrictionBlock)}<#if restrictionBlock?has_next>,</#if>
 			</#list>
@@ -245,7 +245,7 @@ public class ${name}Item extends Item {
    	   return super.getDefaultAttributeModifiers(equipmentSlot);
    	}
 
-    <@commonMethods/>
+	<@commonMethods/>
 }
 <#elseif data.toolType=="Fishing rod">
 public class ${name}Item extends FishingRodItem {
@@ -274,19 +274,19 @@ public class ${name}Item extends FishingRodItem {
 		return ${data.enchantability};
 	}
 
-    <#if hasProcedure(data.onBlockDestroyedWithTool)>
-    	@Override public boolean mineBlock(ItemStack itemstack, Level world, BlockState blockstate, BlockPos pos, LivingEntity entity){
+	<#if hasProcedure(data.onBlockDestroyedWithTool)>
+		@Override public boolean mineBlock(ItemStack itemstack, Level world, BlockState blockstate, BlockPos pos, LivingEntity entity){
 			boolean retval = super.mineBlock(itemstack,world,blockstate,pos,entity);
 			int x = pos.getX();
 			int y = pos.getY();
 			int z = pos.getZ();
-            <@procedureOBJToCode data.onBlockDestroyedWithTool/>
+			<@procedureOBJToCode data.onBlockDestroyedWithTool/>
 			return retval;
 		}
 	</#if>
 
 	<@onEntityHitWith data.onEntityHitWith/>
-    
+
 	@Override public InteractionResultHolder<ItemStack> use(Level world, Player entity, InteractionHand hand) {
 		ItemStack itemstack = entity.getItemInHand(hand);
 		if (entity.fishing != null) {
@@ -317,52 +317,52 @@ public class ${name}Item extends FishingRodItem {
 		return InteractionResultHolder.sidedSuccess(itemstack, world.isClientSide());
 	}
 
-    <@commonMethods/>
+	<@commonMethods/>
 }
 </#if>
 
 <#macro commonMethods>
 	<#if data.stayInGridWhenCrafting>
-        @Override public boolean hasContainerItem(ItemStack stack) {
-        	return true;
-        }
+		@Override public boolean hasContainerItem(ItemStack stack) {
+			return true;
+		}
 
-        <#if data.damageOnCrafting && data.usageCount != 0>
-        	@Override public ItemStack getContainerItem(ItemStack itemstack) {
-        		ItemStack retval = new ItemStack(this);
-        		retval.setDamageValue(itemstack.getDamageValue() + 1);
-        		if(retval.getDamageValue() >= retval.getMaxDamage()) {
-        			return ItemStack.EMPTY;
-        		}
-        		return retval;
-        	}
+		<#if data.damageOnCrafting && data.usageCount != 0>
+			@Override public ItemStack getContainerItem(ItemStack itemstack) {
+				ItemStack retval = new ItemStack(this);
+				retval.setDamageValue(itemstack.getDamageValue() + 1);
+				if(retval.getDamageValue() >= retval.getMaxDamage()) {
+					return ItemStack.EMPTY;
+				}
+				return retval;
+			}
 
-        	@Override public boolean isRepairable(ItemStack itemstack) {
-        		return false;
-        	}
-        <#else>
-        	@Override public ItemStack getContainerItem(ItemStack itemstack) {
-        		return new ItemStack(this);
-        	}
+			@Override public boolean isRepairable(ItemStack itemstack) {
+				return false;
+			}
+		<#else>
+			@Override public ItemStack getContainerItem(ItemStack itemstack) {
+				return new ItemStack(this);
+			}
 
-        	<#if data.usageCount != 0>
-        	    @Override public boolean isRepairable(ItemStack itemstack) {
-        		    return false;
-        	    }
-        	</#if>
-        </#if>
-    </#if>
+			<#if data.usageCount != 0>
+				@Override public boolean isRepairable(ItemStack itemstack) {
+					return false;
+				}
+			</#if>
+		</#if>
+	</#if>
 
-    <#if data.specialInfo?has_content>
-    	@Override @Environment(EnvType.CLIENT) public void appendHoverText(ItemStack itemstack, Level world, List<Component> list, TooltipFlag flag) {
-    		super.appendHoverText(itemstack, world, list, flag);
-    		<#list data.specialInfo as entry>
-    		list.add(Component.literal("${JavaConventions.escapeStringForJava(entry)}"));
-    		</#list>
-    	}
-    </#if>
+	<#if data.specialInfo?has_content>
+		@Override @Environment(EnvType.CLIENT) public void appendHoverText(ItemStack itemstack, Level world, List<Component> list, TooltipFlag flag) {
+			super.appendHoverText(itemstack, world, list, flag);
+			<#list data.specialInfo as entry>
+			list.add(Component.literal("${JavaConventions.escapeStringForJava(entry)}"));
+			</#list>
+		}
+	</#if>
 
-    <@onItemUsedOnBlock data.onRightClickedOnBlock/>
+	<@onItemUsedOnBlock data.onRightClickedOnBlock/>
 
 	<@onCrafted data.onCrafted/>
 
@@ -370,19 +370,19 @@ public class ${name}Item extends FishingRodItem {
 
 	<@onItemTick data.onItemInUseTick, data.onItemInInventoryTick/>
 
-    <#if data.hasGlow>
-    	@Override @Environment(EnvType.CLIENT) public boolean isFoil(ItemStack itemstack) {
-    		<#if hasProcedure(data.glowCondition)>
-    		Player entity = Minecraft.getInstance().player;
-    		Level world = entity.level;
-    		double x = entity.getX();
-    		double y = entity.getY();
-    		double z = entity.getZ();
-    		return <@procedureOBJToConditionCode data.glowCondition/>;
-    		<#else>
-    		return true;
-    		</#if>
-    	}
-    </#if>
+	<#if data.hasGlow>
+		@Override @Environment(EnvType.CLIENT) public boolean isFoil(ItemStack itemstack) {
+			<#if hasProcedure(data.glowCondition)>
+			Player entity = Minecraft.getInstance().player;
+			Level world = entity.level;
+			double x = entity.getX();
+			double y = entity.getY();
+			double z = entity.getZ();
+			return <@procedureOBJToConditionCode data.glowCondition/>;
+			<#else>
+			return true;
+			</#if>
+		}
+	</#if>
 </#macro>
 <#-- @formatter:on -->

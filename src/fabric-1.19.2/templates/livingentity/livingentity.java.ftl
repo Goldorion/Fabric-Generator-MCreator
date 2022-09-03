@@ -54,37 +54,37 @@ public class ${name}Entity extends ${extendsClass} {
 	</#if>
 
 	public ${name}Entity(EntityType<${name}Entity> type, Level world) {
-    	super(type, world);
+		super(type, world);
 		xpReward = ${data.xpAmount};
 		setNoAi(${(!data.hasAI)});
 
 		<#if data.mobLabel?has_content >
-        	setCustomName(Component.literal("${data.mobLabel}"));
-        	setCustomNameVisible(true);
-        </#if>
+			setCustomName(Component.literal("${data.mobLabel}"));
+			setCustomNameVisible(true);
+		</#if>
 
 		<#if !data.doesDespawnWhenIdle>
 			setPersistenceRequired();
-        </#if>
+		</#if>
 
 		<#if !data.equipmentMainHand.isEmpty()>
-        this.setItemSlot(EquipmentSlot.MAINHAND, ${mappedMCItemToItemStackCode(data.equipmentMainHand, 1)});
-        </#if>
-        <#if !data.equipmentOffHand.isEmpty()>
-        this.setItemSlot(EquipmentSlot.OFFHAND, ${mappedMCItemToItemStackCode(data.equipmentOffHand, 1)});
-        </#if>
-        <#if !data.equipmentHelmet.isEmpty()>
-        this.setItemSlot(EquipmentSlot.HEAD, ${mappedMCItemToItemStackCode(data.equipmentHelmet, 1)});
-        </#if>
-        <#if !data.equipmentBody.isEmpty()>
-        this.setItemSlot(EquipmentSlot.CHEST, ${mappedMCItemToItemStackCode(data.equipmentBody, 1)});
-        </#if>
-        <#if !data.equipmentLeggings.isEmpty()>
-        this.setItemSlot(EquipmentSlot.LEGS, ${mappedMCItemToItemStackCode(data.equipmentLeggings, 1)});
-        </#if>
-        <#if !data.equipmentBoots.isEmpty()>
-        this.setItemSlot(EquipmentSlot.FEET, ${mappedMCItemToItemStackCode(data.equipmentBoots, 1)});
-        </#if>
+		this.setItemSlot(EquipmentSlot.MAINHAND, ${mappedMCItemToItemStackCode(data.equipmentMainHand, 1)});
+		</#if>
+		<#if !data.equipmentOffHand.isEmpty()>
+		this.setItemSlot(EquipmentSlot.OFFHAND, ${mappedMCItemToItemStackCode(data.equipmentOffHand, 1)});
+		</#if>
+		<#if !data.equipmentHelmet.isEmpty()>
+		this.setItemSlot(EquipmentSlot.HEAD, ${mappedMCItemToItemStackCode(data.equipmentHelmet, 1)});
+		</#if>
+		<#if !data.equipmentBody.isEmpty()>
+		this.setItemSlot(EquipmentSlot.CHEST, ${mappedMCItemToItemStackCode(data.equipmentBody, 1)});
+		</#if>
+		<#if !data.equipmentLeggings.isEmpty()>
+		this.setItemSlot(EquipmentSlot.LEGS, ${mappedMCItemToItemStackCode(data.equipmentLeggings, 1)});
+		</#if>
+		<#if !data.equipmentBoots.isEmpty()>
+		this.setItemSlot(EquipmentSlot.FEET, ${mappedMCItemToItemStackCode(data.equipmentBoots, 1)});
+		</#if>
 
 		<#if data.flyingMob>
 		this.moveControl = new FlyingMoveControl(this, 10, true);
@@ -92,8 +92,8 @@ public class ${name}Entity extends ${extendsClass} {
 		this.setPathfindingMalus(BlockPathTypes.WATER, 0);
 		this.moveControl = new MoveControl(this) {
 			@Override public void tick() {
-			    if (${name}Entity.this.isInWater())
-                    ${name}Entity.this.setDeltaMovement(${name}Entity.this.getDeltaMovement().add(0, 0.005, 0));
+				if (${name}Entity.this.isInWater())
+					${name}Entity.this.setDeltaMovement(${name}Entity.this.getDeltaMovement().add(0, 0.005, 0));
 
 				if (this.operation == MoveControl.Operation.MOVE_TO && !${name}Entity.this.getNavigation().isDone()) {
 					double dx = this.wantedX - ${name}Entity.this.getX();
@@ -145,8 +145,8 @@ public class ${name}Entity extends ${extendsClass} {
 		super.registerGoals();
 
 		<#if aicode??>
-            ${aicode}
-        </#if>
+			${aicode}
+		</#if>
 	}
 	</#if>
 
@@ -158,7 +158,7 @@ public class ${name}Entity extends ${extendsClass} {
 	@Override public boolean removeWhenFarAway(double distanceToClosestPlayer) {
 		return false;
 	}
-    </#if>
+	</#if>
 
 	<#if data.mountedYOffset != 0>
 	@Override public double getPassengersRidingOffset() {
@@ -167,52 +167,52 @@ public class ${name}Entity extends ${extendsClass} {
 	</#if>
 
 	<#if !data.mobDrop.isEmpty()>
-    protected void dropCustomDeathLoot(DamageSource source, int looting, boolean recentlyHitIn) {
-        super.dropCustomDeathLoot(source, looting, recentlyHitIn);
-        this.spawnAtLocation(${mappedMCItemToItemStackCode(data.mobDrop, 1)});
+	protected void dropCustomDeathLoot(DamageSource source, int looting, boolean recentlyHitIn) {
+		super.dropCustomDeathLoot(source, looting, recentlyHitIn);
+		this.spawnAtLocation(${mappedMCItemToItemStackCode(data.mobDrop, 1)});
    	}
 	</#if>
 
    	<#if data.livingSound.getMappedValue()?has_content>
 	@Override public SoundEvent getAmbientSound() {
-	    <#assign s=data.livingSound>
-        <#if s.getUnmappedValue().startsWith("CUSTOM:")>
-        return ${JavaModName}Sounds.${s?replace(modid + ":", "")?upper_case};
-        <#else>
-        return SoundEvents.${(s?starts_with("ambient")||s?starts_with("music")||s?starts_with("ui")||s?starts_with("weather"))?string(s?upper_case?replace(".", "_"),s?keep_after(".")?upper_case?replace(".", "_"))};
-        </#if>
+		<#assign s=data.livingSound>
+		<#if s.getUnmappedValue().startsWith("CUSTOM:")>
+		return ${JavaModName}Sounds.${s?replace(modid + ":", "")?upper_case};
+		<#else>
+		return SoundEvents.${(s?starts_with("ambient")||s?starts_with("music")||s?starts_with("ui")||s?starts_with("weather"))?string(s?upper_case?replace(".", "_"),s?keep_after(".")?upper_case?replace(".", "_"))};
+		</#if>
 	}
 	</#if>
 
    	<#if data.stepSound?has_content && data.stepSound.getMappedValue()?has_content>
 	@Override public void playStepSound(BlockPos pos, BlockState blockIn) {
 		this.playSound(
-	    <#assign s=data.stepSound>
-        <#if s.getUnmappedValue().startsWith("CUSTOM:")>
-        ${JavaModName}Sounds.${s?replace(modid + ":", "")?upper_case}
-        <#else>
-        SoundEvents.${(s?starts_with("ambient")||s?starts_with("music")||s?starts_with("ui")||s?starts_with("weather"))?string(s?upper_case?replace(".", "_"),s?keep_after(".")?upper_case?replace(".", "_"))}
-        </#if>
-        , 0.15f, 1);
+		<#assign s=data.stepSound>
+		<#if s.getUnmappedValue().startsWith("CUSTOM:")>
+		${JavaModName}Sounds.${s?replace(modid + ":", "")?upper_case}
+		<#else>
+		SoundEvents.${(s?starts_with("ambient")||s?starts_with("music")||s?starts_with("ui")||s?starts_with("weather"))?string(s?upper_case?replace(".", "_"),s?keep_after(".")?upper_case?replace(".", "_"))}
+		</#if>
+		, 0.15f, 1);
 	}
 	</#if>
 
 	@Override public SoundEvent getHurtSound(DamageSource ds) {
-	    <#assign s=data.hurtSound>
-        <#if s.getUnmappedValue().startsWith("CUSTOM:")>
-        return ${JavaModName}Sounds.${s?replace(modid + ":", "")?upper_case};
-        <#else>
-        return SoundEvents.${(s?starts_with("ambient")||s?starts_with("music")||s?starts_with("ui")||s?starts_with("weather"))?string(s?upper_case?replace(".", "_"),s?keep_after(".")?upper_case?replace(".", "_"))};
-        </#if>
+		<#assign s=data.hurtSound>
+		<#if s.getUnmappedValue().startsWith("CUSTOM:")>
+		return ${JavaModName}Sounds.${s?replace(modid + ":", "")?upper_case};
+		<#else>
+		return SoundEvents.${(s?starts_with("ambient")||s?starts_with("music")||s?starts_with("ui")||s?starts_with("weather"))?string(s?upper_case?replace(".", "_"),s?keep_after(".")?upper_case?replace(".", "_"))};
+		</#if>
 	}
 
 	@Override public SoundEvent getDeathSound() {
-	    <#assign s=data.deathSound>
-        <#if s.getUnmappedValue().startsWith("CUSTOM:")>
-        return ${JavaModName}Sounds.${s?replace(modid + ":", "")?upper_case};
-        <#else>
-        return SoundEvents.${(s?starts_with("ambient")||s?starts_with("music")||s?starts_with("ui")||s?starts_with("weather"))?string(s?upper_case?replace(".", "_"),s?keep_after(".")?upper_case?replace(".", "_"))};
-        </#if>
+		<#assign s=data.deathSound>
+		<#if s.getUnmappedValue().startsWith("CUSTOM:")>
+		return ${JavaModName}Sounds.${s?replace(modid + ":", "")?upper_case};
+		<#else>
+		return SoundEvents.${(s?starts_with("ambient")||s?starts_with("music")||s?starts_with("ui")||s?starts_with("weather"))?string(s?upper_case?replace(".", "_"),s?keep_after(".")?upper_case?replace(".", "_"))};
+		</#if>
 	}
 
 	<#if hasProcedure(data.onStruckByLightning)>
@@ -225,7 +225,7 @@ public class ${name}Entity extends ${extendsClass} {
 		Level world = this.level;
 		<@procedureOBJToCode data.onStruckByLightning/>
 	}
-    </#if>
+	</#if>
 
 	<#if hasProcedure(data.whenMobFalls) || data.flyingMob>
 	@Override public boolean causeFallDamage(float l, float d, DamageSource source) {
@@ -244,7 +244,7 @@ public class ${name}Entity extends ${extendsClass} {
 			return super.causeFallDamage(l, d, source);
 		</#if>
 	}
-    </#if>
+	</#if>
 
 	<#if hasProcedure(data.whenMobIsHurt) || data.immuneToArrows || data.immuneToFallDamage
 		|| data.immuneToCactus || data.immuneToDrowning || data.immuneToLightning || data.immuneToPotions
@@ -312,7 +312,7 @@ public class ${name}Entity extends ${extendsClass} {
 		</#if>
 		return super.hurt(source, amount);
 	}
-    </#if>
+	</#if>
 
 	<#if hasProcedure(data.whenMobDies)>
 	@Override public void die(DamageSource source) {
@@ -325,7 +325,7 @@ public class ${name}Entity extends ${extendsClass} {
 		Level world = this.level;
 		<@procedureOBJToCode data.whenMobDies/>
 	}
-    </#if>
+	</#if>
 
 	<#if hasProcedure(data.onInitialSpawn)>
 	@Override public SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty,
@@ -338,7 +338,7 @@ public class ${name}Entity extends ${extendsClass} {
 		<@procedureOBJToCode data.onInitialSpawn/>
 		return retval;
 	}
-    </#if>
+	</#if>
 
 	<#if data.guiBoundTo?has_content && data.guiBoundTo != "<NONE>">
 	private final SimpleContainer inventory = new SimpleContainer(${data.inventorySize}) {
@@ -359,19 +359,19 @@ public class ${name}Entity extends ${extendsClass} {
 	}
 
 	@Override public void addAdditionalSaveData(CompoundTag compound) {
-      	super.addAdditionalSaveData(compound);
+	  	super.addAdditionalSaveData(compound);
 		compound.put("InventoryCustom", inventory.createTag());
 	}
 
 	@Override
-    public void readAdditionalSaveData(CompoundTag compound) {
-    	super.readAdditionalSaveData(compound);
-    	Tag inventoryCustom = compound.get("InventoryCustom");
-    	if (inventoryCustom instanceof CompoundTag)
-    		inventory.fromTag((ListTag) inventoryCustom);
-    }
+	public void readAdditionalSaveData(CompoundTag compound) {
+		super.readAdditionalSaveData(compound);
+		Tag inventoryCustom = compound.get("InventoryCustom");
+		if (inventoryCustom instanceof CompoundTag)
+			inventory.fromTag((ListTag) inventoryCustom);
+	}
 
-    </#if>
+	</#if>
 
 	<#if hasProcedure(data.onRightClickedOn) || data.ridable || (data.tameable && data.breedable) || (data.guiBoundTo?has_content && data.guiBoundTo != "<NONE>")>
 	@Override public InteractionResult mobInteract(Player sourceentity, InteractionHand hand) {
@@ -383,25 +383,25 @@ public class ${name}Entity extends ${extendsClass} {
 				if (sourceentity.isSecondaryUseActive()) {
 			</#if>
 				if(sourceentity instanceof ServerPlayer serverPlayer) {
-				    serverPlayer.openMenu(new ExtendedScreenHandlerFactory() {
+					serverPlayer.openMenu(new ExtendedScreenHandlerFactory() {
 
-                        @Override
-                        public void writeScreenOpeningData(ServerPlayer player, FriendlyByteBuf packetBuffer) {
-                    	    packetBuffer.writeBlockPos(sourceentity.blockPosition());
-                    		packetBuffer.writeByte(0);
-                    		packetBuffer.writeVarInt(${name}Entity.this.getId());
-                    	}
+						@Override
+						public void writeScreenOpeningData(ServerPlayer player, FriendlyByteBuf packetBuffer) {
+							packetBuffer.writeBlockPos(sourceentity.blockPosition());
+							packetBuffer.writeByte(0);
+							packetBuffer.writeVarInt(${name}Entity.this.getId());
+						}
 
-                    	@Override
-                    	public Component getDisplayName() {
-                    		return Component.literal("${data.mobName}");
-                    	}
+						@Override
+						public Component getDisplayName() {
+							return Component.literal("${data.mobName}");
+						}
 
-                    	@Override
-                    	public AbstractContainerMenu createMenu(int syncId, Inventory inv, Player player) {
-                            return new ${data.guiBoundTo}Menu(syncId, inv, inventory);
-                    	}
-                    });
+						@Override
+						public AbstractContainerMenu createMenu(int syncId, Inventory inv, Player player) {
+							return new ${data.guiBoundTo}Menu(syncId, inv, inventory);
+						}
+					});
 				}
 			<#if data.ridable>
 					return InteractionResult.sidedSuccess(this.level.isClientSide());
@@ -454,7 +454,7 @@ public class ${name}Entity extends ${extendsClass} {
 
 		<#if data.ridable>
 		sourceentity.startRiding(this);
-	    </#if>
+		</#if>
 
 		<#if hasProcedure(data.onRightClickedOn)>
 			double x = this.getX();
@@ -472,7 +472,7 @@ public class ${name}Entity extends ${extendsClass} {
 			return retval;
 		</#if>
 	}
-    </#if>
+	</#if>
 
 	<#if hasProcedure(data.whenThisMobKillsAnother)>
 	@Override public void awardKillScore(Entity entity, int score, DamageSource damageSource) {
@@ -484,7 +484,7 @@ public class ${name}Entity extends ${extendsClass} {
 		Level world = this.level;
 		<@procedureOBJToCode data.whenThisMobKillsAnother/>
 	}
-    </#if>
+	</#if>
 
 	<#if hasProcedure(data.onMobTickUpdate)>
 	@Override public void baseTick() {
@@ -496,7 +496,7 @@ public class ${name}Entity extends ${extendsClass} {
 		Level world = this.level;
 		<@procedureOBJToCode data.onMobTickUpdate/>
 	}
-    </#if>
+	</#if>
 
 	<#if hasProcedure(data.onPlayerCollidesWith)>
 	@Override public void playerTouch(Player sourceentity) {
@@ -508,10 +508,10 @@ public class ${name}Entity extends ${extendsClass} {
 		double z = this.getZ();
 		<@procedureOBJToCode data.onPlayerCollidesWith/>
 	}
-    </#if>
+	</#if>
 
 	<#if data.breedable>
-        @Override public AgeableMob getBreedOffspring(ServerLevel serverWorld, AgeableMob ageable) {
+		@Override public AgeableMob getBreedOffspring(ServerLevel serverWorld, AgeableMob ageable) {
 			${name}Entity retval = ${JavaModName}Entities.${data.getModElement().getRegistryNameUpper()}.create(serverWorld);
 			retval.finalizeSpawn(serverWorld, serverWorld.getCurrentDifficultyAt(retval.blockPosition()), MobSpawnType.BREEDING, null, null);
 			return retval;
@@ -520,20 +520,20 @@ public class ${name}Entity extends ${extendsClass} {
 		@Override public boolean isFood(ItemStack stack) {
 			return List.of(<#list data.breedTriggerItems as breedTriggerItem>${mappedMCItemToItem(breedTriggerItem)}<#if breedTriggerItem?has_next>,</#if></#list>).contains(stack.getItem());
 		}
-    </#if>
+	</#if>
 
 	<#if data.waterMob>
 	@Override public boolean canBreatheUnderwater() {
-    	return true;
-    }
+		return true;
+	}
 
-    @Override public boolean checkSpawnObstruction(LevelReader world) {
+	@Override public boolean checkSpawnObstruction(LevelReader world) {
 		return world.isUnobstructed(this);
 	}
 
-    @Override public boolean isPushedByFluid() {
+	@Override public boolean isPushedByFluid() {
 		return false;
-    }
+	}
 	</#if>
 
 	<#if data.disableCollisions>
@@ -569,9 +569,9 @@ public class ${name}Entity extends ${extendsClass} {
 	}
 	</#if>
 
-    <#if data.ridable && (data.canControlForward || data.canControlStrafe)>
-        @Override public void travel(Vec3 dir) {
-        	<#if data.canControlForward || data.canControlStrafe>
+	<#if data.ridable && (data.canControlForward || data.canControlStrafe)>
+		@Override public void travel(Vec3 dir) {
+			<#if data.canControlForward || data.canControlStrafe>
 			Entity entity = this.getPassengers().isEmpty() ? null : (Entity) this.getPassengers().get(0);
 			if (this.isVehicle()) {
 				this.setYRot(entity.getYRot());
@@ -616,7 +616,7 @@ public class ${name}Entity extends ${extendsClass} {
 
 			super.travel(dir);
 		}
-    </#if>
+	</#if>
 
 	<#if data.flyingMob>
 	@Override protected void checkFallDamage(double y, boolean onGroundIn, BlockState state, BlockPos pos) {
@@ -625,10 +625,10 @@ public class ${name}Entity extends ${extendsClass} {
    	@Override public void setNoGravity(boolean ignored) {
 		super.setNoGravity(true);
 	}
-    </#if>
+	</#if>
 
-    <#if data.spawnParticles || data.flyingMob>
-    public void aiStep() {
+	<#if data.spawnParticles || data.flyingMob>
+	public void aiStep() {
 		super.aiStep();
 
 		<#if data.flyingMob>
@@ -644,15 +644,15 @@ public class ${name}Entity extends ${extendsClass} {
 		<#if hasProcedure(data.particleCondition)>
 			if(<@procedureOBJToConditionCode data.particleCondition/>)
 		</#if>
-        <@particles data.particleSpawningShape data.particleToSpawn data.particleSpawningRadious data.particleAmount/>
+		<@particles data.particleSpawningShape data.particleToSpawn data.particleSpawningRadious data.particleAmount/>
 		</#if>
 	}
-    </#if>
+	</#if>
 
 	public static void init() {
 		<#if data.spawnThisMob>BiomeModifications.create(new ResourceLocation(${JavaModName}.MODID, "${name?lower_case}_entity_spawn")).add(ModificationPhase.ADDITIONS,
-                BiomeSelectors.<#if data.restrictionBiomes?has_content>includeByKey(<@biomeKeys data.restrictionBiomes/>)<#else>all()</#if>, ctx -> ctx.getSpawnSettings().addSpawn(${generator.map(data.mobSpawningType, "mobspawntypes")},
-                    new MobSpawnSettings.SpawnerData(${JavaModName}Entities.${data.getModElement().getRegistryNameUpper()}, ${data.spawningProbability}, ${data.minNumberOfMobsPerGroup}, ${data.maxNumberOfMobsPerGroup})));
+				BiomeSelectors.<#if data.restrictionBiomes?has_content>includeByKey(<@biomeKeys data.restrictionBiomes/>)<#else>all()</#if>, ctx -> ctx.getSpawnSettings().addSpawn(${generator.map(data.mobSpawningType, "mobspawntypes")},
+					new MobSpawnSettings.SpawnerData(${JavaModName}Entities.${data.getModElement().getRegistryNameUpper()}, ${data.spawningProbability}, ${data.minNumberOfMobsPerGroup}, ${data.maxNumberOfMobsPerGroup})));
 		</#if>
 	}
 

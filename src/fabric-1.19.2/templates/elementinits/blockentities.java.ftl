@@ -19,7 +19,7 @@
 <#-- @formatter:off -->
 
 /*
- *    MCreator note: This file will be REGENERATED on each build.
+ *	MCreator note: This file will be REGENERATED on each build.
  */
 
 package ${package}.init;
@@ -28,15 +28,15 @@ public class ${JavaModName}BlockEntities {
 
 	<#list blockentities as blockentity>
 	public static BlockEntityType<?> ${blockentity.getModElement().getRegistryNameUpper()};
-    </#list>
+	</#list>
 
-    public static void load() {
-        <#list blockentities as blockentity>
-            ${blockentity.getModElement().getRegistryNameUpper()} = Registry.register(Registry.BLOCK_ENTITY_TYPE, new ResourceLocation(${JavaModName}.MODID,
-                "${blockentity.getModElement().getRegistryName()}"), FabricBlockEntityTypeBuilder.create(${blockentity.getModElement().getName()}BlockEntity::new,
-                ${JavaModName}Blocks.${blockentity.getModElement().getRegistryNameUpper()}).build(null));
-        </#list>
-    }
+	public static void load() {
+		<#list blockentities as blockentity>
+			${blockentity.getModElement().getRegistryNameUpper()} = Registry.register(Registry.BLOCK_ENTITY_TYPE, new ResourceLocation(${JavaModName}.MODID,
+				"${blockentity.getModElement().getRegistryName()}"), FabricBlockEntityTypeBuilder.create(${blockentity.getModElement().getName()}BlockEntity::new,
+				${JavaModName}Blocks.${blockentity.getModElement().getRegistryNameUpper()}).build(null));
+		</#list>
+	}
 
 }
 <#-- @formatter:on -->

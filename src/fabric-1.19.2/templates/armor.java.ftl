@@ -46,30 +46,30 @@ public abstract class ${name}Item extends ArmorItem {
 
 			@Override public SoundEvent getEquipSound() {
 				<#if data.equipSound.getMappedValue()?has_content>
-				    <#if data.equipSound.getUnmappedValue().startsWith("CUSTOM:")>
-                    return ${JavaModName}Sounds.${data.equipSound?replace(modid + ":", "")?upper_case};
-                    <#else>
-                    <#assign s=data.equipSound>
-                    return SoundEvents.${(s?starts_with("ambient")||s?starts_with("music")||s?starts_with("ui")||s?starts_with("weather"))?string(s?upper_case?replace(".", "_"),s?keep_after(".")?upper_case?replace(".", "_"))};
-                    </#if>
+					<#if data.equipSound.getUnmappedValue().startsWith("CUSTOM:")>
+						return ${JavaModName}Sounds.${data.equipSound?replace(modid + ":", "")?upper_case};
+					<#else>
+					<#assign s=data.equipSound>
+						return SoundEvents.${(s?starts_with("ambient")||s?starts_with("music")||s?starts_with("ui")||s?starts_with("weather"))?string(s?upper_case?replace(".", "_"),s?keep_after(".")?upper_case?replace(".", "_"))};
+					</#if>
 				<#else>
-				    return null;
+					return null;
 				</#if>
 			}
 
 			@Override public Ingredient getRepairIngredient() {
 				<#if data.repairItems?has_content>
-				return Ingredient.of(
-							<#list data.repairItems as repairItem>
-								${mappedMCItemToItemStackCode(repairItem,1)}<#if repairItem?has_next>,</#if>
-							</#list>
-				);
+					return Ingredient.of(
+								<#list data.repairItems as repairItem>
+									${mappedMCItemToItemStackCode(repairItem,1)}<#if repairItem?has_next>,</#if>
+								</#list>
+					);
 				<#else>
-				return Ingredient.EMPTY;
+					return Ingredient.EMPTY;
 				</#if>
 			}
 
-            @Environment(EnvType.CLIENT)
+			@Environment(EnvType.CLIENT)
 			@Override public String getName() {
 				return "${data.armorTextureFile}";
 			}
@@ -85,75 +85,75 @@ public abstract class ${name}Item extends ArmorItem {
 	}
 
 	<#if data.enableHelmet>
-	public static class Helmet extends ${name}Item {
-
-		public Helmet() {
-			super(EquipmentSlot.HEAD, new Item.Properties().tab(${data.creativeTab})<#if data.helmetImmuneToFire>.fireResistant()</#if>);
+		public static class Helmet extends ${name}Item {
+	
+			public Helmet() {
+				super(EquipmentSlot.HEAD, new Item.Properties().tab(${data.creativeTab})<#if data.helmetImmuneToFire>.fireResistant()</#if>);
+			}
+	
+			<#if data.helmetSpecialInfo?has_content>
+				@Override public void appendHoverText(ItemStack itemstack, Level world, List<Component> list, TooltipFlag flag) {
+				super.appendHoverText(itemstack, world, list, flag);
+					<#list data.helmetSpecialInfo as entry>
+						list.add(Component.literal("${JavaConventions.escapeStringForJava(entry)}"));
+					</#list>
+				}
+			</#if>
 		}
-
-		<#if data.helmetSpecialInfo?has_content>
-		@Override public void appendHoverText(ItemStack itemstack, Level world, List<Component> list, TooltipFlag flag) {
-		super.appendHoverText(itemstack, world, list, flag);
-			<#list data.helmetSpecialInfo as entry>
-			list.add(Component.literal("${JavaConventions.escapeStringForJava(entry)}"));
-			</#list>
-		}
-		</#if>
-	}
 	</#if>
 
 	<#if data.enableBody>
-	public static class Chestplate extends ${name}Item {
-
-		public Chestplate() {
-			super(EquipmentSlot.CHEST, new Item.Properties().tab(${data.creativeTab})<#if data.bodyImmuneToFire>.fireResistant()</#if>);
+		public static class Chestplate extends ${name}Item {
+	
+			public Chestplate() {
+				super(EquipmentSlot.CHEST, new Item.Properties().tab(${data.creativeTab})<#if data.bodyImmuneToFire>.fireResistant()</#if>);
+			}
+	
+			<#if data.bodySpecialInfo?has_content>
+				@Override public void appendHoverText(ItemStack itemstack, Level world, List<Component> list, TooltipFlag flag) {
+				super.appendHoverText(itemstack, world, list, flag);
+					<#list data.bodySpecialInfo as entry>
+						list.add(Component.literal("${JavaConventions.escapeStringForJava(entry)}"));
+					</#list>
+				}
+			</#if>
 		}
-
-		<#if data.bodySpecialInfo?has_content>
-		@Override public void appendHoverText(ItemStack itemstack, Level world, List<Component> list, TooltipFlag flag) {
-		super.appendHoverText(itemstack, world, list, flag);
-			<#list data.bodySpecialInfo as entry>
-			list.add(Component.literal("${JavaConventions.escapeStringForJava(entry)}"));
-			</#list>
-		}
-		</#if>
-	}
 	</#if>
 
 	<#if data.enableLeggings>
-	public static class Leggings extends ${name}Item {
-
-		public Leggings() {
-			super(EquipmentSlot.LEGS, new Item.Properties().tab(${data.creativeTab})<#if data.leggingsImmuneToFire>.fireResistant()</#if>);
+		public static class Leggings extends ${name}Item {
+	
+			public Leggings() {
+				super(EquipmentSlot.LEGS, new Item.Properties().tab(${data.creativeTab})<#if data.leggingsImmuneToFire>.fireResistant()</#if>);
+			}
+	
+			<#if data.leggingsSpecialInfo?has_content>
+				@Override public void appendHoverText(ItemStack itemstack, Level world, List<Component> list, TooltipFlag flag) {
+				super.appendHoverText(itemstack, world, list, flag);
+					<#list data.leggingsSpecialInfo as entry>
+						list.add(Component.literal("${JavaConventions.escapeStringForJava(entry)}"));
+					</#list>
+				}
+			</#if>
 		}
-
-		<#if data.leggingsSpecialInfo?has_content>
-		@Override public void appendHoverText(ItemStack itemstack, Level world, List<Component> list, TooltipFlag flag) {
-		super.appendHoverText(itemstack, world, list, flag);
-			<#list data.leggingsSpecialInfo as entry>
-			list.add(Component.literal("${JavaConventions.escapeStringForJava(entry)}"));
-			</#list>
-		}
-		</#if>
-	}
 	</#if>
 
 	<#if data.enableBoots>
-	public static class Boots extends ${name}Item {
-
-		public Boots() {
-			super(EquipmentSlot.FEET, new Item.Properties().tab(${data.creativeTab})<#if data.bootsImmuneToFire>.fireResistant()</#if>);
+		public static class Boots extends ${name}Item {
+	
+			public Boots() {
+				super(EquipmentSlot.FEET, new Item.Properties().tab(${data.creativeTab})<#if data.bootsImmuneToFire>.fireResistant()</#if>);
+			}
+	
+			<#if data.bootsSpecialInfo?has_content>
+				@Override public void appendHoverText(ItemStack itemstack, Level world, List<Component> list, TooltipFlag flag) {
+				super.appendHoverText(itemstack, world, list, flag);
+					<#list data.bootsSpecialInfo as entry>
+						list.add(Component.literal("${JavaConventions.escapeStringForJava(entry)}"));
+					</#list>
+				}
+			</#if>
 		}
-
-		<#if data.bootsSpecialInfo?has_content>
-		@Override public void appendHoverText(ItemStack itemstack, Level world, List<Component> list, TooltipFlag flag) {
-		super.appendHoverText(itemstack, world, list, flag);
-			<#list data.bootsSpecialInfo as entry>
-			list.add(Component.literal("${JavaConventions.escapeStringForJava(entry)}"));
-			</#list>
-		}
-		</#if>
-	}
 	</#if>
 
 }

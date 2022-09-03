@@ -19,26 +19,26 @@
 <#-- @formatter:off -->
 
 /*
- *    MCreator note: This file will be REGENERATED on each build.
+ *	MCreator note: This file will be REGENERATED on each build.
  */
 
 package ${package}.init;
 
 public class ${JavaModName}Potions {
 
-    <#list potions as potion>
-    public static Potion ${potion.getModElement().getRegistryNameUpper()};
-    </#list>
+	<#list potions as potion>
+	public static Potion ${potion.getModElement().getRegistryNameUpper()};
+	</#list>
 
-    public static void load() {
-        <#list potions as potion>
-            ${potion.getModElement().getRegistryNameUpper()} = Registry.register(Registry.POTION, new ResourceLocation(${JavaModName}.MODID, "${potion.getModElement().getRegistryName()}"),
-            new Potion(
-                    <#list potion.effects as effect>
-                    new MobEffectInstance(${effect.effect}, ${effect.duration}, ${effect.amplifier}, ${effect.ambient}, ${effect.showParticles})<#if effect?has_next>,</#if>
-                    </#list>));
-        </#list>
-    }
+	public static void load() {
+		<#list potions as potion>
+			${potion.getModElement().getRegistryNameUpper()} = Registry.register(Registry.POTION, new ResourceLocation(${JavaModName}.MODID, "${potion.getModElement().getRegistryName()}"),
+			new Potion(
+					<#list potion.effects as effect>
+					new MobEffectInstance(${effect.effect}, ${effect.duration}, ${effect.amplifier}, ${effect.ambient}, ${effect.showParticles})<#if effect?has_next>,</#if>
+					</#list>));
+		</#list>
+	}
 
 }
 

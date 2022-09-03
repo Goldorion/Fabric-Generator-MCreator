@@ -18,7 +18,7 @@
 
 <#-- @formatter:off -->
 /*
- *    MCreator note: This file will be REGENERATED on each build.
+ *	MCreator note: This file will be REGENERATED on each build.
  */
 
 package ${package}.init;
@@ -29,10 +29,10 @@ import net.fabricmc.api.Environment;
 
 	public static void load() {
 		HudRenderCallback.EVENT.register((matrices, tickDelta) -> {
-            <#list w.getElementsOfType("overlay") as overlay>
-                ${overlay}Overlay.render(matrices, tickDelta);
-            </#list>
-        });
+			<#list w.getElementsOfType("overlay") as overlay>
+				${overlay}Overlay.render(matrices, tickDelta);
+			</#list>
+		});
 	}
 
 }

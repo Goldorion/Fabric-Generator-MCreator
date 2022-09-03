@@ -19,30 +19,30 @@
 <#-- @formatter:off -->
 
 /*
- *    MCreator note: This file will be REGENERATED on each build.
+ *	MCreator note: This file will be REGENERATED on each build.
  */
 
 package ${package}.init;
 
 public class ${JavaModName}GameRules {
 
-    <#list gamerules as gamerule>
-	    <#if gamerule.type == "Number">
-    	    public static GameRules.Key<GameRules.IntegerValue> ${gamerule.getModElement().getRegistryNameUpper()};
-        <#else>
-    	    public static GameRules.Key<GameRules.BooleanValue> ${gamerule.getModElement().getRegistryNameUpper()};
-        </#if>
-    </#list>
+	<#list gamerules as gamerule>
+		<#if gamerule.type == "Number">
+			public static GameRules.Key<GameRules.IntegerValue> ${gamerule.getModElement().getRegistryNameUpper()};
+		<#else>
+			public static GameRules.Key<GameRules.BooleanValue> ${gamerule.getModElement().getRegistryNameUpper()};
+		</#if>
+	</#list>
 
-    public static void load() {
-        <#list gamerules as gamerule>
-            <#if gamerule.type == "Number">
-                ${gamerule.getModElement().getRegistryNameUpper()} = GameRuleRegistry.register("${gamerule.getModElement().getRegistryName()}", GameRules.Category.${gamerule.category}, GameRuleFactory.createIntRule(${gamerule.defaultValueNumber}));
-            <#else>
-            	${gamerule.getModElement().getRegistryNameUpper()} = GameRuleRegistry.register("${gamerule.getModElement().getRegistryName()}", GameRules.Category.${gamerule.category}, GameRuleFactory.createBooleanRule(${gamerule.defaultValueLogic}));
-            </#if>
-        </#list>
-    }
+	public static void load() {
+		<#list gamerules as gamerule>
+			<#if gamerule.type == "Number">
+				${gamerule.getModElement().getRegistryNameUpper()} = GameRuleRegistry.register("${gamerule.getModElement().getRegistryName()}", GameRules.Category.${gamerule.category}, GameRuleFactory.createIntRule(${gamerule.defaultValueNumber}));
+			<#else>
+				${gamerule.getModElement().getRegistryNameUpper()} = GameRuleRegistry.register("${gamerule.getModElement().getRegistryName()}", GameRules.Category.${gamerule.category}, GameRuleFactory.createBooleanRule(${gamerule.defaultValueLogic}));
+			</#if>
+		</#list>
+	}
 
 
 }

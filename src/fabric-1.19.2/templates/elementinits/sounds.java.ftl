@@ -21,7 +21,7 @@
 <#include "../mcitems.ftl">
 
 /*
- *    MCreator note: This file will be REGENERATED on each build.
+ *	MCreator note: This file will be REGENERATED on each build.
  */
 
 package ${package}.init;
@@ -29,13 +29,13 @@ package ${package}.init;
 public class ${JavaModName}Sounds {
 
 	<#list sounds as sound>
-	    public static SoundEvent ${sound?upper_case} = new SoundEvent(new ResourceLocation("${modid}", "${sound}"));
+		public static SoundEvent ${sound?upper_case} = new SoundEvent(new ResourceLocation("${modid}", "${sound}"));
 	</#list>
 
 	static {
-	    <#list sounds as sound>
-            Registry.register(Registry.SOUND_EVENT, new ResourceLocation("${modid}", "${sound}"), ${sound?upper_case});
-	    </#list>
+		<#list sounds as sound>
+			Registry.register(Registry.SOUND_EVENT, new ResourceLocation("${modid}", "${sound}"), ${sound?upper_case});
+		</#list>
 	}
 
 }

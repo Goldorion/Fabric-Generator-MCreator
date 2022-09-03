@@ -19,7 +19,7 @@
 <#-- @formatter:off -->
 
 /*
- *    MCreator note: This file will be REGENERATED on each build.
+ *	MCreator note: This file will be REGENERATED on each build.
  */
 
 package ${package}.init;
@@ -28,11 +28,11 @@ import net.fabricmc.api.Environment;
 
 @Environment(EnvType.CLIENT) public class ${JavaModName}Models {
 
-    public static void load() {
-        <#list javamodels as model>
-            EntityModelLayerRegistry.registerModelLayer(${model.getReadableName()}.LAYER_LOCATION, ${model.getReadableName()}::createBodyLayer);
-        </#list>
-    }
+	public static void load() {
+		<#list javamodels as model>
+			EntityModelLayerRegistry.registerModelLayer(${model.getReadableName()}.LAYER_LOCATION, ${model.getReadableName()}::createBodyLayer);
+		</#list>
+	}
 
 }
 

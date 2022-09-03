@@ -30,6 +30,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.fabricmc.api.Environment;
 import net.minecraft.world.entity.player.Player;
 
+<#compress>
 public class ${name}Item extends Item {
 
 	public ${name}Item() {
@@ -42,12 +43,12 @@ public class ${name}Item extends Item {
 	}
 
 	<#if data.specialInfo?has_content>
-	@Override public void appendHoverText(ItemStack itemstack, Level world, List<Component> list, TooltipFlag flag) {
-		super.appendHoverText(itemstack, world, list, flag);
-		<#list data.specialInfo as entry>
-		list.add(Component.literal("${JavaConventions.escapeStringForJava(entry)}"));
-		</#list>
-	}
+		@Override public void appendHoverText(ItemStack itemstack, Level world, List<Component> list, TooltipFlag flag) {
+			super.appendHoverText(itemstack, world, list, flag);
+			<#list data.specialInfo as entry>
+				list.add(Component.literal("${JavaConventions.escapeStringForJava(entry)}"));
+			</#list>
+		}
 	</#if>
 
 	@Override public UseAnim getUseAnimation(ItemStack itemstack) {
@@ -59,20 +60,19 @@ public class ${name}Item extends Item {
 	}
 
 	<#if data.hasGlow>
-	@Override @Environment(EnvType.CLIENT) public boolean isFoil(ItemStack itemstack) {
-	    <#if hasProcedure(data.glowCondition)>
-		Player entity = Minecraft.getInstance().player;
-		Level world = entity.level;
-		double x = entity.getX();
-		double y = entity.getY();
-		double z = entity.getZ();
-    	if (!(<@procedureOBJToConditionCode data.glowCondition/>)) {
-    	    return false;
-    	}
-    	</#if>
-		return true;
-	}
-    </#if>
+		@Override @Environment(EnvType.CLIENT) public boolean isFoil(ItemStack itemstack) {
+			<#if hasProcedure(data.glowCondition)>
+				Player entity = Minecraft.getInstance().player;
+				Level world = entity.level;
+				double x = entity.getX();
+				double y = entity.getY();
+				double z = entity.getZ();
+				if (!(<@procedureOBJToConditionCode data.glowCondition/>))
+					return false;
+			</#if>
+			return true;
+		}
+	</#if>
 
 	<#if data.enableMeleeDamage>
 		@Override public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot slot) {
@@ -100,37 +100,37 @@ public class ${name}Item extends Item {
 				}
 			}
 		}
-    <#else>
+	<#else>
 		@Override
 		public void releaseUsing(ItemStack itemstack, Level world, LivingEntity entityLiving, int timeLeft) {
 			if (!world.isClientSide() && entityLiving instanceof ServerPlayer entity) {
 				double x = entity.getX();
 				double y = entity.getY();
 				double z = entity.getZ();
-				if (<@procedureOBJToConditionCode data.useCondition/>) {
+				if (<@procedureOBJToConditionCode data.useCondition/>)
 					<@arrowShootCode/>
-				}
 			}
 		}
-    </#if>
+	</#if>
 
 }
+</#compress>
 
 <#macro arrowShootCode>
 	<#if !data.ammoItem.isEmpty()>
-	ItemStack stack = ProjectileWeaponItem.getHeldProjectile(entity, e -> e.getItem() == ${mappedMCItemToItem(data.ammoItem)});
+		ItemStack stack = ProjectileWeaponItem.getHeldProjectile(entity, e -> e.getItem() == ${mappedMCItemToItem(data.ammoItem)});
 
-	if(stack == ItemStack.EMPTY) {
-		for (int i = 0; i < entity.getInventory().items.size(); i++) {
-			ItemStack teststack = entity.getInventory().items.get(i);
-			if(teststack != null && teststack.getItem() == ${mappedMCItemToItem(data.ammoItem)}) {
-				stack = teststack;
-				break;
+		if(stack == ItemStack.EMPTY) {
+			for (int i = 0; i < entity.getInventory().items.size(); i++) {
+				ItemStack teststack = entity.getInventory().items.get(i);
+				if(teststack != null && teststack.getItem() == ${mappedMCItemToItem(data.ammoItem)}) {
+					stack = teststack;
+					break;
+				}
 			}
 		}
-	}
 
-	if (entity.getAbilities().instabuild || stack != ItemStack.EMPTY) {
+		if (entity.getAbilities().instabuild || stack != ItemStack.EMPTY) {
 	</#if>
 
 	${name}Entity entityarrow = ${name}Entity.shoot(world, entity, world.getRandom(), ${data.bulletPower}f, ${data.bulletDamage}, ${data.bulletKnockback});
@@ -138,24 +138,24 @@ public class ${name}Item extends Item {
 	itemstack.hurtAndBreak(1, entity, e -> e.broadcastBreakEvent(entity.getUsedItemHand()));
 
 	<#if !data.ammoItem.isEmpty()>
-	if (entity.getAbilities().instabuild) {
-		entityarrow.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
-	} else {
-		if (${mappedMCItemToItemStackCode(data.ammoItem, 1)}.isDamageableItem()){
-			if (stack.hurt(1, world.getRandom(), entity)) {
+		if (entity.getAbilities().instabuild) {
+			entityarrow.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
+		} else {
+			if (${mappedMCItemToItemStackCode(data.ammoItem, 1)}.isDamageableItem()){
+				if (stack.hurt(1, world.getRandom(), entity)) {
+					stack.shrink(1);
+					stack.setDamageValue(0);
+					if (stack.isEmpty())
+						entity.getInventory().removeItem(stack);
+				}
+			} else{
 				stack.shrink(1);
-				stack.setDamageValue(0);
-            	if (stack.isEmpty())
-               		entity.getInventory().removeItem(stack);
+				if (stack.isEmpty())
+				   entity.getInventory().removeItem(stack);
 			}
-		} else{
-			stack.shrink(1);
-            if (stack.isEmpty())
-               entity.getInventory().removeItem(stack);
 		}
-	}
 	<#else>
-	entityarrow.pickup = AbstractArrow.Pickup.DISALLOWED;
+		entityarrow.pickup = AbstractArrow.Pickup.DISALLOWED;
 	</#if>
 
 	<#if hasProcedure(data.onRangedItemUsed)>
@@ -163,7 +163,7 @@ public class ${name}Item extends Item {
 	</#if>
 
 	<#if !data.ammoItem.isEmpty()>
-	}
+		}
 	</#if>
 </#macro>
 

@@ -79,51 +79,51 @@ public class ${name}Menu extends AbstractContainerMenu implements Supplier<Map<I
 			<#list data.components as component>
 				<#if component.getClass().getSimpleName()?ends_with("Slot")>
 					<#assign slotnum += 1>
-	   	    this.customSlots.put(${component.id}, this.addSlot(new Slot(inventory, ${component.id},
+	   		this.customSlots.put(${component.id}, this.addSlot(new Slot(inventory, ${component.id},
 					${(component.x - mx)?int + 1},
 					${(component.y - my)?int + 1}) {
 
-	   	    	    <#if component.disableStackInteraction>
-					    @Override public boolean mayPickup(Player player) {
-						    return false;
-					    }
-	   	    	    </#if>
+	   				<#if component.disableStackInteraction>
+						@Override public boolean mayPickup(Player player) {
+							return false;
+						}
+	   				</#if>
 
 				<#if hasProcedure(component.onSlotChanged)>
-                    @Override public void setChanged() {
-                        super.setChanged();
-                        slotChanged(${component.id}, 0, 0);
+					@Override public void setChanged() {
+						super.setChanged();
+						slotChanged(${component.id}, 0, 0);
 				}
 				</#if>
 
 				<#if hasProcedure(component.onTakenFromSlot)>
-                    @Override public void onTake(Player entity, ItemStack stack) {
-                        super.onTake(entity, stack);
-                        slotChanged(${component.id}, 1, 0);
-                    }
+					@Override public void onTake(Player entity, ItemStack stack) {
+						super.onTake(entity, stack);
+						slotChanged(${component.id}, 1, 0);
+					}
 				</#if>
 
 				<#if hasProcedure(component.onStackTransfer)>
-                    @Override public void onQuickCraft(ItemStack a, ItemStack b) {
-                        super.onQuickCraft(a, b);
-                        slotChanged(${component.id}, 2, b.getCount() - a.getCount());
-                    }
+					@Override public void onQuickCraft(ItemStack a, ItemStack b) {
+						super.onQuickCraft(a, b);
+						slotChanged(${component.id}, 2, b.getCount() - a.getCount());
+					}
 				</#if>
 
 				<#if component.disableStackInteraction>
-				    @Override public boolean mayPlace(ItemStack stack) {
-				        return false;
-				    }
+					@Override public boolean mayPlace(ItemStack stack) {
+						return false;
+					}
 				<#elseif component.getClass().getSimpleName() == "InputSlot">
-				    <#if component.inputLimit.toString()?has_content>
-                        @Override public boolean mayPlace(ItemStack stack) {
-                            return (${mappedMCItemToItem(component.inputLimit)} == stack.getItem());
-                        }
-				    </#if>
+					<#if component.inputLimit.toString()?has_content>
+						@Override public boolean mayPlace(ItemStack stack) {
+							return (${mappedMCItemToItem(component.inputLimit)} == stack.getItem());
+						}
+					</#if>
 				<#elseif component.getClass().getSimpleName() == "OutputSlot">
-				    @Override public boolean mayPlace(ItemStack stack) {
-				        return false;
-				    }
+					@Override public boolean mayPlace(ItemStack stack) {
+						return false;
+					}
 				</#if>
 				}));
 			</#if>
@@ -188,7 +188,7 @@ public class ${name}Menu extends AbstractContainerMenu implements Supplier<Map<I
 
 	   <#-- #47997 -->
 		@Override ${mcc.getMethod("net.minecraft.world.inventory.AbstractContainerMenu", "moveItemStackTo", "ItemStack", "int", "int", "boolean")
-		    .replace("Slot slot;", "Slot slot = this.slots.get(i);")
+			.replace("Slot slot;", "Slot slot = this.slots.get(i);")
 			.replace("slot.setChanged();", "slot.set(itemStack);")
 			.replace("!itemStack.isEmpty()", "slot.mayPlace(itemStack) && !itemStack.isEmpty()")}
 

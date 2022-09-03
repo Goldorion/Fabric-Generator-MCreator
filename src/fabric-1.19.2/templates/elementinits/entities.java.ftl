@@ -19,7 +19,7 @@
 <#-- @formatter:off -->
 
 /*
- *    MCreator note: This file will be REGENERATED on each build.
+ *	MCreator note: This file will be REGENERATED on each build.
  */
 
 package ${package}.init;
@@ -29,34 +29,34 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRe
 
 public class ${JavaModName}Entities {
 
-    <#list entities as entity>
-        public static EntityType<${entity.getModElement().getName()}Entity> ${entity.getModElement().getRegistryNameUpper()};
+	<#list entities as entity>
+		public static EntityType<${entity.getModElement().getName()}Entity> ${entity.getModElement().getRegistryNameUpper()};
 
-    </#list>
+	</#list>
 
-    public static void load() {
-        <#list entities as entity>
-            <#if entity.getModElement().getTypeString() == "rangeditem">
-                ${entity.getModElement().getRegistryNameUpper()} = Registry.register(Registry.ENTITY_TYPE, new ResourceLocation(${JavaModName}.MODID, "${entity.getModElement().getRegistryName()}"),
-                        createArrowEntityType(${entity.getModElement().getName()}Entity::new));
-            <#else>
-                ${entity.getModElement().getRegistryNameUpper()} = Registry.register(Registry.ENTITY_TYPE, new ResourceLocation(${JavaModName}.MODID, "${entity.getModElement().getRegistryName()}"),
-                        FabricEntityTypeBuilder.create(${generator.map(entity.mobSpawningType, "mobspawntypes")}, ${entity.getModElement().getName()}Entity::new)
-                            .dimensions(new EntityDimensions(${entity.modelWidth}f, ${entity.modelHeight}f, true))<#if entity.immuneToFire>.fireImmune()</#if>
-                            .trackRangeBlocks(${entity.trackingRange})
-                            .forceTrackedVelocityUpdates(true).trackedUpdateRate(3)
-                            .build());
+	public static void load() {
+		<#list entities as entity>
+			<#if entity.getModElement().getTypeString() == "rangeditem">
+				${entity.getModElement().getRegistryNameUpper()} = Registry.register(Registry.ENTITY_TYPE, new ResourceLocation(${JavaModName}.MODID, "${entity.getModElement().getRegistryName()}"),
+						createArrowEntityType(${entity.getModElement().getName()}Entity::new));
+			<#else>
+				${entity.getModElement().getRegistryNameUpper()} = Registry.register(Registry.ENTITY_TYPE, new ResourceLocation(${JavaModName}.MODID, "${entity.getModElement().getRegistryName()}"),
+						FabricEntityTypeBuilder.create(${generator.map(entity.mobSpawningType, "mobspawntypes")}, ${entity.getModElement().getName()}Entity::new)
+							.dimensions(new EntityDimensions(${entity.modelWidth}f, ${entity.modelHeight}f, true))<#if entity.immuneToFire>.fireImmune()</#if>
+							.trackRangeBlocks(${entity.trackingRange})
+							.forceTrackedVelocityUpdates(true).trackedUpdateRate(3)
+							.build());
 
-            ${entity.getModElement().getName()}Entity.init();
-            FabricDefaultAttributeRegistry.register(${entity.getModElement().getRegistryNameUpper()}, ${entity.getModElement().getName()}Entity.createAttributes());
-            </#if>
-        </#list>
-    }
+			${entity.getModElement().getName()}Entity.init();
+			FabricDefaultAttributeRegistry.register(${entity.getModElement().getRegistryNameUpper()}, ${entity.getModElement().getName()}Entity.createAttributes());
+			</#if>
+		</#list>
+	}
 
-    private static <T extends Entity> EntityType<T> createArrowEntityType(EntityType.EntityFactory<T> factory) {
-        return FabricEntityTypeBuilder.create(MobCategory.MISC, factory).dimensions(EntityDimensions.fixed(0.5f, 0.5f))
-                .trackRangeBlocks(1).trackedUpdateRate(64).build();
-    }
+	private static <T extends Entity> EntityType<T> createArrowEntityType(EntityType.EntityFactory<T> factory) {
+		return FabricEntityTypeBuilder.create(MobCategory.MISC, factory).dimensions(EntityDimensions.fixed(0.5f, 0.5f))
+				.trackRangeBlocks(1).trackedUpdateRate(64).build();
+	}
 
 }
 <#-- @formatter:on -->

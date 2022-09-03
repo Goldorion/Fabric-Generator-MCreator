@@ -30,24 +30,24 @@
 <#-- @formatter:off -->
 
 /*
- *    MCreator note: This file will be REGENERATED on each build.
+ *	MCreator note: This file will be REGENERATED on each build.
  */
 
 package ${package}.init;
 
 public class ${JavaModName}Menus {
 
-    <#list guis as gui>
-    public static MenuType<${gui.getModElement().getName()}Menu> ${gui.getModElement().getRegistryNameUpper()};
-    </#list>
+	<#list guis as gui>
+	public static MenuType<${gui.getModElement().getName()}Menu> ${gui.getModElement().getRegistryNameUpper()};
+	</#list>
 
-    public static void load() {
-        <#list guis as gui>
-            ${gui.getModElement().getRegistryNameUpper()} = ScreenHandlerRegistry.registerExtended(new ResourceLocation(${JavaModName}.MODID,
-                "${gui.getModElement().getRegistryName()}"), ${gui.getModElement().getName()}Menu::new);
-            ${gui.getModElement().getName()}Screen.screenInit();
-        </#list>
-    }
+	public static void load() {
+		<#list guis as gui>
+			${gui.getModElement().getRegistryNameUpper()} = ScreenHandlerRegistry.registerExtended(new ResourceLocation(${JavaModName}.MODID,
+				"${gui.getModElement().getRegistryName()}"), ${gui.getModElement().getName()}Menu::new);
+			${gui.getModElement().getName()}Screen.screenInit();
+		</#list>
+	}
 
 }
 

@@ -10,12 +10,12 @@
 </#if>
 <#if settings.getAuthor()?has_content>
   "authors": [
-    "${settings.getAuthor()}"
+	"${settings.getAuthor()}"
   ],
 </#if>
   "contact": {
-    "homepage": "${settings.getWebsiteURL()}",
-    "sources": ""
+	"homepage": "${settings.getWebsiteURL()}",
+	"sources": ""
   },
   "license": "${settings.getLicense()}",
 <#if settings.getModPicture()?has_content>
@@ -24,22 +24,22 @@
 
   "environment": "*",
   "entrypoints": {
-    "main": [
-      "${package}.${JavaModName}"
-    ],
-    "client":[
-      "${package}.ClientInit"
-    ]
+	"main": [
+	  "${package}.${JavaModName}"
+	],
+	"client":[
+	  "${package}.ClientInit"
+	]
   },
 
   "depends": {
-    "fabricloader": ">=0.14.9",
-    "fabric": "*",
-    "minecraft": "~1.19",
-    "java": ">=17"
+	"fabricloader": ">=0.14.9",
+	"fabric": "*",
+	"minecraft": "~1.19",
+	"java": ">=17"
   }<#if w.hasToolsOfType("Fishing rod")>,
   "mixins": [
-    "${settings.getModID()}.mixins.json"
+	"${settings.getModID()}.mixins.json"
   ]</#if>
 }
 <#-- @formatter:on -->

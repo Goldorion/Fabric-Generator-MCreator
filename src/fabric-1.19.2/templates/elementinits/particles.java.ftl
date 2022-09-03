@@ -18,7 +18,7 @@
 
 <#-- @formatter:off -->
 /*
- *    MCreator note: This file will be REGENERATED on each build.
+ *	MCreator note: This file will be REGENERATED on each build.
  */
 
 package ${package}.init;
@@ -28,14 +28,14 @@ import net.fabricmc.api.Environment;
 @Environment(EnvType.CLIENT) public class ${JavaModName}ParticleTypes {
 
 	<#list particles as particle>
-        public static final SimpleParticleType ${particle.getModElement().getRegistryNameUpper()} = Registry.register(
-            Registry.PARTICLE_TYPE, new ResourceLocation("${modid}", "${particle.getModElement().getRegistryName()}"), FabricParticleTypes.simple(${particle.alwaysShow}));
+		public static final SimpleParticleType ${particle.getModElement().getRegistryNameUpper()} = Registry.register(
+			Registry.PARTICLE_TYPE, new ResourceLocation("${modid}", "${particle.getModElement().getRegistryName()}"), FabricParticleTypes.simple(${particle.alwaysShow}));
 	</#list>
 
 	public static void load() {
 		<#list particles as particle>
-                ParticleFactoryRegistry.getInstance().register(${particle.getModElement().getRegistryNameUpper()}, ${particle.getModElement().getName()}Particle::provider);
-        </#list>
+				ParticleFactoryRegistry.getInstance().register(${particle.getModElement().getRegistryNameUpper()}, ${particle.getModElement().getName()}Particle::provider);
+		</#list>
 	}
 
 }

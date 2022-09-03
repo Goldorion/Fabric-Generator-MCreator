@@ -45,8 +45,8 @@ import net.fabricmc.api.Environment;
 	private final SpriteSet spriteSet;
 	
 	<#if data.angularVelocity != 0 || data.angularAcceleration != 0>
-        private float angularVelocity;
-        private float angularAcceleration;
+		private float angularVelocity;
+		private float angularAcceleration;
 	</#if>
 
 	protected ${name}Particle(ClientLevel world, double x, double y, double z, double vx, double vy, double vz, SpriteSet spriteSet) {
@@ -57,9 +57,9 @@ import net.fabricmc.api.Environment;
 		this.quadSize *= (float) ${data.scale};
 
 		<#if (data.maxAgeDiff > 0)>
-		    this.lifetime = (int) Math.max(1, ${data.maxAge} + (this.random.nextInt(${data.maxAgeDiff * 2}) - ${data.maxAgeDiff}));
+			this.lifetime = (int) Math.max(1, ${data.maxAge} + (this.random.nextInt(${data.maxAgeDiff * 2}) - ${data.maxAgeDiff}));
 		<#else>
-		    this.lifetime = ${data.maxAge};
+			this.lifetime = ${data.maxAge};
 		</#if>
 
 		this.gravity = (float) ${data.gravity};
@@ -70,21 +70,21 @@ import net.fabricmc.api.Environment;
 		this.zd = vz * ${data.speedFactor};
 
 		<#if data.angularVelocity != 0 || data.angularAcceleration != 0>
-		    this.angularVelocity = (float) ${data.angularVelocity};
-		    this.angularAcceleration = (float) ${data.angularAcceleration};
+			this.angularVelocity = (float) ${data.angularVelocity};
+			this.angularAcceleration = (float) ${data.angularAcceleration};
 		</#if>
 
 		<#if data.animate>
-		    this.setSpriteFromAge(spriteSet);
+			this.setSpriteFromAge(spriteSet);
 		<#else>
-		    this.pickSprite(spriteSet);
+			this.pickSprite(spriteSet);
 		</#if>
 	}
 
 	<#if data.renderType == "LIT">
-        @Override public int getLightColor(float partialTick) {
-            return 15728880;
-        }
+		@Override public int getLightColor(float partialTick) {
+			return 15728880;
+		}
 	</#if>
 
 	@Override public ParticleRenderType getRenderType() {
@@ -95,24 +95,24 @@ import net.fabricmc.api.Environment;
 		super.tick();
 
 		<#if data.angularVelocity != 0 || data.angularAcceleration != 0>
-            this.oRoll = this.roll;
-            this.roll += this.angularVelocity;
-            this.angularVelocity += this.angularAcceleration;
+			this.oRoll = this.roll;
+			this.roll += this.angularVelocity;
+			this.angularVelocity += this.angularAcceleration;
 		</#if>
 
 		<#if data.animate>
-            if(!this.removed) {
-                <#assign frameCount = data.getTextureTileCount()>
-                this.setSprite(this.spriteSet.get((this.age / ${data.frameDuration}) % ${frameCount} + 1, ${frameCount}));
-            }
+			if(!this.removed) {
+				<#assign frameCount = data.getTextureTileCount()>
+				this.setSprite(this.spriteSet.get((this.age / ${data.frameDuration}) % ${frameCount} + 1, ${frameCount}));
+			}
 		</#if>
 
 		<#if hasProcedure(data.additionalExpiryCondition)>
-            double x = this.x;
-            double y = this.y;
-            double z = this.z;
-            if (<@procedureOBJToConditionCode data.additionalExpiryCondition/>)
-                this.remove();
+			double x = this.x;
+			double y = this.y;
+			double z = this.z;
+			if (<@procedureOBJToConditionCode data.additionalExpiryCondition/>)
+				this.remove();
 		</#if>
 	}
 

@@ -19,7 +19,7 @@
 <#-- @formatter:off -->
 
 /*
- *    MCreator note: This file will be REGENERATED on each build.
+ *	MCreator note: This file will be REGENERATED on each build.
  */
 
 package ${package}.init;
@@ -30,14 +30,14 @@ import net.fabricmc.api.Environment;
 @Environment(EnvType.CLIENT)
 public class ${JavaModName}EntityRenderers {
 
-    public static void load() {
-        <#list entities as entity>
-            <#if entity.getModElement().getTypeString() == "rangeditem">
-                EntityRendererRegistry.register(${JavaModName}Entities.${entity.getModElement().getRegistryNameUpper()}, ThrownItemRenderer::new);
-            <#else>
-                EntityRendererRegistry.register(${JavaModName}Entities.${entity.getModElement().getRegistryNameUpper()}, ${entity.getModElement().getName()}Renderer::new);
-            </#if>
-        </#list>
-    }
+	public static void load() {
+		<#list entities as entity>
+			<#if entity.getModElement().getTypeString() == "rangeditem">
+				EntityRendererRegistry.register(${JavaModName}Entities.${entity.getModElement().getRegistryNameUpper()}, ThrownItemRenderer::new);
+			<#else>
+				EntityRendererRegistry.register(${JavaModName}Entities.${entity.getModElement().getRegistryNameUpper()}, ${entity.getModElement().getName()}Renderer::new);
+			</#if>
+		</#list>
+	}
 }
 <#-- @formatter:on -->

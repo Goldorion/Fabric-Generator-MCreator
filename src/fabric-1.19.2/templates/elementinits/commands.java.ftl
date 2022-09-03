@@ -19,7 +19,7 @@
 <#-- @formatter:off -->
 
 /*
- *    MCreator note: This file will be REGENERATED on each build.
+ *	MCreator note: This file will be REGENERATED on each build.
  */
 
 package ${package}.init;
@@ -27,11 +27,11 @@ package ${package}.init;
 public class ${JavaModName}Commands {
 
 	public static void load() {
-	    CommandRegistrationCallback.EVENT.register((dispatcher, commandBuildContext, dedicated) -> {
-            <#list commands as command>
-        	    ${command.getModElement().getName()}Command.register(dispatcher, commandBuildContext);
-            </#list>
-        });
+		CommandRegistrationCallback.EVENT.register((dispatcher, commandBuildContext, dedicated) -> {
+			<#list commands as command>
+				${command.getModElement().getName()}Command.register(dispatcher, commandBuildContext);
+			</#list>
+		});
 	}
 
 }

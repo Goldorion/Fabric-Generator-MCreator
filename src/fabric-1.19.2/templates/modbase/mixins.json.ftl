@@ -4,10 +4,10 @@
   "package": "${package}.mixins",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "EntityMixin",
-    "${settings.getJavaModName()}FishingHookMixin"
+	"EntityMixin",
+	"${settings.getJavaModName()}FishingHookMixin"
   ],
   "injectors": {
-    "defaultRequire": 1
+	"defaultRequire": 1
   }
 }

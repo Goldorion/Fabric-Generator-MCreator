@@ -21,25 +21,25 @@
 <#include "../mcitems.ftl">
 
 /*
- *    MCreator note: This file will be REGENERATED on each build.
+ *	MCreator note: This file will be REGENERATED on each build.
  */
 
 package ${package}.init;
 
 public class ${JavaModName}Tabs {
 
-    <#list tabs as tab>
-        public static CreativeModeTab TAB_${tab.getModElement().getRegistryNameUpper()};
-    </#list>
+	<#list tabs as tab>
+		public static CreativeModeTab TAB_${tab.getModElement().getRegistryNameUpper()};
+	</#list>
 
 	public static void load() {
-        <#list tabs as tab>
-        TAB_${tab.getModElement().getRegistryNameUpper()} = FabricItemGroupBuilder
-                    .create(new ResourceLocation("${modid}","${tab.getModElement().getRegistryName()}"))
-                    .icon(()-> ${mappedMCItemToItemStackCode(tab.icon, 1)})
-                    .build();
-        </#list>
-    }
+		<#list tabs as tab>
+		TAB_${tab.getModElement().getRegistryNameUpper()} = FabricItemGroupBuilder
+					.create(new ResourceLocation("${modid}","${tab.getModElement().getRegistryName()}"))
+					.icon(()-> ${mappedMCItemToItemStackCode(tab.icon, 1)})
+					.build();
+		</#list>
+	}
 
 }
 

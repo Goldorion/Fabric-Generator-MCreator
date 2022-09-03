@@ -38,8 +38,8 @@ import net.fabricmc.api.Environment;
 public class ${name}Overlay {
 
 	public static void render(PoseStack matrices, float tickDelta) {
-        int posX = Minecraft.getInstance().getWindow().getGuiScaledWidth() / 2;
-        int posY = Minecraft.getInstance().getWindow().getGuiScaledHeight() / 2;
+		int posX = Minecraft.getInstance().getWindow().getGuiScaledWidth() / 2;
+		int posY = Minecraft.getInstance().getWindow().getGuiScaledHeight() / 2;
 
 		Level _world = null;
 		double _x = 0;
@@ -75,26 +75,26 @@ public class ${name}Overlay {
 			</#if>
 
 			<#list data.components as component>
-	                <#assign x = component.x - 213>
-	                <#assign y = component.y - 120>
-	                <#if component.getClass().getSimpleName() == "Label">
-				<#if hasProcedure(component.displayCondition)>
-				if (<@procedureOBJToConditionCode component.displayCondition/>)
-				</#if>
-				Minecraft.getInstance().font.draw(matrices, "${translateTokens(JavaConventions.escapeStringForJava(component.text))}",
-						posX + ${x}, posY + ${y}, ${component.color.getRGB()});
-	                <#elseif component.getClass().getSimpleName() == "Image">
-				<#if hasProcedure(component.displayCondition)>
-				if (<@procedureOBJToConditionCode component.displayCondition/>) {
-				</#if>
-				RenderSystem.setShaderTexture(0, new ResourceLocation("${modid}:textures/screens/${component.image}"));
-				GuiComponent.blit(matrices, posX + ${x}, posY + ${y}, 0, 0,
-					${component.getWidth(w.getWorkspace())}, ${component.getHeight(w.getWorkspace())},
-					${component.getWidth(w.getWorkspace())}, ${component.getHeight(w.getWorkspace())});
+				<#assign x = component.x - 213>
+				<#assign y = component.y - 120>
+				<#if component.getClass().getSimpleName() == "Label">
+					<#if hasProcedure(component.displayCondition)>
+						if (<@procedureOBJToConditionCode component.displayCondition/>)
+					</#if>
+					Minecraft.getInstance().font.draw(matrices, "${translateTokens(JavaConventions.escapeStringForJava(component.text))}",
+							posX + ${x}, posY + ${y}, ${component.color.getRGB()});
+				<#elseif component.getClass().getSimpleName() == "Image">
+					<#if hasProcedure(component.displayCondition)>
+					if (<@procedureOBJToConditionCode component.displayCondition/>) {
+					</#if>
+					RenderSystem.setShaderTexture(0, new ResourceLocation("${modid}:textures/screens/${component.image}"));
+					GuiComponent.blit(matrices, posX + ${x}, posY + ${y}, 0, 0,
+						${component.getWidth(w.getWorkspace())}, ${component.getHeight(w.getWorkspace())},
+						${component.getWidth(w.getWorkspace())}, ${component.getHeight(w.getWorkspace())});
 
-				<#if hasProcedure(component.displayCondition)>}</#if>
-	                </#if>
-	            </#list>
+					<#if hasProcedure(component.displayCondition)>}</#if>
+				</#if>
+			</#list>
 		}
 
 		<#if hasTextures>
