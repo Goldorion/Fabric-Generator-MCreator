@@ -56,7 +56,7 @@ public class ${name}Item extends Item {
 				.rarity(Rarity.${data.rarity})
 				<#if data.stayInGridWhenCrafting>
 				    <#if data.recipeRemainder?? && !data.recipeRemainder.isEmpty()>
-				        .craftRemainder(${mappedMCItemToItemCode(data.recipeRemainder, 1)})
+				        .craftRemainder(${mappedMCItemToItem(data.recipeRemainder)})
 				    <#else>
 				        .craftRemainder(${JavaModName}Items.${data.getModElement().getRegistryNameUpper()})
 				    </#if>
@@ -101,9 +101,9 @@ public class ${name}Item extends Item {
 	}
 
 	<#if data.toolType != 1>
-	@Override public float getDestroySpeed(ItemStack par1ItemStack, BlockState par2Block) {
-		return ${data.toolType}F;
-	}
+        @Override public float getDestroySpeed(ItemStack par1ItemStack, BlockState par2Block) {
+            return ${data.toolType}F;
+        }
 	</#if>
 
 	<#if data.enableMeleeDamage>
@@ -119,65 +119,65 @@ public class ${name}Item extends Item {
 	</#if>
 
     <#if data.hasGlow>
-    @Override public boolean isFoil(ItemStack itemstack) {
-    	<#if hasProcedure(data.glowCondition)>
-    	Player entity = Minecraft.getInstance().player;
-    	Level world = entity.level;
-    	double x = entity.getX();
-    	double y = entity.getY();
-    	double z = entity.getZ();
-    	return <@procedureOBJToConditionCode data.glowCondition/>;
-		<#else>
-    	return true;
-		</#if>
-	}
+        @Override public boolean isFoil(ItemStack itemstack) {
+            <#if hasProcedure(data.glowCondition)>
+            Player entity = Minecraft.getInstance().player;
+            Level world = entity.level;
+            double x = entity.getX();
+            double y = entity.getY();
+            double z = entity.getZ();
+            return <@procedureOBJToConditionCode data.glowCondition/>;
+            <#else>
+            return true;
+            </#if>
+        }
 	</#if>
 
 	<#if data.destroyAnyBlock>
-	@Override public boolean isCorrectToolForDrops(BlockState state) {
-		return true;
-	}
+        @Override public boolean isCorrectToolForDrops(BlockState state) {
+            return true;
+        }
     </#if>
 
     <#if data.specialInfo?has_content>
-    @Override public void appendHoverText(ItemStack itemstack, Level world, List<Component> list, TooltipFlag flag) {
-		super.appendHoverText(itemstack, world, list, flag);
-    	<#list data.specialInfo as entry>
-    	list.add(Component.literal("${JavaConventions.escapeStringForJava(entry)}"));
-		</#list>
-	}
+        @Override public void appendHoverText(ItemStack itemstack, Level world, List<Component> list, TooltipFlag flag) {
+            super.appendHoverText(itemstack, world, list, flag);
+            <#list data.specialInfo as entry>
+            list.add(Component.literal("${JavaConventions.escapeStringForJava(entry)}"));
+            </#list>
+        }
 	</#if>
 
     <#if hasProcedure(data.onRightClickedInAir) || data.hasInventory()>
-    @Override public InteractionResultHolder<ItemStack> use(Level world, Player entity, InteractionHand hand) {
-		InteractionResultHolder<ItemStack> ar = super.use(world, entity, hand);
-		ItemStack itemstack = ar.getObject();
-		double x = entity.getX();
-		double y = entity.getY();
-		double z = entity.getZ();
+        @Override public InteractionResultHolder<ItemStack> use(Level world, Player entity, InteractionHand hand) {
+            InteractionResultHolder<ItemStack> ar = super.use(world, entity, hand);
+            ItemStack itemstack = ar.getObject();
+            double x = entity.getX();
+            double y = entity.getY();
+            double z = entity.getZ();
 
-		<#if data.hasInventory()>
-            entity.openMenu(new ExtendedScreenHandlerFactory() {
-                @Override
-                public AbstractContainerMenu createMenu(int syncId, Inventory inventory, Player player) {
-                    return new ${data.guiBoundTo}Menu(syncId, inventory, new ${name}Inventory(itemstack));
-                }
+            <#if data.hasInventory()>
+                entity.openMenu(new ExtendedScreenHandlerFactory() {
+                    @Override
+                    public AbstractContainerMenu createMenu(int syncId, Inventory inventory, Player player) {
+                        return new ${data.guiBoundTo}Menu(syncId, inventory, new ${name}Inventory(itemstack));
+                    }
 
-                @Override
-                public Component getDisplayName() {
-                    return itemstack.getDisplayName();
-                }
+                    @Override
+                    public Component getDisplayName() {
+                        return itemstack.getDisplayName();
+                    }
 
-                @Override
-                public void writeScreenOpeningData(ServerPlayer player, FriendlyByteBuf buf) {
-                    buf.writeBlockPos(BlockPos.ZERO);
-                }
-            });
-        </#if>
+                    @Override
+                    public void writeScreenOpeningData(ServerPlayer player, FriendlyByteBuf buf) {
+                        buf.writeBlockPos(BlockPos.ZERO);
+                    }
+                });
+            </#if>
 
-		<@procedureOBJToCode data.onRightClickedInAir/>
-		return ar;
-	}
+            <@procedureOBJToCode data.onRightClickedInAir/>
+            return ar;
+        }
     </#if>
 
     <#if hasProcedure(data.onFinishUsingItem) || data.hasEatResultItem()>

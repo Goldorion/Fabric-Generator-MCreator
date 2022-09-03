@@ -4,7 +4,8 @@
 
 ## 1.7-beta-8
 * [Bugfix #253] GUIs not using player's slots caused a build error
-* [Bugfix] Schedule tick could still caused a build error in some cases
+* [Bugfix] Schedule tick could still cause a build error in some cases
+* [Bugfix] Recipe remainder made the code not generating
 
 ## 1.7-beta-7
 * [Bugfix #245] Selecting specific biomes to generate a feature caused a build error
