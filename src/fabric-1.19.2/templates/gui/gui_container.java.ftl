@@ -79,52 +79,52 @@ public class ${name}Menu extends AbstractContainerMenu implements Supplier<Map<I
 			<#list data.components as component>
 				<#if component.getClass().getSimpleName()?ends_with("Slot")>
 					<#assign slotnum += 1>
-        	    this.customSlots.put(${component.id}, this.addSlot(new Slot(inventory, ${component.id},
+	   	    this.customSlots.put(${component.id}, this.addSlot(new Slot(inventory, ${component.id},
 					${(component.x - mx)?int + 1},
 					${(component.y - my)?int + 1}) {
 
-        	    	    <#if component.disableStackInteraction>
+	   	    	    <#if component.disableStackInteraction>
 					    @Override public boolean mayPickup(Player player) {
 						    return false;
 					    }
-        	    	    </#if>
+	   	    	    </#if>
 
-                    <#if hasProcedure(component.onSlotChanged)>
+				<#if hasProcedure(component.onSlotChanged)>
                     @Override public void setChanged() {
                         super.setChanged();
                         slotChanged(${component.id}, 0, 0);
-                    }
-                    </#if>
+				}
+				</#if>
 
-                    <#if hasProcedure(component.onTakenFromSlot)>
+				<#if hasProcedure(component.onTakenFromSlot)>
                     @Override public void onTake(Player entity, ItemStack stack) {
                         super.onTake(entity, stack);
                         slotChanged(${component.id}, 1, 0);
                     }
-                    </#if>
+				</#if>
 
-                    <#if hasProcedure(component.onStackTransfer)>
+				<#if hasProcedure(component.onStackTransfer)>
                     @Override public void onQuickCraft(ItemStack a, ItemStack b) {
                         super.onQuickCraft(a, b);
                         slotChanged(${component.id}, 2, b.getCount() - a.getCount());
                     }
-                    </#if>
+				</#if>
 
-                    <#if component.disableStackInteraction>
+				<#if component.disableStackInteraction>
+				    @Override public boolean mayPlace(ItemStack stack) {
+				        return false;
+				    }
+				<#elseif component.getClass().getSimpleName() == "InputSlot">
+				    <#if component.inputLimit.toString()?has_content>
                         @Override public boolean mayPlace(ItemStack stack) {
-                        return false;
+                            return (${mappedMCItemToItem(component.inputLimit)} == stack.getItem());
                         }
-                    <#elseif component.getClass().getSimpleName() == "InputSlot">
-                        <#if component.inputLimit.toString()?has_content>
-                         @Override public boolean mayPlace(ItemStack stack) {
-                         return (${mappedMCItemToItem(component.inputLimit)} == stack.getItem());
-                         }
-                        </#if>
-                    <#elseif component.getClass().getSimpleName() == "OutputSlot">
-                        @Override public boolean mayPlace(ItemStack stack) {
-                        return false;
-                        }
-                    </#if>
+				    </#if>
+				<#elseif component.getClass().getSimpleName() == "OutputSlot">
+				    @Override public boolean mayPlace(ItemStack stack) {
+				        return false;
+				    }
+				</#if>
 				}));
 			</#if>
 			</#list>
@@ -141,7 +141,7 @@ public class ${name}Menu extends AbstractContainerMenu implements Supplier<Map<I
 		</#if>
 
 		<#if hasProcedure(data.onOpen)>
-	        <@procedureOBJToCode data.onOpen/>
+		   <@procedureOBJToCode data.onOpen/>
 		</#if>
 	}
 
@@ -159,39 +159,34 @@ public class ${name}Menu extends AbstractContainerMenu implements Supplier<Map<I
 				itemstack = itemstack1.copy();
 
 				if (index < ${slotnum}) {
-					if (!this.moveItemStackTo(itemstack1, ${slotnum}, this.slots.size(), true)) {
+					if (!this.moveItemStackTo(itemstack1, ${slotnum}, this.slots.size(), true))
 						return ItemStack.EMPTY;
-					}
 					slot.onQuickCraft(itemstack1, itemstack);
 				} else if (!this.moveItemStackTo(itemstack1, 0, ${slotnum}, false)) {
 					if (index < ${slotnum} + 27) {
-						if (!this.moveItemStackTo(itemstack1, ${slotnum} + 27, this.slots.size(), true)) {
+						if (!this.moveItemStackTo(itemstack1, ${slotnum} + 27, this.slots.size(), true))
 							return ItemStack.EMPTY;
-						}
 					} else {
-						if (!this.moveItemStackTo(itemstack1, ${slotnum}, ${slotnum} + 27, false)) {
+						if (!this.moveItemStackTo(itemstack1, ${slotnum}, ${slotnum} + 27, false))
 							return ItemStack.EMPTY;
-						}
 					}
 					return ItemStack.EMPTY;
 				}
 
-				if (itemstack1.getCount() == 0) {
+				if (itemstack1.getCount() == 0)
 					slot.set(ItemStack.EMPTY);
-				} else {
+				else
 					slot.setChanged();
-				}
 
-				if (itemstack1.getCount() == itemstack.getCount()) {
+				if (itemstack1.getCount() == itemstack.getCount())
 					return ItemStack.EMPTY;
-				}
 
 				slot.onTake(playerIn, itemstack1);
 			}
 			return itemstack;
 		}
 
-        <#-- #47997 -->
+	   <#-- #47997 -->
 		@Override ${mcc.getMethod("net.minecraft.world.inventory.AbstractContainerMenu", "moveItemStackTo", "ItemStack", "int", "int", "boolean")
 		    .replace("Slot slot;", "Slot slot = this.slots.get(i);")
 			.replace("slot.setChanged();", "slot.set(itemStack);")
@@ -206,11 +201,16 @@ public class ${name}Menu extends AbstractContainerMenu implements Supplier<Map<I
 		}
 
 		<#if data.hasSlotEvents()>
-		private void slotChanged(int slotid, int ctype, int meta) {
-		    if(this.world != null && this.world.isClientSide())
-            ClientPlayNetworking.send(new ResourceLocation(${JavaModName}.MODID, "${name?lower_case}_slot_" + slotid), new ${name}SlotMessage(slotid, x, y, z, ctype, meta));
-		}
+		  private void slotChanged(int slotid, int ctype, int meta) {
+			 if(this.world != null && this.world.isClientSide())
+			 ClientPlayNetworking.send(new ResourceLocation(${JavaModName}.MODID, "${name?lower_case}_slot_" + slotid), new ${name}SlotMessage(slotid, x, y, z, ctype, meta));
+		  }
 		</#if>
+	<#else>
+	   @Override
+	   public ItemStack quickMoveStack(Player player, int slot) {
+		  return this.slots.get(slot).getItem();
+	   }
 	</#if>
 
 	public Map<Integer, Slot> get() {
