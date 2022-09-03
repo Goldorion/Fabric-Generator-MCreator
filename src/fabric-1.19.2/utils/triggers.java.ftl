@@ -203,7 +203,7 @@
 @Override public void onPlace(BlockState blockstate, Level world, BlockPos pos, BlockState oldState, boolean moving) {
 	super.onPlace(blockstate, world, pos, oldState, moving);
 	<#if scheduleTick>
-		world.getBlockTicks().scheduleTick(pos, this, ${tickRate});
+		world.scheduleTick(pos, this, ${tickRate});
 	</#if>
 	<#if hasProcedure(procedure)>
 		<@procedureCode procedure, {
@@ -337,7 +337,7 @@
 		"blockstate": "blockstate"
 	}/>
 	<#if scheduleTick>
-	world.getBlockTicks().scheduleTick(pos, this, ${tickRate});
+	    world.scheduleTick(pos, this, ${tickRate});
 	</#if>
 }
 </#if>
