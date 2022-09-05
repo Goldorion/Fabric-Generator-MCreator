@@ -7,6 +7,6 @@ public ${name}Procedure() {
 		dependencies.put("y", player.getY());
 		dependencies.put("z", player.getZ());
 		execute(dependencies);
-		return InteractionResult.pass(player.getItemInHand(hand));
+		return InteractionResultHolder.pass(player.getItemInHand(hand));
 	});
 }

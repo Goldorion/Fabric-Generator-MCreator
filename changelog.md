@@ -4,6 +4,7 @@
 
 ## 1.7-beta-8
 * [Bugfix #253] GUIs not using player's slots caused a build error
+* [Bugfix #256] Player right clicks with item trigger caused a build error
 * [Bugfix] Schedule tick could still cause a build error in some cases
 * [Bugfix] Recipe remainder made the code not generating
 
