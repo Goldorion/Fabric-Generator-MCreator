@@ -34,7 +34,7 @@
 package ${package}.item.inventory;
 import net.fabricmc.api.Environment;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 @Environment(EnvType.CLIENT)
 public class ${name}Inventory implements WorldlyContainer {

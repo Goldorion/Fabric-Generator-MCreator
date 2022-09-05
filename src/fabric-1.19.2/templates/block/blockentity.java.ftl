@@ -21,7 +21,7 @@
 <#-- @formatter:off -->
 package ${package}.block.entity;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public class ${name}BlockEntity extends RandomizableContainerBlockEntity implements ExtendedScreenHandlerFactory, WorldlyContainer {
 
