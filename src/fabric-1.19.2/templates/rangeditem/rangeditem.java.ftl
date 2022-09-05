@@ -107,8 +107,9 @@ public class ${name}Item extends Item {
 				double x = entity.getX();
 				double y = entity.getY();
 				double z = entity.getZ();
-				if (<@procedureOBJToConditionCode data.useCondition/>)
+				if (<@procedureOBJToConditionCode data.useCondition/>){
 					<@arrowShootCode/>
+				}
 			}
 		}
 	</#if>
