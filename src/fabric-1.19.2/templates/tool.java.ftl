@@ -29,6 +29,7 @@ import com.google.common.collect.Multimap;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.fabricmc.api.Environment;
 
+<#compress>
 <#if data.toolType == "Pickaxe" || data.toolType == "Axe" || data.toolType == "Sword" || data.toolType == "Spade"
 		|| data.toolType == "Hoe" || data.toolType == "Shears" || data.toolType == "MultiTool">
 public class ${name}Item extends ${data.toolType?replace("Spade", "Shovel")?replace("MultiTool", "Tiered")}Item {
@@ -76,14 +77,28 @@ public class ${name}Item extends ${data.toolType?replace("Spade", "Shovel")?repl
 				new Item.Properties()
 			 	.tab(${data.creativeTab})
 			 	<#if data.immuneToFire>
-			 	.fireResistant()
+			 	    .fireResistant()
 			 	</#if>
+				<#if data.stayInGridWhenCrafting>
+					<#if data.recipeRemainder?? && !data.recipeRemainder.isEmpty()>
+						.craftRemainder(${mappedMCItemToItem(data.recipeRemainder)})
+					<#else>
+						.craftRemainder(${JavaModName}Items.${data.getModElement().getRegistryNameUpper()})
+					</#if>
+				</#if>
 		<#elseif data.toolType=="Shears">
 			new Item.Properties()
 				.tab(${data.creativeTab})
 				.durability(${data.usageCount})
 				<#if data.immuneToFire>
-				.fireResistant()
+                    .fireResistant()
+				</#if>
+				<#if data.stayInGridWhenCrafting>
+					<#if data.recipeRemainder?? && !data.recipeRemainder.isEmpty()>
+						.craftRemainder(${mappedMCItemToItem(data.recipeRemainder)})
+					<#else>
+						.craftRemainder(${JavaModName}Items.${data.getModElement().getRegistryNameUpper()})
+					</#if>
 				</#if>
 		</#if>);
 	}
@@ -322,37 +337,6 @@ public class ${name}Item extends FishingRodItem {
 </#if>
 
 <#macro commonMethods>
-	<#if data.stayInGridWhenCrafting>
-		@Override public boolean hasContainerItem(ItemStack stack) {
-			return true;
-		}
-
-		<#if data.damageOnCrafting && data.usageCount != 0>
-			@Override public ItemStack getContainerItem(ItemStack itemstack) {
-				ItemStack retval = new ItemStack(this);
-				retval.setDamageValue(itemstack.getDamageValue() + 1);
-				if(retval.getDamageValue() >= retval.getMaxDamage()) {
-					return ItemStack.EMPTY;
-				}
-				return retval;
-			}
-
-			@Override public boolean isRepairable(ItemStack itemstack) {
-				return false;
-			}
-		<#else>
-			@Override public ItemStack getContainerItem(ItemStack itemstack) {
-				return new ItemStack(this);
-			}
-
-			<#if data.usageCount != 0>
-				@Override public boolean isRepairable(ItemStack itemstack) {
-					return false;
-				}
-			</#if>
-		</#if>
-	</#if>
-
 	<#if data.specialInfo?has_content>
 		@Override @Environment(EnvType.CLIENT) public void appendHoverText(ItemStack itemstack, Level world, List<Component> list, TooltipFlag flag) {
 			super.appendHoverText(itemstack, world, list, flag);
@@ -385,4 +369,5 @@ public class ${name}Item extends FishingRodItem {
 		}
 	</#if>
 </#macro>
+</#compress>
 <#-- @formatter:on -->

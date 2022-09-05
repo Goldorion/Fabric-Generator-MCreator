@@ -29,6 +29,7 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.fabricmc.api.Environment;
 import net.minecraft.world.entity.player.Player;
+import com.google.common.collect.Multimap;
 
 <#compress>
 public class ${name}Item extends Item {

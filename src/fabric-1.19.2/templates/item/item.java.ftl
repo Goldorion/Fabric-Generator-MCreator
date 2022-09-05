@@ -37,6 +37,7 @@
 package ${package}.item;
 
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import com.google.common.collect.Multimap;
 
 public class ${name}Item extends Item {
 

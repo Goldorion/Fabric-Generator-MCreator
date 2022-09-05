@@ -104,7 +104,7 @@ public class ${name}Block extends
 				</#if>
 				<#assign s=data.fallSound>
 				<#if s.getUnmappedValue().startsWith("CUSTOM:")>
-					${JavaModName}Sounds.${s?replace(modid + ":", "")?upper_case},
+					${JavaModName}Sounds.${s?replace(modid + ":", "")?upper_case}
 				<#else>
 					SoundEvents.${(s?starts_with("ambient")||s?starts_with("music")||s?starts_with("ui")||s?starts_with("weather"))?string(s?upper_case?replace(".", "_"),s?keep_after(".")?upper_case?replace(".", "_"))}
 				</#if>))
@@ -157,6 +157,9 @@ public class ${name}Block extends
 			<#if !data.useLootTableForDrops && (data.dropAmount == 0)>
 				.noDrops()
 			</#if>
+			<#if data.offsetType != "NONE">
+			    .offsetType(OffsetType.${data.offsetType})
+	        </#if>
 
 	</#macro>
 
@@ -385,28 +388,9 @@ public class ${name}Block extends
 		}
 	</#if>
 
-	<#if data.fireSpreadSpeed != 0>
-		@Override public int getFireSpreadSpeed(BlockState state, BlockGetter world, BlockPos pos, Direction face) {
-			return ${data.fireSpreadSpeed};
-		}
-	</#if>
-
-	<#if data.offsetType != "NONE">
-		@Override public Block.OffsetType getOffsetType() {
-			return Block.OffsetType.${data.offsetType};
-		}
-	</#if>
-
 	<#if data.reactionToPushing != "NORMAL">
 		@Override public PushReaction getPistonPushReaction(BlockState state) {
 			return PushReaction.${data.reactionToPushing};
-		}
-	</#if>
-
-	<#if data.canRedstoneConnect>
-		@Override
-		public boolean canConnectRedstone(BlockState state, BlockGetter world, BlockPos pos, Direction side) {
-			return true;
 		}
 	</#if>
 

@@ -31,6 +31,8 @@ import net.minecraft.world.level.material.Material;
 import net.minecraft.nbt.Tag;
 import net.minecraft.sounds.SoundEvent;
 
+import javax.annotation.Nullable;
+
 <#assign extendsClass = "PathfinderMob">
 
 <#if data.aiBase != "(none)" >

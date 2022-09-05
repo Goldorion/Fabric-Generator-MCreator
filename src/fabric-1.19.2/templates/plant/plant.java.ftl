@@ -84,7 +84,7 @@ public class ${name}Block extends <#if data.plantType == "normal">Flower<#elseif
 			</#if>
 			<#assign s=data.fallSound>
 			<#if s.getUnmappedValue().startsWith("CUSTOM:")>
-				${JavaModName}Sounds.${s?replace(modid + ":", "")?upper_case},
+				${JavaModName}Sounds.${s?replace(modid + ":", "")?upper_case}
 			<#else>
 				SoundEvents.${(s?starts_with("ambient")||s?starts_with("music")||s?starts_with("ui")||s?starts_with("weather"))?string(s?upper_case?replace(".", "_"),s?keep_after(".")?upper_case?replace(".", "_"))}
 			</#if>))

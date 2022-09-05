@@ -7,6 +7,12 @@
 * [Bugfix #256] Player right clicks with item trigger caused a build error
 * [Bugfix] Schedule tick could still cause a build error in some cases
 * [Bugfix] Recipe remainder made the code not generating
+* [Bugfix] Enabling melee damages caused a build error (missing import)
+* [Bugfix] Custom sounds set caused a build error
+* [Bugfix] Fire spreading caused a build error for blocks
+* [Bugfix] Offset type caused a build error for blocks
+* [Bugfix] Can redstone connect to block has been disabled (Forge feature)
+* [Bugfix] Custom entities could not due to a missing import in some cases
 
 ## 1.7-beta-7
 * [Bugfix #245] Selecting specific biomes to generate a feature caused a build error
