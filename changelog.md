@@ -8,6 +8,8 @@
 * Re-added support for the dimension mod element
 * Added support for brewing stand recipes (**Read the type tooltip for info**)
 * [Bugfix #259] Buttons or slots without a procedure caused a build error
+* [Bugfix #264] item.crop.plant sound did not work
+* [Bugfix #264] Using a custom sound crashed the game
 
 ## 1.7-beta-8
 * [Bugfix #253] GUIs not using player's slots caused a build error

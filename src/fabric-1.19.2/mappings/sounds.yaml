@@ -643,7 +643,7 @@ block.conduit.attack.target: block.conduit.attack.target
 block.conduit.deactivate: block.conduit.deactivate
 block.crop.break: block.crop.break
 block.growing_plant.crop: block.growing_plant.crop
-item.crop.plant: item.crop.plant
+item.crop.plant: item.crop.planted
 item.crossbow.hit: item.crossbow.hit
 item.crossbow.loading_end: item.crossbow.loading_end
 item.crossbow.loading_middle: item.crossbow.loading_middle

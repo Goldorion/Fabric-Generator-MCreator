@@ -32,7 +32,7 @@ public class ${JavaModName}Sounds {
 		public static SoundEvent ${sound?upper_case} = new SoundEvent(new ResourceLocation("${modid}", "${sound}"));
 	</#list>
 
-	static {
+	public static void load() {
 		<#list sounds as sound>
 			Registry.register(Registry.SOUND_EVENT, new ResourceLocation("${modid}", "${sound}"), ${sound?upper_case});
 		</#list>
