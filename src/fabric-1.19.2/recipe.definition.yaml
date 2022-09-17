@@ -1,3 +1,9 @@
+global_templates:
+  - template: elementinits/brewingrecipes.java.ftl
+    name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameBrewingRecipes.java"
+    condition: ${w.getRecipesOfType("Brewing")?has_content}
+    deleteWhenConditionFalse: true
+
 templates:
   - template: json/smelting.json.ftl
     writer: json
