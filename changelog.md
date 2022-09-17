@@ -7,6 +7,7 @@
 * Updated Fabric API to 0.60.0
 * Re-added support for the dimension mod element
 * Added support for brewing stand recipes (**Read the type tooltip for info**)
+* [Bugfix #259] Buttons or slots without a procedure caused a build error
 
 ## 1.7-beta-8
 * [Bugfix #253] GUIs not using player's slots caused a build error
