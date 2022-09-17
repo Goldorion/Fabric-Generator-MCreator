@@ -1204,5 +1204,53 @@
       0.9
     ],
     "offset": 0
+  },
+  "minecraft:mangrove_swamp": {
+    "temperature": [
+      0.2,
+      1
+    ],
+    "humidity": [
+      -1,
+      1
+    ],
+    "continentalness": [
+      -0.11,
+      1
+    ],
+    "erosion": [
+      0.55,
+      1
+    ],
+    "weirdness": [
+      -1,
+      -0.9333
+    ],
+    "depth": 0,
+    "offset": 0
+  },
+  "minecraft:deep_dark": {
+    "temperature": [
+      -1,
+      1
+    ],
+    "humidity": [
+      -1,
+      1
+    ],
+    "continentalness": [
+      -1,
+      1
+    ],
+    "erosion": [
+      -1,
+      -0.375
+    ],
+    "weirdness": [
+      -1,
+      1
+    ],
+    "depth": 1.1,
+    "offset": 0
   }
 }

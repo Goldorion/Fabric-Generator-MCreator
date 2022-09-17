@@ -5,6 +5,7 @@
 ## 1.7-beta-8
 * Updated Loom to 1.0
 * Updated Fabric API to 0.60.0
+* Re-added support for the dimension mod element
 
 ## 1.7-beta-8
 * [Bugfix #253] GUIs not using player's slots caused a build error

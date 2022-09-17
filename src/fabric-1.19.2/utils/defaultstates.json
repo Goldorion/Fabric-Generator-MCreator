@@ -47,6 +47,24 @@
       "value": "0"
     }
   ],
+  "minecraft:mangrove_propagule": [
+    {
+      "name": "age",
+      "value": "0"
+    },
+    {
+      "name": "hanging",
+      "value": "false"
+    },
+    {
+      "name": "stage",
+      "value": "0"
+    },
+    {
+      "name": "waterlogged",
+      "value": "false"
+    }
+  ],
   "minecraft:water": [
     {
       "name": "level",
@@ -95,6 +113,24 @@
       "value": "y"
     }
   ],
+  "minecraft:mangrove_log": [
+    {
+      "name": "axis",
+      "value": "y"
+    }
+  ],
+  "minecraft:mangrove_roots": [
+    {
+      "name": "waterlogged",
+      "value": "false"
+    }
+  ],
+  "minecraft:muddy_mangrove_roots": [
+    {
+      "name": "axis",
+      "value": "y"
+    }
+  ],
   "minecraft:stripped_spruce_log": [
     {
       "name": "axis",
@@ -126,6 +162,12 @@
     }
   ],
   "minecraft:stripped_oak_log": [
+    {
+      "name": "axis",
+      "value": "y"
+    }
+  ],
+  "minecraft:stripped_mangrove_log": [
     {
       "name": "axis",
       "value": "y"
@@ -167,6 +209,12 @@
       "value": "y"
     }
   ],
+  "minecraft:mangrove_wood": [
+    {
+      "name": "axis",
+      "value": "y"
+    }
+  ],
   "minecraft:stripped_oak_wood": [
     {
       "name": "axis",
@@ -203,6 +251,12 @@
       "value": "y"
     }
   ],
+  "minecraft:stripped_mangrove_wood": [
+    {
+      "name": "axis",
+      "value": "y"
+    }
+  ],
   "minecraft:oak_leaves": [
     {
       "name": "distance",
@@ -210,6 +264,10 @@
     },
     {
       "name": "persistent",
+      "value": "false"
+    },
+    {
+      "name": "waterlogged",
       "value": "false"
     }
   ],
@@ -221,6 +279,10 @@
     {
       "name": "persistent",
       "value": "false"
+    },
+    {
+      "name": "waterlogged",
+      "value": "false"
     }
   ],
   "minecraft:birch_leaves": [
@@ -230,6 +292,10 @@
     },
     {
       "name": "persistent",
+      "value": "false"
+    },
+    {
+      "name": "waterlogged",
       "value": "false"
     }
   ],
@@ -241,6 +307,10 @@
     {
       "name": "persistent",
       "value": "false"
+    },
+    {
+      "name": "waterlogged",
+      "value": "false"
     }
   ],
   "minecraft:acacia_leaves": [
@@ -250,6 +320,10 @@
     },
     {
       "name": "persistent",
+      "value": "false"
+    },
+    {
+      "name": "waterlogged",
       "value": "false"
     }
   ],
@@ -261,6 +335,24 @@
     {
       "name": "persistent",
       "value": "false"
+    },
+    {
+      "name": "waterlogged",
+      "value": "false"
+    }
+  ],
+  "minecraft:mangrove_leaves": [
+    {
+      "name": "distance",
+      "value": "7"
+    },
+    {
+      "name": "persistent",
+      "value": "false"
+    },
+    {
+      "name": "waterlogged",
+      "value": "false"
     }
   ],
   "minecraft:azalea_leaves": [
@@ -271,6 +363,10 @@
     {
       "name": "persistent",
       "value": "false"
+    },
+    {
+      "name": "waterlogged",
+      "value": "false"
     }
   ],
   "minecraft:flowering_azalea_leaves": [
@@ -280,6 +376,10 @@
     },
     {
       "name": "persistent",
+      "value": "false"
+    },
+    {
+      "name": "waterlogged",
       "value": "false"
     }
   ],
@@ -783,6 +883,16 @@
       "value": "false"
     }
   ],
+  "minecraft:mangrove_sign": [
+    {
+      "name": "rotation",
+      "value": "0"
+    },
+    {
+      "name": "waterlogged",
+      "value": "false"
+    }
+  ],
   "minecraft:oak_door": [
     {
       "name": "facing",
@@ -903,6 +1013,16 @@
       "value": "false"
     }
   ],
+  "minecraft:mangrove_wall_sign": [
+    {
+      "name": "facing",
+      "value": "north"
+    },
+    {
+      "name": "waterlogged",
+      "value": "false"
+    }
+  ],
   "minecraft:lever": [
     {
       "name": "face",
@@ -976,6 +1096,12 @@
     }
   ],
   "minecraft:dark_oak_pressure_plate": [
+    {
+      "name": "powered",
+      "value": "false"
+    }
+  ],
+  "minecraft:mangrove_pressure_plate": [
     {
       "name": "powered",
       "value": "false"
@@ -1261,6 +1387,28 @@
       "value": "false"
     }
   ],
+  "minecraft:mangrove_trapdoor": [
+    {
+      "name": "facing",
+      "value": "north"
+    },
+    {
+      "name": "half",
+      "value": "bottom"
+    },
+    {
+      "name": "open",
+      "value": "false"
+    },
+    {
+      "name": "powered",
+      "value": "false"
+    },
+    {
+      "name": "waterlogged",
+      "value": "false"
+    }
+  ],
   "minecraft:brown_mushroom_block": [
     {
       "name": "down",
@@ -1506,6 +1654,24 @@
     }
   ],
   "minecraft:stone_brick_stairs": [
+    {
+      "name": "facing",
+      "value": "north"
+    },
+    {
+      "name": "half",
+      "value": "bottom"
+    },
+    {
+      "name": "shape",
+      "value": "straight"
+    },
+    {
+      "name": "waterlogged",
+      "value": "false"
+    }
+  ],
+  "minecraft:mud_brick_stairs": [
     {
       "name": "facing",
       "value": "north"
@@ -1898,6 +2064,20 @@
     }
   ],
   "minecraft:dark_oak_button": [
+    {
+      "name": "face",
+      "value": "wall"
+    },
+    {
+      "name": "facing",
+      "value": "north"
+    },
+    {
+      "name": "powered",
+      "value": "false"
+    }
+  ],
+  "minecraft:mangrove_button": [
     {
       "name": "face",
       "value": "wall"
@@ -2497,6 +2677,24 @@
       "value": "false"
     }
   ],
+  "minecraft:mangrove_stairs": [
+    {
+      "name": "facing",
+      "value": "north"
+    },
+    {
+      "name": "half",
+      "value": "bottom"
+    },
+    {
+      "name": "shape",
+      "value": "straight"
+    },
+    {
+      "name": "waterlogged",
+      "value": "false"
+    }
+  ],
   "minecraft:light": [
     {
       "name": "level",
@@ -2925,6 +3123,16 @@
       "value": "false"
     }
   ],
+  "minecraft:mangrove_slab": [
+    {
+      "name": "type",
+      "value": "bottom"
+    },
+    {
+      "name": "waterlogged",
+      "value": "false"
+    }
+  ],
   "minecraft:stone_slab": [
     {
       "name": "type",
@@ -2996,6 +3204,16 @@
     }
   ],
   "minecraft:stone_brick_slab": [
+    {
+      "name": "type",
+      "value": "bottom"
+    },
+    {
+      "name": "waterlogged",
+      "value": "false"
+    }
+  ],
+  "minecraft:mud_brick_slab": [
     {
       "name": "type",
       "value": "bottom"
@@ -3145,6 +3363,24 @@
       "value": "false"
     }
   ],
+  "minecraft:mangrove_fence_gate": [
+    {
+      "name": "facing",
+      "value": "north"
+    },
+    {
+      "name": "in_wall",
+      "value": "false"
+    },
+    {
+      "name": "open",
+      "value": "false"
+    },
+    {
+      "name": "powered",
+      "value": "false"
+    }
+  ],
   "minecraft:spruce_fence": [
     {
       "name": "east",
@@ -3255,6 +3491,28 @@
       "value": "false"
     }
   ],
+  "minecraft:mangrove_fence": [
+    {
+      "name": "east",
+      "value": "false"
+    },
+    {
+      "name": "north",
+      "value": "false"
+    },
+    {
+      "name": "south",
+      "value": "false"
+    },
+    {
+      "name": "waterlogged",
+      "value": "false"
+    },
+    {
+      "name": "west",
+      "value": "false"
+    }
+  ],
   "minecraft:spruce_door": [
     {
       "name": "facing",
@@ -3344,6 +3602,28 @@
     }
   ],
   "minecraft:dark_oak_door": [
+    {
+      "name": "facing",
+      "value": "north"
+    },
+    {
+      "name": "half",
+      "value": "lower"
+    },
+    {
+      "name": "hinge",
+      "value": "left"
+    },
+    {
+      "name": "open",
+      "value": "false"
+    },
+    {
+      "name": "powered",
+      "value": "false"
+    }
+  ],
+  "minecraft:mangrove_door": [
     {
       "name": "facing",
       "value": "north"
@@ -4458,6 +4738,32 @@
     }
   ],
   "minecraft:stone_brick_wall": [
+    {
+      "name": "east",
+      "value": "none"
+    },
+    {
+      "name": "north",
+      "value": "none"
+    },
+    {
+      "name": "south",
+      "value": "none"
+    },
+    {
+      "name": "up",
+      "value": "true"
+    },
+    {
+      "name": "waterlogged",
+      "value": "false"
+    },
+    {
+      "name": "west",
+      "value": "none"
+    }
+  ],
+  "minecraft:mud_brick_wall": [
     {
       "name": "east",
       "value": "none"
@@ -5785,6 +6091,56 @@
       "value": "false"
     }
   ],
+  "minecraft:sculk_vein": [
+    {
+      "name": "down",
+      "value": "false"
+    },
+    {
+      "name": "east",
+      "value": "false"
+    },
+    {
+      "name": "north",
+      "value": "false"
+    },
+    {
+      "name": "south",
+      "value": "false"
+    },
+    {
+      "name": "up",
+      "value": "false"
+    },
+    {
+      "name": "waterlogged",
+      "value": "false"
+    },
+    {
+      "name": "west",
+      "value": "false"
+    }
+  ],
+  "minecraft:sculk_catalyst": [
+    {
+      "name": "bloom",
+      "value": "false"
+    }
+  ],
+  "minecraft:sculk_shrieker": [
+    {
+      "name": "can_summon",
+      "value": "false"
+    },
+    {
+      "name": "shrieking",
+      "value": "false"
+    },
+    {
+      "name": "waterlogged",
+      "value": "false"
+    }
+  ],
   "minecraft:oxidized_cut_copper_stairs": [
     {
       "name": "facing",
@@ -6320,6 +6676,24 @@
     }
   ],
   "minecraft:infested_deepslate": [
+    {
+      "name": "axis",
+      "value": "y"
+    }
+  ],
+  "minecraft:ochre_froglight": [
+    {
+      "name": "axis",
+      "value": "y"
+    }
+  ],
+  "minecraft:verdant_froglight": [
+    {
+      "name": "axis",
+      "value": "y"
+    }
+  ],
+  "minecraft:pearlescent_froglight": [
     {
       "name": "axis",
       "value": "y"

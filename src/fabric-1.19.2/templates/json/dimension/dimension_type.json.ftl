@@ -10,8 +10,26 @@
   "coordinate_scale": 1,
   "ambient_light": <#if data.isDark>0<#else>0.5</#if>,
   "logical_height": 256,
-  "infiniburn": "minecraft:infiniburn_overworld",
+  "infiniburn": "#minecraft:infiniburn_overworld",
+  <#if data.worldGenType == "Normal world gen">
+  "min_y": -64,
+  "height": 384,
+  <#else>
   "min_y": 0,
   "height": 256,
-  "effects": "${modid}:${registryname}"
+  </#if>
+  <#if data.worldGenType == "Nether like gen">
+  "monster_spawn_light_level": 11,
+  "monster_spawn_block_light_limit": 15,
+  <#else>
+  "monster_spawn_light_level": {
+    "type": "minecraft:uniform",
+    "value": {
+      "min_inclusive": 0,
+      "max_inclusive": 7
+    }
+  },
+  "monster_spawn_block_light_limit": 0,
+  </#if>
+  "effects": "<#if data.hasFog>minecraft:the_nether<#else>minecraft:overworld</#if>"
 }

@@ -29,7 +29,7 @@ public class ${JavaModName}Blocks {
 	<#list blocks as block>
 		<#if block.getModElement().getTypeString() != "dimension">
 			public static Block ${block.getModElement().getRegistryNameUpper()};
-		<#elseif block.getGeneratableElement().blockBase == "Stairs">
+		<#elseif block.blockBase?has_content && block.blockBase == "Stairs">
 			public static Block ${block.getModElement().getRegistryNameUpper()}_INNER;
 		</#if>
 	</#list>
@@ -39,7 +39,7 @@ public class ${JavaModName}Blocks {
 			<#if block.getModElement().getTypeString() != "dimension">
 				${block.getModElement().getRegistryNameUpper()} = Registry.register(Registry.BLOCK, new ResourceLocation(${JavaModName}.MODID,
 					"${block.getModElement().getRegistryName()}"), new ${block.getModElement().getName()}Block());
-			<#elseif block.getGeneratableElement().blockBase == "Stairs">
+			<#elseif block.blockBase?has_content && block.blockBase == "Stairs">
 				${block.getModElement().getRegistryNameUpper()} = Registry.register(Registry.BLOCK, new ResourceLocation(${JavaModName}.MODID,
 					"${block.getModElement().getRegistryName()}_inner"), new Block(${block.getModElement().getRegistryNameUpper()}.PROPERTIES));
 			</#if>
