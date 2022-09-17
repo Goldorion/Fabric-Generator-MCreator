@@ -40,7 +40,7 @@ public class ${name}Item extends Item {
 
 	@Override public InteractionResultHolder<ItemStack> use(Level world, Player entity, InteractionHand hand) {
 		entity.startUsingItem(hand);
-		return new InteractionResultHolder(InteractionResult.SUCCESS, entity.getItemInHand(hand));
+		return new InteractionResultHolder<>(InteractionResult.SUCCESS, entity.getItemInHand(hand));
 	}
 
 	<#if data.specialInfo?has_content>

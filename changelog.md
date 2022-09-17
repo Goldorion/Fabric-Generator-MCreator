@@ -3,7 +3,6 @@
 ## 1.7
 
 ## 1.7-beta-9
-* Updated Loom to 1.0
 * Updated Fabric API to 0.60.0
 * Re-added support for the dimension mod element
 * Added support for brewing stand recipes (**Read the type tooltip for info**)
