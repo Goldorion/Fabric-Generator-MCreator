@@ -2,6 +2,9 @@
 
 ## 1.7
 
+## 1.7-beta-10
+* [Bugfix #267] Setting "Drop amount" to 0 caused a build error
+
 ## 1.7-beta-9
 * Updated Fabric API to 0.60.0
 * Re-added support for the dimension mod element

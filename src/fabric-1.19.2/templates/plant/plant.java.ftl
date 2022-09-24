@@ -111,13 +111,13 @@ public class ${name}Block extends <#if data.plantType == "normal">Flower<#elseif
 			.lightLevel(s -> ${data.luminance})
 		</#if>
 		<#if !data.useLootTableForDrops && (data.dropAmount == 0)>
-			.noDrops()
+			.noLootTable()
 		</#if>
 		<#if data.isSolid>
-		.noOcclusion()
-			<#if (data.customBoundingBox && data.boundingBoxes??) || (data.offsetType != "NONE")>
-				.dynamicShape()
-			</#if>
+            .noOcclusion()
+                <#if (data.customBoundingBox && data.boundingBoxes??) || (data.offsetType != "NONE")>
+                    .dynamicShape()
+                </#if>
 		<#else>
 			.noCollission()
 		</#if>
