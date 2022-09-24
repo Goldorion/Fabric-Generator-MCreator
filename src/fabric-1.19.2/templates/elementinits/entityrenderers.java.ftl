@@ -33,7 +33,11 @@ public class ${JavaModName}EntityRenderers {
 	public static void load() {
 		<#list entities as entity>
 			<#if entity.getModElement().getTypeString() == "rangeditem">
-				EntityRendererRegistry.register(${JavaModName}Entities.${entity.getModElement().getRegistryNameUpper()}, ThrownItemRenderer::new);
+				<#if entity.isCustomModel()>
+				    EntityRendererRegistry.register(${JavaModName}Entities.${entity.getModElement().getRegistryNameUpper()}, ${entity.getModElement().getName()}Renderer::new);
+				<#else>
+				    EntityRendererRegistry.register(${JavaModName}Entities.${entity.getModElement().getRegistryNameUpper()}, ThrownItemRenderer::new);
+				</#if>
 			<#else>
 				EntityRendererRegistry.register(${JavaModName}Entities.${entity.getModElement().getRegistryNameUpper()}, ${entity.getModElement().getName()}Renderer::new);
 			</#if>

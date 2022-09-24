@@ -3,6 +3,7 @@
 ## 1.7
 
 ## 1.7-beta-10
+* [#260] Added support for custom bullet models
 * [Bugfix #236] Items disappearing from GUI when being shift-clicked
 * [Bugfix #266] Open GUI procedure block caused a build error
 * [Bugfix #267] Setting Drop amount to 0 caused a build error
