@@ -5,6 +5,7 @@
 ## 1.7-beta-10
 * [Bugfix #266] Open GUI procedure block caused a build error
 * [Bugfix #267] Setting Drop amount to 0 caused a build error
+* [Bugfix #272] Workspaces with recipes could fail to build in some cases.
 
 ## 1.7-beta-9
 * Updated Fabric API to 0.60.0
