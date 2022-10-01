@@ -1,6 +1,8 @@
 # Changelogs:
 
 ## 1.7
+## 1.7-beta-10
+* [Bugfix #274] Is block tagged in caused a build error
 
 ## 1.7-beta-10
 * [#260] Added support for custom bullet models
