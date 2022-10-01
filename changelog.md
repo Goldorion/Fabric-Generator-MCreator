@@ -2,6 +2,7 @@
 
 ## 1.7
 ## 1.7-beta-10
+* [Bugfix #273] Custom paintings didn't appear in the game
 * [Bugfix #274] Is block tagged in caused a build error
 
 ## 1.7-beta-10
