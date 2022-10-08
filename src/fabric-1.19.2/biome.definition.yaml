@@ -11,4 +11,4 @@ localizationkeys:
   - key: biome.@modid.@registryname
     mapto: name
 
-field_exclusions: [ groundBlock, undergroundBlock, underwaterBlock, spawnBiome, spawnInCaves, treeVines, treeFruits, biomeCategory ] # biomeCategory doesn't exist anymore
+field_exclusions: [ groundBlock, undergroundBlock, underwaterBlock, spawnBiome, spawnInCaves, treeVines, treeFruits ] # biomeCategory doesn't exist anymore
