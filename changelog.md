@@ -1,7 +1,8 @@
 # Changelogs:
 
 ## 1.7
-## 1.7-beta-10
+## 1.7-beta-11
+* Updated to MCreator 2022.3.41417
 * Added support for 1.19.x mappings
 * Removed End biome support (sorry)
 * Added support for new 2022.3.41417 features
