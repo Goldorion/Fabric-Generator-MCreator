@@ -4,7 +4,7 @@
 ## 1.7-beta-10
 * Added support for 1.19.x mappings
 * Removed End biome support (sorry)
-* Added support for music disc length and jukebox comparator redstone power output paramete
+* Added support for new 2022.3.41417 features
 * [Bugfix #273] Custom paintings didn't appear in the game
 * [Bugfix #274] Is block tagged in caused a build error
 * [Bugfix] Fixed a problem with dimensions
