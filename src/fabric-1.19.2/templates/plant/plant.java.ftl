@@ -114,10 +114,10 @@ public class ${name}Block extends <#if data.plantType == "normal">Flower<#elseif
 			.noLootTable()
 		</#if>
 		<#if data.isSolid>
-            .noOcclusion()
-                <#if (data.customBoundingBox && data.boundingBoxes??) || (data.offsetType != "NONE")>
-                    .dynamicShape()
-                </#if>
+			.noOcclusion()
+				<#if (data.customBoundingBox && data.boundingBoxes??) || (data.offsetType != "NONE")>
+					.dynamicShape()
+				</#if>
 		<#else>
 			.noCollission()
 		</#if>

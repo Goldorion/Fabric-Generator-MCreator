@@ -158,8 +158,8 @@ public class ${name}Block extends
 				.noLootTable()
 			</#if>
 			<#if data.offsetType != "NONE">
-			    .offsetType(OffsetType.${data.offsetType})
-	        </#if>
+				.offsetType(OffsetType.${data.offsetType})
+			</#if>
 
 	</#macro>
 

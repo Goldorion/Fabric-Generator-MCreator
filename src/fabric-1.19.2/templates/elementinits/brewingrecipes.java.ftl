@@ -31,12 +31,12 @@ public class ${JavaModName}BrewingRecipes {
 	public static void load() {
 		<#list recipes as recipe>
 			<#if recipe.recipeType == "Brewing">
-			    <#if (recipe.brewingInputStack?starts_with("POTION:")) && (recipe.brewingReturnStack?starts_with("POTION:")) &&
-			        !(recipe.brewingIngredientStack?starts_with("TAG:"))>
-		            PotionBrewing.addMix(${generator.map(recipe.brewingInputStack?replace("POTION:",""), "potions")},
-		                    ${mappedMCItemToItem(recipe.brewingIngredientStack)},
-		                    ${generator.map(recipe.brewingReturnStack?replace("POTION:",""), "potions")});
-			    </#if>
+				<#if (recipe.brewingInputStack?starts_with("POTION:")) && (recipe.brewingReturnStack?starts_with("POTION:")) &&
+					!(recipe.brewingIngredientStack?starts_with("TAG:"))>
+					PotionBrewing.addMix(${generator.map(recipe.brewingInputStack?replace("POTION:",""), "potions")},
+							${mappedMCItemToItem(recipe.brewingIngredientStack)},
+							${generator.map(recipe.brewingReturnStack?replace("POTION:",""), "potions")});
+				</#if>
 			</#if>
 		</#list>
 	}

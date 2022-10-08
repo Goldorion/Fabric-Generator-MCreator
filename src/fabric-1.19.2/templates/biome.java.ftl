@@ -301,21 +301,11 @@ public class ${name}Biome {
 		<#if data.spawnBiomeNether>
 			NetherBiomes.addNetherBiome(${JavaModName}Biomes.${registryname?upper_case}, PARAMETER_POINT);
 		</#if>
-
-		<#if data.biomeDictionaryTypes?has_content>
-			<#list data.biomeDictionaryTypes as type>
-				<#if type = "VOID">
-					TheEndBiomes.addSmallIslandsBiome(${JavaModName}Biomes.${registryname?upper_case}, ${data.biomeWeight}d);
-				<#elseif type = "RARE">
-					TheEndBiomes.addHighlandsBiome(${JavaModName}Biomes.${registryname?upper_case}, ${data.biomeWeight}d);
-				</#if>
-			</#list>
-		</#if>
 	}
 
 	<#if hasConfiguredFeatures>
 		private static ConfiguredFeature<?, ?> register(String name, ConfiguredFeature<?, ?> configuredFeature) {
-Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new ResourceLocation(${JavaModName}.MODID, name + "_${registryname}"), configuredFeature);
+			Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new ResourceLocation(${JavaModName}.MODID, name + "_${registryname}"), configuredFeature);
 			return configuredFeature;
 		}
 	</#if>
