@@ -84,6 +84,9 @@ WAX_ON: ParticleTypes.WAX_ON
 WAX_OFF: ParticleTypes.WAX_OFF
 ELECTRIC_SPARK: ParticleTypes.ELECTRIC_SPARK
 SCRAPE: ParticleTypes.SCRAPE
+SCULK_SOUL: ParticleTypes.SCULK_SOUL
+SCULK_CHARGE_POP: ParticleTypes.SCULK_CHARGE_POP
+SONIC_BOOM: ParticleTypes.SONIC_BOOM
 
 # Legacy
 BARRIER: ParticleTypes.CRIT

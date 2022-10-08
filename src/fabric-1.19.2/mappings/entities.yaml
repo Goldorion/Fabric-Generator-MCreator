@@ -42,6 +42,10 @@ EntityBoat:
   - Boat
   - EntityType.BOAT
   - boat
+EntityChestBoat:
+  - ChestBoat
+  - EntityType.CHEST_BOAT
+  - chest_boat
 EntityCat:
   - Cat
   - EntityType.CAT
@@ -479,3 +483,19 @@ EntityZoglin:
   - Zoglin
   - EntityType.ZOGLIN
   - zoglin
+EntityAllay:
+  - Allay
+  - EntityType.ALLAY
+  - allay
+EntityFrog:
+  - Frog
+  - EntityType.FROG
+  - frog
+EntityTadpole:
+  - Tadpole
+  - EntityType.TADPOLE
+  - tadpole
+EntityWarden:
+  - Warden
+  - EntityType.WARDEN
+  - warden

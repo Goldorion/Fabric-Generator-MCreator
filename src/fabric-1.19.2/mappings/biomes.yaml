@@ -62,6 +62,8 @@ snowy_slopes: snowy_slopes
 frozen_peaks: frozen_peaks
 jagged_peaks: jagged_peaks
 stony_peaks: stony_peaks
+mangrove_swamp: mangrove_swamp
+deep_dark: deep_dark
 
 # legacy (removed/merged in 1.18)
 snowy_mountains: windswept_hills
