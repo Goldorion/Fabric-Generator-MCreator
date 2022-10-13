@@ -1,6 +1,9 @@
 # Changelogs:
 
 ## 1.7
+## 1.7-beta-12
+* [Bugfix] Custom APIs could not be used
+
 ## 1.7-beta-11
 * Updated to MCreator 2022.3.41417
 * Added support for 1.19.x mappings

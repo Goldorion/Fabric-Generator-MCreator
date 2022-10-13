@@ -43,3 +43,5 @@ task sourcesJar(type: Jar, dependsOn: classes) {
 jar {
     from "LICENSE"
 }
+
+apply from: 'mcreator.gradle'
