@@ -15,7 +15,7 @@ Make sure you use MCreator 2022.2 or a newer version
 Back up your workspace before updating to a newer version of the plugin.
 Mods will also require Fabric API to function properly, so when you want to play your mod, make sure you have fabric api.
 Credits/License
-Dev - Goldorion Contributors (previous Minecraft versions) - crispy_chips1234, Klemen, U1timateJ7, BoogieMonster1O1, NerdyPuzzle This generator re-uses code used from the official Forge 1.17.1-1.18.2 generators.
+Dev - Goldorion Contributors (previous Minecraft versions) - crispy_chips1234, Klemen, U1timateJ7, BoogieMonster1O1, NerdyPuzzle This generator re-uses code used from the Fabric 1.17.1-1.19.2 generators.
 
 Licensed under the GNU Lesser General Public License, version 3.0
 
