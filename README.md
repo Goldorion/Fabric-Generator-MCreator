@@ -6,7 +6,7 @@ A plugin for [MCreator](https://mcreator.net/), a code generator to create Minec
 
 This project is not official. It is not affiliated with the respective owners and maintainers of Fabric, Minecraft, or MCreator. Do not expect any official support from their communities.
 
-**The current targeted Minecraft version is 1.19.2.**
+**The current targeted Minecraft version is 1.18.2.**
 
 ## Features
 Unsupported fields in full supported mod elements are features from Forge only. They are not available with Fabric yet.
