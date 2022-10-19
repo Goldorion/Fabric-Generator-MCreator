@@ -1,0 +1,45 @@
+plugins {
+    id 'fabric-loom' version '1.0-SNAPSHOT'
+}
+
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
+
+archivesBaseName = 'modid'
+version = '1.0.0'
+group = 'com.yourname.modid'
+
+dependencies {
+    minecraft "com.mojang:minecraft:1.18.2"
+    mappings loom.officialMojangMappings()
+    modImplementation "net.fabricmc:fabric-loader:0.14.9"
+
+    //Fabric api
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${generator.getGeneratorBuildFileVersion()}+1.18.2"
+}
+
+processResources {
+    inputs.property "version", project.version
+
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.encoding = "UTF-8"
+
+    def targetVersion = 17
+    if (JavaVersion.current().isJava9Compatible()) {
+        it.options.release = targetVersion
+    }
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = "sources"
+    from sourceSets.main.allSource
+}
+
+jar {
+    from "LICENSE"
+}

@@ -1,0 +1,81 @@
+name: Minecraft Fabric for @minecraft - @buildfileversion
+status: experimental
+buildfileversion: 0.59.0
+subversion: 1.8
+
+java_models:
+  key: mojmap-1.18.x
+  compatible: [mojmap-1.17.x, mojmap-1.18.x]
+  requested_key_words: [ModelPart, ~ModelRenderer]
+
+gradle:
+  setup_task: tasks genSourcesWithCfr
+  run_client: runClient
+  run_server: runServer
+  export_file: "build/libs/modid-1.0.0.jar"
+
+source_root: "@WORKSPACEROOT/src/main/java"
+res_root: "@WORKSPACEROOT/src/main/resources"
+mod_assets_root: "@RESROOT/assets/@modid"
+mod_data_root: "@RESROOT/data/@modid"
+
+structures_dir: "@MODDATAROOT/structures"
+sounds_dir: "@MODASSETSROOT/sounds"
+other_textures_dir: "@MODASSETSROOT/textures"
+block_textures_dir: "@MODASSETSROOT/textures/blocks"
+item_textures_dir: "@MODASSETSROOT/textures/items"
+entity_textures_dir: "@MODASSETSROOT/textures/entities"
+effect_textures_dir: "@MODASSETSROOT/textures/mob_effect"
+particle_textures_dir: "@MODASSETSROOT/textures/particle"
+screen_textures_dir: "@MODASSETSROOT/textures/screens"
+armor_textures_dir: "@RESROOT/assets/minecraft/textures/models/armor"
+
+base_templates:
+- template: modbase/mod.java.ftl
+  name: "@SRCROOT/@BASEPACKAGEPATH/@JavaModName.java"
+  canLock: true
+- template: modbase/client.java.ftl
+  name: "@SRCROOT/@BASEPACKAGEPATH/ClientInit.java"
+- template: modbase/variableslist.java.ftl
+  name: "@SRCROOT/@BASEPACKAGEPATH/network/@JavaModNameVariables.java"
+  condition: hasVariables()
+- template: elementinits/javamodels.java.ftl
+  name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameModels.java"
+  condition: hasJavaModels()
+- template: modbase/fabric.mod.json.ftl
+  writer: json
+  name: "@RESROOT/fabric.mod.json"
+  canLock: true
+- template: "modbase/pack.mcmeta.ftl"
+  writer: json
+  name: "@RESROOT/pack.mcmeta"
+- template: modbase/sounds.json.ftl
+  writer: json
+  name: "@MODASSETSROOT/sounds.json"
+  condition: hasSounds()
+  canLock: true
+- template: elementinits/sounds.java.ftl
+  name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameSounds.java"
+  condition: hasSounds()
+
+sources_setup_tasks:
+  - task: copy_models
+    type: JAVA_viatemplate
+    template: javamodel.java.ftl
+    to: "@SRCROOT/@BASEPACKAGEPATH/client/model"
+
+language_file:
+  format: json
+  root_folder: "@MODASSETSROOT/lang/"
+  langfile_name: "@langname.json"
+
+resources_setup_tasks:
+  - task: copy_file
+    from: "@MODASSETSROOT/textures/@modpicture.png"
+    to: "@MODASSETSROOT/icon.png"
+  - task: copy_models
+    type: OBJ
+    to: "@MODASSETSROOT/models/item"
+  - task: copy_models
+    type: JSON_noinlinetextures
+    to: "@MODASSETSROOT/models/custom"
