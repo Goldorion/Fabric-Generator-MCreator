@@ -40,10 +40,10 @@ Unsupported fields in full supported mod elements are features from Forge only. 
 
 ### Partially supported (almost completed)
 * Armor
+* Biome
 * Living entity
   
 ### Partially supported
-* Biome
 * Dimension
 * Procedure
 * Variables

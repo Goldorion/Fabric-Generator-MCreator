@@ -29,7 +29,10 @@
 	],
 	"client":[
 	  "${package}.ClientInit"
-	]
+	]<#if settings.getMCreatorDependenciesRaw()?seq_contains("terrablender")>,
+	"terrablender":[
+        "${package}.TerraBlenderInit"
+    ]</#if>
   },
 
   "depends": {

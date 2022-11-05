@@ -19,8 +19,8 @@
 -->
 
 <#-- @formatter:off -->
-<#include "mcitems.ftl">
-<#include "biomeutils.ftl">
+<#include "../mcitems.ftl">
+<#include "../biomeutils.ftl">
 
 <#assign hasConfiguredFeatures = false/>
 
@@ -35,7 +35,7 @@ import com.google.common.collect.ImmutableList;
 
 public class ${name}Biome {
 
-	<#if data.spawnBiome || data.spawnBiomeNether>
+    <#if data.spawnBiome || data.spawnBiomeNether>
 		public static final Climate.ParameterPoint PARAMETER_POINT = new Climate.ParameterPoint(
 			Climate.Parameter.span(${temperature2temperature(data.temperature, normalizeWeight(data.biomeWeight), "f")}),
 			Climate.Parameter.span(${rainingPossibility2humidity(data.rainingPossibility, normalizeWeight(data.biomeWeight), "f")}),
@@ -48,17 +48,16 @@ public class ${name}Biome {
 	</#if>
 
 	<#if data.spawnInCaves>
-	public static final Climate.ParameterPoint PARAMETER_POINT_UNDERGROUND = new Climate.ParameterPoint(
-			Climate.Parameter.span(-1, 1),
-			Climate.Parameter.span(-1, 1),
-			Climate.Parameter.span(${baseHeight2continentalness(data.baseHeight normalizeWeightUnderground(data.biomeWeight), "f")}),
-			Climate.Parameter.span(${heightVariation2erosion(data.heightVariation normalizeWeightUnderground(data.biomeWeight), "f")}),
-			Climate.Parameter.span(0.2f, 0.9f), <#-- depth - 0 surface, 1 - 128 below surface - cave biome -->
-			Climate.Parameter.span(${registryname2weirdness(registryname normalizeWeightUnderground(data.biomeWeight), "f")}),
-			0 <#-- offset -->
-	);
+        public static final Climate.ParameterPoint PARAMETER_POINT_UNDERGROUND = new Climate.ParameterPoint(
+            Climate.Parameter.span(-1, 1),
+            Climate.Parameter.span(-1, 1),
+            Climate.Parameter.span(${baseHeight2continentalness(data.baseHeight normalizeWeightUnderground(data.biomeWeight), "f")}),
+            Climate.Parameter.span(${heightVariation2erosion(data.heightVariation normalizeWeightUnderground(data.biomeWeight), "f")}),
+            Climate.Parameter.span(0.2f, 0.9f), <#-- depth - 0 surface, 1 - 128 below surface - cave biome -->
+            Climate.Parameter.span(${registryname2weirdness(registryname normalizeWeightUnderground(data.biomeWeight), "f")}),
+            0 <#-- offset -->
+        );
 	</#if>
-
 
 	public static void createBiome() {
 		BiomeSpecialEffects effects = new BiomeSpecialEffects.Builder()
@@ -296,11 +295,7 @@ public class ${name}Biome {
 			.generationSettings(biomeGenerationSettings.build())
 			.build();
 
-		Registry.register(BuiltinRegistries.BIOME, ${JavaModName}Biomes.${registryname?upper_case}.location(), biome);
-
-		<#if data.spawnBiomeNether>
-			NetherBiomes.addNetherBiome(${JavaModName}Biomes.${registryname?upper_case}, PARAMETER_POINT);
-		</#if>
+		BuiltinRegistries.register(BuiltinRegistries.BIOME, ${JavaModName}Biomes.${registryname?upper_case}, biome);
 	}
 
 	<#if hasConfiguredFeatures>
