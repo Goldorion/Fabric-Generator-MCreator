@@ -6,6 +6,7 @@
 * Added support for Overworld and Nether biome generations
   Notes: TerraBlender is required and cave biomes are still unsupported.
 * [Bugfix] Custom APIs could not be used
+* [Bugfix #285] Using custom potions in a workspace caused a build error
 
 ## 1.7-beta-11
 * Updated to MCreator 2022.3.41417
