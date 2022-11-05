@@ -2,6 +2,9 @@
 
 ## 1.7
 ## 1.7-beta-12
+* Added a TerraBlender API
+* Added support for Overworld and Nether biome generations
+  Notes: TerraBlender is required and cave biomes are still unsupported.
 * [Bugfix] Custom APIs could not be used
 
 ## 1.7-beta-11

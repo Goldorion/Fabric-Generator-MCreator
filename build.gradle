@@ -1,85 +1,85 @@
 import java.nio.file.Files
 
 class Globals {
-    private static final def ARCHIVE_NAME = "generator-fabric-1.19.2" // The name of the exported file
+	private static final def ARCHIVE_NAME = "generator-fabric-1.19.2" // The name of the exported file
 
-    // You can change the root folder of your OS if you have a custom installation
-    public static final def MCREATOR_ROOT_FOLDER_WINDOWS = "C:\\Program Files\\Pylo\\\\MCreatorEAP20223b41417" // Default path on Windows
-    public static def MCREATOR_ROOT_FOLDER_MAC_LINUX = "/Applications/MCreator.app/Contents/MacOS/mcreator" // Default path on macOS and Linux
+	// You can change the root folder of your OS if you have a custom installation
+	public static final def MCREATOR_ROOT_FOLDER_WINDOWS = "C:\\Program Files\\Pylo\\MCreatorEAP20223b44708" // Default path on Windows
+	public static def MCREATOR_ROOT_FOLDER_MAC_LINUX = "/Applications/MCreator.app/Contents/MacOS/mcreator" // Default path on macOS and Linux
 
-    static def getArchiveName() {
-        return ARCHIVE_NAME + ".zip"
-    }
+	static def getArchiveName() {
+		return ARCHIVE_NAME + ".zip"
+	}
 
-    static String getOSName() {
-        return System.getProperty("os.name").toLowerCase()
-    }
+	static String getOSName() {
+		return System.getProperty("os.name").toLowerCase()
+	}
 }
 
 // workaround for IDEA-265203
 System.setProperty("user.dir", projectDir.toString())
 
 task exportPlugin(type: Zip) {
-    group("mcreator_plugins")
-    from 'src'
-    archiveFileName = Globals.getArchiveName()
-    destinationDirectory = file('build/')
+	group("mcreator_plugins")
+	from 'src'
+	archiveFileName = Globals.getArchiveName()
+	destinationDirectory = file('build/')
 }
 
 task install {
-    dependsOn exportPlugin
-    group("mcreator_plugins")
-    doLast {
-        System.out.println("Installing plugin...")
-        if (Globals.getOSName().contains('mac') || Globals.getOSName().contains('OS X') || Globals.getOSName().contains('linux')) {
-            installPlugin((String) ("/Users/" + System.getProperty("user.name") + "/.mcreator/plugins/"), (String) '/')
-        } else if (Globals.getOSName().contains('windows')) {
-            installPlugin((String) ("C:\\Users\\" + System.getProperty("user.name") + "\\.mcreator\\plugins\\"), (String) '\\')
-        }
-    }
+	dependsOn exportPlugin
+	group("mcreator_plugins")
+	doLast {
+		System.out.println("Installing plugin...")
+		if (Globals.getOSName().contains('mac') || Globals.getOSName().contains('OS X') || Globals.getOSName().contains('linux')) {
+			installPlugin((String) ("/Users/" + System.getProperty("user.name") + "/.mcreator/plugins/"), (String) '/')
+		} else if (Globals.getOSName().contains('windows')) {
+			installPlugin((String) ("C:\\Users\\" + System.getProperty("user.name") + "\\.mcreator\\plugins\\"), (String) '\\')
+		}
+	}
 }
 
 task runMCreator {
-    dependsOn install
-    group("mcreator_plugins")
-    doLast {
-        System.out.println("Launching MCreator...")
-        if (Globals.getOSName().contains('windows')) {
-            try {
-                exec {
-                    workingDir Globals.MCREATOR_ROOT_FOLDER_WINDOWS
-                    commandLine 'cmd', '/c', 'mcreator.bat'
-                }
-            } catch (IOException e) {
-                //noinspection GroovyAssignabilityCheck
-                throw new RuntimeException("Could not launch MCreator! Please make sure you have installed it to " + Globals.MCREATOR_ROOT_FOLDER_WINDOWS, e)
-            }
-        } else if (Globals.getOSName().contains('mac') || Globals.getOSName().contains('OS X') || Globals.getOSName().contains('linux')) {
-            try {
-                ProcessBuilder builder = new ProcessBuilder(Globals.MCREATOR_ROOT_FOLDER_MAC_LINUX)
-                builder.redirectOutput(ProcessBuilder.Redirect.INHERIT)
-                builder.redirectError(ProcessBuilder.Redirect.INHERIT)
-                builder.start()
-            } catch (IOException e) {
-                //noinspection GroovyAssignabilityCheck
-                throw new RuntimeException("Could not launch MCreator! Please make sure you have installed it to " + Globals.MCREATOR_ROOT_FOLDER_MAC_LINUX, e)
-            }
-        }
-    }
+	dependsOn install
+	group("mcreator_plugins")
+	doLast {
+		System.out.println("Launching MCreator...")
+		if (Globals.getOSName().contains('windows')) {
+			try {
+				exec {
+					workingDir Globals.MCREATOR_ROOT_FOLDER_WINDOWS
+					commandLine 'cmd', '/c', 'mcreator.bat'
+				}
+			} catch (IOException e) {
+				//noinspection GroovyAssignabilityCheck
+				throw new RuntimeException("Could not launch MCreator! Please make sure you have installed it to " + Globals.MCREATOR_ROOT_FOLDER_WINDOWS, e)
+			}
+		} else if (Globals.getOSName().contains('mac') || Globals.getOSName().contains('OS X') || Globals.getOSName().contains('linux')) {
+			try {
+				ProcessBuilder builder = new ProcessBuilder(Globals.MCREATOR_ROOT_FOLDER_MAC_LINUX)
+				builder.redirectOutput(ProcessBuilder.Redirect.INHERIT)
+				builder.redirectError(ProcessBuilder.Redirect.INHERIT)
+				builder.start()
+			} catch (IOException e) {
+				//noinspection GroovyAssignabilityCheck
+				throw new RuntimeException("Could not launch MCreator! Please make sure you have installed it to " + Globals.MCREATOR_ROOT_FOLDER_MAC_LINUX, e)
+			}
+		}
+	}
 }
 
 static def installPlugin(String path, String separator) {
-    File des = new File((String) (path + Globals.getArchiveName()))
-    File original = new File(String.format("%s%s%s%s%s", System.getProperty("user.dir"), separator, "build", separator, Globals.getArchiveName()))
-    if (des.exists()) {
-        des.delete()
-    }
-    try {
-        FileOutputStream os = new FileOutputStream(des)
-        Files.copy(original.toPath(), os)
-        System.out.println(String.format("Plugin successfully installed to %s ", path))
-    } catch (IOException e) {
-        e.printStackTrace()
-        throw new RuntimeException("Could not install plugin!")
-    }
+	File des = new File((String) (path + Globals.getArchiveName()))
+	File original = new File(String.format("%s%s%s%s%s", System.getProperty("user.dir"), separator, "build", separator, Globals.getArchiveName()))
+	if (des.exists()) {
+		des.delete()
+	}
+	try {
+		FileOutputStream os = new FileOutputStream(des)
+		Files.copy(original.toPath(), os)
+		System.out.println(String.format("Plugin successfully installed to %s ", path))
+	} catch (IOException e) {
+		e.printStackTrace()
+		throw new RuntimeException("Could not install plugin!")
+	}
 }

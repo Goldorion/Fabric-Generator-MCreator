@@ -37,11 +37,6 @@ base_templates:
 - template: modbase/client.java.ftl
   name: "@SRCROOT/@BASEPACKAGEPATH/ClientInit.java"
   canLock: true
-- template: modbase/terrablender.java.ftl
-  name: "@SRCROOT/@BASEPACKAGEPATH/TerraBlenderInit.java"
-  canLock: true
-  condition: ${settings.getMCreatorDependenciesRaw()?seq_contains("terrablender")}
-  deleteWhenConditionFalse: true
 - template: modbase/variableslist.java.ftl
   name: "@SRCROOT/@BASEPACKAGEPATH/network/@JavaModNameVariables.java"
   condition: hasVariables()
