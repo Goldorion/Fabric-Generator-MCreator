@@ -9,6 +9,6 @@ Ce paramètre contrôle dans quel système d'artisanat votre recette sera dispon
 * "Smithing" se passe dans une table de forgeron.
 * "Brewing" se passe dans un alambic.
 
-**Fabric**:
+**Fabric** :
 Pour les potions, les tags ne peuvent pas être utilisés.
-De plus, uniquement des potions peuvent être utilisés pour l'entrée et le résultat.
+De plus, uniquement des potions peuvent être utilisées pour l'entrée et le résultat.

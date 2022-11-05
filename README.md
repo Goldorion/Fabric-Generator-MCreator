@@ -9,34 +9,7 @@ This project is not official. It is not affiliated with the respective owners an
 **The current targeted Minecraft version is 1.19.2.**
 
 ## Features
-Unsupported fields in full supported mod elements are features from Forge only. They are not available with Fabric yet.
-### Full supported
-* Advancement
-* Block
-* Command
-* Creative tab
-* Custom code
-* Enchantment 
-* Food
-* Function
-* Game rule
-* GUI
-* Item
-* Item extension
-  Missing: Re-order creative tabs
-* Key binding
-* Loot table
-* Music disc
-* Overlay
-* Painting
-* Particle
-* Plant
-* Potion Effect
-* Potion
-* Ranged item
-* Recipe
-* Structure spawn
-* Tool
+Mod elements that are not mentioned are completely supported with all available features with Fabric.
 
 ### Partially supported (almost completed)
 * Armor
@@ -53,13 +26,8 @@ Unsupported fields in full supported mod elements are features from Forge only. 
 * Fluid
 * Villager trade
 
-## Installation Instructions
-Pre-built binaries can be found on the [Release page of this repository](https://github.com/Goldorion/Fabric-Generator-MCreator/releases).
-
-Install like any other plugin: Launch MCreator -> Open preferences -> Manage plugins -> Load Plugin -> Find your downloaded zip file -> **Restart MCreator**.
-
 ## Important Information
-- Make sure you use MCreator 2022.2 or a newer version
+- Make sure you use MCreator 2022.3 or a newer version
 - Back up your workspace before updating to a newer version of the plugin.
 - Mods will also require [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api) to function properly, so when you want to play your mod, make sure you have fabric api.
 
