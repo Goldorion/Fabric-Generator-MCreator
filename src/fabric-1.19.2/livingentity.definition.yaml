@@ -10,8 +10,6 @@ templates:
     condition: hasSpawnEgg
     deleteWhenConditionFalse: true
 
-unmodifiable_ai_bases: [ Bat, MagmaCube, Slime ]
-
 localizationkeys:
   - key: item.@modid.@registryname_spawn_egg
     mapto: mobName
