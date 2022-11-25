@@ -27,7 +27,6 @@ package ${package}.entity;
 import net.fabricmc.api.Environment;
 
 <#compress>
-@Environment(EnvType.CLIENT) 
 public class ${name}Entity extends AbstractArrow implements ItemSupplier {
 
 	public ${name}Entity(EntityType<? extends ${name}Entity> type, Level world) {
@@ -42,7 +41,7 @@ public class ${name}Entity extends AbstractArrow implements ItemSupplier {
 		super(type, entity, world);
 	}
 
-	@Override @Environment(EnvType.CLIENT) public ItemStack getItem() {
+	@Override public ItemStack getItem() {
 		<#if !data.bulletItemTexture.isEmpty()>
 			return ${mappedMCItemToItemStackCode(data.bulletItemTexture, 1)};
 		<#else>
