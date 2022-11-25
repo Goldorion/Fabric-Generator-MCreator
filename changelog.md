@@ -1,6 +1,9 @@
 # Changelogs:
 
 ## 1.7
+## 1.7-beta-13
+* [Bugfix] Entity AI tasks did not generate
+
 ## 1.7-beta-12
 * Added a TerraBlender API
 * Added support for Overworld and Nether biome generations
