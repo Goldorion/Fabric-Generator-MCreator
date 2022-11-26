@@ -98,14 +98,14 @@ public abstract class ${name}Item extends ArmorItem {
 					</#list>
 				}
 			</#if>
-	<#if hasProcedure(data.onHelmetTick)>
-	@Override
-	public void inventoryTick(ItemStack itemstack,Level world, Entity entity, int slotinv, boolean selected) {
-		if  ((entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.HEAD) : ItemStack.EMPTY)
-			.getItem() == (itemstack).getItem())
-		<@procedureOBJToCode data.onHelmetTick/>
-	}
-	</#if>
+            <#if hasProcedure(data.onHelmetTick)>
+                @Override
+                public void inventoryTick(ItemStack itemstack,Level world, Entity entity, int slotinv, boolean selected) {
+                    if  ((entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.HEAD) : ItemStack.EMPTY)
+                        .getItem() == (itemstack).getItem())
+                    <@procedureOBJToCode data.onHelmetTick/>
+                }
+            </#if>
 		}
 	</#if>
 
@@ -124,14 +124,14 @@ public abstract class ${name}Item extends ArmorItem {
 					</#list>
 				}
 			</#if>
-	<#if hasProcedure(data.onBodyTick)>
-	@Override
-	public void inventoryTick(ItemStack itemstack,Level world, Entity entity, int slotinv, boolean selected) {
-		if  ((entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.CHEST) : ItemStack.EMPTY)
-			.getItem() == (itemstack).getItem())
-		<@procedureOBJToCode data.onBodyTick/>
-	}
-	</#if>
+            <#if hasProcedure(data.onBodyTick)>
+                @Override
+                public void inventoryTick(ItemStack itemstack,Level world, Entity entity, int slotinv, boolean selected) {
+                    if  ((entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.CHEST) : ItemStack.EMPTY)
+                        .getItem() == (itemstack).getItem())
+                    <@procedureOBJToCode data.onBodyTick/>
+                }
+            </#if>
 		}
 	</#if>
 
@@ -150,14 +150,14 @@ public abstract class ${name}Item extends ArmorItem {
 					</#list>
 				}
 			</#if>
-	<#if hasProcedure(data.onLeggingsTick)>
-	@Override
-	public void inventoryTick(ItemStack itemstack,Level world, Entity entity, int slotinv, boolean selected) {
-		if  ((entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.LEGS) : ItemStack.EMPTY)
-			.getItem() == (itemstack).getItem())
-		<@procedureOBJToCode data.onLeggingsTick/>
-	}
-	</#if>
+            <#if hasProcedure(data.onLeggingsTick)>
+                @Override
+                public void inventoryTick(ItemStack itemstack,Level world, Entity entity, int slotinv, boolean selected) {
+                    if  ((entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.LEGS) : ItemStack.EMPTY)
+                        .getItem() == (itemstack).getItem())
+                    <@procedureOBJToCode data.onLeggingsTick/>
+                }
+            </#if>
 		}
 	</#if>
 
@@ -176,14 +176,14 @@ public abstract class ${name}Item extends ArmorItem {
 					</#list>
 				}
 			</#if>
-	<#if hasProcedure(data.onBootsTick)>
-	@Override
-	public void inventoryTick(ItemStack itemstack,Level world, Entity entity, int slotinv, boolean selected) {
-		if  ((entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.FEET) : ItemStack.EMPTY)
-			.getItem() == (itemstack).getItem())
-		<@procedureOBJToCode data.onBootsTick/>
-	}
-	</#if>
+            <#if hasProcedure(data.onBootsTick)>
+                @Override
+                public void inventoryTick(ItemStack itemstack,Level world, Entity entity, int slotinv, boolean selected) {
+                    if  ((entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.FEET) : ItemStack.EMPTY)
+                        .getItem() == (itemstack).getItem())
+                    <@procedureOBJToCode data.onBootsTick/>
+                }
+            </#if>
 		}
 	</#if>
 
