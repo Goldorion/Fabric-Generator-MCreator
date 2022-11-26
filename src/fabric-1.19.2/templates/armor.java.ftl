@@ -29,8 +29,6 @@ import net.fabricmc.api.Environment;
 
 public abstract class ${name}Item extends ArmorItem {
 
-private final double uniqueid = Math.random();
-
 	public ${name}Item(EquipmentSlot slot, Item.Properties properties) {
 		super(new ArmorMaterial() {
 			@Override public int getDurabilityForSlot(EquipmentSlot slot) {
