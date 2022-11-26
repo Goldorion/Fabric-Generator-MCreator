@@ -19,4 +19,4 @@ localizationkeys:
 
 unmodifiable_ai_bases: [ Bat, MagmaCube, Slime ]
 
-field_exclusions: [ spawnInDungeons, ranged, rangedItemType, rangedAttackItem ]
+field_exclusions: [ spawnInDungeons, rangedAttackItem ]
