@@ -57,6 +57,11 @@ base_templates:
 - template: elementinits/sounds.java.ftl
   name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameSounds.java"
   condition: hasSounds()
+- template: modbase/terrablender.java.ftl
+  name: "@SRCROOT/@BASEPACKAGEPATH/TerraBlenderInit.java"
+  canLock: true
+  condition: ${settings.getMCreatorDependenciesRaw()?seq_contains("terrablender")}
+  deleteWhenConditionFalse: true
 
 sources_setup_tasks:
   - task: copy_models
