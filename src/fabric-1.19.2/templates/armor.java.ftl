@@ -8,7 +8,6 @@
  # it under the terms of the GNU Lesser General Public License as published by
  # the Free Software Foundation, either version 3 of the License, or
  # (at your option) any later version.
-
  # Fabric-Generator-MCreator is distributed in the hope that it will be useful,
  # but WITHOUT ANY WARRANTY; without even the implied warranty of
  # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
@@ -99,6 +98,14 @@ public abstract class ${name}Item extends ArmorItem {
 					</#list>
 				}
 			</#if>
+	<#if hasProcedure(data.onHelmetTick)>
+	@Override
+	public void inventoryTick(ItemStack itemstack,Level world, Entity entity, int slotinv, boolean selected) {
+		if  ((entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.HEAD) : ItemStack.EMPTY)
+			.getItem() == (itemstack).getItem())
+		<@procedureOBJToCode data.onHelmetTick/>
+	}
+	</#if>
 		}
 	</#if>
 
@@ -117,6 +124,14 @@ public abstract class ${name}Item extends ArmorItem {
 					</#list>
 				}
 			</#if>
+	<#if hasProcedure(data.onBodyTick)>
+	@Override
+	public void inventoryTick(ItemStack itemstack,Level world, Entity entity, int slotinv, boolean selected) {
+		if  ((entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.CHEST) : ItemStack.EMPTY)
+			.getItem() == (itemstack).getItem())
+		<@procedureOBJToCode data.onBodyTick/>
+	}
+	</#if>
 		}
 	</#if>
 
@@ -135,6 +150,14 @@ public abstract class ${name}Item extends ArmorItem {
 					</#list>
 				}
 			</#if>
+	<#if hasProcedure(data.onLeggingsTick)>
+	@Override
+	public void inventoryTick(ItemStack itemstack,Level world, Entity entity, int slotinv, boolean selected) {
+		if  ((entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.LEGS) : ItemStack.EMPTY)
+			.getItem() == (itemstack).getItem())
+		<@procedureOBJToCode data.onLeggingsTick/>
+	}
+	</#if>
 		}
 	</#if>
 
@@ -153,6 +176,14 @@ public abstract class ${name}Item extends ArmorItem {
 					</#list>
 				}
 			</#if>
+	<#if hasProcedure(data.onBootsTick)>
+	@Override
+	public void inventoryTick(ItemStack itemstack,Level world, Entity entity, int slotinv, boolean selected) {
+		if  ((entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.FEET) : ItemStack.EMPTY)
+			.getItem() == (itemstack).getItem())
+		<@procedureOBJToCode data.onBootsTick/>
+	}
+	</#if>
 		}
 	</#if>
 
