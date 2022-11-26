@@ -29,6 +29,8 @@ import net.fabricmc.api.Environment;
 
 public abstract class ${name}Item extends ArmorItem {
 
+private final double uniqueid = Math.random();
+
 	public ${name}Item(EquipmentSlot slot, Item.Properties properties) {
 		super(new ArmorMaterial() {
 			@Override public int getDurabilityForSlot(EquipmentSlot slot) {
@@ -98,14 +100,21 @@ public abstract class ${name}Item extends ArmorItem {
 					</#list>
 				}
 			</#if>
-            <#if hasProcedure(data.onHelmetTick)>
-                @Override
-                public void inventoryTick(ItemStack itemstack,Level world, Entity entity, int slotinv, boolean selected) {
-                    if  ((entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.HEAD) : ItemStack.EMPTY)
-                        .getItem() == (itemstack).getItem())
-                    <@procedureOBJToCode data.onHelmetTick/>
-                }
-            </#if>
+	<#if hasProcedure(data.onHelmetTick)>
+		@Override
+		public void inventoryTick(ItemStack itemstack, Level world, Entity entity, int slotinv, boolean selected) {
+			double unique = Math.random();
+			if ((entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.HEAD) : ItemStack.EMPTY)
+					.getItem() == (itemstack).getItem()) {
+				if (!((entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.HEAD) : ItemStack.EMPTY)
+						.getOrCreateTag().getDouble("a") == unique))
+					(entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.HEAD) : ItemStack.EMPTY).getOrCreateTag()
+							.putDouble("a", unique);
+				if (itemstack.getOrCreateTag().getDouble("a") == unique)
+		<@onArmorTick data.onHelmetTick/>
+	}
+	}
+	</#if>
 		}
 	</#if>
 
@@ -124,14 +133,21 @@ public abstract class ${name}Item extends ArmorItem {
 					</#list>
 				}
 			</#if>
-            <#if hasProcedure(data.onBodyTick)>
-                @Override
-                public void inventoryTick(ItemStack itemstack,Level world, Entity entity, int slotinv, boolean selected) {
-                    if  ((entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.CHEST) : ItemStack.EMPTY)
-                        .getItem() == (itemstack).getItem())
-                    <@procedureOBJToCode data.onBodyTick/>
-                }
-            </#if>
+	<#if hasProcedure(data.onBodyTick)>
+		@Override
+		public void inventoryTick(ItemStack itemstack, Level world, Entity entity, int slotinv, boolean selected) {
+			double unique = Math.random();
+			if ((entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.CHEST) : ItemStack.EMPTY)
+					.getItem() == (itemstack).getItem()) {
+				if (!((entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.CHEST) : ItemStack.EMPTY)
+						.getOrCreateTag().getDouble("a") == unique))
+					(entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.CHEST) : ItemStack.EMPTY).getOrCreateTag()
+							.putDouble("a", unique);
+				if (itemstack.getOrCreateTag().getDouble("a") == unique)
+		<@onArmorTick data.onBodyTick/>
+	}
+	}
+	</#if>
 		}
 	</#if>
 
@@ -150,14 +166,21 @@ public abstract class ${name}Item extends ArmorItem {
 					</#list>
 				}
 			</#if>
-            <#if hasProcedure(data.onLeggingsTick)>
-                @Override
-                public void inventoryTick(ItemStack itemstack,Level world, Entity entity, int slotinv, boolean selected) {
-                    if  ((entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.LEGS) : ItemStack.EMPTY)
-                        .getItem() == (itemstack).getItem())
-                    <@procedureOBJToCode data.onLeggingsTick/>
-                }
-            </#if>
+	<#if hasProcedure(data.onLeggingsTick)>
+		@Override
+		public void inventoryTick(ItemStack itemstack, Level world, Entity entity, int slotinv, boolean selected) {
+			double unique = Math.random();
+			if ((entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.LEGS) : ItemStack.EMPTY)
+					.getItem() == (itemstack).getItem()) {
+				if (!((entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.LEGS) : ItemStack.EMPTY)
+						.getOrCreateTag().getDouble("a") == unique))
+					(entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.LEGS) : ItemStack.EMPTY).getOrCreateTag()
+							.putDouble("a", unique);
+				if (itemstack.getOrCreateTag().getDouble("a") == unique)
+		<@onArmorTick data.onLeggingsTick/>
+	}
+	}
+	</#if>
 		}
 	</#if>
 
@@ -176,14 +199,21 @@ public abstract class ${name}Item extends ArmorItem {
 					</#list>
 				}
 			</#if>
-            <#if hasProcedure(data.onBootsTick)>
-                @Override
-                public void inventoryTick(ItemStack itemstack,Level world, Entity entity, int slotinv, boolean selected) {
-                    if  ((entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.FEET) : ItemStack.EMPTY)
-                        .getItem() == (itemstack).getItem())
-                    <@procedureOBJToCode data.onBootsTick/>
-                }
-            </#if>
+	<#if hasProcedure(data.onBootsTick)>
+		@Override
+		public void inventoryTick(ItemStack itemstack, Level world, Entity entity, int slotinv, boolean selected) {
+			double unique = Math.random();
+			if ((entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.FEET) : ItemStack.EMPTY)
+					.getItem() == (itemstack).getItem()) {
+				if (!((entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.FEET) : ItemStack.EMPTY)
+						.getOrCreateTag().getDouble("a") == unique))
+					(entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.FEET) : ItemStack.EMPTY).getOrCreateTag()
+							.putDouble("a", unique);
+				if (itemstack.getOrCreateTag().getDouble("a") == unique)
+		<@onArmorTick data.onBootsTick/>
+	}
+	}
+	</#if>
 		}
 	</#if>
 
