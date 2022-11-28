@@ -3,6 +3,7 @@
 ## 1.7
 ## 1.7-beta-13
 * [#294] Added support for a new global trigger: Entity dies (kleiders)
+* [#305] Added support for ranged entity parameters (kleiders)
 * [Bugfix #262] Ranged items crashed on servers (kleiders)
 * [Bugfix #290] Launching the game using TerraBlender without a single biome crashed the game
 * [Bugfix #299] "Shoot constantly when active" caused a build error (NerdyPuzzle)
