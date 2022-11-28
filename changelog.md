@@ -4,6 +4,7 @@
 ## 1.7-beta-13
 * [#292] Added Projectile related procedures (kleiders)
 * [#294] Added support for a new global trigger: Entity dies (kleiders)
+* [#296] Added support for armor tick triggers  (NerdyPuzzle)
 * [#301] Removed forge feature dependent procedures (NerdyPuzzle)
 * [#305] Added support for ranged entity parameters (kleiders)
 * [Bugfix #232] Stair block base made the game crashed (NerdyPuzzle)
