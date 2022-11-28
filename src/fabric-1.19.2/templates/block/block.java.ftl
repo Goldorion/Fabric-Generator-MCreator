@@ -165,7 +165,7 @@ public class ${name}Block extends
 
 	public ${name}Block() {
 		<#if data.blockBase?has_content && data.blockBase == "Stairs">
-			super(${JavaModName}Blocks.${data.getModElement().getRegistryNameUpper()}_INNER.defaultBlockState(),
+			super(Blocks.AIR.defaultBlockState(),
 		<#elseif data.blockBase?has_content && data.blockBase == "PressurePlate">
 			<#if (data.material.getUnmappedValue() == "WOOD") || (data.material.getUnmappedValue() == "NETHER_WOOD")>
 				super(Sensitivity.EVERYTHING,
