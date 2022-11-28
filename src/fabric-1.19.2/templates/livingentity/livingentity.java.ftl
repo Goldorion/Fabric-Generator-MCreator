@@ -150,12 +150,12 @@ public class ${name}Entity extends ${extendsClass} <#if data.ranged>implements R
 			${aicode}
 		</#if>
 		<#if data.ranged>
-            this.goalSelector.addGoal(1, new RangedAttackGoal(this, 1.25, 20, 10) {
+			this.goalSelector.addGoal(1, new RangedAttackGoal(this, 1.25, 20, 10) {
 				@Override public boolean canContinueToUse() {
 					return this.canUse();
 				}
 			});
-        </#if>
+		</#if>
 	}
 	</#if>
 
@@ -520,7 +520,7 @@ public class ${name}Entity extends ${extendsClass} <#if data.ranged>implements R
 	</#if>
 	
 	<#if data.ranged>
-	    @Override public void performRangedAttack(LivingEntity target, float flval) {
+		@Override public void performRangedAttack(LivingEntity target, float flval) {
 			<#if data.rangedItemType == "Default item">
 				Arrow entityarrow = new Arrow(this.level, this);
 				double d0 = target.getY() + target.getEyeHeight() - 1.1;

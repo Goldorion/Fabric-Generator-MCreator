@@ -5,6 +5,8 @@
 * [#294] Added support for a new global trigger: Entity dies (kleiders)
 * [Bugfix #262] Ranged items crashed on servers (kleiders)
 * [Bugfix #290] Launching the game using TerraBlender without a single biome crashed the game
+* [Bugfix #299] "Shoot constantly when active" caused a build error (NerdyPuzzle)
+* [Bugfix #303] Custom fishing rods did not work correctly (kleiders)
 * [Bugfix] Entity AI tasks did not generate
 
 ## 1.7-beta-12
