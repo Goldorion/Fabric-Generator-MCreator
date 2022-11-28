@@ -9,11 +9,6 @@ global_templates:
     name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameBiomes.java"
   - template: elementinits/surfacerules.java.ftl
     name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameSurfaceRules.java"
-  - template: modbase/terrablender.java.ftl
-    name: "@SRCROOT/@BASEPACKAGEPATH/TerraBlenderInit.java"
-    canLock: true
-    condition: ${settings.getMCreatorDependenciesRaw()?seq_contains("terrablender")}
-    deleteWhenConditionFalse: true
 
 localizationkeys:
   - key: biome.@modid.@registryname
