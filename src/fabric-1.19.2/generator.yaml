@@ -66,6 +66,7 @@ base_templates:
   writer: file
   name: "@RESROOT/@modid.mixins.json"
   condition: ${w.hasToolsOfType("Fishing rod")}
+  deleteWhenConditionFalse: true
 
 sources_setup_tasks:
   - task: copy_models
