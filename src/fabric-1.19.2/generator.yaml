@@ -62,6 +62,10 @@ base_templates:
   canLock: true
   condition: ${settings.getMCreatorDependenciesRaw()?seq_contains("terrablender")}
   deleteWhenConditionFalse: true
+- template: modbase/mixins.json.ftl
+  writer: file
+  name: "@RESROOT/@modid.mixins.json"
+  condition: ${w.hasToolsOfType("Fishing rod")}
 
 sources_setup_tasks:
   - task: copy_models
