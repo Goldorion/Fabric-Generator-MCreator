@@ -22,6 +22,11 @@ global_templates:
     condition: ${w.hasToolsOfType("Fishing rod")}
     deleteWhenConditionFalse: true
     name: "@SRCROOT/@BASEPACKAGEPATH/mixins/@JavaModNameFishingHookMixin.java"
+  - template: mixins/fishhookrenderermixin.java.ftl
+    writer: java
+    condition: ${w.hasToolsOfType("Fishing rod")}
+    deleteWhenConditionFalse: true
+    name: "@SRCROOT/@BASEPACKAGEPATH/mixins/@JavaModNameFishingHookRendererMixin.java"
   - template: mixins/entitymixin.java.ftl
     writer: java
     condition: ${w.hasToolsOfType("Fishing rod")}

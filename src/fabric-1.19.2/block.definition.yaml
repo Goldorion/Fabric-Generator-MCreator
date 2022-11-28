@@ -78,12 +78,6 @@ templates:
     writer: json
     name: "@MODASSETSROOT/models/block/@registryname.json"
   - template: json/block_model_tbs.json.ftl
-    variables: "model=inner_stairs"
-    deleteWhenConditionFalse: true
-    condition: "blockBase %= Stairs"
-    writer: json
-    name: "@MODASSETSROOT/models/block/@registryname_inner.json"
-  - template: json/block_model_tbs.json.ftl
     variables: "model=outer_stairs"
     deleteWhenConditionFalse: true
     condition: "blockBase %= Stairs"
