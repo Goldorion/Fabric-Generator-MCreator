@@ -90,7 +90,7 @@ public class ${name}Item extends Item {
 
 	<#if data.shootConstantly>
 		@Override
-		public void onUseTick(Level level, LivingEntity livingEntity, ItemStack itemstack, int i) {
+		public void onUseTick(Level level, LivingEntity livingEntity, ItemStack itemstack, int count) {
 			Level world = livingEntity.level;
 			if (!world.isClientSide() && livingEntity instanceof ServerPlayer entity) {
 				double x = entity.getX();
