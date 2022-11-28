@@ -168,6 +168,22 @@
 
 
 <#-- Block-related triggers -->
+<#macro onDestroyedByPlayer procedure="">
+<#if hasProcedure(procedure)>
+@Override public void playerDestroy(Level world, Player entity, BlockPos pos, BlockState blockstate, BlockEntity blockEntity, ItemStack itemStack) {
+	super.playerDestroy(world, entity, pos, blockstate, blockEntity, itemStack);
+	<@procedureCode procedure, {
+		"x": "pos.getX()",
+		"y": "pos.getY()",
+		"z": "pos.getZ()",
+		"world": "world",
+		"entity": "entity",
+		"blockstate": "blockstate"
+	}/>
+}
+</#if>
+</#macro>
+
 <#macro onDestroyedByExplosion procedure="">
 <#if hasProcedure(procedure)>
 @Override public void wasExploded(Level world, BlockPos pos, Explosion e) {

@@ -479,6 +479,8 @@ public class ${name}Block extends
 		}
 	</#if>
 
+	<@onDestroyedByPlayer data.onDestroyedByPlayer/>
+
 	<@onDestroyedByExplosion data.onDestroyedByExplosion/>
 
 	<@onStartToDestroy data.onStartToDestroy/>
