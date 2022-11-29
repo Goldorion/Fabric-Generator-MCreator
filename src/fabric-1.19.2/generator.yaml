@@ -1,7 +1,7 @@
 name: Minecraft Fabric for @minecraft - @buildfileversion
-status: experimental
+status: stable
 buildfileversion: 0.60.0
-subversion: 1.8
+subversion: 1.9
 
 java_models:
   key: mojmap-1.19.x
