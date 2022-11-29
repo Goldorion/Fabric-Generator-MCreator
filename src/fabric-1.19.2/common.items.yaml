@@ -1,3 +1,6 @@
 global_templates:
   - template: elementinits/items.java.ftl
     name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameItems.java"
+  - template: mixins/repairitemrecipemixin.java.ftl
+    writer: java
+    name: "@SRCROOT/@BASEPACKAGEPATH/mixins/@JavaModNameRepairItemRecipeMixin.java"

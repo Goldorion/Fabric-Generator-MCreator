@@ -65,8 +65,8 @@ base_templates:
 - template: modbase/mixins.json.ftl
   writer: file
   name: "@RESROOT/@modid.mixins.json"
-  condition: ${w.hasToolsOfType("Fishing rod")}
-  deleteWhenConditionFalse: true
+  condition: ${w.hasElementsOfBaseType("item")}
+  deleteWhenConditionFalse: false
 
 sources_setup_tasks:
   - task: copy_models
