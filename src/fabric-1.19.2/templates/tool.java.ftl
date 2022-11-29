@@ -341,7 +341,7 @@ public class ${name}Item extends FishingRodItem {
 			@Override public ItemStack getRecipeRemainder(ItemStack itemstack) {
 			    return ${mappedMCItemToItemStackCode(data.recipeRemainder, 1)};
         	}
-		<#elseif data.damageOnCrafting && data.damageCount != 0>
+		<#elseif data.damageOnCrafting && data.usageCount != 0>
 			@Override public ItemStack getRecipeRemainder(ItemStack itemstack) {
 				ItemStack retval = new ItemStack(this);
 				retval.setDamageValue(itemstack.getDamageValue() + 1);
