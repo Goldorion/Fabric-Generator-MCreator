@@ -12,7 +12,6 @@ This project is not official. It is not affiliated with the respective owners an
 Mod elements that are not mentioned are completely supported with all available features with Fabric.
 
 ### Partially supported (almost completed)
-* Armor
 * Biome
 * Living entity
   
