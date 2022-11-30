@@ -5,7 +5,8 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
 	"EntityMixin",
-	"${settings.getJavaModName()}FishingHookMixin"
+	"${settings.getJavaModName()}FishingHookMixin",
+	"${settings.getJavaModName()}FishingHookRendererMixin"
   ],
   "injectors": {
 	"defaultRequire": 1

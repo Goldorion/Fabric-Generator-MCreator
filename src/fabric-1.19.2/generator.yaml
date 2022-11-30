@@ -1,7 +1,7 @@
 name: Minecraft Fabric for @minecraft - @buildfileversion
-status: experimental
+status: stable
 buildfileversion: 0.60.0
-subversion: 1.8
+subversion: 1.9
 
 java_models:
   key: mojmap-1.19.x
@@ -61,6 +61,11 @@ base_templates:
   name: "@SRCROOT/@BASEPACKAGEPATH/TerraBlenderInit.java"
   canLock: true
   condition: ${settings.getMCreatorDependenciesRaw()?seq_contains("terrablender")}
+  deleteWhenConditionFalse: true
+- template: modbase/mixins.json.ftl
+  writer: file
+  name: "@RESROOT/@modid.mixins.json"
+  condition: ${w.hasToolsOfType("Fishing rod")}
   deleteWhenConditionFalse: true
 
 sources_setup_tasks:

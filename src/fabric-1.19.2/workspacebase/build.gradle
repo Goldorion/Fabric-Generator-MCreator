@@ -5,9 +5,10 @@ plugins {
 sourceCompatibility = JavaVersion.VERSION_17
 targetCompatibility = JavaVersion.VERSION_17
 
-archivesBaseName = 'modid'
+archivesBaseName = '${modid}'
 version = '1.0.0'
-group = 'com.yourname.modid'
+group = '${package}'
+actualmodid = '${modid}'
 
 dependencies {
     minecraft "com.mojang:minecraft:1.19.2"
