@@ -1,4 +1,4 @@
-(new Object() {
+/*@ItemStack*/(new Object() {
 	public ItemStack getItemStack(LevelAccessor world, BlockPos pos, int slotid) {
 		AtomicReference<ItemStack> stack = new AtomicReference<>(ItemStack.EMPTY);
 		BlockEntity _ent = world.getBlockEntity(pos);
