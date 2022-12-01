@@ -8,7 +8,6 @@
  # it under the terms of the GNU Lesser General Public License as published by
  # the Free Software Foundation, either version 3 of the License, or
  # (at your option) any later version.
-
  # Fabric-Generator-MCreator is distributed in the hope that it will be useful,
  # but WITHOUT ANY WARRANTY; without even the implied warranty of
  # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
@@ -27,7 +26,10 @@
 package ${package}.world.biome;
 
 import net.minecraft.sounds.SoundEvent;
+
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
+
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 
 import net.fabricmc.fabric.api.biome.v1.NetherBiomes;
 
@@ -273,7 +275,11 @@ public class ${name}Biome {
 			<#list generator.sortByMappings(data.defaultFeatures, "defaultfeatures") as defaultFeature>
 			<#assign mfeat = generator.map(defaultFeature, "defaultfeatures")>
 				<#if mfeat != "null">
+					<#if mfeat != "EndHighlands">
+					<#if mfeat != "EndIslands">
 					BiomeDefaultFeatures.add${mfeat}(biomeGenerationSettings);
+					</#if>
+					</#if>
 				</#if>
 			</#list>
 			
@@ -296,6 +302,14 @@ public class ${name}Biome {
 			.build();
 
 		BuiltinRegistries.register(BuiltinRegistries.BIOME, ${JavaModName}Biomes.${registryname?upper_case}, biome);
+	        <#list generator.sortByMappings(data.defaultFeatures, "defaultfeatures") as defaultFeature>
+        	<#assign mfeat = generator.map(defaultFeature, "defaultfeatures")>
+                <#if mfeat = "EndHighlands">
+            TheEndBiomes.addHighlandsBiome(${JavaModName}Biomes.${registryname?upper_case}, ${data.biomeWeight}d);
+                <#elseif mfeat = "EndIslands">
+            TheEndBiomes.addSmallIslandsBiome(${JavaModName}Biomes.${registryname?upper_case}, ${data.biomeWeight}d);
+        	</#if>
+        </#list>
 	}
 
 	<#if hasConfiguredFeatures>
