@@ -26,6 +26,8 @@ ReedsAndPumpkins: DefaultExtraVegetation
 TaigaRocks: MossyStoneBlock
 TallSeagrassLush: DefaultSeagrass
 Sculk: Sculk
+EndHighlandsBiome: EndHighlands
+EndIslandsBiome: EndIslands
 
 # These are now part of other default features
 Lakes: null
