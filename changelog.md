@@ -1,5 +1,8 @@
 # Changelogs:
 
+## 1.7.1
+* [Bugfix #313] Mods could not be exported (once again)
+
 ## 1.7
 ## Release
 * [#292] Added Projectile related procedures (kleiders)
