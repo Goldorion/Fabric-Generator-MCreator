@@ -1,6 +1,7 @@
 # Changelogs:
 
 ## 1.7.1
+* [Bugfix #307] "Close any open GUI for" block caused a build error
 * [Bugfix #313] Mods could not be exported (once again)
 
 ## 1.7
