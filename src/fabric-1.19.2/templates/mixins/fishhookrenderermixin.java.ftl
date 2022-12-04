@@ -22,38 +22,21 @@ import org.spongepowered.asm.mixin.injection.Constant;
 
 @Mixin(FishingHookRenderer.class)
 public abstract class ${JavaModName}FishingHookRendererMixin {
-	double offset = 0.35;
-	float offset2 = 0.525f;
+	private int offset;
 
 	@Inject(method = "render", at = @At("HEAD"))
 	public void render(FishingHook fishingHook, float f, float g, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, CallbackInfo ci) {
-		Player playerino = fishingHook.getPlayerOwner();
-		ItemStack itemStack = playerino.getMainHandItem();
-		ItemStack itemStack2 = playerino.getOffhandItem();
-		<#list tools as tool>
-			<#if tool.toolType == "Fishing rod">
-				if (itemStack.is(${JavaModName}Items.${tool.getModElement().getRegistryNameUpper()})) {
-					offset = -0.35;
-					offset2 = -0.525f;
-				} else if (itemStack.is(Items.FISHING_ROD)) {
-					offset = 0.35;
-					offset2 = 0.525f;
-				} else if (itemStack2.is(${JavaModName}Items.${tool.getModElement().getRegistryNameUpper()})) {
-					offset = 0.35;
-					offset2 = 0.525f;
-				}
-			</#if>
-		</#list>
+		Player player = fishingHook.getPlayerOwner();
+		ItemStack itemStack = player.getMainHandItem();
+		offset = player.getMainArm() == HumanoidArm.RIGHT ? 1 : -1;
+		if (!(itemStack.getItem() instanceof FishingRodItem)) {
+			offset = -offset;
+		}
 	}
 
-	@ModifyConstant(method = "render", constant = @Constant(doubleValue = 0.35))
-	private double injected(double x) {
+	@ModifyVariable(method = "render", at = @At("STORE"), ordinal = 1)
+	private int injected(int x) {
 		return offset;
-	}
-
-	@ModifyConstant(method = "render", constant = @Constant(floatValue = 0.525f))
-	private float injected(float x) {
-		return offset2;
 	}
 }
 <#-- @formatter:on -->
