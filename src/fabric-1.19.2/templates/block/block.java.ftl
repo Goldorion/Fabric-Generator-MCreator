@@ -387,7 +387,13 @@ public class ${name}Block extends
 			</#if>
 		}
 	</#if>
-
+	
+	<#if data.creativePickItem?? && !data.creativePickItem.isEmpty()>
+	@Override public ItemStack getCloneItemStack(BlockGetter world, BlockPos pos, BlockState state) {
+		return ${mappedMCItemToItemStackCode(data.creativePickItem, 1)};
+	}
+	</#if>
+	
 	<#if data.reactionToPushing != "NORMAL">
 		@Override public PushReaction getPistonPushReaction(BlockState state) {
 			return PushReaction.${data.reactionToPushing};
