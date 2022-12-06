@@ -64,8 +64,8 @@ public class ${JavaModName} implements ModInitializer {
 		<#if w.hasElementsOfType("keybind")>${JavaModName}KeyMappings.serverLoad();</#if>
 		<#if w.getRecipesOfType("Brewing")?has_content>${JavaModName}BrewingRecipes.load();</#if>
 		<#if w.hasSounds()>${JavaModName}Sounds.load();</#if>
-		<#if w.hasVariablesOfScope("GLOBAL_WORLD") || w.hasVariablesOfScope("GLOBAL_MAP")>{JavaModName}Variables.SyncJoin();</#if>
-		<#if w.hasVariablesOfScope("GLOBAL_WORLD") || w.hasVariablesOfScope("GLOBAL_MAP")>{JavaModName}Variables.SyncChangeWorld();</#if>
+		<#if w.hasVariablesOfScope("GLOBAL_WORLD") || w.hasVariablesOfScope("GLOBAL_MAP")>${JavaModName}Variables.SyncJoin();</#if>
+		<#if w.hasVariablesOfScope("GLOBAL_WORLD") || w.hasVariablesOfScope("GLOBAL_MAP")>${JavaModName}Variables.SyncChangeWorld();</#if>
 	}
 }
 <#-- @formatter:on -->
