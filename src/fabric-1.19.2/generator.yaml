@@ -66,7 +66,7 @@ base_templates:
   writer: file
   name: "@RESROOT/@modid.mixins.json"
   condition: ${w.hasElementsOfBaseType("item")}
-  deleteWhenConditionFalse: false
+  deleteWhenConditionFalse: true
 
 sources_setup_tasks:
   - task: copy_models
