@@ -18,17 +18,25 @@
 package ${package}.mixins;
 
 import ${package}.mixins.EntityMixin;
+import org.spongepowered.asm.mixin.injection.Constant;
 
-@Mixin(FishingHook.class)
-public abstract class ${JavaModName}FishingHookMixin extends EntityMixin {
+@Mixin(FishingHookRenderer.class)
+public abstract class ${JavaModName}FishingHookRendererMixin {
+	private int offset;
 
-	@Inject(method = "shouldStopFishing", at = @At("HEAD"), cancellable = true)
-	public void shouldStopFishing(Player player, CallbackInfoReturnable<Boolean> cir) {
+	@Inject(method = "render", at = @At("HEAD"))
+	public void render(FishingHook fishingHook, float f, float g, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, CallbackInfo ci) {
+		Player player = fishingHook.getPlayerOwner();
 		ItemStack itemStack = player.getMainHandItem();
-		ItemStack itemStack2 = player.getOffhandItem();
-		if (!player.isRemoved() && player.isAlive() && ((itemStack.getItem() instanceof FishingRodItem) || (itemStack2.getItem() instanceof FishingRodItem)) && this.distanceToSqr(player) < 1024.0) {
-			cir.setReturnValue(false);
+		offset = player.getMainArm() == HumanoidArm.RIGHT ? 1 : -1;
+		if (!(itemStack.getItem() instanceof FishingRodItem)) {
+			offset = -offset;
 		}
+	}
+
+	@ModifyVariable(method = "render", at = @At("STORE"), ordinal = 1)
+	private int injected(int x) {
+		return offset;
 	}
 }
 <#-- @formatter:on -->

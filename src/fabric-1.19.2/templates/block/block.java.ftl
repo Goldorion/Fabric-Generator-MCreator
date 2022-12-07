@@ -165,7 +165,7 @@ public class ${name}Block extends
 
 	public ${name}Block() {
 		<#if data.blockBase?has_content && data.blockBase == "Stairs">
-			super(${JavaModName}Blocks.${data.getModElement().getRegistryNameUpper()}_INNER.defaultBlockState(),
+			super(Blocks.AIR.defaultBlockState(),
 		<#elseif data.blockBase?has_content && data.blockBase == "PressurePlate">
 			<#if (data.material.getUnmappedValue() == "WOOD") || (data.material.getUnmappedValue() == "NETHER_WOOD")>
 				super(Sensitivity.EVERYTHING,
@@ -387,7 +387,13 @@ public class ${name}Block extends
 			</#if>
 		}
 	</#if>
-
+	
+	<#if data.creativePickItem?? && !data.creativePickItem.isEmpty()>
+	@Override public ItemStack getCloneItemStack(BlockGetter world, BlockPos pos, BlockState state) {
+		return ${mappedMCItemToItemStackCode(data.creativePickItem, 1)};
+	}
+	</#if>
+	
 	<#if data.reactionToPushing != "NORMAL">
 		@Override public PushReaction getPistonPushReaction(BlockState state) {
 			return PushReaction.${data.reactionToPushing};
@@ -478,6 +484,8 @@ public class ${name}Block extends
 			<@procedureOBJToCode data.onRandomUpdateEvent/>
 		}
 	</#if>
+
+	<@onDestroyedByPlayer data.onDestroyedByPlayer/>
 
 	<@onDestroyedByExplosion data.onDestroyedByExplosion/>
 

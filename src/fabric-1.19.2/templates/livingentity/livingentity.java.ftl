@@ -49,7 +49,7 @@ import org.jetbrains.annotations.Nullable;
 	<#assign extendsClass = "TamableAnimal">
 </#if>
 
-public class ${name}Entity extends ${extendsClass} {
+public class ${name}Entity extends ${extendsClass} <#if data.ranged>implements RangedAttackMob</#if> {
 	<#if data.isBoss>
 	private final ServerBossEvent bossInfo = new ServerBossEvent(this.getDisplayName(),
 			ServerBossEvent.BossBarColor.${data.bossBarColor}, ServerBossEvent.BossBarOverlay.${data.bossBarType});
@@ -148,6 +148,13 @@ public class ${name}Entity extends ${extendsClass} {
 
 		<#if aicode??>
 			${aicode}
+		</#if>
+		<#if data.ranged>
+			this.goalSelector.addGoal(1, new RangedAttackGoal(this, 1.25, 20, 10) {
+				@Override public boolean canContinueToUse() {
+					return this.canUse();
+				}
+			});
 		</#if>
 	}
 	</#if>
@@ -511,6 +518,21 @@ public class ${name}Entity extends ${extendsClass} {
 		<@procedureOBJToCode data.onPlayerCollidesWith/>
 	}
 	</#if>
+	
+	<#if data.ranged>
+		@Override public void performRangedAttack(LivingEntity target, float flval) {
+			<#if data.rangedItemType == "Default item">
+				Arrow entityarrow = new Arrow(this.level, this);
+				double d0 = target.getY() + target.getEyeHeight() - 1.1;
+				double d1 = target.getX() - this.getX();
+				double d3 = target.getZ() - this.getZ();
+				entityarrow.shoot(d1, d0 - entityarrow.getY() + Math.sqrt(d1 * d1 + d3 * d3) * 0.2F, d3, 1.6F, 12.0F);
+				level.addFreshEntity(entityarrow);
+			<#else>
+				${data.rangedItemType}Entity.shoot(this, target);
+			</#if>
+		}
+   	</#if>
 
 	<#if data.breedable>
 		@Override public AgeableMob getBreedOffspring(ServerLevel serverWorld, AgeableMob ageable) {

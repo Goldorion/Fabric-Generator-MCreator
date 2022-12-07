@@ -8,7 +8,6 @@
  # it under the terms of the GNU Lesser General Public License as published by
  # the Free Software Foundation, either version 3 of the License, or
  # (at your option) any later version.
-
  # Fabric-Generator-MCreator is distributed in the hope that it will be useful,
  # but WITHOUT ANY WARRANTY; without even the implied warranty of
  # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
@@ -99,7 +98,20 @@ public abstract class ${name}Item extends ArmorItem {
 					</#list>
 				}
 			</#if>
-		}
+			<#if hasProcedure(data.onHelmetTick)>
+				@Override
+				public void inventoryTick(ItemStack itemstack, Level world, Entity entity, int slotinv, boolean selected) {
+					double unique = Math.random();
+					ItemStack stack = entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.HEAD) : ItemStack.EMPTY;
+					if (stack.getItem() == (itemstack).getItem()) {
+						if (stack.getOrCreateTag().getDouble("_id") != unique)
+							stack.getOrCreateTag().putDouble("_id", unique);
+						if (itemstack.getOrCreateTag().getDouble("_id") == unique)
+							<@onArmorTick data.onHelmetTick/>
+					}
+				}
+			</#if>
+				}
 	</#if>
 
 	<#if data.enableBody>
@@ -115,6 +127,19 @@ public abstract class ${name}Item extends ArmorItem {
 					<#list data.bodySpecialInfo as entry>
 						list.add(Component.literal("${JavaConventions.escapeStringForJava(entry)}"));
 					</#list>
+				}
+			</#if>
+			<#if hasProcedure(data.onBodyTick)>
+				@Override
+				public void inventoryTick(ItemStack itemstack, Level world, Entity entity, int slotinv, boolean selected) {
+					double unique = Math.random();
+					ItemStack stack = entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.CHEST) : ItemStack.EMPTY;
+					if (stack.getItem() == (itemstack).getItem()) {
+						if (stack.getOrCreateTag().getDouble("_id") != unique)
+							stack.getOrCreateTag().putDouble("_id", unique);
+						if (itemstack.getOrCreateTag().getDouble("_id") == unique)
+							<@onArmorTick data.onBodyTick/>
+					}
 				}
 			</#if>
 		}
@@ -135,6 +160,19 @@ public abstract class ${name}Item extends ArmorItem {
 					</#list>
 				}
 			</#if>
+			<#if hasProcedure(data.onLeggingsTick)>
+				@Override
+				public void inventoryTick(ItemStack itemstack, Level world, Entity entity, int slotinv, boolean selected) {
+					double unique = Math.random();
+					ItemStack stack = entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.LEGS) : ItemStack.EMPTY;
+					if (stack.getItem() == (itemstack).getItem()) {
+						if (stack.getOrCreateTag().getDouble("_id") != unique)
+							stack.getOrCreateTag().putDouble("_id", unique);
+						if (itemstack.getOrCreateTag().getDouble("_id") == unique)
+							<@onArmorTick data.onLeggingsTick/>
+					}
+				}
+			</#if>
 		}
 	</#if>
 
@@ -151,6 +189,19 @@ public abstract class ${name}Item extends ArmorItem {
 					<#list data.bootsSpecialInfo as entry>
 						list.add(Component.literal("${JavaConventions.escapeStringForJava(entry)}"));
 					</#list>
+				}
+			</#if>
+			<#if hasProcedure(data.onBootsTick)>
+				@Override
+				public void inventoryTick(ItemStack itemstack, Level world, Entity entity, int slotinv, boolean selected) {
+					double unique = Math.random();
+					ItemStack stack = entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.FEET) : ItemStack.EMPTY;
+					if (stack.getItem() == (itemstack).getItem()) {
+						if (stack.getOrCreateTag().getDouble("_id") != unique)
+							stack.getOrCreateTag().putDouble("_id", unique);
+						if (itemstack.getOrCreateTag().getDouble("_id") == unique)
+							<@onArmorTick data.onBootsTick/>
+					}
 				}
 			</#if>
 		}
