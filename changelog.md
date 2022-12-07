@@ -2,6 +2,8 @@
 
 ## 1.8
 * Updated to Fabric API 0.67.1
+* [#79] Added support for global variable scopes: Global map and Global world
+  * In some cases, they can desync. A simple fix is to check "If NOT client side"
 * [#302] Added all block inventory management procedure blocks (NerdyPuzzle)
 * [#308, #319, #320, #325] Added new global triggers support: Entity attacked, Entity dies, before entity is hurt, Player sends a message, Command executed, Player joins a world, Player leaves a world, Entity travels to a dimension (kleiders and NerdyPuzzle)
 * [#308] Added support for entity local variables (kleiders)
