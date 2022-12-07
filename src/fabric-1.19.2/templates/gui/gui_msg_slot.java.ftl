@@ -55,6 +55,7 @@ public class ${name}SlotMessage extends FriendlyByteBuf {
 		int meta = buf.readInt();
 		server.execute(() -> {
 			Level world = entity.getLevel();
+			HashMap guistate = ${name}Menu.guistate;
 			<#list data.components as component>
 				<#if component.getClass().getSimpleName()?ends_with("Slot")>
 					<#if hasProcedure(component.onSlotChanged)>

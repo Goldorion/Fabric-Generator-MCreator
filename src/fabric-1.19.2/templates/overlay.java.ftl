@@ -71,7 +71,7 @@ public class ${name}Overlay {
 		if (<@procedureOBJToConditionCode data.displayCondition/>) {
 			<#if data.baseTexture?has_content>
 				RenderSystem.setShaderTexture(0, new ResourceLocation("${modid}:textures/screens/${data.baseTexture}"));
-				GuiComponent.blit(matrices, 0, 0, 0, 0, w, h, w, h);
+				GuiComponent.blit(matrices, 0, 0, 0, 0, posX, posY, posX, posY);
 			</#if>
 
 			<#list data.components as component>
