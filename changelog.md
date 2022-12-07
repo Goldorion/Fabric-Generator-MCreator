@@ -1,10 +1,23 @@
 # Changelogs:
 
+## 1.7.1
+* [Bugfix #307] "Close any open GUI for" block caused a build error
+* [Bugfix #313] Mods could not be exported (once again)
+
 ## 1.7
-## 1.7-beta-13
+## Release
+* [#292] Added Projectile related procedures (kleiders)
 * [#294] Added support for a new global trigger: Entity dies (kleiders)
+* [#296] Added support for armor tick triggers  (NerdyPuzzle)
+* [#301] Removed forge feature dependent procedures (NerdyPuzzle)
+* [#305] Added support for ranged entity parameters (kleiders)
+* [#306] Added support for 2 new global triggers: Player left clicks block and A block is broken
+* [#306] Player right clicks block global trigger now supports all dependencies
+* [Bugfix #232] Stair block base made the game crashed (NerdyPuzzle)
 * [Bugfix #262] Ranged items crashed on servers (kleiders)
 * [Bugfix #290] Launching the game using TerraBlender without a single biome crashed the game
+* [Bugfix #299] "Shoot constantly when active" caused a build error (NerdyPuzzle)
+* [Bugfix #303] Custom fishing rods did not work correctly (kleiders)
 * [Bugfix] Entity AI tasks did not generate
 
 ## 1.7-beta-12

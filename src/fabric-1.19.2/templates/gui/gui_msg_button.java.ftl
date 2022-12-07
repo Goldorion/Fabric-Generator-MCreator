@@ -51,6 +51,7 @@ public class ${name}ButtonMessage extends FriendlyByteBuf {
 		double z = buf.readInt();
 		server.execute(() -> {
 		Level world = entity.getLevel();
+		HashMap guistate = ${name}Menu.guistate;
 		<#assign btid = 0>
 		<#list data.components as component>
 			<#if component.getClass().getSimpleName() == "Button">
