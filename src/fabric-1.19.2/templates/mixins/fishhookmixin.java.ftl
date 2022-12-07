@@ -26,13 +26,9 @@ public abstract class ${JavaModName}FishingHookMixin extends EntityMixin {
 	public void shouldStopFishing(Player player, CallbackInfoReturnable<Boolean> cir) {
 		ItemStack itemStack = player.getMainHandItem();
 		ItemStack itemStack2 = player.getOffhandItem();
-		<#list tools as tool>
-			<#if tool.toolType == "Fishing rod">
-				if (!player.isRemoved() && player.isAlive() && (itemStack.is(${JavaModName}Items.${tool.getModElement().getRegistryNameUpper()}) || itemStack2.is(${JavaModName}Items.${tool.getModElement().getRegistryNameUpper()})) && this.distanceToSqr(player) < 1024.0) {
-					cir.setReturnValue(false);
-				}
-			</#if>
-		</#list>
+		if (!player.isRemoved() && player.isAlive() && ((itemStack.getItem() instanceof FishingRodItem) || (itemStack2.getItem() instanceof FishingRodItem)) && this.distanceToSqr(player) < 1024.0) {
+			cir.setReturnValue(false);
+		}
 	}
 }
 <#-- @formatter:on -->

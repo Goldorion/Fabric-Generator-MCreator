@@ -45,4 +45,10 @@ jar {
     from "LICENSE"
 }
 
+loom {
+	mixin {
+		defaultRefmapName = actualmodid + ".refmap.json"
+	}
+}
+
 apply from: 'mcreator.gradle'
