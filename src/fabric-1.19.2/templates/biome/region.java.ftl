@@ -35,7 +35,7 @@ import terrablender.api.RegionType;
 public class ${name}Region extends Region {
 
 	public ${name}Region(ResourceLocation name) {
-		super(name, <#if data.spawnBiome || data.spawnInCaves>RegionType.OVERWORLD<#elseif data.spawnBiomeNether>RegionType.NETHER</#if>, ${data.biomeWeight});
+		super(name, <#if data.spawnBiome || data.spawnInCaves>RegionType.OVERWORLD,<#elseif data.spawnBiomeNether>RegionType.NETHER,</#if> ${data.biomeWeight});
 	}
 	
 	@Override
