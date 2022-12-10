@@ -1,11 +1,11 @@
 public ${name}Procedure() {
 	ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> {
 		Map<String, Object> dependencies = new HashMap<>();
-		dependencies.put("entity", Minecraft.getInstance().player);
-		dependencies.put("x", Minecraft.getInstance().player.getX());
-		dependencies.put("y", Minecraft.getInstance().player.getY());
-		dependencies.put("z", Minecraft.getInstance().player.getZ());
-		dependencies.put("world", Minecraft.getInstance().player.level);
+		dependencies.put("entity", handler.getPlayer());
+		dependencies.put("x", handler.getPlayer().getX());
+		dependencies.put("y", handler.getPlayer().getY());
+		dependencies.put("z", handler.getPlayer().getZ());
+		dependencies.put("world", handler.getPlayer().getLevel());
 		execute(dependencies);
 	});
 }
