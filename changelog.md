@@ -7,6 +7,7 @@
 * [#302] Added all block inventory management procedure blocks (NerdyPuzzle)
 * [#308, #319, #320, #325] Added new global triggers support: Entity attacked, Entity dies, before entity is hurt, Player sends a message, Command executed, Player joins a world, Player leaves a world, Entity travels to a dimension (kleiders and NerdyPuzzle)
 * [#308] Added support for entity local variables (kleiders)
+* [#316] Reintroduced support for end biomes through biome default features (NerdyPuzzle)
 * [#324] Added "creativePickItem" to blocks (kleiders)
 * [#322] Remove block nbts as they use forge code (NerdyPuzzle)
 * [#332] Added support for the wait procedure (NerdyPuzzle)
