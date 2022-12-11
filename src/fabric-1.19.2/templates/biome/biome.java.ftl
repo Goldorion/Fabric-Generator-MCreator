@@ -37,7 +37,7 @@ import com.google.common.collect.ImmutableList;
 
 public class ${name}Biome {
 
-    <#if data.spawnBiome || data.spawnBiomeNether>
+	<#if data.spawnBiome || data.spawnBiomeNether>
 		public static final Climate.ParameterPoint PARAMETER_POINT = new Climate.ParameterPoint(
 			Climate.Parameter.span(${temperature2temperature(data.temperature, normalizeWeight(data.biomeWeight), "f")}),
 			Climate.Parameter.span(${rainingPossibility2humidity(data.rainingPossibility, normalizeWeight(data.biomeWeight), "f")}),
@@ -50,15 +50,15 @@ public class ${name}Biome {
 	</#if>
 
 	<#if data.spawnInCaves>
-        public static final Climate.ParameterPoint PARAMETER_POINT_UNDERGROUND = new Climate.ParameterPoint(
-            Climate.Parameter.span(-1, 1),
-            Climate.Parameter.span(-1, 1),
-            Climate.Parameter.span(${baseHeight2continentalness(data.baseHeight normalizeWeightUnderground(data.biomeWeight), "f")}),
-            Climate.Parameter.span(${heightVariation2erosion(data.heightVariation normalizeWeightUnderground(data.biomeWeight), "f")}),
-            Climate.Parameter.span(0.2f, 0.9f), <#-- depth - 0 surface, 1 - 128 below surface - cave biome -->
-            Climate.Parameter.span(${registryname2weirdness(registryname normalizeWeightUnderground(data.biomeWeight), "f")}),
-            0 <#-- offset -->
-        );
+		public static final Climate.ParameterPoint PARAMETER_POINT_UNDERGROUND = new Climate.ParameterPoint(
+			Climate.Parameter.span(-1, 1),
+			Climate.Parameter.span(-1, 1),
+			Climate.Parameter.span(${baseHeight2continentalness(data.baseHeight normalizeWeightUnderground(data.biomeWeight), "f")}),
+			Climate.Parameter.span(${heightVariation2erosion(data.heightVariation normalizeWeightUnderground(data.biomeWeight), "f")}),
+			Climate.Parameter.span(0.2f, 0.9f), <#-- depth - 0 surface, 1 - 128 below surface - cave biome -->
+			Climate.Parameter.span(${registryname2weirdness(registryname normalizeWeightUnderground(data.biomeWeight), "f")}),
+			0 <#-- offset -->
+		);
 	</#if>
 
 	public static void createBiome() {
@@ -275,10 +275,8 @@ public class ${name}Biome {
 			<#list generator.sortByMappings(data.defaultFeatures, "defaultfeatures") as defaultFeature>
 			<#assign mfeat = generator.map(defaultFeature, "defaultfeatures")>
 				<#if mfeat != "null">
-					<#if mfeat != "EndHighlands">
-					<#if mfeat != "EndIslands">
-					BiomeDefaultFeatures.add${mfeat}(biomeGenerationSettings);
-					</#if>
+					<#if mfeat != "EndHighlands" && (mfeat != "EndIslands")>
+						BiomeDefaultFeatures.add${mfeat}(biomeGenerationSettings);
 					</#if>
 				</#if>
 			</#list>
@@ -302,14 +300,14 @@ public class ${name}Biome {
 			.build();
 
 		BuiltinRegistries.register(BuiltinRegistries.BIOME, ${JavaModName}Biomes.${registryname?upper_case}, biome);
-	        <#list generator.sortByMappings(data.defaultFeatures, "defaultfeatures") as defaultFeature>
-        	<#assign mfeat = generator.map(defaultFeature, "defaultfeatures")>
-                <#if mfeat = "EndHighlands">
-            TheEndBiomes.addHighlandsBiome(${JavaModName}Biomes.${registryname?upper_case}, ${data.biomeWeight}d);
-                <#elseif mfeat = "EndIslands">
-            TheEndBiomes.addSmallIslandsBiome(${JavaModName}Biomes.${registryname?upper_case}, ${data.biomeWeight}d);
-        	</#if>
-        </#list>
+			<#list generator.sortByMappings(data.defaultFeatures, "defaultfeatures") as defaultFeature>
+				<#assign mfeat = generator.map(defaultFeature, "defaultfeatures")>
+				<#if mfeat = "EndHighlands">
+					TheEndBiomes.addHighlandsBiome(${JavaModName}Biomes.${registryname?upper_case}, ${data.biomeWeight}d);
+				<#elseif mfeat = "EndIslands">
+					TheEndBiomes.addSmallIslandsBiome(${JavaModName}Biomes.${registryname?upper_case}, ${data.biomeWeight}d);
+				</#if>
+		</#list>
 	}
 
 	<#if hasConfiguredFeatures>
