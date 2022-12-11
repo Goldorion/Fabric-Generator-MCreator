@@ -1,10 +1,37 @@
 # Changelogs:
 
+## 1.8
+* Updated to Fabric API 0.67.1
+* [#79] Added support for global variable scopes: Global map and Global world
+  * In some cases, they can desync. A simple fix is to check "If NOT client side"
+* [#302] Added all block inventory management procedure blocks (NerdyPuzzle)
+* [#308, #319, #320, #325] Added new global triggers support: Entity attacked, Entity dies, before entity is hurt, Player sends a message, Command executed, Player joins a world, Player leaves a world, Entity travels to a dimension (kleiders and NerdyPuzzle)
+* [#308] Added support for entity local variables (kleiders)
+* [#324] Added "creativePickItem" to blocks (kleiders)
+* [#322] Remove block nbts as they use forge code (NerdyPuzzle)
+* [#332] Added support for the wait procedure (NerdyPuzzle)
+* [Bugfix #326] Fishing mixin fix and refmap fix (kleiders)
+* [Bugfix #327] The base texture parameter caused a build error in overlays
+* [Bugfix #331] Fix guistate dependency on GUI slots & buttons causing a build error (NerdyPuzzle)
+
+## 1.7.1
+* [Bugfix #307] "Close any open GUI for" block caused a build error
+* [Bugfix #313] Mods could not be exported (once again)
+
 ## 1.7
-## 1.7-beta-13
+## Release
+* [#292] Added Projectile related procedures (kleiders)
 * [#294] Added support for a new global trigger: Entity dies (kleiders)
+* [#296] Added support for armor tick triggers  (NerdyPuzzle)
+* [#301] Removed forge feature dependent procedures (NerdyPuzzle)
+* [#305] Added support for ranged entity parameters (kleiders)
+* [#306] Added support for 2 new global triggers: Player left clicks block and A block is broken
+* [#306] Player right clicks block global trigger now supports all dependencies
+* [Bugfix #232] Stair block base made the game crashed (NerdyPuzzle)
 * [Bugfix #262] Ranged items crashed on servers (kleiders)
 * [Bugfix #290] Launching the game using TerraBlender without a single biome crashed the game
+* [Bugfix #299] "Shoot constantly when active" caused a build error (NerdyPuzzle)
+* [Bugfix #303] Custom fishing rods did not work correctly (kleiders)
 * [Bugfix] Entity AI tasks did not generate
 
 ## 1.7-beta-12

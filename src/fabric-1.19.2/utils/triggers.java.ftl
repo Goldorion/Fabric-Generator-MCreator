@@ -153,7 +153,6 @@
 <#-- Armor triggers -->
 <#macro onArmorTick procedure="">
 <#if hasProcedure(procedure)>
-@Override public void onArmorTick(ItemStack itemstack, Level world, Player entity) {
 	<@procedureCode procedure, {
 		"x": "entity.getX()",
 		"y": "entity.getY()",
@@ -162,12 +161,27 @@
 		"entity": "entity",
 		"itemstack": "itemstack"
 	}/>
-}
 </#if>
 </#macro>
 
 
 <#-- Block-related triggers -->
+<#macro onDestroyedByPlayer procedure="">
+<#if hasProcedure(procedure)>
+@Override public void playerDestroy(Level world, Player entity, BlockPos pos, BlockState blockstate, BlockEntity blockEntity, ItemStack itemStack) {
+	super.playerDestroy(world, entity, pos, blockstate, blockEntity, itemStack);
+	<@procedureCode procedure, {
+		"x": "pos.getX()",
+		"y": "pos.getY()",
+		"z": "pos.getZ()",
+		"world": "world",
+		"entity": "entity",
+		"blockstate": "blockstate"
+	}/>
+}
+</#if>
+</#macro>
+
 <#macro onDestroyedByExplosion procedure="">
 <#if hasProcedure(procedure)>
 @Override public void wasExploded(Level world, BlockPos pos, Explosion e) {
