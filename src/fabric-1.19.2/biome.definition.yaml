@@ -3,6 +3,10 @@ templates:
     name: "@SRCROOT/@BASEPACKAGEPATH/world/biome/@NAMEBiome.java"
   - template: biome/region.java.ftl
     name: "@SRCROOT/@BASEPACKAGEPATH/world/biome/regions/@NAMERegion.java"
+    condition_any:
+      - spawnBiome
+      - spawnInCaves
+      - spawnBiomeNether
 
 global_templates:
   - template: elementinits/biomes.java.ftl
