@@ -11,12 +11,12 @@ group = 'com.yourname.modid'
 actualmodid = '${modid}'
 
 dependencies {
-    minecraft "com.mojang:minecraft:1.19.2"
+    minecraft "com.mojang:minecraft:1.19.3"
     mappings loom.officialMojangMappings()
-    modImplementation "net.fabricmc:fabric-loader:0.14.9"
+    modImplementation "net.fabricmc:fabric-loader:0.14.11"
 
     //Fabric api
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${generator.getGeneratorBuildFileVersion()}+1.19.2"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${generator.getGeneratorBuildFileVersion()}+1.19.3"
 }
 
 processResources {

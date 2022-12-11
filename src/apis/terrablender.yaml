@@ -1,4 +1,4 @@
-fabric-1.19.2:
+fabric-1.19.3:
   gradle: |
     repositories {
       maven {
@@ -6,6 +6,6 @@ fabric-1.19.2:
       }
     }
     dependencies {
-      modImplementation 'com.github.glitchfiend:TerraBlender-fabric:1.19.2-2.0.1.127'
+      modImplementation 'com.github.glitchfiend:TerraBlender-fabric:1.19.3-2.0.1.132'
     }
 name: "TerraBlender Fabric (Biomes)"

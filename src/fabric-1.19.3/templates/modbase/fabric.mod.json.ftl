@@ -36,7 +36,7 @@
   },
 
   "depends": {
-	"fabricloader": ">=0.14.9",
+	"fabricloader": ">=0.14.11",
 	"fabric": "*",
 	"minecraft": "~1.19",
 	"java": ">=17"

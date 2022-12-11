@@ -1,7 +1,7 @@
 import java.nio.file.Files
 
 class Globals {
-	private static final def ARCHIVE_NAME = "generator-fabric-1.19.2" // The name of the exported file
+	private static final def ARCHIVE_NAME = "generator-fabric-1.19.3" // The name of the exported file
 
 	// You can change the root folder of your OS if you have a custom installation
 	public static final def MCREATOR_ROOT_FOLDER_WINDOWS = "C:\\Program Files\\Pylo\\MCreator" // Default path on Windows
