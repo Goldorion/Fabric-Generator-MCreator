@@ -12,6 +12,7 @@
 * [#332] Added support for the wait procedure (NerdyPuzzle)
 * [Bugfix #326] Fishing mixin fix and refmap fix (kleiders)
 * [Bugfix #327] The base texture parameter caused a build error in overlays
+* [Bugfix #329] Custom biomes without a spawning option enabled caused a build error
 * [Bugfix #331] Fix guistate dependency on GUI slots & buttons causing a build error (NerdyPuzzle)
 
 ## 1.7.1

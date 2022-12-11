@@ -15,12 +15,11 @@ Mod elements that are not mentioned are completely supported with all available 
 * Armor
 * Biome
 * Living entity
+* Variables
   
 ### Partially supported
 * Dimension
 * Procedure
-* Variables
-  // Global scopes, except Global session, are missing.
 
 ### Unsupported
 * Fluid
