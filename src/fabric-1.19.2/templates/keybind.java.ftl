@@ -27,15 +27,15 @@ import ${package}.${JavaModName};
 
 public class ${name}Message extends FriendlyByteBuf {
 
-	public ${name}Message(boolean isDown, boolean consumeClick) {
+	public ${name}Message(boolean pressed, boolean released) {
 		super(Unpooled.buffer());
-		writeBoolean(isDown);
-		writeBoolean(consumeClick);
+		writeBoolean(pressed);
+		writeBoolean(released);
 	}
 
 	public static void apply(MinecraftServer server, ServerPlayer entity, ServerGamePacketListenerImpl handler, FriendlyByteBuf buf, PacketSender responseSender) {
-		boolean isDown = buf.readBoolean();
-		boolean consumeClick = buf.readBoolean();
+		boolean pressed = buf.readBoolean();
+		boolean released = buf.readBoolean();
 		server.execute(() -> {
 			Level world = entity.level;
 			double x = entity.getX();
@@ -47,13 +47,13 @@ public class ${name}Message extends FriendlyByteBuf {
 				return;
 
 			<#if hasProcedure(data.onKeyPressed)>
-				if(isDown) {
+				if(pressed) {
 					<@procedureOBJToCode data.onKeyPressed/>
 				}
 			</#if>
 
 			<#if hasProcedure(data.onKeyReleased)>
-				if(consumeClick) {
+				if(released) {
 					<@procedureOBJToCode data.onKeyReleased/>
 				}
 			</#if>
