@@ -79,8 +79,8 @@ public class ${name}Item extends Item {
 
 		<#if data.recipeRemainder?? && !data.recipeRemainder.isEmpty()>
 			@Override public ItemStack getRecipeRemainder(ItemStack itemstack) {
-			    return ${mappedMCItemToItemStackCode(data.recipeRemainder, 1)};
-        	}
+				return ${mappedMCItemToItemStackCode(data.recipeRemainder, 1)};
+			}
 		<#elseif data.damageOnCrafting && data.damageCount != 0>
 			@Override public ItemStack getRecipeRemainder(ItemStack itemstack) {
 				ItemStack retval = new ItemStack(this);

@@ -22,18 +22,18 @@ import org.spongepowered.asm.mixin.injection.Constant;
 
 @Mixin(RepairItemRecipe.class)
 public abstract class ${JavaModName}RepairItemRecipeMixin {
-    @Inject(method = "assemble", at = @At("HEAD"), cancellable = true)
-    public void assemble(CraftingContainer craftingContainer, CallbackInfoReturnable<ItemStack> cir) {
-        ItemStack itemStack3;
-        ItemStack itemStack;
-        ArrayList<ItemStack> list = Lists.newArrayList();
-        for (int i = 0; i < craftingContainer.getContainerSize(); ++i) {
-            ItemStack itemStack2;
-            itemStack = craftingContainer.getItem(i);
-            if (itemStack.isEmpty())
-                continue;
-            list.add(itemStack);
-        }
+	@Inject(method = "assemble", at = @At("HEAD"), cancellable = true)
+	public void assemble(CraftingContainer craftingContainer, CallbackInfoReturnable<ItemStack> cir) {
+		ItemStack itemStack3;
+		ItemStack itemStack;
+		ArrayList<ItemStack> list = Lists.newArrayList();
+		for (int i = 0; i < craftingContainer.getContainerSize(); ++i) {
+			ItemStack itemStack2;
+			itemStack = craftingContainer.getItem(i);
+			if (itemStack.isEmpty())
+				continue;
+			list.add(itemStack);
+		}
 		<#list items as item>
 			<#if item.stayInGridWhenCrafting>
 				if ((itemStack3 = (ItemStack) list.get(0)).is((${JavaModName}Items.${item.getModElement().getRegistryNameUpper()}))) {
@@ -41,6 +41,6 @@ public abstract class ${JavaModName}RepairItemRecipeMixin {
 				}
 			</#if>
 		</#list>
-    }
+	}
 }
 <#-- @formatter:on -->
