@@ -4,9 +4,11 @@
   "package": "${package}.mixins",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-	"EntityMixin",
+	"${settings.getJavaModName()}RepairItemRecipeMixin"<#if w.hasToolsOfType("Fishing rod")>,
 	"${settings.getJavaModName()}FishingHookMixin",
-	"${settings.getJavaModName()}FishingHookRendererMixin"
+	"${settings.getJavaModName()}FishingHookRendererMixin",
+	"EntityMixin"
+	</#if>
   ],
   "injectors": {
 	"defaultRequire": 1

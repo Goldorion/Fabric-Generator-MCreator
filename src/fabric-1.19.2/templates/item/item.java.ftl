@@ -55,13 +55,6 @@ public class ${name}Item extends Item {
 					.fireResistant()
 				</#if>
 				.rarity(Rarity.${data.rarity})
-				<#if data.stayInGridWhenCrafting>
-					<#if data.recipeRemainder?? && !data.recipeRemainder.isEmpty()>
-						.craftRemainder(${mappedMCItemToItem(data.recipeRemainder)})
-					<#else>
-						.craftRemainder(${JavaModName}Items.${data.getModElement().getRegistryNameUpper()})
-					</#if>
-				</#if>
 				<#if data.isFood>
 					.food((new FoodProperties.Builder())
 						.nutrition(${data.nutritionalValue})
@@ -84,9 +77,22 @@ public class ${name}Item extends Item {
 			return true;
 		}
 
-		<#if !data.recipeRemainder?? && data.recipeRemainder.isEmpty() && (data.damageCount != 0)>
-			@Override public boolean isRepairable(ItemStack itemstack) {
-				return false;
+		<#if data.recipeRemainder?? && !data.recipeRemainder.isEmpty()>
+			@Override public ItemStack getRecipeRemainder(ItemStack itemstack) {
+				return ${mappedMCItemToItemStackCode(data.recipeRemainder, 1)};
+			}
+		<#elseif data.damageOnCrafting && data.damageCount != 0>
+			@Override public ItemStack getRecipeRemainder(ItemStack itemstack) {
+				ItemStack retval = new ItemStack(this);
+				retval.setDamageValue(itemstack.getDamageValue() + 1);
+				if(retval.getDamageValue() >= retval.getMaxDamage()) {
+					return ItemStack.EMPTY;
+				}
+				return retval;
+			}
+		<#else>
+			@Override public ItemStack getRecipeRemainder(ItemStack itemstack) {
+				return new ItemStack(this);
 			}
 		</#if>
 	</#if>

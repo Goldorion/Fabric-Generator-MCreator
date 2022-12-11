@@ -40,7 +40,7 @@
 	"fabric": "*",
 	"minecraft": "~1.19",
 	"java": ">=17"
-  }<#if w.hasToolsOfType("Fishing rod")>,
+  }<#if w.hasElementsOfBaseType("item")>,
   "mixins": [
 	"${settings.getModID()}.mixins.json"
   ]</#if>
