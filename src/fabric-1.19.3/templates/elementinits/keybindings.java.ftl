@@ -28,8 +28,30 @@ package ${package}.init;
 
 public class ${JavaModName}KeyMappings {
 
+
+	public static class ${JavaModName}KeyMapping extends KeyMapping {
+		private boolean isDownOld;
+
+		public  ${JavaModName}KeyMapping(String string, int i, String string2) {
+			super(string, InputConstants.Type.KEYSYM, i, string2);
+		}
+
+		public int action() {
+			if (isDownOld != isDown() && isDown()) {
+				isDownOld = isDown();
+				return 1;
+			} else if (isDownOld != isDown() && !isDown()) {
+				isDownOld = isDown();
+				return 2;
+			}
+			isDownOld = isDown();
+			return 0;
+		}
+	}
+
 	<#list keybinds as keybind>
-		public static KeyMapping ${keybind.getModElement().getRegistryNameUpper()};
+		public static ${JavaModName}KeyMapping ${keybind.getModElement().getRegistryNameUpper()} = new ${JavaModName}KeyMapping("key.${modid}.${keybind.getModElement().getRegistryName()}",
+				GLFW.GLFW_KEY_${generator.map(keybind.triggerKey, "keybuttons")}, "key.categories.${keybind.keyBindingCategoryKey}");
 	</#list>
 
 	public static void serverLoad() {
@@ -39,15 +61,16 @@ public class ${JavaModName}KeyMappings {
 	}
 
 	public static void load() {
-		<#list keybinds as keybind>
-			${keybind.getModElement().getRegistryNameUpper()} = KeyBindingHelper.registerKeyBinding(new KeyMapping("key.${modid}.${keybind.getModElement().getRegistryName()}",
-				GLFW.GLFW_KEY_${generator.map(keybind.triggerKey, "keybuttons")}, "key.categories.${keybind.keyBindingCategoryKey}"));
-		</#list>
 		ClientTickEvents.END_CLIENT_TICK.register((client) -> {
 			<#list keybinds as keybind>
-				if(${keybind.getModElement().getRegistryNameUpper()}.isDown() || ${keybind.getModElement().getRegistryNameUpper()}.consumeClick())
-					ClientPlayNetworking.send(new ResourceLocation(${JavaModName}.MODID, "${keybind.getModElement().getRegistryName()?lower_case}"), new ${keybind.getModElement().getName()}Message(${keybind.getModElement().getRegistryNameUpper()}.isDown(),
-							${keybind.getModElement().getRegistryNameUpper()}.consumeClick()));
+			    int ${keybind.getModElement().getRegistryNameUpper()}action = ${keybind.getModElement().getRegistryNameUpper()}.action();
+				if (${keybind.getModElement().getRegistryNameUpper()}action == 1) {
+					ClientPlayNetworking.send(new ResourceLocation(${JavaModName}.MODID, "${keybind.getModElement().getRegistryName()?lower_case}"), new ${keybind.getModElement().getName()}Message(true,
+							false));
+				} else if (${keybind.getModElement().getRegistryNameUpper()}action == 2) {
+					ClientPlayNetworking.send(new ResourceLocation(${JavaModName}.MODID, "${keybind.getModElement().getRegistryName()?lower_case}"), new ${keybind.getModElement().getName()}Message(false,
+							true));
+				}
 			</#list>
 		});
 	}
