@@ -79,26 +79,12 @@ public class ${name}Item extends ${data.toolType?replace("Spade", "Shovel")?repl
 			 	<#if data.immuneToFire>
 			 	    .fireResistant()
 			 	</#if>
-				<#if data.stayInGridWhenCrafting>
-					<#if data.recipeRemainder?? && !data.recipeRemainder.isEmpty()>
-						.craftRemainder(${mappedMCItemToItem(data.recipeRemainder)})
-					<#else>
-						.craftRemainder(${JavaModName}Items.${data.getModElement().getRegistryNameUpper()})
-					</#if>
-				</#if>
 		<#elseif data.toolType=="Shears">
 			new Item.Properties()
 				.tab(${data.creativeTab})
 				.durability(${data.usageCount})
 				<#if data.immuneToFire>
                     .fireResistant()
-				</#if>
-				<#if data.stayInGridWhenCrafting>
-					<#if data.recipeRemainder?? && !data.recipeRemainder.isEmpty()>
-						.craftRemainder(${mappedMCItemToItem(data.recipeRemainder)})
-					<#else>
-						.craftRemainder(${JavaModName}Items.${data.getModElement().getRegistryNameUpper()})
-					</#if>
 				</#if>
 		</#if>);
 	}
@@ -344,6 +330,31 @@ public class ${name}Item extends FishingRodItem {
 			list.add(Component.literal("${JavaConventions.escapeStringForJava(entry)}"));
 			</#list>
 		}
+	</#if>
+
+	<#if data.stayInGridWhenCrafting>
+		@Override public boolean hasCraftingRemainingItem() {
+			return true;
+		}
+
+		<#if data.recipeRemainder?? && !data.recipeRemainder.isEmpty()>
+			@Override public ItemStack getRecipeRemainder(ItemStack itemstack) {
+			    return ${mappedMCItemToItemStackCode(data.recipeRemainder, 1)};
+        	}
+		<#elseif data.damageOnCrafting && data.usageCount != 0>
+			@Override public ItemStack getRecipeRemainder(ItemStack itemstack) {
+				ItemStack retval = new ItemStack(this);
+				retval.setDamageValue(itemstack.getDamageValue() + 1);
+				if(retval.getDamageValue() >= retval.getMaxDamage()) {
+					return ItemStack.EMPTY;
+				}
+				return retval;
+			}
+		<#else>
+			@Override public ItemStack getRecipeRemainder(ItemStack itemstack) {
+				return new ItemStack(this);
+			}
+		</#if>
 	</#if>
 
 	<@onItemUsedOnBlock data.onRightClickedOnBlock/>
