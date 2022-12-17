@@ -1,5 +1,12 @@
 # Changelogs:
 
+## 1.8.1
+* [#345] Added is entity swimming procedure block (kleiders)
+* [Bugfix #339] Fix some problems related to key binds (kleiders)
+* [Bugfix #340] Get amount in slot and Get item in slot GUI procedure blocks caused problems (kleiders)
+* [Bugfix #342] Fix potion effects crashing the game (kleiders)
+* [Bugfix #347] Repair items could cause problems in some cases (NerdyPuzzle)
+
 ## 1.8
 * Updated to Fabric API 0.67.1
 * [#79] Added support for global variable scopes: Global map and Global world
