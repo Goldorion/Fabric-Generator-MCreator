@@ -35,11 +35,13 @@ public abstract class ${JavaModName}RepairItemRecipeMixin {
 			list.add(itemStack);
 		}
 		<#list items as item>
+		<#if item.getModElement().getTypeString() = "item" || item.getModElement().getTypeString() = "tool">
 			<#if item.stayInGridWhenCrafting>
 				if ((itemStack3 = (ItemStack) list.get(0)).is((${JavaModName}Items.${item.getModElement().getRegistryNameUpper()}))) {
 					cir.setReturnValue(ItemStack.EMPTY);
 				}
 			</#if>
+		</#if>
 		</#list>
 	}
 }
