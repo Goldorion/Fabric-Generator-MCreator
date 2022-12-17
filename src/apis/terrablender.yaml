@@ -8,4 +8,14 @@ fabric-1.19.2:
     dependencies {
       modImplementation 'com.github.glitchfiend:TerraBlender-fabric:1.19.2-2.0.1.127'
     }
+fabric-1.19.3:
+  gradle: |
+    repositories {
+      maven {
+        url = "https://maven.minecraftforge.net/"
+      }
+    }
+    dependencies {
+      modImplementation 'com.github.glitchfiend:TerraBlender-fabric:1.19.3-2.0.1.132'
+    }
 name: "TerraBlender Fabric (Biomes)"

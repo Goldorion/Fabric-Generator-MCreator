@@ -1,0 +1,1 @@
+.then(Commands.argument("${field$name}", ItemArgument.item(commandBuildContext))${statement$args})

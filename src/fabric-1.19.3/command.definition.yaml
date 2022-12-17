@@ -1,0 +1,8 @@
+templates:
+  - template: command.java.ftl
+    name: "@SRCROOT/@BASEPACKAGEPATH/command/@NAMECommand.java"
+
+global_templates:
+  - template: elementinits/commands.java.ftl
+    writer: java
+    name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameCommands.java"

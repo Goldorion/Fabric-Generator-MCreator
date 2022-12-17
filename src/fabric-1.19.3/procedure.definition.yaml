@@ -1,0 +1,8 @@
+templates:
+  - template: procedure.java.ftl
+    name: "@SRCROOT/@BASEPACKAGEPATH/procedures/@NAMEProcedure.java"
+
+global_templates:
+  - template: elementinits/procedures.java.ftl
+    writer: java
+    name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameProcedures.java"
