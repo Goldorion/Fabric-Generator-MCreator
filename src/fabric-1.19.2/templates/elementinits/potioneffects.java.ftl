@@ -27,12 +27,12 @@ package ${package}.init;
 public class ${JavaModName}MobEffects {
 
 	<#list potioneffects as effect>
-		public static MobEffect ${effect.getModElement().getRegistryNameUpper()} = new ${effect.getModElement().getName()}MobEffect();
+		public static MobEffect ${effect.getModElement().getRegistryNameUpper()};
 	</#list>
 
-	static {
+	public static void load() {
 		<#list potioneffects as effect>
-			Registry.register(Registry.MOB_EFFECT, new ResourceLocation(${JavaModName}.MODID, "${effect.getModElement().getRegistryName()}"), ${effect.getModElement().getRegistryNameUpper()});
+			${effect.getModElement().getRegistryNameUpper()} = Registry.register(Registry.MOB_EFFECT, new ResourceLocation(${JavaModName}.MODID, "${effect.getModElement().getRegistryName()}"), new ${effect.getModElement().getName()}MobEffect());
 		</#list>
 	}
 }
