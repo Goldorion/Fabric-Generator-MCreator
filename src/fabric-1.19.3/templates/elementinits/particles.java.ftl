@@ -29,7 +29,7 @@ import net.fabricmc.api.Environment;
 
 	<#list particles as particle>
 		public static final SimpleParticleType ${particle.getModElement().getRegistryNameUpper()} = Registry.register(
-			Registry.PARTICLE_TYPE, new ResourceLocation("${modid}", "${particle.getModElement().getRegistryName()}"), FabricParticleTypes.simple(${particle.alwaysShow}));
+			BuiltInRegistries.PARTICLE_TYPE, new ResourceLocation("${modid}", "${particle.getModElement().getRegistryName()}"), FabricParticleTypes.simple(${particle.alwaysShow}));
 	</#list>
 
 	public static void load() {

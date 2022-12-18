@@ -43,8 +43,8 @@ public class ${JavaModName}Features {
 	}
 
 	private static void register(String registryName, Feature feature, Predicate<BiomeSelectionContext> biomes, GenerationStep.Decoration genStep) {
-	 		Registry.register(Registry.FEATURE, new ResourceLocation(${JavaModName}.MODID, registryName), feature);
-	 		BiomeModifications.addFeature(biomes, genStep, ResourceKey.create(Registry.PLACED_FEATURE_REGISTRY,
+	 		Registry.register(BuiltInRegistries.FEATURE, new ResourceLocation(${JavaModName}.MODID, registryName), feature);
+	 		BiomeModifications.addFeature(biomes, genStep, ResourceKey.create(Registries.PLACED_FEATURE,
 	 				new ResourceLocation(${JavaModName}.MODID, registryName)));
 	 	}
 

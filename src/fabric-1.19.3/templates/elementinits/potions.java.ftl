@@ -32,7 +32,7 @@ public class ${JavaModName}Potions {
 
 	public static void load() {
 		<#list potions as potion>
-			${potion.getModElement().getRegistryNameUpper()} = Registry.register(Registry.POTION, new ResourceLocation(${JavaModName}.MODID, "${potion.getModElement().getRegistryName()}"),
+			${potion.getModElement().getRegistryNameUpper()} = Registry.register(BuiltInRegistries.POTION, new ResourceLocation(${JavaModName}.MODID, "${potion.getModElement().getRegistryName()}"),
 			new Potion(
 					<#list potion.effects as effect>
 					new MobEffectInstance(${effect.effect}, ${effect.duration}, ${effect.amplifier}, ${effect.ambient}, ${effect.showParticles})<#if effect?has_next>,</#if>

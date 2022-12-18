@@ -51,34 +51,34 @@ public class ${JavaModName}Items {
 		<#list items as item>
 		<#if item.getModElement().getTypeString() == "armor">
 			<#if item.enableHelmet>
-				${item.getModElement().getRegistryNameUpper()}_HELMET = Registry.register(Registry.ITEM,
+				${item.getModElement().getRegistryNameUpper()}_HELMET = Registry.register(BuiltInRegistries.ITEM,
 					new ResourceLocation(${JavaModName}.MODID, "${item.getModElement().getRegistryName()}_helmet"), new ${item.getModElement().getName()}Item.Helmet());
 			</#if>
 			<#if item.enableBody>
-				${item.getModElement().getRegistryNameUpper()}_CHESTPLATE = Registry.register(Registry.ITEM,
+				${item.getModElement().getRegistryNameUpper()}_CHESTPLATE = Registry.register(BuiltInRegistries.ITEM,
 					new ResourceLocation(${JavaModName}.MODID, "${item.getModElement().getRegistryName()}_chestplate"), new ${item.getModElement().getName()}Item.Chestplate());
 			</#if>
 			<#if item.enableLeggings>
-				${item.getModElement().getRegistryNameUpper()}_LEGGINGS = Registry.register(Registry.ITEM,
+				${item.getModElement().getRegistryNameUpper()}_LEGGINGS = Registry.register(BuiltInRegistries.ITEM,
 					new ResourceLocation(${JavaModName}.MODID, "${item.getModElement().getRegistryName()}_leggings"), new ${item.getModElement().getName()}Item.Leggings());
 			</#if>
 			<#if item.enableBoots>
-				${item.getModElement().getRegistryNameUpper()}_BOOTS = Registry.register(Registry.ITEM,
+				${item.getModElement().getRegistryNameUpper()}_BOOTS = Registry.register(BuiltInRegistries.ITEM,
 					new ResourceLocation(${JavaModName}.MODID, "${item.getModElement().getRegistryName()}_boots"), new ${item.getModElement().getName()}Item.Boots());
 			</#if>
 		<#elseif item.getModElement().getTypeString() == "livingentity">
-			${item.getModElement().getRegistryNameUpper()} = Registry.register(Registry.ITEM,new ResourceLocation(${JavaModName}.MODID,
+			${item.getModElement().getRegistryNameUpper()} = Registry.register(BuiltInRegistries.ITEM,new ResourceLocation(${JavaModName}.MODID,
 				"${item.getModElement().getRegistryName()}_spawn_egg"), new SpawnEggItem(${JavaModName}Entities.${item.getModElement().getRegistryNameUpper()},
 					${item.spawnEggBaseColor.getRGB()}, ${item.spawnEggDotColor.getRGB()}, new Item.Properties()));
 		    ItemGroupEvents.modifyEntriesEvent(<#if item.creativeTab??>${item.creativeTab}<#else>CreativeModeTabs.SPAWN_EGGS</#if>)
 		        .register(entries -> entries.accept(${item.getModElement().getRegistryNameUpper()}));
 		<#elseif item.getModElement().getType().getBaseType()?string == "BLOCK">
-			${item.getModElement().getRegistryNameUpper()} = Registry.register(Registry.ITEM,new ResourceLocation(${JavaModName}.MODID,
+			${item.getModElement().getRegistryNameUpper()} = Registry.register(BuiltInRegistries.ITEM,new ResourceLocation(${JavaModName}.MODID,
 				"${item.getModElement().getRegistryName()}"), new BlockItem(${JavaModName}Blocks.${item.getModElement().getRegistryNameUpper()}, new Item.Properties()));
 		    ItemGroupEvents.modifyEntriesEvent(${item.creativeTab}).register(entries -> entries.accept(${item.getModElement().getRegistryNameUpper()}));
 		<#else>
 			<#if item.getModElement().getTypeString() != "dimension">
-				${item.getModElement().getRegistryNameUpper()} = Registry.register(Registry.ITEM,
+				${item.getModElement().getRegistryNameUpper()} = Registry.register(BuiltInRegistries.ITEM,
 					new ResourceLocation(${JavaModName}.MODID, "${item.getModElement().getRegistryName()}"), new ${item.getModElement().getName()}Item());
 			</#if>
 		</#if>

@@ -35,7 +35,7 @@ public class ${JavaModName}Blocks {
 	public static void load() {
 		<#list blocks as block>
 			<#if block.getModElement().getTypeString() != "dimension">
-				${block.getModElement().getRegistryNameUpper()} = Registry.register(Registry.BLOCK, new ResourceLocation(${JavaModName}.MODID,
+				${block.getModElement().getRegistryNameUpper()} = Registry.register(BuiltInRegistries.BLOCK, new ResourceLocation(${JavaModName}.MODID,
 					"${block.getModElement().getRegistryName()}"), new ${block.getModElement().getName()}Block());
 			</#if>
 		</#list>

@@ -29,7 +29,7 @@ package ${package}.init;
 public class ${JavaModName}Biomes {
 
 	<#list biomes as biome>
-		public static ResourceKey<Biome> ${biome.getModElement().getRegistryNameUpper()} = ResourceKey.create(Registry.BIOME_REGISTRY,
+		public static ResourceKey<Biome> ${biome.getModElement().getRegistryNameUpper()} = ResourceKey.create(BuiltInRegistries.BIOME_REGISTRY,
 			new ResourceLocation(${JavaModName}.MODID, "${biome.getModElement().getRegistryName()}"));
 	</#list>
 

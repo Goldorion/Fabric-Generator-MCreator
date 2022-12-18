@@ -32,7 +32,7 @@ public class ${JavaModName}Enchantments {
 
 	public static void load() {
 			<#list enchantments as enchantment>
-				${enchantment.getModElement().getRegistryNameUpper()} = Registry.register(Registry.ENCHANTMENT,
+				${enchantment.getModElement().getRegistryNameUpper()} = Registry.register(BuiltInRegistries.ENCHANTMENT,
 					new ResourceLocation(${JavaModName}.MODID, "${enchantment.getModElement().getRegistryName()}"),
 					new ${enchantment.getModElement().getName()}Enchantment());
 			</#list>

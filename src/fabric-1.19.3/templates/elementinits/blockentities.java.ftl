@@ -32,7 +32,7 @@ public class ${JavaModName}BlockEntities {
 
 	public static void load() {
 		<#list blockentities as blockentity>
-			${blockentity.getModElement().getRegistryNameUpper()} = Registry.register(Registry.BLOCK_ENTITY_TYPE, new ResourceLocation(${JavaModName}.MODID,
+			${blockentity.getModElement().getRegistryNameUpper()} = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, new ResourceLocation(${JavaModName}.MODID,
 				"${blockentity.getModElement().getRegistryName()}"), FabricBlockEntityTypeBuilder.create(${blockentity.getModElement().getName()}BlockEntity::new,
 				${JavaModName}Blocks.${blockentity.getModElement().getRegistryNameUpper()}).build(null));
 		</#list>
