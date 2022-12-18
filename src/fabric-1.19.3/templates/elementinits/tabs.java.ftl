@@ -35,12 +35,11 @@ public class ${JavaModName}Tabs {
 
 	public static void load() {
 		<#list tabs as tab>
-		TAB_${tab.getModElement().getRegistryNameUpper()} = FabricItemGroup
-					.builder(new ResourceLocation("${modid}","${tab.getModElement().getRegistryName()}"))
-					.icon(()-> ${mappedMCItemToItemStackCode(tab.icon, 1)})
-					.displayItems((enabledFeatures, entries, operatorEnabled) -> {
-					})
-					.build();
+			TAB_${tab.getModElement().getRegistryNameUpper()} = FabricItemGroup
+				.builder(new ResourceLocation(${JavaModName}.MODID,"${tab.getModElement().getRegistryName()}"))
+				.icon(()-> ${mappedMCItemToItemStackCode(tab.icon, 1)})
+				.displayItems((enabledFeatures, entries, operatorEnabled) -> {
+			}).build();
 		</#list>
 	}
 

@@ -37,7 +37,7 @@ public class ${name}Item extends RecordItem {
 					new Item.Properties().stacksTo(1).rarity(Rarity.RARE), ${data.lengthInTicks});
 		</#if>
 		ItemGroupEvents.modifyEntriesEvent(${data.creativeTab})
-		    .register(entries -> entries.accept(this));
+			.register(entries -> entries.accept(this));
 	}
 
 	<#if data.hasGlow>

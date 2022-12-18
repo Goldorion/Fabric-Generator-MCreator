@@ -43,7 +43,7 @@ public class TerraBlenderInit implements TerraBlenderApi {
 	public void onTerraBlenderInitialized() {
 		<#if w.hasElementsOfType("biome")>
 			<#list biomes as biome>
-                Regions.register(new ${biome.getModElement().getName()}Region(new ResourceLocation(${JavaModName}.MODID, "${biome.getModElement().getRegistryName()}")));
+				Regions.register(new ${biome.getModElement().getName()}Region(new ResourceLocation(${JavaModName}.MODID, "${biome.getModElement().getRegistryName()}")));
 			</#list>
 
 			SurfaceRuleManager.addSurfaceRules(SurfaceRuleManager.RuleCategory.OVERWORLD, ${JavaModName}.MODID, ${JavaModName}SurfaceRules.makeOverworldRules());

@@ -221,13 +221,13 @@ public class ${name}Screen extends AbstractContainerScreen<${name}Menu> {
 		<#assign btid = 0>
 		<#list data.components as component>
 		<#if component.getClass().getSimpleName() == "Button">
-		    <#if hasProcedure(component.onClick)>
-			    ServerPlayNetworking.registerGlobalReceiver(new ResourceLocation(${JavaModName}.MODID, "${name?lower_case}_button_${btid}"), ${name}ButtonMessage::apply);
+			<#if hasProcedure(component.onClick)>
+				ServerPlayNetworking.registerGlobalReceiver(new ResourceLocation(${JavaModName}.MODID, "${name?lower_case}_button_${btid}"), ${name}ButtonMessage::apply);
 			</#if>
 			<#assign btid +=1>
 		<#elseif component.getClass().getSimpleName()?ends_with("Slot")>
 			<#if hasProcedure(component.onSlotChanged) || hasProcedure(component.onTakenFromSlot) || hasProcedure(component.onStackTransfer)>
-			    ServerPlayNetworking.registerGlobalReceiver(new ResourceLocation(${JavaModName}.MODID, "${name?lower_case}_slot_${btid}"), ${name}SlotMessage::apply);
+				ServerPlayNetworking.registerGlobalReceiver(new ResourceLocation(${JavaModName}.MODID, "${name?lower_case}_slot_${btid}"), ${name}SlotMessage::apply);
 			</#if>
 		</#if>
 		</#list>

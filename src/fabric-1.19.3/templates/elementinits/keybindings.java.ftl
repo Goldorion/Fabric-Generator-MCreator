@@ -63,7 +63,7 @@ public class ${JavaModName}KeyMappings {
 	public static void load() {
 		ClientTickEvents.END_CLIENT_TICK.register((client) -> {
 			<#list keybinds as keybind>
-			    int ${keybind.getModElement().getRegistryNameUpper()}action = ${keybind.getModElement().getRegistryNameUpper()}.action();
+				int ${keybind.getModElement().getRegistryNameUpper()}action = ${keybind.getModElement().getRegistryNameUpper()}.action();
 				if (${keybind.getModElement().getRegistryNameUpper()}action == 1) {
 					ClientPlayNetworking.send(new ResourceLocation(${JavaModName}.MODID, "${keybind.getModElement().getRegistryName()?lower_case}"), new ${keybind.getModElement().getName()}Message(true,
 							false));

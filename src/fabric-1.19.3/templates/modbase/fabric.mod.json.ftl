@@ -31,8 +31,8 @@
 	  "${package}.ClientInit"
 	]<#if settings.getMCreatorDependenciesRaw()?seq_contains("terrablender")>,
 	"terrablender":[
-        "${package}.TerraBlenderInit"
-    ]</#if>
+		"${package}.TerraBlenderInit"
+	]</#if>
   },
 
   "depends": {

@@ -64,7 +64,7 @@ public class ${name}Item extends Item {
 				</#if>
 		);
 		ItemGroupEvents.modifyEntriesEvent(${data.creativeTab})
-		    .register(entries -> entries.accept(this));
+			.register(entries -> entries.accept(this));
 	}
 
 	<#if data.hasNonDefaultAnimation()>

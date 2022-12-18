@@ -88,8 +88,8 @@ public abstract class ${name}Item extends ArmorItem {
 	
 			public Helmet() {
 				super(EquipmentSlot.HEAD, new Item.Properties()<#if data.helmetImmuneToFire>.fireResistant()</#if>);
-		        ItemGroupEvents.modifyEntriesEvent(${data.creativeTab})
-		            .register(entries -> entries.accept(this));
+				ItemGroupEvents.modifyEntriesEvent(${data.creativeTab})
+					.register(entries -> entries.accept(this));
 			}
 	
 			<#if data.helmetSpecialInfo?has_content>
@@ -121,8 +121,8 @@ public abstract class ${name}Item extends ArmorItem {
 	
 			public Chestplate() {
 				super(EquipmentSlot.CHEST, new Item.Properties()<#if data.bodyImmuneToFire>.fireResistant()</#if>);
-		        ItemGroupEvents.modifyEntriesEvent(${data.creativeTab})
-		            .register(entries -> entries.accept(this));
+				ItemGroupEvents.modifyEntriesEvent(${data.creativeTab})
+					.register(entries -> entries.accept(this));
 			}
 	
 			<#if data.bodySpecialInfo?has_content>
@@ -154,8 +154,8 @@ public abstract class ${name}Item extends ArmorItem {
 	
 			public Leggings() {
 				super(EquipmentSlot.LEGS, new Item.Properties()<#if data.leggingsImmuneToFire>.fireResistant()</#if>);
-		        ItemGroupEvents.modifyEntriesEvent(${data.creativeTab})
-		            .register(entries -> entries.accept(this));
+				ItemGroupEvents.modifyEntriesEvent(${data.creativeTab})
+					.register(entries -> entries.accept(this));
 			}
 	
 			<#if data.leggingsSpecialInfo?has_content>
@@ -187,8 +187,8 @@ public abstract class ${name}Item extends ArmorItem {
 	
 			public Boots() {
 				super(EquipmentSlot.FEET, new Item.Properties()<#if data.bootsImmuneToFire>.fireResistant()</#if>);
-		        ItemGroupEvents.modifyEntriesEvent(${data.creativeTab})
-		            .register(entries -> entries.accept(this));
+				ItemGroupEvents.modifyEntriesEvent(${data.creativeTab})
+					.register(entries -> entries.accept(this));
 			}
 	
 			<#if data.bootsSpecialInfo?has_content>

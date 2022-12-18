@@ -37,7 +37,7 @@ public class ${name}Item extends Item {
 	public ${name}Item() {
 		super(new Item.Properties()<#if data.usageCount != 0>.durability(${data.usageCount})<#else>.stacksTo(${data.stackSize})</#if>);
 		ItemGroupEvents.modifyEntriesEvent(${data.creativeTab})
-		    .register(entries -> entries.accept(this));
+			.register(entries -> entries.accept(this));
 	}
 
 	@Override public InteractionResultHolder<ItemStack> use(Level world, Player entity, InteractionHand hand) {

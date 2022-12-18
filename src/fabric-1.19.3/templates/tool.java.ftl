@@ -76,17 +76,17 @@ public class ${name}Item extends ${data.toolType?replace("Spade", "Shovel")?repl
 
 				new Item.Properties()
 			 	<#if data.immuneToFire>
-			 	    .fireResistant()
+			 		.fireResistant()
 			 	</#if>
 		<#elseif data.toolType=="Shears">
 			new Item.Properties()
 				.durability(${data.usageCount})
 				<#if data.immuneToFire>
-                    .fireResistant()
+					.fireResistant()
 				</#if>
 		</#if>);
 		ItemGroupEvents.modifyEntriesEvent(${data.creativeTab})
-		    .register(entries -> entries.accept(this));
+			.register(entries -> entries.accept(this));
 	}
 
 	<#if data.toolType=="Shears">
@@ -195,7 +195,7 @@ public class ${name}Item extends Item {
 			</#if>
 		);
 		ItemGroupEvents.modifyEntriesEvent(${data.creativeTab})
-		    .register(entries -> entries.accept(this));
+			.register(entries -> entries.accept(this));
 	}
 
 	@Override public float getDestroySpeed(ItemStack itemstack, BlockState blockstate) {
@@ -260,7 +260,7 @@ public class ${name}Item extends FishingRodItem {
 			</#if>
 		);
 		ItemGroupEvents.modifyEntriesEvent(${data.creativeTab})
-		    .register(entries -> entries.accept(this));
+			.register(entries -> entries.accept(this));
 	}
 
 	<#if data.repairItems?has_content>
@@ -341,8 +341,8 @@ public class ${name}Item extends FishingRodItem {
 
 		<#if data.recipeRemainder?? && !data.recipeRemainder.isEmpty()>
 			@Override public ItemStack getRecipeRemainder(ItemStack itemstack) {
-			    return ${mappedMCItemToItemStackCode(data.recipeRemainder, 1)};
-        	}
+				return ${mappedMCItemToItemStackCode(data.recipeRemainder, 1)};
+			}
 		<#elseif data.damageOnCrafting && data.usageCount != 0>
 			@Override public ItemStack getRecipeRemainder(ItemStack itemstack) {
 				ItemStack retval = new ItemStack(this);

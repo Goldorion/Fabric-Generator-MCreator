@@ -70,12 +70,12 @@ public class ${JavaModName}Items {
 			${item.getModElement().getRegistryNameUpper()} = Registry.register(BuiltInRegistries.ITEM,new ResourceLocation(${JavaModName}.MODID,
 				"${item.getModElement().getRegistryName()}_spawn_egg"), new SpawnEggItem(${JavaModName}Entities.${item.getModElement().getRegistryNameUpper()},
 					${item.spawnEggBaseColor.getRGB()}, ${item.spawnEggDotColor.getRGB()}, new Item.Properties()));
-		    ItemGroupEvents.modifyEntriesEvent(<#if item.creativeTab??>${item.creativeTab}<#else>CreativeModeTabs.SPAWN_EGGS</#if>)
-		        .register(entries -> entries.accept(${item.getModElement().getRegistryNameUpper()}));
+			ItemGroupEvents.modifyEntriesEvent(<#if item.creativeTab??>${item.creativeTab}<#else>CreativeModeTabs.SPAWN_EGGS</#if>)
+				.register(entries -> entries.accept(${item.getModElement().getRegistryNameUpper()}));
 		<#elseif item.getModElement().getType().getBaseType()?string == "BLOCK">
 			${item.getModElement().getRegistryNameUpper()} = Registry.register(BuiltInRegistries.ITEM,new ResourceLocation(${JavaModName}.MODID,
 				"${item.getModElement().getRegistryName()}"), new BlockItem(${JavaModName}Blocks.${item.getModElement().getRegistryNameUpper()}, new Item.Properties()));
-		    ItemGroupEvents.modifyEntriesEvent(${item.creativeTab}).register(entries -> entries.accept(${item.getModElement().getRegistryNameUpper()}));
+			ItemGroupEvents.modifyEntriesEvent(${item.creativeTab}).register(entries -> entries.accept(${item.getModElement().getRegistryNameUpper()}));
 		<#else>
 			<#if item.getModElement().getTypeString() != "dimension">
 				${item.getModElement().getRegistryNameUpper()} = Registry.register(BuiltInRegistries.ITEM,

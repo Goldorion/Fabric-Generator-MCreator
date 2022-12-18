@@ -149,38 +149,38 @@ public class ${name}Menu extends AbstractContainerMenu {
 
 	<#if data.type == 1>
 		@Override
-        public ItemStack quickMoveStack(Player player, int index) {
-        	ItemStack itemstack = ItemStack.EMPTY;
-        	Slot slot = (Slot)this.slots.get(index);
-        	if (slot != null && slot.hasItem()) {
-        	    ItemStack itemstack1 = slot.getItem();
-                itemstack = itemstack1.copy();
+		public ItemStack quickMoveStack(Player player, int index) {
+			ItemStack itemstack = ItemStack.EMPTY;
+			Slot slot = (Slot)this.slots.get(index);
+			if (slot != null && slot.hasItem()) {
+				ItemStack itemstack1 = slot.getItem();
+				itemstack = itemstack1.copy();
 
-        		if (index < ${slotnum}) {
-                	if (!this.moveItemStackTo(itemstack1, ${slotnum}, this.slots.size(), true))
-                		return ItemStack.EMPTY;
-                	slot.onQuickCraft(itemstack1, itemstack);
-                } else if (!this.moveItemStackTo(itemstack1, 0, ${slotnum}, false)) {
-                	if (index < ${slotnum} + 27) {
-                		if (!this.moveItemStackTo(itemstack1, ${slotnum} + 27, this.slots.size(), true))
-                			return ItemStack.EMPTY;
-                	} else {
-                		if (!this.moveItemStackTo(itemstack1, ${slotnum}, ${slotnum} + 27, false))
-                			return ItemStack.EMPTY;
-                	}
-                	return ItemStack.EMPTY;
-                }
+				if (index < ${slotnum}) {
+					if (!this.moveItemStackTo(itemstack1, ${slotnum}, this.slots.size(), true))
+						return ItemStack.EMPTY;
+					slot.onQuickCraft(itemstack1, itemstack);
+				} else if (!this.moveItemStackTo(itemstack1, 0, ${slotnum}, false)) {
+					if (index < ${slotnum} + 27) {
+						if (!this.moveItemStackTo(itemstack1, ${slotnum} + 27, this.slots.size(), true))
+							return ItemStack.EMPTY;
+					} else {
+						if (!this.moveItemStackTo(itemstack1, ${slotnum}, ${slotnum} + 27, false))
+							return ItemStack.EMPTY;
+					}
+					return ItemStack.EMPTY;
+				}
 
-        		if (itemstack1.isEmpty())
-        			slot.set(ItemStack.EMPTY);
-        		else
-        			slot.setChanged();
-        		if (itemstack1.getCount() == itemstack.getCount())
-        			return ItemStack.EMPTY;
-        		slot.onTake(player, itemstack1);
-        	}
-        	return itemstack;
-        }
+				if (itemstack1.isEmpty())
+					slot.set(ItemStack.EMPTY);
+				else
+					slot.setChanged();
+				if (itemstack1.getCount() == itemstack.getCount())
+					return ItemStack.EMPTY;
+				slot.onTake(player, itemstack1);
+			}
+			return itemstack;
+		}
 
 		@Override public void removed(Player playerIn) {
 			super.removed(playerIn);

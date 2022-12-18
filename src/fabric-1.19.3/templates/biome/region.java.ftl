@@ -40,10 +40,10 @@ public class ${name}Region extends Region {
 	
 	@Override
 	public void addBiomes(Registry<Biome> registry, Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> mapper) {
-	    <#if data.spawnBiome || data.spawnBiomeNether>
-		    this.addBiome(mapper, ${name}Biome.PARAMETER_POINT, ${JavaModName}Biomes.${data.getModElement().getRegistryNameUpper()});
+		<#if data.spawnBiome || data.spawnBiomeNether>
+			this.addBiome(mapper, ${name}Biome.PARAMETER_POINT, ${JavaModName}Biomes.${data.getModElement().getRegistryNameUpper()});
 		<#elseif data.spawnInCaves>
-		    this.addBiome(mapper, ${name}Biome.PARAMETER_POINT_UNDERGROUND, ${JavaModName}Biomes.${data.getModElement().getRegistryNameUpper()});
+			this.addBiome(mapper, ${name}Biome.PARAMETER_POINT_UNDERGROUND, ${JavaModName}Biomes.${data.getModElement().getRegistryNameUpper()});
 		</#if>
 	}
 

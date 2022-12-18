@@ -56,76 +56,76 @@ public class ${JavaModName}SurfaceRules {
 	public static SurfaceRules.RuleSource makeOverworldRules() {
 		return SurfaceRules.sequence(
 		<#list spawn_overworld as biome>
-            preliminarySurfaceRule(
-                ${JavaModName}Biomes.${biome.getModElement().getRegistryNameUpper()},
-            	${mappedBlockToBlockStateCode(biome.groundBlock)},
-            	${mappedBlockToBlockStateCode(biome.undergroundBlock)},
-            	${mappedBlockToBlockStateCode(biome.getUnderwaterBlock())}
-            )<#sep>,</#sep>
+			preliminarySurfaceRule(
+				${JavaModName}Biomes.${biome.getModElement().getRegistryNameUpper()},
+				${mappedBlockToBlockStateCode(biome.groundBlock)},
+				${mappedBlockToBlockStateCode(biome.undergroundBlock)},
+				${mappedBlockToBlockStateCode(biome.getUnderwaterBlock())}
+			)<#sep>,</#sep>
 		</#list><#if spawn_overworld?has_content && spawn_caves?has_content>,</#if>
 		<#list spawn_caves as biome>
-            anySurfaceRule(
-                ${JavaModName}Biomes.${biome.getModElement().getRegistryNameUpper()},
-                ${mappedBlockToBlockStateCode(biome.groundBlock)},
-            	${mappedBlockToBlockStateCode(biome.undergroundBlock)},
-                ${mappedBlockToBlockStateCode(biome.getUnderwaterBlock())}
-            )<#sep>,</#sep>
+			anySurfaceRule(
+				${JavaModName}Biomes.${biome.getModElement().getRegistryNameUpper()},
+				${mappedBlockToBlockStateCode(biome.groundBlock)},
+				${mappedBlockToBlockStateCode(biome.undergroundBlock)},
+				${mappedBlockToBlockStateCode(biome.getUnderwaterBlock())}
+			)<#sep>,</#sep>
 		</#list>);
 	}
 
 	public static SurfaceRules.RuleSource makeNetherRules() {
 		return SurfaceRules.sequence(
 		<#list spawn_nether as biome>
-            anySurfaceRule(
-                ${JavaModName}Biomes.${biome.getModElement().getRegistryNameUpper()},
-                ${mappedBlockToBlockStateCode(biome.groundBlock)},
-            	${mappedBlockToBlockStateCode(biome.undergroundBlock)},
-                ${mappedBlockToBlockStateCode(biome.getUnderwaterBlock())}
-            )<#sep>,</#sep>
+			anySurfaceRule(
+				${JavaModName}Biomes.${biome.getModElement().getRegistryNameUpper()},
+				${mappedBlockToBlockStateCode(biome.groundBlock)},
+				${mappedBlockToBlockStateCode(biome.undergroundBlock)},
+				${mappedBlockToBlockStateCode(biome.getUnderwaterBlock())}
+			)<#sep>,</#sep>
 		</#list>);
 	}
 	
 	
 	<#if spawn_overworld?has_content>
-        private static SurfaceRules.RuleSource preliminarySurfaceRule(ResourceKey<Biome> biomeKey, BlockState groundBlock, BlockState undergroundBlock, BlockState underwaterBlock) {
-    	    return SurfaceRules.ifTrue(SurfaceRules.isBiome(biomeKey),
-    		    SurfaceRules.ifTrue(SurfaceRules.abovePreliminarySurface(),
-    			    SurfaceRules.sequence(
-    		            SurfaceRules.ifTrue(SurfaceRules.stoneDepthCheck(0, false, 0, CaveSurface.FLOOR),
-    			            SurfaceRules.sequence(
-    				            SurfaceRules.ifTrue(SurfaceRules.waterBlockCheck(-1, 0),
-    			                    SurfaceRules.state(groundBlock)
-    				            ), SurfaceRules.state(underwaterBlock)
-    				        )
-    				    ),
-    		            SurfaceRules.ifTrue(SurfaceRules.stoneDepthCheck(0, true, 0, CaveSurface.FLOOR),
-    			            SurfaceRules.state(undergroundBlock)
-    		            )
-                    )
-    		    )
-    	    );
-        }
-    </#if>
-    
-    <#if spawn_nether?has_content || spawn_overworld_caves?has_content>
-        private static SurfaceRules.RuleSource anySurfaceRule(ResourceKey<Biome> biomeKey, BlockState groundBlock, BlockState undergroundBlock, BlockState underwaterBlock) {
-    	    return SurfaceRules.ifTrue(SurfaceRules.isBiome(biomeKey),
-    		    SurfaceRules.sequence(
-    			    SurfaceRules.ifTrue(SurfaceRules.stoneDepthCheck(0, false, 0, CaveSurface.FLOOR),
-    		            SurfaceRules.sequence(
-    			            SurfaceRules.ifTrue(SurfaceRules.waterBlockCheck(-1, 0),
-    				            SurfaceRules.state(groundBlock)
-    			            ),
-    			            SurfaceRules.state(underwaterBlock)
-    		            )
-    			    ),
-    			    SurfaceRules.ifTrue(SurfaceRules.stoneDepthCheck(0, true, 0, CaveSurface.FLOOR),
-    		            SurfaceRules.state(undergroundBlock)
-    			    )
-    		    )
-    	    );
-    	}
-    </#if>
+		private static SurfaceRules.RuleSource preliminarySurfaceRule(ResourceKey<Biome> biomeKey, BlockState groundBlock, BlockState undergroundBlock, BlockState underwaterBlock) {
+			return SurfaceRules.ifTrue(SurfaceRules.isBiome(biomeKey),
+				SurfaceRules.ifTrue(SurfaceRules.abovePreliminarySurface(),
+					SurfaceRules.sequence(
+						SurfaceRules.ifTrue(SurfaceRules.stoneDepthCheck(0, false, 0, CaveSurface.FLOOR),
+							SurfaceRules.sequence(
+								SurfaceRules.ifTrue(SurfaceRules.waterBlockCheck(-1, 0),
+									SurfaceRules.state(groundBlock)
+								), SurfaceRules.state(underwaterBlock)
+							)
+						),
+						SurfaceRules.ifTrue(SurfaceRules.stoneDepthCheck(0, true, 0, CaveSurface.FLOOR),
+							SurfaceRules.state(undergroundBlock)
+						)
+					)
+				)
+			);
+		}
+	</#if>
+
+	<#if spawn_nether?has_content || spawn_overworld_caves?has_content>
+		private static SurfaceRules.RuleSource anySurfaceRule(ResourceKey<Biome> biomeKey, BlockState groundBlock, BlockState undergroundBlock, BlockState underwaterBlock) {
+			return SurfaceRules.ifTrue(SurfaceRules.isBiome(biomeKey),
+				SurfaceRules.sequence(
+					SurfaceRules.ifTrue(SurfaceRules.stoneDepthCheck(0, false, 0, CaveSurface.FLOOR),
+						SurfaceRules.sequence(
+							SurfaceRules.ifTrue(SurfaceRules.waterBlockCheck(-1, 0),
+								SurfaceRules.state(groundBlock)
+							),
+							SurfaceRules.state(underwaterBlock)
+						)
+					),
+					SurfaceRules.ifTrue(SurfaceRules.stoneDepthCheck(0, true, 0, CaveSurface.FLOOR),
+						SurfaceRules.state(undergroundBlock)
+					)
+				)
+			);
+		}
+	</#if>
 }
 
 </#compress>
