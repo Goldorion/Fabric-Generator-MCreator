@@ -3,9 +3,9 @@
   "textures": {
 	<#if data.getTextureMap()??>
 		<#list data.getTextureMap().entrySet() as texture>
-			"${texture.getKey()}": "${modid}:blocks/${texture.getValue()}",
+			"${texture.getKey()}": "${modid}:block/${texture.getValue()}",
 		</#list>
 	</#if>
-	"particle": "${modid}:items/${data.texture}"
+	"particle": "${modid}:item/${data.texture}"
   }
 }

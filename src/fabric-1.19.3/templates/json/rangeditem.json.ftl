@@ -1,7 +1,7 @@
 {
 	"parent": "item/generated",
 	"textures": {
-	  "layer0": "${modid}:items/${data.texture}"
+	  "layer0": "${modid}:item/${data.texture}"
 	},
 	"display": {
 	  "thirdperson_righthand": {

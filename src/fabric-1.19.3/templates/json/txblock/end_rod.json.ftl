@@ -15,8 +15,8 @@
 	},
 	"ambientocclusion": false,
 	"textures": {
-		"end_rod": "${modid}:blocks/${data.texture}",
-		"particle": "${modid}:blocks/${data.particleTexture?has_content?then(data.particleTexture, data.texture)}"
+		"end_rod": "${modid}:block/${data.texture}",
+		"particle": "${modid}:block/${data.particleTexture?has_content?then(data.particleTexture, data.texture)}"
 	},
 	"elements": [
 		{
