@@ -22,37 +22,10 @@
  */
 <#compress>
 <#include "../mcitems.ftl">
-<#assign items = []>
-
-<#list armors as item>
-    <#assign items += [item]>
-</#list>
-<#list blocks as item>
-    <#assign items += [item]>
-</#list>
-<#list fluids as item>
-    <#assign items += [item]>
-</#list>
-<#list items as item>
-    <#assign items += [item]>
-</#list>
-<#list livingentities as item>
-    <#assign items += [item]>
-</#list>
-<#list musicdiscs as item>
-    <#assign items += [item]>
-</#list>
-<#list plants as item>
-    <#assign items += [item]>
-</#list>
-<#list rangeditems as item>
-    <#assign items += [item]>
-</#list>
-<#list tools as item>
-    <#assign items += [item]>
-</#list>
 
 package ${package}.init;
+
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 
 public class ${JavaModName}Tabs {
 
@@ -62,15 +35,10 @@ public class ${JavaModName}Tabs {
 
 	public static void load() {
 		<#list tabs as tab>
-		TAB_${tab.getModElement().getRegistryNameUpper()} = FabricItemGroupBuilder
-					.builder(new ResourceLocation("${JavaModName}.MODID","${tab.getModElement().getRegistryName()}"))
+		TAB_${tab.getModElement().getRegistryNameUpper()} = FabricItemGroup
+					.builder(new ResourceLocation("${modid}","${tab.getModElement().getRegistryName()}"))
 					.icon(()-> ${mappedMCItemToItemStackCode(tab.icon, 1)})
-					.displayItems((enabledFeatures, entries, operatorEnabled) 0> {
-					    <#list items as item>
-					        <#if item.creativeTab == tab>
-					            entries.accept(() -> ${mappedMCItemToItem(item)});
-					        </#if>
-					    </#list>
+					.displayItems((enabledFeatures, entries, operatorEnabled) -> {
 					})
 					.build();
 		</#list>
