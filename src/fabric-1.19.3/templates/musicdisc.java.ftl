@@ -30,12 +30,14 @@ public class ${name}Item extends RecordItem {
 	public ${name}Item() {
 		<#if data.music.getUnmappedValue().startsWith("CUSTOM:")>
 			super(${data.analogOutput}, ${JavaModName}Sounds.${data.music?replace(modid + ":", "")?upper_case},
-					new Item.Properties().tab(${data.creativeTab}).stacksTo(1).rarity(Rarity.RARE), ${data.lengthInTicks});
+					new Item.Properties().stacksTo(1).rarity(Rarity.RARE), ${data.lengthInTicks});
 		<#else>
 		<#assign s=data.music>
 			super(${data.analogOutput}, SoundEvents.${(s?starts_with("ambient")||s?starts_with("music")||s?starts_with("ui")||s?starts_with("weather"))?string(s?upper_case?replace(".", "_"),s?keep_after(".")?upper_case?replace(".", "_"))},
-					new Item.Properties().tab(${data.creativeTab}).stacksTo(1).rarity(Rarity.RARE), ${data.lengthInTicks});
+					new Item.Properties().stacksTo(1).rarity(Rarity.RARE), ${data.lengthInTicks});
 		</#if>
+		ItemGroupEvents.modifyEntriesEvent(${data.creativeTab})
+		    .register(entries -> entries.accept(this));
 	}
 
 	<#if data.hasGlow>

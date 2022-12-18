@@ -1,6 +1,6 @@
 <#--
  # This file is part of Fabric-Generator-MCreator.
- # Copyright (C) 2020-2021, Goldorion, opensource contributors
+ # Copyright (C) 2020-2022, Goldorion, opensource contributors
  #
  # Fabric-Generator-MCreator is free software: you can redistribute it and/or modify
  # it under the terms of the GNU Lesser General Public License as published by
@@ -17,12 +17,40 @@
 -->
 
 <#-- @formatter:off -->
-
-<#include "../mcitems.ftl">
-
 /*
  *	MCreator note: This file will be REGENERATED on each build.
  */
+<#compress>
+<#include "../mcitems.ftl">
+<#assign items = []>
+
+<#list armors as item>
+    <#assign items += [item]>
+</#list>
+<#list blocks as item>
+    <#assign items += [item]>
+</#list>
+<#list fluids as item>
+    <#assign items += [item]>
+</#list>
+<#list items as item>
+    <#assign items += [item]>
+</#list>
+<#list livingentities as item>
+    <#assign items += [item]>
+</#list>
+<#list musicdiscs as item>
+    <#assign items += [item]>
+</#list>
+<#list plants as item>
+    <#assign items += [item]>
+</#list>
+<#list rangeditems as item>
+    <#assign items += [item]>
+</#list>
+<#list tools as item>
+    <#assign items += [item]>
+</#list>
 
 package ${package}.init;
 
@@ -35,12 +63,19 @@ public class ${JavaModName}Tabs {
 	public static void load() {
 		<#list tabs as tab>
 		TAB_${tab.getModElement().getRegistryNameUpper()} = FabricItemGroupBuilder
-					.create(new ResourceLocation("${modid}","${tab.getModElement().getRegistryName()}"))
+					.builder(new ResourceLocation("${JavaModName}.MODID","${tab.getModElement().getRegistryName()}"))
 					.icon(()-> ${mappedMCItemToItemStackCode(tab.icon, 1)})
+					.displayItems((enabledFeatures, entries, operatorEnabled) 0> {
+					    <#list items as item>
+					        <#if item.creativeTab == tab>
+					            entries.accept(() -> ${mappedMCItemToItem(item)});
+					        </#if>
+					    </#list>
+					})
 					.build();
 		</#list>
 	}
 
 }
-
+</#compress>
 <#-- @formatter:on -->

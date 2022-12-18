@@ -75,18 +75,18 @@ public class ${name}Item extends ${data.toolType?replace("Spade", "Shovel")?repl
 			</#if>
 
 				new Item.Properties()
-			 	.tab(${data.creativeTab})
 			 	<#if data.immuneToFire>
 			 	    .fireResistant()
 			 	</#if>
 		<#elseif data.toolType=="Shears">
 			new Item.Properties()
-				.tab(${data.creativeTab})
 				.durability(${data.usageCount})
 				<#if data.immuneToFire>
                     .fireResistant()
 				</#if>
 		</#if>);
+		ItemGroupEvents.modifyEntriesEvent(${data.creativeTab})
+		    .register(entries -> entries.accept(this));
 	}
 
 	<#if data.toolType=="Shears">
@@ -189,12 +189,13 @@ public class ${name}Item extends Item {
 
 	public ${name}Item() {
 		super(new Item.Properties()
-			.tab(${data.creativeTab})
 			.durability(${data.usageCount})
 			<#if data.immuneToFire>
 			.fireResistant()
 			</#if>
 		);
+		ItemGroupEvents.modifyEntriesEvent(${data.creativeTab})
+		    .register(entries -> entries.accept(this));
 	}
 
 	@Override public float getDestroySpeed(ItemStack itemstack, BlockState blockstate) {
@@ -253,12 +254,13 @@ public class ${name}Item extends FishingRodItem {
 
 	public ${name}Item() {
 		super(new Item.Properties()
-			.tab(${data.creativeTab})
 			.durability(${data.usageCount})
 			<#if data.immuneToFire>
 			.fireResistant()
 			</#if>
 		);
+		ItemGroupEvents.modifyEntriesEvent(${data.creativeTab})
+		    .register(entries -> entries.accept(this));
 	}
 
 	<#if data.repairItems?has_content>

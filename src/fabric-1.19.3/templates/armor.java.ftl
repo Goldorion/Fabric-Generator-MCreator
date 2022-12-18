@@ -87,7 +87,9 @@ public abstract class ${name}Item extends ArmorItem {
 		public static class Helmet extends ${name}Item {
 	
 			public Helmet() {
-				super(EquipmentSlot.HEAD, new Item.Properties().tab(${data.creativeTab})<#if data.helmetImmuneToFire>.fireResistant()</#if>);
+				super(EquipmentSlot.HEAD, new Item.Properties()<#if data.helmetImmuneToFire>.fireResistant()</#if>);
+		        ItemGroupEvents.modifyEntriesEvent(${data.creativeTab})
+		            .register(entries -> entries.accept(this));
 			}
 	
 			<#if data.helmetSpecialInfo?has_content>
@@ -118,7 +120,9 @@ public abstract class ${name}Item extends ArmorItem {
 		public static class Chestplate extends ${name}Item {
 	
 			public Chestplate() {
-				super(EquipmentSlot.CHEST, new Item.Properties().tab(${data.creativeTab})<#if data.bodyImmuneToFire>.fireResistant()</#if>);
+				super(EquipmentSlot.CHEST, new Item.Properties()<#if data.bodyImmuneToFire>.fireResistant()</#if>);
+		        ItemGroupEvents.modifyEntriesEvent(${data.creativeTab})
+		            .register(entries -> entries.accept(this));
 			}
 	
 			<#if data.bodySpecialInfo?has_content>
@@ -149,7 +153,9 @@ public abstract class ${name}Item extends ArmorItem {
 		public static class Leggings extends ${name}Item {
 	
 			public Leggings() {
-				super(EquipmentSlot.LEGS, new Item.Properties().tab(${data.creativeTab})<#if data.leggingsImmuneToFire>.fireResistant()</#if>);
+				super(EquipmentSlot.LEGS, new Item.Properties()<#if data.leggingsImmuneToFire>.fireResistant()</#if>);
+		        ItemGroupEvents.modifyEntriesEvent(${data.creativeTab})
+		            .register(entries -> entries.accept(this));
 			}
 	
 			<#if data.leggingsSpecialInfo?has_content>
@@ -180,7 +186,9 @@ public abstract class ${name}Item extends ArmorItem {
 		public static class Boots extends ${name}Item {
 	
 			public Boots() {
-				super(EquipmentSlot.FEET, new Item.Properties().tab(${data.creativeTab})<#if data.bootsImmuneToFire>.fireResistant()</#if>);
+				super(EquipmentSlot.FEET, new Item.Properties()<#if data.bootsImmuneToFire>.fireResistant()</#if>);
+		        ItemGroupEvents.modifyEntriesEvent(${data.creativeTab})
+		            .register(entries -> entries.accept(this));
 			}
 	
 			<#if data.bootsSpecialInfo?has_content>
