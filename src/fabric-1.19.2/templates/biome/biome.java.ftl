@@ -38,27 +38,40 @@ import com.google.common.collect.ImmutableList;
 public class ${name}Biome {
 
 	<#if data.spawnBiome || data.spawnBiomeNether>
-		public static final Climate.ParameterPoint PARAMETER_POINT = new Climate.ParameterPoint(
-			Climate.Parameter.span(${temperature2temperature(data.temperature, normalizeWeight(data.biomeWeight), "f")}),
-			Climate.Parameter.span(${rainingPossibility2humidity(data.rainingPossibility, normalizeWeight(data.biomeWeight), "f")}),
-			Climate.Parameter.span(${baseHeight2continentalness(data.baseHeight normalizeWeight(data.biomeWeight), "f")}),
-			Climate.Parameter.span(${heightVariation2erosion(data.heightVariation normalizeWeight(data.biomeWeight), "f")}),
-			Climate.Parameter.point(0), <#-- depth - 0 surface, 1 - 128 below surface - cave biome -->
-			Climate.Parameter.span(${registryname2weirdness(registryname normalizeWeight(data.biomeWeight), "f")}),
-			0 <#-- offset -->
-		);
+        public static final List<Climate.ParameterPoint> PARAMETER_POINTS = List.of(
+            new Climate.ParameterPoint(
+                Climate.Parameter.span(${data.genTemperature.min}f, ${data.genTemperature.max}f),
+                Climate.Parameter.span(${data.genHumidity.min}f, ${data.genHumidity.max}f),
+                Climate.Parameter.span(${data.genContinentalness.min}f, ${data.genContinentalness.max}f),
+                Climate.Parameter.span(${data.genErosion.min}f, ${data.genErosion.max}f),
+                Climate.Parameter.point(0.0f),
+                Climate.Parameter.span(${data.genWeirdness.min}f, ${data.genWeirdness.max}f),
+                0 <#-- offset -->
+            ),
+            new Climate.ParameterPoint(
+                Climate.Parameter.span(${data.genTemperature.min}f, ${data.genTemperature.max}f),
+                Climate.Parameter.span(${data.genHumidity.min}f, ${data.genHumidity.max}f),
+                Climate.Parameter.span(${data.genContinentalness.min}f, ${data.genContinentalness.max}f),
+                Climate.Parameter.span(${data.genErosion.min}f, ${data.genErosion.max}f),
+                Climate.Parameter.point(1.0f),
+                Climate.Parameter.span(${data.genWeirdness.min}f, ${data.genWeirdness.max}f),
+                0 <#-- offset -->
+            )
+        );
 	</#if>
 
 	<#if data.spawnInCaves>
-		public static final Climate.ParameterPoint PARAMETER_POINT_UNDERGROUND = new Climate.ParameterPoint(
-			Climate.Parameter.span(-1, 1),
-			Climate.Parameter.span(-1, 1),
-			Climate.Parameter.span(${baseHeight2continentalness(data.baseHeight normalizeWeightUnderground(data.biomeWeight), "f")}),
-			Climate.Parameter.span(${heightVariation2erosion(data.heightVariation normalizeWeightUnderground(data.biomeWeight), "f")}),
-			Climate.Parameter.span(0.2f, 0.9f), <#-- depth - 0 surface, 1 - 128 below surface - cave biome -->
-			Climate.Parameter.span(${registryname2weirdness(registryname normalizeWeightUnderground(data.biomeWeight), "f")}),
-			0 <#-- offset -->
-		);
+        public static final List<Climate.ParameterPoint> UNDERGROUND_PARAMETER_POINTS = List.of(
+            new Climate.ParameterPoint(
+                Climate.Parameter.span(${data.genTemperature.min}f, ${data.genTemperature.max}f),
+                Climate.Parameter.span(${data.genHumidity.min}f, ${data.genHumidity.max}f),
+                Climate.Parameter.span(${data.genContinentalness.min}f, ${data.genContinentalness.max}f),
+                Climate.Parameter.span(${data.genErosion.min}f, ${data.genErosion.max}f),
+                Climate.Parameter.span(0.2f, 0.9f),
+                Climate.Parameter.span(${data.genWeirdness.min}f, ${data.genWeirdness.max}f),
+                0 <#-- offset -->
+            )
+        );
 	</#if>
 
 	public static void createBiome() {
@@ -113,7 +126,7 @@ public class ${name}Biome {
 				.ambientParticle(new AmbientParticleSettings(${data.particleToSpawn}, ${data.particlesProbability / 100}f))
 			</#if>
 			.build();
-			
+
 		BiomeGenerationSettings.Builder biomeGenerationSettings = new BiomeGenerationSettings.Builder();
 		<#if (data.treesPerChunk > 0)>
 		<#assign ct = data.treeType == data.TREES_CUSTOM>
@@ -179,7 +192,7 @@ public class ${name}Biome {
 				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 				PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING),BiomeFilter.biome())));
 			</#if>
-			
+
 			<#if (data.grassPerChunk > 0)>
 				biomeGenerationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION,
 					PlacementUtils.register("${modid}:grass_${registryname}", VegetationFeatures.PATCH_GRASS, List.of(
@@ -188,13 +201,13 @@ public class ${name}Biome {
 					PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 					BiomeFilter.biome())));
 			</#if>
-			
+
 			<#if (data.seagrassPerChunk > 0)>
 				biomeGenerationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION,
 					PlacementUtils.register("${modid}:seagrass_${registryname}", AquaticFeatures.SEAGRASS_SHORT,
 					AquaticPlacements.seagrassPlacement(${data.seagrassPerChunk})));
 			</#if>
-			
+
 			<#if (data.flowersPerChunk > 0)>
 				biomeGenerationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION,
 				PlacementUtils.register("${modid}:flower_${registryname}", VegetationFeatures.FLOWER_DEFAULT, List.of(
@@ -204,7 +217,7 @@ public class ${name}Biome {
 				PlacementUtils.HEIGHTMAP,
 				BiomeFilter.biome())));
 			</#if>
-			
+
 			<#if (data.mushroomsPerChunk > 0)>
 				biomeGenerationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION,
 					PlacementUtils.register("${modid}:brown_mushroom_${registryname}", VegetationFeatures.PATCH_BROWN_MUSHROOM, List.of(
@@ -213,7 +226,7 @@ public class ${name}Biome {
 						InSquarePlacement.spread(),
 						PlacementUtils.HEIGHTMAP,
 						BiomeFilter.biome())));
-			
+
 				biomeGenerationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION,
 					PlacementUtils.register("${modid}:red_mushroom_${registryname}", VegetationFeatures.PATCH_RED_MUSHROOM, List.of(
 						CountPlacement.of(${data.mushroomsPerChunk}),
@@ -222,7 +235,7 @@ public class ${name}Biome {
 						PlacementUtils.HEIGHTMAP,
 						BiomeFilter.biome())));
 			</#if>
-			
+
 			<#if (data.bigMushroomsChunk > 0)>
 				biomeGenerationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION,
 					PlacementUtils.register("${modid}:mushrooms_huge_${registryname}", VegetationFeatures.MUSHROOM_ISLAND_VEGETATION, List.of(
@@ -231,7 +244,7 @@ public class ${name}Biome {
 					PlacementUtils.HEIGHTMAP,
 					BiomeFilter.biome())));
 			</#if>
-			
+
 			<#if (data.reedsPerChunk > 0)>
 				biomeGenerationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION,
 					PlacementUtils.register("${modid}:patch_sugar_cane_${registryname}", VegetationFeatures.PATCH_SUGAR_CANE, List.of(
@@ -240,7 +253,7 @@ public class ${name}Biome {
 					PlacementUtils.HEIGHTMAP,
 					BiomeFilter.biome())));
 			</#if>
-			
+
 			<#if (data.cactiPerChunk > 0)>
 				biomeGenerationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION,
 					PlacementUtils.register("${modid}:patch_cactus_${registryname}", VegetationFeatures.PATCH_SUGAR_CANE, List.of(
@@ -249,7 +262,7 @@ public class ${name}Biome {
 					PlacementUtils.HEIGHTMAP,
 					BiomeFilter.biome())));
 			</#if>
-			
+
 			<#if (data.sandPatchesPerChunk > 0)>
 				biomeGenerationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION,
 					PlacementUtils.register("${modid}:disk_sand_${registryname}", FeatureUtils.register("${modid}:disk_sand_${registryname}",
@@ -260,7 +273,7 @@ public class ${name}Biome {
 					PlacementUtils.HEIGHTMAP_TOP_SOLID,
 					BiomeFilter.biome())));
 			</#if>
-			
+
 			<#if (data.gravelPatchesPerChunk > 0)>
 				biomeGenerationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION,
 					PlacementUtils.register("${modid}:disk_gravel_${registryname}", FeatureUtils.register("${modid}:disk_gravel_${registryname}",
@@ -271,7 +284,7 @@ public class ${name}Biome {
 					PlacementUtils.HEIGHTMAP_TOP_SOLID,
 					BiomeFilter.biome())));
 			</#if>
-			
+
 			<#list generator.sortByMappings(data.defaultFeatures, "defaultfeatures") as defaultFeature>
 			<#assign mfeat = generator.map(defaultFeature, "defaultfeatures")>
 				<#if mfeat != "null">
@@ -280,7 +293,7 @@ public class ${name}Biome {
 					</#if>
 				</#if>
 			</#list>
-			
+
 			MobSpawnSettings.Builder mobSpawnInfo = new MobSpawnSettings.Builder();
 			<#list data.spawnEntries as spawnEntry>
 				<#assign entity = generator.map(spawnEntry.entity.getUnmappedValue(), "entities", 1)!"null">
