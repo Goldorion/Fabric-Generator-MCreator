@@ -16,6 +16,6 @@ fabric-1.19.3:
       }
     }
     dependencies {
-      modImplementation 'com.github.glitchfiend:TerraBlender-fabric:1.19.3-2.0.1.132'
+      modImplementation 'com.github.glitchfiend:TerraBlender-fabric:1.19.3-2.1.0.132'
     }
 name: "TerraBlender Fabric (Biomes)"
