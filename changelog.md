@@ -5,6 +5,9 @@
 * Added base support for Fabric 1.19.3
   * Fabric 1.19.2 is still supported and integrated.
 
+## 1.8.2
+* Added support for MCreator EAP 2022.4.52117
+
 ## 1.8.1
 * [#345] Added is entity swimming procedure block (kleiders)
 * [Bugfix #339] Fix some problems related to key binds (kleiders)
