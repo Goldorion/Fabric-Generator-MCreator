@@ -19,7 +19,7 @@
 -->
 
 <#-- @formatter:off -->
-<#include "tokens.ftl">
+<#compress>
 <#include "procedures.java.ftl">
 
 <#assign hasTextures = data.baseTexture?has_content>
@@ -81,7 +81,8 @@ public class ${name}Overlay {
 					<#if hasProcedure(component.displayCondition)>
 						if (<@procedureOBJToConditionCode component.displayCondition/>)
 					</#if>
-					Minecraft.getInstance().font.draw(matrices, "${translateTokens(JavaConventions.escapeStringForJava(component.text))}",
+					Minecraft.getInstance().font.draw(matrices,
+					<#if hasProcedure(component.text)><@procedureOBJToStringCode component.text/><#else>Component.translatable("gui.${modid}.${registryname}.${component.getName()}")</#if>,
 							posX + ${x}, posY + ${y}, ${component.color.getRGB()});
 				<#elseif component.getClass().getSimpleName() == "Image">
 					<#if hasProcedure(component.displayCondition)>
@@ -104,4 +105,5 @@ public class ${name}Overlay {
 		</#if>
 	}
 }
+</#compress>
 <#-- @formatter:on -->
