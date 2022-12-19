@@ -19,3 +19,17 @@ global_templates:
     name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameScreens.java"
 
 field_exclusions: [ onTick ]
+
+localizationkeys:
+  - fromlist: data.getFixedTextLabels()
+    key: gui.@modid.@registryname.@[getName()]
+    mapto: getRenderText()
+  - fromlist: data.getComponentsOfType('TextField')
+    key: gui.@modid.@registryname.@[getName()]
+    mapto: placeholder
+  - fromlist: data.getComponentsOfType('Button')
+    key: gui.@modid.@registryname.@[getName()]
+    mapto: text
+  - fromlist: data.getComponentsOfType('Checkbox')
+    key: gui.@modid.@registryname.@[getName()]
+    mapto: text
