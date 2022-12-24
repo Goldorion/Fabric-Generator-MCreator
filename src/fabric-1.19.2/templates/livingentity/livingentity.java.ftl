@@ -21,7 +21,6 @@
 <#-- @formatter:off -->
 <#include "../mcitems.ftl">
 <#include "../procedures.java.ftl">
-<#include "../particles.java.ftl">
 <#compress>
 
 package ${package}.entity;
@@ -654,7 +653,6 @@ public class ${name}Entity extends ${extendsClass} <#if data.ranged>implements R
 	<#if data.flyingMob>
         public void aiStep() {
             super.aiStep();
-
             this.setNoGravity(true);
         }
 	</#if>
