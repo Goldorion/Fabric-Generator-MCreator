@@ -43,7 +43,7 @@ public class ${name}Region extends Region {
 		<#if data.spawnBiome || data.spawnBiomeNether>
 			this.addBiome(mapper, ${name}Biome.PARAMETER_POINT, ${JavaModName}Biomes.${data.getModElement().getRegistryNameUpper()});
 		<#elseif data.spawnInCaves>
-			this.addBiome(mapper, ${name}Biome.PARAMETER_POINT_UNDERGROUND, ${JavaModName}Biomes.${data.getModElement().getRegistryNameUpper()});
+			this.addBiome(mapper, ${name}Biome.UNDERGROUND_PARAMETER_POINTS, ${JavaModName}Biomes.${data.getModElement().getRegistryNameUpper()});
 		</#if>
 	}
 

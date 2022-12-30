@@ -19,7 +19,6 @@
 -->
 
 <#-- @formatter:off -->
-<#include "tokens.ftl">
 <#include "procedures.java.ftl">
 
 <#assign hasTextures = data.baseTexture?has_content>
@@ -34,6 +33,7 @@ package ${package}.client.gui;
 
 import net.fabricmc.api.Environment;
 
+<#compress>
 @Environment(EnvType.CLIENT)
 public class ${name}Overlay {
 
@@ -81,11 +81,12 @@ public class ${name}Overlay {
 					<#if hasProcedure(component.displayCondition)>
 						if (<@procedureOBJToConditionCode component.displayCondition/>)
 					</#if>
-					Minecraft.getInstance().font.draw(matrices, "${translateTokens(JavaConventions.escapeStringForJava(component.text))}",
-							posX + ${x}, posY + ${y}, ${component.color.getRGB()});
+					Minecraft.getInstance().font.draw(matrices, <#if hasProcedure(component.text)><@procedureOBJToStringCode component.text/>
+					    <#else>Component.translatable("gui.${modid}.${registryname}.${component.getName()}")</#if>,
+						posX + ${x}, posY + ${y}, ${component.color.getRGB()});
 				<#elseif component.getClass().getSimpleName() == "Image">
 					<#if hasProcedure(component.displayCondition)>
-					if (<@procedureOBJToConditionCode component.displayCondition/>) {
+					    if (<@procedureOBJToConditionCode component.displayCondition/>) {
 					</#if>
 					RenderSystem.setShaderTexture(0, new ResourceLocation("${modid}:textures/screens/${component.image}"));
 					GuiComponent.blit(matrices, posX + ${x}, posY + ${y}, 0, 0,
@@ -104,4 +105,5 @@ public class ${name}Overlay {
 		</#if>
 	}
 }
+</#compress>
 <#-- @formatter:on -->

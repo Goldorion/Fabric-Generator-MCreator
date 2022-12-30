@@ -76,55 +76,59 @@ public class ${name}Menu extends AbstractContainerMenu {
 		<#if data.type == 1>
 			<#list data.components as component>
 				<#if component.getClass().getSimpleName()?ends_with("Slot")>
-	<#assign slotnum += 1>
-	   		this.addSlot(new Slot(inventory, ${component.id},
-	${(component.x - mx)?int + 1},
-	${(component.y - my)?int + 1}) {
+					<#assign slotnum += 1>
+	   				this.addSlot(new Slot(inventory, ${component.id}, ${(component.x - mx)?int + 1},
+						${(component.y - my)?int + 1}) {
 
-	   				<#if component.disableStackInteraction>
-		@Override public boolean mayPickup(Player player) {
-			return false;
-		}
-	   				</#if>
+	   				<#if hasProcedure(component.disablePickup) || component.disablePickup.getFixedValue()>
+						@Override public boolean mayPickup(Player entity) {
+							return <@procedureOBJToConditionCode component.disablePickup false true/>;
+						}
+					</#if>
 
-				<#if hasProcedure(component.onSlotChanged)>
-	@Override public void setChanged() {
-		super.setChanged();
-		slotChanged(${component.id}, 0, 0);
-				}
+					<#if hasProcedure(component.onSlotChanged)>
+						@Override public void setChanged() {
+							super.setChanged();
+							slotChanged(${component.id}, 0, 0);
+						}
+					</#if>
+
+					<#if hasProcedure(component.onTakenFromSlot)>
+						@Override public void onTake(Player entity, ItemStack stack) {
+							super.onTake(entity, stack);
+							slotChanged(${component.id}, 1, 0);
+						}
+					</#if>
+
+					<#if hasProcedure(component.onStackTransfer)>
+						@Override public void onQuickCraft(ItemStack a, ItemStack b) {
+							super.onQuickCraft(a, b);
+							slotChanged(${component.id}, 2, b.getCount() - a.getCount());
+						}
+					</#if>
+
+					<#if component.getClass().getSimpleName() == "InputSlot">
+						<#if hasProcedure(component.disablePlacement) || component.disablePlacement.getFixedValue()>
+							@Override public boolean mayPlace(ItemStack itemstack) {
+								return <@procedureOBJToConditionCode component.disablePlacement false true/>;
+							}
+						<#elseif component.inputLimit.toString()?has_content>
+							@Override public boolean mayPlace(ItemStack stack) {
+								<#if component.inputLimit.getUnmappedValue().startsWith("TAG:")>
+									<#assign tag = "\"" + component.inputLimit.getUnmappedValue().replace("TAG:", "") + "\"">
+									return stack.is(ItemTags.create(new ResourceLocation(${tag})));
+								<#else>
+									return ${mappedMCItemToItem(component.inputLimit)} == stack.getItem();
+								</#if>
+							}
+						</#if>
+					<#elseif component.getClass().getSimpleName() == "OutputSlot">
+						@Override public boolean mayPlace(ItemStack stack) {
+							return false;
+						}
+					</#if>
+					});
 				</#if>
-
-				<#if hasProcedure(component.onTakenFromSlot)>
-	@Override public void onTake(Player entity, ItemStack stack) {
-		super.onTake(entity, stack);
-		slotChanged(${component.id}, 1, 0);
-	}
-				</#if>
-
-				<#if hasProcedure(component.onStackTransfer)>
-	@Override public void onQuickCraft(ItemStack a, ItemStack b) {
-		super.onQuickCraft(a, b);
-		slotChanged(${component.id}, 2, b.getCount() - a.getCount());
-	}
-				</#if>
-
-				<#if component.disableStackInteraction>
-	@Override public boolean mayPlace(ItemStack stack) {
-		return false;
-	}
-				<#elseif component.getClass().getSimpleName() == "InputSlot">
-	<#if component.inputLimit.toString()?has_content>
-		@Override public boolean mayPlace(ItemStack stack) {
-			return (${mappedMCItemToItem(component.inputLimit)} == stack.getItem());
-		}
-	</#if>
-				<#elseif component.getClass().getSimpleName() == "OutputSlot">
-	@Override public boolean mayPlace(ItemStack stack) {
-		return false;
-	}
-				</#if>
-				});
-			</#if>
 			</#list>
 
 			<#assign coffx = ((data.width - 176) / 2 + data.inventoryOffsetX)?int>
@@ -132,7 +136,7 @@ public class ${name}Menu extends AbstractContainerMenu {
 
 			for (int si = 0; si < 3; ++si)
 				for (int sj = 0; sj < 9; ++sj)
-	this.addSlot(new Slot(inv, sj + (si + 1) * 9, ${coffx} + 8 + sj * 18, ${coffy}+ 84 + si * 18));
+					this.addSlot(new Slot(inv, sj + (si + 1) * 9, ${coffx} + 8 + sj * 18, ${coffy}+ 84 + si * 18));
 
 			for (int si = 0; si < 9; ++si)
 				this.addSlot(new Slot(inv, si, ${coffx} + 8 + si * 18, ${coffy} + 142));
