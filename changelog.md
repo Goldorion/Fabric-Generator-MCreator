@@ -6,6 +6,8 @@
   * Fabric 1.19.2 is still supported and integrated.
 
 ## 1.8.3
+* [#365] Added chinese tooltips (Grey Wind)
+* [Bugfix #360] Fix particles import still being in the template (NerdyPuzzle)
 * [Bugfix #368] Blocks could not be created
 
 ## 1.8.2
