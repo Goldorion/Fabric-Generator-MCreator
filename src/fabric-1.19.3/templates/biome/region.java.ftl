@@ -18,7 +18,6 @@
 
 <#-- @formatter:off -->
 <#include "../mcitems.ftl">
-<#include "../biomeutils.ftl">
 
 package ${package}.world.biome.regions;
 

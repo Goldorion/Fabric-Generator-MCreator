@@ -5,6 +5,9 @@
 * Added base support for Fabric 1.19.3
   * Fabric 1.19.2 is still supported and integrated.
 
+## 1.8.3
+* [Bugfix #368] Blocks could not be created
+
 ## 1.8.2
 * Added support for MCreator EAP 2022.4.52117
 

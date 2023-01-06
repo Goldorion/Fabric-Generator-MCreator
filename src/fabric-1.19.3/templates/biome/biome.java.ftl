@@ -19,7 +19,6 @@
 
 <#-- @formatter:off -->
 <#include "../mcitems.ftl">
-<#include "../biomeutils.ftl">
 
 <#assign hasConfiguredFeatures = false/>
 
