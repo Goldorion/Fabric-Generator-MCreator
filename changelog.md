@@ -2,8 +2,11 @@
 
 ## 1.8.3
 * [#365] Added chinese tooltips (Grey Wind)
+* [Bugfix #355] Glowing music discs caused a build error
 * [Bugfix #360] Fix particles import still being in the template (NerdyPuzzle)
 * [Bugfix #368] Blocks could not be created
+* [Bugfix] Custom biomes caused problems
+  * Note: End biomes use a hardcoded weight of 10 as no parameter can be used.
 
 ## 1.8.2
 * Added support for MCreator EAP 2022.4.52117

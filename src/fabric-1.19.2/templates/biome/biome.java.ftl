@@ -19,7 +19,6 @@
 
 <#-- @formatter:off -->
 <#include "../mcitems.ftl">
-<#include "../biomeutils.ftl">
 
 <#assign hasConfiguredFeatures = false/>
 
@@ -316,9 +315,9 @@ public class ${name}Biome {
 			<#list generator.sortByMappings(data.defaultFeatures, "defaultfeatures") as defaultFeature>
 				<#assign mfeat = generator.map(defaultFeature, "defaultfeatures")>
 				<#if mfeat = "EndHighlands">
-					TheEndBiomes.addHighlandsBiome(${JavaModName}Biomes.${registryname?upper_case}, ${data.biomeWeight}d);
+					TheEndBiomes.addHighlandsBiome(${JavaModName}Biomes.${registryname?upper_case}, 10);
 				<#elseif mfeat = "EndIslands">
-					TheEndBiomes.addSmallIslandsBiome(${JavaModName}Biomes.${registryname?upper_case}, ${data.biomeWeight}d);
+					TheEndBiomes.addSmallIslandsBiome(${JavaModName}Biomes.${registryname?upper_case}, 10);
 				</#if>
 		</#list>
 	}

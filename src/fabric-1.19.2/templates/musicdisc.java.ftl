@@ -24,6 +24,7 @@
 package ${package}.item;
 
 import net.minecraft.network.chat.Component;
+import net.fabricmc.api.Environment;
 
 public class ${name}Item extends RecordItem {
 
