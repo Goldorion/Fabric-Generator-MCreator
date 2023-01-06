@@ -1,10 +1,5 @@
 # Changelogs:
 
-## 1.9
-* Updated to Fabric API 0.69.0 
-* Added base support for Fabric 1.19.3
-  * Fabric 1.19.2 is still supported and integrated.
-
 ## 1.8.3
 * [#365] Added chinese tooltips (Grey Wind)
 * [Bugfix #360] Fix particles import still being in the template (NerdyPuzzle)

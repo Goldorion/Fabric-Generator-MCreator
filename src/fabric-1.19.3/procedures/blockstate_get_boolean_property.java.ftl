@@ -1,2 +1,0 @@
-<#include "mcitems.ftl">
-(${mappedBlockToBlock(input$block)}.getStateDefinition().getProperty(${input$property}) instanceof BooleanProperty _bp && ${mappedBlockToBlockStateCode(input$block)}.getValue(_bp))
