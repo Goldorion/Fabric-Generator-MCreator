@@ -10,6 +10,12 @@ version = '1.0.0'
 group = 'com.yourname.modid'
 actualmodid = '${modid}'
 
+loom {
+    mixin {
+        defaultRefmapName = actualmodid + ".refmap.json"
+    }
+}
+
 dependencies {
     minecraft "com.mojang:minecraft:1.19.2"
     mappings loom.officialMojangMappings()
