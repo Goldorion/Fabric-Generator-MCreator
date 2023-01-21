@@ -42,6 +42,9 @@ public class ${JavaModName}Items {
 			<#if item.enableBoots>
 				public static Item ${item.getModElement().getRegistryNameUpper()}_BOOTS;
 			</#if>
+		<#elseif item.getModElement().getTypeString() == "livingentity">
+			public static Item ${item.getModElement().getRegistryNameUpper()}_SPAWN_EGG;
+		</#if>
 		<#elseif item.getModElement().getTypeString() != "dimension">
 			public static Item ${item.getModElement().getRegistryNameUpper()};
 		</#if>
@@ -67,7 +70,7 @@ public class ${JavaModName}Items {
 					new ResourceLocation(${JavaModName}.MODID, "${item.getModElement().getRegistryName()}_boots"), new ${item.getModElement().getName()}Item.Boots());
 			</#if>
 		<#elseif item.getModElement().getTypeString() == "livingentity">
-			${item.getModElement().getRegistryNameUpper()} = Registry.register(Registry.ITEM,new ResourceLocation(${JavaModName}.MODID,
+			${item.getModElement().getRegistryNameUpper()}_SPAWN_EGG = Registry.register(Registry.ITEM,new ResourceLocation(${JavaModName}.MODID,
 				"${item.getModElement().getRegistryName()}_spawn_egg"), new SpawnEggItem(${JavaModName}Entities.${item.getModElement().getRegistryNameUpper()},
 					${item.spawnEggBaseColor.getRGB()}, ${item.spawnEggDotColor.getRGB()}, new Item.Properties() <#if item.creativeTab??>.tab(${item.creativeTab})<#else>
 						.tab(CreativeModeTab.TAB_MISC)</#if>));

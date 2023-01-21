@@ -35,20 +35,29 @@ import net.fabricmc.api.Environment;
 
 <#compress>
 public class ${name}Block extends
-			<#if data.hasGravity>
-					FallingBlock
-			<#elseif data.blockBase?has_content && data.blockBase == "Button">
-				<#if (data.material.getUnmappedValue() == "WOOD") || (data.material.getUnmappedValue() == "NETHER_WOOD")>Wood<#else>Stone</#if>ButtonBlock
-			<#elseif data.blockBase?has_content>
-				${data.blockBase?replace("Stairs", "Stair")?replace("Pane", "IronBars")}Block
-			<#else>
-				Block
-			</#if>
-			<#if data.isWaterloggable || data.hasInventory>
-			implements
-				<#if data.isWaterloggable>SimpleWaterloggedBlock</#if>
-				<#if data.hasInventory><#if data.isWaterloggable>,</#if>EntityBlock</#if>
-			</#if>
+    <#if data.hasGravity>
+	    FallingBlock
+	<#elseif data.blockBase?has_content && data.blockBase == "Button">
+		<#if (data.material.getUnmappedValue() == "WOOD") || (data.material.getUnmappedValue() == "NETHER_WOOD")>Wood<#else>Stone</#if>ButtonBlock
+	<#elseif data.blockBase?has_content>
+		${data.blockBase?replace("Stairs", "Stair")?replace("Pane", "IronBars")}Block
+	<#else>
+		Block
+	/#if>
+
+	<#assign interfaces = []>
+	<#if data.isWaterloggable>
+		<#assign interfaces += ["SimpleWaterloggedBlock"]>
+	</#if>
+	<#if data.hasInventory>
+		<#assign interfaces += ["EntityBlock"]>
+	</#if>
+	<#if data.isBonemealable>
+		<#assign interfaces += ["BonemealableBlock"]>
+	</#if>
+	<#if interfaces?size gt 0>
+		implements ${interfaces?join(",")}
+	</#if>
 {
 	public static BlockBehaviour.Properties PROPERTIES = <@blockProperties/>;
 
@@ -525,6 +534,10 @@ public class ${name}Block extends
 				return result;
 			</#if>
 		}
+	</#if>
+
+	<#if data.isBonemealable>
+	    <@bonemealEvents data.isBonemealTargetCondition, data.bonemealSuccessCondition, data.onBonemealSuccess/>
 	</#if>
 
 	<#if data.hasInventory>
