@@ -1,5 +1,10 @@
 # Changelogs:
 
+## 1.8.4
+* Updated to first MCreator 2023.1 snapshot (following the first 2022.4 snapshot)
+* [Bugfix #369] Fix missing mappings for the itemtype procedure (NerdyPuzzle)
+* [Bugfix #371] Fix mods crashing when used together (kleiders)
+
 ## 1.8.3
 * [#365] Added chinese tooltips (Grey Wind)
 * [Bugfix #355] Glowing music discs caused a build error
