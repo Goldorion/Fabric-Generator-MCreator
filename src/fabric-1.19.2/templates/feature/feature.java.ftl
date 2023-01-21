@@ -43,17 +43,6 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvi
 <#compress>
 public class ${name}Feature extends ${generator.map(featuretype, "features")} {
 
-	public static ${name}Feature FEATURE = null;
-	public static Holder<ConfiguredFeature<${configuration}, ?>> CONFIGURED_FEATURE = null;
-	public static Holder<PlacedFeature> PLACED_FEATURE = null;
-
-	public static Feature<?> feature() {
-		FEATURE = new ${name}Feature();
-		CONFIGURED_FEATURE = FeatureUtils.register("${modid}:${registryname}", FEATURE, ${configurationcode});
-		PLACED_FEATURE = PlacementUtils.register("${modid}:${registryname}", CONFIGURED_FEATURE,
-			List.of(${placementcode?remove_ending(",")}));
-		return FEATURE;
-	}
 
 	public static final Predicate<BiomeSelectionContext> GENERATE_BIOMES = BiomeSelectors.
 		<#if data.restrictionBiomes?has_content>
@@ -87,23 +76,21 @@ public class ${name}Feature extends ${generator.map(featuretype, "features")} {
 		super(${configuration}.CODEC);
 	}
 
-	<#if data.hasGenerationConditions()>
-		public boolean place(FeaturePlaceContext<${configuration}> context) {
-			WorldGenLevel world = context.level();
-			<#if data.restrictionDimensions?has_content>
-				if (!generateDimensions.contains(world.getLevel().dimension()))
-					return false;
-			</#if>
-	
-			<#if hasProcedure(data.generateCondition)>
-				int x = context.origin().getX();
-				int y = context.origin().getY();
-				int z = context.origin().getZ();
-				if (!<@procedureOBJToConditionCode data.generateCondition/>)
-					return false;
-			</#if>
-	
-			return super.place(context);
-		}
-	</#if>
+	public boolean place(FeaturePlaceContext<${configuration}> context) {
+        WorldGenLevel world = context.level();
+    	<#if data.restrictionDimensions?has_content>
+            if (!generateDimensions.contains(world.getLevel().dimension()))
+                return false;
+    	</#if>
+
+    	<#if hasProcedure(data.generateCondition)>
+            int x = context.origin().getX();
+            int y = context.origin().getY();
+            int z = context.origin().getZ();
+            if (!<@procedureOBJToConditionCode data.generateCondition/>)
+                return false;
+    	</#if>
+
+    	return super.place(context);
+    	}
 }</#compress>

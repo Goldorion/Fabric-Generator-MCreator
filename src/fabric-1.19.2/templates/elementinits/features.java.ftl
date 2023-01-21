@@ -39,7 +39,7 @@ public class ${JavaModName}Features {
 				${feature.getModElement().getName()}Feature.GENERATE_BIOMES, GenerationStep.Decoration.
 				<#if feature.spawnLocation=="Air">RAW_GENERATION<#elseif feature.spawnLocation=="Underground">UNDERGROUND_STRUCTURES<#else>SURFACE_STRUCTURES</#if>);
 		<#else>
-			register("${feature.getModElement().getRegistryName()}", ${feature.getModElement().getName()}Feature.feature(),
+			register("${feature.getModElement().getRegistryName()}", new ${feature.getModElement().getName()}Feature(),
 				${feature.getModElement().getName()}Feature.GENERATE_BIOMES, GenerationStep.Decoration.${feature.generationStep});
 		</#if>
 	</#list>
