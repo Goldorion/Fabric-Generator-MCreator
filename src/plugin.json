@@ -1,10 +1,11 @@
 {
   "id": "generator-fabric-1.19.2",
-  "minversion": 202200452117,
+  "minversion": 202300104717,
+  "maxversion": 202300104717,
   "weight":  11,
   "info": {
     "name": "Minecraft Fabric 1.19.2 Generator",
-    "version": "1.8.3",
+    "version": "1.8.4",
     "description": "A Fabric generator",
     "author": "Goldorion",
     "credits": "Thank you to all contributors and supporters on Ko-fi",
