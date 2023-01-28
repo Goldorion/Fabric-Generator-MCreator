@@ -598,40 +598,40 @@ public class ${name}Block extends
 				BlockRenderLayerMap.INSTANCE.putBlock(${JavaModName}Blocks.${data.getModElement().getRegistryNameUpper()}, RenderType.solid());
 			</#if>
 
-		<#if data.tintType != "No tint">
-			ColorProviderRegistry.BLOCK.register((bs, world, pos, index) -> world != null && pos != null ?
-				<#if data.tintType == "Grass">
-					BiomeColors.getAverageGrassColor(world, pos) : GrassColor.get(0.5D, 1.0D)
-				<#elseif data.tintType == "Foliage">
-					BiomeColors.getAverageFoliageColor(world, pos) : FoliageColor.getDefaultColor()
-				<#elseif data.tintType == "Water">
-					BiomeColors.getAverageWaterColor(world, pos) : -1
-				<#elseif data.tintType == "Sky">
-					Minecraft.getInstance().level.getBiome(pos).getSkyColor() : 8562943
-				<#elseif data.tintType == "Fog">
-					Minecraft.getInstance().level.getBiome(pos).getFogColor() : 12638463
-				<#else>
-					Minecraft.getInstance().level.getBiome(pos).getWaterFogColor() : 329011
-				</#if>, ${JavaModName}Blocks.${data.getModElement().getRegistryNameUpper()});
+            <#if data.tintType != "No tint">
+                ColorProviderRegistry.BLOCK.register((bs, world, pos, index) -> world != null && pos != null ?
+                    <#if data.tintType == "Grass">
+                        BiomeColors.getAverageGrassColor(world, pos) : GrassColor.get(0.5D, 1.0D)
+                    <#elseif data.tintType == "Foliage">
+                        BiomeColors.getAverageFoliageColor(world, pos) : FoliageColor.getDefaultColor()
+                    <#elseif data.tintType == "Water">
+                        BiomeColors.getAverageWaterColor(world, pos) : -1
+                    <#elseif data.tintType == "Sky">
+                        Minecraft.getInstance().level.getBiome(pos).getSkyColor() : 8562943
+                    <#elseif data.tintType == "Fog">
+                        Minecraft.getInstance().level.getBiome(pos).getFogColor() : 12638463
+                    <#else>
+                        Minecraft.getInstance().level.getBiome(pos).getWaterFogColor() : 329011
+                    </#if>, ${JavaModName}Blocks.${data.getModElement().getRegistryNameUpper()});
 
 
-			<#if data.isItemTinted>
-				ColorProviderRegistry.ITEM.register((stack, index) ->
-					<#if data.tintType == "Grass">
-						GrassColor.get(0.5D, 1.0D)
-					<#elseif data.tintType == "Foliage">
-						FoliageColor.getDefaultColor()
-					<#elseif data.tintType == "Water">
-						3694022
-					<#elseif data.tintType == "Sky">
-						8562943
-					<#elseif data.tintType == "Fog">
-						12638463
-					<#else>
-						329011
-					</#if>, ${JavaModName}Blocks.${data.getModElement().getRegistryNameUpper()});
-			</#if>
-		</#if>
+                <#if data.isItemTinted>
+                    ColorProviderRegistry.ITEM.register((stack, index) ->
+                        <#if data.tintType == "Grass">
+                            GrassColor.get(0.5D, 1.0D)
+                        <#elseif data.tintType == "Foliage">
+                            FoliageColor.getDefaultColor()
+                        <#elseif data.tintType == "Water">
+                            3694022
+                        <#elseif data.tintType == "Sky">
+                            8562943
+                        <#elseif data.tintType == "Fog">
+                            12638463
+                        <#else>
+                            329011
+                        </#if>, ${JavaModName}Blocks.${data.getModElement().getRegistryNameUpper()});
+                </#if>
+            </#if>
 		}
 
 }
