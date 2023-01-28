@@ -44,7 +44,6 @@ public class ${JavaModName}Items {
 			</#if>
 		<#elseif item.getModElement().getTypeString() == "livingentity">
 			public static Item ${item.getModElement().getRegistryNameUpper()}_SPAWN_EGG;
-		</#if>
 		<#elseif item.getModElement().getTypeString() != "dimension">
 			public static Item ${item.getModElement().getRegistryNameUpper()};
 		</#if>

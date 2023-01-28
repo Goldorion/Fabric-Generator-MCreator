@@ -43,7 +43,7 @@ public class ${name}Block extends
 		${data.blockBase?replace("Stairs", "Stair")?replace("Pane", "IronBars")}Block
 	<#else>
 		Block
-	/#if>
+	</#if>
 
 	<#assign interfaces = []>
 	<#if data.isWaterloggable>
