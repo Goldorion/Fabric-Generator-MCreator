@@ -1,5 +1,9 @@
 # Changelogs:
 
+## 1.8.5
+* [Bugfix #374] Blocks and items could not be generated correctly (NerdyPuzzle)
+* [Bugfix #375] Features still generated Java code in JSON files
+
 ## 1.8.4
 * Updated to first MCreator 2023.1 snapshot (following the first 2022.4 snapshot)
 * [Bugfix #369] Fix missing mappings for the itemtype procedure (NerdyPuzzle)
