@@ -1,6 +1,7 @@
 # Changelogs:
 
 ## 1.8.5
+* [Bugfix #364] Using custom potion effects in custom potions crashed the game
 * [Bugfix #374] Blocks and items could not be generated correctly (NerdyPuzzle)
 * [Bugfix #375] Features still generated Java code in JSON files
 
