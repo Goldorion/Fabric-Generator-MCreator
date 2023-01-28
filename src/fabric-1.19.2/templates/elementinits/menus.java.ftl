@@ -43,8 +43,9 @@ public class ${JavaModName}Menus {
 
 	public static void load() {
 		<#list guis as gui>
-			${gui.getModElement().getRegistryNameUpper()} = ScreenHandlerRegistry.registerExtended(new ResourceLocation(${JavaModName}.MODID,
-				"${gui.getModElement().getRegistryName()}"), ${gui.getModElement().getName()}Menu::new);
+			${gui.getModElement().getRegistryNameUpper()} = Registry.register(Registry.MENU, new ResourceLocation(${JavaModName}.MODID,
+			        "${gui.getModElement().getRegistryName()}"),
+			 new ExtendedScreenHandlerType<>(${gui.getModElement().getName()}Menu::new));
 			${gui.getModElement().getName()}Screen.screenInit();
 		</#list>
 	}

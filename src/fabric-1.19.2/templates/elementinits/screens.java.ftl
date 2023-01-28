@@ -28,7 +28,7 @@ public class ${JavaModName}Screens {
 
 	public static void load() {
 		<#list guis as gui>
-			ScreenRegistry.register(${JavaModName}Menus.${gui.getModElement().getRegistryNameUpper()}, ${gui.getModElement().getName()}Screen::new);
+			MenuScreens.register(${JavaModName}Menus.${gui.getModElement().getRegistryNameUpper()}, ${gui.getModElement().getName()}Screen::new);
 		</#list>
 	}
 
