@@ -66,7 +66,7 @@ public class ${name}Entity extends AbstractArrow implements ItemSupplier {
 		@Override public void playerTouch(Player entity) {
 			super.playerTouch(entity);
 			Entity sourceentity = this.getOwner();
-			Entity imediatesourceentity = this;
+			Entity immediatesourceentity = this;
 			double x = this.getX();
 			double y = this.getY();
 			double z = this.getZ();
@@ -80,7 +80,7 @@ public class ${name}Entity extends AbstractArrow implements ItemSupplier {
 			super.onHitEntity(entityHitResult);
 			Entity entity = entityHitResult.getEntity();
 			Entity sourceentity = this.getOwner();
-			Entity imediatesourceentity = this;
+			Entity immediatesourceentity = this;
 			double x = this.getX();
 			double y = this.getY();
 			double z = this.getZ();
@@ -97,7 +97,7 @@ public class ${name}Entity extends AbstractArrow implements ItemSupplier {
 			double z = blockHitResult.getBlockPos().getZ();
 			Level world = this.level;
 			Entity entity = this.getOwner();
-			Entity imediatesourceentity = this;
+			Entity immediatesourceentity = this;
 			<@procedureOBJToCode data.onBulletHitsBlock/>
 		}
 	</#if>
@@ -111,7 +111,7 @@ public class ${name}Entity extends AbstractArrow implements ItemSupplier {
 			double z = this.getZ();
 			Level world = this.level;
 			Entity entity = this.getOwner();
-			Entity imediatesourceentity = this;
+			Entity immediatesourceentity = this;
 			<@procedureOBJToCode data.onBulletFlyingTick/>
 		</#if>
 
