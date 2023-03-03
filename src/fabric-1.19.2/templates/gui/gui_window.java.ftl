@@ -39,16 +39,26 @@ package ${package}.client.gui;
 
 public class ${name}Screen extends AbstractContainerScreen<${name}Menu> {
 
+	private final static HashMap<String, Object> guistate = ${name}Menu.guistate;
+
 	private final Level world;
 	private final int x, y, z;
 	private final Player entity;
 
-	<#list data.components as component>
-		<#if component.getClass().getSimpleName() == "TextField">
-		EditBox ${component.name};
-		<#elseif component.getClass().getSimpleName() == "Checkbox">
-		Checkbox ${component.name};
-		</#if>
+	<#list data.getComponentsOfType("TextField") as component>
+		EditBox ${component.getName()};
+	</#list>
+
+	<#list data.getComponentsOfType("Checkbox") as component>
+		Checkbox ${component.getName()};
+	</#list>
+
+	<#list data.getComponentsOfType("Button") as component>
+		Button ${component.getName()};
+	</#list>
+
+	<#list data.getComponentsOfType("ImageButton") as component>
+		ImageButton ${component.getName()};
 	</#list>
 
 	public ${name}Screen(${name}Menu container, Inventory inventory, Component text) {
@@ -81,6 +91,22 @@ public class ${name}Screen extends AbstractContainerScreen<${name}Menu> {
 			<#if component.getClass().getSimpleName() == "TextField">
 				${component.name}.render(ms, mouseX, mouseY, partialTicks);
 			</#if>
+		</#list>
+
+		<#list data.getComponentsOfType("EntityModel") as component>
+			<#assign followMouse = component.followMouseMovement>
+			<#assign x = (component.x - mx/2)?int>
+			<#assign y = (component.y - my/2)?int>
+			if (<@procedureOBJToConditionCode component.entityModel/> instanceof LivingEntity livingEntity) {
+				<#if hasProcedure(component.displayCondition)>
+					if (<@procedureOBJToConditionCode component.displayCondition/>)
+				</#if>
+				InventoryScreen.renderEntityInInventory(this.leftPos + ${x + 11}, this.topPos + ${y + 21}, ${component.scale},
+					${component.rotationX / 20.0}f <#if followMouse> + (float) Math.atan((this.leftPos + ${x + 11} - mouseX) / 40.0)</#if>,
+					<#if followMouse>(float) Math.atan((this.topPos + ${y + 21 - 50} - mouseY) / 40.0)<#else>0</#if>,
+					livingEntity
+				);
+			}
 		</#list>
 	}
 
@@ -156,82 +182,118 @@ public class ${name}Screen extends AbstractContainerScreen<${name}Menu> {
 
 		this.minecraft.keyboardHandler.setSendRepeatsToGui(true);
 
+		<#list data.getComponentsOfType("TextField") as component>
+			${component.getName()} = new EditBox(this.font, this.leftPos + ${(component.x - mx/2)?int}, this.topPos + ${(component.y - my/2)?int},
+			${component.width}, ${component.height}, Component.translatable("gui.${modid}.${registryname}.${component.getName()}"))
+			<#if component.placeholder?has_content>
+			{
+				{
+					setSuggestion(Component.translatable("gui.${modid}.${registryname}.${component.getName()}").getString());
+				}
+
+				@Override public void insertText(String text) {
+					super.insertText(text);
+
+					if (getValue().isEmpty())
+						setSuggestion(Component.translatable("gui.${modid}.${registryname}.${component.getName()}").getString());
+					else
+						setSuggestion(null);
+				}
+
+				@Override public void moveCursorTo(int pos) {
+					super.moveCursorTo(pos);
+
+					if (getValue().isEmpty())
+						setSuggestion(Component.translatable("gui.${modid}.${registryname}.${component.getName()}").getString());
+					else
+						setSuggestion(null);
+				}
+			}
+			</#if>;
+			${component.getName()}.setMaxLength(32767);
+
+			guistate.put("text:${component.getName()}", ${component.getName()});
+			this.addWidget(this.${component.getName()});
+		</#list>
+
 		<#assign btid = 0>
-		<#list data.components as component>
-			<#if component.getClass().getSimpleName() == "TextField">
-				${component.name} = new EditBox(this.font, this.leftPos + ${(component.x - mx/2)?int}, this.topPos + ${(component.y - my/2)?int},
-				${component.width}, ${component.height}, Component.literal("${component.placeholder}"))
-				<#if component.placeholder?has_content>
-				{
-					{
-						setSuggestion("${component.placeholder}");
-					}
 
-					@Override public void insertText(String text) {
-						super.insertText(text);
+		<#list data.getComponentsOfType("Button") as component>
+			${component.getName()} = new Button(
+				this.leftPos + ${(component.x - mx/2)?int}, this.topPos + ${(component.y - my/2)?int},
+				${component.width}, ${component.height},
+				Component.translatable("gui.${modid}.${registryname}.${component.getName()}"),
+				<@buttonOnClick component/>
+			)<@buttonDisplayCondition component/>;
 
-						if(getValue().isEmpty())
-							setSuggestion("${component.placeholder}");
-						else
-							setSuggestion(null);
-					}
+			guistate.put("button:${component.getName()}", ${component.getName()});
+			this.addRenderableWidget(${component.getName()});
 
-					@Override public void moveCursorTo(int pos) {
-						super.moveCursorTo(pos);
+			<#assign btid +=1>
+		</#list>
 
-						if(getValue().isEmpty())
-							setSuggestion("${component.placeholder}");
-						else
-							setSuggestion(null);
-					}
-				}
-				</#if>;
-				${name}Menu.guistate.put("text:${component.name}", ${component.name});
-				${component.name}.setMaxLength(32767);
-				this.addWidget(this.${component.name});
-			<#elseif component.getClass().getSimpleName() == "Button">
-				this.addRenderableWidget(new Button(this.leftPos + ${(component.x - mx/2)?int}, this.topPos + ${(component.y - my/2)?int},
-					${component.width}, ${component.height}, Component.literal("${component.text}"), e -> {
-							<#if hasProcedure(component.onClick)>
-							if (<@procedureOBJToConditionCode component.displayCondition/>)
-								ClientPlayNetworking.send(new ResourceLocation("${modid + ":" + name?lower_case}_button_" + ${btid}), new ${name}ButtonMessage(${btid}, x, y, z));
-							</#if>
-					}
-				)
-				<#if hasProcedure(component.displayCondition)>
-				{
-					@Override public void render(PoseStack ms, int gx, int gy, float ticks) {
-						if (<@procedureOBJToConditionCode component.displayCondition/>)
-							super.render(ms, gx, gy, ticks);
-					}
-				}
-				</#if>);
-				<#assign btid +=1>
-			<#elseif component.getClass().getSimpleName() == "Checkbox">
-				${component.name} = new Checkbox(this.leftPos + ${(component.x - mx/2)?int}, this.topPos + ${(component.y - my/2)?int},
-						20, 20, Component.literal("${component.text}"), <#if hasProcedure(component.isCheckedProcedure)>
-					<@procedureOBJToConditionCode component.isCheckedProcedure/><#else>false</#if>);
-				${name}Menu.guistate.put("checkbox:${component.name}", ${component.name});
-				this.addRenderableWidget(${component.name});
-			</#if>
+		<#list data.getComponentsOfType("ImageButton") as component>
+		    ${component.getName()} = new ImageButton(
+				this.leftPos + ${(component.x - mx/2)?int}, this.topPos + ${(component.y - my/2)?int},
+            	${component.getWidth(w.getWorkspace())}, ${component.getHeight(w.getWorkspace())},
+				0, 0, ${component.getHeight(w.getWorkspace())},
+            	new ResourceLocation("${modid}:textures/screens/atlas/${component.getName()}.png"),
+            	${component.getWidth(w.getWorkspace())},
+				${component.getHeight(w.getWorkspace()) * 2},
+				<@buttonOnClick component/>
+			)<@buttonDisplayCondition component/>;
+
+			guistate.put("button:${component.getName()}", ${component.getName()});
+			this.addRenderableWidget(${component.getName()});
+
+			<#assign btid +=1>
+		</#list>
+
+		<#list data.getComponentsOfType("Checkbox") as component>
+			${component.getName()} = new Checkbox(this.leftPos + ${(component.x - mx/2)?int}, this.topPos + ${(component.y - my/2)?int},
+					20, 20, Component.translatable("gui.${modid}.${registryname}.${component.getName()}"), <#if hasProcedure(component.isCheckedProcedure)>
+				<@procedureOBJToConditionCode component.isCheckedProcedure/><#else>false</#if>);
+
+			guistate.put("checkbox:${component.getName()}", ${component.getName()});
+			this.addRenderableWidget(${component.getName()});
 		</#list>
 	}
 
 	public static void screenInit() {
 		<#assign btid = 0>
 		<#list data.components as component>
-            <#if component.getClass().getSimpleName() == "Button">
-                <#if hasProcedure(component.onClick)>
-                    ServerPlayNetworking.registerGlobalReceiver(new ResourceLocation(${JavaModName}.MODID, "${name?lower_case}_button_${btid}"), ${name}ButtonMessage::apply);
-                </#if>
-                <#assign btid +=1>
-            <#elseif component.getClass().getSimpleName()?ends_with("Slot")>
-                <#if hasProcedure(component.onSlotChanged) || hasProcedure(component.onTakenFromSlot) || hasProcedure(component.onStackTransfer)>
-                    ServerPlayNetworking.registerGlobalReceiver(new ResourceLocation(${JavaModName}.MODID, "${name?lower_case}_slot_${btid}"), ${name}SlotMessage::apply);
-                </#if>
-            </#if>
+			<#if component.getClass().getSimpleName() == "Button">
+				<#if hasProcedure(component.onClick)>
+					ServerPlayNetworking.registerGlobalReceiver(new ResourceLocation(${JavaModName}.MODID, "${name?lower_case}_button_${btid}"), ${name}ButtonMessage::apply);
+				</#if>
+				<#assign btid +=1>
+			<#elseif component.getClass().getSimpleName()?ends_with("Slot")>
+				<#if hasProcedure(component.onSlotChanged) || hasProcedure(component.onTakenFromSlot) || hasProcedure(component.onStackTransfer)>
+					ServerPlayNetworking.registerGlobalReceiver(new ResourceLocation(${JavaModName}.MODID, "${name?lower_case}_slot_${btid}"), ${name}SlotMessage::apply);
+				</#if>
+			</#if>
 		</#list>
 	}
 
 }
+<#macro buttonOnClick component>
+e -> {
+    <#if hasProcedure(component.onClick)>
+	    if (<@procedureOBJToConditionCode component.displayCondition/>) {
+			ClientPlayNetworking.send(new ResourceLocation("${modid + ":" + name?lower_case}_button_" + ${btid}), new ${name}ButtonMessage(${btid}, x, y, z));
+		}
+	</#if>
+}
+</#macro>
+
+<#macro buttonDisplayCondition component>
+<#if hasProcedure(component.displayCondition)>
+{
+	@Override public void render(PoseStack ms, int gx, int gy, float ticks) {
+		if (<@procedureOBJToConditionCode component.displayCondition/>)
+			super.render(ms, gx, gy, ticks);
+	}
+}
+</#if>
+</#macro>
 <#-- @formatter:on -->
