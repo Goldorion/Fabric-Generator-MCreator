@@ -24,7 +24,7 @@
     </#if>
 </#function>
 
-<#function mappedMCItemToItemStackCode mappedBlock amount>
+<#function mappedMCItemToItemStackCode mappedBlock amount=1>
     <#if mappedBlock?starts_with("/*@ItemStack*/")>
         <#return mappedBlock?replace("/*@ItemStack*/", "")>
     <#elseif mappedBlock?contains("/*@?*/")>
@@ -32,9 +32,17 @@
         <#return mappedBlock?keep_before("/*@?*/") + "?" + mappedMCItemToItemStackCode(outputs?keep_before("/*@:*/"), amount)
             + ":" + mappedMCItemToItemStackCode(outputs?keep_after("/*@:*/"), amount) + ")">
     <#elseif mappedBlock?starts_with("CUSTOM:")>
-        <#return "new ItemStack("+ mappedElementToRegistryEntry(mappedBlock) + (amount == 1)?then(")",", (int)(" + amount + "))")>
+        <#return toItemStack(mappedElementToRegistryEntry(mappedBlock), amount)>
     <#else>
-        <#return "new ItemStack(" + mappedBlock + (amount == 1)?then(")",", (int)(" + amount + "))")>
+        <#return toItemStack(mappedBlock, amount)>
+    </#if>
+</#function>
+
+<#function toItemStack item amount>
+    <#if amount == 1>
+        <#return "new ItemStack(" + item + ")">
+    <#else>
+        <#return "new ItemStack(" + item + "," + (amount == amount?floor)?then(amount + ")","(int)(" + amount + "))")>
     </#if>
 </#function>
 
@@ -66,17 +74,13 @@
 </#function>
 
 <#function transformExtension mappedBlock>
-    <#return (mappedBlock.toString().contains(".helmet"))?then("_helmet", "")
-    + (mappedBlock.toString().contains(".body"))?then("_chestplate", "")
-    + (mappedBlock.toString().contains(".legs"))?then("_leggings", "")
-    + (mappedBlock.toString().contains(".boots"))?then("_boots", "")
-    + (mappedBlock.toString().contains(".bucket"))?then("_bucket", "")>
+    <#assign extension = mappedBlock?keep_after_last(".")?replace("body", "chestplate")?replace("legs", "leggings")>
+    <#return (extension?has_content)?then("_" + extension, "")>
 </#function>
 
 <#function mappedMCItemToIngameItemName mappedBlock>
     <#if mappedBlock.getUnmappedValue().startsWith("CUSTOM:")>
-        <#assign customelement = generator.getRegistryNameForModElement(mappedBlock.getUnmappedValue().replace("CUSTOM:", "")
-        .replace(".helmet", "").replace(".body", "").replace(".legs", "").replace(".boots", "").replace(".bucket", ""))!""/>
+        <#assign customelement = generator.getRegistryNameFromFullName(mappedBlock.getUnmappedValue())!""/>
         <#if customelement?has_content>
             <#return "\"item\": \"" + "${modid}:" + customelement
             + transformExtension(mappedBlock)
@@ -100,8 +104,7 @@
 
 <#function mappedMCItemToIngameNameNoTags mappedBlock>
     <#if mappedBlock.getUnmappedValue().startsWith("CUSTOM:")>
-        <#assign customelement = generator.getRegistryNameForModElement(mappedBlock.getUnmappedValue().replace("CUSTOM:", "")
-        .replace(".helmet", "").replace(".body", "").replace(".legs", "").replace(".boots", "").replace(".bucket", ""))!""/>
+        <#assign customelement = generator.getRegistryNameFromFullName(mappedBlock.getUnmappedValue())!""/>
         <#if customelement?has_content>
             <#return "${modid}:" + customelement + transformExtension(mappedBlock)>
         <#else>
@@ -124,8 +127,7 @@
 <#function mappedMCItemToBlockStateJSON mappedBlock>
     <#if mappedBlock.getUnmappedValue().startsWith("CUSTOM:")>
         <#assign mcitemresourcepath = mappedMCItemToIngameNameNoTags(mappedBlock)/>
-        <#assign ge = w.getWorkspace().getModElementByName(mappedBlock.getUnmappedValue().replace("CUSTOM:", "")
-        .replace(".helmet", "").replace(".body", "").replace(".legs", "").replace(".boots", "").replace(".bucket", ""))/>
+        <#assign ge = w.getWorkspace().getModElementByName(generator.getElementPlainName(mappedBlock.getUnmappedValue()))/>
         <#if ge??>
             <#assign ge = ge.getGeneratableElement() />
 
@@ -171,7 +173,8 @@
                 <#elseif ge.blockBase?has_content && ge.blockBase == "Leaves">
                     <#assign properties += [
                     {"name": "distance", "value": "7"},
-                    {"name": "persistent", "value": "false"}
+                    {"name": "persistent", "value": "false"},
+                    {"name": "waterlogged", "value": "false"}
                     ] />
                 <#elseif ge.blockBase?has_content && ge.blockBase == "TrapDoor">
                     <#assign properties += [
@@ -236,7 +239,7 @@
             <#if !mapped.contains(":")>
                 <#assign mapped = "minecraft:" + mapped />
             </#if>
-            <#assign propertymap = fp.file("utils/defaultstates.json")?eval/>
+            <#assign propertymap = fp.file("utils/defaultstates.json")?eval_json/>
             <#if propertymap[mapped]?has_content>
                 <#assign retval='{ "Name": "' + mapped + '", "Properties" : {'/>
                 <#list propertymap[mapped] as property>
@@ -252,4 +255,8 @@
         </#if>
     </#if>
     <#return '{ "Name": "minecraft:air" }'>
+</#function>
+
+<#function toMappedMCItem unmappedValue>
+    <#return generator.toMappedMItemBlock(unmappedValue)>
 </#function>
