@@ -31,7 +31,7 @@ body:
    attributes:
     label: Issue tracker rule checks (please read carefully)
     options:
-     - label: "I have checked that this feature <a href='https://github.com/PSGitHubUser1/Windows-11-Cursor-Concept-Pro-v2.2/issues' target='_blank'>is not already asked.</a>"
+     - label: "I have checked that this feature <a href='https://github.com/Goldorion/Fabric-Generator-MCreator/issues' target='_blank'>is not already asked.</a>"
        required: true
      - label: "I have checked that this feature is not already implemented"
        required: true
