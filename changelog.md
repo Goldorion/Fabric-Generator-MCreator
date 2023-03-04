@@ -1,9 +1,11 @@
 # Changelogs:
 
 ## 1.8.6
+* Updated to MCreator 2023.1.09612
 * [Bugfix #380] Get light of block procedure caused a build error (NerdyPuzzle)
 * [Bugfix #381] Is biome at procedure caused a build error (NerdyPuzzle)
 * [Bugfix #386] Ranged item `immediatesourceentity` dependency variable had the wrong name (NerdyPuzzle)
+* [Bugfix #390] Custom item damage vs mob/animal parameter did not work (NerdyPuzzle)
 
 ## 1.8.5
 * [Bugfix #364] Using custom potion effects in custom potions crashed the game
