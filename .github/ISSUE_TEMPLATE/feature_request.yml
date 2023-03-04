@@ -18,6 +18,16 @@ body:
      example_log.txt
    validations:
     required: false
+ - type: dropdown
+   attributes:
+    label: The feature will be part of
+    description: The will become the part of which of them.
+    options:
+     - MCreator
+     - Fabric Generator
+     - Other Plugin(s)
+   validations:
+     required: true
  - type: checkboxes
    attributes:
     label: Issue tracker rule checks (please read carefully)
