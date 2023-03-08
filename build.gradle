@@ -4,7 +4,7 @@ class Globals {
 	private static final def ARCHIVE_NAME = "generator-fabric-1.19.2" // The name of the exported file
 
 	// You can change the root folder of your OS if you have a custom installation
-	public static final def MCREATOR_ROOT_FOLDER_WINDOWS = "C://Program Files/Pylo/MCreator20231/" // Default path on Windows
+	public static final def MCREATOR_ROOT_FOLDER_WINDOWS = "C://Program Files/Pylo/MCreator/" // Default path on Windows
 	public static def MCREATOR_ROOT_FOLDER_MAC_LINUX = "/Applications/MCreator.app/Contents/MacOS/mcreator" // Default path on macOS and Linux
 
 	static def getArchiveName() {
