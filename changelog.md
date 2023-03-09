@@ -1,5 +1,8 @@
 # Changelogs:
 
+## 1.8.7
+* Updated to support the newest 2023.1 patch (and future patches)
+
 ## 1.8.6
 * Updated to MCreator 2023.1.09612
 * [Bugfix #380] Get light of block procedure caused a build error (NerdyPuzzle)
