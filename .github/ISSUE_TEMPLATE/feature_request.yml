@@ -1,0 +1,20 @@
+name: Feature Request
+description: Suggest an idea for the plugin
+labels: feature request
+body:
+ - type: textarea
+   attributes:
+    label: Feature description
+    description: Explain in details the request
+    placeholder: |
+     Tell us here about the feature
+   validations:
+    required: true
+ - type: checkboxes
+   attributes:
+    label: Issue tracker rule checks (please read carefully)
+    options:
+     - label: "I have checked that this feature [is not already asked](https://github.com/Goldorion/Fabric-Generator-MCreator/issues)."
+       required: true
+     - label: "I have checked that my written content does not violate the <a href='https://mcreator.net/wiki/general-publishing-guidelines' target='_blank'>publishing guidelines</a>"
+       required: true
