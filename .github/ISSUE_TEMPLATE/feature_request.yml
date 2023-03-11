@@ -1,5 +1,5 @@
 name: Feature Request
-description: Create a report to help us improve (search for duplicates first)
+description: Suggest an idea for the plugin
 labels: feature request
 body:
  - type: textarea
@@ -10,19 +10,11 @@ body:
      Tell us here about the feature
    validations:
     required: true
- - type: textarea
-   attributes:
-    label: Logs
-    description: Provide logs [Optional]
-    placeholder: |
-     example_log.txt / example_log.md
-   validations:
-    required: false
  - type: checkboxes
    attributes:
     label: Issue tracker rule checks (please read carefully)
     options:
      - label: "I have checked that this feature [is not already asked](https://github.com/Goldorion/Fabric-Generator-MCreator/issues)."
        required: true
-     - label: "I have checked that this feature [is not already implemented](https://github.com/Goldorion/Fabric-Generator-MCreator/issues)."
+     - label: "I have checked that my written content does not violate the <a href='https://mcreator.net/wiki/general-publishing-guidelines' target='_blank'>publishing guidelines</a>"
        required: true
