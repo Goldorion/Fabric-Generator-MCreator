@@ -5,7 +5,7 @@ body:
  - type: textarea
    attributes:
     label: Feature description
-    description: Explain clearly
+    description: Explain in details the request
     placeholder: |
      Tell us here about the feature
    validations:
