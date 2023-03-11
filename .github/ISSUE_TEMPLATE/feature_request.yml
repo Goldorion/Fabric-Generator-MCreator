@@ -22,7 +22,7 @@ body:
    attributes:
     label: Issue tracker rule checks (please read carefully)
     options:
-     - label: "I have checked that this [feature is not already asked](https://github.com/Goldorion/Fabric-Generator-MCreator/issues)."
+     - label: "I have checked that this feature [is not already asked](https://github.com/Goldorion/Fabric-Generator-MCreator/issues)."
        required: true
-     - label: "I have checked that this [feature is not already implemented](https://github.com/Goldorion/Fabric-Generator-MCreator/issues)."
+     - label: "I have checked that this feature [is not already implemented](https://github.com/Goldorion/Fabric-Generator-MCreator/issues)."
        required: true
