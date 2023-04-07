@@ -50,8 +50,9 @@ public class ${JavaModName}KeyMappings {
 	}
 
 	<#list keybinds as keybind>
-		public static ${JavaModName}KeyMapping ${keybind.getModElement().getRegistryNameUpper()} = new ${JavaModName}KeyMapping("key.${modid}.${keybind.getModElement().getRegistryName()}",
-				GLFW.GLFW_KEY_${generator.map(keybind.triggerKey, "keybuttons")}, "key.categories.${keybind.keyBindingCategoryKey}");
+		public static ${JavaModName}KeyMapping ${keybind.getModElement().getRegistryNameUpper()} = (${JavaModName}KeyMapping) KeyBindingHelper.registerKeyBinding(
+		    new ${JavaModName}KeyMapping("key.${modid}.${keybind.getModElement().getRegistryName()}", GLFW.GLFW_KEY_${generator.map(keybind.triggerKey, "keybuttons")},
+		        "key.categories.${keybind.keyBindingCategoryKey}"));
 	</#list>
 
 	public static void serverLoad() {

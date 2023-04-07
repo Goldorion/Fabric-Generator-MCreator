@@ -1,6 +1,7 @@
 # Changelogs:
 
 ## 1.8.8
+* [Bugfix #401] Key bindings were not displayed in the Controls menu
 * [Bugfix #402] Biomes didn't generate and caused build errors
 
 ## 1.8.7
