@@ -1,5 +1,8 @@
 # Changelogs:
 
+## 1.8.8
+* [Bugfix #402] Biomes didn't generate and caused build errors
+
 ## 1.8.7
 * Updated to support the newest 2023.1 patch (and future patches)
 

@@ -33,8 +33,6 @@
 
 package ${package};
 
-import terrablender.api.Regions;
-import terrablender.api.SurfaceRuleManager;
 import terrablender.api.TerraBlenderApi;
 
 public class TerraBlenderInit implements TerraBlenderApi {
@@ -42,12 +40,7 @@ public class TerraBlenderInit implements TerraBlenderApi {
 	@Override
 	public void onTerraBlenderInitialized() {
 		<#if w.hasElementsOfType("biome")>
-			<#list biomes as biome>
-                Regions.register(new ${biome.getModElement().getName()}Region(new ResourceLocation(${JavaModName}.MODID, "${biome.getModElement().getRegistryName()}")));
-			</#list>
-
-			SurfaceRuleManager.addSurfaceRules(SurfaceRuleManager.RuleCategory.OVERWORLD, ${JavaModName}.MODID, ${JavaModName}SurfaceRules.makeOverworldRules());
-			SurfaceRuleManager.addSurfaceRules(SurfaceRuleManager.RuleCategory.NETHER, ${JavaModName}.MODID, ${JavaModName}SurfaceRules.makeNetherRules());
+			${JavaModName}Biomes.loadTerraBlenderAPI();
 		</#if>
 	}
 }

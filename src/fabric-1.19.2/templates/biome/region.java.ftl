@@ -34,13 +34,13 @@ import terrablender.api.RegionType;
 public class ${name}Region extends Region {
 
 	public ${name}Region(ResourceLocation name) {
-		super(name, <#if data.spawnBiome || data.spawnInCaves>RegionType.OVERWORLD<#elseif data.spawnBiomeNether>RegionType.NETHER</#if>, ${data.biomeWeight});
+		super(name, <#if data.spawnBiome || data.spawnInCaves>RegionType.OVERWORLD<#elseif data.spawnBiomeNether>RegionType.NETHER</#if>, 2);
 	}
 	
 	@Override
 	public void addBiomes(Registry<Biome> registry, Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> mapper) {
 	    <#if data.spawnBiome || data.spawnBiomeNether>
-		    this.addBiome(mapper, ${name}Biome.PARAMETER_POINT, ${JavaModName}Biomes.${data.getModElement().getRegistryNameUpper()});
+		    this.addBiome(mapper, ${name}Biome.PARAMETER_POINTS, ${JavaModName}Biomes.${data.getModElement().getRegistryNameUpper()});
 		<#elseif data.spawnInCaves>
 		    this.addBiome(mapper, ${name}Biome.UNDERGROUND_PARAMETER_POINTS, ${JavaModName}Biomes.${data.getModElement().getRegistryNameUpper()});
 		</#if>

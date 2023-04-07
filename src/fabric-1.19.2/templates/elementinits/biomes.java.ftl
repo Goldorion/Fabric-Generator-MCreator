@@ -24,7 +24,22 @@
 
 <#include "../mcitems.ftl">
 
+<#assign spawn_overworld = []>
+<#assign spawn_nether = []>
+
+<#list biomes as biome>
+	<#if biome.spawnBiome>
+		<#assign spawn_overworld += [biome]>
+	</#if>
+	<#if biome.spawnBiomeNether>
+		<#assign spawn_nether += [biome]>
+	</#if>
+</#list>
+
 package ${package}.init;
+
+import terrablender.api.Regions;
+import terrablender.api.SurfaceRuleManager;
 
 public class ${JavaModName}Biomes {
 
@@ -37,6 +52,20 @@ public class ${JavaModName}Biomes {
 		<#list biomes as biome>
 			${biome.getModElement().getName()}Biome.createBiome();
 		</#list>
+	}
+	
+	public static void loadTerraBlenderAPI() {
+		<#list biomes as biome>
+			Regions.register(new ${biome.getModElement().getName()}Region(new ResourceLocation(${JavaModName}.MODID, "${biome.getModElement().getRegistryName()}")));
+		</#list>
+
+		<#if spawn_overworld?has_content>
+			SurfaceRuleManager.addSurfaceRules(SurfaceRuleManager.RuleCategory.OVERWORLD, ${JavaModName}.MODID, ${JavaModName}SurfaceRules.makeOverworldRules());
+		</#if>
+
+		<#if spawn_nether?has_content>
+			SurfaceRuleManager.addSurfaceRules(SurfaceRuleManager.RuleCategory.NETHER, ${JavaModName}.MODID, ${JavaModName}SurfaceRules.makeNetherRules());
+		</#if>
 	}
 
 }
