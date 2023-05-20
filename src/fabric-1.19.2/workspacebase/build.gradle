@@ -19,7 +19,7 @@ loom {
 dependencies {
     minecraft "com.mojang:minecraft:1.19.2"
     mappings loom.officialMojangMappings()
-    modImplementation "net.fabricmc:fabric-loader:0.14.9"
+    modImplementation "net.fabricmc:fabric-loader:0.14.19"
 
     //Fabric api
     modImplementation "net.fabricmc.fabric-api:fabric-api:${generator.getGeneratorBuildFileVersion()}+1.19.2"
