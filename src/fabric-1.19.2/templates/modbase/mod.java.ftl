@@ -46,6 +46,7 @@ public class ${JavaModName} implements ModInitializer {
 	public void onInitialize() {
 		LOGGER.info("Initializing ${JavaModName}");
 
+		<#if w.hasElementsOfType("particle")>${JavaModName}ParticleTypes.load();</#if>
 		<#if w.hasElementsOfType("tab")>${JavaModName}Tabs.load();</#if>
 		<#if w.hasElementsOfType("gamerule")>${JavaModName}GameRules.load();</#if>
 		<#if w.hasElementsOfType("enchantment")>${JavaModName}Enchantments.load();</#if>
