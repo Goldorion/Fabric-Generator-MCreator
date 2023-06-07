@@ -1,9 +1,14 @@
 <#-- @formatter:off -->
-<#include "../mcitems.ftl">
+<#include "../../mcitems.ftl">
 {
-  <#if data.group?has_content>"group": "${data.group}",</#if>
     <#if data.recipeShapeless>
         "type": "minecraft:crafting_shapeless",
+    <#else>
+        "type": "minecraft:crafting_shaped",
+    </#if>
+    <#if data.group?has_content>"group": "${data.group}",</#if>
+    "category": "${data.craftingBookCategory?lower_case}",
+    <#if data.recipeShapeless>
         "ingredients": [
           <#assign ingredients = "">
           <#list data.recipeSlots as element>
@@ -14,23 +19,22 @@
             ${ingredients[0..(ingredients?last_index_of(',') - 1)]}
         ],
     <#else>
-        "type": "minecraft:crafting_shaped",
         <#assign recipeArray = data.getOptimisedRecipe()>
         <#assign rm = [], i = 0>
         "pattern": [
         <#list recipeArray as rl>
-        		"<#list rl as re><#if !re.isEmpty()><#assign rm+=["\"${i}\": {${mappedMCItemToIngameItemName(re)}}"]/>${i}<#else> </#if><#assign i+=1></#list>"<#if rl?has_next>,</#if>
+        		"<#list rl as re><#if !re.isEmpty()><#assign rm+=["\"${i}\": {${mappedMCItemToIngameItemName(re)}}"]/>${i}<#else> </#if><#assign i+=1></#list>"<#sep>,
         </#list>
         ],
         "key": {
         <#list rm as recipeMapping>
-            ${recipeMapping}<#if recipeMapping?has_next>,</#if>
+            ${recipeMapping}<#sep>,
         </#list>
         },
     </#if>
     "result": {
-      ${mappedMCItemToIngameItemName(data.recipeReturnStack)},
-      "count": ${data.recipeRetstackSize}
+        ${mappedMCItemToIngameItemName(data.recipeReturnStack)},
+        "count": ${data.recipeRetstackSize}
     }
 }
 <#-- @formatter:on -->

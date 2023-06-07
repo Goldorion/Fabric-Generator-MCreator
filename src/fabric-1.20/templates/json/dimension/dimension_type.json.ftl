@@ -14,20 +14,22 @@
   <#if data.worldGenType == "Normal world gen">
   "min_y": -64,
   "height": 384,
+  "logical_height": 384,
   <#else>
   "min_y": 0,
   "height": 256,
+  "logical_height": 256,
   </#if>
   <#if data.worldGenType == "Nether like gen">
   "monster_spawn_light_level": 11,
   "monster_spawn_block_light_limit": 15,
   <#else>
   "monster_spawn_light_level": {
-	"type": "minecraft:uniform",
-	"value": {
-	  "min_inclusive": 0,
-	  "max_inclusive": 7
-	}
+    "type": "minecraft:uniform",
+    "value": {
+      "min_inclusive": 0,
+      "max_inclusive": 7
+    }
   },
   "monster_spawn_block_light_limit": 0,
   </#if>

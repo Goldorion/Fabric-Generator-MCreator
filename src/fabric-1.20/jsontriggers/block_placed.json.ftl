@@ -1,10 +1,11 @@
 {
   "trigger": "minecraft:placed_block",
   "conditions": {
-    "item": {
-        "items": [
-            "${input$block}"
-  		]
-    }
+    "location": [
+        {
+            "block": "${input$block}",
+            "condition": "minecraft:block_state_property"
+        }
+    ]
   }
 }
