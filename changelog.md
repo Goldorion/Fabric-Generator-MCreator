@@ -1,5 +1,10 @@
 # Changelogs:
 
+## 1.9.0
+* Updated to Minecraft 1.20
+* Updated Fabric API to 0.83.0
+* Updated Fabric Loader to 0.14.21
+
 ## 1.8.9
 * Updated to MCreator 2023.2.22518
 * [#411] Updated Fabric Loader version to 0.14.19
