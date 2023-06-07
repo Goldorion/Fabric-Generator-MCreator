@@ -23,7 +23,7 @@ import org.spongepowered.asm.mixin.injection.Constant;
 @Mixin(RepairItemRecipe.class)
 public abstract class ${JavaModName}RepairItemRecipeMixin {
 	@Inject(method = "assemble", at = @At("HEAD"), cancellable = true)
-	public void assemble(CraftingContainer craftingContainer, CallbackInfoReturnable<ItemStack> cir) {
+	public void assemble(CraftingContainer craftingContainer, RegistryAccess registryAccess, CallbackInfoReturnable<ItemStack> cir) {
 		ItemStack itemStack3;
 		ItemStack itemStack;
 		ArrayList<ItemStack> list = Lists.newArrayList();
