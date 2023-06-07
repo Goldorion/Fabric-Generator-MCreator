@@ -1,5 +1,11 @@
 {
   "generator-fabric-1.19.2": {
-    "latest": "1.8.8"
+    "latest": "1.8.9",
+    "changes": [
+      "Updated to MCreator 2023.2.22518",
+      "[#411] Updated Fabric Loader version to 0.14.19",
+      "[Bugfix #412] Fixed particles crashing on dedicated servers (kleiders)",
+      "Fixed several problems with different procedure blocks"
+    ]
   }
 }
