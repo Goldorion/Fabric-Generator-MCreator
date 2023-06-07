@@ -140,7 +140,7 @@ public class ${name}Item extends ${data.toolType?replace("Spade", "Shovel")?repl
 				double x = entity.getX();
 				double y = entity.getY();
 				double z = entity.getZ();
-				Level world = entity.level;
+				Level world = entity.getLevel();
 				<@procedureOBJToCode data.onEntityHitWith/>
 			</#if>
 			return true;
@@ -174,7 +174,7 @@ public class ${name}Item extends ${data.toolType?replace("Spade", "Shovel")?repl
 			double x = entity.getX();
 			double y = entity.getY();
 			double z = entity.getZ();
-			Level world = entity.level;
+			Level world = entity.getLevel();
 			<@procedureOBJToCode data.onEntityHitWith/>
 			return retval;
 		}
@@ -227,7 +227,7 @@ public class ${name}Item extends Item {
 			double x = entity.getX();
 			double y = entity.getY();
 			double z = entity.getZ();
-			Level world = entity.level;
+			Level world = entity.getLevel();
 			<@procedureOBJToCode data.onEntityHitWith/>
 		</#if>
 		return true;
@@ -377,7 +377,7 @@ public class ${name}Item extends FishingRodItem {
 		@Override @Environment(EnvType.CLIENT) public boolean isFoil(ItemStack itemstack) {
 			<#if hasProcedure(data.glowCondition)>
 			Player entity = Minecraft.getInstance().player;
-			Level world = entity.level;
+			Level world = entity.getLevel();
 			double x = entity.getX();
 			double y = entity.getY();
 			double z = entity.getZ();

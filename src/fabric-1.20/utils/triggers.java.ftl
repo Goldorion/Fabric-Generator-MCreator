@@ -41,7 +41,7 @@
 		"x": "entity.getX()",
 		"y": "entity.getY()",
 		"z": "entity.getZ()",
-		"world": "entity.level",
+		"world": "entity.getLevel()",
 		"entity": "entity",
 		"sourceentity": "sourceentity",
 		"itemstack": "itemstack"
@@ -106,7 +106,7 @@
 		"x": "entity.getX()",
 		"y": "entity.getY()",
 		"z": "entity.getZ()",
-		"world": "entity.level",
+		"world": "entity.getLevel()",
 		"entity": "entity",
 		"itemstack": "itemstack"
 	}/>
