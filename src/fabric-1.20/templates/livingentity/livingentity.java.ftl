@@ -312,24 +312,24 @@ public class ${name}Entity extends ${extendsClass} <#if data.ranged>implements R
 				if (source.is(DamageTypes.EXPLOSION))
 					return false;
 			</#if>
-            <#if data.immuneToTrident>
-                if (source.is(DamageTypes.TRIDENT))
-                    return false;
-            </#if>
-            <#if data.immuneToAnvil>
-                if (source.is(DamageTypes.FALLING_ANVIL))
-                    return false;
-            </#if>
-            <#if data.immuneToDragonBreath>
-                if (source.is(DamageTypes.DRAGON_BREATH))
-                    return false;
-            </#if>
-            <#if data.immuneToWither>
-                if (source.is(DamageTypes.WITHER))
-                    return false;
-                if (source.is(DamageTypes.WITHER_SKULL))
-                    return false;
-            </#if>
+			<#if data.immuneToTrident>
+				if (source.is(DamageTypes.TRIDENT))
+					return false;
+			</#if>
+			<#if data.immuneToAnvil>
+				if (source.is(DamageTypes.FALLING_ANVIL))
+					return false;
+			</#if>
+			<#if data.immuneToDragonBreath>
+				if (source.is(DamageTypes.DRAGON_BREATH))
+					return false;
+			</#if>
+			<#if data.immuneToWither>
+				if (source.is(DamageTypes.WITHER))
+					return false;
+				if (source.is(DamageTypes.WITHER_SKULL))
+					return false;
+			</#if>
 			return super.hurt(source, amount);
 		}
 	</#if>

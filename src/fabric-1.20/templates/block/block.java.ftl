@@ -74,10 +74,10 @@ public class ${name}Block extends
 	</#if>
 
 	<#macro blockProperties>
-	    BlockBehaviour.Properties.of()
-            <#if generator.map(data.colorOnMap, "mapcolors") != "DEFAULT">
-                .mapColor(MapColor.${generator.map(data.colorOnMap, "mapcolors")})
-            </#if>
+		BlockBehaviour.Properties.of()
+			<#if generator.map(data.colorOnMap, "mapcolors") != "DEFAULT">
+				.mapColor(MapColor.${generator.map(data.colorOnMap, "mapcolors")})
+			</#if>
 			<#if data.requiresCorrectTool>
 				.requiresCorrectToolForDrops()
 			</#if>
@@ -166,7 +166,7 @@ public class ${name}Block extends
 				.offsetType(OffsetType.${data.offsetType})
 			</#if>
 			<#if data.reactionToPushing != "NORMAL">
-			    .pushReaction(PushReaction.${data.reactionToPushing})
+				.pushReaction(PushReaction.${data.reactionToPushing})
 			</#if>
 
 	</#macro>

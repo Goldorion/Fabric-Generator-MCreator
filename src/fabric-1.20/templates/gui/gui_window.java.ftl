@@ -102,13 +102,13 @@ public class ${name}Screen extends AbstractContainerScreen<${name}Menu> {
 					if (<@procedureOBJToConditionCode component.displayCondition/>)
 				</#if>
 				<#if component.followMouseMovement>
-                    InventoryScreen.renderEntityInInventoryFollowsMouse(guiGraphics, this.leftPos + ${x + 11}, this.topPos + ${y + 21}, ${component.scale},
-                        ${component.rotationX / 20.0}f + (float) Math.atan((this.leftPos + ${x + 11} - mouseX) / 40.0),
-                        (float) Math.atan((this.topPos + ${y + 21 - 50} - mouseY) / 40.0), livingEntity);
-                <#else>
-                    InventoryScreen.renderEntityInInventory(guiGraphics, this.leftPos + ${x + 11}, this.topPos + ${y + 21}, ${component.scale},
-                        new Quaternionf().rotateX(${component.rotationX / 20.0}f), new Quaternionf(), livingEntity);
-                </#if>
+					InventoryScreen.renderEntityInInventoryFollowsMouse(guiGraphics, this.leftPos + ${x + 11}, this.topPos + ${y + 21}, ${component.scale},
+						${component.rotationX / 20.0}f + (float) Math.atan((this.leftPos + ${x + 11} - mouseX) / 40.0),
+						(float) Math.atan((this.topPos + ${y + 21 - 50} - mouseY) / 40.0), livingEntity);
+				<#else>
+					InventoryScreen.renderEntityInInventory(guiGraphics, this.leftPos + ${x + 11}, this.topPos + ${y + 21}, ${component.scale},
+						new Quaternionf().rotateX(${component.rotationX / 20.0}f), new Quaternionf(), livingEntity);
+				</#if>
 			}
 		</#list>
 	}
@@ -119,14 +119,14 @@ public class ${name}Screen extends AbstractContainerScreen<${name}Menu> {
 		RenderSystem.defaultBlendFunc();
 
 		<#if data.renderBgLayer>
-		    guiGraphics.blit(texture, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
+			guiGraphics.blit(texture, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
 		</#if>
 
 		<#list data.components as component>
 			<#if component.getClass().getSimpleName() == "Image">
 				<#if hasProcedure(component.displayCondition)>if (<@procedureOBJToConditionCode component.displayCondition/>) {</#if>
 					guiGraphics.blit(new ResourceLocation("${modid}:textures/screens/${component.image}"), this.leftPos + ${(component.x - mx/2)?int},
-					    this.topPos + ${(component.y - my/2)?int}, 0, 0,
+						this.topPos + ${(component.y - my/2)?int}, 0, 0,
 						${component.getWidth(w.getWorkspace())}, ${component.getHeight(w.getWorkspace())},
 						${component.getWidth(w.getWorkspace())}, ${component.getHeight(w.getWorkspace())});
 				<#if hasProcedure(component.displayCondition)>}</#if>
@@ -219,8 +219,8 @@ public class ${name}Screen extends AbstractContainerScreen<${name}Menu> {
 
 		<#list data.getComponentsOfType("Button") as component>
 			${component.getName()} = new Button.Builder(
-			    Component.translatable("gui.${modid}.${registryname}.${component.getName()}"), <@buttonOnClick component/>)
-                .bounds(this.leftPos + ${(component.x - mx/2)?int}, this.topPos + ${(component.y - my/2)?int},
+				Component.translatable("gui.${modid}.${registryname}.${component.getName()}"), <@buttonOnClick component/>)
+				.bounds(this.leftPos + ${(component.x - mx/2)?int}, this.topPos + ${(component.y - my/2)?int},
 				${component.width}, ${component.height}).build()<@buttonDisplayCondition component/>;
 
 			guistate.put("button:${component.getName()}", ${component.getName()});

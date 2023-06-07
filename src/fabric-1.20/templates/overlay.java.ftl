@@ -85,7 +85,7 @@ public class ${name}Overlay {
 						if (<@procedureOBJToConditionCode component.displayCondition/>)
 					</#if>
 					guiGraphics.drawString(Minecraft.getInstance().font, <#if hasProcedure(component.text)><@procedureOBJToStringCode component.text/>
-					    <#else>Component.translatable("gui.${modid}.${registryname}.${component.getName()}")</#if>,
+						<#else>Component.translatable("gui.${modid}.${registryname}.${component.getName()}")</#if>,
 						posX + ${x}, posY + ${y}, ${component.color.getRGB()});
 			</#list>
 
@@ -94,8 +94,8 @@ public class ${name}Overlay {
 					<#if hasProcedure(component.displayCondition)>
 						if (<@procedureOBJToConditionCode component.displayCondition/>)
 					</#if>
-                    InventoryScreen.renderEntityInInventory(guiGraphics, posX + ${component.x - 202}, posY + ${component.y - 100},
-                        ${component.scale}, new Quaternionf().rotateX(${component.rotationX / 20.0}f), new Quaternionf(), livingEntity);
+					InventoryScreen.renderEntityInInventory(guiGraphics, posX + ${component.x - 202}, posY + ${component.y - 100},
+						${component.scale}, new Quaternionf().rotateX(${component.rotationX / 20.0}f), new Quaternionf(), livingEntity);
 				}
 			</#list>
 		}
