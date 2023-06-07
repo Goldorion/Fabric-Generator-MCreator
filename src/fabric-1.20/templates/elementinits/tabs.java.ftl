@@ -26,18 +26,19 @@
 
 package ${package}.init;
 
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+
 public class ${JavaModName}Tabs {
 
 	<#list tabs as tab>
-		public static CreativeModeTab TAB_${tab.getModElement().getRegistryNameUpper()};
+		public static ResourceKey<CreativeModeTab> TAB_${tab.getModElement().getRegistryNameUpper()} = ResourceKey.create(Registries.CREATIVE_MODE_TAB, new ResourceLocation(${JavaModName}.MODID, "${tab.getModElement().getRegistryName()}"));
 	</#list>
 
 	public static void load() {
 		<#list tabs as tab>
-		TAB_${tab.getModElement().getRegistryNameUpper()} = FabricItemGroupBuilder
-					.create(new ResourceLocation("${modid}","${tab.getModElement().getRegistryName()}"))
-					.icon(()-> ${mappedMCItemToItemStackCode(tab.icon, 1)})
-					.build();
+		Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, TAB_${tab.getModElement().getRegistryNameUpper()}, FabricItemGroup.builder()
+			.title(Component.translatable("item_group." + ${JavaModName}.MODID + ".${tab.getModElement().getRegistryName()}"))
+			.icon(()-> ${mappedMCItemToItemStackCode(tab.icon, 1)}).build());
 		</#list>
 	}
 

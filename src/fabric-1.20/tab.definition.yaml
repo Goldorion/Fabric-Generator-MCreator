@@ -1,5 +1,5 @@
 localizationkeys:
-  - key: itemGroup.@modid.@registryname
+  - key: item_group.@modid.@registryname
     mapto: name
 
 global_templates:
