@@ -1,7 +1,7 @@
 {
   "type": "minecraft:matching_blocks",
   "blocks": [
-    "minecraft:air",
-    "minecraft:water"
+	"minecraft:air",
+	"minecraft:water"
   ]
 }

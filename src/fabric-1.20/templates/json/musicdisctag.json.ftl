@@ -1,8 +1,8 @@
 {
-    "replace": false,
-    "values": [
-        <#list musicdiscs as musicdisc>
-            "${modid}:${musicdisc.getModElement().getRegistryName()}"<#sep>,
-        </#list>
-    ]
+	"replace": false,
+	"values": [
+		<#list musicdiscs as musicdisc>
+			"${modid}:${musicdisc.getModElement().getRegistryName()}"<#sep>,
+		</#list>
+	]
 }

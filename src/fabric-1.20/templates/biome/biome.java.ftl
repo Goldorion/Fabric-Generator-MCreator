@@ -2,7 +2,7 @@
  # This file is part of Fabric-Generator-MCreator.
  # Copyright (C) 2012-2020, Pylo
  # Copyright (C) 2020-2021, Pylo, opensource contributors
- # Copyright (C) 2020-2022, Goldorion, opensource contributors
+ # Copyright (C) 2020-2023, Goldorion, opensource contributors
  #
  # Fabric-Generator-MCreator is free software: you can redistribute it and/or modify
  # it under the terms of the GNU Lesser General Public License as published by
@@ -37,28 +37,28 @@ import com.google.common.collect.ImmutableList;
 public class ${name}Biome {
 
 	<#if data.spawnBiome || data.spawnBiomeNether>
-        public static final Climate.ParameterPoint PARAMETER_POINTS = new Climate.ParameterPoint(
-            Climate.Parameter.span(${data.genTemperature.min}f, ${data.genTemperature.max}f),
-            Climate.Parameter.span(${data.genHumidity.min}f, ${data.genHumidity.max}f),
-            Climate.Parameter.span(${data.genContinentalness.min}f, ${data.genContinentalness.max}f),
-            Climate.Parameter.span(${data.genErosion.min}f, ${data.genErosion.max}f),
-            Climate.Parameter.point(0.0f),
-            Climate.Parameter.span(${data.genWeirdness.min}f, ${data.genWeirdness.max}f),
-            0 <#-- offset -->
-        );
+		public static final Climate.ParameterPoint PARAMETER_POINTS = new Climate.ParameterPoint(
+			Climate.Parameter.span(${data.genTemperature.min}f, ${data.genTemperature.max}f),
+			Climate.Parameter.span(${data.genHumidity.min}f, ${data.genHumidity.max}f),
+			Climate.Parameter.span(${data.genContinentalness.min}f, ${data.genContinentalness.max}f),
+			Climate.Parameter.span(${data.genErosion.min}f, ${data.genErosion.max}f),
+			Climate.Parameter.point(0.0f),
+			Climate.Parameter.span(${data.genWeirdness.min}f, ${data.genWeirdness.max}f),
+			0 <#-- offset -->
+		);
 	</#if>
 
 	<#if data.spawnInCaves>
-        public static final Climate.ParameterPoint UNDERGROUND_PARAMETER_POINTS = new Climate.ParameterPoint(
-                Climate.Parameter.span(${data.genTemperature.min}f, ${data.genTemperature.max}f),
-                Climate.Parameter.span(${data.genHumidity.min}f, ${data.genHumidity.max}f),
-                Climate.Parameter.span(${data.genContinentalness.min}f, ${data.genContinentalness.max}f),
-                Climate.Parameter.span(${data.genErosion.min}f, ${data.genErosion.max}f),
-                Climate.Parameter.span(0.2f, 0.9f),
-                Climate.Parameter.span(${data.genWeirdness.min}f, ${data.genWeirdness.max}f),
-                0 <#-- offset -->
-            )
-        );
+		public static final Climate.ParameterPoint UNDERGROUND_PARAMETER_POINTS = new Climate.ParameterPoint(
+				Climate.Parameter.span(${data.genTemperature.min}f, ${data.genTemperature.max}f),
+				Climate.Parameter.span(${data.genHumidity.min}f, ${data.genHumidity.max}f),
+				Climate.Parameter.span(${data.genContinentalness.min}f, ${data.genContinentalness.max}f),
+				Climate.Parameter.span(${data.genErosion.min}f, ${data.genErosion.max}f),
+				Climate.Parameter.span(0.2f, 0.9f),
+				Climate.Parameter.span(${data.genWeirdness.min}f, ${data.genWeirdness.max}f),
+				0 <#-- offset -->
+			)
+		);
 	</#if>
 
 	public static void createBiome() {

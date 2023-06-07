@@ -2,7 +2,7 @@
  # MCreator (https://mcreator.net/)
  # Copyright (C) 2012-2020, Pylo
  # Copyright (C) 2020-2022, Pylo, opensource contributors
- # Copyright (C) 2020-2022, Goldorion, opensource contributors
+ # Copyright (C) 2020-2023, Goldorion, opensource contributors
  # 
  # This program is free software: you can redistribute it and/or modify
  # it under the terms of the GNU General Public License as published by
@@ -77,20 +77,20 @@ public class ${name}Feature extends ${generator.map(featuretype, "features")} {
 	}
 
 	public boolean place(FeaturePlaceContext<${configuration}> context) {
-        WorldGenLevel world = context.level();
-    	<#if data.restrictionDimensions?has_content>
-            if (!generateDimensions.contains(world.getLevel().dimension()))
-                return false;
-    	</#if>
+		WorldGenLevel world = context.level();
+		<#if data.restrictionDimensions?has_content>
+			if (!generateDimensions.contains(world.getLevel().dimension()))
+				return false;
+		</#if>
 
-    	<#if hasProcedure(data.generateCondition)>
-            int x = context.origin().getX();
-            int y = context.origin().getY();
-            int z = context.origin().getZ();
-            if (!<@procedureOBJToConditionCode data.generateCondition/>)
-                return false;
-    	</#if>
+		<#if hasProcedure(data.generateCondition)>
+			int x = context.origin().getX();
+			int y = context.origin().getY();
+			int z = context.origin().getZ();
+			if (!<@procedureOBJToConditionCode data.generateCondition/>)
+				return false;
+		</#if>
 
-    	return super.place(context);
-    	}
+		return super.place(context);
+		}
 }</#compress>

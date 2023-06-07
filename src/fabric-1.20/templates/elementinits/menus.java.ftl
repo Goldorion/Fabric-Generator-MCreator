@@ -1,6 +1,6 @@
 <#--
  # MCreator (https://mcreator.net/)
- # Copyright (C) 2020-2022, Goldorion, opensource contributors
+ # Copyright (C) 2020-2023, Goldorion, opensource contributors
  #
  # This program is free software: you can redistribute it and/or modify
  # it under the terms of the GNU General Public License as published by
@@ -43,8 +43,8 @@ public class ${JavaModName}Menus {
 
 	public static void load() {
 		<#list guis as gui>
-			${gui.getModElement().getRegistryNameUpper()} = Registry.register(Registry.MENU, new ResourceLocation(${JavaModName}.MODID,
-			        "${gui.getModElement().getRegistryName()}"),
+			${gui.getModElement().getRegistryNameUpper()} = Registry.register(BuiltInRegistries.MENU, new ResourceLocation(${JavaModName}.MODID,
+					"${gui.getModElement().getRegistryName()}"),
 			 new ExtendedScreenHandlerType<>(${gui.getModElement().getName()}Menu::new));
 			${gui.getModElement().getName()}Screen.screenInit();
 		</#list>

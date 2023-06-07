@@ -2,7 +2,7 @@
  # This file is part of Fabric-Generator-MCreator.
  # Copyright (C) 2012-2020, Pylo
  # Copyright (C) 2020-2021, Pylo, opensource contributors
- # Copyright (C) 2020-2022, Goldorion, opensource contributors
+ # Copyright (C) 2020-2023, Goldorion, opensource contributors
  #
  # Fabric-Generator-MCreator is free software: you can redistribute it and/or modify
  # it under the terms of the GNU Lesser General Public License as published by
@@ -77,14 +77,14 @@ public class ${name}Item extends ${data.toolType?replace("Spade", "Shovel")?repl
 				new Item.Properties()
 			 	.tab(${data.creativeTab})
 			 	<#if data.immuneToFire>
-			 	    .fireResistant()
+			 		.fireResistant()
 			 	</#if>
 		<#elseif data.toolType=="Shears">
 			new Item.Properties()
 				.tab(${data.creativeTab})
 				.durability(${data.usageCount})
 				<#if data.immuneToFire>
-                    .fireResistant()
+					.fireResistant()
 				</#if>
 		</#if>);
 	}
@@ -339,8 +339,8 @@ public class ${name}Item extends FishingRodItem {
 
 		<#if data.recipeRemainder?? && !data.recipeRemainder.isEmpty()>
 			@Override public ItemStack getRecipeRemainder(ItemStack itemstack) {
-			    return ${mappedMCItemToItemStackCode(data.recipeRemainder, 1)};
-        	}
+				return ${mappedMCItemToItemStackCode(data.recipeRemainder, 1)};
+			}
 		<#elseif data.damageOnCrafting && data.usageCount != 0>
 			@Override public ItemStack getRecipeRemainder(ItemStack itemstack) {
 				ItemStack retval = new ItemStack(this);

@@ -1,6 +1,6 @@
 <#--
  # This file is part of Fabric-Generator-MCreator.
- # Copyright (C) 2020-2021, Goldorion, opensource contributors
+ # Copyright (C) 2020-2023, Goldorion, opensource contributors
  #
  # Fabric-Generator-MCreator is free software: you can redistribute it and/or modify
  # it under the terms of the GNU Lesser General Public License as published by
@@ -32,7 +32,7 @@ public class ${JavaModName}Enchantments {
 
 	public static void load() {
 			<#list enchantments as enchantment>
-				${enchantment.getModElement().getRegistryNameUpper()} = Registry.register(Registry.ENCHANTMENT,
+				${enchantment.getModElement().getRegistryNameUpper()} = Registry.register(BuiltInRegistries.ENCHANTMENT,
 					new ResourceLocation(${JavaModName}.MODID, "${enchantment.getModElement().getRegistryName()}"),
 					new ${enchantment.getModElement().getName()}Enchantment());
 			</#list>

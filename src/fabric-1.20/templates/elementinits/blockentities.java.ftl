@@ -1,6 +1,6 @@
 <#--
  # This file is part of Fabric-Generator-MCreator.
- # Copyright (C) 2020-2022, Goldorion, opensource contributors
+ # Copyright (C) 2020-2023, Goldorion, opensource contributors
  #
  # Fabric-Generator-MCreator is free software: you can redistribute it and/or modify
  # it under the terms of the GNU Lesser General Public License as published by
@@ -32,7 +32,7 @@ public class ${JavaModName}BlockEntities {
 
 	public static void load() {
 		<#list blockentities as blockentity>
-			${blockentity.getModElement().getRegistryNameUpper()} = Registry.register(Registry.BLOCK_ENTITY_TYPE, new ResourceLocation(${JavaModName}.MODID,
+			${blockentity.getModElement().getRegistryNameUpper()} = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, new ResourceLocation(${JavaModName}.MODID,
 				"${blockentity.getModElement().getRegistryName()}"), FabricBlockEntityTypeBuilder.create(${blockentity.getModElement().getName()}BlockEntity::new,
 				${JavaModName}Blocks.${blockentity.getModElement().getRegistryNameUpper()}).build(null));
 		</#list>

@@ -2,7 +2,7 @@
  # MCreator (https://mcreator.net/)
  # Copyright (C) 2012-2020, Pylo
  # Copyright (C) 2020-2021, Pylo, opensource contributors
- # Copyright (C) 2020-2022, Goldorion, opensource contributors
+ # Copyright (C) 2020-2023, Goldorion, opensource contributors
  #
  # This program is free software: you can redistribute it and/or modify
  # it under the terms of the GNU General Public License as published by
@@ -110,7 +110,7 @@ public class ${name}Feature extends OreFeature {
 		static final ${name}FeatureRuleTest INSTANCE = new ${name}FeatureRuleTest();
 		static final com.mojang.serialization.Codec<${name}FeatureRuleTest> codec = com.mojang.serialization.Codec.unit(() -> INSTANCE);
 
-		static final RuleTestType<${name}FeatureRuleTest> CUSTOM_MATCH = Registry.register(Registry.RULE_TEST,
+		static final RuleTestType<${name}FeatureRuleTest> CUSTOM_MATCH = Registry.register(BuiltInRegistries.RULE_TEST,
 				new ResourceLocation("${modid}:${registryname}_match"), () -> codec);
 
 		public boolean test(BlockState blockAt, RandomSource random) {

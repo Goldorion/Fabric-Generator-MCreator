@@ -1,3 +1,3 @@
 {
-    "trigger": "minecraft:impossible"
+	"trigger": "minecraft:impossible"
 }

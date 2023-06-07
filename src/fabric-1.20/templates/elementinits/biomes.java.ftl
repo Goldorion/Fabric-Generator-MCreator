@@ -1,6 +1,6 @@
 <#--
  # This file is part of Fabric-Generator-MCreator.
- # Copyright (C) 2020-2021, Goldorion, opensource contributors
+ # Copyright (C) 2020-2023, Goldorion, opensource contributors
  #
  # Fabric-Generator-MCreator is free software: you can redistribute it and/or modify
  # it under the terms of the GNU Lesser General Public License as published by
@@ -53,7 +53,7 @@ public class ${JavaModName}Biomes {
 			${biome.getModElement().getName()}Biome.createBiome();
 		</#list>
 	}
-	
+
 	public static void loadTerraBlenderAPI() {
 		<#list biomes as biome>
 			Regions.register(new ${biome.getModElement().getName()}Region(new ResourceLocation(${JavaModName}.MODID, "${biome.getModElement().getRegistryName()}")));

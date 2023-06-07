@@ -3,8 +3,8 @@
 	ServerLevel world = arguments.getSource().getLevel();
 
 	double x = arguments.getSource().getPosition().x();
-    double y = arguments.getSource().getPosition().y();
-    double z = arguments.getSource().getPosition().z();
+	double y = arguments.getSource().getPosition().y();
+	double z = arguments.getSource().getPosition().z();
 
 	Entity entity = arguments.getSource().getEntity();
 
@@ -18,8 +18,8 @@
 		index++;
 	}
 
-    <@procedureToCode name=procedure dependencies=dependencies/>
-    return 0;
+	<@procedureToCode name=procedure dependencies=dependencies/>
+	return 0;
 }))
 .executes(arguments -> {
 	ServerLevel world = arguments.getSource().getLevel();
@@ -40,6 +40,6 @@
 		index++;
 	}
 
-    <@procedureToCode name=procedure dependencies=dependencies/>
+	<@procedureToCode name=procedure dependencies=dependencies/>
 	return 0;
 })

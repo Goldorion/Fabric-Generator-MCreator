@@ -2,7 +2,7 @@
  # This file is part of Fabric-Generator-MCreator.
  # Copyright (C) 2012-2020, Pylo
  # Copyright (C) 2020-2021, Pylo, opensource contributors
- # Copyright (C) 2020-2022, Goldorion, opensource contributors
+ # Copyright (C) 2020-2023, Goldorion, opensource contributors
  #
  # Fabric-Generator-MCreator is free software: you can redistribute it and/or modify
  # it under the terms of the GNU Lesser General Public License as published by
@@ -35,8 +35,8 @@ import net.fabricmc.api.Environment;
 
 <#compress>
 public class ${name}Block extends
-    <#if data.hasGravity>
-	    FallingBlock
+	<#if data.hasGravity>
+		FallingBlock
 	<#elseif data.blockBase?has_content && data.blockBase == "Button">
 		<#if (data.material.getUnmappedValue() == "WOOD") || (data.material.getUnmappedValue() == "NETHER_WOOD")>Wood<#else>Stone</#if>ButtonBlock
 	<#elseif data.blockBase?has_content>
@@ -537,7 +537,7 @@ public class ${name}Block extends
 	</#if>
 
 	<#if data.isBonemealable>
-	    <@bonemealEvents data.isBonemealTargetCondition, data.bonemealSuccessCondition, data.onBonemealSuccess/>
+		<@bonemealEvents data.isBonemealTargetCondition, data.bonemealSuccessCondition, data.onBonemealSuccess/>
 	</#if>
 
 	<#if data.hasInventory>
@@ -598,40 +598,40 @@ public class ${name}Block extends
 				BlockRenderLayerMap.INSTANCE.putBlock(${JavaModName}Blocks.${data.getModElement().getRegistryNameUpper()}, RenderType.solid());
 			</#if>
 
-            <#if data.tintType != "No tint">
-                ColorProviderRegistry.BLOCK.register((bs, world, pos, index) -> world != null && pos != null ?
-                    <#if data.tintType == "Grass">
-                        BiomeColors.getAverageGrassColor(world, pos) : GrassColor.get(0.5D, 1.0D)
-                    <#elseif data.tintType == "Foliage">
-                        BiomeColors.getAverageFoliageColor(world, pos) : FoliageColor.getDefaultColor()
-                    <#elseif data.tintType == "Water">
-                        BiomeColors.getAverageWaterColor(world, pos) : -1
-                    <#elseif data.tintType == "Sky">
-                        Minecraft.getInstance().level.getBiome(pos).getSkyColor() : 8562943
-                    <#elseif data.tintType == "Fog">
-                        Minecraft.getInstance().level.getBiome(pos).getFogColor() : 12638463
-                    <#else>
-                        Minecraft.getInstance().level.getBiome(pos).getWaterFogColor() : 329011
-                    </#if>, ${JavaModName}Blocks.${data.getModElement().getRegistryNameUpper()});
+			<#if data.tintType != "No tint">
+				ColorProviderRegistry.BLOCK.register((bs, world, pos, index) -> world != null && pos != null ?
+					<#if data.tintType == "Grass">
+						BiomeColors.getAverageGrassColor(world, pos) : GrassColor.get(0.5D, 1.0D)
+					<#elseif data.tintType == "Foliage">
+						BiomeColors.getAverageFoliageColor(world, pos) : FoliageColor.getDefaultColor()
+					<#elseif data.tintType == "Water">
+						BiomeColors.getAverageWaterColor(world, pos) : -1
+					<#elseif data.tintType == "Sky">
+						Minecraft.getInstance().level.getBiome(pos).getSkyColor() : 8562943
+					<#elseif data.tintType == "Fog">
+						Minecraft.getInstance().level.getBiome(pos).getFogColor() : 12638463
+					<#else>
+						Minecraft.getInstance().level.getBiome(pos).getWaterFogColor() : 329011
+					</#if>, ${JavaModName}Blocks.${data.getModElement().getRegistryNameUpper()});
 
 
-                <#if data.isItemTinted>
-                    ColorProviderRegistry.ITEM.register((stack, index) ->
-                        <#if data.tintType == "Grass">
-                            GrassColor.get(0.5D, 1.0D)
-                        <#elseif data.tintType == "Foliage">
-                            FoliageColor.getDefaultColor()
-                        <#elseif data.tintType == "Water">
-                            3694022
-                        <#elseif data.tintType == "Sky">
-                            8562943
-                        <#elseif data.tintType == "Fog">
-                            12638463
-                        <#else>
-                            329011
-                        </#if>, ${JavaModName}Blocks.${data.getModElement().getRegistryNameUpper()});
-                </#if>
-            </#if>
+				<#if data.isItemTinted>
+					ColorProviderRegistry.ITEM.register((stack, index) ->
+						<#if data.tintType == "Grass">
+							GrassColor.get(0.5D, 1.0D)
+						<#elseif data.tintType == "Foliage">
+							FoliageColor.getDefaultColor()
+						<#elseif data.tintType == "Water">
+							3694022
+						<#elseif data.tintType == "Sky">
+							8562943
+						<#elseif data.tintType == "Fog">
+							12638463
+						<#else>
+							329011
+						</#if>, ${JavaModName}Blocks.${data.getModElement().getRegistryNameUpper()});
+				</#if>
+			</#if>
 		}
 
 }

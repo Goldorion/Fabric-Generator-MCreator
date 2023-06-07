@@ -1,3 +1,3 @@
 {
-    "trigger": "minecraft:tick"
+	"trigger": "minecraft:tick"
 }

@@ -1,10 +1,10 @@
 {
   "trigger": "minecraft:consume_item",
   "conditions": {
-    "item": {
-        "items": [
-            "${input$item}"
+	"item": {
+		"items": [
+			"${input$item}"
   		]
-    }
+	}
   }
 }

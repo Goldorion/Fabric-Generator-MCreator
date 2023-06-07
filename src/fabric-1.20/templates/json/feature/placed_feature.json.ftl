@@ -1,6 +1,6 @@
 {
   "feature": "${modid}:${registryname}",
   "placement": [
-    ${placementcode?remove_ending(",")}
+	${placementcode?remove_ending(",")}
   ]
 }

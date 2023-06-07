@@ -2,7 +2,7 @@
  # MCreator (https://mcreator.net/)
  # Copyright (C) 2012-2020, Pylo
  # Copyright (C) 2020-2021, Pylo, opensource contributors
- # Copyright (C) 2020-2022, Goldorion, opensource contributors
+ # Copyright (C) 2020-2023, Goldorion, opensource contributors
  # 
  # This program is free software: you can redistribute it and/or modify
  # it under the terms of the GNU General Public License as published by
@@ -233,12 +233,12 @@ public class ${name}Screen extends AbstractContainerScreen<${name}Menu> {
 		</#list>
 
 		<#list data.getComponentsOfType("ImageButton") as component>
-		    ${component.getName()} = new ImageButton(
+			${component.getName()} = new ImageButton(
 				this.leftPos + ${(component.x - mx/2)?int}, this.topPos + ${(component.y - my/2)?int},
-            	${component.getWidth(w.getWorkspace())}, ${component.getHeight(w.getWorkspace())},
+				${component.getWidth(w.getWorkspace())}, ${component.getHeight(w.getWorkspace())},
 				0, 0, ${component.getHeight(w.getWorkspace())},
-            	new ResourceLocation("${modid}:textures/screens/atlas/${component.getName()}.png"),
-            	${component.getWidth(w.getWorkspace())},
+				new ResourceLocation("${modid}:textures/screens/atlas/${component.getName()}.png"),
+				${component.getWidth(w.getWorkspace())},
 				${component.getHeight(w.getWorkspace()) * 2},
 				<@buttonOnClick component/>
 			)<@buttonDisplayCondition component/>;
@@ -278,8 +278,8 @@ public class ${name}Screen extends AbstractContainerScreen<${name}Menu> {
 }
 <#macro buttonOnClick component>
 e -> {
-    <#if hasProcedure(component.onClick)>
-	    if (<@procedureOBJToConditionCode component.displayCondition/>) {
+	<#if hasProcedure(component.onClick)>
+		if (<@procedureOBJToConditionCode component.displayCondition/>) {
 			ClientPlayNetworking.send(new ResourceLocation("${modid + ":" + name?lower_case}_button_" + ${btid}), new ${name}ButtonMessage(${btid}, x, y, z));
 		}
 	</#if>

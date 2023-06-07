@@ -2,7 +2,7 @@
  # MCreator (https://mcreator.net/)
  # Copyright (C) 2012-2020, Pylo
  # Copyright (C) 2020-2021, Pylo, opensource contributors
- # Copyright (C) 2020-2022, Goldorion, opensource contributors
+ # Copyright (C) 2020-2023, Goldorion, opensource contributors
  # 
  # This program is free software: you can redistribute it and/or modify
  # it under the terms of the GNU General Public License as published by
@@ -81,10 +81,10 @@ public class ${name}Menu extends AbstractContainerMenu {
 						${(component.y - my)?int + 1}) {
 
 	   				<#if hasProcedure(component.disablePickup) || component.disablePickup.getFixedValue()>
-                        @Override public boolean mayPickup(Player entity) {
-                    	    return <@procedureOBJToConditionCode component.disablePickup false true/>;
-                    	}
-                    </#if>
+						@Override public boolean mayPickup(Player entity) {
+							return <@procedureOBJToConditionCode component.disablePickup false true/>;
+						}
+					</#if>
 
 					<#if hasProcedure(component.onSlotChanged)>
 						@Override public void setChanged() {

@@ -1,6 +1,6 @@
 <#--
  # This file is part of Fabric-Generator-MCreator.
- # Copyright (C) 2020-2022, Goldorion, opensource contributors
+ # Copyright (C) 2020-2023, Goldorion, opensource contributors
  #
  # Fabric-Generator-MCreator is free software: you can redistribute it and/or modify
  # it under the terms of the GNU Lesser General Public License as published by
@@ -39,10 +39,10 @@ public class ${name}Region extends Region {
 	
 	@Override
 	public void addBiomes(Registry<Biome> registry, Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> mapper) {
-	    <#if data.spawnBiome || data.spawnBiomeNether>
-		    this.addBiome(mapper, ${name}Biome.PARAMETER_POINTS, ${JavaModName}Biomes.${data.getModElement().getRegistryNameUpper()});
+		<#if data.spawnBiome || data.spawnBiomeNether>
+			this.addBiome(mapper, ${name}Biome.PARAMETER_POINTS, ${JavaModName}Biomes.${data.getModElement().getRegistryNameUpper()});
 		<#elseif data.spawnInCaves>
-		    this.addBiome(mapper, ${name}Biome.UNDERGROUND_PARAMETER_POINTS, ${JavaModName}Biomes.${data.getModElement().getRegistryNameUpper()});
+			this.addBiome(mapper, ${name}Biome.UNDERGROUND_PARAMETER_POINTS, ${JavaModName}Biomes.${data.getModElement().getRegistryNameUpper()});
 		</#if>
 	}
 

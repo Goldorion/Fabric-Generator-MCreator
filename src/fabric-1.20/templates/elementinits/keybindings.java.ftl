@@ -1,6 +1,6 @@
 <#--
  # This file is part of Fabric-Generator-MCreator.
- # Copyright (C) 2020-2021, Goldorion, opensource contributors
+ # Copyright (C) 2020-2023, Goldorion, opensource contributors
  #
  # Fabric-Generator-MCreator is free software: you can redistribute it and/or modify
  # it under the terms of the GNU Lesser General Public License as published by
@@ -51,8 +51,8 @@ public class ${JavaModName}KeyMappings {
 
 	<#list keybinds as keybind>
 		public static ${JavaModName}KeyMapping ${keybind.getModElement().getRegistryNameUpper()} = (${JavaModName}KeyMapping) KeyBindingHelper.registerKeyBinding(
-		    new ${JavaModName}KeyMapping("key.${modid}.${keybind.getModElement().getRegistryName()}", GLFW.GLFW_KEY_${generator.map(keybind.triggerKey, "keybuttons")},
-		        "key.categories.${keybind.keyBindingCategoryKey}"));
+			new ${JavaModName}KeyMapping("key.${modid}.${keybind.getModElement().getRegistryName()}", GLFW.GLFW_KEY_${generator.map(keybind.triggerKey, "keybuttons")},
+				"key.categories.${keybind.keyBindingCategoryKey}"));
 	</#list>
 
 	public static void serverLoad() {
@@ -64,7 +64,7 @@ public class ${JavaModName}KeyMappings {
 	public static void load() {
 		ClientTickEvents.END_CLIENT_TICK.register((client) -> {
 			<#list keybinds as keybind>
-			    int ${keybind.getModElement().getRegistryNameUpper()}action = ${keybind.getModElement().getRegistryNameUpper()}.action();
+				int ${keybind.getModElement().getRegistryNameUpper()}action = ${keybind.getModElement().getRegistryNameUpper()}.action();
 				if (${keybind.getModElement().getRegistryNameUpper()}action == 1) {
 					ClientPlayNetworking.send(new ResourceLocation(${JavaModName}.MODID, "${keybind.getModElement().getRegistryName()?lower_case}"), new ${keybind.getModElement().getName()}Message(true,
 							false));

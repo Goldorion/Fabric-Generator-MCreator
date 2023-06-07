@@ -1,6 +1,6 @@
 <#--
  # This file is part of Fabric-Generator-MCreator.
- # Copyright (C) 2020-2022, Goldorion, opensource contributors
+ # Copyright (C) 2020-2023, Goldorion, opensource contributors
  #
  # Fabric-Generator-MCreator is free software: you can redistribute it and/or modify
  # it under the terms of the GNU Lesser General Public License as published by
@@ -37,10 +37,10 @@ public class ${JavaModName}Entities {
 	public static void load() {
 		<#list entities as entity>
 			<#if entity.getModElement().getTypeString() == "rangeditem">
-				${entity.getModElement().getRegistryNameUpper()} = Registry.register(Registry.ENTITY_TYPE, new ResourceLocation(${JavaModName}.MODID, "${entity.getModElement().getRegistryName()}"),
+				${entity.getModElement().getRegistryNameUpper()} = Registry.register(BuiltInRegistries.ENTITY_TYPE, new ResourceLocation(${JavaModName}.MODID, "${entity.getModElement().getRegistryName()}"),
 						createArrowEntityType(${entity.getModElement().getName()}Entity::new));
 			<#else>
-				${entity.getModElement().getRegistryNameUpper()} = Registry.register(Registry.ENTITY_TYPE, new ResourceLocation(${JavaModName}.MODID, "${entity.getModElement().getRegistryName()}"),
+				${entity.getModElement().getRegistryNameUpper()} = Registry.register(BuiltInRegistries.ENTITY_TYPE, new ResourceLocation(${JavaModName}.MODID, "${entity.getModElement().getRegistryName()}"),
 						FabricEntityTypeBuilder.create(${generator.map(entity.mobSpawningType, "mobspawntypes")}, ${entity.getModElement().getName()}Entity::new)
 							.dimensions(new EntityDimensions(${entity.modelWidth}f, ${entity.modelHeight}f, true))<#if entity.immuneToFire>.fireImmune()</#if>
 							.trackRangeBlocks(${entity.trackingRange})

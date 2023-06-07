@@ -3,6 +3,6 @@
   "${mappedMCItemToIngameNameNoTags(w.itemBlock(field_list$block?first))}"
 <#else>
   [
-    <#list field_list$block as block>"${mappedMCItemToIngameNameNoTags(w.itemBlock(block))}"<#sep>,</#list>
+	<#list field_list$block as block>"${mappedMCItemToIngameNameNoTags(w.itemBlock(block))}"<#sep>,</#list>
   ]
 </#if>

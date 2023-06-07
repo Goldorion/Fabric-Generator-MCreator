@@ -3,8 +3,8 @@ this.goalSelector.addGoal(${customBlockIndex+1}, new MeleeAttackGoal(this, ${fie
 
 	@Override protected double getAttackReachSqr(LivingEntity entity) {
 		return this.mob.getBbWidth() * this.mob.getBbWidth() + entity.getBbWidth();
-    }
+	}
 
-    <@conditionCode field$condition false/>
+	<@conditionCode field$condition false/>
 
 });
