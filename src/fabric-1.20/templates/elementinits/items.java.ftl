@@ -81,7 +81,7 @@ public class ${JavaModName}Items {
 			${item.getModElement().getRegistryNameUpper()} = Registry.register(BuiltInRegistries.ITEM,new ResourceLocation(${JavaModName}.MODID,
 				"${item.getModElement().getRegistryName()}"), new BlockItem(${JavaModName}Blocks.${item.getModElement().getRegistryNameUpper()}, new Item.Properties()));		
 				<#if item.creativeTab.getUnmappedValue() != "No creative tab entry">
-					ItemGroupEvents.modifyEntriesEvent(${data.creativeTab}).register(content -> content.accept(${item.getModElement().getRegistryNameUpper()}));
+					ItemGroupEvents.modifyEntriesEvent(${item.creativeTab}).register(content -> content.accept(${item.getModElement().getRegistryNameUpper()}));
 				</#if>
 		<#else>
 			<#if item.getModElement().getTypeString() != "dimension">

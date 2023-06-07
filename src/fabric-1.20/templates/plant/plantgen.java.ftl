@@ -35,48 +35,8 @@
 
 package ${package}.world.features.plants;
 
+<#compress>
 public class ${name}Feature extends RandomPatchFeature {
-
-	public static ${name}Feature FEATURE = null;
-	public static Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> CONFIGURED_FEATURE = null;
-	public static Holder<PlacedFeature> PLACED_FEATURE = null;
-
-	public static Feature<?> feature() {
-		FEATURE = new ${name}Feature();
-		CONFIGURED_FEATURE = FeatureUtils.register("${modid}:${registryname}", FEATURE,
-			<#if data.plantType == "growapable">
-				FeatureUtils.simpleRandomPatchConfiguration(${data.patchSize}, PlacementUtils.filtered(
-						Feature.BLOCK_COLUMN, BlockColumnConfiguration.simple(BiasedToBottomInt.of(2, 4),
-								BlockStateProvider.simple(${JavaModName}Blocks.${data.getModElement().getRegistryNameUpper()}.defaultBlockState())),
-								BlockPredicate.allOf(BlockPredicate.ONLY_IN_AIR_PREDICATE,
-								BlockPredicate.wouldSurvive(${JavaModName}Blocks.${data.getModElement().getRegistryNameUpper()}.defaultBlockState(), BlockPos.ZERO))
-				))
-			<#else>
-				FeatureUtils.simplePatchConfiguration(Feature.SIMPLE_BLOCK,
-						new SimpleBlockConfiguration(BlockStateProvider.simple(${JavaModName}Blocks.${data.getModElement().getRegistryNameUpper()}.defaultBlockState())),
-						List.of(), ${data.patchSize})
-			</#if>
-		);
-		PLACED_FEATURE = PlacementUtils.register("${modid}:${registryname}", CONFIGURED_FEATURE,
-				List.of(
-   			CountPlacement.of(${data.frequencyOnChunks}),
-			<#if (data.plantType == "normal" && data.staticPlantGenerationType == "Flower") ||
-				(data.plantType == "double" && data.doublePlantGenerationType == "Flower") || data.plantType == "growapable">
-				RarityFilter.onAverageOnceEvery(32),
-			</#if>
-			InSquarePlacement.spread(),
-			<#if data.generateAtAnyHeight>
-				PlacementUtils.FULL_RANGE
-			<#else>
-			PlacementUtils.HEIGHTMAP<#if
-				(data.plantType == "normal" && data.staticPlantGenerationType == "Grass") ||
-				(data.plantType == "double" && data.doublePlantGenerationType == "Grass") ||
-				data.plantType == "growapable">_WORLD_SURFACE</#if>
-			</#if>,
-			BiomeFilter.biome()
-		));
-		return FEATURE;
-	}
 
 	public static final Predicate<BiomeSelectionContext> GENERATE_BIOMES = BiomeSelectors.
 		<#if data.restrictionBiomes?has_content>
@@ -110,19 +70,20 @@ public class ${name}Feature extends RandomPatchFeature {
 
 	public boolean place(FeaturePlaceContext<RandomPatchConfiguration> context) {
 		WorldGenLevel world = context.level();
-		if (!generate_dimensions.contains(world.level().dimension()))
+		if (!generate_dimensions.contains(world.getLevel().dimension()))
 			return false;
 
 		<#if hasProcedure(data.generateCondition)>
-			int x = context.origin().getX();
-			int y = context.origin().getY();
-			int z = context.origin().getZ();
-			if (!<@procedureOBJToConditionCode data.generateCondition/>)
-				return false;
+            int x = context.origin().getX();
+            int y = context.origin().getY();
+            int z = context.origin().getZ();
+            if (!<@procedureOBJToConditionCode data.generateCondition/>)
+                return false;
 		</#if>
 
 		return super.place(context);
 	}
 }
+</#compress>
 
 <#-- @formatter:on -->

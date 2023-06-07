@@ -1,19 +1,30 @@
 templates:
   - template: plant/plant.java.ftl
     name: "@SRCROOT/@BASEPACKAGEPATH/block/@NAMEBlock.java"
-  - template: plant/plantgen.java.ftl
-    deleteWhenConditionFalse: true
-    condition: doesGenerateInWorld()
-    name: "@SRCROOT/@BASEPACKAGEPATH/world/features/plants/@NAMEFeature.java"
   - template: plant/plantblockentity.java.ftl
     deleteWhenConditionFalse: true
     condition: hasTileEntity
     name: "@SRCROOT/@BASEPACKAGEPATH/block/entity/@NAMEBlockEntity.java"
 
+  # Worldgen
+  - template: plant/plantgen.java.ftl
+    condition: doesGenerateInWorld()
+    name: "@SRCROOT/@BASEPACKAGEPATH/world/features/plants/@NAMEFeature.java"
+  - template: plant/configured_plantgen.json.ftl
+    writer: json
+    condition: doesGenerateInWorld()
+    name: "@MODDATAROOT/worldgen/configured_feature/@registryname.json"
+  - template: plant/placed_plantgen.json.ftl
+    writer: json
+    condition: doesGenerateInWorld()
+    name: "@MODDATAROOT/worldgen/placed_feature/@registryname.json"
+
+  # Plant item template
   - template: json/plant_item.json.ftl
     writer: json
     name: "@MODASSETSROOT/models/item/@registryname.json"
 
+  # Block model templates
   - template: json/block.json.ftl
     condition: "renderType #= 12"
     writer: json
@@ -48,6 +59,7 @@ templates:
     variables: "model=tinted_cross"
     name: "@MODASSETSROOT/models/block/@registryname_bottom.json"
 
+  # Blockstate templates
   - template: json/block_states.json.ftl
     writer: json
     condition: "plantType %= normal"

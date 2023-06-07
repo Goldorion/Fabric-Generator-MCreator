@@ -57,6 +57,7 @@ public class ${name}Block extends <#if data.plantType == "normal">Flower<#elseif
 	</#if>{
 	public ${name}Block() {
 		super(<#if data.plantType == "normal">${generator.map(data.suspiciousStewEffect, "effects")}, ${data.suspiciousStewDuration},</#if>
+        BlockBehaviour.Properties.of()
         <#if generator.map(data.colorOnMap, "mapcolors") != "DEFAULT">
             .mapColor(MapColor.${generator.map(data.colorOnMap, "mapcolors")})
         </#if>
