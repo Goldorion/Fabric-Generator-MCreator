@@ -71,11 +71,18 @@ public class ${JavaModName}Items {
 		<#elseif item.getModElement().getTypeString() == "livingentity">
 			${item.getModElement().getRegistryNameUpper()}_SPAWN_EGG = Registry.register(BuiltInRegistries.ITEM,new ResourceLocation(${JavaModName}.MODID,
 				"${item.getModElement().getRegistryName()}_spawn_egg"), new SpawnEggItem(${JavaModName}Entities.${item.getModElement().getRegistryNameUpper()},
-					${item.spawnEggBaseColor.getRGB()}, ${item.spawnEggDotColor.getRGB()}, new Item.Properties() <#if item.creativeTab??>.tab(${item.creativeTab})<#else>
-						.tab(CreativeModeTab.TAB_MISC)</#if>));
+					${item.spawnEggBaseColor.getRGB()}, ${item.spawnEggDotColor.getRGB()}, new Item.Properties()));
+			<#if item.creativeTab.getUnmappedValue() != "No creative tab entry">
+				ItemGroupEvents.modifyEntriesEvent(${item.creativeTab}).register(content -> content.accept(${item.getModElement().getRegistryNameUpper()}_SPAWN_EGG));
+			<#else>
+				ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.SPAWN_EGGS).register(content -> content.accept(${item.getModElement().getRegistryNameUpper()}_SPAWN_EGG));
+			</#if>
 		<#elseif item.getModElement().getType().getBaseType()?string == "BLOCK">
 			${item.getModElement().getRegistryNameUpper()} = Registry.register(BuiltInRegistries.ITEM,new ResourceLocation(${JavaModName}.MODID,
-				"${item.getModElement().getRegistryName()}"), new BlockItem(${JavaModName}Blocks.${item.getModElement().getRegistryNameUpper()}, new Item.Properties().tab(${item.creativeTab})));
+				"${item.getModElement().getRegistryName()}"), new BlockItem(${JavaModName}Blocks.${item.getModElement().getRegistryNameUpper()}, new Item.Properties()));		
+				<#if item.creativeTab.getUnmappedValue() != "No creative tab entry">
+					ItemGroupEvents.modifyEntriesEvent(${data.creativeTab}).register(content -> content.accept(${item.getModElement().getRegistryNameUpper()}));
+				</#if>
 		<#else>
 			<#if item.getModElement().getTypeString() != "dimension">
 				${item.getModElement().getRegistryNameUpper()} = Registry.register(BuiltInRegistries.ITEM,

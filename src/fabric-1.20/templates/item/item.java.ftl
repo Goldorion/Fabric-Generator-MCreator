@@ -43,7 +43,6 @@ public class ${name}Item extends Item {
 
 	public ${name}Item() {
 		super(new Item.Properties()
-				.tab(${data.creativeTab})
 				<#if data.hasInventory()>
 					.stacksTo(1)
 				<#elseif data.damageCount != 0>
@@ -64,6 +63,10 @@ public class ${name}Item extends Item {
 						.build())
 				</#if>
 		);
+
+		<#if data.creativeTab.getUnmappedValue() != "No creative tab entry">
+			ItemGroupEvents.modifyEntriesEvent(${data.creativeTab}).register(content -> content.accept(this));
+		</#if>
 	}
 
 	<#if data.hasNonDefaultAnimation()>

@@ -35,7 +35,11 @@ import com.google.common.collect.Multimap;
 public class ${name}Item extends Item {
 
 	public ${name}Item() {
-		super(new Item.Properties().tab(${data.creativeTab})<#if data.usageCount != 0>.durability(${data.usageCount})<#else>.stacksTo(${data.stackSize})</#if>);
+		super(new Item.Properties()<#if data.usageCount != 0>.durability(${data.usageCount})<#else>.stacksTo(${data.stackSize})</#if>);
+
+		<#if data.creativeTab.getUnmappedValue() != "No creative tab entry">
+			ItemGroupEvents.modifyEntriesEvent(${data.creativeTab}).register(content -> content.accept(this));
+		</#if>
 	}
 
 	@Override public InteractionResultHolder<ItemStack> use(Level world, Player entity, InteractionHand hand) {
