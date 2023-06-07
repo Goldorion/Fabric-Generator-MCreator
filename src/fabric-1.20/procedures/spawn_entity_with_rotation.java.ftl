@@ -7,8 +7,8 @@ if (world instanceof ServerLevel _level) {
 	entityToSpawn.setYHeadRot(${opt.toFloat(input$yaw)});
 
 	if (entityToSpawn instanceof Mob _mobToSpawn)
-		_mobToSpawn.finalizeSpawn(_level, world.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
+		_mobToSpawn.finalizeSpawn(_level, _level.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
 
-	world.addFreshEntity(entityToSpawn);
+	_level.addFreshEntity(entityToSpawn);
 }
 </#if>

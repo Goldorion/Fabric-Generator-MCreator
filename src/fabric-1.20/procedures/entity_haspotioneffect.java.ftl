@@ -1,1 +1,1 @@
-(${input$entity} instanceof LivingEntity _livEnt ? _livEnt.hasEffect(${generator.map(field$potion, "effects")}) : false)
+(${input$entity} instanceof LivingEntity _livEnt${cbi} && _livEnt${cbi}.hasEffect(${generator.map(field$potion, "effects")}))

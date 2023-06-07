@@ -7,7 +7,7 @@ if (${input$entity} instanceof ServerPlayer _player && !_player.level().isClient
 	<#elseif field$dimension=="End">
 		ResourceKey<Level> destinationType = Level.END;
 	<#else>
-		ResourceKey<Level> destinationType = ResourceKey.create(Registry.DIMENSION_REGISTRY,
+		ResourceKey<Level> destinationType = ResourceKey.create(Registries.DIMENSION,
 			new ResourceLocation("${generator.getResourceLocationForModElement(field$dimension.replace("CUSTOM:", ""))}"));
 	</#if>
 	if (_player.level().dimension() == destinationType) return;

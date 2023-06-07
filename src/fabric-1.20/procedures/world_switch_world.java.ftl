@@ -8,7 +8,7 @@ if (world instanceof ServerLevel _origLevel) {
 	<#elseif field$dimension=="End">
 		world = _origLevel.getServer().getLevel(Level.END);
 	<#else>
-		world = _origLevel.getServer().getLevel(ResourceKey.create(Registry.DIMENSION_REGISTRY,
+		world = _origLevel.getServer().getLevel(ResourceKey.create(Registries.DIMENSION,
 			new ResourceLocation("${generator.getResourceLocationForModElement(field$dimension.replace("CUSTOM:", ""))}")));
 	</#if>
 
