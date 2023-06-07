@@ -1,11 +1,11 @@
 name: Minecraft Fabric for @minecraft - @buildfileversion
-status: stable
-buildfileversion: 0.67.1
+status: dev
+buildfileversion: 0.83.0
 subversion: 19
 
 java_models:
-  key: mojmap-1.19.x
-  compatible: [mojmap-1.17.x, mojmap-1.18.x]
+  key: mojmap-1.20.x
+  compatible: [mojmap-1.17.x, mojmap-1.18.x, mojmap-1.19.x, mojmap-1.20]
   requested_key_words: [ModelPart, ~ModelRenderer]
 
 gradle:

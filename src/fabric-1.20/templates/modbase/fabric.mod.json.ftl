@@ -36,9 +36,9 @@
   },
 
   "depends": {
-	"fabricloader": ">=0.14.9",
+	"fabricloader": ">=0.14.21",
 	"fabric": "*",
-	"minecraft": "~1.19",
+	"minecraft": "~1.20",
 	"java": ">=17"
   }<#if w.hasElementsOfBaseType("item")>,
   "mixins": [
