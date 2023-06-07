@@ -69,7 +69,7 @@ public class ${name}Menu extends AbstractContainerMenu {
 		super(${JavaModName}Menus.${data.getModElement().getRegistryNameUpper()}, id);
 
 		this.entity = inv.player;
-		this.world = inv.player.level;
+		this.world = inv.player.level();
 
 		this.inventory = container;
 

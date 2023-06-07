@@ -29,7 +29,7 @@ import net.fabricmc.api.Environment;
 @Environment(EnvType.CLIENT)
 public class ${name}Overlay {
 
-	public static void render(PoseStack matrices, float tickDelta) {
+	public static void render(GuiGraphics guiGraphics, float tickDelta) {
 		int posX = Minecraft.getInstance().getWindow().getGuiScaledWidth() / 2;
 		int posY = Minecraft.getInstance().getWindow().getGuiScaledHeight() / 2;
 
@@ -51,7 +51,7 @@ public class ${name}Overlay {
 		double y = _y;
 		double z = _z;
 
-		<#if hasTextures>
+		<#if data.hasTextures()>
 			RenderSystem.disableDepthTest();
 			RenderSystem.depthMask(false);
 			RenderSystem.setShader(GameRenderer::getPositionTexShader);
@@ -63,7 +63,7 @@ public class ${name}Overlay {
 		if (<@procedureOBJToConditionCode data.displayCondition/>) {
 			<#if data.baseTexture?has_content>
 				RenderSystem.setShaderTexture(0, new ResourceLocation("${modid}:textures/screens/${data.baseTexture}"));
-				GuiComponent.blit(matrices, 0, 0, 0, 0, posX, posY, posX, posY);
+				GuiComponent.blit(guiGraphics, 0, 0, 0, 0, posX, posY, posX, posY);
 			</#if>
 
 			<#list data.getComponentsOfType("Image") as component>
@@ -72,8 +72,7 @@ public class ${name}Overlay {
 				<#if hasProcedure(component.displayCondition)>
 						if (<@procedureOBJToConditionCode component.displayCondition/>) {
 				</#if>
-					RenderSystem.setShaderTexture(0, new ResourceLocation("${modid}:textures/screens/${component.image}"));
-					Minecraft.getInstance().gui.blit(event.getPoseStack(), posX + ${x}, posY + ${y}, 0, 0,
+					guiGraphics.blit(new ResourceLocation("${modid}:textures/screens/${component.image}"), posX + ${x}, posY + ${y}, 0, 0,
 						${component.getWidth(w.getWorkspace())}, ${component.getHeight(w.getWorkspace())},
 						${component.getWidth(w.getWorkspace())}, ${component.getHeight(w.getWorkspace())});
 				<#if hasProcedure(component.displayCondition)>}</#if>
@@ -85,8 +84,8 @@ public class ${name}Overlay {
 					<#if hasProcedure(component.displayCondition)>
 						if (<@procedureOBJToConditionCode component.displayCondition/>)
 					</#if>
-					Minecraft.getInstance().font.draw(event.getPoseStack(),
-						<#if hasProcedure(component.text)><@procedureOBJToStringCode component.text/><#else>Component.translatable("gui.${modid}.${registryname}.${component.getName()}")</#if>,
+					guiGraphics.drawString(Minecraft.getInstance().font, <#if hasProcedure(component.text)><@procedureOBJToStringCode component.text/>
+					    <#else>Component.translatable("gui.${modid}.${registryname}.${component.getName()}")</#if>,
 						posX + ${x}, posY + ${y}, ${component.color.getRGB()});
 			</#list>
 
@@ -95,8 +94,8 @@ public class ${name}Overlay {
 					<#if hasProcedure(component.displayCondition)>
 						if (<@procedureOBJToConditionCode component.displayCondition/>)
 					</#if>
-					InventoryScreen.renderEntityInInventory(posX + ${component.x - 202}, posY + ${component.y - 100},
-						${component.scale}, ${component.rotationX / 20.0}f, 0, livingEntity);
+                    InventoryScreen.renderEntityInInventory(guiGraphics, posX + ${component.x - 202}, posY + ${component.y - 100},
+                        ${component.scale}, new Quaternionf().rotateX(${component.rotationX / 20.0}f), new Quaternionf(), livingEntity);
 				}
 			</#list>
 		}

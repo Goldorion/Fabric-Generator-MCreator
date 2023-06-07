@@ -6,7 +6,7 @@ global_templates:
   - template: elementinits/overlays.java.ftl
     name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameOverlays.java"
 
-field_exclusions: [ priority, overlayTarget ]
+field_exclusions: [ editor.priority, editor.overlayTarget ]
 
 localizationkeys:
   - fromlist: data.getFixedTextLabels()

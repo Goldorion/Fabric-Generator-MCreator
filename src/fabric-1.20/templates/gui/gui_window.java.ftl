@@ -82,14 +82,14 @@ public class ${name}Screen extends AbstractContainerScreen<${name}Menu> {
 	private static final ResourceLocation texture = new ResourceLocation("${modid}:textures/screens/${registryname}.png" );
 	</#if>
 
-	@Override public void render(PoseStack ms, int mouseX, int mouseY, float partialTicks) {
-		this.renderBackground(ms);
-		super.render(ms, mouseX, mouseY, partialTicks);
-		this.renderTooltip(ms, mouseX, mouseY);
+	@Override public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
+		this.renderBackground(guiGraphics);
+		super.render(guiGraphics, mouseX, mouseY, partialTicks);
+		this.renderTooltip(guiGraphics, mouseX, mouseY);
 
 		<#list data.components as component>
 			<#if component.getClass().getSimpleName() == "TextField">
-				${component.name}.render(ms, mouseX, mouseY, partialTicks);
+				${component.name}.render(guiGraphics, mouseX, mouseY, partialTicks);
 			</#if>
 		</#list>
 
@@ -101,30 +101,32 @@ public class ${name}Screen extends AbstractContainerScreen<${name}Menu> {
 				<#if hasProcedure(component.displayCondition)>
 					if (<@procedureOBJToConditionCode component.displayCondition/>)
 				</#if>
-				InventoryScreen.renderEntityInInventory(this.leftPos + ${x + 11}, this.topPos + ${y + 21}, ${component.scale},
-					${component.rotationX / 20.0}f <#if followMouse> + (float) Math.atan((this.leftPos + ${x + 11} - mouseX) / 40.0)</#if>,
-					<#if followMouse>(float) Math.atan((this.topPos + ${y + 21 - 50} - mouseY) / 40.0)<#else>0</#if>,
-					livingEntity
-				);
+				<#if component.followMouseMovement>
+                    InventoryScreen.renderEntityInInventoryFollowsMouse(guiGraphics, this.leftPos + ${x + 11}, this.topPos + ${y + 21}, ${component.scale},
+                        ${component.rotationX / 20.0}f + (float) Math.atan((this.leftPos + ${x + 11} - mouseX) / 40.0),
+                        (float) Math.atan((this.topPos + ${y + 21 - 50} - mouseY) / 40.0), livingEntity);
+                <#else>
+                    InventoryScreen.renderEntityInInventory(guiGraphics, this.leftPos + ${x + 11}, this.topPos + ${y + 21}, ${component.scale},
+                        new Quaternionf().rotateX(${component.rotationX / 20.0}f), new Quaternionf(), livingEntity);
+                </#if>
 			}
 		</#list>
 	}
 
-	@Override protected void renderBg(PoseStack ms, float partialTicks, int gx, int gy) {
+	@Override protected void renderBg(GuiGraphics guiGraphics, float partialTicks, int gx, int gy) {
 		RenderSystem.setShaderColor(1, 1, 1, 1);
 		RenderSystem.enableBlend();
 		RenderSystem.defaultBlendFunc();
 
 		<#if data.renderBgLayer>
-		RenderSystem.setShaderTexture(0, texture);
-		this.blit(ms, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
+		    guiGraphics.blit(texture, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
 		</#if>
 
 		<#list data.components as component>
 			<#if component.getClass().getSimpleName() == "Image">
 				<#if hasProcedure(component.displayCondition)>if (<@procedureOBJToConditionCode component.displayCondition/>) {</#if>
-					RenderSystem.setShaderTexture(0, new ResourceLocation("${modid}:textures/screens/${component.image}"));
-					this.blit(ms, this.leftPos + ${(component.x - mx/2)?int}, this.topPos + ${(component.y - my/2)?int}, 0, 0,
+					guiGraphics.blit(new ResourceLocation("${modid}:textures/screens/${component.image}"), this.leftPos + ${(component.x - mx/2)?int},
+					    this.topPos + ${(component.y - my/2)?int}, 0, 0,
 						${component.getWidth(w.getWorkspace())}, ${component.getHeight(w.getWorkspace())},
 						${component.getWidth(w.getWorkspace())}, ${component.getHeight(w.getWorkspace())});
 				<#if hasProcedure(component.displayCondition)>}</#if>
@@ -159,13 +161,13 @@ public class ${name}Screen extends AbstractContainerScreen<${name}Menu> {
 		</#list>
 	}
 
-	@Override protected void renderLabels(PoseStack poseStack, int mouseX, int mouseY) {
+	@Override protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
 		<#list data.components as component>
 			<#if component.getClass().getSimpleName() == "Label">
 				<#if hasProcedure(component.displayCondition)>
 				if (<@procedureOBJToConditionCode component.displayCondition/>)
 				</#if>
-				this.font.draw(poseStack,
+				guiGraphics.drawString(font,
 				<#if hasProcedure(component.text)><@procedureOBJToStringCode component.text/><#else>Component.translatable("gui.${modid}.${registryname}.${component.getName()}")</#if>,
 					${(component.x - mx / 2)?int}, ${(component.y - my / 2)?int}, ${component.color.getRGB()});
 			</#if>
@@ -174,13 +176,10 @@ public class ${name}Screen extends AbstractContainerScreen<${name}Menu> {
 
 	@Override public void onClose() {
 		super.onClose();
-		Minecraft.getInstance().keyboardHandler.setSendRepeatsToGui(false);
 	}
 
 	@Override public void init() {
 		super.init();
-
-		this.minecraft.keyboardHandler.setSendRepeatsToGui(true);
 
 		<#list data.getComponentsOfType("TextField") as component>
 			${component.getName()} = new EditBox(this.font, this.leftPos + ${(component.x - mx/2)?int}, this.topPos + ${(component.y - my/2)?int},
@@ -219,12 +218,10 @@ public class ${name}Screen extends AbstractContainerScreen<${name}Menu> {
 		<#assign btid = 0>
 
 		<#list data.getComponentsOfType("Button") as component>
-			${component.getName()} = new Button(
-				this.leftPos + ${(component.x - mx/2)?int}, this.topPos + ${(component.y - my/2)?int},
-				${component.width}, ${component.height},
-				Component.translatable("gui.${modid}.${registryname}.${component.getName()}"),
-				<@buttonOnClick component/>
-			)<@buttonDisplayCondition component/>;
+			${component.getName()} = new Button.Builder(
+			    Component.translatable("gui.${modid}.${registryname}.${component.getName()}"), <@buttonOnClick component/>)
+                .bounds(this.leftPos + ${(component.x - mx/2)?int}, this.topPos + ${(component.y - my/2)?int},
+				${component.width}, ${component.height}).build()<@buttonDisplayCondition component/>;
 
 			guistate.put("button:${component.getName()}", ${component.getName()});
 			this.addRenderableWidget(${component.getName()});
@@ -262,7 +259,7 @@ public class ${name}Screen extends AbstractContainerScreen<${name}Menu> {
 	public static void screenInit() {
 		<#assign btid = 0>
 		<#list data.components as component>
-			<#if component.getClass().getSimpleName() == "Button">
+			<#if component.getClass().getSimpleName() == "Button" ||  component.getClass().getSimpleName() == "ImageButton">
 				<#if hasProcedure(component.onClick)>
 					ServerPlayNetworking.registerGlobalReceiver(new ResourceLocation(${JavaModName}.MODID, "${name?lower_case}_button_${btid}"), ${name}ButtonMessage::apply);
 				</#if>
@@ -280,7 +277,7 @@ public class ${name}Screen extends AbstractContainerScreen<${name}Menu> {
 e -> {
 	<#if hasProcedure(component.onClick)>
 		if (<@procedureOBJToConditionCode component.displayCondition/>) {
-			ClientPlayNetworking.send(new ResourceLocation("${modid + ":" + name?lower_case}_button_" + ${btid}), new ${name}ButtonMessage(${btid}, x, y, z));
+			ClientPlayNetworking.send(new ResourceLocation("${modid + ":" + name?lower_case}_button_${btid}"), new ${name}ButtonMessage(${btid}, x, y, z));
 		}
 	</#if>
 }
@@ -289,9 +286,9 @@ e -> {
 <#macro buttonDisplayCondition component>
 <#if hasProcedure(component.displayCondition)>
 {
-	@Override public void render(PoseStack ms, int gx, int gy, float ticks) {
+	@Override public void render(GuiGraphics guiGraphics, int gx, int gy, float ticks) {
 		if (<@procedureOBJToConditionCode component.displayCondition/>)
-			super.render(ms, gx, gy, ticks);
+			super.render(guiGraphics, gx, gy, ticks);
 	}
 }
 </#if>
