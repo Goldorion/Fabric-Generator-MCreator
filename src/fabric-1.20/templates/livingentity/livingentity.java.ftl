@@ -613,7 +613,7 @@ public class ${name}Entity extends ${extendsClass} <#if data.ranged>implements R
 		public boolean canBeCollidedWith() {
 			<#if hasProcedure(data.solidBoundingBox)>
 				Entity entity = this;
-				Level world = entity.getLevel();
+				Level world = entity.level();
 				double x = entity.getX();
 				double y = entity.getY();
 				double z = entity.getZ();

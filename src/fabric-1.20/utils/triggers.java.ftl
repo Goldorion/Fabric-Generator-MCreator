@@ -41,7 +41,7 @@
 		"x": "entity.getX()",
 		"y": "entity.getY()",
 		"z": "entity.getZ()",
-		"world": "entity.getLevel()",
+		"world": "entity.level()",
 		"entity": "entity",
 		"sourceentity": "sourceentity",
 		"itemstack": "itemstack"
@@ -106,7 +106,7 @@
 		"x": "entity.getX()",
 		"y": "entity.getY()",
 		"z": "entity.getZ()",
-		"world": "entity.getLevel()",
+		"world": "entity.level()",
 		"entity": "entity",
 		"itemstack": "itemstack"
 	}/>
@@ -120,11 +120,11 @@
 @Override public InteractionResult useOn(UseOnContext context) {
 	InteractionResult retval = super.useOn(context);
 	<@procedureCodeWithOptResult procedure, "actionresulttype", "retval", {
-		"world": "context.getLevel()",
+		"world": "context.level()",
 		"x": "context.getClickedPos().getX()",
 		"y": "context.getClickedPos().getY()",
 		"z": "context.getClickedPos().getZ()",
-		"blockstate": "context.getLevel().getBlockState(context.getClickedPos())",
+		"blockstate": "context.level().getBlockState(context.getClickedPos())",
 		"entity": "context.getPlayer()",
 		"direction": "context.getClickedFace()",
 		"itemstack": "context.getItemInHand()"
@@ -137,11 +137,11 @@
 <#if hasProcedure(procedure)>
 @Override public InteractionResult onItemUseFirst(ItemStack itemstack, UseOnContext context) {
 	<@procedureCodeWithOptResult procedure, "actionresulttype", "InteractionResult.PASS", {
-		"world": "context.getLevel()",
+		"world": "context.level()",
 		"x": "context.getClickedPos().getX()",
 		"y": "context.getClickedPos().getY()",
 		"z": "context.getClickedPos().getZ()",
-		"blockstate": "context.getLevel().getBlockState(context.getClickedPos())",
+		"blockstate": "context.level().getBlockState(context.getClickedPos())",
 		"entity": "context.getPlayer()",
 		"direction": "context.getClickedFace()",
 		"itemstack": "itemstack"

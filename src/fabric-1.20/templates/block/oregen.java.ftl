@@ -37,22 +37,20 @@ package ${package}.world.features.ores;
 
 public class ${name}Feature extends OreFeature {
 
-	public static ${name}Feature FEATURE = null;
-		public static Holder<ConfiguredFeature<OreConfiguration, ?>> CONFIGURED_FEATURE = null;
-		public static Holder<PlacedFeature> PLACED_FEATURE = null;
-
-		public static Feature<?> feature() {
-			FEATURE = new ${name}Feature();
-			CONFIGURED_FEATURE = FeatureUtils.register("${modid}:${registryname}", FEATURE,
-					new OreConfiguration(${name}FeatureRuleTest.INSTANCE, ${JavaModName}Blocks.${data.getModElement().getRegistryNameUpper()}.defaultBlockState(), ${data.frequencyOnChunk})
-			);
-			PLACED_FEATURE = PlacementUtils.register("${modid}:${registryname}", CONFIGURED_FEATURE, List.of(
-					CountPlacement.of(${data.frequencyPerChunks}), InSquarePlacement.spread(),
-					HeightRangePlacement.${data.generationShape?lower_case}(VerticalAnchor.absolute(${data.minGenerateHeight}), VerticalAnchor.absolute(${data.maxGenerateHeight})),
-					BiomeFilter.biome()
-			));
-			return FEATURE;
-		}
+	private final Set<ResourceKey<Level>> generate_dimensions = Set.of(
+		<#list data.spawnWorldTypes as worldType>
+			<#if worldType == "Surface">
+				Level.OVERWORLD
+			<#elseif worldType == "Nether">
+				Level.NETHER
+			<#elseif worldType == "End">
+				Level.END
+			<#else>
+				ResourceKey.create(Registries.DIMENSION,
+						new ResourceLocation("${generator.getResourceLocationForModElement(worldType.toString().replace("CUSTOM:", ""))}"))
+			</#if><#sep>,
+		</#list>
+	);
 
 	public static final Predicate<BiomeSelectionContext> GENERATE_BIOMES = BiomeSelectors.
 		<#if data.restrictionBiomes?has_content>
@@ -71,27 +69,7 @@ public class ${name}Feature extends OreFeature {
 
 	public boolean place(FeaturePlaceContext<OreConfiguration> context) {
 		WorldGenLevel world = context.level();
-		ResourceKey<Level> dimensionType = world.getLevel().dimension();
-		boolean dimensionCriteria = false;
-
-		<#list data.spawnWorldTypes as worldType>
-			<#if worldType=="Surface">
-				if(dimensionType == Level.OVERWORLD)
-					dimensionCriteria = true;
-			<#elseif worldType=="Nether">
-				if(dimensionType == Level.NETHER)
-					dimensionCriteria = true;
-			<#elseif worldType=="End">
-				if(dimensionType == Level.END)
-					dimensionCriteria = true;
-			<#else>
-				if(dimensionType == ResourceKey.create(Registry.DIMENSION_REGISTRY,
-						new ResourceLocation("${generator.getResourceLocationForModElement(worldType.toString().replace("CUSTOM:", ""))}")))
-					dimensionCriteria = true;
-			</#if>
-		</#list>
-
-		if(!dimensionCriteria)
+		if (!generate_dimensions.contains(world.getLevel().dimension()))
 			return false;
 
 		<#if hasProcedure(data.generateCondition)>
@@ -103,31 +81,6 @@ public class ${name}Feature extends OreFeature {
 		</#if>
 
 		return super.place(context);
-	}
-
-	private static class ${name}FeatureRuleTest extends RuleTest {
-
-		static final ${name}FeatureRuleTest INSTANCE = new ${name}FeatureRuleTest();
-		static final com.mojang.serialization.Codec<${name}FeatureRuleTest> codec = com.mojang.serialization.Codec.unit(() -> INSTANCE);
-
-		static final RuleTestType<${name}FeatureRuleTest> CUSTOM_MATCH = Registry.register(BuiltInRegistries.RULE_TEST,
-				new ResourceLocation("${modid}:${registryname}_match"), () -> codec);
-
-		public boolean test(BlockState blockAt, RandomSource random) {
-			boolean blockCriteria = false;
-
-			<#list data.blocksToReplace as replacementBlock>
-				if(blockAt.getBlock() == ${mappedBlockToBlock(replacementBlock)})
-					blockCriteria = true;
-			</#list>
-
-			return blockCriteria;
-		}
-
-		protected RuleTestType<?> getType() {
-			return CUSTOM_MATCH;
-		}
-
 	}
 
 }

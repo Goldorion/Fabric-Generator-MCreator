@@ -148,7 +148,7 @@ public class ${name}Entity extends AbstractArrow implements ItemSupplier {
 	}
 
 	public static ${name}Entity shoot(LivingEntity entity, LivingEntity target) {
-		${name}Entity entityarrow = new ${name}Entity(${JavaModName}Entities.${data.getModElement().getRegistryNameUpper()}, entity, entity.getLevel());
+		${name}Entity entityarrow = new ${name}Entity(${JavaModName}Entities.${data.getModElement().getRegistryNameUpper()}, entity, entity.level());
 		double d0 = target.getY() + (double) target.getEyeHeight() - 1.1;
 		double d1 = target.getX() - entity.getX();
 		double d3 = target.getZ() - entity.getZ();
@@ -161,12 +161,12 @@ public class ${name}Entity extends AbstractArrow implements ItemSupplier {
 		<#if data.bulletIgnitesFire>
 			entityarrow.setSecondsOnFire(100);
 		</#if>
-		entity.getLevel().addFreshEntity(entityarrow);
+		entity.level().addFreshEntity(entityarrow);
 
 		double x = entity.getX();
 		double y = entity.getY();
 		double z = entity.getZ();
-		entity.getLevel().playSound((Player) null, (double) x, (double) y, (double) z,
+		entity.level().playSound((Player) null, (double) x, (double) y, (double) z,
 				<#assign s=data.actionSound>
 				<#if s.getMappedValue()?has_content>
 					<#if s.getUnmappedValue().startsWith("CUSTOM:")>

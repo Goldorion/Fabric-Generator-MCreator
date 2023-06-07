@@ -1,1 +1,1 @@
-(${input$entity}.getLevel().dimension())
+(${input$entity}.level().dimension())

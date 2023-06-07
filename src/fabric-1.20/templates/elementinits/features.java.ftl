@@ -29,13 +29,13 @@ public class ${JavaModName}Features {
 	public static void load() {
 	<#list features as feature>
 		<#if feature.getModElement().getTypeString() == "block">
-			register("${feature.getModElement().getRegistryName()}", ${feature.getModElement().getName()}Feature.feature(),
+			register("${feature.getModElement().getRegistryName()}", new ${feature.getModElement().getName()}Feature(),
 				${feature.getModElement().getName()}Feature.GENERATE_BIOMES, GenerationStep.Decoration.UNDERGROUND_ORES);
 		<#elseif feature.getModElement().getTypeString() == "plant">
-			register("${feature.getModElement().getRegistryName()}", ${feature.getModElement().getName()}Feature.feature(),
+			register("${feature.getModElement().getRegistryName()}", new ${feature.getModElement().getName()}Feature(),
 				${feature.getModElement().getName()}Feature.GENERATE_BIOMES, GenerationStep.Decoration.VEGETAL_DECORATION);
 		<#elseif feature.getModElement().getTypeString() == "structure">
-			register("${feature.getModElement().getRegistryName()}", ${feature.getModElement().getName()}Feature.feature(),
+			register("${feature.getModElement().getRegistryName()}", new ${feature.getModElement().getName()}Feature(),
 				${feature.getModElement().getName()}Feature.GENERATE_BIOMES, GenerationStep.Decoration.
 				<#if feature.spawnLocation=="Air">RAW_GENERATION<#elseif feature.spawnLocation=="Underground">UNDERGROUND_STRUCTURES<#else>SURFACE_STRUCTURES</#if>);
 		<#else>
@@ -46,10 +46,10 @@ public class ${JavaModName}Features {
 	}
 
 	private static void register(String registryName, Feature feature, Predicate<BiomeSelectionContext> biomes, GenerationStep.Decoration genStep) {
-	 		Registry.register(BuiltInRegistries.FEATURE, new ResourceLocation(${JavaModName}.MODID, registryName), feature);
-	 		BiomeModifications.addFeature(biomes, genStep, ResourceKey.create(Registry.PLACED_FEATURE_REGISTRY,
+		Registry.register(BuiltInRegistries.FEATURE, new ResourceLocation(${JavaModName}.MODID, registryName), feature);
+	 	BiomeModifications.addFeature(biomes, genStep, ResourceKey.create(Registries.PLACED_FEATURE,
 	 				new ResourceLocation(${JavaModName}.MODID, registryName)));
-	 	}
+	}
 
 }
 

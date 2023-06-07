@@ -68,7 +68,7 @@ public class ${name}Item extends Item {
 		@Override @Environment(EnvType.CLIENT) public boolean isFoil(ItemStack itemstack) {
 			<#if hasProcedure(data.glowCondition)>
 				Player entity = Minecraft.getInstance().player;
-				Level world = entity.getLevel();
+				Level world = entity.level();
 				double x = entity.getX();
 				double y = entity.getY();
 				double z = entity.getZ();
@@ -95,7 +95,7 @@ public class ${name}Item extends Item {
 	<#if data.shootConstantly>
 		@Override
 		public void onUseTick(Level level, LivingEntity livingEntity, ItemStack itemstack, int count) {
-			Level world = livingentity.getLevel();
+			Level world = livingentity.level();
 			if (!world.isClientSide() && livingEntity instanceof ServerPlayer entity) {
 				double x = entity.getX();
 				double y = entity.getY();

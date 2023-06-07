@@ -40,7 +40,7 @@ public class ${name}Overlay {
 
 		Player entity = Minecraft.getInstance().player;
 		if (entity != null) {
-			_world = entity.getLevel();
+			_world = entity.level();
 			_x = entity.getX();
 			_y = entity.getY();
 			_z = entity.getZ();

@@ -37,7 +37,7 @@ public class ${name}Message extends FriendlyByteBuf {
 		boolean pressed = buf.readBoolean();
 		boolean released = buf.readBoolean();
 		server.execute(() -> {
-			Level world = entity.getLevel();
+			Level world = entity.level();
 			double x = entity.getX();
 			double y = entity.getY();
 			double z = entity.getZ();

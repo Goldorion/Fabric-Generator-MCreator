@@ -26,10 +26,8 @@
 
 package ${package}.block;
 
-import net.minecraft.world.level.material.Material;
 import net.minecraft.sounds.SoundEvent;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.api.Environment;
 
@@ -76,11 +74,10 @@ public class ${name}Block extends
 	</#if>
 
 	<#macro blockProperties>
-		<#if generator.map(data.colorOnMap, "mapcolors") != "DEFAULT">
-			FabricBlockSettings.of(Material.${data.material},MaterialColor.${generator.map(data.colorOnMap, "mapcolors")})
-		<#else>
-			FabricBlockSettings.of(Material.${data.material})
-		</#if>
+	    BlockBehaviour.Properties.of()
+            <#if generator.map(data.colorOnMap, "mapcolors") != "DEFAULT">
+                .mapColor(MapColor.${generator.map(data.colorOnMap, "mapcolors")})
+            </#if>
 			<#if data.requiresCorrectTool>
 				.requiresCorrectToolForDrops()
 			</#if>
@@ -167,6 +164,9 @@ public class ${name}Block extends
 			</#if>
 			<#if data.offsetType != "NONE">
 				.offsetType(OffsetType.${data.offsetType})
+			</#if>
+			<#if data.reactionToPushing != "NORMAL">
+			    .pushReaction(PushReaction.${data.reactionToPushing})
 			</#if>
 
 	</#macro>
@@ -267,7 +267,7 @@ public class ${name}Block extends
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
 		<#if data.isWaterloggable>
-			boolean flag = context.getLevel().getFluidState(context.getClickedPos()).getType() == Fluids.WATER;
+			boolean flag = context.level().getFluidState(context.getClickedPos()).getType() == Fluids.WATER;
 		</#if><#if data.rotationMode != 3>
 		return this.defaultBlockState()
 				<#if data.rotationMode == 1>
@@ -401,16 +401,10 @@ public class ${name}Block extends
 		return ${mappedMCItemToItemStackCode(data.creativePickItem, 1)};
 	}
 	</#if>
-	
-	<#if data.reactionToPushing != "NORMAL">
-		@Override public PushReaction getPistonPushReaction(BlockState state) {
-			return PushReaction.${data.reactionToPushing};
-		}
-	</#if>
 
 	<#if !(data.useLootTableForDrops || (data.dropAmount == 0))>
 		<#if data.dropAmount != 1 && !(data.customDrop?? && !data.customDrop.isEmpty())>
-			@Override public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
+			@Override public List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
 				<#if data.blockBase?has_content && data.blockBase == "Door">
 				if(state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) != DoubleBlockHalf.LOWER)
 					return Collections.emptyList();
@@ -422,7 +416,7 @@ public class ${name}Block extends
 				return Collections.singletonList(new ItemStack(this, ${data.dropAmount}));
 			}
 		<#elseif data.customDrop?? && !data.customDrop.isEmpty()>
-			@Override public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
+			@Override public List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
 				<#if data.blockBase?has_content && data.blockBase == "Door">
 					if(state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) != DoubleBlockHalf.LOWER)
 						return Collections.emptyList();
@@ -434,14 +428,14 @@ public class ${name}Block extends
 				return Collections.singletonList(${mappedMCItemToItemStackCode(data.customDrop, data.dropAmount)});
 			}
 		<#elseif data.blockBase?has_content && data.blockBase == "Slab">
-			@Override public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
+			@Override public List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
 				List<ItemStack> dropsOriginal = super.getDrops(state, builder);
 				if(!dropsOriginal.isEmpty())
 					return dropsOriginal;
 				return Collections.singletonList(new ItemStack(this, state.getValue(TYPE) == SlabType.DOUBLE ? 2 : 1));
 			}
 		<#else>
-			@Override public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
+			@Override public List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
 				<#if data.blockBase?has_content && data.blockBase == "Door">
 					if(state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) != DoubleBlockHalf.LOWER)
 						return Collections.emptyList();

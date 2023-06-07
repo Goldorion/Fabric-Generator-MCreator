@@ -1,1 +1,1 @@
-if(!${input$entity}.getLevel().isClientSide()) ${input$entity}.discard();
+if(!${input$entity}.level().isClientSide()) ${input$entity}.discard();

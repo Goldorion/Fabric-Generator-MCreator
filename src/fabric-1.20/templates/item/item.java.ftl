@@ -133,7 +133,7 @@ public class ${name}Item extends Item {
 		@Override public boolean isFoil(ItemStack itemstack) {
 			<#if hasProcedure(data.glowCondition)>
 			Player entity = Minecraft.getInstance().player;
-			Level world = entity.getLevel();
+			Level world = entity.level();
 			double x = entity.getX();
 			double y = entity.getY();
 			double z = entity.getZ();

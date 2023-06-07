@@ -84,11 +84,11 @@ public class ${name}Feature extends Feature<NoneFeatureConfiguration> {
 	}
 
 	@Override public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
-		if (!generate_dimensions.contains(context.level().getLevel().dimension()))
+		if (!generate_dimensions.contains(context.level().level().dimension()))
 			return false;
 
 		if (template == null)
-			template = context.level().getLevel().getStructureManager()
+			template = context.level().level().getStructureManager()
 					.getOrCreate(new ResourceLocation("${modid}", "${data.structure}"));
 
 		if (template == null)

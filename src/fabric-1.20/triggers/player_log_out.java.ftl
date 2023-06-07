@@ -5,7 +5,7 @@ public ${name}Procedure() {
 		dependencies.put("x", handler.getPlayer().getX());
 		dependencies.put("y", handler.getPlayer().getY());
 		dependencies.put("z", handler.getPlayer().getZ());
-		dependencies.put("world", handler.getPlayer().getLevel());
+		dependencies.put("world", handler.getPlayer().level());
 		execute(dependencies);
 	});
 }

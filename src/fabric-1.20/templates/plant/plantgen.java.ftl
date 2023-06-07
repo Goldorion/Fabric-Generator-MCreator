@@ -110,7 +110,7 @@ public class ${name}Feature extends RandomPatchFeature {
 
 	public boolean place(FeaturePlaceContext<RandomPatchConfiguration> context) {
 		WorldGenLevel world = context.level();
-		if (!generate_dimensions.contains(world.getLevel().dimension()))
+		if (!generate_dimensions.contains(world.level().dimension()))
 			return false;
 
 		<#if hasProcedure(data.generateCondition)>

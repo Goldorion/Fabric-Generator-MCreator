@@ -29,14 +29,14 @@ import net.fabricmc.api.Environment;
 
 public abstract class ${name}Item extends ArmorItem {
 
-	public ${name}Item(EquipmentSlot slot, Item.Properties properties) {
+	public ${name}Item(Type type, Item.Properties properties) {
 		super(new ArmorMaterial() {
-			@Override public int getDurabilityForSlot(EquipmentSlot slot) {
-				return new int[]{13, 15, 16, 11}[slot.getIndex()] * ${data.maxDamage};
+			@Override public int getDurabilityForType(Type type) {
+				return new int[]{13, 15, 16, 11}[type.getSlot().getIndex()] * ${data.maxDamage};
 			}
 
-			@Override public int getDefenseForSlot(EquipmentSlot slot) {
-				return new int[] { ${data.damageValueBoots}, ${data.damageValueLeggings}, ${data.damageValueBody}, ${data.damageValueHelmet} }[slot.getIndex()];
+			@Override public int getDefenseForType(Type type) {
+				return new int[] { ${data.damageValueBoots}, ${data.damageValueLeggings}, ${data.damageValueBody}, ${data.damageValueHelmet} }[type.getSlot().getIndex()];
 			}
 
 			@Override public int getEnchantmentValue() {
@@ -80,14 +80,14 @@ public abstract class ${name}Item extends ArmorItem {
 			@Override public float getKnockbackResistance() {
 				return ${data.knockbackResistance}f;
 			}
-		}, slot, properties);
+		}, type, properties);
 	}
 
 	<#if data.enableHelmet>
 		public static class Helmet extends ${name}Item {
 	
 			public Helmet() {
-				super(EquipmentSlot.HEAD, new Item.Properties()<#if data.helmetImmuneToFire>.fireResistant()</#if>);
+				super(Type.HELMET, new Item.Properties()<#if data.helmetImmuneToFire>.fireResistant()</#if>);
 
 				<#if data.creativeTab.getUnmappedValue() != "No creative tab entry">
 					ItemGroupEvents.modifyEntriesEvent(${data.creativeTab}).register(content -> content.accept(this));
@@ -122,7 +122,7 @@ public abstract class ${name}Item extends ArmorItem {
 		public static class Chestplate extends ${name}Item {
 	
 			public Chestplate() {
-				super(EquipmentSlot.CHEST, new Item.Properties()<#if data.bodyImmuneToFire>.fireResistant()</#if>);
+				super(Type.CHESTPLATE, new Item.Properties()<#if data.bodyImmuneToFire>.fireResistant()</#if>);
 
 				<#if data.creativeTab.getUnmappedValue() != "No creative tab entry">
 					ItemGroupEvents.modifyEntriesEvent(${data.creativeTab}).register(content -> content.accept(this));
@@ -157,7 +157,7 @@ public abstract class ${name}Item extends ArmorItem {
 		public static class Leggings extends ${name}Item {
 	
 			public Leggings() {
-				super(EquipmentSlot.LEGS, new Item.Properties()<#if data.leggingsImmuneToFire>.fireResistant()</#if>);
+				super(Type.LEGGINGS, new Item.Properties()<#if data.leggingsImmuneToFire>.fireResistant()</#if>);
 
 				<#if data.creativeTab.getUnmappedValue() != "No creative tab entry">
 					ItemGroupEvents.modifyEntriesEvent(${data.creativeTab}).register(content -> content.accept(this));
@@ -192,7 +192,7 @@ public abstract class ${name}Item extends ArmorItem {
 		public static class Boots extends ${name}Item {
 	
 			public Boots() {
-				super(EquipmentSlot.FEET, new Item.Properties()<#if data.bootsImmuneToFire>.fireResistant()</#if>);
+				super(Type.BOOTS, new Item.Properties()<#if data.bootsImmuneToFire>.fireResistant()</#if>);
 
 				<#if data.creativeTab.getUnmappedValue() != "No creative tab entry">
 					ItemGroupEvents.modifyEntriesEvent(${data.creativeTab}).register(content -> content.accept(this));
