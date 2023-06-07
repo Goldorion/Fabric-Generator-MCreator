@@ -87,31 +87,31 @@ public class ${name}Block extends
 				<#if s.getUnmappedValue().startsWith("CUSTOM:")>
 					${JavaModName}Sounds.${s?replace(modid + ":", "")?upper_case},
 				<#else>
-					SoundEvents.${(s?starts_with("ambient")||s?starts_with("music")||s?starts_with("ui")||s?starts_with("weather"))?string(s?upper_case?replace(".", "_"),s?keep_after(".")?upper_case?replace(".", "_"))},
+					BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation("${s}")),
 				</#if>
 				<#assign s=data.stepSound>
 				<#if s.getUnmappedValue().startsWith("CUSTOM:")>
 					${JavaModName}Sounds.${s?replace(modid + ":", "")?upper_case},
 				<#else>
-					SoundEvents.${(s?starts_with("ambient")||s?starts_with("music")||s?starts_with("ui")||s?starts_with("weather"))?string(s?upper_case?replace(".", "_"),s?keep_after(".")?upper_case?replace(".", "_"))},
+					BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation("${s}")),
 				</#if>
 				<#assign s=data.placeSound>
 				<#if s.getUnmappedValue().startsWith("CUSTOM:")>
 					${JavaModName}Sounds.${s?replace(modid + ":", "")?upper_case},
 				<#else>
-					SoundEvents.${(s?starts_with("ambient")||s?starts_with("music")||s?starts_with("ui")||s?starts_with("weather"))?string(s?upper_case?replace(".", "_"),s?keep_after(".")?upper_case?replace(".", "_"))},
+					BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation("${s}")),
 				</#if>
 				<#assign s=data.hitSound>
 				<#if s.getUnmappedValue().startsWith("CUSTOM:")>
 					${JavaModName}Sounds.${s?replace(modid + ":", "")?upper_case},
 				<#else>
-					SoundEvents.${(s?starts_with("ambient")||s?starts_with("music")||s?starts_with("ui")||s?starts_with("weather"))?string(s?upper_case?replace(".", "_"),s?keep_after(".")?upper_case?replace(".", "_"))},
+					BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation("${s}")),
 				</#if>
 				<#assign s=data.fallSound>
 				<#if s.getUnmappedValue().startsWith("CUSTOM:")>
 					${JavaModName}Sounds.${s?replace(modid + ":", "")?upper_case}
 				<#else>
-					SoundEvents.${(s?starts_with("ambient")||s?starts_with("music")||s?starts_with("ui")||s?starts_with("weather"))?string(s?upper_case?replace(".", "_"),s?keep_after(".")?upper_case?replace(".", "_"))}
+					BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation("${s}"))
 				</#if>))
 			<#else>
 				.sound(SoundType.${data.soundOnStep})

@@ -27,37 +27,37 @@ import net.fabricmc.api.Environment;
 <#assign model = "HumanoidModel">
 
 <#if data.mobModelName == "Chicken">
-	<#assign super = "super(context, new ChickenModel(context.bakeLayer(ModelLayers.CHICKEN)), " + data.modelShadowSize + "f);">
+	<#assign super = "super(context, new ChickenModel<>(context.bakeLayer(ModelLayers.CHICKEN)), " + data.modelShadowSize + "f);">
 	<#assign model = "ChickenModel">
 <#elseif data.mobModelName == "Cow">
-	<#assign super = "super(context, new CowModel(context.bakeLayer(ModelLayers.COW)), " + data.modelShadowSize + "f);">
+	<#assign super = "super(context, new CowModel<>(context.bakeLayer(ModelLayers.COW)), " + data.modelShadowSize + "f);">
 	<#assign model = "CowModel">
 <#elseif data.mobModelName == "Creeper">
-	<#assign super = "super(context, new CreeperModel(context.bakeLayer(ModelLayers.CREEPER)), " + data.modelShadowSize + "f);">
+	<#assign super = "super(context, new CreeperModel<>(context.bakeLayer(ModelLayers.CREEPER)), " + data.modelShadowSize + "f);">
 	<#assign model = "CreeperModel">
 <#elseif data.mobModelName == "Ghast">
-	<#assign super = "super(context, new GhastModel(context.bakeLayer(ModelLayers.GHAST)), " + data.modelShadowSize + "f);">
+	<#assign super = "super(context, new GhastModel<>(context.bakeLayer(ModelLayers.GHAST)), " + data.modelShadowSize + "f);">
 	<#assign model = "GhastModel">
 <#elseif data.mobModelName == "Pig">
-	<#assign super = "super(context, new PigModel(context.bakeLayer(ModelLayers.PIG)), " + data.modelShadowSize + "f);">
+	<#assign super = "super(context, new PigModel<>(context.bakeLayer(ModelLayers.PIG)), " + data.modelShadowSize + "f);">
 	<#assign model = "PigModel">
 <#elseif data.mobModelName == "Slime">
-	<#assign super = "super(context, new SlimeModel(context.bakeLayer(ModelLayers.SLIME)), " + data.modelShadowSize + "f);">
+	<#assign super = "super(context, new SlimeModel<>(context.bakeLayer(ModelLayers.SLIME)), " + data.modelShadowSize + "f);">
 	<#assign model = "SlimeModel">
 <#elseif data.mobModelName == "Spider">
-	<#assign super = "super(context, new SpiderModel(context.bakeLayer(ModelLayers.SPIDER)), " + data.modelShadowSize + "f);">
+	<#assign super = "super(context, new SpiderModel<>(context.bakeLayer(ModelLayers.SPIDER)), " + data.modelShadowSize + "f);">
 	<#assign model = "SpiderModel">
 <#elseif data.mobModelName == "Villager">
-	<#assign super = "super(context, new VillagerModel(context.bakeLayer(ModelLayers.VILLAGER)), " + data.modelShadowSize + "f);">
+	<#assign super = "super(context, new VillagerModel<>(context.bakeLayer(ModelLayers.VILLAGER)), " + data.modelShadowSize + "f);">
 	<#assign model = "VillagerModel">
 <#elseif data.mobModelName == "Silverfish">
-	<#assign super = "super(context, new SilverfishModel(context.bakeLayer(ModelLayers.SILVERFISH)), " + data.modelShadowSize + "f);">
+	<#assign super = "super(context, new SilverfishModel<>(context.bakeLayer(ModelLayers.SILVERFISH)), " + data.modelShadowSize + "f);">
 	<#assign model = "SilverfishModel">
 <#elseif !data.isBuiltInModel()>
 	<#assign super = "super(context, new ${data.mobModelName}(context.bakeLayer(${data.mobModelName}.LAYER_LOCATION)), " + data.modelShadowSize + "f);">
 	<#assign model = data.mobModelName>
 <#else>
-	<#assign super = "super(context, new HumanoidModel(context.bakeLayer(ModelLayers.PLAYER)), " + data.modelShadowSize + "f);">
+	<#assign super = "super(context, new HumanoidModel<>(context.bakeLayer(ModelLayers.PLAYER)), " + data.modelShadowSize + "f);">
 	<#assign model = "HumanoidModel">
 	<#assign humanoid = true>
 </#if>
@@ -70,12 +70,12 @@ public class ${name}Renderer extends <#if humanoid>Humanoid</#if>MobRenderer<${n
 		${super}
 
 		<#if humanoid>
-		this.addLayer(new HumanoidArmorLayer(this, new HumanoidModel(context.bakeLayer(ModelLayers.PLAYER_INNER_ARMOR)),
-				new HumanoidModel(context.bakeLayer(ModelLayers.PLAYER_OUTER_ARMOR))));
+		this.addLayer(new HumanoidArmorLayer<>(this, new HumanoidModel<>(context.bakeLayer(ModelLayers.PLAYER_INNER_ARMOR)),
+				new HumanoidModel<>(context.bakeLayer(ModelLayers.PLAYER_OUTER_ARMOR)), context.getModelManager()));
 		</#if>
 
 		<#if data.mobModelGlowTexture?has_content>
-		this.addLayer(new EyesLayer<${name}Entity, ${model}>(this) {
+		this.addLayer(new EyesLayer<>(this) {
 			@Override public RenderType renderType() {
 				return RenderType.eyes(new ResourceLocation("${modid}:textures/entities/${data.mobModelGlowTexture}"));
 			}

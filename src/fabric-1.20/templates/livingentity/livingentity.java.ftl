@@ -57,7 +57,7 @@ public class ${name}Entity extends ${extendsClass} <#if data.ranged>implements R
 
 	public ${name}Entity(EntityType<${name}Entity> type, Level world) {
 		super(type, world);
-		maxUpStep = ${data.stepHeight}f;
+		setMaxUpStep(${data.stepHeight}f);
 		xpReward = ${data.xpAmount};
 		setNoAi(${(!data.hasAI)});
 
@@ -199,7 +199,7 @@ public class ${name}Entity extends ${extendsClass} <#if data.ranged>implements R
 			<#if s.getUnmappedValue().startsWith("CUSTOM:")>
 			return ${JavaModName}Sounds.${s?replace(modid + ":", "")?upper_case};
 			<#else>
-			return SoundEvents.${(s?starts_with("ambient")||s?starts_with("music")||s?starts_with("ui")||s?starts_with("weather"))?string(s?upper_case?replace(".", "_"),s?keep_after(".")?upper_case?replace(".", "_"))};
+			return BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation("${s}"));
 			</#if>
 		}
 	</#if>
@@ -211,7 +211,7 @@ public class ${name}Entity extends ${extendsClass} <#if data.ranged>implements R
 			<#if s.getUnmappedValue().startsWith("CUSTOM:")>
 			${JavaModName}Sounds.${s?replace(modid + ":", "")?upper_case}
 			<#else>
-			SoundEvents.${(s?starts_with("ambient")||s?starts_with("music")||s?starts_with("ui")||s?starts_with("weather"))?string(s?upper_case?replace(".", "_"),s?keep_after(".")?upper_case?replace(".", "_"))}
+			BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation("${s}"))
 			</#if>
 			, 0.15f, 1);
 		}
@@ -222,7 +222,7 @@ public class ${name}Entity extends ${extendsClass} <#if data.ranged>implements R
 		<#if s.getUnmappedValue().startsWith("CUSTOM:")>
 		return ${JavaModName}Sounds.${s?replace(modid + ":", "")?upper_case};
 		<#else>
-		return SoundEvents.${(s?starts_with("ambient")||s?starts_with("music")||s?starts_with("ui")||s?starts_with("weather"))?string(s?upper_case?replace(".", "_"),s?keep_after(".")?upper_case?replace(".", "_"))};
+		return BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation("${s}"));
 		</#if>
 	}
 
@@ -231,7 +231,7 @@ public class ${name}Entity extends ${extendsClass} <#if data.ranged>implements R
 		<#if s.getUnmappedValue().startsWith("CUSTOM:")>
 		return ${JavaModName}Sounds.${s?replace(modid + ":", "")?upper_case};
 		<#else>
-		return SoundEvents.${(s?starts_with("ambient")||s?starts_with("music")||s?starts_with("ui")||s?starts_with("weather"))?string(s?upper_case?replace(".", "_"),s?keep_after(".")?upper_case?replace(".", "_"))};
+		return BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation("${s}"));
 		</#if>
 	}
 
@@ -242,7 +242,7 @@ public class ${name}Entity extends ${extendsClass} <#if data.ranged>implements R
 			double y = this.getY();
 			double z = this.getZ();
 			Entity entity = this;
-			Level world = this.level;
+			Level world = this.level();
 			<@procedureOBJToCode data.onStruckByLightning/>
 		}
 	</#if>
@@ -254,7 +254,7 @@ public class ${name}Entity extends ${extendsClass} <#if data.ranged>implements R
 				double y = this.getY();
 				double z = this.getZ();
 				Entity entity = this;
-				Level world = this.level;
+				Level world = this.level();
 				<@procedureOBJToCode data.whenMobFalls/>
 			</#if>
 
@@ -276,7 +276,7 @@ public class ${name}Entity extends ${extendsClass} <#if data.ranged>implements R
 				double y = this.getY();
 				double z = this.getZ();
 				Entity entity = this;
-				Level world = this.level;
+				Level world = this.level();
 				Entity sourceentity = source.getEntity();
 				<@procedureOBJToCode data.whenMobIsHurt/>
 			</#if>
@@ -293,43 +293,43 @@ public class ${name}Entity extends ${extendsClass} <#if data.ranged>implements R
 					return false;
 			</#if>
 			<#if data.immuneToFallDamage>
-				if (source == DamageSource.FALL)
+				if (source.is(DamageTypes.FALL))
 					return false;
 			</#if>
 			<#if data.immuneToCactus>
-				if (source == DamageSource.CACTUS)
+				if (source.is(DamageTypes.CACTUS))
 					return false;
 			</#if>
 			<#if data.immuneToDrowning>
-				if (source == DamageSource.DROWN)
+				if (source.is(DamageTypes.DROWN))
 					return false;
 			</#if>
 			<#if data.immuneToLightning>
-				if (source == DamageSource.LIGHTNING_BOLT)
+				if (source.is(DamageTypes.LIGHTNING_BOLT))
 					return false;
 			</#if>
 			<#if data.immuneToExplosion>
-				if (source.isExplosion())
+				if (source.is(DamageTypes.EXPLOSION))
 					return false;
 			</#if>
-			<#if data.immuneToTrident>
-				if (source.getMsgId().equals("trident"))
-					return false;
-			</#if>
-			<#if data.immuneToAnvil>
-				if (source == DamageSource.ANVIL)
-					return false;
-			</#if>
-			<#if data.immuneToDragonBreath>
-				if (source == DamageSource.DRAGON_BREATH)
-					return false;
-			</#if>
-			<#if data.immuneToWither>
-				if (source == DamageSource.WITHER)
-					return false;
-				if (source.getMsgId().equals("witherSkull"))
-					return false;
-			</#if>
+            <#if data.immuneToTrident>
+                if (source.is(DamageTypes.TRIDENT))
+                    return false;
+            </#if>
+            <#if data.immuneToAnvil>
+                if (source.is(DamageTypes.FALLING_ANVIL))
+                    return false;
+            </#if>
+            <#if data.immuneToDragonBreath>
+                if (source.is(DamageTypes.DRAGON_BREATH))
+                    return false;
+            </#if>
+            <#if data.immuneToWither>
+                if (source.is(DamageTypes.WITHER))
+                    return false;
+                if (source.is(DamageTypes.WITHER_SKULL))
+                    return false;
+            </#if>
 			return super.hurt(source, amount);
 		}
 	</#if>
@@ -342,7 +342,7 @@ public class ${name}Entity extends ${extendsClass} <#if data.ranged>implements R
 			double z = this.getZ();
 			Entity sourceentity = source.getEntity();
 			Entity entity = this;
-			Level world = this.level;
+			Level world = this.level();
 			<@procedureOBJToCode data.whenMobDies/>
 		}
 	</#if>
@@ -395,7 +395,7 @@ public class ${name}Entity extends ${extendsClass} <#if data.ranged>implements R
 	<#if hasProcedure(data.onRightClickedOn) || data.ridable || (data.tameable && data.breedable) || (data.guiBoundTo?has_content && data.guiBoundTo != "<NONE>")>
 		@Override public InteractionResult mobInteract(Player sourceentity, InteractionHand hand) {
 			ItemStack itemstack = sourceentity.getItemInHand(hand);
-			InteractionResult retval = InteractionResult.sidedSuccess(this.level.isClientSide());
+			InteractionResult retval = InteractionResult.sidedSuccess(this.level().isClientSide());
 
 			<#if data.guiBoundTo?has_content && data.guiBoundTo != "<NONE>">
 				<#if data.ridable>
@@ -423,7 +423,7 @@ public class ${name}Entity extends ${extendsClass} <#if data.ranged>implements R
 						});
 					}
 				<#if data.ridable>
-						return InteractionResult.sidedSuccess(this.level.isClientSide());
+						return InteractionResult.sidedSuccess(this.level().isClientSide());
 					}
 				</#if>
 			</#if>
@@ -432,20 +432,20 @@ public class ${name}Entity extends ${extendsClass} <#if data.ranged>implements R
 				Item item = itemstack.getItem();
 				if (itemstack.getItem() instanceof SpawnEggItem) {
 					retval = super.mobInteract(sourceentity, hand);
-				} else if (this.level.isClientSide()) {
+				} else if (this.level().isClientSide()) {
 					retval = (this.isTame() && this.isOwnedBy(sourceentity) || this.isFood(itemstack))
-							? InteractionResult.sidedSuccess(this.level.isClientSide()) : InteractionResult.PASS;
+							? InteractionResult.sidedSuccess(this.level().isClientSide()) : InteractionResult.PASS;
 				} else {
 					if (this.isTame()) {
 						if (this.isOwnedBy(sourceentity)) {
 							if (item.isEdible() && this.isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
 								this.usePlayerItem(sourceentity, hand, itemstack);
 								this.heal((float)item.getFoodProperties().getNutrition());
-								retval = InteractionResult.sidedSuccess(this.level.isClientSide());
+								retval = InteractionResult.sidedSuccess(this.level().isClientSide());
 							} else if (this.isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
 								this.usePlayerItem(sourceentity, hand, itemstack);
 								this.heal(4);
-								retval = InteractionResult.sidedSuccess(this.level.isClientSide());
+								retval = InteractionResult.sidedSuccess(this.level().isClientSide());
 							} else {
 								retval = super.mobInteract(sourceentity, hand);
 							}
@@ -454,13 +454,13 @@ public class ${name}Entity extends ${extendsClass} <#if data.ranged>implements R
 						this.usePlayerItem(sourceentity, hand, itemstack);
 						if (this.random.nextInt(3) == 0) {
 							this.tame(sourceentity);
-							this.level.broadcastEntityEvent(this, (byte) 7);
+							this.level().broadcastEntityEvent(this, (byte) 7);
 						} else {
-							this.level.broadcastEntityEvent(this, (byte) 6);
+							this.level().broadcastEntityEvent(this, (byte) 6);
 						}
 
 						this.setPersistenceRequired();
-						retval = InteractionResult.sidedSuccess(this.level.isClientSide());
+						retval = InteractionResult.sidedSuccess(this.level().isClientSide());
 					} else {
 						retval = super.mobInteract(sourceentity, hand);
 						if (retval == InteractionResult.SUCCESS || retval == InteractionResult.CONSUME)
@@ -480,7 +480,7 @@ public class ${name}Entity extends ${extendsClass} <#if data.ranged>implements R
 				double y = this.getY();
 				double z = this.getZ();
 				Entity entity = this;
-				Level world = this.level;
+				Level world = this.level();
 				<#if hasReturnValueOf(data.onRightClickedOn, "actionresulttype")>
 					return <@procedureOBJToInteractionResultCode data.onRightClickedOn/>;
 				<#else>
@@ -500,7 +500,7 @@ public class ${name}Entity extends ${extendsClass} <#if data.ranged>implements R
 			double y = this.getY();
 			double z = this.getZ();
 			Entity sourceentity = this;
-			Level world = this.level;
+			Level world = this.level();
 			<@procedureOBJToCode data.whenThisMobKillsAnother/>
 		}
 	</#if>
@@ -512,7 +512,7 @@ public class ${name}Entity extends ${extendsClass} <#if data.ranged>implements R
 			double y = this.getY();
 			double z = this.getZ();
 			Entity entity = this;
-			Level world = this.level;
+			Level world = this.level();
 			<@procedureOBJToCode data.onMobTickUpdate/>
 		}
 	</#if>
@@ -521,7 +521,7 @@ public class ${name}Entity extends ${extendsClass} <#if data.ranged>implements R
 		@Override public void playerTouch(Player sourceentity) {
 			super.playerTouch(sourceentity);
 			Entity entity = this;
-			Level world = this.level;
+			Level world = this.level();
 			double x = this.getX();
 			double y = this.getY();
 			double z = this.getZ();
@@ -532,7 +532,7 @@ public class ${name}Entity extends ${extendsClass} <#if data.ranged>implements R
 	<#if data.ranged>
 		@Override public void performRangedAttack(LivingEntity target, float flval) {
 			<#if data.rangedItemType == "Default item">
-				Arrow entityarrow = new Arrow(this.level, this);
+				Arrow entityarrow = new Arrow(this.level(), this);
 				double d0 = target.getY() + target.getEyeHeight() - 1.1;
 				double d1 = target.getX() - this.getX();
 				double d3 = target.getZ() - this.getZ();

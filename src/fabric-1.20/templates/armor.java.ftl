@@ -49,7 +49,7 @@ public abstract class ${name}Item extends ArmorItem {
 						return ${JavaModName}Sounds.${data.equipSound?replace(modid + ":", "")?upper_case};
 					<#else>
 					<#assign s=data.equipSound>
-						return SoundEvents.${(s?starts_with("ambient")||s?starts_with("music")||s?starts_with("ui")||s?starts_with("weather"))?string(s?upper_case?replace(".", "_"),s?keep_after(".")?upper_case?replace(".", "_"))};
+						return BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation("${s}"));
 					</#if>
 				<#else>
 					return null;

@@ -34,7 +34,7 @@ public class ${name}Item extends RecordItem {
 					new Item.Properties().stacksTo(1).rarity(Rarity.RARE), ${data.lengthInTicks});
 		<#else>
 		<#assign s=data.music>
-			super(${data.analogOutput}, SoundEvents.${(s?starts_with("ambient")||s?starts_with("music")||s?starts_with("ui")||s?starts_with("weather"))?string(s?upper_case?replace(".", "_"),s?keep_after(".")?upper_case?replace(".", "_"))},
+			super(${data.analogOutput}, BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation("${s}")),
 					new Item.Properties().stacksTo(1).rarity(Rarity.RARE), ${data.lengthInTicks});
 		</#if>
 		<#if data.creativeTab.getUnmappedValue() != "No creative tab entry">

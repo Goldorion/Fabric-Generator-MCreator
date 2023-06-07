@@ -75,7 +75,7 @@ public class ${name}Biome {
 				<#if s.getUnmappedValue().startsWith("CUSTOM:")>
 				${JavaModName}Sounds.${s?replace(modid + ":", "")?upper_case}
 				<#else>
-				SoundEvents.${(s?starts_with("ambient")||s?starts_with("music")||s?starts_with("ui")||s?starts_with("weather"))?string(s?upper_case?replace(".", "_"),s?keep_after(".")?upper_case?replace(".", "_"))}
+				BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation("${s}"))
 				</#if>
 				)
 			</#if>
@@ -85,7 +85,7 @@ public class ${name}Biome {
 				<#if s.getUnmappedValue().startsWith("CUSTOM:")>
 				${JavaModName}Sounds.${s?replace(modid + ":", "")?upper_case}
 				<#else>
-				SoundEvents.${(s?starts_with("ambient")||s?starts_with("music")||s?starts_with("ui")||s?starts_with("weather"))?string(s?upper_case?replace(".", "_"),s?keep_after(".")?upper_case?replace(".", "_"))}
+				BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation("${s}"))
 				</#if>
 				, 8, 2, 2.0D))
 			</#if>
@@ -95,7 +95,7 @@ public class ${name}Biome {
 				<#if s.getUnmappedValue().startsWith("CUSTOM:")>
 				${JavaModName}Sounds.${s?replace(modid + ":", "")?upper_case}
 				<#else>
-				SoundEvents.${(s?starts_with("ambient")||s?starts_with("music")||s?starts_with("ui")||s?starts_with("weather"))?string(s?upper_case?replace(".", "_"),s?keep_after(".")?upper_case?replace(".", "_"))}
+				BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation("${s}"))
 				</#if>
 				, 0.0111D))
 			</#if>
@@ -105,7 +105,7 @@ public class ${name}Biome {
 				<#if s.getUnmappedValue().startsWith("CUSTOM:")>
 				${JavaModName}Sounds.${s?replace(modid + ":", "")?upper_case}
 				<#else>
-				SoundEvents.${(s?starts_with("ambient")||s?starts_with("music")||s?starts_with("ui")||s?starts_with("weather"))?string(s?upper_case?replace(".", "_"),s?keep_after(".")?upper_case?replace(".", "_"))}
+				BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation("${s}"))
 				</#if>
 				, 12000, 24000, true))
 			</#if>
@@ -299,7 +299,7 @@ public class ${name}Biome {
 			.generationSettings(biomeGenerationSettings.build())
 			.build();
 
-		BuiltinRegistries.register(BuiltinRegistries.BIOME, ${JavaModName}Biomes.${registryname?upper_case}, biome);
+		BuiltInRegistries.register(BuiltInRegistries.BIOME, ${JavaModName}Biomes.${registryname?upper_case}, biome);
 			<#list generator.sortByMappings(data.defaultFeatures, "defaultfeatures") as defaultFeature>
 				<#assign mfeat = generator.map(defaultFeature, "defaultfeatures")>
 				<#if mfeat = "EndHighlands">
@@ -312,7 +312,7 @@ public class ${name}Biome {
 
 	<#if hasConfiguredFeatures>
 		private static ConfiguredFeature<?, ?> register(String name, ConfiguredFeature<?, ?> configuredFeature) {
-			Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new ResourceLocation(${JavaModName}.MODID, name + "_${registryname}"), configuredFeature);
+			Registry.register(BuiltInRegistries.CONFIGURED_FEATURE, new ResourceLocation(${JavaModName}.MODID, name + "_${registryname}"), configuredFeature);
 			return configuredFeature;
 		}
 	</#if>

@@ -7,7 +7,7 @@ if (world instanceof Level _level) {
 			SoundSource.${generator.map(field$soundcategory!"neutral", "soundcategories")}, ${opt.toFloat(input$level)}, ${opt.toFloat(input$pitch)});
 			<#else>
 				<#assign s=generator.map(field$sound, "sounds")>
-				SoundEvents.${(s?starts_with("ambient")||s?starts_with("music")||s?starts_with("ui")||s?starts_with("weather"))?string(s?upper_case?replace(".", "_"),s?keep_after(".")?upper_case?replace(".", "_"))},
+				BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation("${s}")),
 						SoundSource.${generator.map(field$soundcategory!"neutral", "soundcategories")}, ${opt.toFloat(input$level)}, ${opt.toFloat(input$pitch)});
 			</#if>
 	} else {
@@ -16,7 +16,7 @@ if (world instanceof Level _level) {
 			${JavaModName}Sounds.${generator.map(field$sound, "sounds")?replace("CUSTOM:", "")?upper_case},
 			SoundSource.${generator.map(field$soundcategory!"neutral", "soundcategories")}, ${opt.toFloat(input$level)}, ${opt.toFloat(input$pitch)}, false);
 			<#else>
-			SoundEvents.${(s?starts_with("ambient")||s?starts_with("music")||s?starts_with("ui")||s?starts_with("weather"))?string(s?upper_case?replace(".", "_"),s?keep_after(".")?upper_case?replace(".", "_"))},
+			BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation("${s}")),
 						SoundSource.${generator.map(field$soundcategory!"neutral", "soundcategories")}, ${opt.toFloat(input$level)}, ${opt.toFloat(input$pitch)}, false);
 			</#if>
 	}

@@ -137,7 +137,7 @@ public class ${name}Entity extends AbstractArrow implements ItemSupplier {
 					<#if s.getUnmappedValue().startsWith("CUSTOM:")>
 						${JavaModName}Sounds.${s?replace(modid + ":", "")?upper_case}
 					<#else>
-						SoundEvents.${(s?starts_with("ambient")||s?starts_with("music")||s?starts_with("ui")||s?starts_with("weather"))?string(s?upper_case?replace(".", "_"),s?keep_after(".")?upper_case?replace(".", "_"))}
+						BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation("${s}"))
 					</#if>
 				<#else>
 					SoundEvents.ARROW_SHOOT
@@ -172,7 +172,7 @@ public class ${name}Entity extends AbstractArrow implements ItemSupplier {
 					<#if s.getUnmappedValue().startsWith("CUSTOM:")>
 						${JavaModName}Sounds.${s?replace(modid + ":", "")?upper_case}
 					<#else>
-						SoundEvents.${(s?starts_with("ambient")||s?starts_with("music")||s?starts_with("ui")||s?starts_with("weather"))?string(s?upper_case?replace(".", "_"),s?keep_after(".")?upper_case?replace(".", "_"))}
+						BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation("${s}"))
 					</#if>
 				<#else>
 					SoundEvents.ARROW_SHOOT
