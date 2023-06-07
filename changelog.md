@@ -1,7 +1,10 @@
 # Changelogs:
 
 ## 1.8.9
+* Updated to MCreator 2023.2.22518
 * [#411] Updated Fabric Loader version to 0.14.19
+* [Bugfix #412] Fixed particles crashing on dedicated servers (kleiders)
+* Fixed several problems with different procedure blocks
 
 ## 1.8.8
 * [Bugfix #401] Key bindings were not displayed in the Controls menu

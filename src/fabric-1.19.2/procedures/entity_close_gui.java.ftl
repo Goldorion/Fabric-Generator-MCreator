@@ -1,1 +1,1 @@
-if(${input$entity} instanceof ServerPlayer _player) _player.closeContainer();
+if(${input$entity} instanceof Player _player) _player.closeContainer();
