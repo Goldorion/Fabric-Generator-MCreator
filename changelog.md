@@ -1,7 +1,8 @@
 # Changelogs:
 
-## 1.9.0
+## 1.9
 * Updated to Minecraft 1.20
+  * Note: Biomes are not supported because TerraBlender is not updated yet
 * Updated Fabric API to 0.83.0
 * Updated Fabric Loader to 0.14.21
 * [#349] Added support for custom villager trades
