@@ -4,6 +4,7 @@
 * Updated to Minecraft 1.20
 * Updated Fabric API to 0.83.0
 * Updated Fabric Loader to 0.14.21
+* [#349] Added support for custom villager trades
 * [Bugfix #358] GUIs couldn't be loaded on servers
 * [Bugfix #408] Servers crashed when key bindings were used
 
