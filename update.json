@@ -1,11 +1,13 @@
 {
   "generator-fabric-1.19.2": {
-    "latest": "1.8.9",
+    "latest": "1.9",
     "changes": [
-      "Updated to MCreator 2023.2.22518",
-      "[#411] Updated Fabric Loader version to 0.14.19",
-      "[Bugfix #412] Fixed particles crashing on dedicated servers (kleiders)",
-      "Fixed several problems with different procedure blocks"
+      "Updated to Minecraft 1.20 (excluding biomes)",
+      "Updated Fabric API to 0.83.0",
+      "Updated Fabric Loader to 0.14.21",
+      "[#349] Added support for custom villager trades",
+      "[Bugfix #358] GUIs couldn't be loaded on servers",
+      "[Bugfix #408] Servers crashed when key bindings were used"
     ]
   }
 }
