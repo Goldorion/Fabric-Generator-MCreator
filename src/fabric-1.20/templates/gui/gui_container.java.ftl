@@ -207,5 +207,23 @@ public class ${name}Menu extends AbstractContainerMenu {
 	   }
 	</#if>
 
+	public static void screenInit() {
+		<#assign btid = 0>
+		<#assign stid = 0>
+		<#list data.components as component>
+			<#if component.getClass().getSimpleName() == "Button" ||  component.getClass().getSimpleName() == "ImageButton">
+				<#if hasProcedure(component.onClick)>
+					ServerPlayNetworking.registerGlobalReceiver(new ResourceLocation(${JavaModName}.MODID, "${name?lower_case}_button_${btid}"), ${name}ButtonMessage::apply);
+				</#if>
+				<#assign btid +=1>
+			<#elseif component.getClass().getSimpleName()?ends_with("Slot")>
+				<#if hasProcedure(component.onSlotChanged) || hasProcedure(component.onTakenFromSlot) || hasProcedure(component.onStackTransfer)>
+					ServerPlayNetworking.registerGlobalReceiver(new ResourceLocation(${JavaModName}.MODID, "${name?lower_case}_slot_${stid}"), ${name}SlotMessage::apply);
+				</#if>
+				<#assign stid +=1>
+			</#if>
+		</#list>
+	}
+
 }
 <#-- @formatter:on -->

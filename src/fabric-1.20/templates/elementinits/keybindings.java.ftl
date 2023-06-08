@@ -55,12 +55,6 @@ public class ${JavaModName}KeyMappings {
 				"key.categories.${keybind.keyBindingCategoryKey}"));
 	</#list>
 
-	public static void serverLoad() {
-		<#list keybinds as key>
-			ServerPlayNetworking.registerGlobalReceiver(new ResourceLocation(${JavaModName}.MODID, "${key.getModElement().getRegistryName()?lower_case}"), ${key.getModElement().getName()}Message::apply);
-		</#list>
-	}
-
 	public static void load() {
 		ClientTickEvents.END_CLIENT_TICK.register((client) -> {
 			<#list keybinds as keybind>

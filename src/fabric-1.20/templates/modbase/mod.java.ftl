@@ -63,7 +63,7 @@ public class ${JavaModName} implements ModInitializer {
 		<#if w.hasElementsOfType("command")>${JavaModName}Commands.load();</#if>
 		<#if w.hasElementsOfType("itemextension")>${JavaModName}ItemExtensions.load();</#if>
 		<#if w.hasElementsOfType("gui")>${JavaModName}Menus.load();</#if>
-		<#if w.hasElementsOfType("keybind")>${JavaModName}KeyMappings.serverLoad();</#if>
+		<#if w.hasElementsOfType("keybind")>${JavaModName}KeyMappingsServer.serverLoad();</#if>
 		<#if w.getRecipesOfType("Brewing")?has_content>${JavaModName}BrewingRecipes.load();</#if>
 		<#if w.hasSounds()>${JavaModName}Sounds.load();</#if>
 		<#if w.hasVariablesOfScope("GLOBAL_WORLD") || w.hasVariablesOfScope("GLOBAL_MAP")>${JavaModName}Variables.SyncJoin();</#if>
