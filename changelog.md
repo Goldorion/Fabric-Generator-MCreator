@@ -5,7 +5,7 @@
 * Updated Fabric API to 0.83.0
 * Updated Fabric Loader to 0.14.21
 * [Bugfix #358] GUIs couldn't be loaded on servers
-* [Bugfix #419] Servers could crash in some cases
+* [Bugfix #408] Servers crashed when key bindings were used
 
 ## 1.8.9
 * Updated to MCreator 2023.2.22518
