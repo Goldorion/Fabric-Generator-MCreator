@@ -3,6 +3,7 @@
 ## 1.9.1
 * Updated to Minecraft 1.20.1
 * Existing workspaces could not switch to the generator
+* [Bugfix #421] "Close any gui open for event/entity" procedure block failed to build
 
 ## 1.9
 * Updated to Minecraft 1.20
