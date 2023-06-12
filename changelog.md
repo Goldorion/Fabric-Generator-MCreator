@@ -1,7 +1,8 @@
 # Changelogs:
 
 ## 1.9.1
-
+* Updated to Minecraft 1.20.1
+* Existing workspaces could not switch to the generator
 
 ## 1.9
 * Updated to Minecraft 1.20
