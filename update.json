@@ -1,13 +1,10 @@
 {
-  "generator-fabric-1.20": {
-    "latest": "1.9",
+  "generator-fabric-1.20.1": {
+    "latest": "1.9.1",
     "changes": [
-      "Updated to Minecraft 1.20 (excluding biomes)",
-      "Updated Fabric API to 0.83.0",
-      "Updated Fabric Loader to 0.14.21",
-      "[#349] Added support for custom villager trades",
-      "[Bugfix #358] GUIs couldn't be loaded on servers",
-      "[Bugfix #408] Servers crashed when key bindings were used"
+      "Updated to Minecraft 1.20.1",
+      "Existing workspaces could not switch to the generator",
+      "[Bugfix #421] \"Close any gui open for event/entity\" procedure block failed to build"
     ]
   }
 }

@@ -6,7 +6,7 @@ A plugin for [MCreator](https://mcreator.net/), a code generator to create Minec
 
 This project is not official. It is not affiliated with the respective owners and maintainers of Fabric, Minecraft, or MCreator. Do not expect any official support from their communities.
 
-**The current targeted Minecraft version is 1.20.**
+**The current targeted Minecraft version is 1.20.1.**
 
 ## Features
 Mod elements that are not mentioned are completely supported with all available features with Fabric.
@@ -33,7 +33,7 @@ Mod elements that are not mentioned are completely supported with all available 
 ## Credits/License
 Dev - [Goldorion](https://github.com/Goldorion)
 Contributors (previous Minecraft versions) - crispy_chips1234, Klemen, U1timateJ7, BoogieMonster1O1
-This generator re-uses code used from the official Forge 1.17.1-1.18.2 generators.
+This generator re-uses code used from the official Forge generators.
 
 The plugin's MCreator page is [here](https://mcreator.net/plugin/64512/mcreator-fabric-generator).
 The plugin's MCreator forum page is [here](https://mcreator.net/forum/60201/fabric-generator-plugin).
