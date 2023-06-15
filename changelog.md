@@ -1,5 +1,8 @@
 # Changelogs:
 
+## 1.9.2
+* Updated Fabric API to 0.83.1, so it always works
+
 ## 1.9.1
 * Updated to Minecraft 1.20.1
 * Existing workspaces could not switch to the generator

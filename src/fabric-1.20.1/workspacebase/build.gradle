@@ -22,7 +22,7 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:0.14.21"
 
     //Fabric api
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${generator.getGeneratorBuildFileVersion()}+1.20"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${generator.getGeneratorBuildFileVersion()}+1.20.1"
 }
 
 processResources {

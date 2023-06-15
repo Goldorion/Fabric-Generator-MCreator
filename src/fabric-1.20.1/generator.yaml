@@ -1,6 +1,6 @@
 name: Minecraft Fabric for @minecraft - @buildfileversion
 status: experimental
-buildfileversion: 0.83.0
+buildfileversion: 0.83.1
 subversion: 19
 
 java_models:
