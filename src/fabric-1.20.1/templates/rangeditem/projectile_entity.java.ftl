@@ -70,7 +70,7 @@ public class ${name}Entity extends AbstractArrow implements ItemSupplier {
 			double x = this.getX();
 			double y = this.getY();
 			double z = this.getZ();
-			Level world = this.level;
+			Level world = this.level();
 			<@procedureOBJToCode data.onBulletHitsPlayer/>
 		}
 	</#if>
@@ -84,7 +84,7 @@ public class ${name}Entity extends AbstractArrow implements ItemSupplier {
 			double x = this.getX();
 			double y = this.getY();
 			double z = this.getZ();
-			Level world = this.level;
+			Level world = this.level();
 			<@procedureOBJToCode data.onBulletHitsEntity/>
 		}
 	</#if>
@@ -95,7 +95,7 @@ public class ${name}Entity extends AbstractArrow implements ItemSupplier {
 			double x = blockHitResult.getBlockPos().getX();
 			double y = blockHitResult.getBlockPos().getY();
 			double z = blockHitResult.getBlockPos().getZ();
-			Level world = this.level;
+			Level world = this.level();
 			Entity entity = this.getOwner();
 			Entity immediatesourceentity = this;
 			<@procedureOBJToCode data.onBulletHitsBlock/>
@@ -109,7 +109,7 @@ public class ${name}Entity extends AbstractArrow implements ItemSupplier {
 			double x = this.getX();
 			double y = this.getY();
 			double z = this.getZ();
-			Level world = this.level;
+			Level world = this.level();
 			Entity entity = this.getOwner();
 			Entity immediatesourceentity = this;
 			<@procedureOBJToCode data.onBulletFlyingTick/>

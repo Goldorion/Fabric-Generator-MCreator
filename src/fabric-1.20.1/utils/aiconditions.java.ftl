@@ -11,7 +11,7 @@
 					double y = ${name}Entity.this.getY();
 					double z = ${name}Entity.this.getZ();
 					Entity entity = ${name}Entity.this;
-					Level world = ${name}Entity.this.level;
+					Level world = ${name}Entity.this.level();
 					return super.canUse() && <@procedureOBJToConditionCode conditions[0]/>;
 				}
 				</#if>
@@ -21,7 +21,7 @@
 					double y = ${name}Entity.this.getY();
 					double z = ${name}Entity.this.getZ();
 					Entity entity = ${name}Entity.this;
-					Level world = ${name}Entity.this.level;
+					Level world = ${name}Entity.this.level();
 					return super.canContinueToUse() && <@procedureOBJToConditionCode conditions[0]/>;
 				}
 				</#if>

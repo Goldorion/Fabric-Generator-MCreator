@@ -5,7 +5,7 @@ public ${name}Procedure() {
 		dependencies.put("x", source.getEntity().getX());
 		dependencies.put("y", source.getEntity().getY());
 		dependencies.put("z", source.getEntity().getZ());
-		dependencies.put("world", source.getEntity().level);
+		dependencies.put("world", source.getEntity().level());
 		dependencies.put("command", message);
 		execute(dependencies);
 	});

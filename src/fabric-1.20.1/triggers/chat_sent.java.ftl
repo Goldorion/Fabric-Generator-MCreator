@@ -5,7 +5,7 @@ public ${name}Procedure() {
 		dependencies.put("x", sender.getX());
 		dependencies.put("y", sender.getY());
 		dependencies.put("z", sender.getZ());
-		dependencies.put("world", sender.level);
+		dependencies.put("world", sender.level());
 		dependencies.put("text", message);
 		execute(dependencies);
 	});
