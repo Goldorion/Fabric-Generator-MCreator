@@ -1,7 +1,8 @@
 # Changelogs:
 
 ## 1.9.3
-* [Bugfix #423] The world dependency failed to compile in some cases
+* [Bugfix #422] Custom sounds failed to build
+* [Bugfix #424] The world dependency failed to compile in some cases
 
 ## 1.9.2
 * Updated Fabric API to 0.83.1, so it always works

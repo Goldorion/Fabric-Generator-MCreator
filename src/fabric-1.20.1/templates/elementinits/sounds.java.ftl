@@ -29,7 +29,7 @@ package ${package}.init;
 public class ${JavaModName}Sounds {
 
 	<#list sounds as sound>
-		public static SoundEvent ${sound?upper_case} = new SoundEvent(new ResourceLocation("${modid}", "${sound}"));
+		public static SoundEvent ${sound?upper_case} = SoundEvent.createVariableRangeEvent(new ResourceLocation("${modid}", "${sound}"));
 	</#list>
 
 	public static void load() {
