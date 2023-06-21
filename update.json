@@ -1,8 +1,9 @@
 {
   "generator-fabric-1.20.1": {
-    "latest": "1.9.2",
+    "latest": "1.9.3",
     "changes": [
-      "Updated Fabric API to 0.83.1, so it always works"
+      "[Bugfix #422] Custom sounds failed to build",
+      "[Bugfix #424] The world dependency failed to compile in some cases"
     ]
   }
 }
