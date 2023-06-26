@@ -2,6 +2,7 @@
 
 ## 1.9.4
 * [Bugfix #426] Custom music discs could not be played
+* [Bugfix #428] Several block bases had rendering problems
 
 ## 1.9.3
 * [Bugfix #422] Custom sounds failed to build
