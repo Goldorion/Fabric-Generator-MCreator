@@ -1,9 +1,9 @@
 {
   "generator-fabric-1.20.1": {
-    "latest": "1.9.3",
+    "latest": "1.9.4",
     "changes": [
-      "[Bugfix #422] Custom sounds failed to build",
-      "[Bugfix #424] The world dependency failed to compile in some cases"
+      "[Bugfix #426] Custom music discs could not be played",
+      "[Bugfix #428] Several block bases had rendering problems"
     ]
   }
 }
