@@ -5,6 +5,8 @@ templates:
 global_templates:
   - template: elementinits/keybindings.java.ftl
     name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameKeyMappings.java"
+  - template: elementinits/keybindings_server.java.ftl
+    name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameKeyMappingsServer.java"
 
 localizationkeys:
   - key: key.@modid.@registryname

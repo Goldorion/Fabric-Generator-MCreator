@@ -1,6 +1,8 @@
 # Changelogs:
 
 ## 1.8.10
+* [Bugfix #358] GUIs couldn't be loaded on servers
+* [Bugfix #408] Servers crashed when key bindings were used
 * [Bugfix #428] Several block bases had rendering problems
 
 ## 1.8.9
