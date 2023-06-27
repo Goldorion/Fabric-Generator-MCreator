@@ -23,7 +23,7 @@ Mod elements that are not mentioned are completely supported with all available 
 
 ### Unsupported
 * Fluid
-* Villager trade
+* Villager profession
 
 ## Important Information
 - Make sure you use MCreator 2023.1 or a newer version

@@ -1,10 +1,12 @@
 {
   "generator-fabric-1.19.2": {
-    "latest": "1.9.1",
+    "latest": "1.19.2-1.9",
     "changes": [
-      "Updated to Minecraft 1.20.1",
-      "Existing workspaces could not switch to the generator",
-      "[Bugfix #421] \"Close any gui open for event/entity\" procedure block failed to build"
+      "[#349] Added support for custom villager trades",
+      "[Bugfix] Fix multiple problems with different procedure blocks",
+      "[Bugfix #358] GUIs couldn't be loaded on servers",
+      "[Bugfix #408] Servers crashed when key bindings were used",
+      "[Bugfix #428] Several block bases had rendering problems"
     ]
   }
 }
