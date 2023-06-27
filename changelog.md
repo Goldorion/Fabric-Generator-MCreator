@@ -1,5 +1,8 @@
 # Changelogs:
 
+## 1.8.10
+* [Bugfix #428] Several block bases had rendering problems
+
 ## 1.8.9
 * Updated to MCreator 2023.2.22518
 * [#411] Updated Fabric Loader version to 0.14.19
