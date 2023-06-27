@@ -1,6 +1,7 @@
 # Changelogs:
 
-## 1.8.10
+## 1.19.2-1.9
+* [#349] Added support for custom villager trades
 * [Bugfix] Fix multiple problems with different procedure blocks
 * [Bugfix #358] GUIs couldn't be loaded on servers
 * [Bugfix #408] Servers crashed when key bindings were used

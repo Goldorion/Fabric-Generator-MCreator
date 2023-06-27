@@ -65,6 +65,7 @@ public class ${JavaModName} implements ModInitializer {
 		<#if w.hasElementsOfType("gui")>${JavaModName}Menus.load();</#if>
 		<#if w.hasElementsOfType("keybind")>${JavaModName}KeyMappingsServer.serverLoad();</#if>
 		<#if w.getRecipesOfType("Brewing")?has_content>${JavaModName}BrewingRecipes.load();</#if>
+		<#if w.hasElementsOfType("villagertrade")>${JavaModName}Trades.registerTrades();</#if>
 		<#if w.hasSounds()>${JavaModName}Sounds.load();</#if>
 		<#if w.hasVariablesOfScope("GLOBAL_WORLD") || w.hasVariablesOfScope("GLOBAL_MAP")>${JavaModName}Variables.SyncJoin();</#if>
 		<#if w.hasVariablesOfScope("GLOBAL_WORLD") || w.hasVariablesOfScope("GLOBAL_MAP")>${JavaModName}Variables.SyncChangeWorld();</#if>
