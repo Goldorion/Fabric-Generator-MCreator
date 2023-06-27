@@ -1,1 +1,1 @@
-(new TranslatableComponent(${input$key}).getString())
+(Component.translatable(${input$key}).getString())

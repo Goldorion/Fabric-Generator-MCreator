@@ -1,6 +1,7 @@
 # Changelogs:
 
 ## 1.8.10
+* [Bugfix] Fix multiple problems with different procedure blocks
 * [Bugfix #358] GUIs couldn't be loaded on servers
 * [Bugfix #408] Servers crashed when key bindings were used
 * [Bugfix #428] Several block bases had rendering problems
