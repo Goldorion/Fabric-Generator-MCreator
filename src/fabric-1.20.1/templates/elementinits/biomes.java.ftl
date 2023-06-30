@@ -44,13 +44,20 @@ import terrablender.api.SurfaceRuleManager;
 public class ${JavaModName}Biomes {
 
 	<#list biomes as biome>
-		public static ResourceKey<Biome> ${biome.getModElement().getRegistryNameUpper()} = ResourceKey.create(Registry.BIOME_REGISTRY,
+		public static ResourceKey<Biome> ${biome.getModElement().getRegistryNameUpper()} = ResourceKey.create(Registries.BIOME,
 			new ResourceLocation(${JavaModName}.MODID, "${biome.getModElement().getRegistryName()}"));
 	</#list>
 
 	public static void load() {
-		<#list biomes as biome>
-			${biome.getModElement().getName()}Biome.createBiome();
+		<#list biomes as me>
+		    <#assign biome = me.getModElement().getGeneratableElement()>
+		    <#list generator.sortByMappings(biome.defaultFeatures, "defaultfeatures") as defaultFeature>
+            	<#if generator.map(defaultFeature, "defaultfeatures") = "EndHighlands">
+            		TheEndBiomes.addHighlandsBiome(${me.getModElement().getRegistryNameUpper()}, 10);
+            	<#elseif generator.map(defaultFeature, "defaultfeatures") = "EndIslands">
+            		TheEndBiomes.addSmallIslandsBiome(${me.getModElement().getRegistryNameUpper()}, 10);
+            	</#if>
+            </#list>
 		</#list>
 	}
 

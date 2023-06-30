@@ -33,6 +33,31 @@ import terrablender.api.RegionType;
 
 public class ${name}Region extends Region {
 
+	<#if data.spawnBiome || data.spawnBiomeNether>
+		public static final Climate.ParameterPoint PARAMETER_POINTS = new Climate.ParameterPoint(
+			Climate.Parameter.span(${data.genTemperature.min}f, ${data.genTemperature.max}f),
+			Climate.Parameter.span(${data.genHumidity.min}f, ${data.genHumidity.max}f),
+			Climate.Parameter.span(${data.genContinentalness.min}f, ${data.genContinentalness.max}f),
+			Climate.Parameter.span(${data.genErosion.min}f, ${data.genErosion.max}f),
+			Climate.Parameter.point(0.0f),
+			Climate.Parameter.span(${data.genWeirdness.min}f, ${data.genWeirdness.max}f),
+			0 <#-- offset -->
+		);
+	</#if>
+
+	<#if data.spawnInCaves>
+		public static final Climate.ParameterPoint UNDERGROUND_PARAMETER_POINTS = new Climate.ParameterPoint(
+				Climate.Parameter.span(${data.genTemperature.min}f, ${data.genTemperature.max}f),
+				Climate.Parameter.span(${data.genHumidity.min}f, ${data.genHumidity.max}f),
+				Climate.Parameter.span(${data.genContinentalness.min}f, ${data.genContinentalness.max}f),
+				Climate.Parameter.span(${data.genErosion.min}f, ${data.genErosion.max}f),
+				Climate.Parameter.span(0.2f, 0.9f),
+				Climate.Parameter.span(${data.genWeirdness.min}f, ${data.genWeirdness.max}f),
+				0 <#-- offset -->
+			)
+		);
+	</#if>
+
 	public ${name}Region(ResourceLocation name) {
 		super(name, <#if data.spawnBiome || data.spawnInCaves>RegionType.OVERWORLD<#elseif data.spawnBiomeNether>RegionType.NETHER</#if>, 2);
 	}
@@ -40,9 +65,9 @@ public class ${name}Region extends Region {
 	@Override
 	public void addBiomes(Registry<Biome> registry, Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> mapper) {
 		<#if data.spawnBiome || data.spawnBiomeNether>
-			this.addBiome(mapper, ${name}Biome.PARAMETER_POINTS, ${JavaModName}Biomes.${data.getModElement().getRegistryNameUpper()});
+			this.addBiome(mapper, PARAMETER_POINTS, ${JavaModName}Biomes.${data.getModElement().getRegistryNameUpper()});
 		<#elseif data.spawnInCaves>
-			this.addBiome(mapper, ${name}Biome.UNDERGROUND_PARAMETER_POINTS, ${JavaModName}Biomes.${data.getModElement().getRegistryNameUpper()});
+			this.addBiome(mapper, UNDERGROUND_PARAMETER_POINTS, ${JavaModName}Biomes.${data.getModElement().getRegistryNameUpper()});
 		</#if>
 	}
 

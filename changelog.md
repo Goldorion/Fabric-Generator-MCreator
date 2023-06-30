@@ -1,5 +1,9 @@
 # Changelogs:
 
+## 1.9.5
+* Updated TerraBlender API to 1.20.1-3.0.0.165
+* Re-implemented biomes support for 1.20.1
+
 ## 1.9.4
 * [Bugfix #426] Custom music discs could not be played
 * [Bugfix #428] Several block bases had rendering problems
