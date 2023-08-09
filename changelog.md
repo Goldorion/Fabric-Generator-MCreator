@@ -1,5 +1,9 @@
 # Changelogs:
 
+## 1.9.6
+* [Bugfix #431] Get enchantment level caused a build error
+* [Bugfix #436] Fixed several `Entity#level` related build errors in procedure blocks (purejosh)
+
 ## 1.9.5
 * Updated TerraBlender API to 1.20.1-3.0.0.165
 * Re-implemented biomes support for 1.20.1
