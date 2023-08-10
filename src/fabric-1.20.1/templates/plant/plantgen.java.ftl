@@ -42,7 +42,7 @@ public class ${name}Feature extends RandomPatchFeature {
 		<#if data.restrictionBiomes?has_content>
 			includeByKey(
 				<#list data.restrictionBiomes as restrictionBiome>
-					ResourceKey.create(Registry.BIOME_REGISTRY, new ResourceLocation("${restrictionBiome}"))<#if restrictionBiome?has_next>,</#if>
+					ResourceKey.create( Registries.BIOME, new ResourceLocation("${restrictionBiome}"))<#if restrictionBiome?has_next>,</#if>
 				</#list>
 			)
 		<#else>

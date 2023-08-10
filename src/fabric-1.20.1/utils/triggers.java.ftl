@@ -120,7 +120,7 @@
 @Override public InteractionResult useOn(UseOnContext context) {
 	InteractionResult retval = super.useOn(context);
 	<@procedureCodeWithOptResult procedure, "actionresulttype", "retval", {
-		"world": "context.level()",
+		"world": "context.getLevel()",
 		"x": "context.getClickedPos().getX()",
 		"y": "context.getClickedPos().getY()",
 		"z": "context.getClickedPos().getZ()",

@@ -4,6 +4,8 @@
 * [Bugfix #431] Get enchantment level caused a build error
 * [Bugfix #435] Get a copy of item from slot of entity could cause problems in some cases
 * [Bugfix #436] Fixed several `Entity#level` related build errors in procedure blocks (purejosh)
+* [Bugfix #445] Some biome's registry call weren't updated causing build errors
+* [Bugfix #445] Item used on block trigger could cause a build error
 
 ## 1.9.5
 * Updated TerraBlender API to 1.20.1-3.0.0.165
