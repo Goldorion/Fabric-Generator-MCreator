@@ -43,7 +43,7 @@ public class ${name}Feature extends Feature<NoneFeatureConfiguration> {
 		<#if data.restrictionBiomes?has_content>
 			includeByKey(
 				<#list data.restrictionBiomes as restrictionBiome>
-					ResourceKey.create( Registries.BIOME, new ResourceLocation("${restrictionBiome}"))<#if restrictionBiome?has_next>,</#if>
+					ResourceKey.create(Registries.BIOME, new ResourceLocation("${restrictionBiome}"))<#if restrictionBiome?has_next>,</#if>
 				</#list>
 			)
 		<#else>
@@ -59,7 +59,7 @@ public class ${name}Feature extends Feature<NoneFeatureConfiguration> {
 			<#elseif worldType == "End">
 				Level.END
 			<#else>
-				ResourceKey.create(Registry.DIMENSION_REGISTRY,
+				ResourceKey.create(Registries.DIMENSION,
 					new ResourceLocation("${generator.getResourceLocationForModElement(worldType.toString().replace("CUSTOM:", ""))}"))
 			</#if><#sep>,
 		</#list>
