@@ -1,5 +1,8 @@
 # Changelogs:
 
+## 1.9.7
+* [Bugfix #454] World dependency caused a build error in custom commands
+
 ## 1.9.6
 * [Bugfix #431] Get enchantment level caused a build error
 * [Bugfix #435] Get a copy of item from slot of entity could cause problems in some cases
