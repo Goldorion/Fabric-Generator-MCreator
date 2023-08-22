@@ -19,25 +19,14 @@
 -->
 
 <#-- @formatter:off -->
-<#include "mcitems.ftl">
-<#include "procedures.java.ftl">
+<#include "../mcitems.ftl">
+<#include "../procedures.java.ftl">
 
 package ${package}.world.features;
 
 import net.minecraft.world.level.biome.Biomes;
 
 public class ${name}Feature extends Feature<NoneFeatureConfiguration> {
-
-	public static ${name}Feature FEATURE = null;
-	public static Holder<ConfiguredFeature<NoneFeatureConfiguration, ?>> CONFIGURED_FEATURE = null;
-	public static Holder<PlacedFeature> PLACED_FEATURE = null;
-
-	public static Feature<?> feature() {
-		FEATURE = new ${name}Feature();
-		CONFIGURED_FEATURE = FeatureUtils.register("${modid}:${registryname}", FEATURE, FeatureConfiguration.NONE);
-		PLACED_FEATURE = PlacementUtils.register("${modid}:${registryname}", CONFIGURED_FEATURE, List.of());
-		return FEATURE;
-	}
 
 	public static final Predicate<BiomeSelectionContext> GENERATE_BIOMES = BiomeSelectors.
 		<#if data.restrictionBiomes?has_content>
@@ -84,11 +73,11 @@ public class ${name}Feature extends Feature<NoneFeatureConfiguration> {
 	}
 
 	@Override public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
-		if (!generate_dimensions.contains(context.level().level().dimension()))
+		if (!generate_dimensions.contains(context.level().getLevel().dimension()))
 			return false;
 
 		if (template == null)
-			template = context.level().level().getStructureManager()
+			template = context.level().getLevel().getStructureManager()
 					.getOrCreate(new ResourceLocation("${modid}", "${data.structure}"));
 
 		if (template == null)

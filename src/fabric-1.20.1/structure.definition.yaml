@@ -1,3 +1,9 @@
 templates:
-  - template: structure.java.ftl
+  - template: structure/structure.java.ftl
     name: "@SRCROOT/@BASEPACKAGEPATH/world/features/@NAMEFeature.java"
+  - template: structure/configured_structure.json.ftl
+    writer: json
+    name: "@MODDATAROOT/worldgen/configured_feature/@registryname.json"
+  - template: structure/placed_structure.json.ftl
+    writer: json
+    name: "@MODDATAROOT/worldgen/placed_feature/@registryname.json"
