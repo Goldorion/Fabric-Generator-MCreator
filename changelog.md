@@ -1,6 +1,7 @@
 # Changelogs:
 
 ## 1.9.7
+* [Bugfix #430] Check if item is in tag caused a build error
 * [Bugfix #452] Custom structures didn't work
 * [Bugfix #454] World dependency caused a build error in custom commands
 * [Bugfix #455] Custom button blocks caused a build error
