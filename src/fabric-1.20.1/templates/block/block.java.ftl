@@ -35,8 +35,6 @@ import net.fabricmc.api.Environment;
 public class ${name}Block extends
 	<#if data.hasGravity>
 		FallingBlock
-	<#elseif data.blockBase?has_content && data.blockBase == "Button">
-		<#if (data.material.getUnmappedValue() == "WOOD") || (data.material.getUnmappedValue() == "NETHER_WOOD")>Wood<#else>Stone</#if>ButtonBlock
 	<#elseif data.blockBase?has_content>
 		${data.blockBase?replace("Stairs", "Stair")?replace("Pane", "IronBars")}Block
 	<#else>
@@ -173,31 +171,31 @@ public class ${name}Block extends
 
 	public ${name}Block() {
 		<#if data.blockBase?has_content && data.blockBase == "Stairs">
-			super(() -> Blocks.AIR.defaultBlockState(), <@blockProperties/>);
+			super(() -> Blocks.AIR.defaultBlockState(), <@PROPERTIES/>);
 		<#elseif data.blockBase?has_content && data.blockBase == "PressurePlate">
 		    <#if data.material.getUnmappedValue() == "WOOD">
-		        super(Sensitivity.EVERYTHING, <@blockProperties/>, BlockSetType.OAK);
+		        super(Sensitivity.EVERYTHING, <@PROPERTIES/>, BlockSetType.OAK);
 		    <#else>
-		        super(Sensitivity.MOBS, <@blockProperties/>, BlockSetType.IRON);
+		        super(Sensitivity.MOBS, PROPERTIES, BlockSetType.IRON);
 		    </#if>
 		<#elseif data.blockBase?has_content && data.blockBase == "Button">
 			<#if data.material.getUnmappedValue() == "WOOD">
-		        super(<@blockProperties/>, BlockSetType.OAK, 30, true);
+		        super(PROPERTIES, BlockSetType.OAK, 30, true);
 			<#else>
-		        super(<@blockProperties/>, BlockSetType.STONE, 20, false);
+		        super(PROPERTIES, BlockSetType.STONE, 20, false);
 			</#if>
 		<#elseif data.blockBase?has_content && (data.blockBase == "TrapDoor" || data.blockBase == "Door")>
 			<#if data.material.getUnmappedValue() == "IRON">
-				super(<@blockProperties/>, BlockSetType.IRON);
+				super(PROPERTIES, BlockSetType.IRON);
 			<#elseif data.material.getUnmappedValue() == "WOOD">
-				super(<@blockProperties/>, BlockSetType.OAK);
+				super(PROPERTIES, BlockSetType.OAK);
 			<#else>
-				super(<@blockProperties/>, BlockSetType.STONE);
+				super(PROPERTIES, BlockSetType.STONE);
 			</#if>
 		<#elseif data.blockBase?has_content && data.blockBase == "FenceGate">
-			super(<@blockProperties/>, WoodType.OAK);
+			super(PROPERTIES, WoodType.OAK);
 		<#else>
-			super(<@blockProperties/>);
+			super(PROPERTIES);
 		</#if>
 
 		<#if data.rotationMode != 0 || data.isWaterloggable>

@@ -2,6 +2,7 @@
 
 ## 1.9.7
 * [Bugfix #454] World dependency caused a build error in custom commands
+* [Bugfix #455] Custom button blocks caused a build error
 * [Bugfix #456] Fix several registries calls causing build errors
 
 ## 1.9.6
