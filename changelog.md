@@ -1,5 +1,8 @@
 # Changelogs:
 
+## 1.9.8
+* [Bugfix] Block's material was supposed to be re-introduced, but it wasn't available for users
+
 ## 1.9.7
 * [Bugfix #430] Check if item is in tag caused a build error
 * [Bugfix #452] Custom structures didn't work
