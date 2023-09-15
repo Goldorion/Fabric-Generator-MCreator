@@ -2,6 +2,7 @@
 
 ## 1.9.8
 * Re-introduced the block material parameter
+* [Bugfix #459] Tags in some places caused problems
 
 ## 1.9.7
 * [Bugfix #430] Check if item is in tag caused a build error
