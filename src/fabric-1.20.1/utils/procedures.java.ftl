@@ -1,20 +1,19 @@
 <#-- @formatter:off -->
-<#macro procedureCode object dependencies={}>
-	<#compress>
-	<#assign deps = [] />
-	<#list object.getDependencies(generator.getWorkspace()) as dependency>
-		<#assign deps += [dependency.getName()] />
-	</#list>
-	<#if deps?size == 0>
-		${object.getName()}Procedure.execute(Collections.EMPTY_MAP);
-	<#else>
-		${object.getName()}Procedure.execute(com.google.common.collect.ImmutableMap.<String, Object>builder()
+<#macro procedureDependenciesCode requiredDependencies dependencies={}>
+	<#assign deps_filtered = [] />
+	<#list requiredDependencies as dependency>
 		<#list dependencies as name, value>
-			<#if deps?seq_contains(name)>.put("${name}", ${value})</#if>
+			<#if dependency.getName() == name>
+				<#assign deps_filtered += [value] />
+			</#if>
 		</#list>
-		.build());
-	</#if>
-	</#compress>
+	</#list>
+
+	<#list deps_filtered as value>${value}<#if value?has_next>,</#if></#list>
+</#macro>
+
+<#macro procedureCode object dependencies={} semicolon=true>
+	${object.getName()}Procedure.execute(<@procedureDependenciesCode object.getDependencies(generator.getWorkspace()) dependencies/>)<#if semicolon>;</#if>
 </#macro>
 
 <#macro procedureCodeWithOptResult object type defaultResult dependencies={}>
@@ -30,16 +29,14 @@
 	<#assign depsBuilder = []>
 
 	<#list dependencies as dependency>
-		<#if !customVals[dependency.getName()]?? >
-			<#assign depsBuilder += ["\"" + dependency.getName() + "\", " + dependency.getName()]>
+		<#if !customVals[dependency.getName()]?has_content>
+			<#assign depsBuilder += [dependency.getName()]>
+		<#else>
+			<#assign depsBuilder += [customVals[dependency.getName()]]>
 		</#if>
 	</#list>
 
-	<#list customVals as key, value>
-		<#assign depsBuilder += ["\"" + key + "\", " + value]>
-	</#list>
-
-	${(name)}Procedure.execute(com.google.common.collect.ImmutableMap.<String, Object>builder()<#list depsBuilder as dep>.put(${dep})</#list>.build())
+	${(name)}Procedure.execute(<#list depsBuilder as dep>${dep}<#if dep?has_next>,</#if></#list>)
 </#macro>
 
 <#macro procedureToCode name dependencies customVals={}>
@@ -68,11 +65,20 @@
 	</#if>
 </#macro>
 
-<#macro procedureOBJToItemstackCode object="">
+<#macro procedureOBJToStringCode object="">
 	<#if hasProcedure(object)>
-		/*@ItemStack*/ <@procedureToRetvalCode name=object.getName() dependencies=object.getDependencies(generator.getWorkspace()) />
+		<@procedureToRetvalCode name=object.getName() dependencies=object.getDependencies(generator.getWorkspace()) />
 	<#else>
-		/*@ItemStack*/ ItemStack.EMPTY
+		""
+	</#if>
+</#macro>
+
+<#macro procedureOBJToItemstackCode object="" addMarker=true>
+	<#if addMarker>/*@ItemStack*/</#if>
+	<#if hasProcedure(object)>
+		<@procedureToRetvalCode name=object.getName() dependencies=object.getDependencies(generator.getWorkspace()) />
+	<#else>
+		ItemStack.EMPTY
 	</#if>
 </#macro>
 
