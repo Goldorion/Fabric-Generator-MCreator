@@ -79,6 +79,8 @@ public class ${name}Menu extends AbstractContainerMenu {
 					<#assign slotnum += 1>
 	   				this.addSlot(new Slot(inventory, ${component.id}, ${(component.x - mx)?int + 1},
 						${(component.y - my)?int + 1}) {
+						private final int slot = ${component.id};
+
 
 	   				<#if hasProcedure(component.disablePickup) || component.disablePickup.getFixedValue()>
 						@Override public boolean mayPickup(Player entity) {

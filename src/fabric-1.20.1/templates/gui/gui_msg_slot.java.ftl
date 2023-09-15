@@ -36,9 +36,9 @@ package ${package}.network;
 
 public class ${name}SlotMessage extends FriendlyByteBuf {
 
-	public ${name}SlotMessage(int slotID, int x, int y, int z, int changeType, int meta) {
+	public ${name}SlotMessage(int slot, int x, int y, int z, int changeType, int meta) {
 		super(Unpooled.buffer());
-			writeInt(slotID);
+			writeInt(slot);
 			writeInt(x);
 			writeInt(y);
 			writeInt(z);
@@ -47,7 +47,7 @@ public class ${name}SlotMessage extends FriendlyByteBuf {
 	}
 
 	public static void apply(MinecraftServer server, ServerPlayer entity, ServerGamePacketListenerImpl handler, FriendlyByteBuf buf, PacketSender responseSender) {
-		int slotID = buf.readInt();
+		int slot = buf.readInt();
 		double x = buf.readInt();
 		double y = buf.readInt();
 		double z = buf.readInt();
@@ -59,17 +59,17 @@ public class ${name}SlotMessage extends FriendlyByteBuf {
 			<#list data.components as component>
 				<#if component.getClass().getSimpleName()?ends_with("Slot")>
 					<#if hasProcedure(component.onSlotChanged)>
-						if (slotID == ${component.id} && changeType == 0) {
+						if (slot == ${component.id} && changeType == 0) {
 							<@procedureOBJToCode component.onSlotChanged/>
 						}
 					</#if>
 					<#if hasProcedure(component.onTakenFromSlot)>
-						if (slotID == ${component.id} && changeType == 1) {
+						if (slot == ${component.id} && changeType == 1) {
 							<@procedureOBJToCode component.onTakenFromSlot/>
 						}
 					</#if>
 					<#if hasProcedure(component.onStackTransfer)>
-						if (slotID == ${component.id} && changeType == 2) {
+						if (slot == ${component.id} && changeType == 2) {
 							int amount = meta;
 							<@procedureOBJToCode component.onStackTransfer/>
 						}
