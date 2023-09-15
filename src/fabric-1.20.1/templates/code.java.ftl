@@ -1,4 +1,4 @@
-<#--
+#--
 This file is part of Fabric-Generator-MCreator.
 
 Fabric-Generator-MCreator is free software: you can redistribute it and/or modify
@@ -30,6 +30,10 @@ package ${package};
  * to manually adapt this file to these changes or remake it.
 */
 public class ${name} {
+
+	public ${name}() {
+
+	}
 
 }
 <#-- @formatter:on -->
