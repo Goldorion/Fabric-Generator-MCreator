@@ -26,13 +26,12 @@ Mod elements that are not mentioned are completely supported with all available 
 * Villager profession
 
 ## Important Information
-- Make sure you use MCreator 2023.2 or a newer version
+- Make sure you use MCreator 2023.3 or a newer version
 - Back up your workspace before updating to a newer version of the plugin.
 - Mods will also require [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api) to function properly, so when you want to play your mod, make sure you have Fabric API.
 
 ## Credits/License
 Dev - [Goldorion](https://github.com/Goldorion)
-Contributors (previous Minecraft versions) - crispy_chips1234, Klemen, U1timateJ7, BoogieMonster1O1
 This generator re-uses code used from the official Forge generators.
 
 The plugin's MCreator page is [here](https://mcreator.net/plugin/64512/mcreator-fabric-generator).

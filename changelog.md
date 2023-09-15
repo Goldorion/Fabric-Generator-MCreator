@@ -3,7 +3,8 @@
 ## 1.9.8
 * Updated to MCreator 2023.3
 * The Forge generator is now imported inside the generator to avoid duplicated templates
-  * Multiple procedure blocks take their template inside the Forge generator (support in Fabric impossible yet). **THEY WILL FAIL TO BUILD**
+  * Multiple procedure blocks and global triggers take their template inside the Forge generator (support in Fabric impossible yet). **THEY WILL FAIL TO BUILD**
+  * Check `Supported Global triggers.md` for the full list of supported global triggers
 * Re-introduced the block material parameter
 * [Bugfix #459] Tags in some places caused problems
 

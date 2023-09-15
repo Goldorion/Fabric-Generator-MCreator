@@ -1,12 +1,13 @@
 {
   "generator-fabric-1.20.1": {
-    "latest": "1.9.7",
+    "latest": "1.9.8",
     "changes": [
-      "[Bugfix #430] Check if item is in tag caused a build error",
-      "[Bugfix #452] Custom structures didn't work",
-      "[Bugfix #454] World dependency caused a build error in custom commands)",
-      "[Bugfix #455] Custom button blocks caused a build error",
-      "[Bugfix #456] Fix several registries calls causing build errors"
+      "Updated to MCreator 2023.3",
+      "The Forge generator is now imported inside the generator to avoid duplicated templates",
+      "* Multiple procedure blocks and global triggers take their template inside the Forge generator (support in Fabric impossible yet). **THEY WILL FAIL TO BUILD**",
+      "* Check `Supported Global triggers.md` for the full list of supported global triggers",
+      "Re-introduced the block material parameter",
+      "[Bugfix #459] Tags in some places caused problems"
     ]
   }
 }
