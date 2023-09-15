@@ -86,6 +86,16 @@ public class ${name}Screen extends AbstractContainerScreen<${name}Menu> {
 		this.renderBackground(guiGraphics);
 		super.render(guiGraphics, mouseX, mouseY, partialTicks);
 		this.renderTooltip(guiGraphics, mouseX, mouseY);
+		
+		<#list data.getComponentsOfType("Tooltip") as component>
+			<#assign x = (component.x - mx/2)?int>
+			<#assign y = (component.y - my/2)?int>
+			<#if hasProcedure(component.displayCondition)>
+				if (<@procedureOBJToConditionCode component.displayCondition/>)
+			</#if>
+				if (mouseX > leftPos + ${x} && mouseX < leftPos + ${x + component.width} && mouseY > topPos + ${y} && mouseY < topPos + ${y + component.height})
+					this.renderTooltip(ms, <#if hasProcedure(component.text)>Component.literal(<@procedureOBJToStringCode component.text/>)<#else>Component.translatable("gui.${modid}.${registryname}.${component.getName()}")</#if>, mouseX, mouseY);
+		</#list>
 
 		<#list data.components as component>
 			<#if component.getClass().getSimpleName() == "TextField">
