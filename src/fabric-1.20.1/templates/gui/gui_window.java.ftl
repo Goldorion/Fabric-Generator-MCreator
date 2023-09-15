@@ -86,7 +86,7 @@ public class ${name}Screen extends AbstractContainerScreen<${name}Menu> {
 		this.renderBackground(guiGraphics);
 		super.render(guiGraphics, mouseX, mouseY, partialTicks);
 		this.renderTooltip(guiGraphics, mouseX, mouseY);
-		
+
 		<#list data.getComponentsOfType("Tooltip") as component>
 			<#assign x = (component.x - mx/2)?int>
 			<#assign y = (component.y - my/2)?int>
