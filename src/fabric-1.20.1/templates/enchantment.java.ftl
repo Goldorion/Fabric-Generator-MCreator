@@ -58,12 +58,8 @@ public class ${name}Enchantment extends Enchantment {
 	</#if>
 
 	<#if data.compatibleItems?has_content>
-		@Override public boolean canEnchant(ItemStack stack) {
-			<#list data.compatibleItems as compatibleItem>
-				if(stack.getItem() == ${mappedMCItemToItem(compatibleItem)})
-					return true;
-			</#list>
-			return false;
+		@Override public boolean canEnchant(ItemStack itemstack) {
+			return <#if data.excludeItems>!</#if>${mappedMCItemsToIngredient(data.compatibleItems)}.test(itemstack);
 		}
 	</#if>
 

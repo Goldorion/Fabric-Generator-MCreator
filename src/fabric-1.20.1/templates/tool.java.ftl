@@ -58,15 +58,7 @@ public class ${name}Item extends ${data.toolType?replace("Spade", "Shovel")?repl
 				}
 
    				public Ingredient getRepairIngredient() {
-					<#if data.repairItems?has_content>
-					return Ingredient.of(
-							<#list data.repairItems as repairItem>
-							${mappedMCItemToItemStackCode(repairItem,1)}<#if repairItem?has_next>,</#if>
-					</#list>
-							);
-					<#else>
-					return Ingredient.EMPTY;
-					</#if>
+					return ${mappedMCItemsToIngredient(data.repairItems)};
 				}
 			},
 
@@ -203,11 +195,7 @@ public class ${name}Item extends Item {
 	}
 
 	@Override public float getDestroySpeed(ItemStack itemstack, BlockState blockstate) {
-		return List.of(
-			<#list data.blocksAffected as restrictionBlock>
-			${mappedBlockToBlock(restrictionBlock)}<#if restrictionBlock?has_next>,</#if>
-			</#list>
-		).contains(blockstate.getBlock()) ? ${data.efficiency}f : 1;
+		return <#if data.blocksAffected?has_content>${containsAnyOfBlocks(data.blocksAffected "blockstate")} ? ${data.efficiency} : </#if>1f;
 	}
 
 	@Override public boolean mineBlock(ItemStack stack, Level world, BlockState state, BlockPos pos, LivingEntity entity) {
@@ -271,11 +259,7 @@ public class ${name}Item extends FishingRodItem {
 
 	<#if data.repairItems?has_content>
 	@Override public boolean isValidRepairItem(ItemStack itemstack, ItemStack repairitem) {
-		return List.of(
-			<#list data.repairItems as repairItem>
-				${mappedMCItemToItem(repairItem)}<#if repairItem?has_next>,</#if>
-			</#list>
-		).contains(repairitem.getItem());
+		return ${mappedMCItemsToIngredient(data.repairItems)}.test(repairitem);
 	}
 	</#if>
 
