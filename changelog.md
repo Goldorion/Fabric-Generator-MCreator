@@ -1,5 +1,8 @@
 # Changelogs:
 
+## 1.9.9
+* [Bugfix] Data pack mod elements did not work
+
 ## 1.9.8
 * Updated to MCreator 2023.3
 * The Forge generator is now imported inside the generator to avoid duplicated templates
