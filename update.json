@@ -1,7 +1,15 @@
 {
   "generator-fabric-1.20.1": {
-    "latest": "1.9.8",
+    "latest": "1.9.9",
     "changes": [
+      "1.9.9:",
+      "[Bugfix] Data pack mod elements did not work",
+      "[Bugfix] Using custom creative tabs caused a problem",
+      "[Bugfix] Custom plants could cause a build error in some cases",
+      "[Bugfix] Procedures caused problems in a few cases",
+      "[Bugfix] Using tags still caused some problems",
+      "[Bugfix #459 - v2] Custom features still caused problems",
+      "1.9.8:",
       "Updated to MCreator 2023.3",
       "The Forge generator is now imported inside the generator to avoid duplicated templates",
       "* Multiple procedure blocks and global triggers take their template inside the Forge generator (support in Fabric impossible yet). **THEY WILL FAIL TO BUILD**",
