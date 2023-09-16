@@ -3,6 +3,7 @@
 ## 1.9.9
 * [Bugfix] Data pack mod elements did not work
 * [Bugfix] Using custom creative tabs caused a problem
+* [Bugfix] Custom plants could cause a build error in some cases
 
 ## 1.9.8
 * Updated to MCreator 2023.3

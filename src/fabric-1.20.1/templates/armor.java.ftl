@@ -77,7 +77,7 @@ public abstract class ${name}Item extends ArmorItem {
 
 	<#if data.enableHelmet>
 		public static class Helmet extends ${name}Item {
-	
+
 			public Helmet() {
 				super(Type.HELMET, new Item.Properties()<#if data.helmetImmuneToFire>.fireResistant()</#if>);
 
