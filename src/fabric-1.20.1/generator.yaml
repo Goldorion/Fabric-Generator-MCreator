@@ -1,7 +1,7 @@
 name: Minecraft Fabric for @minecraft - @buildfileversion
 status: experimental
 buildfileversion: 0.83.1
-subversion: 21
+subversion: 22
 
 import:
   - datapack-1.20.1

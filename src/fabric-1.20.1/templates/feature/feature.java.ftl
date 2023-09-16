@@ -79,7 +79,7 @@ public class ${name}Feature extends ${generator.map(featuretype, "features")} {
 	public boolean place(FeaturePlaceContext<${configuration}> context) {
 		WorldGenLevel world = context.level();
 		<#if data.restrictionDimensions?has_content>
-			if (!generateDimensions.contains(world.level().dimension()))
+			if (!generateDimensions.contains(world.getLevel().dimension()))
 				return false;
 		</#if>
 

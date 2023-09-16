@@ -21,7 +21,7 @@
 /*
  *	MCreator note: This file will be REGENERATED on each build.
  */
-
+<#compress>
 package ${package}.init;
 
 public class ${JavaModName}Features {
@@ -39,8 +39,13 @@ public class ${JavaModName}Features {
 				${feature.getModElement().getName()}Feature.GENERATE_BIOMES, GenerationStep.Decoration.
 				<#if feature.spawnLocation=="Air">RAW_GENERATION<#elseif feature.spawnLocation=="Underground">UNDERGROUND_STRUCTURES<#else>SURFACE_STRUCTURES</#if>);
 		<#else>
-			register("${feature.getModElement().getRegistryName()}", new ${feature.getModElement().getName()}Feature(),
-				${feature.getModElement().getName()}Feature.GENERATE_BIOMES, GenerationStep.Decoration.${feature.generationStep});
+		    <#if feature.hasGenerationConditions()>
+                register("${feature.getModElement().getRegistryName()}", new ${feature.getModElement().getName()}Feature(),
+                    ${feature.getModElement().getName()}Feature.GENERATE_BIOMES, GenerationStep.Decoration.${feature.generationStep});
+			<#else>
+                register("${feature.getModElement().getRegistryName()}", new NoOpFeature(NoneFeatureConfiguration.CODEC),
+                    BiomeSelectors.all(), GenerationStep.Decoration.${feature.generationStep});
+			</#if>
 		</#if>
 	</#list>
 	}
@@ -52,5 +57,5 @@ public class ${JavaModName}Features {
 	}
 
 }
-
+</#compress>
 <#-- @formatter:on -->

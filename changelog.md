@@ -6,6 +6,7 @@
 * [Bugfix] Custom plants could cause a build error in some cases
 * [Bugfix] Procedures caused problems in a few cases
 * [Bugfix] Using tags still caused some problems
+* [Bugfix #459 - v2] Custom features still caused problems
 
 ## 1.9.8
 * Updated to MCreator 2023.3
