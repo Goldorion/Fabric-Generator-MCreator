@@ -1,0 +1,4 @@
+_mcreator_map_template:
+  - "@NAMEEntity"
+  - "@JavaModNameEntities.@REGISTRYNAME"
+  - "@NAMEEntity.PROJECTILE_ITEM.getItem()"

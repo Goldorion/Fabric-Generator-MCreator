@@ -1,5 +1,8 @@
 # Changelogs:
 
+## 1.9.10
+* [Bugfix #464] Using some custom elements failed to build
+
 ## 1.9.9
 * [Bugfix] Data pack mod elements did not work
 * [Bugfix] Using custom creative tabs caused a problem
