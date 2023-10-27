@@ -1,3 +1,5 @@
+<#include "mcelements.ftl">
+<#-- @formatter:off -->
 /*@ItemStack*/(new Object() {
 	public ItemStack getItemStack(LevelAccessor world, BlockPos pos, int slotid) {
 		AtomicReference<ItemStack> stack = new AtomicReference<>(ItemStack.EMPTY);
@@ -6,4 +8,5 @@
 		stack.set(((RandomizableContainerBlockEntity) _ent).getItem(slotid).copy());
 		return stack.get();
 	}
-}.getItemStack(world, (new BlockPos(${input$x}, ${input$y}, ${input$z})), ${opt.toInt(input$slotid)}))
+}.getItemStack(world, ${toBlockPos(input$x,input$y,input$z)}, ${opt.toInt(input$slotid)}))
+<#-- @formatter:on -->

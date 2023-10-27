@@ -1,3 +1,5 @@
+<#include "mcelements.ftl">
+<#-- @formatter:off -->
 (new Object() {
 	public int getAmount(LevelAccessor world, BlockPos pos, int slotid) {
 		AtomicInteger count = new AtomicInteger(0);
@@ -7,4 +9,5 @@
 		count.set((int)ent.countItem(ent.getItem(slotid).getItem()));
 		return count.get();
 	}
-}.getAmount(world, (new BlockPos(${input$x}, ${input$y}, ${input$z})), ${opt.toInt(input$slotid)}))
+}.getAmount(world, (${toBlockPos(input$x,input$y,input$z)}), ${opt.toInt(input$slotid)}))
+<#-- @formatter:on -->
