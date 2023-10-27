@@ -686,8 +686,17 @@ public class ${name}Entity extends ${extendsClass} <#if data.ranged>implements R
 	</#if>
 
 	public static void init() {
-		<#if data.spawnThisMob>BiomeModifications.create(new ResourceLocation(${JavaModName}.MODID, "${name?lower_case}_entity_spawn")).add(ModificationPhase.ADDITIONS,
-				BiomeSelectors.<#if data.restrictionBiomes?has_content>includeByKey(<@biomeKeys data.restrictionBiomes/>)<#else>all()</#if>, ctx -> ctx.getSpawnSettings().addSpawn(${generator.map(data.mobSpawningType, "mobspawntypes")},
+		<#if data.spawnThisMob>BiomeModifications.create(new ResourceLocation(${JavaModName}.MODID, "${name?lower_case}_entity_spawn"))
+			.add(ModificationPhase.ADDITIONS, BiomeSelectors.
+				<#if data.restrictionBiomes?has_content>
+                    includeByKey(
+                        <#list data.restrictionBiomes as restrictionBiome>
+                            ResourceKey.create(Registries.BIOME, new ResourceLocation("${restrictionBiome}"))<#if restrictionBiome?has_next>,</#if>
+                        </#list>
+                    )
+				<#else>
+					all()
+				</#if>, ctx -> ctx.getSpawnSettings().addSpawn(${generator.map(data.mobSpawningType, "mobspawntypes")},
 					new MobSpawnSettings.SpawnerData(${JavaModName}Entities.${data.getModElement().getRegistryNameUpper()}, ${data.spawningProbability}, ${data.minNumberOfMobsPerGroup}, ${data.maxNumberOfMobsPerGroup})));
 		</#if>
 	}

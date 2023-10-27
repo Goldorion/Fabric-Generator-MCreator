@@ -4,6 +4,7 @@
 * [Bugfix #463] Custom waterlogged blocks did not compile
 * [Bugfix #464] Using some custom elements caused build errors
 * [Bugfix #465] Global triggers were not updated to the new format causing build errors
+* [Bugfix #466] Adding biomes to an entity's spawning list caused problems
 * [Bugfix #468] Some BlockPos usages in procedure blocks could cause problems in some cases
 * [Bugfix #470] Custom pressure plates and stairs did not compile
 
