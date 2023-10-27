@@ -1,12 +1,18 @@
+<#include "procedures.java.ftl">
 public ${name}Procedure() {
 	UseItemCallback.EVENT.register((player, level, hand) -> {
-		Map<String, Object> dependencies = new HashMap<>();
-		dependencies.put("world", level);
-		dependencies.put("entity", player);
-		dependencies.put("x", player.getX());
-		dependencies.put("y", player.getY());
-		dependencies.put("z", player.getZ());
-		execute(dependencies);
+		if (hand != player.getUsedItemHand())
+			return;
+		<#assign dependenciesCode><#compress>
+			<@procedureDependenciesCode dependencies, {
+			"x": "player.getX()",
+			"y": "player.getY()",
+			"z": "player.getZ()",
+			"world": "level",
+			"entity": "player"
+			}/>
+		</#compress></#assign>
+		execute(${dependenciesCode});
 		return InteractionResultHolder.pass(player.getItemInHand(hand));
 	});
 }

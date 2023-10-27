@@ -1,7 +1,6 @@
 All global triggers are marked as supported, but they are not. Here is the full list of supported global triggers:
 - A block is broken
 - Player sent chat
-- Command executed
 - Entity attacked
 - Entity dies
 - Before entity is hurt

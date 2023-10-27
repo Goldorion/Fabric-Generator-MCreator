@@ -1,14 +1,21 @@
+<#include "procedures.java.ftl">
 public ${name}Procedure() {
 	UseBlockCallback.EVENT.register((player, level, hand, hitResult) -> {
-		Map<String, Object> dependencies = new HashMap<>();
-		dependencies.put("world", level);
-		dependencies.put("entity", player);
-		dependencies.put("x", hitResult.getBlockPos().getX());
-		dependencies.put("y", hitResult.getBlockPos().getY());
-		dependencies.put("z", hitResult.getBlockPos().getZ());
-		dependencies.put("blockstate", level.getBlockState(hitResult.getBlockPos()));
-		dependencies.put("direction", hitResult.getDirection());
-		execute(dependencies);
+		if (hand != player.getUsedItemHand())
+			return InteractionResult.PASS;
+		<#assign dependenciesCode><#compress>
+			<@procedureDependenciesCode dependencies, {
+			"x": "pos.getX()",
+			"y": "pos.getY()",
+			"z": "pos.getZ()",
+			"world": "level",
+			"entity": "player",
+			"direction": "hitResult.getDirection()",
+			"blockstate": "hitResult.getBlockPos()"
+			}/>
+		</#compress></#assign>
+		execute(${dependenciesCode});
+
 		return InteractionResult.PASS;
 	});
 }

@@ -1,11 +1,15 @@
+<#include "procedures.java.ftl">
 public ${name}Procedure() {
 	ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
-		Map<String, Object> dependencies = new HashMap<>();
-		dependencies.put("entity", handler.getPlayer());
-		dependencies.put("x", handler.getPlayer().getX());
-		dependencies.put("y", handler.getPlayer().getY());
-		dependencies.put("z", handler.getPlayer().getZ());
-		dependencies.put("world", handler.getPlayer().level());
-		execute(dependencies);
+		<#assign dependenciesCode><#compress>
+			<@procedureDependenciesCode dependencies, {
+			"x": "handler.getPlayer().getX()",
+			"y": "handler.getPlayer().getY()",
+			"z": "handler.getPlayer().getZ()",
+			"world": "handler.getPlayer().level()",
+			"entity": "handler.getPlayer()"
+			}/>
+		</#compress></#assign>
+		execute(${dependenciesCode});
 	});
 }

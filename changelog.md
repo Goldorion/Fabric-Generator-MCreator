@@ -3,6 +3,7 @@
 ## 1.9.10
 * [Bugfix #463] Custom waterlogged blocks did not compile
 * [Bugfix #464] Using some custom elements failed to build
+* [Bugfix #465] Global triggers were not updated to the new format causing build errors
 
 ## 1.9.9
 * [Bugfix] Data pack mod elements did not work

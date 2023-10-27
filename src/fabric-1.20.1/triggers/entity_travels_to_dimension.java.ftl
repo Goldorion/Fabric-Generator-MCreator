@@ -1,23 +1,30 @@
+<#include "procedures.java.ftl">
 public ${name}Procedure() {
 	ServerEntityWorldChangeEvents.AFTER_ENTITY_CHANGE_WORLD.register((originalEntity, newEntity, origin, destination) -> {
-		Map<String, Object> dependencies = new HashMap<>();
-		dependencies.put("x", newEntity.getX());
-		dependencies.put("y", newEntity.getY());
-		dependencies.put("z", newEntity.getZ());
-		dependencies.put("world", destination);
-		dependencies.put("entity", newEntity);
-		dependencies.put("dimension", destination.dimension());
+		<#assign dependenciesCode><#compress>
+			<@procedureDependenciesCode dependencies, {
+			"x": "newEntity.getX()",
+			"y": "newEntity.getY()",
+			"z": "newEntity.getZ()",
+			"world": "destination",
+			"dimension": "destination.dimension()",
+			"entity": "newEntity"
+			}/>
+		</#compress></#assign>
 		if (!(newEntity instanceof Player))
-			execute(dependencies);
+		    execute(${dependenciesCode});
 	});
 	ServerEntityWorldChangeEvents.AFTER_PLAYER_CHANGE_WORLD.register((player, origin, destination) -> {
-		Map<String, Object> dependencies = new HashMap<>();
-		dependencies.put("x", player.getX());
-		dependencies.put("y", player.getY());
-		dependencies.put("z", player.getZ());
-		dependencies.put("world", destination);
-		dependencies.put("entity", player);
-		dependencies.put("dimension", destination.dimension());
-		execute(dependencies);
+		<#assign dependenciesCode><#compress>
+        	<@procedureDependenciesCode dependencies, {
+        	"x": "player.getX()",
+        	"y": "player.getY()",
+        	"z": "player.getZ()",
+        	"world": "destination",
+        	"dimension": "destination.dimension()",
+        	"entity": "player"
+        	}/>
+        </#compress></#assign>
+		execute(${dependenciesCode});
 	});
 }

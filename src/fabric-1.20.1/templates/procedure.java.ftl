@@ -38,24 +38,13 @@ import javax.annotation.Nullable;
 
 <#compress>
 
-<#if trigger_code?has_content>
-${trigger_code}
-<#else>
 public class ${name}Procedure {
+
+<#if trigger_code?has_content>
+    ${trigger_code}
 </#if>
 
-	<#if trigger_code?has_content>
 	public static <#if return_type??>${return_type.getJavaType(generator.getWorkspace())}<#else>void</#if> execute(
-		<#list dependencies as dependency>
-			${dependency.getType(generator.getWorkspace())} ${dependency.getName()}<#if dependency?has_next>,</#if>
-		</#list>
-	) {
-		<#if return_type??>return </#if>execute(null<#if dependencies?has_content>,</#if><#list dependencies as dependency>${dependency.getName()}<#if dependency?has_next>,</#if></#list>);
-	}
-	</#if>
-
-	<#if trigger_code?has_content>private <#else>public </#if>static <#if return_type??>${return_type.getJavaType(generator.getWorkspace())}<#else>void</#if> execute(
-		<#if trigger_code?has_content>@Nullable Event event<#if dependencies?has_content>,</#if></#if>
 		<#list dependencies as dependency>
 				${dependency.getType(generator.getWorkspace())} ${dependency.getName()}<#if dependency?has_next>,</#if>
 		</#list>
