@@ -172,10 +172,10 @@ public class ${name}Block extends
 
 	public ${name}Block() {
 		<#if data.blockBase?has_content && data.blockBase == "Stairs">
-			super(() -> Blocks.AIR.defaultBlockState(), <@PROPERTIES/>);
+			super(Blocks.AIR.defaultBlockState(), PROPERTIES);
 		<#elseif data.blockBase?has_content && data.blockBase == "PressurePlate">
 		    <#if data.material.getUnmappedValue() == "WOOD">
-		        super(Sensitivity.EVERYTHING, <@PROPERTIES/>, BlockSetType.OAK);
+		        super(Sensitivity.EVERYTHING, PROPERTIES, BlockSetType.OAK);
 		    <#else>
 		        super(Sensitivity.MOBS, PROPERTIES, BlockSetType.IRON);
 		    </#if>
