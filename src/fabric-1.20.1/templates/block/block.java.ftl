@@ -280,7 +280,7 @@ public class ${name}Block extends
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
 		<#if data.isWaterloggable>
-			boolean flag = context.level().getFluidState(context.getClickedPos()).getType() == Fluids.WATER;
+			boolean flag = context.getLevel().getFluidState(context.getClickedPos()).getType() == Fluids.WATER;
 		</#if><#if data.rotationMode != 3>
 		return this.defaultBlockState()
 				<#if data.rotationMode == 1>
