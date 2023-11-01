@@ -1,21 +1,15 @@
 {
   "generator-fabric-1.20.1": {
-    "latest": "1.9.9",
+    "latest": "1.9.10",
     "changes": [
-      "1.9.9:",
-      "[Bugfix] Data pack mod elements did not work",
-      "[Bugfix] Using custom creative tabs caused a problem",
-      "[Bugfix] Custom plants could cause a build error in some cases",
-      "[Bugfix] Procedures caused problems in a few cases",
-      "[Bugfix] Using tags still caused some problems",
-      "[Bugfix #459 - v2] Custom features still caused problems",
-      "1.9.8:",
-      "Updated to MCreator 2023.3",
-      "The Forge generator is now imported inside the generator to avoid duplicated templates",
-      "* Multiple procedure blocks and global triggers take their template inside the Forge generator (support in Fabric impossible yet). **THEY WILL FAIL TO BUILD**",
-      "* Check `Supported Global triggers.md` for the full list of supported global triggers",
-      "Re-introduced the block material parameter",
-      "[Bugfix #459] Tags in some places caused problems"
+      "1.9.10:",
+      "[Bugfix #410] Hardness and harvest level did not correspond",
+      "[Bugfix #463] Custom waterlogged blocks did not compile",
+      "[Bugfix #464] Using some custom elements caused build errors",
+      "[Bugfix #465] Global triggers were not updated to the new format causing build errors",
+      "[Bugfix #466] Adding biomes to an entity's spawning list caused problems",
+      "[Bugfix #468] Some BlockPos usages in procedure blocks could cause problems in some cases",
+      "[Bugfix #470] Custom pressure plates and stairs did not compile"
     ]
   }
 }
