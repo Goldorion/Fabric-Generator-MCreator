@@ -1,6 +1,7 @@
 # Changelogs:
 
 ## 1.9.10
+* [Bugfix #410] Hardness and harvest level did not correspond
 * [Bugfix #463] Custom waterlogged blocks did not compile
 * [Bugfix #464] Using some custom elements caused build errors
 * [Bugfix #465] Global triggers were not updated to the new format causing build errors

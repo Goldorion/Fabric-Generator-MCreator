@@ -434,6 +434,18 @@ global_templates:
     writer: json
     variables: level=7
     name: "@RESROOT/data/fabric/tags/blocks/needs_tool_level_7.json"
+  - template: block/mineable_level_tag.json.ftl
+    writer: json
+    variables: level=8
+    name: "@RESROOT/data/fabric/tags/blocks/needs_tool_level_8.json"
+  - template: block/mineable_level_tag.json.ftl
+    writer: json
+    variables: level=9
+    name: "@RESROOT/data/fabric/tags/blocks/needs_tool_level_9.json"
+  - template: block/mineable_level_tag.json.ftl
+    writer: json
+    variables: level=10
+    name: "@RESROOT/data/fabric/tags/blocks/needs_tool_level_10.json"
 
 field_exclusions: [ displayFluidOverlay, plantsGrowOn, beaconColorModifier, isLadder, enchantPowerBonus, aiPathNodeType,
                     hasEnergyStorage, isFluidTank, energyInitial, energyCapacity, energyMaxReceive, energyMaxExtract, fluidCapacity, fluidRestrictions, canRedstoneConnect ]
