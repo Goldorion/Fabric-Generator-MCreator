@@ -4,7 +4,7 @@ labels: feature request
 body:
  - type: checkboxes
    attributes:
-    label: Issue tracker rule checks (please read carefully)
+    label: Prerequisites
     options:
      - label: "I have checked that this feature [is not already asked](https://github.com/Goldorion/Fabric-Generator-MCreator/issues)."
        required: true
