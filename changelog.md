@@ -1,5 +1,8 @@
 # Changelogs:
 
+## 1.9.11
+* [Bugfix #480] GUI labels had a shadow
+
 ## 1.9.10
 * [Bugfix #410] Hardness and harvest level did not correspond
 * [Bugfix #463] Custom waterlogged blocks did not compile
