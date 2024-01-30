@@ -2,6 +2,7 @@
 
 ## 1.9.11
 * [Bugfix #480] GUI labels had a shadow
+* [Bugfix #483] GUI tooltips gave a build error
 
 ## 1.9.10
 * [Bugfix #410] Hardness and harvest level did not correspond
