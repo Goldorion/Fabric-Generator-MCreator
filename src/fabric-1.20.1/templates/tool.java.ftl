@@ -315,15 +315,6 @@ public class ${name}Item extends FishingRodItem {
 </#if>
 
 <#macro commonMethods>
-	<#if data.specialInfo?has_content>
-		@Override @Environment(EnvType.CLIENT) public void appendHoverText(ItemStack itemstack, Level world, List<Component> list, TooltipFlag flag) {
-			super.appendHoverText(itemstack, world, list, flag);
-			<#list data.specialInfo as entry>
-			list.add(Component.literal("${JavaConventions.escapeStringForJava(entry)}"));
-			</#list>
-		}
-	</#if>
-
 	<#if data.stayInGridWhenCrafting>
 		@Override public boolean hasCraftingRemainingItem() {
 			return true;
@@ -349,6 +340,8 @@ public class ${name}Item extends FishingRodItem {
 		</#if>
 	</#if>
 
+	<@addSpecialInformation data.specialInformation/>
+
 	<@onItemUsedOnBlock data.onRightClickedOnBlock/>
 
 	<@onCrafted data.onCrafted/>
@@ -357,20 +350,7 @@ public class ${name}Item extends FishingRodItem {
 
 	<@onItemTick data.onItemInUseTick, data.onItemInInventoryTick/>
 
-	<#if data.hasGlow>
-		@Override @Environment(EnvType.CLIENT) public boolean isFoil(ItemStack itemstack) {
-			<#if hasProcedure(data.glowCondition)>
-			Player entity = Minecraft.getInstance().player;
-			Level world = entity.level();
-			double x = entity.getX();
-			double y = entity.getY();
-			double z = entity.getZ();
-			return <@procedureOBJToConditionCode data.glowCondition/>;
-			<#else>
-			return true;
-			</#if>
-		}
-	</#if>
+	<@hasGlow data.glowCondition/>
 </#macro>
 </#compress>
 <#-- @formatter:on -->

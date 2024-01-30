@@ -226,12 +226,24 @@ public class ${name}Screen extends AbstractContainerScreen<${name}Menu> {
 		</#list>
 
 		<#assign btid = 0>
-
 		<#list data.getComponentsOfType("Button") as component>
-			${component.getName()} = new Button.Builder(
-				Component.translatable("gui.${modid}.${registryname}.${component.getName()}"), <@buttonOnClick component/>)
-				.bounds(this.leftPos + ${(component.x - mx/2)?int}, this.topPos + ${(component.y - my/2)?int},
-				${component.width}, ${component.height}).build()<@buttonDisplayCondition component/>;
+			<#if component.isUndecorated>
+				${component.getName()} = new PlainTextButton(
+					this.leftPos + ${component.gx(data.width)}, this.topPos + ${component.gy(data.height)},
+					${component.width}, ${component.height},
+					Component.translatable("gui.${modid}.${registryname}.${component.getName()}"),
+					<@buttonOnClick component/>, this.font
+				)<@buttonDisplayCondition component/>;
+			<#else>
+				${component.getName()} = Button.builder(Component.translatable("gui.${modid}.${registryname}.${component.getName()}"), <@buttonOnClick component/>)
+					.bounds(this.leftPos + ${component.gx(data.width)}, this.topPos + ${component.gy(data.height)},
+					${component.width}, ${component.height})
+					<#if hasProcedure(component.displayCondition)>
+						.build(builder -> new Button(builder)<@buttonDisplayCondition component/>);
+					<#else>
+						.build();
+					</#if>
+			</#if>
 
 			guistate.put("button:${component.getName()}", ${component.getName()});
 			this.addRenderableWidget(${component.getName()});
@@ -241,7 +253,7 @@ public class ${name}Screen extends AbstractContainerScreen<${name}Menu> {
 
 		<#list data.getComponentsOfType("ImageButton") as component>
 			${component.getName()} = new ImageButton(
-				this.leftPos + ${(component.x - mx/2)?int}, this.topPos + ${(component.y - my/2)?int},
+				this.leftPos + ${component.gx(data.width)}, this.topPos + ${component.gy(data.height)},
 				${component.getWidth(w.getWorkspace())}, ${component.getHeight(w.getWorkspace())},
 				0, 0, ${component.getHeight(w.getWorkspace())},
 				new ResourceLocation("${modid}:textures/screens/atlas/${component.getName()}.png"),

@@ -85,15 +85,9 @@ public abstract class ${name}Item extends ArmorItem {
 					ItemGroupEvents.modifyEntriesEvent(${data.creativeTab}).register(content -> content.accept(this));
 				</#if>
 			}
-	
-			<#if data.helmetSpecialInfo?has_content>
-				@Override public void appendHoverText(ItemStack itemstack, Level world, List<Component> list, TooltipFlag flag) {
-				super.appendHoverText(itemstack, world, list, flag);
-					<#list data.helmetSpecialInfo as entry>
-						list.add(Component.literal("${JavaConventions.escapeStringForJava(entry)}"));
-					</#list>
-				}
-			</#if>
+
+		    <@addSpecialInformation data.helmetSpecialInformation/>
+
 			<#if hasProcedure(data.onHelmetTick)>
 				@Override
 				public void inventoryTick(ItemStack itemstack, Level world, Entity entity, int slotinv, boolean selected) {
@@ -120,15 +114,9 @@ public abstract class ${name}Item extends ArmorItem {
 					ItemGroupEvents.modifyEntriesEvent(${data.creativeTab}).register(content -> content.accept(this));
 				</#if>
 			}
-	
-			<#if data.bodySpecialInfo?has_content>
-				@Override public void appendHoverText(ItemStack itemstack, Level world, List<Component> list, TooltipFlag flag) {
-				super.appendHoverText(itemstack, world, list, flag);
-					<#list data.bodySpecialInfo as entry>
-						list.add(Component.literal("${JavaConventions.escapeStringForJava(entry)}"));
-					</#list>
-				}
-			</#if>
+
+		    <@addSpecialInformation data.bodySpecialInformation/>
+
 			<#if hasProcedure(data.onBodyTick)>
 				@Override
 				public void inventoryTick(ItemStack itemstack, Level world, Entity entity, int slotinv, boolean selected) {
@@ -155,15 +143,9 @@ public abstract class ${name}Item extends ArmorItem {
 					ItemGroupEvents.modifyEntriesEvent(${data.creativeTab}).register(content -> content.accept(this));
 				</#if>
 			}
-	
-			<#if data.leggingsSpecialInfo?has_content>
-				@Override public void appendHoverText(ItemStack itemstack, Level world, List<Component> list, TooltipFlag flag) {
-				super.appendHoverText(itemstack, world, list, flag);
-					<#list data.leggingsSpecialInfo as entry>
-						list.add(Component.literal("${JavaConventions.escapeStringForJava(entry)}"));
-					</#list>
-				}
-			</#if>
+
+		    <@addSpecialInformation data.leggingsSpecialInformation/>
+
 			<#if hasProcedure(data.onLeggingsTick)>
 				@Override
 				public void inventoryTick(ItemStack itemstack, Level world, Entity entity, int slotinv, boolean selected) {
@@ -190,15 +172,9 @@ public abstract class ${name}Item extends ArmorItem {
 					ItemGroupEvents.modifyEntriesEvent(${data.creativeTab}).register(content -> content.accept(this));
 				</#if>
 			}
-	
-			<#if data.bootsSpecialInfo?has_content>
-				@Override public void appendHoverText(ItemStack itemstack, Level world, List<Component> list, TooltipFlag flag) {
-				super.appendHoverText(itemstack, world, list, flag);
-					<#list data.bootsSpecialInfo as entry>
-						list.add(Component.literal("${JavaConventions.escapeStringForJava(entry)}"));
-					</#list>
-				}
-			</#if>
+
+		    <@addSpecialInformation data.bootsSpecialInformation/>
+
 			<#if hasProcedure(data.onBootsTick)>
 				@Override
 				public void inventoryTick(ItemStack itemstack, Level world, Entity entity, int slotinv, boolean selected) {

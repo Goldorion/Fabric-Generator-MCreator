@@ -1,5 +1,9 @@
 # Changelogs:
 
+## 1.9.12
+* Updated to MCreator 2023.4 First snapshot
+* Added living entity model shaking and transparency parameters
+
 ## 1.9.11
 * [Bugfix] Player right clicks on entity global trigger was called twice
 * [Bugfix #480] GUI labels had a shadow

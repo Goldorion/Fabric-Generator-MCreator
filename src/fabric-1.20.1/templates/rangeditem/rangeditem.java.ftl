@@ -64,20 +64,7 @@ public class ${name}Item extends Item {
 		return 72000;
 	}
 
-	<#if data.hasGlow>
-		@Override @Environment(EnvType.CLIENT) public boolean isFoil(ItemStack itemstack) {
-			<#if hasProcedure(data.glowCondition)>
-				Player entity = Minecraft.getInstance().player;
-				Level world = entity.level();
-				double x = entity.getX();
-				double y = entity.getY();
-				double z = entity.getZ();
-				if (!(<@procedureOBJToConditionCode data.glowCondition/>))
-					return false;
-			</#if>
-			return true;
-		}
-	</#if>
+	<@hasGlow data.glowCondition/>
 
 	<#if data.enableMeleeDamage>
 		@Override public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot slot) {

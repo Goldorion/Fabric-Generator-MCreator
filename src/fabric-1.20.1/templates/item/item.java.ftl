@@ -129,20 +129,7 @@ public class ${name}Item extends Item {
 		}
 	</#if>
 
-	<#if data.hasGlow>
-		@Override public boolean isFoil(ItemStack itemstack) {
-			<#if hasProcedure(data.glowCondition)>
-			Player entity = Minecraft.getInstance().player;
-			Level world = entity.level();
-			double x = entity.getX();
-			double y = entity.getY();
-			double z = entity.getZ();
-			return <@procedureOBJToConditionCode data.glowCondition/>;
-			<#else>
-			return true;
-			</#if>
-		}
-	</#if>
+	<@hasGlow data.glowCondition/>
 
 	<#if data.destroyAnyBlock>
 		@Override public boolean isCorrectToolForDrops(BlockState state) {
@@ -150,14 +137,7 @@ public class ${name}Item extends Item {
 		}
 	</#if>
 
-	<#if data.specialInfo?has_content>
-		@Override public void appendHoverText(ItemStack itemstack, Level world, List<Component> list, TooltipFlag flag) {
-			super.appendHoverText(itemstack, world, list, flag);
-			<#list data.specialInfo as entry>
-			list.add(Component.literal("${JavaConventions.escapeStringForJava(entry)}"));
-			</#list>
-		}
-	</#if>
+	<@addSpecialInformation data.specialInformation/>
 
 	<#if hasProcedure(data.onRightClickedInAir) || data.hasInventory()>
 		@Override public InteractionResultHolder<ItemStack> use(Level world, Player entity, InteractionHand hand) {
