@@ -4,6 +4,7 @@
 * [Bugfix] Player right clicks on entity global trigger was called twice
 * [Bugfix #480] GUI labels had a shadow
 * [Bugfix #483] GUI tooltips gave a build error
+* [Bugfix #493] Double plants could not be used
 * [Bugfix #496] Player right-clicks on a block failed to build
 
 ## 1.9.10

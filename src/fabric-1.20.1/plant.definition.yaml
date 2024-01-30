@@ -70,7 +70,7 @@ templates:
     condition: "plantType %= growapable"
     variables: "variant= "
     name: "@MODASSETSROOT/blockstates/@registryname.json"
-  - template: json/block_states_dplant.json.ftl
+  - template: json/block_states_double_plant.json.ftl
     writer: json
     condition: "plantType %= double"
     name: "@MODASSETSROOT/blockstates/@registryname.json"
