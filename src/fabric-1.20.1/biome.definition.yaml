@@ -22,7 +22,6 @@ templates:
 
 global_templates:
   - template: elementinits/biomes.java.ftl
-    condition: hasBiomesInVanillaDimensions()
     name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameBiomes.java"
 
   - template: biome/biometag.json.ftl # loaded from datapack generator
