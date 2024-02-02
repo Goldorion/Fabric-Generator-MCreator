@@ -2,7 +2,7 @@
  # This file is part of Fabric-Generator-MCreator.
  # Copyright (C) 2012-2020, Pylo
  # Copyright (C) 2020-2023, Pylo, opensource contributors
- # Copyright (C) 2020-2023, Goldorion, opensource contributors
+ # Copyright (C) 2020-2024, Goldorion, opensource contributors
  #
  # Fabric-Generator-MCreator is free software: you can redistribute it and/or modify
  # it under the terms of the GNU Lesser General Public License as published by
@@ -31,7 +31,7 @@ public class ${name}Item extends RecordItem {
 	public ${name}Item() {
 		<#if data.music.getUnmappedValue().startsWith("CUSTOM:")>
 			super(${data.analogOutput}, ${JavaModName}Sounds.${data.music?replace(modid + ":", "")?upper_case},
-					new Item.Properties().stacksTo(1).rarity(Rarity.RARE), ${data.lengthInTicks});
+					new Item.Properties().stacksTo(1).rarity(Rarity.${data.rarity}), ${data.lengthInTicks});
 		<#else>
 		<#assign s=data.music>
 			super(${data.analogOutput}, BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation("${s}")),

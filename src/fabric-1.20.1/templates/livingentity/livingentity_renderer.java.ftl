@@ -77,6 +77,38 @@ public class ${name}Renderer extends <#if humanoid>Humanoid</#if>MobRenderer<${n
 				new HumanoidModel<>(context.bakeLayer(ModelLayers.PLAYER_OUTER_ARMOR)), context.getModelManager()));
 		</#if>
 
+		<#list data.modelLayers as layer>
+		this.addLayer(new RenderLayer<${name}Entity, ${model}>(this) {
+			final ResourceLocation LAYER_TEXTURE = new ResourceLocation("${modid}:textures/entities/${layer.texture}");
+
+			<#compress>
+			@Override public void render(PoseStack poseStack, MultiBufferSource bufferSource, int light,
+						${name}Entity entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+				<#if hasProcedure(layer.condition)>
+				Level world = entity.level();
+				double x = entity.getX();
+				double y = entity.getY();
+				double z = entity.getZ();
+				if (<@procedureOBJToConditionCode layer.condition/>) {
+				</#if>
+
+				VertexConsumer vertexConsumer = bufferSource.getBuffer(RenderType.<#if layer.glow>eyes<#else>entityCutoutNoCull</#if>(LAYER_TEXTURE));
+				<#if layer.model != "Default">
+					EntityModel model = new ${layer.model}(Minecraft.getInstance().getEntityModels().bakeLayer(${layer.model}.LAYER_LOCATION));
+					this.getParentModel().copyPropertiesTo(model);
+					model.prepareMobModel(entity, limbSwing, limbSwingAmount, partialTicks);
+					model.setupAnim(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+					model.renderToBuffer(poseStack, vertexConsumer, light, LivingEntityRenderer.getOverlayCoords(entity, 0), 1, 1, 1, 1);
+				<#else>
+					this.getParentModel().renderToBuffer(poseStack, vertexConsumer, light, LivingEntityRenderer.getOverlayCoords(entity, 0), 1, 1, 1, 1);
+				</#if>
+
+				<#if hasProcedure(layer.condition)>}</#if>
+			}
+			</#compress>
+		});
+		</#list>
+
 		<#if data.mobModelGlowTexture?has_content>
 		this.addLayer(new EyesLayer<>(this) {
 			@Override public RenderType renderType() {
@@ -86,6 +118,24 @@ public class ${name}Renderer extends <#if humanoid>Humanoid</#if>MobRenderer<${n
 		</#if>
 	}
 
+	<#if data.mobModelName == "Villager" || (data.visualScale?? && (data.visualScale.getFixedValue() != 1 || hasProcedure(data.visualScale)))>
+		@Override protected void scale(${name}Entity entity, PoseStack poseStack, float f) {
+			<#if hasProcedure(data.visualScale)>
+				Level world = entity.level();
+				double x = entity.getX();
+				double y = entity.getY();
+				double z = entity.getZ();
+				float scale = (float) <@procedureOBJToNumberCode data.visualScale/>;
+				poseStack.scale(scale, scale, scale);
+			<#elseif data.visualScale?? && data.visualScale.getFixedValue() != 1>
+				poseStack.scale(${data.visualScale.getFixedValue()}f, ${data.visualScale.getFixedValue()}f, ${data.visualScale.getFixedValue()}f);
+			</#if>
+			<#if data.mobModelName == "Villager">
+				poseStack.scale(0.9375f, 0.9375f, 0.9375f);
+			</#if>
+		}
+	</#if>
+	
 	@Override public ResourceLocation getTextureLocation(${name}Entity entity) {
 		return new ResourceLocation("${modid}:textures/entities/${data.mobModelTexture}"); 
 	}
