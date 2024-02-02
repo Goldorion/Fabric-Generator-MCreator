@@ -7,15 +7,15 @@ templates:
 
   # Worldgen
   - template: block/oregen.java.ftl
-    condition: doesGenerateInWorld()
+    condition: generateFeature
     name: "@SRCROOT/@BASEPACKAGEPATH/world/features/ores/@NAMEFeature.java"
   - template: block/configured_oregen.json.ftl
     writer: json
-    condition: doesGenerateInWorld()
+    condition: generateFeature
     name: "@MODDATAROOT/worldgen/configured_feature/@registryname.json"
   - template: block/placed_oregen.json.ftl
     writer: json
-    condition: doesGenerateInWorld()
+    condition: generateFeature
     name: "@MODDATAROOT/worldgen/placed_feature/@registryname.json"
 
   # Block item templates

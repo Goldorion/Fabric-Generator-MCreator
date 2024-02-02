@@ -29,9 +29,6 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.nbt.Tag;
-import net.minecraft.sounds.SoundEvent;
-
-import org.jetbrains.annotations.Nullable;
 
 <#assign extendsClass = "PathfinderMob">
 
@@ -274,7 +271,7 @@ public class ${name}Entity extends ${extendsClass} <#if data.ranged>implements R
 			double x = this.getX();
 			double y = this.getY();
 			double z = this.getZ();
-			Level world = this.level;
+			Level world = this.level();
 			Entity entity = this;
 			Entity sourceentity = damagesource.getEntity();
 			Entity immediatesourceentity = damagesource.getDirectEntity();
@@ -336,7 +333,7 @@ public class ${name}Entity extends ${extendsClass} <#if data.ranged>implements R
 				if (damagesource.is(DamageTypes.WITHER_SKULL))
 					return false;
 			</#if>
-			return super.hurt(source, amount);
+			return super.hurt(damagesource, amount);
 		}
 	</#if>
 
@@ -567,21 +564,35 @@ public class ${name}Entity extends ${extendsClass} <#if data.ranged>implements R
 		}
 
 		@Override public boolean isFood(ItemStack stack) {
-			return List.of(<#list data.breedTriggerItems as breedTriggerItem>${mappedMCItemToItem(breedTriggerItem)}<#if breedTriggerItem?has_next>,</#if></#list>).contains(stack.getItem());
+			return ${mappedMCItemsToIngredient(data.breedTriggerItems)}.test(stack);
 		}
 	</#if>
 
 	<#if data.waterMob>
-	@Override public boolean canBreatheUnderwater() {
-		return true;
-	}
-
 	@Override public boolean checkSpawnObstruction(LevelReader world) {
 		return world.isUnobstructed(this);
 	}
+	</#if>
 
+	<#if data.breatheUnderwater?? && (hasProcedure(data.breatheUnderwater) || data.breatheUnderwater.getFixedValue())>
+	@Override public boolean canBreatheUnderwater() {
+		double x = this.getX();
+		double y = this.getY();
+		double z = this.getZ();
+		Level world = this.level();
+		Entity entity = this;
+		return <@procedureOBJToConditionCode data.breatheUnderwater true false/>;
+	}
+	</#if>
+
+	<#if data.pushedByFluids?? && (hasProcedure(data.pushedByFluids) || !data.pushedByFluids.getFixedValue())>
 	@Override public boolean isPushedByFluid() {
-		return false;
+		double x = this.getX();
+		double y = this.getY();
+		double z = this.getZ();
+		Level world = this.level();
+		Entity entity = this;
+		return <@procedureOBJToConditionCode data.pushedByFluids false false/>;
 	}
 	</#if>
 

@@ -1,6 +1,6 @@
 <#include "procedures.java.ftl">
 .executes(arguments -> {
-	ServerLevel world = arguments.getSource().getLevel();
+	Level world = arguments.getSource().getUnsidedLevel();
 
 	double x = arguments.getSource().getPosition().x();
 	double y = arguments.getSource().getPosition().y();
@@ -8,7 +8,9 @@
 
 	Entity entity = arguments.getSource().getEntity();
 
-	Direction direction = entity.getDirection();
+    Direction direction = Direction.DOWN;
+    if (entity != null)
+    	direction = entity.getDirection();
 
 	<@procedureToCode name=procedure dependencies=dependencies/>
 	return 0;

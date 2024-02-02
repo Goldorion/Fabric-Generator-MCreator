@@ -27,11 +27,17 @@ package ${package}.init;
 public class ${JavaModName}Commands {
 
 	public static void load() {
-		CommandRegistrationCallback.EVENT.register((dispatcher, commandBuildContext, dedicated) -> {
-			<#list commands as command>
-				${command.getModElement().getName()}Command.register(dispatcher, commandBuildContext);
-			</#list>
-		});
+		<#list commands as command>
+		    <#if command.type == "CLIENTSIDE">
+                ClientCommandRegistrationCallback.EVENT.register((dispatcher, commandBuildContext, dedicated) -> {
+                        ${command.getModElement().getName()}Command.register(dispatcher, commandBuildContext);
+                });
+		    <#else>
+                CommandRegistrationCallback.EVENT.register((dispatcher, commandBuildContext, dedicated) -> {
+                        ${command.getModElement().getName()}Command.register(dispatcher, commandBuildContext);
+                });
+		    </#if>
+		</#list>
 	}
 
 }

@@ -1,6 +1,6 @@
 <#include "procedures.java.ftl">
 .then(Commands.argument("arguments", StringArgumentType.greedyString()).executes(arguments -> {
-	ServerLevel world = arguments.getSource().getLevel();
+	Level world = arguments.getSource().getUnsidedLevel();
 
 	double x = arguments.getSource().getPosition().x();
 	double y = arguments.getSource().getPosition().y();
@@ -8,7 +8,9 @@
 
 	Entity entity = arguments.getSource().getEntity();
 
-	Direction direction = entity.getDirection();
+	Direction direction = Direction.DOWN;
+	if (entity != null)
+		direction = entity.getDirection();
 
 	HashMap<String, String> cmdparams = new HashMap<>();
 	int index = -1;
@@ -22,7 +24,7 @@
 	return 0;
 }))
 .executes(arguments -> {
-	ServerLevel world = arguments.getSource().level();
+	Level world = arguments.getSource().getUnsidedLevel();
 
 	double x = arguments.getSource().getPosition().x();
 	double y = arguments.getSource().getPosition().y();
@@ -30,7 +32,9 @@
 
 	Entity entity = arguments.getSource().getEntity();
 
-	Direction direction = entity.getDirection();
+	Direction direction = Direction.DOWN;
+	if (entity != null)
+		direction = entity.getDirection();
 
 	HashMap<String, String> cmdparams = new HashMap<>();
 	int index = -1;

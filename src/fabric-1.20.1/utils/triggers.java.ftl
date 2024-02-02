@@ -206,7 +206,6 @@
 </#if>
 </#macro>
 
-
 <#-- Block-related triggers -->
 <#macro onDestroyedByPlayer procedure="">
 <#if hasProcedure(procedure)>

@@ -36,7 +36,7 @@ public class ${JavaModName}Entities {
 
 	public static void load() {
 		<#list entities as entity>
-			<#if entity.getModElement().getTypeString() == "rangeditem">
+			<#if entity.getModElement().getTypeString() == "projectile">
 				${entity.getModElement().getRegistryNameUpper()} = Registry.register(BuiltInRegistries.ENTITY_TYPE, new ResourceLocation(${JavaModName}.MODID, "${entity.getModElement().getRegistryName()}"),
 						createArrowEntityType(${entity.getModElement().getName()}Entity::new));
 			<#else>

@@ -2,7 +2,6 @@
  # MCreator (https://mcreator.net/)
  # Copyright (C) 2012-2020, Pylo
  # Copyright (C) 2020-2023, Pylo, opensource contributors
- # Copyright (C) 2020-2023, Goldorion, opensource contributors
  #
  # This program is free software: you can redistribute it and/or modify
  # it under the terms of the GNU General Public License as published by
@@ -30,33 +29,21 @@
 -->
 
 <#-- @formatter:off -->
-package ${package}.client.renderer;
+package ${package}.world.features.configurations;
 
-public class ${name}Renderer extends EntityRenderer<${name}Entity> {
-
-	private static final ResourceLocation texture = new ResourceLocation("${modid}:textures/entities/${data.customBulletModelTexture}");
-
-	private final ${data.bulletModel} model;
-
-	public ${name}Renderer(EntityRendererProvider.Context context) {
-		super(context);
-		model = new ${data.bulletModel}(context.bakeLayer(${data.bulletModel}.LAYER_LOCATION));
-	}
-
-	@Override public void render(${name}Entity entityIn, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int packedLightIn) {
-		VertexConsumer vb = bufferIn.getBuffer(RenderType.entityCutout(this.getTextureLocation(entityIn)));
-		poseStack.pushPose();
-		poseStack.mulPose(Vector3f.YP.rotationDegrees(Mth.lerp(partialTicks, entityIn.yRotO, entityIn.getYRot()) - 90));
-		poseStack.mulPose(Vector3f.ZP.rotationDegrees(90 + Mth.lerp(partialTicks, entityIn.xRotO, entityIn.getXRot())));
-		model.renderToBuffer(poseStack, vb, packedLightIn, OverlayTexture.NO_OVERLAY, 1, 1, 1, 0.0625f);
-		poseStack.popPose();
-
-		super.render(entityIn, entityYaw, partialTicks, poseStack, bufferIn, packedLightIn);
-	}
-
-	@Override public ResourceLocation getTextureLocation(${name}Entity entity) {
-		return texture;
-	}
-
+public record StructureFeatureConfiguration(ResourceLocation structure, boolean randomRotation, boolean randomMirror, HolderSet<Block> ignoredBlocks, Vec3i offset) implements FeatureConfiguration {
+	public static final Codec<StructureFeatureConfiguration> CODEC = RecordCodecBuilder.create(builder -> {
+		return builder.group(ResourceLocation.CODEC.fieldOf("structure").forGetter(config -> {
+			return config.structure;
+		}), Codec.BOOL.fieldOf("random_rotation").orElse(false).forGetter(config -> {
+			return config.randomRotation;
+		}), Codec.BOOL.fieldOf("random_mirror").orElse(false).forGetter(config -> {
+			return config.randomMirror;
+		}), RegistryCodecs.homogeneousList(Registries.BLOCK).fieldOf("ignored_blocks").forGetter(config -> {
+			return config.ignoredBlocks;
+		}), Vec3i.offsetCodec(48).optionalFieldOf("offset", Vec3i.ZERO).forGetter(config -> {
+			return config.offset;
+		})).apply(builder, StructureFeatureConfiguration::new);
+	});
 }
 <#-- @formatter:on -->

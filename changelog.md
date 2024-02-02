@@ -3,6 +3,7 @@
 ## 1.9.12
 * Updated to MCreator 2023.4 First snapshot
 * Added living entity model shaking and transparency parameters
+* [#500] Added support for Get block/entity/item registry name procedure blocks
 
 ## 1.9.11
 * [Bugfix] Player right clicks on entity global trigger was called twice
