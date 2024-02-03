@@ -59,7 +59,7 @@ public class ${name}Block extends <#if data.plantType == "normal">Flower<#elseif
 	<#assign biomesList = []>
 	<#assign biomeTagsList = []>
 	<#list data.restrictionBiomes as biome>
-		<#if biome.getUnmappedValue().startsWith("TAG:")>
+		<#if biome.getMappedValue().startsWith("#")>
 			<#assign biomeTagsList += [biome]>
 		<#else>
 			<#assign biomesList += [biome]>
@@ -77,7 +77,7 @@ public class ${name}Block extends <#if data.plantType == "normal">Flower<#elseif
 				</#if>
 				<#if biomeTagsList?has_content>
 					<#if biomesList?has_content>.and(BiomeSelectors</#if>
-						.tag(TagKey.create(Registries.BIOME, new ResourceLocation("${biomeTagsList?first}"))))
+						tag(TagKey.create(Registries.BIOME, new ResourceLocation("${biomeTagsList?first?remove_beginning("#")}")))
 					<#if biomesList?has_content>)</#if>
 				</#if>
 			<#else>
