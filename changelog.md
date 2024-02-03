@@ -1,9 +1,11 @@
 # Changelogs:
 
-## 1.9.12
-* Updated to MCreator 2023.4 First snapshot
+## 1.9.12-beta
+Note: This is marked as a beta version as too many features/changes were needed to test every single thing, but consider it as a main release
+* Updated to MCreator 2023.4
 * Added living entity model shaking and transparency parameters
 * [#500] Added support for Get block/entity/item registry name procedure blocks
+* [Bugfix #501] Deal custom damage procedure block did not reference the player's name (HaipaDev)
 
 ## 1.9.11
 * [Bugfix] Player right clicks on entity global trigger was called twice
