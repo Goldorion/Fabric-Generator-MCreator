@@ -55,6 +55,36 @@ public class ${name}Block extends <#if data.plantType == "normal">Flower<#elseif
 	<#if interfaces?size gt 0>
 		implements ${interfaces?join(",")}
 	</#if>{
+	
+	<#assign biomesList = []>
+	<#assign biomeTagsList = []>
+	<#list data.restrictionBiomes as biome>
+		<#if biome.getMappedValue().startsWith("#")>
+			<#assign biomeTagsList += [biome]>
+		<#else>
+			<#assign biomesList += [biome]>
+		</#if>
+	</#list>
+	<#if data.generateFeature>
+		public static final Predicate<BiomeSelectionContext> GENERATE_BIOMES = BiomeSelectors.
+			<#if data.restrictionBiomes?has_content>
+				<#if biomesList?has_content>
+					includeByKey(
+						<#list biomesList as restrictionBiome>
+							ResourceKey.create(Registries.BIOME, new ResourceLocation("${restrictionBiome}"))<#if restrictionBiome?has_next>,</#if>
+						</#list>
+					)
+				</#if>
+				<#if biomeTagsList?has_content>
+					<#if biomesList?has_content>.and(BiomeSelectors</#if>
+						tag(TagKey.create(Registries.BIOME, new ResourceLocation("${biomeTagsList?first?remove_beginning("#")}")))
+					<#if biomesList?has_content>)</#if>
+				</#if>
+			<#else>
+			   all()
+			</#if>;
+	</#if>
+		
 	public ${name}Block() {
 		super(<#if data.plantType == "normal">${generator.map(data.suspiciousStewEffect, "effects")}, ${data.suspiciousStewDuration},</#if>
 		BlockBehaviour.Properties.of()

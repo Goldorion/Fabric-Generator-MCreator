@@ -24,6 +24,8 @@
 package ${package}.init;
 
 <#assign hasBlocks = false>
+<#assign hasItemsWithProperties = w.getGElementsOfType("item")?filter(e -> e.customProperties?has_content)?size != 0
+	|| w.getGElementsOfType("tool")?filter(e -> e.toolType == "Shield")?size != 0>
 
 public class ${JavaModName}Items {
 
@@ -76,7 +78,7 @@ public class ${JavaModName}Items {
 			<#else>
 				ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.SPAWN_EGGS).register(content -> content.accept(${item.getModElement().getRegistryNameUpper()}_SPAWN_EGG));
 			</#if>
-		<#elseif item.getModElement().getType().getBaseType()?string == "BLOCK">
+		<#elseif item.getModElement().getTypeString() == "block" || item.getModElement().getTypeString() == "plant">
 			${item.getModElement().getRegistryNameUpper()} = Registry.register(BuiltInRegistries.ITEM,new ResourceLocation(${JavaModName}.MODID,
 				"${item.getModElement().getRegistryName()}"), new BlockItem(${JavaModName}Blocks.${item.getModElement().getRegistryNameUpper()}, new Item.Properties()));		
 				<#if item.creativeTab.getUnmappedValue() != "No creative tab entry">
@@ -91,30 +93,33 @@ public class ${JavaModName}Items {
 		</#list>
 	}
 
-    <#compress>
+	<#compress>
 	public static void clientLoad() {
-	    <#if w.hasItemsWithCustomProperties()>
-		    <#list items as item>
-    			<#if item.getModElement().getTypeString() == "item">
-    				<#list item.customProperties.entrySet() as property>
-    				ItemProperties.register(${item.getModElement().getRegistryNameUpper()}.get(),
-    					new ResourceLocation(${JavaModName}.MODID, "${item.getModElement().getRegistryName()}_${property.getKey()}"),
-    					(itemStackToRender, clientWorld, entity, itemEntityId) ->
-    						<#if hasProcedure(property.getValue())>
-    							(float) <@procedureCode property.getValue(), {
-    								"x": "entity != null ? entity.getX() : 0",
-    								"y": "entity != null ? entity.getY() : 0",
-    								"z": "entity != null ? entity.getZ() : 0",
-    								"world": "entity != null ? entity.level : clientWorld",
-    								"entity": "entity",
-    								"itemstack": "itemStackToRender"
-    							}, false/>
-    						<#else>0</#if>
-    				);
-    				</#list>
-    			</#if>
-    		</#list>
-	    </#if>
+		<#if hasItemsWithProperties>
+			<#list items as item>
+				<#if item.getModElement().getTypeString() == "item">
+					<#list item.customProperties.entrySet() as property>
+					ItemProperties.register(${item.getModElement().getRegistryNameUpper()},
+						new ResourceLocation(${JavaModName}.MODID, "${item.getModElement().getRegistryName()}_${property.getKey()}"),
+						(itemStackToRender, clientWorld, entity, itemEntityId) ->
+							<#if hasProcedure(property.getValue())>
+								(float) <@procedureCode property.getValue(), {
+									"x": "entity != null ? entity.getX() : 0",
+									"y": "entity != null ? entity.getY() : 0",
+									"z": "entity != null ? entity.getZ() : 0",
+									"world": "entity != null ? entity.level : clientWorld",
+									"entity": "entity",
+									"itemstack": "itemStackToRender"
+								}, false/>
+							<#else>0</#if>
+					);
+					</#list>
+				<#elseif item.getModElement().getTypeString() == "tool" && item.toolType == "Shield">
+					ItemProperties.register(${item.getModElement().getRegistryNameUpper()}, new ResourceLocation("blocking"),
+							ItemProperties.getProperty(Items.SHIELD, new ResourceLocation("blocking")));
+				</#if>
+			</#list>
+		</#if>
 	}
 	</#compress>
 

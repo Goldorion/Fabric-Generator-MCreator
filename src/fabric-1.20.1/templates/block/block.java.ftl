@@ -167,8 +167,36 @@ public class ${name}Block extends
 			<#if data.reactionToPushing != "NORMAL">
 				.pushReaction(PushReaction.${data.reactionToPushing})
 			</#if>
-
 	</#macro>
+
+	<#assign biomesList = []>
+	<#assign biomeTagsList = []>
+	<#list data.restrictionBiomes as biome>
+		<#if biome.getMappedValue().startsWith("#")>
+			<#assign biomeTagsList += [biome]>
+		<#else>
+			<#assign biomesList += [biome]>
+		</#if>
+	</#list>
+	<#if data.generateFeature>
+		public static final Predicate<BiomeSelectionContext> GENERATE_BIOMES = BiomeSelectors.
+			<#if data.restrictionBiomes?has_content>
+				<#if biomesList?has_content>
+					includeByKey(
+						<#list biomesList as restrictionBiome>
+							ResourceKey.create(Registries.BIOME, new ResourceLocation("${restrictionBiome}"))<#if restrictionBiome?has_next>,</#if>
+						</#list>
+					)
+				</#if>
+				<#if biomeTagsList?has_content>
+					<#if biomesList?has_content>.and(BiomeSelectors</#if>
+						tag(TagKey.create(Registries.BIOME, new ResourceLocation("${biomeTagsList?first?remove_beginning("#")}")))
+					<#if biomesList?has_content>)</#if>
+				</#if>
+			<#else>
+			   all()
+			</#if>;
+	</#if>
 
 	public ${name}Block() {
 		<#if data.blockBase?has_content && data.blockBase == "Stairs">
@@ -202,17 +230,17 @@ public class ${name}Block extends
 		<#if (data.rotationMode != 0 || data.isWaterloggable)>
 		this.registerDefaultState(this.stateDefinition.any()
 				<#if data.rotationMode == 1 || data.rotationMode == 3>
-				    .setValue(FACING, Direction.NORTH)
-                    <#if data.enablePitch>
-                        .setValue(FACE, AttachFace.WALL)
-                    </#if>
+					.setValue(FACING, Direction.NORTH)
+					<#if data.enablePitch>
+						.setValue(FACE, AttachFace.WALL)
+					</#if>
 				<#elseif data.rotationMode == 2 || data.rotationMode == 4>
-				    .setValue(FACING, Direction.NORTH)
+					.setValue(FACING, Direction.NORTH)
 				<#elseif data.rotationMode == 5>
-				    .setValue(AXIS, Direction.Axis.Y)
+					.setValue(AXIS, Direction.Axis.Y)
 				</#if>
 				<#if data.isWaterloggable>
-				    .setValue(WATERLOGGED, false)
+					.setValue(WATERLOGGED, false)
 				</#if>
 		);
 		</#if>

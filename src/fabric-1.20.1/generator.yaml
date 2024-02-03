@@ -18,6 +18,17 @@ gradle:
   run_server: runServer
   export_file: "build/libs/modid-1.0.0.jar"
 
+import_formatter:
+  duplicates_whitelist:
+    - java.util
+    - net.minecraft
+    - net.fabricmc
+  priority_imports:
+    Nullable: javax.annotation
+    Codec: com.mojang.serialization
+    SoundEvent: net.minecraft.sounds
+    Environment: net.fabricmc.api
+
 source_root: "@WORKSPACEROOT/src/main/java"
 res_root: "@WORKSPACEROOT/src/main/resources"
 mod_assets_root: "@RESROOT/assets/@modid"

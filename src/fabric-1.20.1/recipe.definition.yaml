@@ -1,7 +1,7 @@
 global_templates:
   - template: elementinits/brewingrecipes.java.ftl
     name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameBrewingRecipes.java"
-    condition: ${w.getRecipesOfType("Brewing")?has_content}
+    condition: "${w.getGElementsOfType('recipe')?filter(e -> e.recipeType = 'Brewing')?size != 0}"
     deleteWhenConditionFalse: true
 
 templates:
