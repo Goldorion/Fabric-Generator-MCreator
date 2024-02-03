@@ -24,6 +24,8 @@
 package ${package}.init;
 
 <#assign hasBlocks = false>
+<#assign hasItemsWithProperties = w.getGElementsOfType("item")?filter(e -> e.customProperties?has_content)?size != 0
+	|| w.getGElementsOfType("tool")?filter(e -> e.toolType == "Shield")?size != 0>
 
 public class ${JavaModName}Items {
 
@@ -76,7 +78,7 @@ public class ${JavaModName}Items {
 			<#else>
 				ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.SPAWN_EGGS).register(content -> content.accept(${item.getModElement().getRegistryNameUpper()}_SPAWN_EGG));
 			</#if>
-		<#elseif item.getModElement().getType().getBaseType()?string == "BLOCK">
+		<#elseif item.getModElement().getTypeString() == "block" || item.getModElement().getTypeString() == "plant">
 			${item.getModElement().getRegistryNameUpper()} = Registry.register(BuiltInRegistries.ITEM,new ResourceLocation(${JavaModName}.MODID,
 				"${item.getModElement().getRegistryName()}"), new BlockItem(${JavaModName}Blocks.${item.getModElement().getRegistryNameUpper()}, new Item.Properties()));		
 				<#if item.creativeTab.getUnmappedValue() != "No creative tab entry">
@@ -93,11 +95,11 @@ public class ${JavaModName}Items {
 
 	<#compress>
 	public static void clientLoad() {
-		<#if w.hasItemsWithCustomProperties()>
+		<#if hasItemsWithProperties>
 			<#list items as item>
 				<#if item.getModElement().getTypeString() == "item">
 					<#list item.customProperties.entrySet() as property>
-					ItemProperties.register(${item.getModElement().getRegistryNameUpper()}.get(),
+					ItemProperties.register(${item.getModElement().getRegistryNameUpper()},
 						new ResourceLocation(${JavaModName}.MODID, "${item.getModElement().getRegistryName()}_${property.getKey()}"),
 						(itemStackToRender, clientWorld, entity, itemEntityId) ->
 							<#if hasProcedure(property.getValue())>
@@ -113,7 +115,7 @@ public class ${JavaModName}Items {
 					);
 					</#list>
 				<#elseif item.getModElement().getTypeString() == "tool" && item.toolType == "Shield">
-					ItemProperties.register(${item.getModElement().getRegistryNameUpper()}.get(), new ResourceLocation("blocking"),
+					ItemProperties.register(${item.getModElement().getRegistryNameUpper()}, new ResourceLocation("blocking"),
 							ItemProperties.getProperty(Items.SHIELD, new ResourceLocation("blocking")));
 				</#if>
 			</#list>

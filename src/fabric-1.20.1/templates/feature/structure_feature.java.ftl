@@ -32,6 +32,8 @@
 <#-- @formatter:off -->
 package ${package}.world.features;
 
+import com.mojang.serialization.Codec;
+
 <#compress>
 public class StructureFeature extends Feature<StructureFeatureConfiguration> {
 
@@ -50,7 +52,7 @@ public class StructureFeature extends Feature<StructureFeatureConfiguration> {
 		StructureTemplateManager structureManager = worldGenLevel.getLevel().getServer().getStructureManager();
 		StructureTemplate template = structureManager.getOrCreate(config.structure());
 		StructurePlaceSettings placeSettings = (new StructurePlaceSettings()).setRotation(rotation).setMirror(mirror).setRandom(random).setIgnoreEntities(false)
-				.addProcessor(new BlockIgnoreProcessor(config.ignoredBlocks().stream().map(Holder::get).toList()));
+				.addProcessor(new BlockIgnoreProcessor(config.ignoredBlocks().stream().map(Holder::value).toList()));
 		template.placeInWorld(worldGenLevel, placePos, placePos, placeSettings, random, 4);
 		return true;
 	}

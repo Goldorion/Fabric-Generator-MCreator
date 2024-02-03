@@ -1,6 +1,6 @@
 <#include "procedures.java.ftl">
 .executes(arguments -> {
-	Level world = arguments.getSource().getUnsidedLevel();
+	ServerLevel world = arguments.getSource().getLevel();
 
 	double x = arguments.getSource().getPosition().x();
 	double y = arguments.getSource().getPosition().y();

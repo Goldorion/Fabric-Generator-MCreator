@@ -406,6 +406,7 @@ public class ${name}Entity extends ${extendsClass} <#if data.ranged>implements R
 				}
 			}
 		}
+	</#if>
 
 	<#if data.entityDataEntries?has_content || (data.guiBoundTo?has_content && data.guiBoundTo != "<NONE>")>
 		@Override public void addAdditionalSaveData(CompoundTag compound) {
@@ -420,8 +421,35 @@ public class ${name}Entity extends ${extendsClass} <#if data.ranged>implements R
 				</#if>
 			</#list>
 			<#if data.guiBoundTo?has_content && data.guiBoundTo != "<NONE>">
-				compound.put("InventoryCustom", inventory.serializeNBT());
+				compound.put("InventoryCustom", serializeNBT());
 			</#if>
+		}
+		
+		private CompoundTag serializeNBT() {
+			ListTag nbtTagList = new ListTag();
+			for (int i = 0; i < inventory.items.size(); i++) {
+				if (!inventory.items.get(i).isEmpty()) {
+					CompoundTag itemTag = new CompoundTag();
+					itemTag.putInt("Slot", i);
+					inventory.items.get(i).save(itemTag);
+					nbtTagList.add(itemTag);
+				}
+			}
+			CompoundTag nbt = new CompoundTag();
+			nbt.put("Items", nbtTagList);
+			nbt.putInt("Size", inventory.items.size());
+
+			return nbt;
+		}
+		
+		private void deserializeNBT(CompoundTag nbt) {
+			ListTag tagList = nbt.getList("Items", Tag.TAG_COMPOUND);
+			for (int i = 0; i < tagList.size(); i++) {
+				CompoundTag itemTags = tagList.getCompound(i);
+				int slot = itemTags.getInt("Slot");
+				if (slot >= 0 && slot < inventory.items.size())
+					inventory.items.set(slot, ItemStack.of(itemTags));
+			}
 		}
 
 		@Override public void readAdditionalSaveData(CompoundTag compound) {
@@ -438,7 +466,7 @@ public class ${name}Entity extends ${extendsClass} <#if data.ranged>implements R
 			</#list>
 			<#if data.guiBoundTo?has_content && data.guiBoundTo != "<NONE>">
 				if (compound.get("InventoryCustom") instanceof CompoundTag inventoryTag)
-					inventory.deserializeNBT(inventoryTag);
+					deserializeNBT(inventoryTag);
 			</#if>
 		}
 	</#if>

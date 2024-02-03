@@ -24,17 +24,17 @@ templates:
 global_templates:
   - template: mixins/fishhookmixin.java.ftl
     writer: java
-    condition: ${w.hasToolsOfType("Fishing rod")}
+    condition: "${w.getGElementsOfType('tool')?filter(e -> e.toolType = 'Fishing rod')?size != 0}"
     deleteWhenConditionFalse: true
     name: "@SRCROOT/@BASEPACKAGEPATH/mixins/@JavaModNameFishingHookMixin.java"
   - template: mixins/fishhookrenderermixin.java.ftl
     writer: java
-    condition: ${w.hasToolsOfType("Fishing rod")}
+    condition: "${w.getGElementsOfType('tool')?filter(e -> e.toolType = 'Fishing rod')?size != 0}"
     deleteWhenConditionFalse: true
     name: "@SRCROOT/@BASEPACKAGEPATH/mixins/@JavaModNameFishingHookRendererMixin.java"
   - template: mixins/entitymixin.java.ftl
     writer: java
-    condition: ${w.hasToolsOfType("Fishing rod")}
+    condition: "${w.getGElementsOfType('tool')?filter(e -> e.toolType = 'Fishing rod')?size != 0}"
     deleteWhenConditionFalse: true
     name: "@SRCROOT/@BASEPACKAGEPATH/mixins/EntityMixin.java"
 

@@ -30,11 +30,11 @@ public class ${JavaModName}Features {
 	<#assign hasStructureFeatureClass = false>
 	<#list features as feature>
 		<#if feature.getModElement().getTypeString() == "block">
-			register("${feature.getModElement().getRegistryName()}", new ${feature.getModElement().getName()}Feature(),
-				${feature.getModElement().getName()}Feature.GENERATE_BIOMES, GenerationStep.Decoration.UNDERGROUND_ORES);
+			register("${feature.getModElement().getRegistryName()}", new OreFeature(OreConfiguration.CODEC),
+				${feature.getModElement().getName()}Block.GENERATE_BIOMES, GenerationStep.Decoration.UNDERGROUND_ORES);
 		<#elseif feature.getModElement().getTypeString() == "plant">
-			register("${feature.getModElement().getRegistryName()}", new ${feature.getModElement().getName()}Feature(),
-				${feature.getModElement().getName()}Feature.GENERATE_BIOMES, GenerationStep.Decoration.VEGETAL_DECORATION);
+			register("${feature.getModElement().getRegistryName()}", new RandomPatchFeature(RandomPatchConfiguration.CODEC),
+				${feature.getModElement().getName()}Block.GENERATE_BIOMES, GenerationStep.Decoration.VEGETAL_DECORATION);
 		<#elseif w.getElementsOfType('feature')?filter(e -> e.getMetadata('has_nbt_structure')??)?size != 0>
 			<#assign hasStructureFeatureClass = true>
 		<#else>

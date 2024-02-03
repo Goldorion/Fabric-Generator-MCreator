@@ -28,15 +28,9 @@ public class ${JavaModName}Commands {
 
 	public static void load() {
 		<#list commands as command>
-		    <#if command.type == "CLIENTSIDE">
-                ClientCommandRegistrationCallback.EVENT.register((dispatcher, commandBuildContext, dedicated) -> {
-                        ${command.getModElement().getName()}Command.register(dispatcher, commandBuildContext);
-                });
-		    <#else>
-                CommandRegistrationCallback.EVENT.register((dispatcher, commandBuildContext, dedicated) -> {
-                        ${command.getModElement().getName()}Command.register(dispatcher, commandBuildContext);
-                });
-		    </#if>
+			CommandRegistrationCallback.EVENT.register((dispatcher, commandBuildContext, environment) -> {
+					${command.getModElement().getName()}Command.register(dispatcher, commandBuildContext, environment);
+			});
 		</#list>
 	}
 
