@@ -32,7 +32,7 @@ public class ${JavaModName}EntityRenderers {
 
 	public static void load() {
 		<#list entities as entity>
-			<#if entity.getModElement().getTypeString() == "rangeditem">
+			<#if entity.getModElement().getTypeString() == "projectile">
 				<#if entity.isCustomModel()>
 					EntityRendererRegistry.register(${JavaModName}Entities.${entity.getModElement().getRegistryNameUpper()}, ${entity.getModElement().getName()}Renderer::new);
 				<#else>

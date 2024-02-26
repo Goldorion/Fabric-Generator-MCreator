@@ -29,9 +29,7 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.nbt.Tag;
-import net.minecraft.sounds.SoundEvent;
-
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.network.syncher.EntityDataAccessor;
 
 <#assign extendsClass = "PathfinderMob">
 
@@ -50,6 +48,17 @@ import org.jetbrains.annotations.Nullable;
 </#if>
 
 public class ${name}Entity extends ${extendsClass} <#if data.ranged>implements RangedAttackMob</#if> {
+
+	<#list data.entityDataEntries as entry>
+		<#if entry.value().getClass().getSimpleName() == "Integer">
+			public static final EntityDataAccessor<Integer> DATA_${entry.property().getName()} = SynchedEntityData.defineId(${name}Entity.class, EntityDataSerializers.INT);
+		<#elseif entry.value().getClass().getSimpleName() == "Boolean">
+			public static final EntityDataAccessor<Boolean> DATA_${entry.property().getName()} = SynchedEntityData.defineId(${name}Entity.class, EntityDataSerializers.BOOLEAN);
+		<#elseif entry.value().getClass().getSimpleName() == "String">
+			public static final EntityDataAccessor<String> DATA_${entry.property().getName()} = SynchedEntityData.defineId(${name}Entity.class, EntityDataSerializers.STRING);
+		</#if>
+	</#list>
+	
 	<#if data.isBoss>
 		private final ServerBossEvent bossInfo = new ServerBossEvent(this.getDisplayName(),
 				ServerBossEvent.BossBarColor.${data.bossBarColor}, ServerBossEvent.BossBarOverlay.${data.bossBarType});
@@ -132,6 +141,15 @@ public class ${name}Entity extends ${extendsClass} <#if data.ranged>implements R
 		};
 		</#if>
 	}
+	
+	<#if data.entityDataEntries?has_content>
+		@Override protected void defineSynchedData() {
+			super.defineSynchedData();
+			<#list data.entityDataEntries as entry>
+				this.entityData.define(DATA_${entry.property().getName()}, ${entry.value()?is_string?then("\"" + entry.value() + "\"", entry.value())});
+			</#list>
+		}
+	</#if>
 
 	<#if data.flyingMob>
 		@Override protected PathNavigation createNavigation(Level world) {
@@ -270,95 +288,106 @@ public class ${name}Entity extends ${extendsClass} <#if data.ranged>implements R
 		|| data.immuneToCactus || data.immuneToDrowning || data.immuneToLightning || data.immuneToPotions
 		|| data.immuneToPlayer || data.immuneToExplosion || data.immuneToTrident || data.immuneToAnvil
 		|| data.immuneToDragonBreath || data.immuneToWither>
-		@Override public boolean hurt(DamageSource source, float amount) {
-			<#if hasProcedure(data.whenMobIsHurt)>
-				double x = this.getX();
-				double y = this.getY();
-				double z = this.getZ();
-				Entity entity = this;
-				Level world = this.level();
-				Entity sourceentity = source.getEntity();
+		@Override public boolean hurt(DamageSource damagesource, float amount) {
+			double x = this.getX();
+			double y = this.getY();
+			double z = this.getZ();
+			Level world = this.level();
+			Entity entity = this;
+			Entity sourceentity = damagesource.getEntity();
+			Entity immediatesourceentity = damagesource.getDirectEntity();
+			
+			<#if hasReturnValueOf(data.whenMobIsHurt, "logic")>
+				if (<@procedureOBJToConditionCode data.whenMobIsHurt false true/>)
+					return false;
+			<#else>
 				<@procedureOBJToCode data.whenMobIsHurt/>
 			</#if>
+			
 			<#if data.immuneToArrows>
-				if (source.getDirectEntity() instanceof AbstractArrow)
+				if (damagesource.getDirectEntity() instanceof AbstractArrow)
 					return false;
 			</#if>
 			<#if data.immuneToPlayer>
-				if (source.getDirectEntity() instanceof Player)
+				if (damagesource.getDirectEntity() instanceof Player)
 					return false;
 			</#if>
 			<#if data.immuneToPotions>
-				if (source.getDirectEntity() instanceof ThrownPotion || source.getDirectEntity() instanceof AreaEffectCloud)
+				if (damagesource.getDirectEntity() instanceof ThrownPotion || damagesource.getDirectEntity() instanceof AreaEffectCloud)
 					return false;
 			</#if>
 			<#if data.immuneToFallDamage>
-				if (source.is(DamageTypes.FALL))
+				if (damagesource.is(DamageTypes.FALL))
 					return false;
 			</#if>
 			<#if data.immuneToCactus>
-				if (source.is(DamageTypes.CACTUS))
+				if (damagesource.is(DamageTypes.CACTUS))
 					return false;
 			</#if>
 			<#if data.immuneToDrowning>
-				if (source.is(DamageTypes.DROWN))
+				if (damagesource.is(DamageTypes.DROWN))
 					return false;
 			</#if>
 			<#if data.immuneToLightning>
-				if (source.is(DamageTypes.LIGHTNING_BOLT))
+				if (damagesource.is(DamageTypes.LIGHTNING_BOLT))
 					return false;
 			</#if>
 			<#if data.immuneToExplosion>
-				if (source.is(DamageTypes.EXPLOSION))
+				if (damagesource.is(DamageTypes.EXPLOSION))
 					return false;
 			</#if>
 			<#if data.immuneToTrident>
-				if (source.is(DamageTypes.TRIDENT))
+				if (damagesource.is(DamageTypes.TRIDENT))
 					return false;
 			</#if>
 			<#if data.immuneToAnvil>
-				if (source.is(DamageTypes.FALLING_ANVIL))
+				if (damagesource.is(DamageTypes.FALLING_ANVIL))
 					return false;
 			</#if>
 			<#if data.immuneToDragonBreath>
-				if (source.is(DamageTypes.DRAGON_BREATH))
+				if (damagesource.is(DamageTypes.DRAGON_BREATH))
 					return false;
 			</#if>
 			<#if data.immuneToWither>
-				if (source.is(DamageTypes.WITHER))
+				if (damagesource.is(DamageTypes.WITHER))
 					return false;
-				if (source.is(DamageTypes.WITHER_SKULL))
+				if (damagesource.is(DamageTypes.WITHER_SKULL))
 					return false;
 			</#if>
-			return super.hurt(source, amount);
+			return super.hurt(damagesource, amount);
 		}
 	</#if>
 
 	<#if hasProcedure(data.whenMobDies)>
 		@Override public void die(DamageSource source) {
 			super.die(source);
-			double x = this.getX();
-			double y = this.getY();
-			double z = this.getZ();
-			Entity sourceentity = source.getEntity();
-			Entity entity = this;
-			Level world = this.level();
-			<@procedureOBJToCode data.whenMobDies/>
+			<@procedureCode data.whenMobDies, {
+				"x": "this.getX()",
+				"y": "this.getY()",
+				"z": "this.getZ()",
+				"sourceentity": "source.getEntity()",
+				"immediatesourceentity": "source.getDirectEntity()",
+				"entity": "this",
+				"world": "this.level",
+				"damagesource": "source"
+			}/>
 		}
 	</#if>
 
-	<#if hasProcedure(data.onInitialSpawn)>
-		@Override public SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty,
-				MobSpawnType reason, @Nullable SpawnGroupData livingdata, @Nullable CompoundTag tag) {
-			SpawnGroupData retval = super.finalizeSpawn(world, difficulty, reason, livingdata, tag);
-			double x = this.getX();
-			double y = this.getY();
-			double z = this.getZ();
-			Entity entity = this;
-			<@procedureOBJToCode data.onInitialSpawn/>
-			return retval;
-		}
-	</#if>
+		<#if hasProcedure(data.onInitialSpawn)>
+			@Override public SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty,
+					MobSpawnType reason, @Nullable SpawnGroupData livingdata, @Nullable CompoundTag tag) {
+				SpawnGroupData retval = super.finalizeSpawn(world, difficulty, reason, livingdata, tag);
+				<@procedureCode data.onInitialSpawn, {
+					"x": "this.getX()",
+					"y": "this.getY()",
+					"z": "this.getZ()",
+					"world": "world",
+					"entity": "this"
+				}/>
+				return retval;
+			}
+		</#if>
 
 	<#if data.guiBoundTo?has_content && data.guiBoundTo != "<NONE>">
 		private final SimpleContainer inventory = new SimpleContainer(${data.inventorySize}) {
@@ -377,18 +406,68 @@ public class ${name}Entity extends ${extendsClass} <#if data.ranged>implements R
 				}
 			}
 		}
+	</#if>
 
+	<#if data.entityDataEntries?has_content || (data.guiBoundTo?has_content && data.guiBoundTo != "<NONE>")>
 		@Override public void addAdditionalSaveData(CompoundTag compound) {
-			super.addAdditionalSaveData(compound);
-			compound.put("InventoryCustom", inventory.createTag());
+		super.addAdditionalSaveData(compound);
+			<#list data.entityDataEntries as entry>
+				<#if entry.value().getClass().getSimpleName() == "Integer">
+					compound.putInt("Data${entry.property().getName()}", this.entityData.get(DATA_${entry.property().getName()}));
+				<#elseif entry.value().getClass().getSimpleName() == "Boolean">
+					compound.putBoolean("Data${entry.property().getName()}", this.entityData.get(DATA_${entry.property().getName()}));
+				<#elseif entry.value().getClass().getSimpleName() == "String">
+					compound.putString("Data${entry.property().getName()}", this.entityData.get(DATA_${entry.property().getName()}));
+				</#if>
+			</#list>
+			<#if data.guiBoundTo?has_content && data.guiBoundTo != "<NONE>">
+				compound.put("InventoryCustom", serializeNBT());
+			</#if>
+		}
+		
+		private CompoundTag serializeNBT() {
+			ListTag nbtTagList = new ListTag();
+			for (int i = 0; i < inventory.items.size(); i++) {
+				if (!inventory.items.get(i).isEmpty()) {
+					CompoundTag itemTag = new CompoundTag();
+					itemTag.putInt("Slot", i);
+					inventory.items.get(i).save(itemTag);
+					nbtTagList.add(itemTag);
+				}
+			}
+			CompoundTag nbt = new CompoundTag();
+			nbt.put("Items", nbtTagList);
+			nbt.putInt("Size", inventory.items.size());
+
+			return nbt;
+		}
+		
+		private void deserializeNBT(CompoundTag nbt) {
+			ListTag tagList = nbt.getList("Items", Tag.TAG_COMPOUND);
+			for (int i = 0; i < tagList.size(); i++) {
+				CompoundTag itemTags = tagList.getCompound(i);
+				int slot = itemTags.getInt("Slot");
+				if (slot >= 0 && slot < inventory.items.size())
+					inventory.items.set(slot, ItemStack.of(itemTags));
+			}
 		}
 
-		@Override
-		public void readAdditionalSaveData(CompoundTag compound) {
+		@Override public void readAdditionalSaveData(CompoundTag compound) {
 			super.readAdditionalSaveData(compound);
-			Tag inventoryCustom = compound.get("InventoryCustom");
-			if (inventoryCustom instanceof CompoundTag)
-				inventory.fromTag((ListTag) inventoryCustom);
+			<#list data.entityDataEntries as entry>
+				if (compound.contains("Data${entry.property().getName()}"))
+					<#if entry.value().getClass().getSimpleName() == "Integer">
+						this.entityData.set(DATA_${entry.property().getName()}, compound.getInt("Data${entry.property().getName()}"));
+					<#elseif entry.value().getClass().getSimpleName() == "Boolean">
+						this.entityData.set(DATA_${entry.property().getName()}, compound.getBoolean("Data${entry.property().getName()}"));
+					<#elseif entry.value().getClass().getSimpleName() == "String">
+						this.entityData.set(DATA_${entry.property().getName()}, compound.getString("Data${entry.property().getName()}"));
+					</#if>
+			</#list>
+			<#if data.guiBoundTo?has_content && data.guiBoundTo != "<NONE>">
+				if (compound.get("InventoryCustom") instanceof CompoundTag inventoryTag)
+					deserializeNBT(inventoryTag);
+			</#if>
 		}
 	</#if>
 
@@ -496,12 +575,16 @@ public class ${name}Entity extends ${extendsClass} <#if data.ranged>implements R
 	<#if hasProcedure(data.whenThisMobKillsAnother)>
 		@Override public void awardKillScore(Entity entity, int score, DamageSource damageSource) {
 			super.awardKillScore(entity, score, damageSource);
-			double x = this.getX();
-			double y = this.getY();
-			double z = this.getZ();
-			Entity sourceentity = this;
-			Level world = this.level();
-			<@procedureOBJToCode data.whenThisMobKillsAnother/>
+			<@procedureCode data.whenThisMobKillsAnother, {
+				"x": "this.getX()",
+				"y": "this.getY()",
+				"z": "this.getZ()",
+				"entity": "entity",
+				"sourceentity": "this",
+				"immediatesourceentity": "damageSource.getDirectEntity()",
+				"world": "this.level",
+				"damagesource": "damageSource"
+			}/>
 		}
 	</#if>
 
@@ -552,21 +635,35 @@ public class ${name}Entity extends ${extendsClass} <#if data.ranged>implements R
 		}
 
 		@Override public boolean isFood(ItemStack stack) {
-			return List.of(<#list data.breedTriggerItems as breedTriggerItem>${mappedMCItemToItem(breedTriggerItem)}<#if breedTriggerItem?has_next>,</#if></#list>).contains(stack.getItem());
+			return ${mappedMCItemsToIngredient(data.breedTriggerItems)}.test(stack);
 		}
 	</#if>
 
 	<#if data.waterMob>
-	@Override public boolean canBreatheUnderwater() {
-		return true;
-	}
-
 	@Override public boolean checkSpawnObstruction(LevelReader world) {
 		return world.isUnobstructed(this);
 	}
+	</#if>
 
+	<#if data.breatheUnderwater?? && (hasProcedure(data.breatheUnderwater) || data.breatheUnderwater.getFixedValue())>
+	@Override public boolean canBreatheUnderwater() {
+		double x = this.getX();
+		double y = this.getY();
+		double z = this.getZ();
+		Level world = this.level();
+		Entity entity = this;
+		return <@procedureOBJToConditionCode data.breatheUnderwater true false/>;
+	}
+	</#if>
+
+	<#if data.pushedByFluids?? && (hasProcedure(data.pushedByFluids) || !data.pushedByFluids.getFixedValue())>
 	@Override public boolean isPushedByFluid() {
-		return false;
+		double x = this.getX();
+		double y = this.getY();
+		double z = this.getZ();
+		Level world = this.level();
+		Entity entity = this;
+		return <@procedureOBJToConditionCode data.pushedByFluids false false/>;
 	}
 	</#if>
 
@@ -580,6 +677,25 @@ public class ${name}Entity extends ${extendsClass} <#if data.ranged>implements R
 
    	@Override protected void pushEntities() {
    	}
+	</#if>
+	
+	<#if hasProcedure(data.solidBoundingBox) || data.solidBoundingBox.getFixedValue()>
+		@Override
+		public boolean canCollideWith(Entity entity) {
+			return true;
+		}
+	
+		@Override
+		public boolean canBeCollidedWith() {
+			<#if hasProcedure(data.solidBoundingBox)>
+			Entity entity = this;
+			Level world = entity.level;
+			double x = entity.getX();
+			double y = entity.getY();
+			double z = entity.getZ();
+			</#if>
+			return <@procedureOBJToConditionCode data.solidBoundingBox true false/>;
+		}
 	</#if>
 
 	<#if data.isBoss>
@@ -689,11 +805,11 @@ public class ${name}Entity extends ${extendsClass} <#if data.ranged>implements R
 		<#if data.spawnThisMob>BiomeModifications.create(new ResourceLocation(${JavaModName}.MODID, "${name?lower_case}_entity_spawn"))
 			.add(ModificationPhase.ADDITIONS, BiomeSelectors.
 				<#if data.restrictionBiomes?has_content>
-                    includeByKey(
-                        <#list data.restrictionBiomes as restrictionBiome>
-                            ResourceKey.create(Registries.BIOME, new ResourceLocation("${restrictionBiome}"))<#if restrictionBiome?has_next>,</#if>
-                        </#list>
-                    )
+					includeByKey(
+						<#list data.restrictionBiomes as restrictionBiome>
+							ResourceKey.create(Registries.BIOME, new ResourceLocation("${restrictionBiome}"))<#if restrictionBiome?has_next>,</#if>
+						</#list>
+					)
 				<#else>
 					all()
 				</#if>, ctx -> ctx.getSpawnSettings().addSpawn(${generator.map(data.mobSpawningType, "mobspawntypes")},

@@ -2,7 +2,7 @@
 public ${name}Procedure() {
 	UseItemCallback.EVENT.register((player, level, hand) -> {
 		if (hand != player.getUsedItemHand())
-			return;
+			return InteractionResultHolder.fail(player.getItemInHand(hand));
 		<#assign dependenciesCode><#compress>
 			<@procedureDependenciesCode dependencies, {
 			"x": "player.getX()",

@@ -1,6 +1,25 @@
 <#include "procedures.java.ftl">
 
 <#-- Item-related triggers -->
+<#macro addSpecialInformation procedure="" isBlock=false>
+	<#if procedure?has_content || hasProcedure(procedure)>
+		@Override public void appendHoverText(ItemStack itemstack, <#if isBlock>BlockGetter<#else>Level</#if> world, List<Component> list, TooltipFlag flag) {
+		super.appendHoverText(itemstack, world, list, flag);
+		<#if hasProcedure(procedure)>
+			Entity entity = itemstack.getEntityRepresentation();
+			double x = entity != null ? entity.getX() : 0.0;
+			double y = entity != null ? entity.getY() : 0.0;
+			double z = entity != null ? entity.getZ() : 0.0;
+			list.add(Component.literal(<@procedureOBJToStringCode procedure/>));
+		<#else>
+			<#list procedure.getFixedValue() as entry>
+				list.add(Component.literal("${JavaConventions.escapeStringForJava(entry)}"));
+			</#list>
+		</#if>
+		}
+	</#if>
+</#macro>
+
 <#macro onCrafted procedure="">
 <#if hasProcedure(procedure)>
 @Override public void onCraftedBy(ItemStack itemstack, Level world, Player entity) {
@@ -150,6 +169,29 @@
 </#if>
 </#macro>
 
+<#macro hasGlow procedure="">
+<#if procedure?has_content && (hasProcedure(procedure) || procedure.getFixedValue())>
+@Override @OnlyIn(Dist.CLIENT) public boolean isFoil(ItemStack itemstack) {
+	<#if hasProcedure(procedure)>
+		<#assign dependencies = procedure.getDependencies(generator.getWorkspace())>
+		<#if !(dependencies.isEmpty() || (dependencies.size() == 1 && dependencies.get(0).getName() == "itemstack"))>
+		Entity entity = Minecraft.getInstance().player;
+		</#if>
+		return <@procedureCode procedure, {
+			"x": "entity.getX()",
+			"y": "entity.getY()",
+			"z": "entity.getZ()",
+			"entity": "entity",
+			"world": "entity.level()",
+			"itemstack": "itemstack"
+		}/>
+	<#else>
+		return true;
+	</#if>
+}
+</#if>
+</#macro>
+
 <#-- Armor triggers -->
 <#macro onArmorTick procedure="">
 <#if hasProcedure(procedure)>
@@ -163,7 +205,6 @@
 	}/>
 </#if>
 </#macro>
-
 
 <#-- Block-related triggers -->
 <#macro onDestroyedByPlayer procedure="">

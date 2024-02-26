@@ -1,7 +1,7 @@
 name: Minecraft Fabric for @minecraft - @buildfileversion
 status: experimental
 buildfileversion: 0.83.1
-subversion: 23
+subversion: 24
 
 import:
   - datapack-1.20.1
@@ -17,6 +17,17 @@ gradle:
   run_client: runClient
   run_server: runServer
   export_file: "build/libs/modid-1.0.0.jar"
+
+import_formatter:
+  duplicates_whitelist:
+    - java.util
+    - net.minecraft
+    - net.fabricmc
+  priority_imports:
+    Nullable: javax.annotation
+    Codec: com.mojang.serialization
+    SoundEvent: net.minecraft.sounds
+    Environment: net.fabricmc.api
 
 source_root: "@WORKSPACEROOT/src/main/java"
 res_root: "@WORKSPACEROOT/src/main/resources"

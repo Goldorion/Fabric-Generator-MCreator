@@ -1,5 +1,20 @@
 # Changelogs:
 
+## 1.9.12-beta
+Note: This is marked as a beta version as too many features/changes were needed to test every single thing, but consider it as a main release
+* Updated to MCreator 2023.4
+* Added living entity model shaking and transparency parameters
+* [#500] Added support for Get block/entity/item registry name procedure blocks
+* [Bugfix #501] Deal custom damage procedure block did not reference the player's name (HaipaDev)
+
+## 1.9.11
+* [Bugfix] Player right clicks on entity global trigger was called twice
+* [Bugfix #480] GUI labels had a shadow
+* [Bugfix #483] GUI tooltips gave a build error
+* [Bugfix #493] Double plants could not be used
+* [Bugfix #496] Player right-clicks on a block failed to build
+* [Bugfix #503] Custom End biomes had multiple problems
+
 ## 1.9.10
 * [Bugfix #410] Hardness and harvest level did not correspond
 * [Bugfix #463] Custom waterlogged blocks did not compile

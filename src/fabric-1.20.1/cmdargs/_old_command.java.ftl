@@ -8,7 +8,9 @@
 
 	Entity entity = arguments.getSource().getEntity();
 
-	Direction direction = entity.getDirection();
+	Direction direction = Direction.DOWN;
+	if (entity != null)
+		direction = entity.getDirection();
 
 	HashMap<String, String> cmdparams = new HashMap<>();
 	int index = -1;
@@ -22,7 +24,7 @@
 	return 0;
 }))
 .executes(arguments -> {
-	ServerLevel world = arguments.getSource().level();
+	ServerLevel world = arguments.getSource().getLevel();
 
 	double x = arguments.getSource().getPosition().x();
 	double y = arguments.getSource().getPosition().y();
@@ -30,7 +32,9 @@
 
 	Entity entity = arguments.getSource().getEntity();
 
-	Direction direction = entity.getDirection();
+	Direction direction = Direction.DOWN;
+	if (entity != null)
+		direction = entity.getDirection();
 
 	HashMap<String, String> cmdparams = new HashMap<>();
 	int index = -1;

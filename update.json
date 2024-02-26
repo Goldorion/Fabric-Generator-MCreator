@@ -1,15 +1,12 @@
 {
   "generator-fabric-1.20.1": {
-    "latest": "1.9.10",
+    "latest": "1.9.12-beta",
     "changes": [
-      "1.9.10:",
-      "[Bugfix #410] Hardness and harvest level did not correspond",
-      "[Bugfix #463] Custom waterlogged blocks did not compile",
-      "[Bugfix #464] Using some custom elements caused build errors",
-      "[Bugfix #465] Global triggers were not updated to the new format causing build errors",
-      "[Bugfix #466] Adding biomes to an entity's spawning list caused problems",
-      "[Bugfix #468] Some BlockPos usages in procedure blocks could cause problems in some cases",
-      "[Bugfix #470] Custom pressure plates and stairs did not compile"
+      "Note: This is marked as a beta version as too many features/changes were needed to test every single thing, but consider it as a main release",
+      "Updated to MCreator 2023.4",
+      "Added living entity model shaking and transparency parameters",
+      "[#500] Added support for Get block/entity/item registry name procedure blocks",
+      "[Bugfix #501] Deal custom damage procedure block did not reference the player's name"
     ]
   }
 }

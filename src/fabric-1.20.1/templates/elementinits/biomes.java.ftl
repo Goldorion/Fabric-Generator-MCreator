@@ -50,20 +50,22 @@ public class ${JavaModName}Biomes {
 
 	public static void load() {
 		<#list biomes as me>
-		    <#assign biome = me.getModElement().getGeneratableElement()>
-		    <#list generator.sortByMappings(biome.defaultFeatures, "defaultfeatures") as defaultFeature>
-            	<#if generator.map(defaultFeature, "defaultfeatures") = "EndHighlands">
-            		TheEndBiomes.addHighlandsBiome(${me.getModElement().getRegistryNameUpper()}, 10);
-            	<#elseif generator.map(defaultFeature, "defaultfeatures") = "EndIslands">
-            		TheEndBiomes.addSmallIslandsBiome(${me.getModElement().getRegistryNameUpper()}, 10);
-            	</#if>
-            </#list>
+			<#assign biome = me.getModElement().getGeneratableElement()>
+			<#list generator.sortByMappings(biome.defaultFeatures, "defaultfeatures") as defaultFeature>
+				<#if generator.map(defaultFeature, "defaultfeatures") = "EndHighlandsBiome">
+					TheEndBiomes.addHighlandsBiome(${me.getModElement().getRegistryNameUpper()}, 10);
+				<#elseif generator.map(defaultFeature, "defaultfeatures") = "EndIslandsBiome">
+					TheEndBiomes.addSmallIslandsBiome(${me.getModElement().getRegistryNameUpper()}, 10);
+				</#if>
+			</#list>
 		</#list>
 	}
 
 	public static void loadTerraBlenderAPI() {
 		<#list biomes as biome>
-			Regions.register(new ${biome.getModElement().getName()}Region(new ResourceLocation(${JavaModName}.MODID, "${biome.getModElement().getRegistryName()}")));
+			<#if biome.spawnBiome || biome.spawnBiomeNether>
+				Regions.register(new ${biome.getModElement().getName()}Region(new ResourceLocation(${JavaModName}.MODID, "${biome.getModElement().getRegistryName()}")));
+			</#if>
 		</#list>
 
 		<#if spawn_overworld?has_content>

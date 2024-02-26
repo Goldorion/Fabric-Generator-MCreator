@@ -8,7 +8,9 @@
 
 	Entity entity = arguments.getSource().getEntity();
 
-	Direction direction = entity.getDirection();
+    Direction direction = Direction.DOWN;
+    if (entity != null)
+    	direction = entity.getDirection();
 
 	<@procedureToCode name=procedure dependencies=dependencies/>
 	return 0;

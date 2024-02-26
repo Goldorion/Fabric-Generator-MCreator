@@ -106,4 +106,4 @@ localizationkeys:
 
 field_exclusions: [ helmetModel, helmetModelPart, helmetModelTexture, bodyModel, bodyModelPart, bodyModelTexture, armsModelPartL,
                     armsModelPartR, leggingsModel, leggingsModelPartL, leggingsModelPartR, leggingsModelTexture, bootsModel,
-                    bootsModelPartL, bootsModelPartR, bootsModelTexture ]
+                    bootsModelPartL, bootsModelPartR, bootsModelTexture, helmetPiglinNeutral, bodyPiglinNeutral, leggingsPiglinNeutral, bootsPiglinNeutral ]

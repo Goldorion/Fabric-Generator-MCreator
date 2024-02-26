@@ -5,9 +5,9 @@ public ${name}Procedure() {
 			return InteractionResult.PASS;
 		<#assign dependenciesCode><#compress>
 			<@procedureDependenciesCode dependencies, {
-			"x": "pos.getX()",
-			"y": "pos.getY()",
-			"z": "pos.getZ()",
+			"x": "hitResult.getBlockPos().getX()",
+			"y": "hitResult.getBlockPos().getY()",
+			"z": "hitResult.getBlockPos().getZ()",
 			"world": "level",
 			"entity": "player",
 			"direction": "hitResult.getDirection()",
