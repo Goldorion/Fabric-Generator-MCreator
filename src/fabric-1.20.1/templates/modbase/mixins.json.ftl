@@ -7,6 +7,9 @@
   <#assign mixins += ["${JavaModName}FishingHookRendererMixin"]>
   <#assign mixins += ["EntityMixin"]>
 </#if>
+<#if w.hasElementsOfType("biome")>
+  <#assign mixins += ["NoiseGeneratorSettingsAccess"]>
+</#if>
 {
   "required": true,
   "minVersion": "0.8",
@@ -14,7 +17,7 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     <#list mixins as mixin>
-      ${mixin}<#sep>,
+      "${mixin}"<#sep>,
     </#list>
   ],
   "injectors": {
