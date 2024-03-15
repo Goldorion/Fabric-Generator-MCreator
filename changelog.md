@@ -1,6 +1,7 @@
 # Changelogs:
 
 ## 1.9.13
+* [Bugfix #506] Using a custom potion item caused a build error 
 * [Bugfix #510] "Has glowing effect" parameter caused a build error
 * [Bugfix #512] Overlays failed to build if a component was used
 
