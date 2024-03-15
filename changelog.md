@@ -1,5 +1,8 @@
 # Changelogs:
 
+## 1.9.14
+* [Bugfix] Items could not be registered and could cause a build error
+
 ## 1.9.13
 * [#449] Increased the number of possible elements for blocks, items, potions and potion effects in a same workspace
   * Note: This improvement doesn't fix for good the "Code too large" error, but it should give you some more space for ideas.

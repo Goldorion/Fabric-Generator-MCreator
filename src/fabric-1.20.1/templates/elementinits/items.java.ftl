@@ -108,7 +108,7 @@ public class ${JavaModName}Items {
 					);
 					</#list>
 				<#elseif item.getModElement().getTypeString() == "tool" && item.toolType == "Shield">
-				    registerBlockingProperty(${item.getModElement().getRegistryNameUpper());
+				    registerBlockingProperty(${item.getModElement().getRegistryNameUpper()});
 				</#if>
 			</#list>
 		</#if>
