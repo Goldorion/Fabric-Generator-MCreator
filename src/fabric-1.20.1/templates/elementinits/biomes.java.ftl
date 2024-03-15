@@ -131,7 +131,8 @@ public class ${JavaModName}Biomes {
 				// Inject surface rules
 				if(chunkGenerator instanceof NoiseBasedChunkGenerator noiseGenerator) {
 					NoiseGeneratorSettings noiseGeneratorSettings = noiseGenerator.settings.value();
-					((NoiseGeneratorSettingsAccess)(Object)noiseGeneratorSettings).addSurfaceRules(${JavaModName}SurfaceRules.makeOverworldRules());
+					((NoiseGeneratorSettingsAccess)(Object)noiseGeneratorSettings).addSurfaceRules(SurfaceRules.sequence(
+						${JavaModName}SurfaceRules.makeOverworldRules(), noiseGeneratorSettings.surfaceRule()));
 				}
 			}
 			</#if>
@@ -180,7 +181,8 @@ public class ${JavaModName}Biomes {
 				// Inject surface rules
 				if(chunkGenerator instanceof NoiseBasedChunkGenerator noiseGenerator) {
 					NoiseGeneratorSettings noiseGeneratorSettings = noiseGenerator.settings.value();
-					((NoiseGeneratorSettingsAccess)(Object)noiseGeneratorSettings).addSurfaceRules(${JavaModName}SurfaceRules.makeNetherRules());
+					((NoiseGeneratorSettingsAccess)(Object)noiseGeneratorSettings).addSurfaceRules(SurfaceRules.sequence(
+						${JavaModName}SurfaceRules.makeNetherRules(), noiseGeneratorSettings.surfaceRule()));
 				}
 			}
 			</#if>
