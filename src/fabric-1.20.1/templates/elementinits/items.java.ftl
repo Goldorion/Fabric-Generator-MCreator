@@ -21,6 +21,7 @@
  *	MCreator note: This file will be REGENERATED on each build.
  */
 
+<#compress>
 package ${package}.init;
 
 <#assign hasBlocks = false>
@@ -52,48 +53,40 @@ public class ${JavaModName}Items {
 
 	public static void load() {
 		<#list items as item>
-		<#if item.getModElement().getTypeString() == "armor">
-			<#if item.enableHelmet>
-				${item.getModElement().getRegistryNameUpper()}_HELMET = Registry.register(BuiltInRegistries.ITEM,
-					new ResourceLocation(${JavaModName}.MODID, "${item.getModElement().getRegistryName()}_helmet"), new ${item.getModElement().getName()}Item.Helmet());
-			</#if>
-			<#if item.enableBody>
-				${item.getModElement().getRegistryNameUpper()}_CHESTPLATE = Registry.register(BuiltInRegistries.ITEM,
-					new ResourceLocation(${JavaModName}.MODID, "${item.getModElement().getRegistryName()}_chestplate"), new ${item.getModElement().getName()}Item.Chestplate());
-			</#if>
-			<#if item.enableLeggings>
-				${item.getModElement().getRegistryNameUpper()}_LEGGINGS = Registry.register(BuiltInRegistries.ITEM,
-					new ResourceLocation(${JavaModName}.MODID, "${item.getModElement().getRegistryName()}_leggings"), new ${item.getModElement().getName()}Item.Leggings());
-			</#if>
-			<#if item.enableBoots>
-				${item.getModElement().getRegistryNameUpper()}_BOOTS = Registry.register(BuiltInRegistries.ITEM,
-					new ResourceLocation(${JavaModName}.MODID, "${item.getModElement().getRegistryName()}_boots"), new ${item.getModElement().getName()}Item.Boots());
-			</#if>
-		<#elseif item.getModElement().getTypeString() == "livingentity">
-			${item.getModElement().getRegistryNameUpper()}_SPAWN_EGG = Registry.register(BuiltInRegistries.ITEM,new ResourceLocation(${JavaModName}.MODID,
-				"${item.getModElement().getRegistryName()}_spawn_egg"), new SpawnEggItem(${JavaModName}Entities.${item.getModElement().getRegistryNameUpper()},
-					${item.spawnEggBaseColor.getRGB()}, ${item.spawnEggDotColor.getRGB()}, new Item.Properties()));
-			<#if item.creativeTab.getUnmappedValue() != "No creative tab entry">
-				ItemGroupEvents.modifyEntriesEvent(${item.creativeTab}).register(content -> content.accept(${item.getModElement().getRegistryNameUpper()}_SPAWN_EGG));
-			<#else>
-				ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.SPAWN_EGGS).register(content -> content.accept(${item.getModElement().getRegistryNameUpper()}_SPAWN_EGG));
-			</#if>
-		<#elseif item.getModElement().getTypeString() == "block" || item.getModElement().getTypeString() == "plant">
-			${item.getModElement().getRegistryNameUpper()} = Registry.register(BuiltInRegistries.ITEM,new ResourceLocation(${JavaModName}.MODID,
-				"${item.getModElement().getRegistryName()}"), new BlockItem(${JavaModName}Blocks.${item.getModElement().getRegistryNameUpper()}, new Item.Properties()));		
-				<#if item.creativeTab.getUnmappedValue() != "No creative tab entry">
-					ItemGroupEvents.modifyEntriesEvent(${item.creativeTab}).register(content -> content.accept(${item.getModElement().getRegistryNameUpper()}));
+			<#if item.getModElement().getTypeString() == "armor">
+				<#if item.enableHelmet>
+					${item.getModElement().getRegistryNameUpper()}_HELMET = register("${item.getModElement().getRegistryName()}_helmet", new ${item.getModElement().getName()}Item.Helmet());
 				</#if>
-		<#else>
-			<#if item.getModElement().getTypeString() != "dimension">
-				${item.getModElement().getRegistryNameUpper()} = Registry.register(BuiltInRegistries.ITEM,
-					new ResourceLocation(${JavaModName}.MODID, "${item.getModElement().getRegistryName()}"), new ${item.getModElement().getName()}Item());
+				<#if item.enableBody>
+					${item.getModElement().getRegistryNameUpper()}_CHESTPLATE = register("${item.getModElement().getRegistryName()}_chestplate", new ${item.getModElement().getName()}Item.Chestplate());
+				</#if>
+				<#if item.enableLeggings>
+					${item.getModElement().getRegistryNameUpper()}_LEGGINGS = register("${item.getModElement().getRegistryName()}_leggings", new ${item.getModElement().getName()}Item.Leggings());
+				</#if>
+				<#if item.enableBoots>
+					${item.getModElement().getRegistryNameUpper()}_BOOTS = register("${item.getModElement().getRegistryName()}_boots", new ${item.getModElement().getName()}Item.Boots());
+				</#if>
+			<#elseif item.getModElement().getTypeString() == "livingentity">
+				${item.getModElement().getRegistryNameUpper()}_SPAWN_EGG = register("${item.getModElement().getRegistryName()}_spawn_egg", new SpawnEggItem(${JavaModName}Entities.${item.getModElement().getRegistryNameUpper()},
+						${item.spawnEggBaseColor.getRGB()}, ${item.spawnEggDotColor.getRGB()}, new Item.Properties()));
+				<#if item.creativeTab.getUnmappedValue() != "No creative tab entry">
+					ItemGroupEvents.modifyEntriesEvent(${item.creativeTab}).register(content -> content.accept(${item.getModElement().getRegistryNameUpper()}_SPAWN_EGG));
+				<#else>
+					ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.SPAWN_EGGS).register(content -> content.accept(${item.getModElement().getRegistryNameUpper()}_SPAWN_EGG));
+				</#if>
+			<#elseif item.getModElement().getTypeString() == "block" || item.getModElement().getTypeString() == "plant">
+				${item.getModElement().getRegistryNameUpper()} = register("${item.getModElement().getRegistryName()}", new BlockItem(${JavaModName}Blocks.${item.getModElement().getRegistryNameUpper()}, new Item.Properties()));
+					<#if item.creativeTab.getUnmappedValue() != "No creative tab entry">
+						ItemGroupEvents.modifyEntriesEvent(${item.creativeTab}).register(content -> content.accept(${item.getModElement().getRegistryNameUpper()}));
+					</#if>
+			<#else>
+				<#if item.getModElement().getTypeString() != "dimension">
+					${item.getModElement().getRegistryNameUpper()} = register("${item.getModElement().getRegistryName()}", new ${item.getModElement().getName()}Item());
+				</#if>
 			</#if>
-		</#if>
 		</#list>
 	}
 
-	<#compress>
 	public static void clientLoad() {
 		<#if hasItemsWithProperties>
 			<#list items as item>
@@ -115,14 +108,20 @@ public class ${JavaModName}Items {
 					);
 					</#list>
 				<#elseif item.getModElement().getTypeString() == "tool" && item.toolType == "Shield">
-					ItemProperties.register(${item.getModElement().getRegistryNameUpper()}, new ResourceLocation("blocking"),
-							ItemProperties.getProperty(Items.SHIELD, new ResourceLocation("blocking")));
+				    registerBlockingProperty(${item.getModElement().getRegistryNameUpper());
 				</#if>
 			</#list>
 		</#if>
 	}
-	</#compress>
+
+	private static Item register(String registryName, Item item) {
+		return Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(${JavaModName}.MODID, registryName), item);
+	}
+
+	private static void registerBlockingProperty(Item item) {
+	    ItemProperties.register(item, new ResourceLocation("blocking"), ItemProperties.getProperty(Items.SHIELD, new ResourceLocation("blocking")));
+	}
 
 }
-
+</#compress>
 <#-- @formatter:on -->

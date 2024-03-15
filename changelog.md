@@ -1,6 +1,8 @@
 # Changelogs:
 
 ## 1.9.13
+* [#449] Increased the number of possible elements for blocks, items, potions and potion effects in a same workspace
+  * Note: This improvement doesn't fix for good the "Code too large" error, but it should give you some more space for ideas.
 * [Bugfix #506] Using a custom potion item caused a build error 
 * [Bugfix #510] "Has glowing effect" parameter caused a build error
 * [Bugfix #512] Overlays failed to build if a component was used

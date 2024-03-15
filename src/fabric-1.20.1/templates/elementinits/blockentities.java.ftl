@@ -37,6 +37,5 @@ public class ${JavaModName}BlockEntities {
 				${JavaModName}Blocks.${blockentity.getModElement().getRegistryNameUpper()}).build(null));
 		</#list>
 	}
-
 }
 <#-- @formatter:on -->
