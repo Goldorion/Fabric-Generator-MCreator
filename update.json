@@ -1,12 +1,12 @@
 {
   "generator-fabric-1.20.1": {
-    "latest": "1.9.12-beta",
+    "latest": "1.9.13",
     "changes": [
-      "Note: This is marked as a beta version as too many features/changes were needed to test every single thing, but consider it as a main release",
-      "Updated to MCreator 2023.4",
-      "Added living entity model shaking and transparency parameters",
-      "[#500] Added support for Get block/entity/item registry name procedure blocks",
-      "[Bugfix #501] Deal custom damage procedure block did not reference the player's name"
+      "[#449] Increased the number of possible elements for blocks, items, potions and potion effects in a same workspace",
+      "Note: This improvement doesn't fix for good the `Code too large` error, but it should give you some more space for ideas.",
+      "[Bugfix #506] Using a custom potion item caused a build error ",
+      "[Bugfix #510] `Has glowing effect` parameter caused a build error",
+      "[[Bugfix #512] Overlays failed to build if a component was used"
     ]
   }
 }
