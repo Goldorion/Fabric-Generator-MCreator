@@ -30,8 +30,10 @@ import net.fabricmc.api.Environment;
 public class ${name}Overlay {
 
 	public static void render(GuiGraphics guiGraphics, float tickDelta) {
-		int posX = Minecraft.getInstance().getWindow().getGuiScaledWidth() / 2;
-		int posY = Minecraft.getInstance().getWindow().getGuiScaledHeight() / 2;
+		int w = Minecraft.getInstance().getWindow().getGuiScaledWidth();
+		int h = Minecraft.getInstance().getWindow().getGuiScaledHeight();
+		int posX = w/2;
+		int posY = h/2;
 
 		Level _world = null;
 		double _x = 0;
@@ -110,19 +112,19 @@ public class ${name}Overlay {
 	<#if component.anchorPoint.name() == "TOP_LEFT">
 		${component.x + x_offset}, ${component.y + y_offset}
 	<#elseif component.anchorPoint.name() == "TOP_CENTER">
-		w / 2 + ${component.x - (213 - x_offset)}, ${component.y + y_offset}
+		posX + ${component.x - (213 - x_offset)}, ${component.y + y_offset}
 	<#elseif component.anchorPoint.name() == "TOP_RIGHT">
 		w - ${427 - (component.x + x_offset)}, ${component.y + y_offset}
 	<#elseif component.anchorPoint.name() == "CENTER_LEFT">
-		${component.x + x_offset}, h / 2 + ${component.y - (120 - y_offset)}
+		${component.x + x_offset}, posY + ${component.y - (120 - y_offset)}
 	<#elseif component.anchorPoint.name() == "CENTER">
-		w / 2 + ${component.x - (213 - x_offset)}, h / 2 + ${component.y - (120 - y_offset)}
+		posX + ${component.x - (213 - x_offset)}, posY + ${component.y - (120 - y_offset)}
 	<#elseif component.anchorPoint.name() == "CENTER_RIGHT">
-		w - ${427 - (component.x + x_offset)}, h / 2 + ${component.y - (120 - y_offset)}
+		w - ${427 - (component.x + x_offset)}, posY + ${component.y - (120 - y_offset)}
 	<#elseif component.anchorPoint.name() == "BOTTOM_LEFT">
 		${component.x + x_offset}, h - ${240 - (component.y + y_offset)}
 	<#elseif component.anchorPoint.name() == "BOTTOM_CENTER">
-		w / 2 + ${component.x - (213 - x_offset)}, h - ${240 - (component.y + y_offset)}
+		posX + ${component.x - (213 - x_offset)}, h - ${240 - (component.y + y_offset)}
 	<#elseif component.anchorPoint.name() == "BOTTOM_RIGHT">
 		w - ${427 - (component.x + x_offset)}, h - ${240 - (component.y + y_offset)}
 	</#if>

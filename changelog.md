@@ -2,6 +2,7 @@
 
 ## 1.9.13
 * [Bugfix #510] "Has glowing effect" parameter caused a build error
+* [Bugfix #512] Overlays failed to build if a component was used
 
 ## 1.9.12-beta
 Note: This is marked as a beta version as too many features/changes were needed to test every single thing, but consider it as a main release
