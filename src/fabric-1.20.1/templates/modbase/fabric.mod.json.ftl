@@ -21,7 +21,7 @@
 <#if settings.getModPicture()?has_content>
   "icon": "assets/${modid}/icon.png",
 </#if>
-
+  "accessWidener": "${modid}.accesswidener",
   "environment": "*",
   "entrypoints": {
 	"main": [
@@ -29,10 +29,7 @@
 	],
 	"client":[
 	  "${package}.ClientInit"
-	]<#if settings.getMCreatorDependenciesRaw()?seq_contains("terrablender")>,
-	"terrablender":[
-		"${package}.TerraBlenderInit"
-	]</#if>
+	]
   },
 
   "depends": {
@@ -40,7 +37,7 @@
 	"fabric": "*",
 	"minecraft": "~1.20",
 	"java": ">=17"
-  }<#if w.hasElementsOfBaseType("item")>,
+  }<#if w.hasElementsOfBaseType("item") || w.hasElementsOfType("biome")>,
   "mixins": [
 	"${settings.getModID()}.mixins.json"
   ]</#if>

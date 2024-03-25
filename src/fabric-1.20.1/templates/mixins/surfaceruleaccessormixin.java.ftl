@@ -1,6 +1,6 @@
 <#--
  # This file is part of Fabric-Generator-MCreator.
- # Copyright (C) 2020-2023, Goldorion, opensource contributors
+ # Copyright (C) 2020-2024, Goldorion, opensource contributors
  #
  # Fabric-Generator-MCreator is free software: you can redistribute it and/or modify
  # it under the terms of the GNU Lesser General Public License as published by
@@ -15,34 +15,14 @@
  # You should have received a copy of the GNU Lesser General Public License
  # along with Fabric-Generator-MCreator.  If not, see <https://www.gnu.org/licenses/>.
 -->
+package ${package}.mixins;
 
-<#-- @formatter:off -->
-<#compress>
-/*
-*	MCreator note:
-*
-*	If you lock base mod element files, you can edit this file and the proxy files
-*	and they won't get overwritten. If you change your mod package or modid, you
-*	need to apply these changes to this file MANUALLY.
-*
-*
-*	If you do not lock base mod element files in Workspace settings, this file
-*	will be REGENERATED on each build.
-*
-*/
+import org.spongepowered.asm.mixin.gen.Accessor;
+import org.spongepowered.asm.mixin.Mutable;
 
-package ${package};
+@Mixin (NoiseGeneratorSettings.class)
+public interface NoiseGeneratorSettingsAccess {
 
-import terrablender.api.TerraBlenderApi;
-
-public class TerraBlenderInit implements TerraBlenderApi {
-
-	@Override
-	public void onTerraBlenderInitialized() {
-		<#if w.hasElementsOfType("biome")>
-			${JavaModName}Biomes.loadTerraBlenderAPI();
-		</#if>
-	}
+    @Accessor("surfaceRule") @Mutable
+    void addSurfaceRules(SurfaceRules.RuleSource ruleSource);
 }
-</#compress>
-<#-- @formatter:on -->

@@ -11,14 +11,6 @@ templates:
     condition: hasTrees()
     name: "@MODDATAROOT/worldgen/placed_feature/@registryname_tree.json"
 
-  # TerraBlender
-  - template: biome/region.java.ftl
-    name: "@SRCROOT/@BASEPACKAGEPATH/world/biome/regions/@NAMERegion.java"
-    condition_any:
-      - spawnBiome
-      - spawnInCaves
-      - spawnBiomeNether
-
 global_templates:
   - template: elementinits/biomes.java.ftl
     name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameBiomes.java"
@@ -210,12 +202,16 @@ global_templates:
     name: "@RESROOT/data/minecraft/tags/worldgen/biome/has_structure/ruined_portal_nether.json"
     hidden: true
 
-    # TerraBlender
+    # Surface rules
   - template: elementinits/surfacerules.java.ftl
     name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameSurfaceRules.java"
+
+  # Mixins
+  - template: mixins/surfaceruleaccessormixin.java.ftl
+    name: "@SRCROOT/@BASEPACKAGEPATH/mixins/NoiseGeneratorSettingsAccess.java"
 
 localizationkeys:
   - key: biome.@modid.@registryname
     mapto: name
 
-field_exclusions: [ spawnInCaves, treeVines, treeFruits ]
+field_exclusions: [ treeVines, treeFruits ]

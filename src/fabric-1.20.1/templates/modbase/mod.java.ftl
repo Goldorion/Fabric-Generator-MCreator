@@ -56,7 +56,6 @@ public class ${JavaModName} implements ModInitializer {
 		<#if w.hasElementsOfBaseType("block")>${JavaModName}Blocks.load();</#if>
 		<#if w.hasElementsOfBaseType("item")>${JavaModName}Items.load();</#if>
 		<#if w.hasElementsOfBaseType("blockentity")>${JavaModName}BlockEntities.load();</#if>
-		<#if w.hasElementsOfType("biome")>${JavaModName}Biomes.load();</#if>
 		<#if w.hasElementsOfBaseType("feature")>${JavaModName}Features.load();</#if>
 		<#if w.hasElementsOfType("painting")>${JavaModName}Paintings.load();</#if>
 		<#if w.hasElementsOfType("procedure")>${JavaModName}Procedures.load();</#if>
@@ -69,6 +68,13 @@ public class ${JavaModName} implements ModInitializer {
 		<#if w.hasSounds()>${JavaModName}Sounds.load();</#if>
 		<#if w.hasVariablesOfScope("GLOBAL_WORLD") || w.hasVariablesOfScope("GLOBAL_MAP")>${JavaModName}Variables.SyncJoin();</#if>
 		<#if w.hasVariablesOfScope("GLOBAL_WORLD") || w.hasVariablesOfScope("GLOBAL_MAP")>${JavaModName}Variables.SyncChangeWorld();</#if>
+
+		<#if w.hasElementsOfType("biome")>
+			${JavaModName}Biomes.loadEndBiomes();
+			ServerLifecycleEvents.SERVER_STARTING.register((server) -> {
+				${JavaModName}Biomes.load(server);
+			});
+		</#if>
 	}
 }
 <#-- @formatter:on -->
