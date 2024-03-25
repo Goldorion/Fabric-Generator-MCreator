@@ -107,7 +107,7 @@ public class ${JavaModName}SurfaceRules {
 		}
 	</#if>
 
-	<#if spawn_nether?has_content || spawn_overworld_caves?has_content>
+	<#if spawn_nether?has_content || spawn_caves?has_content>
 		private static SurfaceRules.RuleSource anySurfaceRule(ResourceKey<Biome> biomeKey, BlockState groundBlock, BlockState undergroundBlock, BlockState underwaterBlock) {
 			return SurfaceRules.ifTrue(SurfaceRules.isBiome(biomeKey),
 				SurfaceRules.sequence(
