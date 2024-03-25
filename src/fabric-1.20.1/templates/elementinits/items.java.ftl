@@ -119,7 +119,7 @@ public class ${JavaModName}Items {
 	}
 
 	private static void registerBlockingProperty(Item item) {
-	    ItemProperties.register(item, new ResourceLocation("blocking"), ItemProperties.getProperty(Items.SHIELD, new ResourceLocation("blocking")));
+	    ItemProperties.register(item, new ResourceLocation("blocking"), (ClampedItemPropertyFunction) ItemProperties.getProperty(Items.SHIELD, new ResourceLocation("blocking")));
 	}
 
 }

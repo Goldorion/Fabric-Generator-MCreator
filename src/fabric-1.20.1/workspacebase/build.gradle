@@ -14,6 +14,8 @@ loom {
     mixin {
         defaultRefmapName = actualmodid + ".refmap.json"
     }
+    if (file("src/main/resources/${modid}.accesswidener").exists())
+        accessWidenerPath = file("src/main/resources/${modid}.accesswidener")
 }
 
 dependencies {
@@ -46,12 +48,6 @@ java {
 
 jar {
     from "LICENSE"
-}
-
-loom {
-	mixin {
-		defaultRefmapName = actualmodid + ".refmap.json"
-	}
 }
 
 apply from: 'mcreator.gradle'

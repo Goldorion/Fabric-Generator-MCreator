@@ -1,5 +1,11 @@
 # Changelogs:
 
+## 1.10
+(Thank you NerdyPuzzle)
+* [#520] Removed support for TerraBlender API (biome generation is now done similarly to Forge generators)
+* [#417, #520] Add support for cave biomes
+* [#521, #520] Custom items caused a build error in several cases
+
 ## 1.9.14
 * [Bugfix] Items could not be registered and could cause a build error
 
