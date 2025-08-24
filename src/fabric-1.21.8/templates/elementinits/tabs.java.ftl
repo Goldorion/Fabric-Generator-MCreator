@@ -17,36 +17,47 @@
 -->
 
 <#-- @formatter:off -->
-
 <#include "../mcitems.ftl">
-<#compress>
+
+<#assign tabMap = w.getCreativeTabMap()>
+<#assign vanillaTabs = tabMap.keySet()?filter(e -> !e?starts_with('CUSTOM:'))>
+<#assign customTabs = tabMap.keySet()?filter(e -> e?starts_with('CUSTOM:'))>
 
 /*
- *	MCreator note: This file will be REGENERATED on each build.
+ *    MCreator note: This file will be REGENERATED on each build.
  */
 
 package ${package}.init;
 
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 
+<#compress>
 public class ${JavaModName}Tabs {
 
-	<#list tabs as tab>
-		public static ResourceKey<CreativeModeTab> TAB_${tab.getModElement().getRegistryNameUpper()} = ResourceKey.create(Registries.CREATIVE_MODE_TAB, new ResourceLocation(${JavaModName}.MODID, "${tab.getModElement().getRegistryName()}"));
+	<#list customTabs as customTab>
+	<#assign tab = w.getWorkspace().getModElementByName(customTab.replace("CUSTOM:", "")).getGeneratableElement()>
+		public static ResourceKey<CreativeModeTab> TAB_${tab.getModElement().getRegistryNameUpper()} = ResourceKey.create(Registries.CREATIVE_MODE_TAB, ResourceLocation.fromNamespaceAndPath(${JavaModName}.MODID, "${tab.getModElement().getRegistryName()}"));
 	</#list>
 
 	public static void load() {
-		<#list tabs as tab>
+	<#list customTabs as customTab>
+		<#assign tab = w.getWorkspace().getModElementByName(customTab.replace("CUSTOM:", "")).getGeneratableElement()>
 		Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, TAB_${tab.getModElement().getRegistryNameUpper()}, FabricItemGroup.builder()
-			.title(Component.translatable("item_group." + ${JavaModName}.MODID + ".${tab.getModElement().getRegistryName()}"))
-			.icon(()-> ${mappedMCItemToItemStackCode(tab.icon, 1)}).build());
-		</#list>
+			.title(Component.translatable("item_group.${modid}.${tab.getModElement().getRegistryName()}"))
+			.icon(() -> ${mappedMCItemToItemStackCode(tab.icon, 1)})
+			.displayItems((parameters, tabData) -> {
+				<#list tabMap.get("CUSTOM:" + tab.getModElement().getName()) as tabElement>
+				tabData.accept(${mappedMCItemToItem(tabElement)});
+				</#list>
+			}).build()
+		);
+	</#list>
 
-		<#if vanillaTabs?has_content>
+        <#if vanillaTabs?has_content>
             <#list vanillaTabs as tabName>
                 ItemGroupEvents.modifyEntriesEvent(${generator.map(tabName, "tabs")}).register(tabData -> {
                     <#list tabMap.get(tabName) as tabElement>
-                    tabData.accept(${mappedMCItemToItem(tabElement)}, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+                    tabData.accept(${mappedMCItemToItem(tabElement)}<#if tabName == "OP_BLOCKS">, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY</#if>);
                     </#list>
                 });
             </#list>

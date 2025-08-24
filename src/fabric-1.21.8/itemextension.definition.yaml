@@ -1,0 +1,9 @@
+templates:
+  - template: dispensebehaviour.java.ftl
+    condition: hasDispenseBehavior
+    name: "@SRCROOT/@BASEPACKAGEPATH/item/extension/@NAMEItemExtension.java"
+
+global_templates:
+  - template: elementinits/item_extensions.java.ftl
+    writer: java
+    name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameItemExtensions.java"
