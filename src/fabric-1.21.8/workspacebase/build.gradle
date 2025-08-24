@@ -8,12 +8,9 @@ base.archivesName = 'modid'
 actualmodid = '${modid}'
 
 loom {
-    splitEnvironmentSourceSets()
-
     mods {
         "modid" {
             sourceSet sourceSets.main
-            sourceSet sourceSets.client
         }
     }
 }
