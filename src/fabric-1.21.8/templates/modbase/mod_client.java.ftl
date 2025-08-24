@@ -17,27 +17,22 @@
 -->
 
 <#-- @formatter:off -->
-/*
-*	MCreator note:
-*
-*	If you lock base mod element files, you can edit this file and the proxy files
-*	and they won't get overwritten. If you change your mod package or modid, you
-*	need to apply these changes to this file MANUALLY.
-*
-*
-*	If you do not lock base mod element files in Workspace settings, this file
-*	will be REGENERATED on each build.
-*
-*/
-
 package ${package};
+
 import net.fabricmc.api.Environment;
 
-@Environment(EnvType.CLIENT) public class ClientInit implements ClientModInitializer {
+@Environment(EnvType.CLIENT) public class ${JavaModName}Client implements ClientModInitializer {
 
 	@Override
-	public void onInitializeClient(){
-	}
-}
+	public void onInitializeClient() {
+		// Start of user code block mod constructor
+		// End of user code block mod constructor
 
+		// Start of user code block mod init
+		// End of user code block mod init
+	}
+
+	// Start of user code block mod methods
+	// End of user code block mod methods
+}
 <#-- @formatter:on -->

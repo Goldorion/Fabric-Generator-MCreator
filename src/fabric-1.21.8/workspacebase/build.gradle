@@ -2,25 +2,36 @@ plugins {
     id 'fabric-loom' version '1.11-SNAPSHOT'
 }
 
-archivesBaseName = 'modid'
-version = '1.0.0'
-group = 'com.yourname.modid'
+version = '1.0'
+group = 'com.yourname'
+base.archivesName = 'modid'
 actualmodid = '${modid}'
 
+loom {
+    splitEnvironmentSourceSets()
+
+    mods {
+        "modid" {
+            sourceSet sourceSets.main
+            sourceSet sourceSets.client
+        }
+    }
+}
+
 dependencies {
-    minecraft "com.mojang:minecraft:1.21.8"
+    minecraft "com.mojang:minecraft:${generator.getGeneratorMinecraftVersion()}"
     mappings loom.officialMojangMappings()
     modImplementation "net.fabricmc:fabric-loader:0.17.2"
 
     //Fabric api
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${generator.getGeneratorBuildFileVersion()}+1.21.8"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${generator.getGeneratorBuildFileVersion()}+${generator.getGeneratorMinecraftVersion()}"
 }
 
 processResources {
     inputs.property "version", project.version
 
     filesMatching("fabric.mod.json") {
-        expand "version": project.version
+        expand "version": inputs.properties.version
     }
 }
 
@@ -35,7 +46,11 @@ java {
 }
 
 jar {
-    from "LICENSE"
+    inputs.property "archivesName", project.base.archivesName
+
+    from("LICENSE") {
+        rename { it + "_" + inputs.properties.archivesName }
+    }
 }
 
 apply from: 'mcreator.gradle'

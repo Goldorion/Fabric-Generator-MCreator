@@ -17,31 +17,36 @@
 -->
 
 <#-- @formatter:off -->
+/*
+ * The code of this mod element is always locked.
+ *
+ * You can register new events in this class too.
+ *
+ * If you want to make a plain independent class, create it using
+ * Project Browser -> New... and make sure to make the class
+ * outside ${package} as this package is managed by MCreator.
+ *
+ * If you change workspace package, modid or prefix, you will need
+ * to manually adapt this file to these changes or remake it.
+ *
+ * This class will be added in the mod root package.
+*/
+
 package ${package};
 
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
-import ${package}.init.*;
+public class ${name} {
 
-public class ${JavaModName} implements ModInitializer {
-
-	public static final Logger LOGGER = LogManager.getLogger(${JavaModName}.class);
-
-	public static final String MODID = "${modid}";
-
-	@Override
-	public void onInitialize() {
-		// Start of user code block mod constructor
-		// End of user code block mod constructor
-
-		LOGGER.info("Initializing ${JavaModName}");
-
-
-		// Start of user code block mod init
-		// End of user code block mod init
+	public ${name}() {
 	}
 
-	// Start of user code block mod methods
-	// End of user code block mod methods
+	public static void init() {
+		new ${name}();
+	}
+
+	public static void clientLoad() {
+	}
+
+	public static void serverLoad(MinecraftServer server) {
+	}
 }
 <#-- @formatter:on -->
