@@ -36,6 +36,7 @@ public class ${JavaModName} implements ModInitializer {
 
 		LOGGER.info("Initializing ${JavaModName}");
 
+		<#if w.getGElementsOfType("recipe")?filter(e -> e.recipeType == "Brewing")?size != 0>${JavaModName}BrewingRecipes.load();</#if>
 
 		// Start of user code block mod init
 		// End of user code block mod init
