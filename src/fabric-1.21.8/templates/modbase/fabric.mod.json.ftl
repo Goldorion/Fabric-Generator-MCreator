@@ -29,7 +29,7 @@
 	  "${package}.${JavaModName}"
 	],
 	"client":[
-	  "${package}.ClientInit"
+	  "${package}.${JavaModName}Client"
 	]
   },
   "depends": {
