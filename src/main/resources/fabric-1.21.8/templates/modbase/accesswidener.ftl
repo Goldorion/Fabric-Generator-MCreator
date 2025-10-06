@@ -39,7 +39,7 @@ accessible method net/minecraft/client/gui/components/AbstractSliderButton getHa
 </#if>
 
 accessible field net/minecraft/world/item/BucketItem content Lnet/minecraft/world/level/material/Fluid;
-
+accessible field net/minecraft/world/level/block/LiquidBlock fluid Lnet/minecraft/world/level/material/FlowingFluid;
 
 # Start of user code block custom AWs
 # End of user code block custom AWs
