@@ -1,5 +1,8 @@
 # Changelogs:
 
+## 2.4
+- Added support for the following procedure blocks: Get random block from tag, Get dimension's ID, Get localized text and Is mod loaded
+
 ## 2.3
 - Updated to MCreator 2025.3.38713
 - Updated to Fabric API 0.133.4
