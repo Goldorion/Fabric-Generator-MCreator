@@ -1,7 +1,7 @@
 # Changelogs:
 
 ## 2.4
-- Added support for the following procedure blocks: Get random block from tag, Get dimension's ID, Get localized text and Is mod loaded
+- Added support for the following procedure blocks: Get random block from tag, Get dimension's ID, Get localized text and Is mod loaded, damagesource from type cause, damagesource from type cause directcause, entity looking at block, item can smelt
 
 ## 2.3
 - Updated to MCreator 2025.3.38713

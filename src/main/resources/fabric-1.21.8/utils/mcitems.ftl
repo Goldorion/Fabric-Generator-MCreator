@@ -96,7 +96,7 @@
 			</#list>
 			<#return retval + ")">
 		<#else>
-			<#assign retval = "CompoundIngredient.of(">
+			<#assign retval = "DefaultCustomIngredients.any(">
 			<#list mappedBlocks as mappedBlock>
 				<#assign retval += mappedMCItemToIngredient(mappedBlock)>
 
