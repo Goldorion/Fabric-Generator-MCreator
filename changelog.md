@@ -1,7 +1,9 @@
 # Changelogs:
 
 ## 2.4
-- Added support for the following procedure blocks: Get random block from tag, Get dimension's ID, Get localized text and Is mod loaded, damagesource from type cause, damagesource from type cause directcause, entity looking at block, item can smelt
+- Added support for the following procedure blocks: Get random block from tag, Get dimension's ID, Get localized text and Is mod loaded, damagesource from type cause, damagesource from type cause directcause, entity looking at block, item can smelt, block fluid to bucket, block notify
+- [Bugfix] Using an item and an item tag for an ingredient was causing a build error
+- Some other minor improvements
 
 ## 2.3
 - Updated to MCreator 2025.3.38713
