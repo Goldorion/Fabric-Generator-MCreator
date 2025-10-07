@@ -9,20 +9,20 @@ This project is not official. It is not affiliated with the respective owners an
 **The current targeted Minecraft version is 1.21.8.**
 
 ## Important Information
+
 - Make sure you use MCreator 2025.3 second snapshot
 - Back up your workspace before updating to a newer version of the plugin.
 - Mods will also require [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api) to function properly, so when you want to play your mod, make sure you have Fabric API.
 
 ## Credits/License
+
 Dev - [Goldorion](https://github.com/Goldorion), [Spectrall](https://github.com/Spectrall368), [NerdyPuzzle](https://github.com/NerdyPuzzle) and [contributors](https://github.com/Goldorion/Fabric-Generator-MCreator/graphs/contributors)
-This generator re-uses code from the official MCreator's Forge and NeoForge generators.
+This generator re-uses code from the official MCreator's NeoForge generator.
 
 The plugin's MCreator page is [here](https://mcreator.net/plugin/64512/mcreator-fabric-generator).
 The plugin's MCreator forum page is [here](https://mcreator.net/forum/60201/fabric-generator-plugin).
 
-Licensed under the GNU Lesser General Public License, version 3.0  
-- Mods created with this tool may be closed source and/or be distributed with a different license.
-- Appropriate credit must be provided to the creators and maintainers of this software.
-- Forked versions of this software must be distributed under the same license as this with attribution if distributed.
+Licensed under the GNU General Public License, version 3.0
+
 - Changes must be stated if any modified works are to be distributed.
-- Under no circumstances can you state that modified works are endorsed by the original creator.
+- Under no circumstances can you state that the original creator endorses modified works.
