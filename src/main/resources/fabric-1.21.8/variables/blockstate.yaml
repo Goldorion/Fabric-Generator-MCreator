@@ -16,7 +16,7 @@ scopes:
     set: |
       <#include "mcitems.ftl">
       ${JavaModName}Variables.WorldVariables.get(world).${name} = ${mappedBlockToBlockStateCode(value)};
-      ${JavaModName}Variables.WorldVariables.get(world).syncData(world);
+      <@tail>${JavaModName}Variables.WorldVariables.get(world).markSyncDirty();</@tail>
   global_map:
     init: public BlockState ${var.getName()} = ${generator.map(var.getValue(), "blocksitems")}.defaultBlockState();
     read: ${var.getName()} = NbtUtils.readBlockState(lookupProvider.lookupOrThrow(BuiltInRegistries.BLOCK.key()), nbt.getCompoundOrEmpty("${var.getName()}"));
@@ -25,28 +25,26 @@ scopes:
     set: |
       <#include "mcitems.ftl">
       ${JavaModName}Variables.MapVariables.get(world).${name} = ${mappedBlockToBlockStateCode(value)};
-      ${JavaModName}Variables.MapVariables.get(world).syncData(world);
-#  player_lifetime:
-#    init: public BlockState ${var.getName()} = ${generator.map(var.getValue(), "blocksitems")}.defaultBlockState();
-#    read: ${var.getName()} = input.read("${var.getName()}", BlockState.CODEC).orElse(Blocks.AIR.defaultBlockState());
-#    write: output.store("${var.getName()}", BlockState.CODEC, ${var.getName()});
-#    get: /*@BlockState*/${entity}.getAttachedOrCreate(${JavaModName}Variables.PLAYER_VARIABLES.get()).${name}
-#    set: |
-#      <#include "mcitems.ftl">
-#      {
-#        ${JavaModName}Variables.PlayerVariables _vars = ${entity}.getAttachedOrCreate(${JavaModName}Variables.PLAYER_VARIABLES.get());
-#        _vars.${name} = ${mappedBlockToBlockStateCode(value)};
-#        _vars.syncPlayerVariables(${entity});
-#      }
-#  player_persistent:
-#    init: public BlockState ${var.getName()} = ${generator.map(var.getValue(), "blocksitems")}.defaultBlockState();
-#    read: ${var.getName()} = input.read("${var.getName()}", BlockState.CODEC).orElse(Blocks.AIR.defaultBlockState());
-#    write: output.store("${var.getName()}", BlockState.CODEC, ${var.getName()});
-#    get: /*@BlockState*/${entity}.getAttachedOrCreate(${JavaModName}Variables.PLAYER_VARIABLES.get()).${name}
-#    set: |
-#      <#include "mcitems.ftl">
-#      {
-#        ${JavaModName}Variables.PlayerVariables _vars = ${entity}.getAttachedOrCreate(${JavaModName}Variables.PLAYER_VARIABLES.get());
-#        _vars.${name} = ${mappedBlockToBlockStateCode(value)};
-#        _vars.syncPlayerVariables(${entity});
-#      }
+      <@tail>${JavaModName}Variables.MapVariables.get(world).markSyncDirty();</@tail>
+  player_lifetime:
+    init: public BlockState ${var.getName()} = ${generator.map(var.getValue(), "blocksitems")}.defaultBlockState();
+    read: ${var.getName()} = input.read("${var.getName()}", BlockState.CODEC).orElse(Blocks.AIR.defaultBlockState());
+    write: output.store("${var.getName()}", BlockState.CODEC, ${var.getName()});
+    get: /*@BlockState*/${entity}.getAttachedOrCreate(${JavaModName}Variables.PLAYER_VARIABLES).${name}
+    set: |
+      <#include "mcitems.ftl">
+      <@head>{${JavaModName}Variables.PlayerVariables _vars = ${entity}.getAttachedOrCreate(${JavaModName}Variables.PLAYER_VARIABLES);</@head>
+      _vars.${name} = ${mappedBlockToBlockStateCode(value)};
+      <@tail>_vars.markSyncDirty();}</@tail>
+    codec: BlockState.CODEC.fieldOf("${var.getName()}").orElse(Blocks.AIR.defaultBlockState()).forGetter((vars) -> vars.${var.getName()})
+  player_persistent:
+    init: public BlockState ${var.getName()} = ${generator.map(var.getValue(), "blocksitems")}.defaultBlockState();
+    read: ${var.getName()} = input.read("${var.getName()}", BlockState.CODEC).orElse(Blocks.AIR.defaultBlockState());
+    write: output.store("${var.getName()}", BlockState.CODEC, ${var.getName()});
+    get: /*@BlockState*/${entity}.getAttachedOrCreate(${JavaModName}Variables.PLAYER_VARIABLES).${name}
+    set: |
+      <#include "mcitems.ftl">
+      <@head>{${JavaModName}Variables.PlayerVariables _vars = ${entity}.getAttachedOrCreate(${JavaModName}Variables.PLAYER_VARIABLES);</@head>
+      _vars.${name} = ${mappedBlockToBlockStateCode(value)};
+      <@tail>_vars.markSyncDirty();}</@tail>
+    codec: BlockState.CODEC.fieldOf("${var.getName()}").orElse(Blocks.AIR.defaultBlockState()).forGetter((vars) -> vars.${var.getName()})

@@ -15,7 +15,7 @@ scopes:
     get: ${JavaModName}Variables.WorldVariables.get(world).${name}
     set: |
       ${JavaModName}Variables.WorldVariables.get(world).${name} = ${opt.removeParentheses(value)};
-      ${JavaModName}Variables.WorldVariables.get(world).syncData(world);
+      <@tail>${JavaModName}Variables.WorldVariables.get(world).markSyncDirty();</@tail>
   global_map:
     init: public Direction ${var.getName()} = ${generator.map(var.getValue(), "directions")};
     read: ${var.getName()} = Direction.from3DDataValue(nbt.getIntOr("${var.getName()}", 0));
@@ -23,26 +23,24 @@ scopes:
     get: ${JavaModName}Variables.MapVariables.get(world).${name}
     set: |
       ${JavaModName}Variables.MapVariables.get(world).${name} = ${opt.removeParentheses(value)};
-      ${JavaModName}Variables.MapVariables.get(world).syncData(world);
-#  player_lifetime:
-#    init: public Direction ${var.getName()} = ${generator.map(var.getValue(), "directions")};
-#    read: ${var.getName()} = Direction.from3DDataValue(input.getIntOr("${var.getName()}", 0));
-#    write: output.putInt("${var.getName()}", ${var.getName()}.get3DDataValue());
-#    get: ${entity}.getAttachedOrCreate(${JavaModName}Variables.PLAYER_VARIABLES.get()).${name}
-#    set: |
-#      {
-#        ${JavaModName}Variables.PlayerVariables _vars = ${entity}.getAttachedOrCreate(${JavaModName}Variables.PLAYER_VARIABLES.get());
-#        _vars.${name} = ${opt.removeParentheses(value)};
-#        _vars.syncPlayerVariables(${entity});
-#      }
-#  player_persistent:
-#    init: public Direction ${var.getName()} = ${generator.map(var.getValue(), "directions")};
-#    read: ${var.getName()} = Direction.from3DDataValue(input.getIntOr("${var.getName()}", 0));
-#    write: output.putInt("${var.getName()}", ${var.getName()}.get3DDataValue());
-#    get: ${entity}.getAttachedOrCreate(${JavaModName}Variables.PLAYER_VARIABLES.get()).${name}
-#    set: |
-#      {
-#        ${JavaModName}Variables.PlayerVariables _vars = ${entity}.getAttachedOrCreate(${JavaModName}Variables.PLAYER_VARIABLES.get());
-#        _vars.${name} = ${opt.removeParentheses(value)};
-#        _vars.syncPlayerVariables(${entity});
-#      }
+      <@tail>${JavaModName}Variables.MapVariables.get(world).markSyncDirty();</@tail>
+  player_lifetime:
+    init: public Direction ${var.getName()} = ${generator.map(var.getValue(), "directions")};
+    read: ${var.getName()} = Direction.from3DDataValue(input.getIntOr("${var.getName()}", 0));
+    write: output.putInt("${var.getName()}", ${var.getName()}.get3DDataValue());
+    get: ${entity}.getAttachedOrCreate(${JavaModName}Variables.PLAYER_VARIABLES).${name}
+    set: |
+      <@head>{${JavaModName}Variables.PlayerVariables _vars = ${entity}.getAttachedOrCreate(${JavaModName}Variables.PLAYER_VARIABLES);</@head>
+      _vars.${name} = ${opt.removeParentheses(value)};
+      <@tail>_vars.markSyncDirty();}</@tail>
+    codec: Direction.CODEC.fieldOf("${var.getName()}").orElse(Direction.NORTH).forGetter((vars) -> vars.${var.getName()})
+  player_persistent:
+    init: public Direction ${var.getName()} = ${generator.map(var.getValue(), "directions")};
+    read: ${var.getName()} = Direction.from3DDataValue(input.getIntOr("${var.getName()}", 0));
+    write: output.putInt("${var.getName()}", ${var.getName()}.get3DDataValue());
+    get: ${entity}.getAttachedOrCreate(${JavaModName}Variables.PLAYER_VARIABLES).${name}
+    set: |
+      <@head>{${JavaModName}Variables.PlayerVariables _vars = ${entity}.getAttachedOrCreate(${JavaModName}Variables.PLAYER_VARIABLES);</@head>
+      _vars.${name} = ${opt.removeParentheses(value)};
+      <@tail>_vars.markSyncDirty();}</@tail>
+    codec: Direction.CODEC.fieldOf("${var.getName()}").orElse(Direction.NORTH).forGetter((vars) -> vars.${var.getName()})

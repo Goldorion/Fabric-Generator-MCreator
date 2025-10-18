@@ -24,14 +24,8 @@ import ${package}.${JavaModName};
 import net.minecraft.nbt.Tag;
 
 public class ${JavaModName}Variables {
-
 	<#if w.hasVariablesOfScope("PLAYER_LIFETIME") || w.hasVariablesOfScope("PLAYER_PERSISTENT")>
-	public static final Supplier<AttachmentType<PlayerVariables>> PLAYER_VARIABLES = register("player_variables", (builder) -> builder.initializer(PlayerVariables::new));
-
-	public static Supplier<AttachmentType<PlayerVariables>> register(String registryname, Consumer<AttachmentRegistry.Builder<PlayerVariables>> element) {
-		AttachmentType<PlayerVariables> attachmentType = AttachmentRegistry.create(ResourceLocation.fromNamespaceAndPath(${JavaModName}.MODID, registryname), element);
-		return () -> attachmentType;
-	}
+	public static final AttachmentType<PlayerVariables> PLAYER_VARIABLES = AttachmentRegistry.create(ResourceLocation.fromNamespaceAndPath(${JavaModName}.MODID, "player_variables"), (builder) -> builder.persistent(PlayerVariables.CODEC).initializer(PlayerVariables::new));
 	</#if>
 
 	<#if w.hasVariablesOfScope("GLOBAL_SESSION")>
@@ -43,46 +37,58 @@ public class ${JavaModName}Variables {
 	</#if>
 
 	public static void variablesLoad() {
-		<#if w.hasVariablesOfScope("GLOBAL_WORLD") || w.hasVariablesOfScope("GLOBAL_MAP")>
-			PayloadTypeRegistry.playS2C().register(SavedDataSyncMessage.TYPE, SavedDataSyncMessage.STREAM_CODEC);
-		</#if>
+        <#if w.hasVariablesOfScope("PLAYER_LIFETIME") || w.hasVariablesOfScope("PLAYER_PERSISTENT")>
+        PayloadTypeRegistry.playS2C().register(PlayerVariablesSyncMessage.TYPE, PlayerVariablesSyncMessage.STREAM_CODEC);
 
-		<#if w.hasVariablesOfScope("PLAYER_LIFETIME") || w.hasVariablesOfScope("PLAYER_PERSISTENT")>
-			PayloadTypeRegistry.playS2C().register(PlayerVariablesSyncMessage.TYPE, PlayerVariablesSyncMessage.STREAM_CODEC);
-		</#if>
-
-	<#if w.hasVariablesOfScope("PLAYER_LIFETIME") || w.hasVariablesOfScope("PLAYER_PERSISTENT") || w.hasVariablesOfScope("GLOBAL_WORLD") || w.hasVariablesOfScope("GLOBAL_MAP")>
-		<#if w.hasVariablesOfScope("PLAYER_LIFETIME") || w.hasVariablesOfScope("PLAYER_PERSISTENT")>
-		ServerPlayerEvents.JOIN.register((player) -> {
-			player.getAttachedOrCreate(PLAYER_VARIABLES.get()).syncPlayerVariables(player);
-		});
+        ServerPlayerEvents.JOIN.register((player) -> {
+            ServerPlayNetworking.send(player, new PlayerVariablesSyncMessage(player.getAttachedOrCreate(PLAYER_VARIABLES)));
+        });
 
 		ServerPlayerEvents.AFTER_RESPAWN.register((oldPlayer, newPlayer, alive) -> {
-				newPlayer.getAttachedOrCreate(PLAYER_VARIABLES.get()).syncPlayerVariables(newPlayer);
+				ServerPlayNetworking.send(newPlayer, new PlayerVariablesSyncMessage(oldPlayer.getAttachedOrCreate(PLAYER_VARIABLES)));
 		});
 
 		ServerEntityWorldChangeEvents.AFTER_PLAYER_CHANGE_WORLD.register((player, origin, destination) -> {
 			if (!destination.isClientSide())
-				player.getAttachedOrCreate(PLAYER_VARIABLES.get()).syncPlayerVariables(player);
+				ServerPlayNetworking.send(player, new PlayerVariablesSyncMessage(player.getAttachedOrCreate(PLAYER_VARIABLES)));
+		});
+
+        PlayerEvents.END_PLAYER_TICK.register((entity) -> {
+		    if (entity instanceof ServerPlayer player && player.getAttachedOrCreate(PLAYER_VARIABLES)._syncDirty) {
+                ServerPlayNetworking.send(player, new PlayerVariablesSyncMessage(player.getAttachedOrCreate(PLAYER_VARIABLES)));
+                player.getAttachedOrCreate(PLAYER_VARIABLES)._syncDirty = false;
+            }
 		});
 
 		ServerPlayerEvents.COPY_FROM.register((oldPlayer, newPlayer, alive) -> {
-			PlayerVariables original = oldPlayer.getAttachedOrCreate(PLAYER_VARIABLES.get());
-			PlayerVariables clone = new PlayerVariables();
-			if(alive) {
-			}
-			newPlayer.setAttached(PLAYER_VARIABLES.get(), clone);
+            PlayerVariables original = oldPlayer.getAttachedOrCreate(PLAYER_VARIABLES);
+            PlayerVariables clone = new PlayerVariables();
+            <#list variables as var>
+                <#if var.getScope().name() == "PLAYER_PERSISTENT">
+                clone.${var.getName()} = original.${var.getName()};
+                </#if>
+            </#list>
+            if(alive) {
+                <#list variables as var>
+                    <#if var.getScope().name() == "PLAYER_LIFETIME">
+                    clone.${var.getName()} = original.${var.getName()};
+                    </#if>
+                </#list>
+            }
+            newPlayer.setAttached(PLAYER_VARIABLES, clone);
 		});
-		</#if>
+        </#if>
 
-		<#if w.hasVariablesOfScope("GLOBAL_WORLD") || w.hasVariablesOfScope("GLOBAL_MAP")>
+        <#if w.hasVariablesOfScope("GLOBAL_WORLD") || w.hasVariablesOfScope("GLOBAL_MAP")>
+        PayloadTypeRegistry.playS2C().register(SavedDataSyncMessage.TYPE, SavedDataSyncMessage.STREAM_CODEC);
+
 		ServerPlayerEvents.JOIN.register((player) -> {
-				SavedData mapdata = MapVariables.get(player.level());
-				SavedData worlddata = WorldVariables.get(player.level());
-				if(mapdata != null)
-					ServerPlayNetworking.send(player, new SavedDataSyncMessage(0, mapdata));
-				if(worlddata != null)
-					ServerPlayNetworking.send(player, new SavedDataSyncMessage(1, worlddata));
+			SavedData mapdata = MapVariables.get(player.level());
+			SavedData worlddata = WorldVariables.get(player.level());
+			if(mapdata != null)
+				ServerPlayNetworking.send(player, new SavedDataSyncMessage(0, mapdata));
+			if(worlddata != null)
+				ServerPlayNetworking.send(player, new SavedDataSyncMessage(1, worlddata));
 		});
 
 		ServerEntityWorldChangeEvents.AFTER_PLAYER_CHANGE_WORLD.register((player, origin, destination) -> {
@@ -92,9 +98,22 @@ public class ${JavaModName}Variables {
 					ServerPlayNetworking.send(player, new SavedDataSyncMessage(1, worlddata));
 			}
 		});
-		</#if>
+
+        ServerTickEvents.END_WORLD_TICK.register((level) -> {
+			WorldVariables worldVariables = WorldVariables.get(level);
+			if (worldVariables._syncDirty) {
+			    level.players().forEach(player -> ServerPlayNetworking.send(player, new SavedDataSyncMessage(1, worldVariables)));
+			    worldVariables._syncDirty = false;
+			}
+
+			MapVariables mapVariables = MapVariables.get(level);
+			if (mapVariables._syncDirty) {
+			    PlayerLookup.world(level).forEach(player -> ServerPlayNetworking.send(player, new SavedDataSyncMessage(0, mapVariables)));
+			    mapVariables._syncDirty = false;
+			}
+		});
 	</#if>
-	}
+    }
 
 	<#if w.hasVariablesOfScope("GLOBAL_WORLD") || w.hasVariablesOfScope("GLOBAL_MAP")>
 	public static class WorldVariables extends SavedData {
@@ -109,6 +128,8 @@ public class ${JavaModName}Variables {
 				instance -> instance.save(new CompoundTag(), ctx.levelOrThrow().registryAccess())
 			), null
 		);
+
+		boolean _syncDirty = false;
 
 		<#list variables as var>
 			<#if var.getScope().name() == "GLOBAL_WORLD">
@@ -133,11 +154,9 @@ public class ${JavaModName}Variables {
 			return nbt;
 		}
 
-		public void syncData(LevelAccessor world) {
+		public void markSyncDirty() {
 			this.setDirty();
-
-			if (world instanceof ServerLevel level)
-				level.players().forEach(player -> ServerPlayNetworking.send(player, new SavedDataSyncMessage(1, this)));
+			this._syncDirty = true;
 		}
 
 		static WorldVariables clientSide = new WorldVariables();
@@ -149,7 +168,6 @@ public class ${JavaModName}Variables {
 				return clientSide;
 			}
 		}
-
 	}
 
 	public static class MapVariables extends SavedData {
@@ -164,6 +182,8 @@ public class ${JavaModName}Variables {
 				instance -> instance.save(new CompoundTag(), ctx.levelOrThrow().registryAccess())
 			), null
 		);
+
+		boolean _syncDirty = false;
 
 		<#list variables as var>
 			<#if var.getScope().name() == "GLOBAL_MAP">
@@ -188,11 +208,9 @@ public class ${JavaModName}Variables {
 			return nbt;
 		}
 
-		public void syncData(LevelAccessor world) {
+		public void markSyncDirty() {
 			this.setDirty();
-
-			if (world instanceof ServerLevel level && !world.isClientSide())
-				PlayerLookup.world(level).forEach(player -> ServerPlayNetworking.send(player, new SavedDataSyncMessage(0, this)));
+			this._syncDirty = true;
 		}
 
 		static MapVariables clientSide = new MapVariables();
@@ -204,7 +222,6 @@ public class ${JavaModName}Variables {
 				return clientSide;
 			}
 		}
-
 	}
 
 	public record SavedDataSyncMessage(int dataType, SavedData data) implements CustomPacketPayload {
@@ -248,24 +265,69 @@ public class ${JavaModName}Variables {
 				});
 			}
 		}
-
 	}
 	</#if>
 
 	<#if w.hasVariablesOfScope("PLAYER_LIFETIME") || w.hasVariablesOfScope("PLAYER_PERSISTENT")>
+	<#assign playerVars = []>
+    <#list variables as var>
+    	<#if var.getScope().name() == "PLAYER_LIFETIME" || var.getScope().name() == "PLAYER_PERSISTENT">
+    		<#assign playerVars = playerVars + [var]>
+    	</#if>
+    </#list>
 	public static class PlayerVariables {
+		public static final Codec<PlayerVariables> CODEC = RecordCodecBuilder.create(builder -> builder.group(
+		<#list playerVars as var>
+			<#if var.getScope().name() == "PLAYER_LIFETIME">
+				<@var.getType().getScopeDefinition(generator.getWorkspace(), "PLAYER_LIFETIME")['codec']?interpret/>
+			<#elseif var.getScope().name() == "PLAYER_PERSISTENT">
+				<@var.getType().getScopeDefinition(generator.getWorkspace(), "PLAYER_PERSISTENT")['codec']?interpret/>
+			</#if><#sep>,
+		</#list>
+		).apply(builder, PlayerVariables::new));
+
+		boolean _syncDirty = false;
+
+		<#list variables as var>
+			<#if var.getScope().name() == "PLAYER_LIFETIME">
+				<@var.getType().getScopeDefinition(generator.getWorkspace(), "PLAYER_LIFETIME")['init']?interpret/>
+			<#elseif var.getScope().name() == "PLAYER_PERSISTENT">
+				<@var.getType().getScopeDefinition(generator.getWorkspace(), "PLAYER_PERSISTENT")['init']?interpret/>
+			</#if>
+		</#list>
+
+		public PlayerVariables() {
+		}
+
+		public PlayerVariables(<#list playerVars as var>${var.getType().getJavaType(generator.getWorkspace())} ${var.getName()}<#sep>, </#list>) {
+		    <#list playerVars as var>
+                this.${var.getName()} = ${var.getName()};
+            </#list>
+		}
 
 		public void serialize(ValueOutput output) {
+			<#list variables as var>
+				<#if var.getScope().name() == "PLAYER_LIFETIME">
+					<@var.getType().getScopeDefinition(generator.getWorkspace(), "PLAYER_LIFETIME")['write']?interpret/>
+				<#elseif var.getScope().name() == "PLAYER_PERSISTENT">
+					<@var.getType().getScopeDefinition(generator.getWorkspace(), "PLAYER_PERSISTENT")['write']?interpret/>
+				</#if>
+			</#list>
 		}
 
 		public void deserialize(ValueInput input) {
+			<#list variables as var>
+				<#if var.getScope().name() == "PLAYER_LIFETIME">
+					<@var.getType().getScopeDefinition(generator.getWorkspace(), "PLAYER_LIFETIME")['read']?interpret/>
+				<#elseif var.getScope().name() == "PLAYER_PERSISTENT">
+					<@var.getType().getScopeDefinition(generator.getWorkspace(), "PLAYER_PERSISTENT")['read']?interpret/>
+				</#if>
+			</#list>
 		}
 
-		public void syncPlayerVariables(Entity entity) {
-			if (entity instanceof ServerPlayer serverPlayer)
-				ServerPlayNetworking.send(serverPlayer, new PlayerVariablesSyncMessage(this));
+		public void markSyncDirty() {
+			_syncDirty = true;
 		}
-
 	}
 
 	public record PlayerVariablesSyncMessage(PlayerVariables data) implements CustomPacketPayload {
@@ -295,7 +357,7 @@ public class ${JavaModName}Variables {
 					<#-- If we use setAttached here, we may get unwanted references to old data instance -->
 					TagValueOutput output = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, context.player().registryAccess());
 					message.data.serialize(output);
-					context.player().getAttachedOrCreate(PLAYER_VARIABLES.get()).deserialize(TagValueInput.create(ProblemReporter.DISCARDING, context.player().registryAccess(), output.buildResult()));
+					context.player().getAttachedOrCreate(PLAYER_VARIABLES).deserialize(TagValueInput.create(ProblemReporter.DISCARDING, context.player().registryAccess(), output.buildResult()));
 				});
 			}
 		}
