@@ -1,6 +1,7 @@
 # Changelogs:
 
 ## 2.4.1
+- Added Player variables, closes #433
 - [Bugfix] Custom flower pots caused a build error
 - [Bugfix] Using multiple entity procedure blocks could cause a build error in some cases
 - [Bugfix] Fix other build errors
