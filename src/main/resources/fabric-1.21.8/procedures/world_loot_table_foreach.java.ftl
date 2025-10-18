@@ -1,6 +1,6 @@
 <#include "mcelements.ftl">
 <#-- @formatter:off -->
-if (!world.isClientSide() && world.getServer() != null) {
+<@head>if (!world.isClientSide() && world.getServer() != null) {</@head>
 	BlockPos _bpLootTblWorld = ${toBlockPos(input$x, input$y, input$z)};
 	for (ItemStack itemstackiterator : world.getServer().reloadableRegistries().getLootTable(ResourceKey.create(Registries.LOOT_TABLE, ${toResourceLocation(input$location)}))
 			.getRandomItems(new LootParams.Builder((ServerLevel) world)
@@ -10,5 +10,5 @@ if (!world.isClientSide() && world.getServer() != null) {
 					.create(LootContextParamSets.EMPTY))) {
 		${statement$foreach}
 	}
-}
+<@tail>}</@tail>
 <#-- @formatter:on -->
