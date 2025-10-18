@@ -3,6 +3,7 @@
 ## 2.4.1
 - [Bugfix] Custom flower pots caused a build error
 - [Bugfix] Using multiple entity procedure blocks could cause a build error in some cases
+- [Bugfix] Fix other build errors
 
 ## 2.4
 - Updated to MCreator 2025.3 3rd snapshot
