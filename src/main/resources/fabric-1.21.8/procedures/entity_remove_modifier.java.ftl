@@ -1,4 +1,4 @@
 <#include "mcelements.ftl">
-if (${input$entity} instanceof LivingEntity _entity) {
+<@head>if (${input$entity} instanceof LivingEntity _entity) {</@head>
 	_entity.getAttribute(${generator.map(field$attribute, "attributes")}).removeModifier(${toResourceLocation('"' + modid + ':' + field$name + '"')});
-}
+<@tail>}</@tail>

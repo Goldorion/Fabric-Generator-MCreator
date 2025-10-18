@@ -1,1 +1,3 @@
-if(${input$entity} instanceof LivingEntity _entity) _entity.removeAllEffects();
+<@head>if(${input$entity} instanceof LivingEntity _entity) {</@head>
+    _entity.removeAllEffects();
+<@tail>}</@tail>

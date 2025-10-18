@@ -1,7 +1,7 @@
 <#include "mcelements.ftl">
 <#assign entity = generator.map(field$entity, "entities", 1)!"null">
 <#if entity != "null">
-if (world instanceof ServerLevel _level) {
+<@head>if (world instanceof ServerLevel _level) {</@head>
 	Entity entityToSpawn = ${entity}.spawn(_level, ${toBlockPos(input$x,input$y,input$z)}, EntitySpawnReason.MOB_SUMMONED);
 	if (entityToSpawn != null) {
 		<#if input$yaw != "/*@int*/0">
@@ -13,5 +13,5 @@ if (world instanceof ServerLevel _level) {
 			entityToSpawn.setXRot(${opt.toFloat(input$pitch)});
 		</#if>
 	}
-}
+<@tail>}</@tail>
 </#if>

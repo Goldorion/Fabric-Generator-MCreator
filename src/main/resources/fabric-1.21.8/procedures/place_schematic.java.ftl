@@ -1,5 +1,5 @@
 <#include "mcelements.ftl">
-if (world instanceof ServerLevel _serverworld) {
+<@head>if (world instanceof ServerLevel _serverworld) {</@head>
 	StructureTemplate template = _serverworld.getStructureManager().getOrCreate(ResourceLocation.fromNamespaceAndPath("${modid}", "${field$schematic}"));
 	if (template != null) {
 		template.placeInWorld(_serverworld,
@@ -10,4 +10,4 @@ if (world instanceof ServerLevel _serverworld) {
 				.setMirror(Mirror.<#if (field$mirror!'NONE') != "RANDOM">${field$mirror!'NONE'}<#else>values()[_serverworld.random.nextInt(2)]</#if>)
 				.setIgnoreEntities(false), _serverworld.random, 3);
 	}
-}
+<@tail>}</@tail>

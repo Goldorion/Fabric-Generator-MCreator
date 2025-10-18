@@ -1,6 +1,6 @@
 <#include "mcelements.ftl">
 <#-- @formatter:off -->
-if(${input$entity} instanceof ServerPlayer _ent) {
+<@head>if(${input$entity} instanceof ServerPlayer _ent) {</@head>
 	BlockPos _bpos = ${toBlockPos(input$x,input$y,input$z)};
 	_ent.openMenu(new MenuProvider() {
 
@@ -17,5 +17,5 @@ if(${input$entity} instanceof ServerPlayer _ent) {
 		}
 
 	});
-}
+<@tail>}</@tail>
 <#-- @formatter:on -->

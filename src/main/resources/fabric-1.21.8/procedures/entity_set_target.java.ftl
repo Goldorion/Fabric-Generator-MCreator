@@ -1,5 +1,9 @@
 <#if input$sourceentity == "null">
-if (${input$entity} instanceof Mob _entity) _entity.setTarget(null);
+<@head>if (${input$entity} instanceof Mob _entity) {</@head>
+    _entity.setTarget(null);
+<@tail>}</@tail>
 <#else>
-if (${input$entity} instanceof Mob _entity && ${input$sourceentity} instanceof LivingEntity _ent) _entity.setTarget(_ent);
+<@head>if (${input$entity} instanceof Mob _entity && ${input$sourceentity} instanceof LivingEntity _ent) { </@head>
+    _entity.setTarget(_ent);
+<@tail>}</@tail>
 </#if>
