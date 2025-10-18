@@ -1,7 +1,7 @@
 <#include "mcelements.ftl">
 <#-- @formatter:off -->
 <@head>if(${input$entity} instanceof ServerPlayer _ent) {</@head>
-	BlockPos _bpos = ${toBlockPos(input$x,input$y,input$z)};
+	BlockPos _bpos${cbi} = ${toBlockPos(input$x,input$y,input$z)};
 	_ent.openMenu(new MenuProvider() {
 
 		@Override public Component getDisplayName() {
@@ -13,7 +13,7 @@
 		}
 
 		@Override public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
-			return new ${(field$guiname)}Menu(id, inventory, new FriendlyByteBuf(Unpooled.buffer()).writeBlockPos(_bpos));
+			return new ${(field$guiname)}Menu(id, inventory, new FriendlyByteBuf(Unpooled.buffer()).writeBlockPos(_bpos${cbi}));
 		}
 
 	});
