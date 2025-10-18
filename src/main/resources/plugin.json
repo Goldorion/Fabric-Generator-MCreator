@@ -2,7 +2,7 @@
   "id": "generator-fabric-${version}",
   "weight": 11,
   "supportedversions": [
-    202500338713
+    202500342611
   ],
   "info": {
     "name": "Minecraft Fabric ${version} Generator",
