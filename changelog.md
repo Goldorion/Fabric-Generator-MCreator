@@ -1,6 +1,7 @@
 # Changelogs:
 
-## 2.4.1
+## 2.5
+- The generator is now marked as stable once again (we totally did not forget)
 - [#433] Added Player scopes for global variables
 - Added strippable result for custom blocks and plants
 - [Bugfix] Custom flower pots caused a build error
