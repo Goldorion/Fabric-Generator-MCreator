@@ -95,4 +95,4 @@ tags:
   - tag: BLOCKS:minecraft:saplings
     condition: "plantType %= sapling"
 
-field_exclusions: [aiPathNodeType, onDestroyedByPlayer, strippingResult]
+field_exclusions: [aiPathNodeType, onDestroyedByPlayer]

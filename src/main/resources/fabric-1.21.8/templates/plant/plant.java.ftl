@@ -133,6 +133,10 @@ public class ${name}Block extends ${getPlantClass(data.plantType)}Block
 		<#if data.flammability != 0 && data.fireSpreadSpeed != 0>
 			FlammableBlockRegistry.getDefaultInstance().add(this, ${data.flammability}, ${data.fireSpreadSpeed});
 		</#if>
+
+		<#if data.strippingResult?? && !data.strippingResult.isEmpty()>
+			StrippableBlockRegistry.register(this, ${mappedBlockToBlock(data.strippingResult)});
+		</#if>
 	}
 
 	@Environment(EnvType.CLIENT) public static void registerRenderLayer() {
