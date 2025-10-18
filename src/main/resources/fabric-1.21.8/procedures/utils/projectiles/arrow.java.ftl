@@ -1,13 +1,13 @@
-private static AbstractArrow initArrowProjectile(AbstractArrow entityToSpawn, Entity shooter, float damage,
+private static AbstractArrow initArrowProjectile(AbstractArrow entityToSpawn_${cbi}, Entity shooter, float damage,
 		boolean silent, boolean fire, boolean particles, AbstractArrow.Pickup pickup) {
-	entityToSpawn.setOwner(shooter);
-	entityToSpawn.setBaseDamage(damage);
+	entityToSpawn_${cbi}.setOwner(shooter);
+	entityToSpawn_${cbi}.setBaseDamage(damage);
 	if (silent)
-		entityToSpawn.setSilent(true);
+		entityToSpawn_${cbi}.setSilent(true);
 	if (fire)
-		entityToSpawn.igniteForSeconds(100);
+		entityToSpawn_${cbi}.igniteForSeconds(100);
 	if (particles)
-		entityToSpawn.setCritArrow(true);
-	entityToSpawn.pickup = pickup;
-	return entityToSpawn;
+		entityToSpawn_${cbi}.setCritArrow(true);
+	entityToSpawn_${cbi}.pickup = pickup;
+	return entityToSpawn_${cbi};
 }
