@@ -216,7 +216,6 @@ public class ${name}Block extends
 				super(WoodType.OAK, <@blockProperties/>);
 			<#elseif data.blockBase == "FlowerPot">
 				super(${mappedBlockToBlock(data.pottedPlant)}, <@blockProperties/>);
-				((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(ResourceLocation.parse("${mappedMCItemToRegistryName(data.pottedPlant)}"), () -> this);
 			<#else>
 				super(<@blockProperties/>);
 			</#if>
