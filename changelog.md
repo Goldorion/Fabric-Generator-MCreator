@@ -4,7 +4,7 @@
 - [#433] Added Player scopes for global variables
 - Added strippable result for custom blocks and plants
 - [Bugfix] Custom flower pots caused a build error
-- [Bugfix] The new optimization system caused multiple build errors
+- [Bugfix] The new optimization system introduced multiple build errors inside procedure blocks
 
 ## 2.4
 - Updated to MCreator 2025.3 3rd snapshot
