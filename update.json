@@ -1,6 +1,6 @@
 {
   "generator-fabric-1.21.8": {
-    "latest": "2.4",
+    "latest": "2.5",
     "changes": [
       "2.5 (2.4 / 3rd snapshot below)",
       "The generator is now marked as stable once again (we totally did not forget)",
