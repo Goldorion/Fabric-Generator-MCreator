@@ -1,5 +1,8 @@
 # Changelogs:
 
+## 2.5.1
+* Full 2025.3 release support
+
 ## 2.5
 - The generator is now marked as stable once again (we totally did not forget)
 - [#433] Added Player scopes for global variables
