@@ -2,6 +2,7 @@
 
 ## 2.5.2
 - Minor code improvements
+- [Bugfix] Using a previous block as a strippable block was causing a build error
 - [Bugfix] Using 2 fabric mods was causing a crash
 
 ## 2.5.1
