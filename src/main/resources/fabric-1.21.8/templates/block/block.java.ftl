@@ -245,10 +245,6 @@ public class ${name}Block extends
 		<#if data.flammability != 0 && data.fireSpreadSpeed != 0>
 			FlammableBlockRegistry.getDefaultInstance().add(this, ${data.flammability}, ${data.fireSpreadSpeed});
 		</#if>
-
-		<#if data.strippingResult?? && !data.strippingResult.isEmpty()>
-			StrippableBlockRegistry.register(this, ${mappedBlockToBlock(data.strippingResult)});
-		</#if>
 	}
 
 	<#if data.generateFeature>

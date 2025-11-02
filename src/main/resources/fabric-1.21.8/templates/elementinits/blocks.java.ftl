@@ -19,7 +19,7 @@
 -->
 
 <#-- @formatter:off -->
-
+<#include "../mcitems.ftl">
 /*
  *    MCreator note: This file will be REGENERATED on each build.
  */
@@ -65,12 +65,30 @@ public class ${JavaModName}Blocks {
 					register("${block.getModElement().getRegistryName()}", ${block.getModElement().getName()}Block::new);
 			</#if>
 		</#list>
+
+        <#if !has_chunks>
+            <#list sub_blocks as block>
+                <#if block.getModElement().getTypeString() != "dimension">
+                    <#if block.strippingResult?? && !block.strippingResult.isEmpty()>
+                        StrippableBlockRegistry.register(${JavaModName}Blocks.${block.getModElement().getRegistryNameUpper()}, ${mappedBlockToBlock(block.strippingResult)});
+                    </#if>
+                </#if>
+            </#list>
+		</#if>
 	}
 	</#list>
 
 	<#if has_chunks>
 	public static void load() {
 		<#list 0..chunks?size-1 as i>register${i}();</#list>
+
+        <#list sub_blocks as block>
+            <#if block.getModElement().getTypeString() != "dimension">
+                <#if block.strippingResult?? && !block.strippingResult.isEmpty()>
+                    StrippableBlockRegistry.register(${JavaModName}Blocks.${block.getModElement().getRegistryNameUpper()}, ${mappedBlockToBlock(block.strippingResult)});
+                </#if>
+            </#if>
+        </#list>
 	}
 	</#if>
 
