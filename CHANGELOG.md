@@ -1,5 +1,9 @@
 # Changelogs:
 
+## 2.5.2
+- Minor code improvements
+- [Bugfix] Using 2 fabric mods was causing a crash
+
 ## 2.5.1
 * Full 2025.3 release support
 
