@@ -37,7 +37,7 @@ public class ${JavaModName}GameRules {
 	</#list>
 
 	public static void load() {
-	<#compress>
+	<@javacompress>
 	<#list gamerules as gamerule>
 		<#if gamerule.type == "Number">
 		 ${gamerule.getModElement().getRegistryNameUpper()} =
@@ -49,7 +49,7 @@ public class ${JavaModName}GameRules {
 				GameRules.Category.${gamerule.category}, GameRuleFactory.createBooleanRule(${gamerule.defaultValueLogic}));
 		</#if>
 	</#list>
-	</#compress>
+	</@javacompress>
 	}
 }
 <#-- @formatter:on -->

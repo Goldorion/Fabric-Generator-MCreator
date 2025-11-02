@@ -1,7 +1,7 @@
 <#include "procedures.java.ftl">
 public ${name}Procedure() {
 	AttackBlockCallback.EVENT.register((player, level, hand, pos, direction) -> {
-		<#assign dependenciesCode><#compress>
+		<#assign dependenciesCode>
 			<@procedureDependenciesCode dependencies, {
 			"x": "pos.getX()",
 			"y": "pos.getY()",
@@ -11,7 +11,7 @@ public ${name}Procedure() {
 			"direction": "direction",
 			"blockstate": "level.getBlockState(pos)"
 			}/>
-		</#compress></#assign>
+		</#assign>
 		if (hand == player.getUsedItemHand())
 		    execute(${dependenciesCode});
 		boolean result = eventResult;

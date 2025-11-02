@@ -1,7 +1,7 @@
 <#include "procedures.java.ftl">
 public ${name}Procedure() {
 	ServerEntityWorldChangeEvents.AFTER_ENTITY_CHANGE_WORLD.register((originalEntity, newEntity, origin, destination) -> {
-		<#assign dependenciesCode><#compress>
+		<#assign dependenciesCode>
 			<@procedureDependenciesCode dependencies, {
 			"x": "newEntity.getX()",
 			"y": "newEntity.getY()",
@@ -10,12 +10,12 @@ public ${name}Procedure() {
 			"dimension": "destination.dimension()",
 			"entity": "newEntity"
 			}/>
-		</#compress></#assign>
+		</#assign>
 		if (!(newEntity instanceof Player))
 			execute(${dependenciesCode});
 	});
 	ServerEntityWorldChangeEvents.AFTER_PLAYER_CHANGE_WORLD.register((player, origin, destination) -> {
-		<#assign dependenciesCode><#compress>
+		<#assign dependenciesCode>
 			<@procedureDependenciesCode dependencies, {
 			"x": "player.getX()",
 			"y": "player.getY()",
@@ -24,7 +24,7 @@ public ${name}Procedure() {
 			"dimension": "destination.dimension()",
 			"entity": "player"
 			}/>
-		</#compress></#assign>
+		</#assign>
 		execute(${dependenciesCode});
 	});
 }

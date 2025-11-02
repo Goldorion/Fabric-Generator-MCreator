@@ -40,7 +40,7 @@ package ${package}.client.renderer.item;
 	</#if>
 </#list>
 
-<#compress>
+<@javacompress>
 @Environment(EnvType.CLIENT)
 public class ${name}ItemRenderer implements SpecialModelRenderer<ItemStack> {
 	private static final Map<Integer, Function<EntityModelSet, ${name}ItemRenderer>> MODELS = Map.ofEntries(
@@ -162,5 +162,5 @@ public class ${name}ItemRenderer implements SpecialModelRenderer<ItemStack> {
 	}
 	</#if>
 }
-</#compress>
+</@javacompress>
 <#-- @formatter:on -->

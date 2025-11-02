@@ -1,7 +1,7 @@
 <#include "procedures.java.ftl">
 public ${name}Procedure() {
 	UseItemCallback.EVENT.register((player, level, hand) -> {
-		<#assign dependenciesCode><#compress>
+		<#assign dependenciesCode>
 			<@procedureDependenciesCode dependencies, {
 			"x": "player.getX()",
 			"y": "player.getY()",
@@ -9,7 +9,7 @@ public ${name}Procedure() {
 			"world": "level",
 			"entity": "player"
 			}/>
-		</#compress></#assign>
+		</#assign>
 		if (hand == player.getUsedItemHand())
 			execute(${dependenciesCode});
 		boolean result = eventResult;

@@ -1,7 +1,7 @@
 <#include "procedures.java.ftl">
 public ${name}Procedure() {
 	LivingEntityEvents.ENTITY_PICKUP_ITEM.register((entity, itemstack) -> {
-		<#assign dependenciesCode><#compress>
+		<#assign dependenciesCode>
 			<@procedureDependenciesCode dependencies, {
 				"x": "entity.getX()",
 				"y": "entity.getY()",
@@ -10,7 +10,7 @@ public ${name}Procedure() {
 				"entity": "entity",
 				"itemstack": "itemstack"
 			}/>
-		</#compress></#assign>
+		</#assign>
 		execute(${dependenciesCode});
 	});
 }

@@ -2,7 +2,7 @@
 <#include "procedures.java.ftl">
 public ${name}Procedure() {
 	LivingEntityEvents.START_USE_ITEM.register((entity, itemstack) -> {
-		<#assign dependenciesCode><#compress>
+		<#assign dependenciesCode>
 			<@procedureDependenciesCode dependencies, {
 			"x": "entity.getX()",
 			"y": "entity.getY()",
@@ -12,7 +12,7 @@ public ${name}Procedure() {
 			"world": "entity.level()",
 			"entity": "entity"
 			}/>
-		</#compress></#assign>
+		</#assign>
 		execute(${dependenciesCode});
 	});
 }

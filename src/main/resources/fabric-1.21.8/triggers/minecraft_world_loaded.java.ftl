@@ -1,11 +1,11 @@
 <#include "procedures.java.ftl">
 public ${name}Procedure() {
 	ServerWorldEvents.LOAD.register((server, world) -> {
-		<#assign dependenciesCode><#compress>
+		<#assign dependenciesCode>
 			<@procedureDependenciesCode dependencies, {
 			"world": "world"
 			}/>
-		</#compress></#assign>
+		</#assign>
 		execute(${dependenciesCode});
 	});
 }

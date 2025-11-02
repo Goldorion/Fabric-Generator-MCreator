@@ -2,7 +2,7 @@
 public ${name}Procedure() {
 	LivingEntityEvents.ENTITY_HEAL.register((entity, amount) -> {
 		if (entity != null) {
-			<#assign dependenciesCode><#compress>
+			<#assign dependenciesCode>
 			<@procedureDependenciesCode dependencies, {
 				"x": "entity.getX()",
 				"y": "entity.getY()",
@@ -11,7 +11,7 @@ public ${name}Procedure() {
 				"entity": "entity",
 				"amount": "amount"
 				}/>
-			</#compress></#assign>
+			</#assign>
 			execute(${dependenciesCode});
 		}
 		boolean result = eventResult;

@@ -25,7 +25,7 @@
 
 package ${package}.item;
 
-<#compress>
+<@javacompress>
 <#if data.toolType == "Pickaxe" || data.toolType == "Axe" || data.toolType == "Sword" || data.toolType == "Spade"
 		|| data.toolType == "Hoe" || data.toolType == "Shears" || data.toolType == "Shield" || data.toolType == "MultiTool">
 public class ${name}Item extends ${data.toolType?replace("Spade", "Shovel")?replace("MultiTool|Pickaxe|Sword", "", "r")}Item {
@@ -254,7 +254,7 @@ public class ${name}Item extends FishingRodItem {
 	<@commonMethods/>
 }
 </#if>
-</#compress>
+</@javacompress>
 
 <#macro commonMethods>
 	<#if data.stayInGridWhenCrafting>

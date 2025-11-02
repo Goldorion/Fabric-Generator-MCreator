@@ -31,7 +31,7 @@
 
 package ${package}.init;
 
-<#compress>
+<@javacompress>
 public class ${JavaModName}Tabs {
 
 	<#list customTabs as customTab>
@@ -64,5 +64,5 @@ public class ${JavaModName}Tabs {
 		</#if>
 	}
 }
-</#compress>
+</@javacompress>
 <#-- @formatter:on -->

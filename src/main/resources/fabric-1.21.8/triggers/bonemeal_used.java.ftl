@@ -1,7 +1,7 @@
 <#include "procedures.java.ftl">
 public ${name}Procedure() {
 	ItemEvents.BONEMEAL_USED.register((position, entity, itemstack, blockstate) -> {
-		<#assign dependenciesCode><#compress>
+		<#assign dependenciesCode>
 			<@procedureDependenciesCode dependencies, {
 				"x": "position.getX()",
 				"y": "position.getY()",
@@ -11,7 +11,7 @@ public ${name}Procedure() {
 				"entity": "entity",
 				"blockstate": "blockstate"
 			}/>
-		</#compress></#assign>
+		</#assign>
 		execute(${dependenciesCode});
 		boolean result = eventResult;
 		eventResult = true;

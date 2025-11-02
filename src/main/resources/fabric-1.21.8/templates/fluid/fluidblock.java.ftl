@@ -25,7 +25,7 @@ package ${package}.block;
 
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 
-<#compress>
+<@javacompress>
 public class ${name}Block extends LiquidBlock {
 
 	public ${name}Block(BlockBehaviour.Properties properties) {
@@ -84,4 +84,4 @@ public class ${name}Block extends LiquidBlock {
 
 	<@onDestroyedByExplosion data.onDestroyedByExplosion/>
 
-}</#compress>
+}</@javacompress>

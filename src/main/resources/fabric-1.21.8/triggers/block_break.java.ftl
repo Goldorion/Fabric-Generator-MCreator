@@ -1,7 +1,7 @@
 <#include "procedures.java.ftl">
 public ${name}Procedure() {
 	PlayerBlockBreakEvents.BEFORE.register((world, player, pos, state, blockentity) -> {
-		<#assign dependenciesCode><#compress>
+		<#assign dependenciesCode>
 			<@procedureDependenciesCode dependencies, {
 			"x": "pos.getX()",
 			"y": "pos.getY()",
@@ -13,7 +13,7 @@ public ${name}Procedure() {
 			"entity": "player",
 			"blockstate": "state"
 			}/>
-		</#compress></#assign>
+		</#assign>
 		execute(${dependenciesCode});
 		boolean result = eventResult;
 		eventResult = true;

@@ -1,7 +1,7 @@
 <#include "procedures.java.ftl">
 public ${name}Procedure() {
 	ServerPlayerEvents.AFTER_RESPAWN.register((oldPlayer, newPlayer, alive) -> {
-		<#assign dependenciesCode><#compress>
+		<#assign dependenciesCode>
 			<@procedureDependenciesCode dependencies, {
 			"x": "newPlayer.getX()",
 			"y": "newPlayer.getY()",
@@ -10,7 +10,7 @@ public ${name}Procedure() {
 			"entity": "(Entity) newPlayer",
 			"endconquered": "false"
 			}/>
-		</#compress></#assign>
+		</#assign>
 		execute(${dependenciesCode});
 	});
 }

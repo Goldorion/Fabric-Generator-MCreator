@@ -1,7 +1,7 @@
 <#include "procedures.java.ftl">
 public ${name}Procedure() {
 	ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> {
-		<#assign dependenciesCode><#compress>
+		<#assign dependenciesCode>
 			<@procedureDependenciesCode dependencies, {
 			"x": "handler.getPlayer().getX()",
 			"y": "handler.getPlayer().getY()",
@@ -9,7 +9,7 @@ public ${name}Procedure() {
 			"world": "handler.getPlayer().level()",
 			"entity": "handler.getPlayer()"
 			}/>
-		</#compress></#assign>
+		</#assign>
 		execute(${dependenciesCode});
 	});
 }

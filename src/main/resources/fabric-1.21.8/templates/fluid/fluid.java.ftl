@@ -22,7 +22,7 @@
 <#include "../procedures.java.ftl">
 package ${package}.fluid;
 
-<#compress>
+<@javacompress>
 public abstract class ${name}Fluid extends FlowingFluid {
 	@Environment(EnvType.CLIENT) public static final FluidVariantAttributeHandler fluidAttributes = new FluidVariantAttributeHandler() {
 		@Override public Optional<SoundEvent> getFillSound(FluidVariant variant) {
@@ -211,5 +211,5 @@ public abstract class ${name}Fluid extends FlowingFluid {
 	@Environment(EnvType.CLIENT) public static void registerRenderLayer() {
 		BlockRenderLayerMap.putFluids(ChunkSectionLayer.TRANSLUCENT, ${JavaModName}Fluids.${REGISTRYNAME}, ${JavaModName}Fluids.FLOWING_${REGISTRYNAME});
 	}
-}</#compress>
+}</@javacompress>
 <#-- @formatter:on -->

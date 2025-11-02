@@ -2,7 +2,7 @@
 public ${name}Procedure() {
 	LivingEntityEvents.ENTITY_FALL.register((entity, falldistance, damagemultiplier) -> {
 		if (entity != null) {
-			<#assign dependenciesCode><#compress>
+			<#assign dependenciesCode>
 			<@procedureDependenciesCode dependencies, {
 				"x": "entity.getX()",
 				"y": "entity.getY()",
@@ -12,7 +12,7 @@ public ${name}Procedure() {
 				"world": "entity.level()",
 				"entity": "entity"
 				}/>
-			</#compress></#assign>
+			</#assign>
 			execute(${dependenciesCode});
 		}
 		boolean result = eventResult;

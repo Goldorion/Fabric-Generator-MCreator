@@ -25,7 +25,7 @@
 
 package ${package}.item;
 
-<#compress>
+<@javacompress>
 public class ${name}Item extends Item {
 
 	<#if data.hasBannerPatterns()>
@@ -424,5 +424,5 @@ public class ${name}Item extends Item {
 		</#if>
 	}
 </#macro>
-</#compress>
+</@javacompress>
 <#-- @formatter:on -->

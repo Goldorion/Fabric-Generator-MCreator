@@ -21,7 +21,6 @@
 <#-- @formatter:off -->
 package ${package}.world.features;
 
-<#compress>
 public class StructureFeature extends Feature<StructureFeatureConfiguration> {
 	public StructureFeature(Codec<StructureFeatureConfiguration> codec) {
 		super(codec);
@@ -43,5 +42,4 @@ public class StructureFeature extends Feature<StructureFeatureConfiguration> {
 		return true;
 	}
 }
-</#compress>
 <#-- @formatter:on -->

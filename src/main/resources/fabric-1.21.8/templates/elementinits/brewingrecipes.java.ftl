@@ -26,7 +26,7 @@
 
 package ${package}.init;
 
-<#compress>
+<@javacompress>
 public class ${JavaModName}BrewingRecipes {
 
 	public static void load() {
@@ -42,5 +42,5 @@ public class ${JavaModName}BrewingRecipes {
 		});
 	}
 }
-</#compress>
+</@javacompress>
 <#-- @formatter:on -->

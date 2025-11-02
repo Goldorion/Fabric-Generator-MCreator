@@ -1,7 +1,7 @@
 <#include "procedures.java.ftl">
 public ${name}Procedure() {
 	ServerMessageEvents.ALLOW_CHAT_MESSAGE.register((message, sender, params) -> {
-		<#assign dependenciesCode><#compress>
+		<#assign dependenciesCode>
 			<@procedureDependenciesCode dependencies, {
 			"x": "sender.getX()",
 			"y": "sender.getY()",
@@ -10,7 +10,7 @@ public ${name}Procedure() {
 			"entity": "sender",
 			"text": "message.decoratedContent().getString()"
 			}/>
-		</#compress></#assign>
+		</#assign>
 		execute(${dependenciesCode});
 		boolean result = eventResult;
 		eventResult = true;

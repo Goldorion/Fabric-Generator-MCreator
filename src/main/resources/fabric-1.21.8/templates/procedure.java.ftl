@@ -36,7 +36,7 @@ package ${package}.procedures;
 	</#list>
 </#if>
 
-<#compress>
+<@javacompress>
 
 public class ${name}Procedure {
 
@@ -68,5 +68,5 @@ public static boolean eventResult = true;
 
 	${extra_templates_code}
 }
-</#compress>
+</@javacompress>
 <#-- @formatter:on -->

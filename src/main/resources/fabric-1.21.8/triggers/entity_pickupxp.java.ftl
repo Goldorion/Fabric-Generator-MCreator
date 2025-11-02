@@ -2,7 +2,7 @@
 public ${name}Procedure() {
 	PlayerEvents.PICKUP_XP.register((entity) -> {
 		if (entity != null) {
-			<#assign dependenciesCode><#compress>
+			<#assign dependenciesCode>
 			<@procedureDependenciesCode dependencies, {
 				"x": "entity.getX()",
 				"y": "entity.getY()",
@@ -10,7 +10,7 @@ public ${name}Procedure() {
 				"world": "entity.level()",
 				"entity": "entity"
 			}/>
-			</#compress></#assign>
+			</#assign>
 			execute(${dependenciesCode});
 		}
 		boolean result = eventResult;

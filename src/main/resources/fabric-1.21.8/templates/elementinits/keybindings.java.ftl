@@ -17,7 +17,7 @@
 -->
 
 <#-- @formatter:off -->
-<#compress>
+<@javacompress>
 
 <#include "../procedures.java.ftl">
 
@@ -86,5 +86,5 @@ package ${package}.init;
 		});
 	}
 }
-</#compress>
+</@javacompress>
 <#-- @formatter:on -->

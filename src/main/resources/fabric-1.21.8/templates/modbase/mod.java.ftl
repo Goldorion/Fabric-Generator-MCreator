@@ -37,31 +37,33 @@ public class ${JavaModName} implements ModInitializer {
 
 		LOGGER.info("Initializing ${JavaModName}");
 
+        <@javacompress>
 		<#if w.hasSounds()>${JavaModName}Sounds.load();</#if>
 		<#if w.hasItemsInTabs()>${JavaModName}Tabs.load();</#if>
 		<#if w.hasVariables()>${JavaModName}Variables.variablesLoad();</#if>
-		<#if w.hasElementsOfBaseType("feature")>${JavaModName}Features.load();</#if>
-		<#if w.hasElementsOfType("particle")>${JavaModName}ParticleTypes.load();</#if>
-		<#if w.hasElementsOfType("fluid")>${JavaModName}Fluids.load();</#if>
-		<#if w.hasElementsOfBaseType("entity")>${JavaModName}Entities.load();</#if>
-		<#if w.hasElementsOfBaseType("block")>${JavaModName}Blocks.load();</#if>
-		<#if w.hasElementsOfBaseType("blockentity")>${JavaModName}BlockEntities.load();</#if>
-		<#if w.hasElementsOfBaseType("item")>${JavaModName}Items.load();</#if>
-		<#if w.hasElementsOfType("attribute")>${JavaModName}Attributes.load();</#if>
+		<#if types["base:features"]??>${JavaModName}Features.load();</#if>
+		<#if types["particles"]??>${JavaModName}ParticleTypes.load();</#if>
+		<#if types["fluids"]??>${JavaModName}Fluids.load();</#if>
+		<#if types["base:entities"]??>${JavaModName}Entities.load();</#if>
+		<#if types["base:blocks"]??>${JavaModName}Blocks.load();</#if>
+		<#if types["base:blockentities"]??>${JavaModName}BlockEntities.load();</#if>
+		<#if types["base:items"]??>${JavaModName}Items.load();</#if>
+		<#if types["attributes"]??>${JavaModName}Attributes.load();</#if>
 		<#if w.getGElementsOfType("recipe")?filter(e -> e.recipeType == "Brewing")?size != 0>${JavaModName}BrewingRecipes.load();</#if>
 		<#if w.getGElementsOfType('biome')?filter(e -> e.hasVines() || e.hasFruits())?size != 0>${JavaModName}Biomes.load();</#if>
 		<#if w.getGElementsOfType('biome')?filter(e -> e.spawnBiome || e.spawnInCaves || e.spawnBiomeNether)?size != 0>ServerLifecycleEvents.SERVER_STARTING.register(${JavaModName}Biomes::load);</#if>
 		<#if w.getGElementsOfType('dimension')?filter(e -> e.hasEffectsOrDimensionTriggers() || e.enablePortal)?size != 0>${JavaModName}Dimensions.load();</#if>
-		<#if w.hasElementsOfType("gui")>${JavaModName}Menus.load();</#if>
-		<#if w.hasElementsOfType("villagerprofession")>${JavaModName}VillagerProfessions.load();</#if>
-		<#if w.hasElementsOfType("villagertrade")>${JavaModName}Trades.registerTrades();</#if>
-		<#if w.hasElementsOfType("itemextension")>${JavaModName}ItemExtensions.load();</#if>
-		<#if w.hasElementsOfType("potioneffect")>${JavaModName}MobEffects.load();</#if>
-		<#if w.hasElementsOfType("potion")>${JavaModName}Potions.load();</#if>
-		<#if w.hasElementsOfType("gamerule")>${JavaModName}GameRules.load();</#if>
+		<#if types["guis"]??>${JavaModName}Menus.load();</#if>
+		<#if types["villagerprofessions"]??>${JavaModName}VillagerProfessions.load();</#if>
+		<#if types["villagertrades"]??>${JavaModName}Trades.registerTrades();</#if>
+		<#if types["itemextensions"]??>${JavaModName}ItemExtensions.load();</#if>
+		<#if types["potioneffects"]??>${JavaModName}MobEffects.load();</#if>
+		<#if types["potions"]??>${JavaModName}Potions.load();</#if>
+		<#if types["gamerules"]??>${JavaModName}GameRules.load();</#if>
 		<#if w.getGElementsOfType("command")?filter(e -> e.type != "CLIENTSIDE")?size != 0>${JavaModName}Commands.load();</#if>
 		<#if w.getGElementsOfType('procedure')?filter(e -> !e.procedurexml?contains('no_ext_trigger'))?size != 0>${JavaModName}Procedures.load();</#if>
-		<#if w.hasElementsOfType("keybind")>${JavaModName}KeyMappingsServer.serverLoad();</#if>
+		<#if types["keybinds"]??>${JavaModName}KeyMappingsServer.serverLoad();</#if>
+		</@javacompress>
 
 		tick();
 

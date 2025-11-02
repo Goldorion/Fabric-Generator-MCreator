@@ -1,7 +1,7 @@
 <#include "procedures.java.ftl">
 public ${name}Procedure() {
 	PlayerEvents.END_PLAYER_TICK.register(entity -> {
-		<#assign dependenciesCode><#compress>
+		<#assign dependenciesCode>
 			<@procedureDependenciesCode dependencies, {
 			"x": "entity.getX()",
 			"y": "entity.getY()",
@@ -9,7 +9,7 @@ public ${name}Procedure() {
 			"world": "entity.level()",
 			"entity": "entity"
 			}/>
-		</#compress></#assign>
+		</#assign>
 		execute(${dependenciesCode});
 	});
 }

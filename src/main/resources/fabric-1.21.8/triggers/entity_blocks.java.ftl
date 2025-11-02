@@ -2,7 +2,7 @@
 public ${name}Procedure() {
 	LivingEntityEvents.ENTITY_BLOCK.register((entity, damagesource, amount) -> {
 		if (entity != null) {
-			<#assign dependenciesCode><#compress>
+			<#assign dependenciesCode>
 			<@procedureDependenciesCode dependencies, {
 				"x": "entity.getX()",
 				"y": "entity.getY()",
@@ -15,7 +15,7 @@ public ${name}Procedure() {
 				"originalblockedamount": "amount",
 				"blockedamount": "amount"
 				}/>
-			</#compress></#assign>
+			</#assign>
 			execute(${dependenciesCode});
 		}
 		boolean result = eventResult;

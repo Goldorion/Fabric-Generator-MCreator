@@ -24,7 +24,7 @@
 
 package ${package}.world.dimension;
 
-<#compress>
+<@javacompress>
 public class ${name}Dimension {
 
 	<#if data.hasEffectsOrDimensionTriggers()>
@@ -71,5 +71,5 @@ public class ${name}Dimension {
 		}
 	</#if>
 }
-</#compress>
+</@javacompress>
 <#-- @formatter:on -->

@@ -24,7 +24,7 @@
 
 package ${package}.item.extension;
 
-<#compress>
+<@javacompress>
 public class ${name}ItemExtension {
 	public static void init() {
 		DispenserBlock.registerBehavior(${mappedMCItemToItem(data.item)}, new OptionalDispenseItemBehavior() {
@@ -59,5 +59,5 @@ public class ${name}ItemExtension {
 			}
 		});
 	}
-}</#compress>
+}</@javacompress>
 <#-- @formatter:on -->

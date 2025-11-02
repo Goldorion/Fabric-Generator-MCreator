@@ -3,7 +3,7 @@ public ${name}Procedure() {
 	MiscEvents.COMMAND_EXECUTE.register((results) -> {
 		Entity entity = results.getContext().getSource().getEntity();
 		if (entity != null) {
-			<#assign dependenciesCode><#compress>
+			<#assign dependenciesCode>
 				<@procedureDependenciesCode dependencies, {
 					"x": "entity.getX()",
 					"y": "entity.getY()",
@@ -13,7 +13,7 @@ public ${name}Procedure() {
 					"command": "results.getReader().getString()",
 					"arguments": "results.getContext().build(results.getReader().getString())"
 				}/>
-			</#compress></#assign>
+			</#assign>
 			execute(${dependenciesCode});
 		}
 		boolean result = eventResult;

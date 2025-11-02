@@ -2,7 +2,7 @@
 public ${name}Procedure() {
 	ServerLivingEntityEvents.ALLOW_DAMAGE.register((entity, damageSource, amount) -> {
 		if (entity != null) {
-			<#assign dependenciesCode><#compress>
+			<#assign dependenciesCode>
 			<@procedureDependenciesCode dependencies, {
 				"x": "entity.getX()",
 				"y": "entity.getY()",
@@ -14,7 +14,7 @@ public ${name}Procedure() {
 				"sourceentity": "damageSource.getEntity()",
 				"immediatesourceentity": "damageSource.getDirectEntity()"
 				}/>
-			</#compress></#assign>
+			</#assign>
 			execute(${dependenciesCode});
 		}
 		boolean result = eventResult;

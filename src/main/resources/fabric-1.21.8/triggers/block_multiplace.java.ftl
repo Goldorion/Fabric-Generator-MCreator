@@ -1,7 +1,7 @@
 <#include "procedures.java.ftl">
 public ${name}Procedure() {
 	BlockEvents.BLOCK_MULTIPLACE.register((position, entity, placed, placedAgainst) -> {
-		<#assign dependenciesCode><#compress>
+		<#assign dependenciesCode>
 			<@procedureDependenciesCode dependencies, {
 				"x": "position.getX()",
 				"y": "position.getY()",
@@ -14,7 +14,7 @@ public ${name}Procedure() {
 				"blockstate": "placed",
 				"placedagainst": "placedAgainst"
 			}/>
-		</#compress></#assign>
+		</#assign>
 		execute(${dependenciesCode});
 		boolean result = eventResult;
 		eventResult = true;

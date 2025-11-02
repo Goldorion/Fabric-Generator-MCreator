@@ -25,7 +25,7 @@
 
 package ${package}.init;
 
-<#compress>
+<@javacompress>
 public class ${JavaModName}Dimensions {
 
 	public static void load() {
@@ -38,5 +38,5 @@ public class ${JavaModName}Dimensions {
 			</#if>
 		</#list>
 	}
-}</#compress>
+}</@javacompress>
 <#-- @formatter:on -->

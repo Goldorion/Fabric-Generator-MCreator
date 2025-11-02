@@ -29,7 +29,7 @@ package ${package}.init;
 public class ${JavaModName}ItemExtensions {
 
 	public static void load() {
-		<#compress>
+		<@javacompress>
 
 		<#list itemextensions as extension>
 			<#if extension.hasDispenseBehavior>
@@ -54,7 +54,7 @@ public class ${JavaModName}ItemExtensions {
 				</#if>
 		</#list>
 		});
-		</#compress>
+		</@javacompress>
 	}
 }
 <#-- @formatter:on -->

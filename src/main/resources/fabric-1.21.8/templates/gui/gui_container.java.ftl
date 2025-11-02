@@ -26,7 +26,7 @@ package ${package}.world.inventory;
 
 import ${package}.${JavaModName};
 
-<#compress>
+<@javacompress>
 public class ${name}Menu extends AbstractContainerMenu implements ${JavaModName}Menus.MenuAccessor {
 
 	public final Map<String, Object> menuState = new HashMap<>() {
@@ -355,5 +355,5 @@ public class ${name}Menu extends AbstractContainerMenu implements ${JavaModName}
 		</#if>
 	}
 }
-</#compress>
+</@javacompress>
 <#-- @formatter:on -->

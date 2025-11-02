@@ -17,7 +17,7 @@
 -->
 
 <#-- @formatter:off -->
-<#compress>
+<@javacompress>
 <#include "../mcitems.ftl">
 
 /*
@@ -72,7 +72,7 @@ public class ${JavaModName}Trades {
 		}
 	}
 }
-</#compress>
+</@javacompress>
 
 <#macro trades entries level villagerProfession>
 <#if entries?has_content>

@@ -1,7 +1,7 @@
 <#include "procedures.java.ftl">
 public ${name}Procedure() {
 	EntitySleepEvents.STOP_SLEEPING.register((entity, blockPos) -> {
-		<#assign dependenciesCode><#compress>
+		<#assign dependenciesCode>
 			<@procedureDependenciesCode dependencies, {
 			"x": "entity.getX()",
 			"y": "entity.getY()",
@@ -9,7 +9,7 @@ public ${name}Procedure() {
 			"world": "entity.level()",
 			"entity": "entity"
 			}/>
-		</#compress></#assign>
+		</#assign>
 		execute(${dependenciesCode});
 	});
 }
