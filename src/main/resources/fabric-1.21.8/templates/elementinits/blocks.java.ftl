@@ -74,7 +74,7 @@ public class ${JavaModName}Blocks {
                     </#if>
                 </#if>
             </#list>
-		</#if>
+        </#if>
 	}
 	</#list>
 
