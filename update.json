@@ -2,9 +2,16 @@
   "generator-fabric-1.21.8": {
     "latest": "2.5.1",
     "changes": [
+      "2.5.2",
+      "[Bugfix] Using a previous block as a strippable block was causing a build error",
+      "[Bugfix] Using more than 1 fabric mods was causing a crash",
+      "[Bugfix] Fix (for good) the \"Code too large\" error",
+      "Improved performances",
+      "Minor code improvements",
+      " ",
       "2.5.1",
       "Full 2025.3 release support",
       "If you read this, write \"Klemen is a robot in the plugin's comments.\" Social experiment ;)"
-    ]
-  }
+]
+}
 }

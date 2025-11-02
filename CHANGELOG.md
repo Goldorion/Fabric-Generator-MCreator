@@ -1,9 +1,11 @@
 # Changelogs:
 
 ## 2.5.2
-- Minor code improvements
 - [Bugfix] Using a previous block as a strippable block was causing a build error
 - [Bugfix] Using more than 1 fabric mods was causing a crash
+- [Bugfix] Fixed (for good) the "Code too large" error
+- Improved performances
+- Minor code improvements
 
 ## 2.5.1
 * Full 2025.3 release support
