@@ -22,111 +22,101 @@
 <#include "../procedures.java.ftl">
 
 /*
- *	MCreator note: This file will be REGENERATED on each build.
+ *    MCreator note: This file will be REGENERATED on each build.
  */
 
 package ${package}.init;
 
 <#assign hasBlocks = false>
 <#assign hasDoubleBlocks = false>
+<#assign chunks = items?chunk(2500)>
+<#assign has_chunks = chunks?size gt 1>
 
 public class ${JavaModName}Items {
 
+	<@javacompress>
 	<#list items as item>
 		<#if item.getModElement().getTypeString() == "armor">
-			<#if item.enableHelmet>
-			public static Item ${item.getModElement().getRegistryNameUpper()}_HELMET;
-			</#if>
-			<#if item.enableBody>
-			public static Item ${item.getModElement().getRegistryNameUpper()}_CHESTPLATE;
-			</#if>
-			<#if item.enableLeggings>
-			public static Item ${item.getModElement().getRegistryNameUpper()}_LEGGINGS;
-			</#if>
-			<#if item.enableBoots>
-			public static Item ${item.getModElement().getRegistryNameUpper()}_BOOTS;
-			</#if>
+			<#if item.enableHelmet>public static Item ${item.getModElement().getRegistryNameUpper()}_HELMET;</#if>
+			<#if item.enableBody>public static Item ${item.getModElement().getRegistryNameUpper()}_CHESTPLATE;</#if>
+			<#if item.enableLeggings>public static Item ${item.getModElement().getRegistryNameUpper()}_LEGGINGS;</#if>
+			<#if item.enableBoots>public static Item ${item.getModElement().getRegistryNameUpper()}_BOOTS;</#if>
 		<#elseif item.getModElement().getTypeString() == "livingentity">
 			public static Item ${item.getModElement().getRegistryNameUpper()}_SPAWN_EGG;
-		<#elseif item.getModElement().getTypeString() == "dimension" && item.hasIgniter()>
-			public static Item ${item.getModElement().getRegistryNameUpper()};
 		<#elseif item.getModElement().getTypeString() == "fluid" && item.generateBucket>
 			public static Item ${item.getModElement().getRegistryNameUpper()}_BUCKET;
-		<#elseif item.getModElement().getTypeString() == "block" || item.getModElement().getTypeString() == "plant">
-			<#if item.hasSpecialInformation(w)>
-				public static Item ${item.getModElement().getRegistryNameUpper()};
-			<#else>
-				<#if item.isDoubleBlock()>
-					<#assign hasDoubleBlocks = true>
-					public static Item ${item.getModElement().getRegistryNameUpper()};
-				<#else>
-					<#assign hasBlocks = true>
-					public static Item ${item.getModElement().getRegistryNameUpper()};
-				</#if>
-			</#if>
 		<#else>
 			public static Item ${item.getModElement().getRegistryNameUpper()};
 		</#if>
 	</#list>
+	</@javacompress>
 
-	public static void load() {
-	<#list items as item>
-		<#if item.getModElement().getTypeString() == "armor">
-			<#if item.enableHelmet>
-			${item.getModElement().getRegistryNameUpper()}_HELMET =
-				register("${item.getModElement().getRegistryName()}_helmet", ${item.getModElement().getName()}Item.Helmet::new);
-			</#if>
-			<#if item.enableBody>
-			${item.getModElement().getRegistryNameUpper()}_CHESTPLATE =
-				register("${item.getModElement().getRegistryName()}_chestplate", ${item.getModElement().getName()}Item.Chestplate::new);
-			</#if>
-			<#if item.enableLeggings>
-			${item.getModElement().getRegistryNameUpper()}_LEGGINGS =
-				register("${item.getModElement().getRegistryName()}_leggings", ${item.getModElement().getName()}Item.Leggings::new);
-			</#if>
-			<#if item.enableBoots>
-			${item.getModElement().getRegistryNameUpper()}_BOOTS =
-				register("${item.getModElement().getRegistryName()}_boots", ${item.getModElement().getName()}Item.Boots::new);
-			</#if>
-		<#elseif item.getModElement().getTypeString() == "livingentity">
-			${item.getModElement().getRegistryNameUpper()}_SPAWN_EGG =
-				register("${item.getModElement().getRegistryName()}_spawn_egg",
-					properties -> new SpawnEggItem(${JavaModName}Entities.${item.getModElement().getRegistryNameUpper()}, properties));
-		<#elseif item.getModElement().getTypeString() == "dimension" && item.hasIgniter()>
-			${item.getModElement().getRegistryNameUpper()} =
-				register("${item.getModElement().getRegistryName()}", ${item.getModElement().getName()}Item::new);
-		<#elseif item.getModElement().getTypeString() == "fluid" && item.generateBucket>
-			${item.getModElement().getRegistryNameUpper()}_BUCKET =
-				register("${item.getModElement().getRegistryName()}_bucket", ${item.getModElement().getName()}Item::new);
-		<#elseif item.getModElement().getTypeString() == "block" || item.getModElement().getTypeString() == "plant">
-			<#if item.hasSpecialInformation(w)>
-				${item.getModElement().getRegistryNameUpper()} =
-					register("${item.getModElement().getRegistryName()}",
-						<#if item.hasCustomItemProperties()>
-							properties -> new ${item.getModElement().getName()}Block.Item(<@blockItemProperties item false/>)
-						<#else>
-							${item.getModElement().getName()}Block.Item::new
-						</#if>
-					);
-			<#else>
-				<#if item.isDoubleBlock()>
-					<#assign hasDoubleBlocks = true>
-					${item.getModElement().getRegistryNameUpper()} =
-						doubleBlock(${JavaModName}Blocks.${item.getModElement().getRegistryNameUpper()}, "${item.getModElement().getRegistryName()}"
-						<#if item.hasCustomItemProperties()>, <@blockItemProperties item/></#if>);
-				<#else>
-					<#assign hasBlocks = true>
-					${item.getModElement().getRegistryNameUpper()} =
-						block(${JavaModName}Blocks.${item.getModElement().getRegistryNameUpper()}, "${item.getModElement().getRegistryName()}"
-						<#if item.hasCustomItemProperties()>, <@blockItemProperties item/></#if>);
+	<#list chunks as sub_items>
+	    public static void <#if has_chunks>register${sub_items?index}<#else>load</#if>() {
+		<#list sub_items as item>
+			<#if item.getModElement().getTypeString() == "armor">
+				<#if item.enableHelmet>
+				${item.getModElement().getRegistryNameUpper()}_HELMET =
+					register("${item.getModElement().getRegistryName()}_helmet", ${item.getModElement().getName()}Item.Helmet::new);
 				</#if>
+				<#if item.enableBody>
+				${item.getModElement().getRegistryNameUpper()}_CHESTPLATE =
+					register("${item.getModElement().getRegistryName()}_chestplate", ${item.getModElement().getName()}Item.Chestplate::new);
+				</#if>
+				<#if item.enableLeggings>
+				${item.getModElement().getRegistryNameUpper()}_LEGGINGS =
+					register("${item.getModElement().getRegistryName()}_leggings", ${item.getModElement().getName()}Item.Leggings::new);
+				</#if>
+				<#if item.enableBoots>
+				${item.getModElement().getRegistryNameUpper()}_BOOTS =
+					register("${item.getModElement().getRegistryName()}_boots", ${item.getModElement().getName()}Item.Boots::new);
+				</#if>
+			<#elseif item.getModElement().getTypeString() == "livingentity">
+				${item.getModElement().getRegistryNameUpper()}_SPAWN_EGG =
+					register("${item.getModElement().getRegistryName()}_spawn_egg",
+						properties -> new SpawnEggItem(${JavaModName}Entities.${item.getModElement().getRegistryNameUpper()}.get(), properties));
+			<#elseif item.getModElement().getTypeString() == "dimension" && item.hasIgniter()>
+				${item.getModElement().getRegistryNameUpper()} =
+					register("${item.getModElement().getRegistryName()}", ${item.getModElement().getName()}Item::new);
+			<#elseif item.getModElement().getTypeString() == "fluid" && item.generateBucket>
+				${item.getModElement().getRegistryNameUpper()}_BUCKET =
+					register("${item.getModElement().getRegistryName()}_bucket", ${item.getModElement().getName()}Item::new);
+			<#elseif item.getModElement().getTypeString() == "block" || item.getModElement().getTypeString() == "plant">
+				<#if item.hasSpecialInformation(w)>
+					${item.getModElement().getRegistryNameUpper()} =
+						register("${item.getModElement().getRegistryName()}",
+							<#if item.hasCustomItemProperties()>
+								properties -> new ${item.getModElement().getName()}Block.Item(<@blockItemProperties item false/>)
+							<#else>
+								${item.getModElement().getName()}Block.Item::new
+							</#if>
+						);
+				<#else>
+					<#if item.isDoubleBlock()>
+						<#assign hasDoubleBlocks = true>
+						${item.getModElement().getRegistryNameUpper()} =
+							doubleBlock(${JavaModName}Blocks.${item.getModElement().getRegistryNameUpper()}, "${item.getModElement().getRegistryName()}"
+							<#if item.hasCustomItemProperties()>, <@blockItemProperties item/></#if>);
+					<#else>
+						<#assign hasBlocks = true>
+						${item.getModElement().getRegistryNameUpper()} =
+							block(${JavaModName}Blocks.${item.getModElement().getRegistryNameUpper()}, "${item.getModElement().getRegistryName()}"
+							<#if item.hasCustomItemProperties()>, <@blockItemProperties item/></#if>);
+					</#if>
+				</#if>
+			<#else>
+				${item.getModElement().getRegistryNameUpper()} =
+					register("${item.getModElement().getRegistryName()}", ${item.getModElement().getName()}Item::new);
 			</#if>
-		<#else>
-			${item.getModElement().getRegistryNameUpper()} =
-				register("${item.getModElement().getRegistryName()}", ${item.getModElement().getName()}Item::new);
-		</#if>
-	</#list>
+		</#list>
 	}
+	</#list>
+
+	<#if has_chunks>
+	public static void load() {
+		<#list 0..chunks?size-1 as i>register${i}();</#list>
+	}
+	</#if>
 
 	// Start of user code block custom items
 	// End of user code block custom items

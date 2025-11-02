@@ -21,7 +21,7 @@
 <#-- @formatter:off -->
 
 /*
- *	MCreator note: This file will be REGENERATED on each build.
+ *    MCreator note: This file will be REGENERATED on each build.
  */
 
 package ${package}.init;
@@ -39,20 +39,26 @@ package ${package}.init;
 	</#if>
 </#list>
 
+<#assign chunks = blocks?chunk(2500)>
+<#assign has_chunks = chunks?size gt 1>
+
 public class ${JavaModName}Blocks {
 
+	<@javacompress>
 	<#list blocks as block>
 		<#if block.getModElement().getTypeString() == "dimension">
-			public static Block ${block.getModElement().getRegistryNameUpper()}_PORTAL;
+            public static Block ${block.getModElement().getRegistryNameUpper()}_PORTAL;
 		<#else>
 			public static Block ${block.getModElement().getRegistryNameUpper()};
 		</#if>
 	</#list>
+	</@javacompress>
 
-	public static void load() {
-		<#list blocks as block>
+	<#list chunks as sub_blocks>
+	    public static void <#if has_chunks>register${sub_blocks?index}<#else>load</#if>() {
+		<#list sub_blocks as block>
 			<#if block.getModElement().getTypeString() == "dimension">
-				${block.getModElement().getRegistryNameUpper()}_PORTAL =
+        	    ${block.getModElement().getRegistryNameUpper()}_PORTAL =
 					register("${block.getModElement().getRegistryName()}_portal", ${block.getModElement().getName()}PortalBlock::new);
 			<#else>
 				${block.getModElement().getRegistryNameUpper()} =
@@ -60,6 +66,13 @@ public class ${JavaModName}Blocks {
 			</#if>
 		</#list>
 	}
+	</#list>
+
+	<#if has_chunks>
+	public static void load() {
+		<#list 0..chunks?size-1 as i>register${i}();</#list>
+	}
+	</#if>
 
 	// Start of user code block custom blocks
 	// End of user code block custom blocks
