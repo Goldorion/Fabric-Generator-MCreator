@@ -33,18 +33,22 @@ import net.minecraft.client.model.Model;
 		<#if data.enableHelmet>
 		${JavaModName}ArmorModels.ARMOR_MODELS.put(${JavaModName}Items.${REGISTRYNAME}_HELMET, new ${JavaModName}ArmorModels.ArmorModel() {
 			<#if data.helmetModelName != "Default" && data.getHelmetModel()??>
+			private HumanoidModel armorModel = null;
 			@Override public HumanoidModel getHumanoidArmorModel(ItemStack itemStack, EquipmentClientInfo.LayerType layerType, Model original) {
-				return new HumanoidModel(new ModelPart(Collections.emptyList(), Map.of(
-					"head", new ModelPart(Collections.emptyList(), Map.of(
-						"head", new ${data.helmetModelName}(Minecraft.getInstance().getEntityModels().bakeLayer(${data.helmetModelName}.LAYER_LOCATION)).${data.helmetModelPart},
-						"hat", new ModelPart(Collections.emptyList(), Collections.emptyMap())
-					)),
-					"body", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
-					"right_arm", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
-					"left_arm", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
-					"right_leg", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
-					"left_leg", new ModelPart(Collections.emptyList(), Collections.emptyMap())
-				)));
+				if (armorModel == null) {
+					armorModel = new HumanoidModel(new ModelPart(Collections.emptyList(), Map.of(
+						"head", new ModelPart(Collections.emptyList(), Map.of(
+							"head", new ${data.helmetModelName}(Minecraft.getInstance().getEntityModels().bakeLayer(${data.helmetModelName}.LAYER_LOCATION)).${data.helmetModelPart},
+							"hat", new ModelPart(Collections.emptyList(), Collections.emptyMap())
+						)),
+						"body", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
+						"right_arm", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
+						"left_arm", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
+						"right_leg", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
+						"left_leg", new ModelPart(Collections.emptyList(), Collections.emptyMap())
+					)));
+				}
+				return armorModel;
 			}
 			</#if>
 
@@ -61,17 +65,22 @@ import net.minecraft.client.model.Model;
 		<#if data.enableBody>
 		${JavaModName}ArmorModels.ARMOR_MODELS.put(${JavaModName}Items.${REGISTRYNAME}_CHESTPLATE, new ${JavaModName}ArmorModels.ArmorModel() {
 			<#if data.bodyModelName != "Default" && data.getBodyModel()??>
+			private HumanoidModel armorModel = null;
 			@Override public HumanoidModel getHumanoidArmorModel(ItemStack itemStack, EquipmentClientInfo.LayerType layerType, Model original) {
-				return new HumanoidModel(new ModelPart(Collections.emptyList(), Map.of(
-					"body", new ${data.bodyModelName}(Minecraft.getInstance().getEntityModels().bakeLayer(${data.bodyModelName}.LAYER_LOCATION)).${data.bodyModelPart},
-					"left_arm", new ${data.bodyModelName}(Minecraft.getInstance().getEntityModels().bakeLayer(${data.bodyModelName}.LAYER_LOCATION)).${data.armsModelPartL},
-					"right_arm", new ${data.bodyModelName}(Minecraft.getInstance().getEntityModels().bakeLayer(${data.bodyModelName}.LAYER_LOCATION)).${data.armsModelPartR},
-					"head", new ModelPart(Collections.emptyList(), Map.of(
-						"hat", new ModelPart(Collections.emptyList(), Collections.emptyMap())
-					)),
-					"right_leg", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
-					"left_leg", new ModelPart(Collections.emptyList(), Collections.emptyMap())
-				)));
+				if (armorModel == null) {
+					${data.bodyModelName} model = new ${data.bodyModelName}(Minecraft.getInstance().getEntityModels().bakeLayer(${data.bodyModelName}.LAYER_LOCATION));
+					armorModel = new HumanoidModel(new ModelPart(Collections.emptyList(), Map.of(
+						"body", model.${data.bodyModelPart},
+						"left_arm", model.${data.armsModelPartL},
+						"right_arm", model.${data.armsModelPartR},
+						"head", new ModelPart(Collections.emptyList(), Map.of(
+							"hat", new ModelPart(Collections.emptyList(), Collections.emptyMap())
+						)),
+						"right_leg", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
+						"left_leg", new ModelPart(Collections.emptyList(), Collections.emptyMap())
+					)));
+				}
+				return armorModel;
 			}
 			</#if>
 
@@ -88,17 +97,22 @@ import net.minecraft.client.model.Model;
 		<#if data.enableLeggings>
 		${JavaModName}ArmorModels.ARMOR_MODELS.put(${JavaModName}Items.${REGISTRYNAME}_LEGGINGS, new ${JavaModName}ArmorModels.ArmorModel() {
 			<#if data.leggingsModelName != "Default" && data.getLeggingsModel()??>
+			private HumanoidModel armorModel = null;
 			@Override public HumanoidModel getHumanoidArmorModel(ItemStack itemStack, EquipmentClientInfo.LayerType layerType, Model original) {
-				return new HumanoidModel(new ModelPart(Collections.emptyList(), Map.of(
-					"left_leg", new ${data.leggingsModelName}(Minecraft.getInstance().getEntityModels().bakeLayer(${data.leggingsModelName}.LAYER_LOCATION)).${data.leggingsModelPartL},
-					"right_leg", new ${data.leggingsModelName}(Minecraft.getInstance().getEntityModels().bakeLayer(${data.leggingsModelName}.LAYER_LOCATION)).${data.leggingsModelPartR},
-					"head", new ModelPart(Collections.emptyList(), Map.of(
-						"hat", new ModelPart(Collections.emptyList(), Collections.emptyMap())
-					)),
-					"body", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
-					"right_arm", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
-					"left_arm", new ModelPart(Collections.emptyList(), Collections.emptyMap())
-				)));
+				if (armorModel == null) {
+					${data.leggingsModelName} model = new ${data.leggingsModelName}(Minecraft.getInstance().getEntityModels().bakeLayer(${data.leggingsModelName}.LAYER_LOCATION));
+					armorModel = new HumanoidModel(new ModelPart(Collections.emptyList(), Map.of(
+						"left_leg", model.${data.leggingsModelPartL},
+						"right_leg", model.${data.leggingsModelPartR},
+						"head", new ModelPart(Collections.emptyList(), Map.of(
+							"hat", new ModelPart(Collections.emptyList(), Collections.emptyMap())
+						)),
+						"body", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
+						"right_arm", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
+						"left_arm", new ModelPart(Collections.emptyList(), Collections.emptyMap())
+					)));
+				}
+				return armorModel;
 			}
 			</#if>
 
@@ -115,17 +129,22 @@ import net.minecraft.client.model.Model;
 		<#if data.enableBoots>
 		${JavaModName}ArmorModels.ARMOR_MODELS.put(${JavaModName}Items.${REGISTRYNAME}_BOOTS, new ${JavaModName}ArmorModels.ArmorModel() {
 			<#if data.bootsModelName != "Default" && data.getBootsModel()??>
+			private HumanoidModel armorModel = null;
 			@Override public HumanoidModel getHumanoidArmorModel(ItemStack itemStack, EquipmentClientInfo.LayerType layerType, Model original) {
-				return new HumanoidModel(new ModelPart(Collections.emptyList(), Map.of(
-					"left_leg", new ${data.bootsModelName}(Minecraft.getInstance().getEntityModels().bakeLayer(${data.bootsModelName}.LAYER_LOCATION)).${data.bootsModelPartL},
-					"right_leg", new ${data.bootsModelName}(Minecraft.getInstance().getEntityModels().bakeLayer(${data.bootsModelName}.LAYER_LOCATION)).${data.bootsModelPartR},
-					"head", new ModelPart(Collections.emptyList(), Map.of(
-						"hat", new ModelPart(Collections.emptyList(), Collections.emptyMap())
-					)),
-					"body", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
-					"right_arm", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
-					"left_arm", new ModelPart(Collections.emptyList(), Collections.emptyMap())
-				)));
+				if (armorModel == null) {
+					${data.bootsModelName} model = new ${data.bootsModelName}(Minecraft.getInstance().getEntityModels().bakeLayer(${data.bootsModelName}.LAYER_LOCATION));
+					armorModel = new HumanoidModel(new ModelPart(Collections.emptyList(), Map.of(
+						"left_leg", model.${data.bootsModelPartL},
+						"right_leg", model.${data.bootsModelPartR},
+						"head", new ModelPart(Collections.emptyList(), Map.of(
+							"hat", new ModelPart(Collections.emptyList(), Collections.emptyMap())
+						)),
+						"body", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
+						"right_arm", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
+						"left_arm", new ModelPart(Collections.emptyList(), Collections.emptyMap())
+					)));
+				}
+				return armorModel;
 			}
 			</#if>
 

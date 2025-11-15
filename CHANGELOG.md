@@ -1,8 +1,13 @@
 # Changelogs:
 
+## 2.5.3
+
+- Prevent the creation of excessive amounts of model instances in armor models
+- [Bugfix] Disable leaves particles
+
 ## 2.5.2
 - [Bugfix] Using a previous block as a strippable block was causing a build error
-- [Bugfix] Using more than 1 fabric mods was causing a crash
+- [Bugfix] Using more than 1 fabric mod was causing a crash
 - [Bugfix] Fixed (for good) the "Code too large" error
 - Improved performances
 - Minor code improvements
