@@ -23,7 +23,7 @@ package ${package}.mixin;
 
 @Mixin(ExperienceOrb.class)
 public abstract class ExperienceOrbMixin {
-	@Inject(method = "playerTouch", at = @At("HEAD"), cancellable = true)
+	@Inject(method = "playerTouch(Lnet/minecraft/world/entity/player/Player;)V", at = @At("HEAD"), cancellable = true)
 	public void playerTouch(Player player, CallbackInfo ci) {
 	    if (player instanceof ServerPlayer serverPlayer)
 	        if (serverPlayer.takeXpDelay == 0)

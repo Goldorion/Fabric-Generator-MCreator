@@ -69,13 +69,13 @@ public abstract class LivingEntityMixin {
 			ci.cancel();
 	}
 
-	@Inject(method = "applyItemBlocking", at = @At("HEAD"), cancellable = true)
+	@Inject(method = "applyItemBlocking(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/damagesource/DamageSource;F)F", at = @At("HEAD"), cancellable = true)
 	public void applyItemBlocking(ServerLevel serverLevel, DamageSource damageSource, float f, CallbackInfoReturnable<Float> cir) {
 		if (!LivingEntityEvents.ENTITY_BLOCK.invoker().onEntityBlock((LivingEntity) (Object) this, damageSource, (double) f))
 			cir.cancel();
 	}
 
-	@Inject(method = "dropExperience", at = @At("HEAD"), cancellable = true)
+	@Inject(method = "dropExperience(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/Entity;)V", at = @At("HEAD"), cancellable = true)
 	public void dropExperience(ServerLevel serverLevel, Entity entity, CallbackInfo ci) {
 	    LivingEntity self = (LivingEntity) (Object) this;
 	    if (!self.wasExperienceConsumed() && (this.isAlwaysExperienceDropper() || this.lastHurtByPlayerMemoryTime > 0 && self.shouldDropExperience() && serverLevel.getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT))) {
@@ -84,18 +84,18 @@ public abstract class LivingEntityMixin {
 	    }
 	}
 
-	@Inject(method = "causeFallDamage", at = @At("HEAD"), cancellable = true)
+	@Inject(method = "causeFallDamage(DFLnet/minecraft/world/damagesource/DamageSource;)Z", at = @At("HEAD"), cancellable = true)
 	public void causeFallDamage(double d, float f, DamageSource damageSource, CallbackInfoReturnable<Boolean> cir) {
 		if (!LivingEntityEvents.ENTITY_FALL.invoker().onEntityFall((LivingEntity) (Object) this, d, (double) f))
 			cir.setReturnValue(false);
 	}
 
-	@Inject(method = "onItemPickup", at = @At("HEAD"))
+	@Inject(method = "onItemPickup(Lnet/minecraft/world/entity/item/ItemEntity;)V", at = @At("HEAD"))
 	public void onItemPickup(ItemEntity itemEntity, CallbackInfo ci) {
         LivingEntityEvents.ENTITY_PICKUP_ITEM.invoker().onEntityPickupItem(itemEntity.getOwner(), itemEntity.getItem());
 	}
 
-	@Inject(method = "jumpFromGround", at = @At("TAIL"))
+	@Inject(method = "jumpFromGround()V", at = @At("TAIL"))
 	public void jumpFromGround(CallbackInfo ci) {
         LivingEntityEvents.ENTITY_JUMP.invoker().onEntityJump((LivingEntity) (Object) this);
 	}

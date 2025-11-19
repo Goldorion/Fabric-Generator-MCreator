@@ -1,7 +1,7 @@
 name: Fabric for @minecraft (@buildfileversion)
 status: stable
 buildfileversion: 0.133.4
-subversion: 7
+subversion: 10
 
 import:
   - datapack-1.21.8

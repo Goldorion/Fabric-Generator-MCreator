@@ -20,8 +20,8 @@ package ${package}.mixin;
 
 @Mixin(BoneMealItem.class)
 public abstract class BoneMealItemMixin {
-	@Inject(method = "useOn", at = @At("HEAD"), cancellable = true)
-	private void useOn(UseOnContext context, CallbackInfoReturnable<InteractionResult> cir) {
+	@Inject(method = "useOn(Lnet/minecraft/world/item/context/UseOnContext;)Lnet/minecraft/world/InteractionResult;", at = @At("HEAD"), cancellable = true)
+	public void useOn(UseOnContext context, CallbackInfoReturnable<InteractionResult> cir) {
 		if (context.getLevel() instanceof ServerLevel) {
 			boolean result = ItemEvents.BONEMEAL_USED.invoker().onBonemealUsed(context.getClickedPos(), (Entity) context.getPlayer(), context.getItemInHand(), context.getLevel().getBlockState(context.getClickedPos()));
 			if (!result)

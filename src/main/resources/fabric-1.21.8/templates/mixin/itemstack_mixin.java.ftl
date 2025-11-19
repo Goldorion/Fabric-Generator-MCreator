@@ -20,8 +20,8 @@ package ${package}.mixin;
 
 @Mixin(ItemStack.class)
 public abstract class ItemStackMixin {
-	@Inject(method = "useOn", at = @At("TAIL"), cancellable = true)
-	private void useOn(UseOnContext context, CallbackInfoReturnable<InteractionResult> cir) {
+	@Inject(method = "useOn(Lnet/minecraft/world/item/context/UseOnContext;)Lnet/minecraft/world/InteractionResult;", at = @At("TAIL"), cancellable = true)
+	public void useOn(UseOnContext context, CallbackInfoReturnable<InteractionResult> cir) {
 		Player player = context.getPlayer();
 		ItemStack copy = context.getItemInHand().copy();
 		BlockState placedAgainst = player.level().getBlockState(context.getClickedPos().relative(context.getClickedFace()));

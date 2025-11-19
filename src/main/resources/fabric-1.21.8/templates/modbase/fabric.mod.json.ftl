@@ -42,9 +42,6 @@
 	"minecraft": "~${generator.getGeneratorMinecraftVersion()}",
 	"java": ">=21",
 	"fabric-api": "*"
-  },
-  "suggests": {
-	"${settings.getModID()}": "*"
   }
 }
 <#-- @formatter:on -->

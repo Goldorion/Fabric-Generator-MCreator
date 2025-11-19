@@ -25,7 +25,7 @@ import org.spongepowered.asm.mixin.injection.Constant;
 
 @Mixin(RepairItemRecipe.class)
 public abstract class RepairItemRecipeMixin {
-	@Inject(method = "assemble", at = @At("HEAD"), cancellable = true)
+	@Inject(method = "assemble(Lnet/minecraft/world/item/crafting/CraftingInput;Lnet/minecraft/core/HolderLookup$Provider;)Lnet/minecraft/world/item/ItemStack;", at = @At("HEAD"), cancellable = true)
 	public void assemble(CraftingInput craftingInput, HolderLookup.Provider provider, CallbackInfoReturnable<ItemStack> cir) {
 		ItemStack itemStack3;
 		ItemStack itemStack;

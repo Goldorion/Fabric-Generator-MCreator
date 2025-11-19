@@ -8,6 +8,10 @@ base.archivesName = 'modid'
 actualmodid = '${modid}'
 
 loom {
+    mixin {
+        defaultRefmapName = actualmodid + ".refmap.json"
+    }
+
     if (file("src/main/resources/META-INF/${modid}.accesswidener").exists())
         accessWidenerPath = file("src/main/resources/META-INF/${modid}.accesswidener")
 }
