@@ -1,5 +1,8 @@
 # Changelogs:
 
+# 2.5.4
+- [Bugfix #575] Custom villager trades were always priced at 1 unit
+
 ## 2.5.3
 - Prevent the creation of excessive amounts of model instances in armor models
 - [Bugfix #571] Mods using mixins crashed the game on the exported version

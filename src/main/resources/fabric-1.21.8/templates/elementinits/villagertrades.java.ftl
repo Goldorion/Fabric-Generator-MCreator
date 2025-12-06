@@ -68,7 +68,7 @@ public class ${JavaModName}Trades {
 							  float priceMult) implements VillagerTrades.ItemListing {
 		@Override
 		public @NotNull MerchantOffer getOffer(Entity entity, RandomSource random) {
-			return new MerchantOffer(new ItemCost(price.getItem()), Optional.of(new ItemCost(price2.getItem())), offer, maxTrades, xp, priceMult);
+			return new MerchantOffer(new ItemCost(price.getItem(), price.getCount()), Optional.of(new ItemCost(price2.getItem(), price2.getCount())), offer, maxTrades, xp, priceMult);
 		}
 	}
 }
