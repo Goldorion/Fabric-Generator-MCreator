@@ -10,7 +10,7 @@ This project is not official. It is not affiliated with the respective owners an
 
 ## Important Information
 
-- Make sure you use MCreator 2025.3
+- Make sure you use MCreator 2025.4 1st snapshot (Both snapshots are supported)
 - Back up your workspace before updating to a newer version of the plugin.
 - Mods will also require [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api) to function properly, so when you want to play your mod, make sure you have Fabric API.
 

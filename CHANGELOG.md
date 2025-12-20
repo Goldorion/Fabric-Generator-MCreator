@@ -1,6 +1,8 @@
 # Changelogs:
 
 # 2.5.4
+- Added support for MCreator 2025.4 1st snapshot - Both snapshots are supported
+- Ported all changes of this snapshot to this version
 - [Bugfix #575] Custom villager trades were always priced at 1 unit
 
 ## 2.5.3
