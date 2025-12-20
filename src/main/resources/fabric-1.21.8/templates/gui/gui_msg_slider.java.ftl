@@ -50,7 +50,7 @@ public record ${name}SliderMessage(int sliderID, int x, int y, int z, double val
 		Level world = entity.level();
 
 		// security measure to prevent arbitrary chunk generation
-		if (!world.hasChunkAt(new BlockPos(x, y, z)))
+		if (!world.getChunkSource().hasChunk(SectionPos.blockToSectionCoord(x), SectionPos.blockToSectionCoord(z)))
 			return;
 
 		<#assign slid = 0>
