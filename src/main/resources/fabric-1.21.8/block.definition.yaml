@@ -565,7 +565,7 @@ tags:
       - hasInventory
       - sensitiveToVibration
       - "${data.vibrationalEvents?has_content}"
-    entryprovider: data.getVibrationalEvents()
+    entryprovider: getVibrationalEvents()
 
 field_exclusions: [displayFluidOverlay, beaconColorModifier, enchantPowerBonus, aiPathNodeType, plantsGrowOn, canRedstoneConnect, onDestroyedByPlayer,
                    additionalHarvestCondition, hasEnergyStorage, energyCapacity, energyMaxReceive, energyMaxExtract, energyInitial, isFluidTank, fluidCapacity, fluidRestrictions]
