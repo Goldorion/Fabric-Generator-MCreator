@@ -201,8 +201,9 @@ public class ${name}Item extends Item {
 	<@addSpecialInformation data.specialInformation, "item." + modid + "." + registryname/>
 
 	<#assign shouldExplicitlyCallStartUsing = !data.isFood && (data.useDuration > 0)> <#-- ranged items handled in if below so no need to check for that here too -->
-	<#if hasProcedure(data.onRightClickedInAir) || data.hasInventory() || data.enableRanged || shouldExplicitlyCallStartUsing>
-	@Override public InteractionResult use(Level world, Player entity, InteractionHand hand) {
+	<#assign rightClickingOpensGUI = data.openGUIOnRightClick?? && (hasProcedure(data.openGUIOnRightClick) || data.openGUIOnRightClick.getFixedValue())>
+	<#if hasProcedure(data.onRightClickedInAir) || data.enableRanged || shouldExplicitlyCallStartUsing || (data.hasInventory() && rightClickingOpensGUI)>
+		@Override public InteractionResult use(Level world, Player entity, InteractionHand hand) {
 		<#if data.enableRanged>
 		InteractionResult ar = InteractionResult.FAIL;
 		<#else>
@@ -228,9 +229,20 @@ public class ${name}Item extends Item {
 			entity.startUsingItem(hand);
 		</#if>
 
-		<#if data.hasInventory()>
+		<#if data.hasInventory() && rightClickingOpensGUI>
 		if (entity instanceof ServerPlayer serverPlayer) {
-			serverPlayer.openMenu(createMenuProvider(serverPlayer.getItemInHand(hand), entity, hand));
+			<#if hasProcedure(data.openGUIOnRightClick)>
+			if (<@procedureCode data.openGUIOnRightClick, {
+				"x": "serverPlayer.getX()",
+				"y": "serverPlayer.getY()",
+				"z": "serverPlayer.getZ()",
+				"world": "serverPlayer.level()",
+				"entity": "serverPlayer",
+				"itemstack": "entity.getItemInHand(hand)"
+			}, false/>) {
+			</#if>
+			    serverPlayer.openMenu(createMenuProvider(serverPlayer.getItemInHand(hand), entity, hand));
+			<#if hasProcedure(data.openGUIOnRightClick)>}</#if>
 		}
 		</#if>
 
