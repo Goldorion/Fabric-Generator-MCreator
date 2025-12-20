@@ -107,12 +107,10 @@ public class ${name}Block extends ${getPlantClass(data.plantType)}Block
 		.lightLevel(s -> ${data.luminance})
 		</#if>
 		<#if data.isSolid>
-		.noOcclusion()
-			<#if (data.customBoundingBox && data.boundingBoxes??) || (data.offsetType != "NONE")>
-			.dynamicShape()
-			</#if>
+			.noOcclusion()
+			<#if data.offsetType != "NONE">.dynamicShape()</#if>
 		<#else>
-		.noCollission()
+			.noCollission()
 		</#if>
 		<#if data.isReplaceable>
 		.replaceable()
@@ -200,9 +198,9 @@ public class ${name}Block extends ${getPlantClass(data.plantType)}Block
 
 	<#if data.xpAmountMax != 0>
 	@Override protected void spawnAfterBreak(BlockState state, ServerLevel level, BlockPos pos, ItemStack stack, boolean bl) {
-	    super.spawnAfterBreak(state, level, pos, stack, bl);
-	    if (bl)
-	        this.tryDropExperience(level, pos, stack, <#if data.xpAmountMin == data.xpAmountMax>ConstantInt.of(${data.xpAmountMin}<#else>UniformInt.of(${data.xpAmountMin}, ${data.xpAmountMax}</#if>));
+		super.spawnAfterBreak(state, level, pos, stack, bl);
+		if (bl)
+			this.tryDropExperience(level, pos, stack, <#if data.xpAmountMin == data.xpAmountMax>ConstantInt.of(${data.xpAmountMin}<#else>UniformInt.of(${data.xpAmountMin}, ${data.xpAmountMax}</#if>));
 	}
 	</#if>
 
