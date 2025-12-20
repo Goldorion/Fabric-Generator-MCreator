@@ -103,6 +103,8 @@ package ${package}.client.renderer;
 @Environment(EnvType.CLIENT)
 public class ${name}Renderer extends <#if humanoid>Humanoid</#if>MobRenderer<${name}Entity, ${renderState}, ${model}> {
 
+    private final ResourceLocation entityTexture = ResourceLocation.parse("${modid}:textures/entities/${data.mobModelTexture}");
+
 	<#-- This entity reference is shared for all entities as renderer only has one instance.
 		 This currently works, but is somewhat hacky. It works because all methods requiring it
 		 are called after extractRenderState where this entity is assigned to the current entity.
@@ -173,7 +175,7 @@ public class ${name}Renderer extends <#if humanoid>Humanoid</#if>MobRenderer<${n
 	}
 
 	@Override public ResourceLocation getTextureLocation(${renderState} state) {
-		return ResourceLocation.parse("${modid}:textures/entities/${data.mobModelTexture}");
+		return entityTexture;
 	}
 
 	<#if data.mobModelName == "Villager" || data.breedable || (data.visualScale?? && (data.visualScale.getFixedValue() != 1 || hasProcedure(data.visualScale)))>
