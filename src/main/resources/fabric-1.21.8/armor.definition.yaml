@@ -190,3 +190,5 @@ localizationkeys:
     key: item.@modid.@registryname_leggings.description_@item_index
   - fromlist: data.getBootsFixedSpecialInformation()
     key: item.@modid.@registryname_boots.description_@item_index
+
+field_exclusions: [helmetTranslucency, bodyTranslucency, leggingsTranslucency, bootsTranslucency]
