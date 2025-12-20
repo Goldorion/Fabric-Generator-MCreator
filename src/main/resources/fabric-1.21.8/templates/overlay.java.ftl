@@ -24,6 +24,18 @@ package ${package}.client.screens;
 
 @Environment(EnvType.CLIENT) public class ${name}Overlay {
 
+	<#if data.baseTexture?has_content>
+		private static final ResourceLocation BACKGROUND = ResourceLocation.parse("${modid}:textures/screens/${data.baseTexture}");
+	</#if>
+
+	<#list data.getComponentsOfType("Image") as component>
+		private static final ResourceLocation IMAGE_${component?index} = ResourceLocation.parse("${modid}:textures/screens/${component.image}");
+	</#list>
+
+	<#list data.getComponentsOfType("Sprite") as component>
+		private static final ResourceLocation SPRITE_${component?index} = ResourceLocation.parse("${modid}:textures/screens/${component.sprite}");
+	</#list>
+
 	public static void render(GuiGraphics guiGraphics, DeltaTracker deltaTracker) {
 			int w = guiGraphics.guiWidth();
 			int h = guiGraphics.guiHeight();
@@ -43,14 +55,14 @@ package ${package}.client.screens;
 
 		if (<@procedureOBJToConditionCode data.displayCondition/>) {
 			<#if data.baseTexture?has_content>
-				guiGraphics.blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("${modid}:textures/screens/${data.baseTexture}"), 0, 0, 0, 0, w, h, w, h);
+				guiGraphics.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND, 0, 0, 0, 0, w, h, w, h);
 			</#if>
 
 			<#list data.getComponentsOfType("Image") as component>
 				<#if hasProcedure(component.displayCondition)>
 						if (<@procedureOBJToConditionCode component.displayCondition/>) {
 				</#if>
-					guiGraphics.blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("${modid}:textures/screens/${component.image}"), <@calculatePosition component/>, 0, 0,
+					guiGraphics.blit(RenderPipelines.GUI_TEXTURED, IMAGE_${component?index}, <@calculatePosition component/>, 0, 0,
 						${component.getWidth(w.getWorkspace())}, ${component.getHeight(w.getWorkspace())},
 						${component.getWidth(w.getWorkspace())}, ${component.getHeight(w.getWorkspace())});
 				<#if hasProcedure(component.displayCondition)>}</#if>
@@ -58,7 +70,7 @@ package ${package}.client.screens;
 
 			<#list data.getComponentsOfType("Sprite") as component>
 				<#if hasProcedure(component.displayCondition)>if (<@procedureOBJToConditionCode component.displayCondition/>) {</#if>
-					guiGraphics.blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("${modid}:textures/screens/${component.sprite}"), <@calculatePosition component/>,
+					guiGraphics.blit(RenderPipelines.GUI_TEXTURED, SPRITE_${component?index}, <@calculatePosition component/>,
 						<#if (component.getTextureWidth(w.getWorkspace()) > component.getTextureHeight(w.getWorkspace()))>
 							<@getSpriteByIndex component "width"/>, 0
 						<#else>
