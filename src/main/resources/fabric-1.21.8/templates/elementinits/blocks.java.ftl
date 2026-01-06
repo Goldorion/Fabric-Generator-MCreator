@@ -50,12 +50,15 @@ public class ${JavaModName}Blocks {
             public static Block ${block.getModElement().getRegistryNameUpper()}_PORTAL;
 		<#else>
 			public static Block ${block.getModElement().getRegistryNameUpper()};
+			<#if (block.getModElement().getTypeString() == "block") && (block.blockBase! == "Sign")>
+				public static Block ${block.getWallRegistryNameUpper()};
+			</#if>
 		</#if>
 	</#list>
 	</@javacompress>
 
 	<#list chunks as sub_blocks>
-	    public static void <#if has_chunks>register${sub_blocks?index}<#else>load</#if>() {
+	public static void <#if has_chunks>register${sub_blocks?index}<#else>load</#if>() {
 		<#list sub_blocks as block>
 			<#if block.getModElement().getTypeString() == "dimension">
         	    ${block.getModElement().getRegistryNameUpper()}_PORTAL =
@@ -63,6 +66,10 @@ public class ${JavaModName}Blocks {
 			<#else>
 				${block.getModElement().getRegistryNameUpper()} =
 					register("${block.getModElement().getRegistryName()}", ${block.getModElement().getName()}Block::new);
+				<#if (block.getModElement().getTypeString() == "block") && (block.blockBase! == "Sign")>
+					${block.getWallRegistryNameUpper()} =
+						register("${block.getWallRegistryName()}", ${block.getWallName()}Block::new);
+				</#if>
 			</#if>
 		</#list>
 

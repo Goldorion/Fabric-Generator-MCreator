@@ -1,5 +1,9 @@
 # Changelogs:
 
+# 2.5.5
+- Added support for MCreator 2026.1 2st snapshot - Both snapshots are supported
+- [Bugfix #574] Certain blocks become bugged when an armor is part of the mod
+
 # 2.5.4
 - Added support for MCreator 2025.4 1st snapshot - Both snapshots are supported
 - Ported all changes of this snapshot to this version

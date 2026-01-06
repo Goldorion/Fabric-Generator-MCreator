@@ -146,7 +146,7 @@ templates:
     name: "@MODASSETSROOT/models/item/@registryname_boots.json"
 
 global_templates:
-  - template: mixin/piglinaimixin.java.ftl
+  - template: mixin/piglinai_mixin.java.ftl
     name: "@SRCROOT/@BASEPACKAGEPATH/mixin/PiglinAiMixin.java"
   - template: mixin/equipmentlayermixin.java.ftl
     name: "@SRCROOT/@BASEPACKAGEPATH/mixin/EquipmentLayerRendererMixin.java"
@@ -190,5 +190,3 @@ localizationkeys:
     key: item.@modid.@registryname_leggings.description_@item_index
   - fromlist: data.getBootsFixedSpecialInformation()
     key: item.@modid.@registryname_boots.description_@item_index
-
-field_exclusions: [helmetTranslucency, bodyTranslucency, leggingsTranslucency, bootsTranslucency]

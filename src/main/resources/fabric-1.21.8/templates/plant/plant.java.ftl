@@ -51,8 +51,9 @@ import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 </#if>
 public class ${name}Block extends ${getPlantClass(data.plantType)}Block <#if interfaces?size gt 0>implements ${interfaces?join(",")}</#if> {
 	<#if data.isWaterloggable()>
-		public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 	</#if>
+
 	<#if data.plantType == "sapling">
 	public static final TreeGrower TREE_GROWER = <@toTreeGrower data.secondaryTreeChance data.megaTrees[0] data.megaTrees[1] data.trees[0] data.trees[1] data.flowerTrees[0] data.flowerTrees[1]/>
 	</#if>
@@ -117,10 +118,10 @@ public class ${name}Block extends ${getPlantClass(data.plantType)}Block <#if int
 		.replaceable()
 		</#if>
 		<#if data.ignitedByLava>
-			.ignitedByLava()
+		.ignitedByLava()
 		</#if>
 		<#if data.offsetType != "NONE">
-			.offsetType(BlockBehaviour.OffsetType.${data.offsetType})
+		.offsetType(BlockBehaviour.OffsetType.${data.offsetType})
 		</#if>
 		.pushReaction(PushReaction.DESTROY)
 		);
@@ -194,9 +195,9 @@ public class ${name}Block extends ${getPlantClass(data.plantType)}Block <#if int
 
 	<#if data.xpAmountMax != 0>
 	@Override protected void spawnAfterBreak(BlockState state, ServerLevel level, BlockPos pos, ItemStack stack, boolean bl) {
-		super.spawnAfterBreak(state, level, pos, stack, bl);
-		if (bl)
-			this.tryDropExperience(level, pos, stack, <#if data.xpAmountMin == data.xpAmountMax>ConstantInt.of(${data.xpAmountMin}<#else>UniformInt.of(${data.xpAmountMin}, ${data.xpAmountMax}</#if>));
+	    super.spawnAfterBreak(state, level, pos, stack, bl);
+	    if (bl)
+	        this.tryDropExperience(level, pos, stack, <#if data.xpAmountMin == data.xpAmountMax>ConstantInt.of(${data.xpAmountMin}<#else>UniformInt.of(${data.xpAmountMin}, ${data.xpAmountMax}</#if>));
 	}
 	</#if>
 

@@ -29,6 +29,7 @@ package ${package}.init;
 
 <#assign hasBlocks = false>
 <#assign hasDoubleBlocks = false>
+<#assign hasSigns = false>
 <#assign chunks = items?chunk(2500)>
 <#assign has_chunks = chunks?size gt 1>
 
@@ -75,6 +76,10 @@ public class ${JavaModName}Items {
 				${item.getModElement().getRegistryNameUpper()}_SPAWN_EGG =
 					register("${item.getModElement().getRegistryName()}_spawn_egg",
 						properties -> new SpawnEggItem(${JavaModName}Entities.${item.getModElement().getRegistryNameUpper()}, properties));
+			<#elseif item.getModElement().getTypeString() == "specialentity">
+				${item.getModElement().getRegistryNameUpper()} =
+					register("${item.getModElement().getRegistryName()}",
+						properties -> new BoatItem(${JavaModName}Entities.${item.getModElement().getRegistryNameUpper()}, properties.stacksTo(1)));
 			<#elseif item.getModElement().getTypeString() == "dimension" && item.hasIgniter()>
 				${item.getModElement().getRegistryNameUpper()} =
 					register("${item.getModElement().getRegistryName()}", ${item.getModElement().getName()}Item::new);
@@ -96,6 +101,11 @@ public class ${JavaModName}Items {
 						<#assign hasDoubleBlocks = true>
 						${item.getModElement().getRegistryNameUpper()} =
 							doubleBlock(${JavaModName}Blocks.${item.getModElement().getRegistryNameUpper()}, "${item.getModElement().getRegistryName()}"
+							<#if item.hasCustomItemProperties()>, <@blockItemProperties item/></#if>);
+					<#elseif (item.getModElement().getTypeString() == "block") && (item.blockBase! == "Sign")>
+						<#assign hasSigns = true>
+						${item.getModElement().getRegistryNameUpper()} =
+							signBlock(${JavaModName}Blocks.${item.getModElement().getRegistryNameUpper()}, "${item.getModElement().getRegistryName()}", ${JavaModName}Blocks.${item.getWallRegistryNameUpper()}
 							<#if item.hasCustomItemProperties()>, <@blockItemProperties item/></#if>);
 					<#else>
 						<#assign hasBlocks = true>
@@ -142,6 +152,16 @@ public class ${JavaModName}Items {
 
 	private static Item doubleBlock(Block block, String name, Item.Properties properties) {
 		return Items.registerItem(ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(${JavaModName}.MODID, name)), prop -> new DoubleHighBlockItem(block, prop), properties);
+	}
+	</#if>
+
+	<#if hasSigns>
+	private static Item signBlock(Block block, String name, Block wallBlock) {
+		return signBlock(block, name, wallBlock, new Item.Properties());
+	}
+
+	private static Item signBlock(Block block, String name, Block wallBlock, Item.Properties properties) {
+		return Items.registerItem(ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(${JavaModName}.MODID, name)), prop -> new SignItem(block, wallBlock, prop), properties);
 	}
 	</#if>
 }

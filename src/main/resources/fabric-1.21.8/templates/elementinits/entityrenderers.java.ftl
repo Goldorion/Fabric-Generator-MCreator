@@ -36,11 +36,14 @@ package ${package}.init;
 				<#else>
 				EntityRendererRegistry.register(${JavaModName}Entities.${entity.getModElement().getRegistryNameUpper()}, ThrownItemRenderer::new);
 				</#if>
-			<#else>
+			<#elseif entity.getModElement().getTypeString() == "livingentity">
 				EntityRendererRegistry.register(${JavaModName}Entities.${entity.getModElement().getRegistryNameUpper()}, ${entity.getModElement().getName()}Renderer::new);
 				<#if entity.hasCustomProjectile()>
 				EntityRendererRegistry.register(${JavaModName}Entities.${entity.getModElement().getRegistryNameUpper()}_PROJECTILE, ThrownItemRenderer::new);
 				</#if>
+			<#elseif entity.getModElement().getTypeString() == "specialentity">
+				EntityRendererRegistry.register(${JavaModName}Entities.${entity.getModElement().getRegistryNameUpper()},
+						context -> new BoatRenderer(context, ${JavaModName}Models.${entity.getModElement().getRegistryNameUpper()}_LAYER_LOCATION));
 			</#if>
 		</#list>
 	}

@@ -19,15 +19,22 @@
 -->
 
 <#-- @formatter:off -->
-<#include "mcitems.ftl">
-<#include "procedures.java.ftl">
+<#include "../mcitems.ftl">
+<#include "../procedures.java.ftl">
 
-package ${package}.item.extension;
+/*
+ *	MCreator note: This file will be REGENERATED on each build.
+ */
 
+package ${package}.init;
+
+<#assign itemextensions = w.getGElementsOfType("itemextension")?filter(e -> e.hasDispenseBehavior)>
+<#assign specialentities = w.getGElementsOfType("specialentity")>
 <@javacompress>
 public class ${JavaModName}DispenseBehaviors {
-	public static void init() {
-		<#list itemextensions?filter(e -> e.hasDispenseBehavior) as extension>
+
+	public static void load() {
+		<#list itemextensions as extension>
 		DispenserBlock.registerBehavior(${mappedMCItemToItem(extension.item)},
 		<#if hasProcedure(extension.dispenseSuccessCondition)>
 		new OptionalDispenseItemBehavior() {
@@ -95,6 +102,10 @@ public class ${JavaModName}DispenseBehaviors {
 		}
 		</#if>
 		);
+		</#list>
+		<#list specialentities as entity>
+		DispenserBlock.registerBehavior(${JavaModName}Items.${entity.getModElement().getRegistryNameUpper()},
+				new BoatDispenseItemBehavior(${JavaModName}Entities.${entity.getModElement().getRegistryNameUpper()}));
 		</#list>
 	}
 }</@javacompress>

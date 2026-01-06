@@ -23,7 +23,6 @@
 package ${package}.client.screens;
 
 @Environment(EnvType.CLIENT) public class ${name}Overlay {
-
 	<#if data.baseTexture?has_content>
 		private static final ResourceLocation BACKGROUND = ResourceLocation.parse("${modid}:textures/screens/${data.baseTexture}");
 	</#if>

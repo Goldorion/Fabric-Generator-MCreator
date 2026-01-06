@@ -1,7 +1,7 @@
 name: Fabric for @minecraft (@buildfileversion)
 status: stable
-buildfileversion: 0.133.4
-subversion: 10
+buildfileversion: 0.136.1
+subversion: 11
 
 import:
   - datapack-1.21.8
@@ -88,10 +88,12 @@ base_templates:
   - template: modbase/accesswidener.ftl
     usercodeComment: "#"
     writer: file
-    name: "@RESROOT/META-INF/@modid.accesswidener"
+    name: "@RESROOT/META-INF/@modid.classtweaker"
   - template: elementinits/javamodels.java.ftl
     name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameModels.java"
-    condition: hasJavaModels()
+    condition_any:
+      - hasJavaModels()
+      - "${w.hasElementsOfType('specialentity')}"
   - template: modbase/mixin.json.ftl
     writer: json
     name: "@RESROOT/@modid.mixins.json"
@@ -102,6 +104,13 @@ base_templates:
       - "${w.getGElementsOfType('plant')?filter(e -> e.generateFeature)?size != 0}"
       - "${w.hasElementsOfType('feature')}"
     name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameFeatures.java"
+
+# ItemExtension
+  - template: elementinits/dispensebehaviors.java.ftl
+    name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameDispenseBehaviors.java"
+    condition_any:
+      - "${w.getGElementsOfType('itemextension')?filter(e -> e.hasDispenseBehavior)?size != 0}"
+      - "${w.hasElementsOfType('specialentity')}"
 
 # Mixins
   - template: mixin/livingentity_mixin.java.ftl

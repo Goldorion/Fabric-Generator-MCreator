@@ -21,8 +21,6 @@ package ${package}.network;
 
 import ${package}.${JavaModName};
 
-import net.minecraft.nbt.Tag;
-
 public class ${JavaModName}Variables {
 	<#if w.hasVariablesOfScope("PLAYER_LIFETIME") || w.hasVariablesOfScope("PLAYER_PERSISTENT")>
 	public static final AttachmentType<PlayerVariables> PLAYER_VARIABLES = AttachmentRegistry.create(ResourceLocation.fromNamespaceAndPath(${JavaModName}.MODID, "player_variables"), (builder) -> builder.persistent(PlayerVariables.CODEC).initializer(PlayerVariables::new));

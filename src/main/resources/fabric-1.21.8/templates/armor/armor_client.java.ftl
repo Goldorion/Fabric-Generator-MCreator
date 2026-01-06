@@ -52,13 +52,22 @@ import net.minecraft.client.model.Model;
 						"left_arm", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
 						"right_leg", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
 						"left_leg", new ModelPart(Collections.emptyList(), Collections.emptyMap())
-					)));
+					)))
+					<#if data.helmetTranslucency>
+					{
+						@Override
+						public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, int color) {
+							VertexConsumer translucentTexture = Minecraft.getInstance().renderBuffers().bufferSource().getBuffer(RenderType.entityTranslucent(getArmorTexture(null, null, null, null)));
+							super.renderToBuffer(poseStack, translucentTexture, packedLight, packedOverlay, color);
+						}
+					}
+					</#if>;
 				}
 				return armorModel;
 			}
 			</#if>
 
-			@Override public ResourceLocation getArmorTexture(ItemStack stack, EquipmentClientInfo.LayerType type, EquipmentClientInfo.Layer layer, ResourceLocation _default) {
+			@Override public ResourceLocation getArmorTexture(ItemStack stack, EquipmentClientInfo.LayerType type, EquipmentClientInfo.Layer layer, ResourceLocation original) {
 				return armorTexture;
 			}
 		});
@@ -74,7 +83,6 @@ import net.minecraft.client.model.Model;
 
 			<#if data.bodyModelName != "Default" && data.getBodyModel()??>
 			private HumanoidModel armorModel = null;
-
 			@Override public HumanoidModel getHumanoidArmorModel(ItemStack itemStack, EquipmentClientInfo.LayerType layerType, Model original) {
 				if (armorModel == null) {
 					${data.bodyModelName} model = new ${data.bodyModelName}(Minecraft.getInstance().getEntityModels().bakeLayer(${data.bodyModelName}.LAYER_LOCATION));
@@ -87,13 +95,22 @@ import net.minecraft.client.model.Model;
 						)),
 						"right_leg", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
 						"left_leg", new ModelPart(Collections.emptyList(), Collections.emptyMap())
-					)));
+					)))
+					<#if data.bodyTranslucency>
+					{
+						@Override
+						public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, int color) {
+							VertexConsumer translucentTexture = Minecraft.getInstance().renderBuffers().bufferSource().getBuffer(RenderType.entityTranslucent(getArmorTexture(null, null, null, null)));
+							super.renderToBuffer(poseStack, translucentTexture, packedLight, packedOverlay, color);
+						}
+					}
+					</#if>;
 				}
 				return armorModel;
 			}
 			</#if>
 
-			@Override public ResourceLocation getArmorTexture(ItemStack stack, EquipmentClientInfo.LayerType type, EquipmentClientInfo.Layer layer, ResourceLocation _default) {
+			@Override public ResourceLocation getArmorTexture(ItemStack stack, EquipmentClientInfo.LayerType type, EquipmentClientInfo.Layer layer, ResourceLocation original) {
 				return armorTexture;
 			}
 		});
@@ -121,13 +138,22 @@ import net.minecraft.client.model.Model;
 						"body", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
 						"right_arm", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
 						"left_arm", new ModelPart(Collections.emptyList(), Collections.emptyMap())
-					)));
+					)))
+					<#if data.leggingsTranslucency>
+					{
+						@Override
+						public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, int color) {
+							VertexConsumer translucentTexture = Minecraft.getInstance().renderBuffers().bufferSource().getBuffer(RenderType.entityTranslucent(getArmorTexture(null, null, null, null)));
+							super.renderToBuffer(poseStack, translucentTexture, packedLight, packedOverlay, color);
+						}
+					}
+					</#if>;
 				}
 				return armorModel;
 			}
 			</#if>
 
-			@Override public ResourceLocation getArmorTexture(ItemStack stack, EquipmentClientInfo.LayerType type, EquipmentClientInfo.Layer layer, ResourceLocation _default) {
+			@Override public ResourceLocation getArmorTexture(ItemStack stack, EquipmentClientInfo.LayerType type, EquipmentClientInfo.Layer layer, ResourceLocation original) {
 				return armorTexture;
 			}
 		});
@@ -155,13 +181,22 @@ import net.minecraft.client.model.Model;
 						"body", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
 						"right_arm", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
 						"left_arm", new ModelPart(Collections.emptyList(), Collections.emptyMap())
-					)));
+					)))
+					<#if data.bootsTranslucency>
+					{
+						@Override
+						public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, int color) {
+							VertexConsumer translucentTexture = Minecraft.getInstance().renderBuffers().bufferSource().getBuffer(RenderType.entityTranslucent(getArmorTexture(null, null, null, null)));
+							super.renderToBuffer(poseStack, translucentTexture, packedLight, packedOverlay, color);
+						}
+					}
+					</#if>;
 				}
 				return armorModel;
 			}
 			</#if>
 
-			@Override public ResourceLocation getArmorTexture(ItemStack stack, EquipmentClientInfo.LayerType type, EquipmentClientInfo.Layer layer, ResourceLocation _default) {
+			@Override public ResourceLocation getArmorTexture(ItemStack stack, EquipmentClientInfo.LayerType type, EquipmentClientInfo.Layer layer, ResourceLocation original) {
 				return armorTexture;
 			}
 		});

@@ -22,7 +22,7 @@
 <#if settings.getModPicture()?has_content>
   "icon": "logo.png",
 </#if>
-  "environment": "*",
+  "environment": "<#if settings.isServerSideOnly()>server<#else>*</#if>",
   "entrypoints": {
 	"main": [
 	  "${package}.${JavaModName}"
@@ -31,14 +31,12 @@
 	  "${package}.${JavaModName}Client"
 	]
   },
-  <#if (w.getGElementsOfType('biome')?filter(e -> e.spawnBiome || e.spawnInCaves || e.spawnBiomeNether || e.hasVines() || e.hasFruits())?size != 0) || w.hasElementsOfType('feature')>
-  "accessWidener" : "META-INF/${modid}.accesswidener",
-  </#if>
+  "accessWidener": "META-INF/${modid}.classtweaker",
   "mixins": [
 	"${modid}.mixins.json"
   ],
   "depends": {
-	"fabricloader": ">=0.17.2",
+	"fabricloader": ">=0.18.4",
 	"minecraft": "~${generator.getGeneratorMinecraftVersion()}",
 	"java": ">=21",
 	"fabric-api": "*"

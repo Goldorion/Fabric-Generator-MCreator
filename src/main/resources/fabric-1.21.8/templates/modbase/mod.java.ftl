@@ -23,7 +23,6 @@ import java.lang.invoke.MethodHandle;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import ${package}.init.*;
 
 public class ${JavaModName} implements ModInitializer {
 
@@ -47,6 +46,7 @@ public class ${JavaModName} implements ModInitializer {
 		<#if types["base:entities"]??>${JavaModName}Entities.load();</#if>
 		<#if types["base:blocks"]??>${JavaModName}Blocks.load();</#if>
 		<#if types["base:blockentities"]??>${JavaModName}BlockEntities.load();</#if>
+		<#if w.getGElementsOfType('block')?filter(e -> e.isSign())?size != 0>${JavaModName}WoodTypes.load();</#if>
 		<#if types["base:items"]??>${JavaModName}Items.load();</#if>
 		<#if types["attributes"]??>${JavaModName}Attributes.load();</#if>
 		<#if w.getGElementsOfType("recipe")?filter(e -> e.recipeType == "Brewing")?size != 0>${JavaModName}BrewingRecipes.load();</#if>
@@ -56,14 +56,14 @@ public class ${JavaModName} implements ModInitializer {
 		<#if types["guis"]??>${JavaModName}Menus.load();</#if>
 		<#if types["villagerprofessions"]??>${JavaModName}VillagerProfessions.load();</#if>
 		<#if types["villagertrades"]??>${JavaModName}Trades.registerTrades();</#if>
-		<#if types["itemextensions"]??>${JavaModName}ItemExtensions.load();</#if>
+		<#if w.getGElementsOfType('itemextension')?filter(e -> e.enableFuel || e.compostLayerChance gt 0)?size != 0>${JavaModName}ItemExtensions.load();</#if>
+		<#if w.getGElementsOfType('itemextension')?filter(e -> e.hasDispenseBehavior)?size != 0 || types["specialentities"]??>${JavaModName}DispenseBehaviors.load();</#if>
 		<#if types["potioneffects"]??>${JavaModName}MobEffects.load();</#if>
 		<#if types["potions"]??>${JavaModName}Potions.load();</#if>
 		<#if types["gamerules"]??>${JavaModName}GameRules.load();</#if>
 		<#if w.getGElementsOfType("command")?filter(e -> e.type != "CLIENTSIDE")?size != 0>${JavaModName}Commands.load();</#if>
 		<#if w.getGElementsOfType('procedure')?filter(e -> !e.procedurexml?contains('no_ext_trigger'))?size != 0>${JavaModName}Procedures.load();</#if>
 		<#if types["keybinds"]??>${JavaModName}KeyMappingsServer.serverLoad();</#if>
-		<#if (w.getGElementsOfType('itemextension')?filter(e -> e.hasDispenseBehavior)?size != 0)>
 		</@javacompress>
 
 		tick();
