@@ -68,34 +68,10 @@ tasks.register('install') {
     }
 }
 
-tasks.register('runMCreator') {
-    dependsOn install
-    group("mcreator_plugins")
-    doLast {
-        println("Launching MCreator...")
-        if (Globals.getOSName().contains('windows')) {
-            try {
-                tasks.named('runMCreatorFromCMD').get().exec()
-            } catch (IOException e) {
-                //noinspection GroovyAssignabilityCheck
-                throw new RuntimeException("Could not launch MCreator! Please make sure you have installed it to " + Globals.MCREATOR_ROOT_FOLDER_WINDOWS, e)
-            }
-        } else if (Globals.getOSName().contains('mac') || Globals.getOSName().contains('OS X') || Globals.getOSName().contains('linux')) {
-            try {
-                ProcessBuilder builder = new ProcessBuilder(Globals.MCREATOR_ROOT_FOLDER_MAC_LINUX)
-                builder.redirectOutput(ProcessBuilder.Redirect.INHERIT)
-                builder.redirectError(ProcessBuilder.Redirect.INHERIT)
-                builder.start()
-            } catch (IOException e) {
-                //noinspection GroovyAssignabilityCheck
-                throw new RuntimeException("Could not launch MCreator! Please make sure you have installed it to " + Globals.MCREATOR_ROOT_FOLDER_MAC_LINUX, e)
-            }
-        }
-    }
-}
-
 //For Gradle 9
 tasks.register('runMCreatorFromCMD', Exec) {
+    dependsOn install
+    group("mcreator_plugins")
     workingDir Globals.MCREATOR_ROOT_FOLDER_WINDOWS
     commandLine 'cmd', '/c', 'mcreator.exe'
     standardOutput = System.out
