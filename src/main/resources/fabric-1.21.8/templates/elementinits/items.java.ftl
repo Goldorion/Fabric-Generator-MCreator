@@ -32,6 +32,7 @@ package ${package}.init;
 <#assign hasSigns = false>
 <#assign chunks = items?chunk(2500)>
 <#assign has_chunks = chunks?size gt 1>
+<#assign hasHangingSigns = false>
 
 public class ${JavaModName}Items {
 
@@ -107,6 +108,11 @@ public class ${JavaModName}Items {
 						${item.getModElement().getRegistryNameUpper()} =
 							signBlock(${JavaModName}Blocks.${item.getModElement().getRegistryNameUpper()}, "${item.getModElement().getRegistryName()}", ${JavaModName}Blocks.${item.getWallRegistryNameUpper()}
 							<#if item.hasCustomItemProperties()>, <@blockItemProperties item/></#if>);
+					<#elseif (item.getModElement().getTypeString() == "block") && (item.blockBase! == "HangingSign")>
+						<#assign hasHangingSigns = true>
+						${item.getModElement().getRegistryNameUpper()} =
+							hangingSignBlock(${JavaModName}Blocks.${item.getModElement().getRegistryNameUpper()}, ${JavaModName}Blocks.${item.getWallRegistryNameUpper()}
+							<#if item.hasCustomItemProperties()>, <@blockItemProperties item/></#if>);
 					<#else>
 						<#assign hasBlocks = true>
 						${item.getModElement().getRegistryNameUpper()} =
@@ -162,6 +168,16 @@ public class ${JavaModName}Items {
 
 	private static Item signBlock(Block block, String name, Block wallBlock, Item.Properties properties) {
 		return Items.registerItem(ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(${JavaModName}.MODID, name)), prop -> new SignItem(block, wallBlock, prop), properties);
+	}
+	</#if>
+
+	<#if hasHangingSigns>
+	private static Item hangingSignBlock(Block block, String name, Block wallBlock) {
+		return signBlock(block, name, wallBlock, new Item.Properties());
+	}
+
+	private static Item hangingSignBlock(Block block, String name, Block wallBlock, Item.Properties properties) {
+		return Items.registerItem(ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(${JavaModName}.MODID, name)), prop -> new HangingSignItem(block, wallBlock, prop), properties);
 	}
 	</#if>
 }

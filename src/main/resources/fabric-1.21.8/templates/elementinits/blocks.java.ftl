@@ -50,7 +50,7 @@ public class ${JavaModName}Blocks {
             public static Block ${block.getModElement().getRegistryNameUpper()}_PORTAL;
 		<#else>
 			public static Block ${block.getModElement().getRegistryNameUpper()};
-			<#if (block.getModElement().getTypeString() == "block") && (block.blockBase! == "Sign")>
+			<#if (block.getModElement().getTypeString() == "block") && block.isSign()>
 				public static Block ${block.getWallRegistryNameUpper()};
 			</#if>
 		</#if>
@@ -66,7 +66,7 @@ public class ${JavaModName}Blocks {
 			<#else>
 				${block.getModElement().getRegistryNameUpper()} =
 					register("${block.getModElement().getRegistryName()}", ${block.getModElement().getName()}Block::new);
-				<#if (block.getModElement().getTypeString() == "block") && (block.blockBase! == "Sign")>
+				<#if (block.getModElement().getTypeString() == "block") && block.isSign()>
 					${block.getWallRegistryNameUpper()} =
 						register("${block.getWallRegistryName()}", ${block.getWallName()}Block::new);
 				</#if>
