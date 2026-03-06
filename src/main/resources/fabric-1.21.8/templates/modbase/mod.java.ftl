@@ -36,7 +36,7 @@ public class ${JavaModName} implements ModInitializer {
 
 		LOGGER.info("Initializing ${JavaModName}");
 
-        <@javacompress>
+		<@javacompress>
 		<#if w.hasSounds()>${JavaModName}Sounds.load();</#if>
 		<#if w.hasItemsInTabs()>${JavaModName}Tabs.load();</#if>
 		<#if w.hasVariables()>${JavaModName}Variables.variablesLoad();</#if>
@@ -76,22 +76,27 @@ public class ${JavaModName} implements ModInitializer {
 	// End of user code block mod methods
 
 	<#-- Wait procedure block support below -->
-	private static final Collection<Tuple<Runnable, Integer>> workQueue = new ConcurrentLinkedQueue<>();
-	public static void queueServerWork(int tick, Runnable action) {
-		workQueue.add(new Tuple<>(action, tick));
+	private static final Queue<IntObjectPair<Runnable>> workToBeScheduled = new ConcurrentLinkedQueue<>();
+	private static final PriorityQueue<TickTask> workQueue = new PriorityQueue<>(Comparator.comparingInt(TickTask::getTick));
+
+	public static void queueServerWork(int delay, Runnable action) {
+		if (Thread.currentThread().getThreadGroup() == SidedThreadGroups.SERVER)
+			workToBeScheduled.add(new IntObjectImmutablePair<>(delay, action));
 	}
 
 	private void tick() {
-        ServerTickEvents.END_SERVER_TICK.register((server) -> {
-            List<Tuple<Runnable, Integer>> actions = new ArrayList<>();
-            workQueue.forEach(work -> {
-                work.setB(work.getB() - 1);
-                if (work.getB() == 0)
-                    actions.add(work);
-            });
-            actions.forEach(e -> e.getA().run());
-            workQueue.removeAll(actions);
-        });
+		ServerTickEvents.END_SERVER_TICK.register((server) -> {
+			int currentTick = event.getServer().getTickCount();
+	
+			IntObjectPair<Runnable> work;
+			while ((work = workToBeScheduled.poll()) != null) {
+				workQueue.add(new TickTask(currentTick + work.leftInt(), work.right()));
+			}
+	
+			while (!workQueue.isEmpty() && currentTick >= workQueue.peek().getTick()) {
+				workQueue.poll().run();
+			}
+		});
 	}
 
 	<#-- Client side player query support below, we use method handles for this -->
