@@ -1,5 +1,8 @@
 # Changelogs:
 
+# 2025.3-2.5.5
+- [Bugfix #585] Custom armors caused an in-game error in multiple cases
+
 # 2.5.4
 - [Bugfix #575] Custom villager trades were always priced at 1 unit
 

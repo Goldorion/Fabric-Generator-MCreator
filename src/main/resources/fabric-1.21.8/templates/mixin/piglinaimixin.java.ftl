@@ -24,7 +24,7 @@ package ${package}.mixin;
 @Mixin(PiglinAi.class)
 public abstract class PiglinAiMixin {
 	@Inject(method = "isWearingSafeArmor(Lnet/minecraft/world/entity/LivingEntity;)Z", at = @At("HEAD"), cancellable = true)
-	public static void isWearingSafeArmor(LivingEntity entity, CallbackInfoReturnable<Boolean> cir) {
+	private static void isWearingSafeArmor(LivingEntity entity, CallbackInfoReturnable<Boolean> cir) {
 		for (EquipmentSlot equipmentslot : EquipmentSlotGroup.ARMOR) {
 			<#list armors as armor>
 				<#if armor.enableHelmet && (hasProcedure(armor.helmetPiglinNeutral) || armor.helmetPiglinNeutral.getFixedValue())>
