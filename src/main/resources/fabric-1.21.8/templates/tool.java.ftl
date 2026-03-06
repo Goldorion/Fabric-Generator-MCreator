@@ -87,8 +87,12 @@ public class ${name}Item extends ${data.toolType?replace("Spade", "Shovel")?repl
 					.repairable(TagKey.create(Registries.ITEM, ResourceLocation.parse("${modid}:${registryname}_repair_items")))
 					</#if>
 				</#if>
-				<#if (data.usageCount != 0) && (data.toolType == "Shears" || data.toolType == "Shield")>
-				.durability(${data.usageCount})
+				<#if data.toolType == "Shears" || data.toolType == "Shield">
+					<#if data.usageCount != 0>
+					.durability(${data.usageCount})
+					<#else>
+					.stacksTo(1)
+					</#if>
 				</#if>
 				<#if data.immuneToFire>
 				.fireResistant()
@@ -162,6 +166,8 @@ public class ${name}Item extends Item {
 		super(properties
 			<#if data.usageCount != 0>
 			.durability(${data.usageCount})
+			<#else>
+			.stacksTo(1)
 			</#if>
 			<#if data.immuneToFire>
 			.fireResistant()
@@ -200,6 +206,8 @@ public class ${name}Item extends FishingRodItem {
 		super(properties
 			<#if data.usageCount != 0>
 			.durability(${data.usageCount})
+			<#else>
+			.stacksTo(1)
 			</#if>
 			<#if data.immuneToFire>
 			.fireResistant()
