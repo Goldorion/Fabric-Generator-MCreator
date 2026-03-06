@@ -97,6 +97,9 @@ public class ${name}Item extends ${data.toolType?replace("Spade", "Shovel")?repl
 				<#if data.immuneToFire>
 				.fireResistant()
 				</#if>
+				<#if data.rarity != "COMMON">
+				.rarity(Rarity.${data.rarity})
+				</#if>
 				<#if data.enchantability != 0 && data.toolType=="Shears">
 				.enchantable(${data.enchantability})
 				</#if>
@@ -172,6 +175,9 @@ public class ${name}Item extends Item {
 			<#if data.immuneToFire>
 			.fireResistant()
 			</#if>
+			<#if data.rarity != "COMMON">
+			.rarity(Rarity.${data.rarity})
+			</#if>
 			<#if data.repairItems?has_content>
 			.repairable(TagKey.create(Registries.ITEM, ResourceLocation.parse("${modid}:${registryname}_repair_items")))
 			</#if>
@@ -209,6 +215,9 @@ public class ${name}Item extends FishingRodItem {
 			<#else>
 			.stacksTo(1)
 			</#if>
+			<#if data.rarity != "COMMON">
+			.rarity(Rarity.${data.rarity})
+			</#if
 			<#if data.immuneToFire>
 			.fireResistant()
 			</#if>
@@ -291,6 +300,10 @@ public class ${name}Item extends FishingRodItem {
 	<@addSpecialInformation data.specialInformation, "item." + modid + "." + registryname/>
 
 	<@onItemUsedOnBlock data.onRightClickedOnBlock/>
+
+	<@onDroppedByPlayer data.onDroppedByPlayer/>
+
+	<@onItemEntityDestroyed data.onItemEntityDestroyed/>
 
 	<@onCrafted data.onCrafted/>
 
