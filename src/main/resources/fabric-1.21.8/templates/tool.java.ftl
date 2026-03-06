@@ -26,8 +26,7 @@
 package ${package}.item;
 
 <@javacompress>
-<#if data.toolType == "Pickaxe" || data.toolType == "Axe" || data.toolType == "Sword" || data.toolType == "Spade"
-		|| data.toolType == "Hoe" || data.toolType == "Shears" || data.toolType == "Shield" || data.toolType == "MultiTool">
+<#if modifiesDefaultComponents(data.toolType)>
 public class ${name}Item extends ${data.toolType?replace("Spade", "Shovel")?replace("MultiTool|Pickaxe|Sword", "", "r")}Item {
 
 	<#if data.toolType == "Pickaxe" || data.toolType == "Axe" || data.toolType == "Sword" || data.toolType == "Spade" || data.toolType == "Hoe" || data.toolType == "MultiTool">
@@ -62,12 +61,7 @@ public class ${name}Item extends ${data.toolType?replace("Spade", "Shovel")?repl
 				<#elseif data.toolType == "Sword">
 				.sword(TOOL_MATERIAL, ${data.damageVsEntity - 1}f, ${data.attackSpeed - 4}f)
 				<#elseif data.toolType == "MultiTool">
-				.attributes(ItemAttributeModifiers.builder()
-						.add(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_ID, ${data.damageVsEntity - 1},
-								AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
-						.add(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_ID, ${data.attackSpeed - 4},
-								AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
-						.build())
+				.attributes(<@itemAttributeModifiers true/>)
 				<#elseif data.toolType == "Shield">
 				.repairable(TagKey.create(Registries.ITEM, ResourceLocation.parse("${modid}:${registryname}_repair_items")))
 				.component(DataComponents.BREAK_SOUND, SoundEvents.SHIELD_BREAK)
@@ -103,8 +97,16 @@ public class ${name}Item extends ${data.toolType?replace("Spade", "Shovel")?repl
 				<#if data.enchantability != 0 && data.toolType=="Shears">
 				.enchantable(${data.enchantability})
 				</#if>
-				<#if (data.usageCount == 0) && (data.toolType == "Pickaxe" || data.toolType == "Axe" || data.toolType == "Sword" || data.toolType == "Spade" || data.toolType == "Hoe" || data.toolType == "MultiTool")>
-				.component(DataComponents.MAX_DAMAGE, null)
+				<#if modifiesDefaultComponents(data.toolType)>
+                    <#if data.usageCount == 0>
+                        .component(DataComponents.MAX_DAMAGE, null)
+                    </#if>
+                    <#if data.attributeModifiers?size gt 0 && (data.toolType == "Axe" || data.toolType == "Spade" || data.toolType == "Hoe")>
+                        .component(DataComponents.ATTRIBUTE_MODIFIERS, <@itemAttributeModifiers true/>)
+                    </#if>
+				</#if>
+				<#if (data.attributeModifiers?size gt 0) && (data.toolType == "Pickaxe" || data.toolType == "Sword" || data.toolType == "Shears" || data.toolType == "Shield")>
+				.attributes(<@itemAttributeModifiers (data.toolType == "Pickaxe" || data.toolType == "Sword")/>)
 				</#if>
 		);
 	}
@@ -181,12 +183,7 @@ public class ${name}Item extends Item {
 			<#if data.repairItems?has_content>
 			.repairable(TagKey.create(Registries.ITEM, ResourceLocation.parse("${modid}:${registryname}_repair_items")))
 			</#if>
-			.attributes(ItemAttributeModifiers.builder()
-				.add(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_ID, ${data.damageVsEntity - 1},
-						AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
-				.add(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_ID, ${data.attackSpeed - 4},
-						AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
-				.build())
+			.attributes(<@itemAttributeModifiers true/>)
 			<#if data.enchantability != 0>
 			.enchantable(${data.enchantability})
 			</#if>
@@ -224,6 +221,9 @@ public class ${name}Item extends FishingRodItem {
 			.repairable(TagKey.create(Registries.ITEM, ResourceLocation.parse("${modid}:${registryname}_repair_items")))
 			<#if data.enchantability != 0>
 			.enchantable(${data.enchantability})
+			</#if>
+			<#if data.attributeModifiers?size gt 0>
+			.attributes(<@itemAttributeModifiers/>)
 			</#if>
 		);
 	}
@@ -278,6 +278,30 @@ public class ${name}Item extends FishingRodItem {
 }
 </#if>
 </@javacompress>
+
+<#function modifiesDefaultComponents toolType>
+	<#if data.usageCount == 0>
+		<#return toolType == "Pickaxe" || toolType == "Axe" || toolType == "Sword" || toolType == "Spade" || toolType == "Hoe" || toolType == "MultiTool">
+	<#elseif data.attributeModifiers?size gt 0>
+		<#return toolType == "Axe" || toolType == "Spade" || toolType == "Hoe">
+	<#else>
+		<#return false>
+	</#if>
+</#function>
+
+<#macro itemAttributeModifiers includeMeleeAttributes=false>
+	ItemAttributeModifiers.builder()
+	<#if includeMeleeAttributes>
+	.add(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_ID, ${data.damageVsEntity - 1}, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
+	.add(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_ID, ${data.attackSpeed - 4}, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
+	</#if>
+	<#list data.attributeModifiers as modifier>
+	.add(${modifier.attribute}, new AttributeModifier(
+			ResourceLocation.fromNamespaceAndPath(${JavaModName}.MODID, "${registryname}_${modifier?index}"),
+			${modifier.amount}, AttributeModifier.Operation.${modifier.operation}), ${generator.map(modifier.equipmentSlot, "equipmentslots")})
+	</#list>
+	.build()
+</#macro>
 
 <#macro commonMethods>
 	<#if data.stayInGridWhenCrafting>
