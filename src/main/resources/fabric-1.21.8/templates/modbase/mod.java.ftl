@@ -80,13 +80,12 @@ public class ${JavaModName} implements ModInitializer {
 	private static final PriorityQueue<TickTask> workQueue = new PriorityQueue<>(Comparator.comparingInt(TickTask::getTick));
 
 	public static void queueServerWork(int delay, Runnable action) {
-		if (Thread.currentThread().getThreadGroup() == SidedThreadGroups.SERVER)
-			workToBeScheduled.add(new IntObjectImmutablePair<>(delay, action));
+		workToBeScheduled.add(new IntObjectImmutablePair<>(delay, action));
 	}
 
 	private void tick() {
 		ServerTickEvents.END_SERVER_TICK.register((server) -> {
-			int currentTick = event.getServer().getTickCount();
+			int currentTick = server.getTickCount();
 	
 			IntObjectPair<Runnable> work;
 			while ((work = workToBeScheduled.poll()) != null) {
