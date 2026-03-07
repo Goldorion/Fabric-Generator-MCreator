@@ -36,6 +36,7 @@ package ${package};
 		<#if types["base:entities"]??>${JavaModName}EntityRenderers.clientLoad();</#if>
 		<#if types["particles"]??>${JavaModName}Particles.clientLoad();</#if>
 		<#if types["fluids"]??>${JavaModName}Fluids.clientLoad();</#if>
+		<#if w.getGElementsOfType('dimension')?filter(e -> e.useCustomEffects)?size != 0>${JavaModName}DimensionsEffects.clientLoad();</#if>
 		<#if types["guis"]??>
 		${JavaModName}Screens.clientLoad();
 		${JavaModName}Menus.clientLoad();

@@ -2,6 +2,7 @@
 
 # 2.5.6
 - Added support for MCreator 2026.1 3rd snapshot
+- [Bugfix] Custom dimensions with custom effects were not working
 
 # 2.5.5
 - Added support for MCreator 2026.1 2nd snapshot 
