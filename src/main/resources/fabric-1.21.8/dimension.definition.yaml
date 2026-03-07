@@ -61,7 +61,7 @@ global_templates:
     condition: "${w.getGElementsOfType('dimension')?filter(e -> e.onPlayerLeavesDimension?? || e.onPlayerEntersDimension??)?size != 0}"
   - template: elementinits/dimensionseffects.java.ftl
     name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameDimensionsEffects.java"
-    condition: "${w.getGElementsOfType('dimension')?filter(e -> e.useCustomEffects)?size != 0}
+    condition: "${w.getGElementsOfType('dimension')?filter(e -> e.useCustomEffects)?size != 0}"
 
 tags:
   - tag: BLOCKS:minecraft:overworld_carver_replaceables
