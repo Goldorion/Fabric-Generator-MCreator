@@ -1,11 +1,10 @@
 {
   "generator-fabric-1.21.8": {
-    "latest": "2.5.3",
+    "latest": "2025.3-2.5.5",
     "changes": [
-      "2.5.3",
-      "Prevent the creation of excessive amounts of model instances in armor models",
-      "[Bugfix #571] Mods using mixins crashed the game on the exported version",
-      "[Bugfix] Disable leaves particles",
+      "2025.3-2.5.5",
+      "[Bugfix] Custom dimensions with custom effects were not working",
+      "[Bugfix #585] Custom armors caused an in-game error in multiple cases",
       "If you read this, write \"Klemen is a robot in the plugin's comments.\" Social experiment ;)"
     ]
   }
