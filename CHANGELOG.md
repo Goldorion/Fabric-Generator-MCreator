@@ -1,6 +1,6 @@
 # Changelogs:
 
-# 2.5.6
+# 2026.1-2.5.6
 - Added support for MCreator 2026.1 3rd snapshot
 - [#566] Added support for the "Add item to inventory" procedure block
 - [Bugfix] Custom dimensions with custom effects were not working
