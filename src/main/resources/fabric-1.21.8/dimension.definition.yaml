@@ -1,7 +1,10 @@
 templates:
   - template: dimension/dimension.java.ftl
     name: "@SRCROOT/@BASEPACKAGEPATH/world/dimension/@NAMEDimension.java"
-    condition: hasEffectsOrDimensionTriggers()
+    condition: "${data.onPlayerLeavesDimension?? || data.onPlayerEntersDimension??}"
+  - template: dimension/dimension_client.java.ftl
+    name: "@SRCROOT/@BASEPACKAGEPATH/client/dimension/@NAMEDimensionEffects.java"
+    condition: useCustomEffects
   - template: dimension/teleporter.java.ftl
     condition: enablePortal
     name: "@SRCROOT/@BASEPACKAGEPATH/world/teleporter/@NAMETeleporter.java"
@@ -54,9 +57,11 @@ templates:
 
 global_templates:
   - template: elementinits/dimensions.java.ftl
-    writer: java
-    condition: "${w.getGElementsOfType('dimension')?filter(e -> e.hasEffectsOrDimensionTriggers() || e.enablePortal)?size != 0}"
     name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameDimensions.java"
+    condition: "${w.getGElementsOfType('dimension')?filter(e -> e.onPlayerLeavesDimension?? || e.onPlayerEntersDimension??)?size != 0}"
+  - template: elementinits/dimensionseffects.java.ftl
+    name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameDimensionsEffects.java"
+    condition: "${w.getGElementsOfType('dimension')?filter(e -> e.useCustomEffects)?size != 0}"
 
 tags:
   - tag: BLOCKS:minecraft:overworld_carver_replaceables

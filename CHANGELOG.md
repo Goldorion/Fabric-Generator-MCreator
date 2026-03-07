@@ -1,6 +1,7 @@
 # Changelogs:
 
 # 2025.3-2.5.5
+- [Bugfix] Custom dimensions with custom effects were not working
 - [Bugfix #585] Custom armors caused an in-game error in multiple cases
 
 # 2.5.4

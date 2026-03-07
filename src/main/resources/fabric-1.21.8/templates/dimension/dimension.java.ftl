@@ -26,50 +26,22 @@ package ${package}.world.dimension;
 
 <@javacompress>
 public class ${name}Dimension {
-
-	<#if data.hasEffectsOrDimensionTriggers()>
-		public static void load() {
-			<#if data.useCustomEffects>
-			DimensionSpecialEffects customEffect = new DimensionSpecialEffects(
-				DimensionSpecialEffects.SkyType.${data.skyType?replace("NORMAL", "OVERWORLD")},
-				false,
-				false
-			) {
-				@Override public Vec3 getBrightnessDependentFogColor(Vec3 color, float sunHeight) {
-					<#if data.airColor?has_content>
-						return new Vec3(${data.airColor.getRed()/255},${data.airColor.getGreen()/255},${data.airColor.getBlue()/255})
-					<#else>
-						return color
-					</#if>
-					<#if data.sunHeightAffectsFog>
-						.multiply(sunHeight * 0.94 + 0.06, sunHeight * 0.94 + 0.06, sunHeight * 0.91 + 0.09)
-					</#if>;
+	public static void load() {
+		<#if hasProcedure(data.onPlayerLeavesDimension) || hasProcedure(data.onPlayerEntersDimension)>
+			ServerEntityWorldChangeEvents.AFTER_PLAYER_CHANGE_WORLD.register((entity, origin, destination) -> {
+				Level world = entity.level();
+				double x = entity.getX();
+				double y = entity.getY();
+				double z = entity.getZ();
+				if (origin.dimension() == ResourceKey.create(Registries.DIMENSION, ResourceLocation.parse("${modid}:${registryname}"))) {
+					<@procedureOBJToCode data.onPlayerLeavesDimension/>
 				}
-
-				@Override public boolean isFoggyAt(int x, int y) {
-					return ${data.hasFog};
+				if (destination.dimension() == ResourceKey.create(Registries.DIMENSION, ResourceLocation.parse("${modid}:${registryname}"))) {
+					<@procedureOBJToCode data.onPlayerEntersDimension/>
 				}
-			};
-
-			DimensionRenderingRegistry.registerDimensionEffects(ResourceLocation.parse("${modid}:${registryname}"), customEffect);
-			</#if>
-
-			<#if hasProcedure(data.onPlayerLeavesDimension) || hasProcedure(data.onPlayerEntersDimension)>
-				ServerEntityWorldChangeEvents.AFTER_PLAYER_CHANGE_WORLD.register((entity, origin, destination) -> {
-					Level world = entity.level();
-					double x = entity.getX();
-					double y = entity.getY();
-					double z = entity.getZ();
-					if (origin.dimension() == ResourceKey.create(Registries.DIMENSION, ResourceLocation.parse("${modid}:${registryname}"))) {
-						<@procedureOBJToCode data.onPlayerLeavesDimension/>
-					}
-					if (destination.dimension() == ResourceKey.create(Registries.DIMENSION, ResourceLocation.parse("${modid}:${registryname}"))) {
-						<@procedureOBJToCode data.onPlayerEntersDimension/>
-					}
-				});
-			</#if>
-		}
-	</#if>
+			});
+		</#if>
+	}
 }
 </@javacompress>
 <#-- @formatter:on -->
