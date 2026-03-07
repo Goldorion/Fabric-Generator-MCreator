@@ -26,7 +26,8 @@
 package ${package}.item;
 
 <@javacompress>
-<#if modifiesDefaultComponents(data.toolType)>
+<#if data.toolType == "Pickaxe" || data.toolType == "Axe" || data.toolType == "Sword" || data.toolType == "Spade"
+		|| data.toolType == "Hoe" || data.toolType == "Shears" || data.toolType == "Shield" || data.toolType == "MultiTool">
 public class ${name}Item extends ${data.toolType?replace("Spade", "Shovel")?replace("MultiTool|Pickaxe|Sword", "", "r")}Item {
 
 	<#if data.toolType == "Pickaxe" || data.toolType == "Axe" || data.toolType == "Sword" || data.toolType == "Spade" || data.toolType == "Hoe" || data.toolType == "MultiTool">
@@ -214,7 +215,7 @@ public class ${name}Item extends FishingRodItem {
 			</#if>
 			<#if data.rarity != "COMMON">
 			.rarity(Rarity.${data.rarity})
-			</#if
+			</#if>
 			<#if data.immuneToFire>
 			.fireResistant()
 			</#if>
