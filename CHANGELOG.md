@@ -3,6 +3,7 @@
 # 2.5.6
 - Added support for MCreator 2026.1 3rd snapshot
 - [Bugfix] Custom dimensions with custom effects were not working
+- [Bugfix #588] The Close any open GUI for procedure block did not work
 
 # 2.5.5
 - Added support for MCreator 2026.1 2nd snapshot 

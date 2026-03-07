@@ -1,3 +1,3 @@
-<@head>if(${input$entity} instanceof Player _player) {</@head>
-    _player.containerMenu = _player.inventoryMenu;
+<@head>if(${input$entity} instanceof LocalPlayer _player) {</@head>
+    _player.closeContainer();
 <@tail>}</@tail>
