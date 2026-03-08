@@ -1,5 +1,8 @@
 # Changelogs:
 
+# 2026.1-5.7
+- Added Show search bar parameter for custom creative tabs
+
 # 2026.1-2.5.6
 - Added support for MCreator 2026.1 3rd snapshot
 - [#566] Added support for the "Add item to inventory" procedure block

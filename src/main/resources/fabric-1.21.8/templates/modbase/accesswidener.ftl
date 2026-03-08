@@ -42,5 +42,7 @@ accessible method net/minecraft/client/gui/components/AbstractSliderButton getHa
 accessible field net/minecraft/world/item/BucketItem content Lnet/minecraft/world/level/material/Fluid;
 accessible field net/minecraft/world/level/block/LiquidBlock fluid Lnet/minecraft/world/level/material/FlowingFluid;
 
+accessible method net/minecraft/world/item/CreativeModeTab$Builder type (Lnet/minecraft/world/item/CreativeModeTab$Type;)Lnet/minecraft/world/item/CreativeModeTab$Builder;
+
 # Start of user code block custom AWs
 # End of user code block custom AWs

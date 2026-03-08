@@ -42,9 +42,13 @@ public class ${JavaModName}Tabs {
 	public static void load() {
 	<#list customTabs as customTab>
 		<#assign tab = w.getWorkspace().getModElementByName(customTab.replace("CUSTOM:", "")).getGeneratableElement()>
-		Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, TAB_${tab.getModElement().getRegistryNameUpper()}, FabricItemGroup.builder()
+		Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, TAB_${tab.getModElement().getRegistryNameUpper()}, CreativeModeTab.builder(CreativeModeTab.Row.TOP, 0)
 			.title(Component.translatable("item_group.${modid}.${tab.getModElement().getRegistryName()}"))
 			.icon(() -> ${mappedMCItemToItemStackCode(tab.icon, 1)})
+			<#if tab.showSearch>
+			.type(CreativeModeTab.Type.SEARCH)
+			.backgroundTexture(ResourceLocation.withDefaultNamespace("textures/gui/container/creative_inventory/tab_item_search.png"))
+			</#if>
 			.displayItems((parameters, tabData) -> {
 				<#list tabMap.get("CUSTOM:" + tab.getModElement().getName()) as tabElement>
 				tabData.accept(${mappedMCItemToItem(tabElement)});
