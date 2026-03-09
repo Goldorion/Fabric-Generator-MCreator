@@ -3,3 +3,8 @@ global_templates:
     name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameEntities.java"
   - template: elementinits/entityrenderers.java.ftl
     name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameEntityRenderers.java"
+
+# Mixins
+  - template: mixin/monsterroomfeature_mixin.java.ftl
+    name: "@SRCROOT/@BASEPACKAGEPATH/mixin/MonsterRoomFeatureMixin.java"
+    condition: "${w.getGElementsOfType('livingentity')?filter(e -> e.spawnInDungeons)?size != 0}"

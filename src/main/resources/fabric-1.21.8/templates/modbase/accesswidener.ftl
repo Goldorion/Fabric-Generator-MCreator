@@ -26,6 +26,10 @@ extendable method net/minecraft/world/level/levelgen/feature/TreeFeature place (
 extendable method net/minecraft/world/entity/projectile/FishingHook shouldStopFishing (Lnet/minecraft/world/entity/player/Player;)Z
 </#if>
 
+<#if w.getGElementsOfType('livingentity')?filter(e -> e.spawnInDungeons)?size != 0>
+accessible method net/minecraft/world/level/levelgen/feature/MonsterRoomFeature randomEntityId (Lnet/minecraft/util/RandomSource;)Lnet/minecraft/world/entity/EntityType;
+</#if>
+
 <#if w.hasElementsOfType("armor")>
 accessible class net/minecraft/client/renderer/entity/layers/EquipmentLayerRenderer$LayerTextureKey
 accessible class net/minecraft/client/renderer/entity/layers/EquipmentLayerRenderer$TrimSpriteKey

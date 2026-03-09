@@ -42,4 +42,4 @@ localizationkeys:
   - key: entity.@modid.@registryname
     mapto: mobName
 
-field_exclusions: [spawnInDungeons, raidSpawnsCount]
+field_exclusions: [raidSpawnsCount]

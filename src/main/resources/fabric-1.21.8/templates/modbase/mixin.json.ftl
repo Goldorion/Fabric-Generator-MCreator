@@ -14,6 +14,9 @@
 	<#assign mixins = mixins + ['PiglinAiMixin']>
 	<#assign client_mixins = client_mixins + ['EquipmentLayerRendererMixin']>
 </#if>
+<#if w.getGElementsOfType('livingentity')?filter(e -> e.spawnInDungeons)?size != 0>
+	<#assign mixins = mixins + ['MonsterRoomFeatureMixin']>
+</#if>
 <#assign mixins = mixins + ['LivingEntityMixin']>
 <#assign mixins = mixins + ['PlayerMixin']>
 <#assign mixins = mixins + ['ItemStackMixin']>

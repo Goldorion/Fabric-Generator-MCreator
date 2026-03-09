@@ -31,42 +31,32 @@ package ${package}.init;
 public class ${JavaModName}Entities {
 
 	<#list entities as entity>
-		public static EntityType<${entity.getModElement().getName()}Entity> ${entity.getModElement().getRegistryNameUpper()};
+		public static EntityType<${entity.getModElement().getName()}Entity> ${entity.getModElement().getRegistryNameUpper()} =
+                <#if entity.getModElement().getTypeString() == "projectile">
+                    register("${entity.getModElement().getRegistryName()}", EntityType.Builder.<${entity.getModElement().getName()}Entity>
+                            of(${entity.getModElement().getName()}Entity::new, MobCategory.MISC)
+                            .clientTrackingRange(64).updateInterval(1).sized(${entity.modelWidth}f, ${entity.modelHeight}f));
+                <#elseif entity.getModElement().getTypeString() == "livingentity">
+                    register("${entity.getModElement().getRegistryName()}", EntityType.Builder.<${entity.getModElement().getName()}Entity>
+                            of(${entity.getModElement().getName()}Entity::new, ${generator.map(entity.mobSpawningType, "mobspawntypes")})
+                                .clientTrackingRange(${entity.trackingRange}).updateInterval(3)
+                                <#if entity.immuneToFire>.fireImmune()</#if>
+                                <#if entity.mobModelName == "Biped">.ridingOffset(-0.6f)</#if>
+                                .sized(${entity.modelWidth}f, ${entity.modelHeight}f));
+                <#elseif entity.getModElement().getTypeString() == "specialentity">
+                    register("${entity.getModElement().getRegistryName()}",
+                        EntityType.Builder.<${entity.getModElement().getName()}Entity>of(${entity.getModElement().getName()}Entity::new, MobCategory.MISC)
+                            .noLootTable().sized(1.375F, 0.5625F).eyeHeight(0.5625F).clientTrackingRange(10));
+                </#if>
 		<#if entity.getModElement().getTypeString() == "livingentity" && entity.hasCustomProjectile()>
-			public static EntityType<${entity.getModElement().getName()}EntityProjectile> ${entity.getModElement().getRegistryNameUpper()}_PROJECTILE;
+			public static EntityType<${entity.getModElement().getName()}EntityProjectile> ${entity.getModElement().getRegistryNameUpper()}_PROJECTILE =
+			    register("projectile_${entity.getModElement().getRegistryName()}", EntityType.Builder.<${entity.getModElement().getName()}EntityProjectile>
+                					of(${entity.getModElement().getName()}EntityProjectile::new, MobCategory.MISC).clientTrackingRange(64)
+                						.updateInterval(1).sized(0.5f, 0.5f));
 		</#if>
 	</#list>
 
 	public static void load() {
-	<#list entities as entity>
-		<#if entity.getModElement().getTypeString() == "projectile">
-			${entity.getModElement().getRegistryNameUpper()} =
-				register("${entity.getModElement().getRegistryName()}", EntityType.Builder.<${entity.getModElement().getName()}Entity>
-						of(${entity.getModElement().getName()}Entity::new, MobCategory.MISC)
-						.clientTrackingRange(64).updateInterval(1).sized(${entity.modelWidth}f, ${entity.modelHeight}f));
-		<#elseif entity.getModElement().getTypeString() == "livingentity">
-			${entity.getModElement().getRegistryNameUpper()} =
-				register("${entity.getModElement().getRegistryName()}", EntityType.Builder.<${entity.getModElement().getName()}Entity>
-						of(${entity.getModElement().getName()}Entity::new, ${generator.map(entity.mobSpawningType, "mobspawntypes")})
-							.clientTrackingRange(${entity.trackingRange}).updateInterval(3)
-							<#if entity.immuneToFire>.fireImmune()</#if>
-							<#if entity.mobModelName == "Biped">.ridingOffset(-0.6f)</#if>
-							.sized(${entity.modelWidth}f, ${entity.modelHeight}f)
-						);
-			<#if entity.hasCustomProjectile()>
-			${entity.getModElement().getRegistryNameUpper()}_PROJECTILE =
-				register("projectile_${entity.getModElement().getRegistryName()}", EntityType.Builder.<${entity.getModElement().getName()}EntityProjectile>
-					of(${entity.getModElement().getName()}EntityProjectile::new, MobCategory.MISC).clientTrackingRange(64)
-						.updateInterval(1).sized(0.5f, 0.5f));
-			</#if>
-		<#elseif entity.getModElement().getTypeString() == "specialentity">
-			${entity.getModElement().getRegistryNameUpper()} =
-				register("${entity.getModElement().getRegistryName()}",
-				EntityType.Builder.<${entity.getModElement().getName()}Entity>of(${entity.getModElement().getName()}Entity::new, MobCategory.MISC)
-					.noLootTable().sized(1.375F, 0.5625F).eyeHeight(0.5625F).clientTrackingRange(10));
-		</#if>
-	</#list>
-
 		<#if hasLivingEntities>
 			init();
 			registerAttributes();
