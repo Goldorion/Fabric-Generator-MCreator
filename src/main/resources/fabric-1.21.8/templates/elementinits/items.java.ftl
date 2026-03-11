@@ -30,9 +30,9 @@ package ${package}.init;
 <#assign hasBlocks = false>
 <#assign hasDoubleBlocks = false>
 <#assign hasSigns = false>
+<#assign hasHangingSigns = false>
 <#assign chunks = items?chunk(2500)>
 <#assign has_chunks = chunks?size gt 1>
-<#assign hasHangingSigns = false>
 
 public class ${JavaModName}Items {
 
@@ -111,7 +111,7 @@ public class ${JavaModName}Items {
 					<#elseif (item.getModElement().getTypeString() == "block") && (item.blockBase! == "HangingSign")>
 						<#assign hasHangingSigns = true>
 						${item.getModElement().getRegistryNameUpper()} =
-							hangingSignBlock(${JavaModName}Blocks.${item.getModElement().getRegistryNameUpper()}, ${JavaModName}Blocks.${item.getWallRegistryNameUpper()}
+							hangingSignBlock(${JavaModName}Blocks.${item.getModElement().getRegistryNameUpper()}, "${item.getModElement().getRegistryName()}", ${JavaModName}Blocks.${item.getWallRegistryNameUpper()}
 							<#if item.hasCustomItemProperties()>, <@blockItemProperties item/></#if>);
 					<#else>
 						<#assign hasBlocks = true>
@@ -173,7 +173,7 @@ public class ${JavaModName}Items {
 
 	<#if hasHangingSigns>
 	private static Item hangingSignBlock(Block block, String name, Block wallBlock) {
-		return signBlock(block, name, wallBlock, new Item.Properties());
+		return hangingSignBlock(block, name, wallBlock, new Item.Properties());
 	}
 
 	private static Item hangingSignBlock(Block block, String name, Block wallBlock, Item.Properties properties) {

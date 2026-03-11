@@ -771,6 +771,7 @@ public class ${getClassName()}Block extends ${getBlockClass(data.blockBase)}
 			<#return "TintedParticleLeavesBlock">
 		</#if>
 	<#elseif blockBase == "Sign"><#return "StandingSignBlock">
+	<#elseif blockBase == "HangingSign"><#return "CeilingHangingSignBlock">
 	<#else><#return blockBase + "Block">
 	</#if>
 </#function>

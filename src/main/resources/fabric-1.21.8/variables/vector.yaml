@@ -28,17 +28,19 @@ scopes:
     init: public Vec3 ${var.getName()} = Vec3.ZERO;
     read: ${var.getName()} = input.read("${var.getName()}", Vec3.CODEC).orElse(Vec3.ZERO);
     write: output.store("${var.getName()}", Vec3.CODEC, ${var.getName()});
-    get: ${entity}.getData(${JavaModName}Variables.PLAYER_VARIABLES).${name}
+    get: ${entity}.getAttachedOrCreate(${JavaModName}Variables.PLAYER_VARIABLES).${name}
     set: |
-      <@head>{${JavaModName}Variables.PlayerVariables _vars = ${entity}.getData(${JavaModName}Variables.PLAYER_VARIABLES);</@head>
+      <@head>{${JavaModName}Variables.PlayerVariables _vars = ${entity}.getAttachedOrCreate(${JavaModName}Variables.PLAYER_VARIABLES);</@head>
       _vars.${name} = ${opt.removeParentheses(value)};
       <@tail>_vars.markSyncDirty();}</@tail>
+    codec: Vec3.CODEC.fieldOf("${var.getName()}").orElse(Vec3.ZERO).forGetter((vars) -> vars.${var.getName()})
   player_persistent:
     init: public Vec3 ${var.getName()} = Vec3.ZERO;
     read: ${var.getName()} = input.read("${var.getName()}", Vec3.CODEC).orElse(Vec3.ZERO);
     write: output.store("${var.getName()}", Vec3.CODEC, ${var.getName()});
-    get: ${entity}.getData(${JavaModName}Variables.PLAYER_VARIABLES).${name}
+    get: ${entity}.getAttachedOrCreate(${JavaModName}Variables.PLAYER_VARIABLES).${name}
     set: |
-      <@head>{${JavaModName}Variables.PlayerVariables _vars = ${entity}.getData(${JavaModName}Variables.PLAYER_VARIABLES);</@head>
+      <@head>{${JavaModName}Variables.PlayerVariables _vars = ${entity}.getAttachedOrCreate(${JavaModName}Variables.PLAYER_VARIABLES);</@head>
       _vars.${name} = ${opt.removeParentheses(value)};
       <@tail>_vars.markSyncDirty();}</@tail>
+    codec: Vec3.CODEC.fieldOf("${var.getName()}").orElse(Vec3.ZERO).forGetter((vars) -> vars.${var.getName()})
