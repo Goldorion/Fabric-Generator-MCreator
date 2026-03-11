@@ -4,7 +4,8 @@
 - Added support for Show search bar parameter in custom creative tabs
 - Added support for Spawn in dungeons parameter in custom living entities
 - Added dependencies/required/dependants mods support
-- Some bug fixes
+- [Bugfix #570] Elytra appearing on armor when trims are applied
+- Some other bug fixes
 
 # 2026.1-2.5.6
 - Added support for MCreator 2026.1 3rd snapshot
