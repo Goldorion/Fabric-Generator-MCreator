@@ -33,14 +33,18 @@ public abstract class EquipmentLayerRendererMixin {
 
 	@Inject(method = "Lnet/minecraft/client/renderer/entity/layers/EquipmentLayerRenderer;renderLayers(Lnet/minecraft/client/resources/model/EquipmentClientInfo$LayerType;Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/client/model/Model;Lnet/minecraft/world/item/ItemStack;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILnet/minecraft/resources/ResourceLocation;)V", at = @At("HEAD"), cancellable = true)
 	public void renderLayers(EquipmentClientInfo.LayerType layerType, ResourceKey<EquipmentAsset> resourceKey, Model model, ItemStack itemStack, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, ResourceLocation resourceLocation, CallbackInfo ci) {
-		if (${JavaModName}ArmorModels.ARMOR_MODELS.containsKey(itemStack.getItem())) {
-			${JavaModName}ArmorModels.ArmorModel armorModel = ${JavaModName}ArmorModels.ARMOR_MODELS.get(itemStack.getItem());
-			if (armorModel.getHumanoidArmorModel(itemStack, layerType, model) != null)
-				model = armorModel.getGenericArmorModel(itemStack, layerType, model);
-			List<EquipmentClientInfo.Layer> list = this.equipmentAssets.get(resourceKey).getLayers(layerType);
-			if (list.isEmpty()) {
-				ci.cancel();
-			}
+            if (!${JavaModName}ArmorModels.ARMOR_MODELS.containsKey(itemStack.getItem()) || layerType == EquipmentClientInfo.LayerType.WINGS) return;
+
+            ${JavaModName}ArmorModels.ArmorModel armorModel = ${JavaModName}ArmorModels.ARMOR_MODELS.get(itemStack.getItem());
+            if (armorModel.getHumanoidArmorModel(itemStack, layerType, model) != null)
+                model = armorModel.getGenericArmorModel(itemStack, layerType, model);
+
+            List<EquipmentClientInfo.Layer> list = this.equipmentAssets.get(resourceKey).getLayers(layerType);
+            if (list.isEmpty()) {
+                ci.cancel();
+                return;
+            }
+
 			int j = DyedItemColor.getOrDefault(itemStack, 0);
 			boolean bl = itemStack.hasFoil();
 			for (EquipmentClientInfo.Layer layer : list) {
@@ -59,7 +63,6 @@ public abstract class EquipmentLayerRendererMixin {
 				model.renderToBuffer(poseStack, vertexConsumer2, i, OverlayTexture.NO_OVERLAY);
 			}
 			ci.cancel();
-		}
 	}
 }
 <#-- @formatter:on -->
