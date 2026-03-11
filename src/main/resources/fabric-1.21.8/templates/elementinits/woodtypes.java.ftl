@@ -46,8 +46,8 @@ public class ${JavaModName}WoodTypes {
 
 	public static void load() {
 	    <#list signs as block>
-	        BlockEntityType.SIGN.addSupportedBlock(${JavaModName}Blocks.${block.getModElement().getRegistryNameUpper()});
-	        BlockEntityType.SIGN.addSupportedBlock(${JavaModName}Blocks.${block.getWallRegistryNameUpper()});
+	        BlockEntityType.<#if block.blockBase == "HangingSign">HANGING_</#if>SIGN.addSupportedBlock(${JavaModName}Blocks.${block.getModElement().getRegistryNameUpper()});
+	        BlockEntityType.<#if block.blockBase == "HangingSign">HANGING_</#if>SIGN.addSupportedBlock(${JavaModName}Blocks.${block.getWallRegistryNameUpper()});
 	    </#list>
 	}
 }</@javacompress>
