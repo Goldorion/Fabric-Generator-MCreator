@@ -1,4 +1,6 @@
 <#-- @formatter:off -->
+<#assign hasDeps = settings.getDependencies()?has_content>
+<#assign hasDependants = settings.getDependants()?has_content>
 {
   "schemaVersion": 1,
   "id": "${settings.getModID()}",
@@ -39,7 +41,19 @@
 	"fabricloader": ">=0.18.4",
 	"minecraft": "~${generator.getGeneratorMinecraftVersion()}",
 	"java": ">=21",
-	"fabric-api": "*"
+	"fabric-api": "*"<#if settings.getRequiredMods()?has_content>,</#if>
+	<#list settings.getRequiredMods() as e>
+	"${e}": "${(settings.getVersionRange(e) == '[0,)')?then('*', settings.getVersionRange(e))}"<#sep>,
+	</#list>
+  }<#if hasDeps || hasDependants>,
+  "suggests": {
+	<#list settings.getDependencies() as e>
+	"${e}": "${(settings.getVersionRange(e) == '[0,)')?then('*', settings.getVersionRange(e))}"<#sep>,
+	</#list><#if hasDeps && hasDependants>,</#if>
+	<#list settings.getDependants() as e>
+	"${e}": "*"<#sep>,
+	</#list>
   }
+  </#if>
 }
 <#-- @formatter:on -->
