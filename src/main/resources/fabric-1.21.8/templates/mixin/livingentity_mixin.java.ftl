@@ -99,5 +99,12 @@ public abstract class LivingEntityMixin {
 	public void jumpFromGround(CallbackInfo ci) {
         LivingEntityEvents.ENTITY_JUMP.invoker().onEntityJump((LivingEntity) (Object) this);
 	}
+
+	@Inject(method = "releaseUsingItem()V", at = @At("HEAD"))
+	public void releaseUsingItem(CallbackInfo ci) {
+		LivingEntity entity = (LivingEntity) (Object) this;
+		if (!entity.getUseItem().isEmpty())
+			LivingEntityEvents.ENTITY_STOP_USING_ITEM.invoker().onStopUsingItem(entity, entity.getUseItem(), entity.getUseItemRemainingTicks());
+	}
 }
 <#-- @formatter:on -->

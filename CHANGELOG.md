@@ -5,6 +5,7 @@
 - Added support for Spawn in dungeons parameter in custom living entities
 - Added dependencies/required/dependants mods support
 - Added support for following procedure blocks: Get/Set NBT itemstack tag for blocks, entities and items
+- Added support for new global triggers: Entity joins world, Entity is spawned, Mod client-side loaded, Mod server-side loaded, Player stop using item
 - [Bugfix #570] Elytra appearing on armor when trims are applied
 - [Bugfix] Hanging signs could cause registration problems
 - Some other bug fixes
