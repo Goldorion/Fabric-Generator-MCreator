@@ -4,7 +4,9 @@
 - Added support for Show search bar parameter in custom creative tabs
 - Added support for Spawn in dungeons parameter in custom living entities
 - Added dependencies/required/dependants mods support
+- Added support for following procedure blocks: Get/Set NBT itemstack tag for blocks, entities and items
 - [Bugfix #570] Elytra appearing on armor when trims are applied
+- [Bugfix] Hanging signs could cause registration problems
 - Some other bug fixes
 
 # 2026.1-2.5.6
