@@ -22,7 +22,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: MCreator/MCreator
-          ref: master # The branch name (can also be the tag). This will be the branch on which the tests will be run
+          ref: 2025.3 # The branch name (can also be the tag). This will be the branch on which the tests will be run
           path: mcreator
       - name: Set up JDK 21
         uses: actions/setup-java@v4
