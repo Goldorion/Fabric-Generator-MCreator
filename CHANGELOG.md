@@ -1,5 +1,8 @@
 # Changelogs:
 
+# 2026.2.6.1
+- Updated to MCreator 2026.1 (2026.1.13616)
+
 # 2026.1-2.6
 - Added support for Show search bar parameter in custom creative tabs
 - Added support for Spawn in dungeons parameter in custom living entities
