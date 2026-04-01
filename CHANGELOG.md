@@ -2,6 +2,10 @@
 
 # 2026.2.6.1
 - Updated to MCreator 2026.1 (2026.1.13616)
+- - [Bugfix] player_useitem_stop trigger was causing a build error with itemstack dependency
+
+# 2026.2.6.1
+- Updated to MCreator 2026.1 (2026.1.13616)
 
 # 2026.1-2.6
 - Added support for Show search bar parameter in custom creative tabs

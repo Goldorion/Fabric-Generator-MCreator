@@ -6,7 +6,7 @@ public ${name}Procedure() {
 				"x": "entity.getX()",
 				"y": "entity.getY()",
 				"z": "entity.getZ()",
-				"itemstack": "eitemstack",
+				"itemstack": "itemstack",
 				"duration": "duration",
 				"world": "entity.level()",
 				"entity": "entity"
