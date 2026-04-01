@@ -6,11 +6,16 @@ plugins {
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
-tasks.processResources {
+tasks.named('processResources') {
     filesMatching('plugin.json') {
         expand(
-                version: project.version,
-                pluginVersion: project.pluginVersion
+                mcVersion: mcVersion,
+                mcreatorVersion: mcreatorVersion,
+                pluginVersion: pluginVersion,
+                supportedVersion: {
+                    def p = mcreatorVersion.split("\\.")
+                    p[0] + p[1].padLeft(3, '0')
+                }() // Example: Input = 2026.1 -> Output: 2026001
         )
     }
 }
@@ -96,18 +101,20 @@ static def installPlugin(String path, String separator) {
 }
 
 subprojects { subproject ->
-    subproject.plugins.withType(JavaPlugin) {
-        test {
-            useJUnitPlatform()
-            include '**/GeneratorsTest.class'
+    subproject.plugins.withType(JavaPlugin).tap {
+        configureEach {
+            test {
+                useJUnitPlatform()
+                include '**/GeneratorsTest.class'
 
-            dependsOn rootProject.processResources
-            dependsOn rootProject.jar
+                dependsOn rootProject.processResources
+                dependsOn rootProject.jar
 
-            environment("MCREATOR_PLUGINS_FOLDER", new File(rootProject.projectDir, "/build/libs"))
-            environment("MCREATOR_TEST_GENERATORS", "fabric-${version}")
+                environment("MCREATOR_PLUGINS_FOLDER", new File(rootProject.projectDir, "/build/libs"))
+                environment("MCREATOR_TEST_GENERATORS", "fabric-${mcVersion}")
 
-            workingDir = mcreator_path
+                workingDir = mcreator_path
+            }
         }
     }
 }
