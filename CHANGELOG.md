@@ -2,7 +2,9 @@
 
 # 2026.1-2.6.2
 - Updated to MCreator 2026.1 (2026.1.13616)
-- - [Bugfix] player_useitem_stop trigger was causing a build error with itemstack dependency
+- Removed unsupported procedures
+- [Bugfix] player_useitem_stop trigger was causing a build error with itemstack dependency
+- Some other bug fixes
 
 # 2026.1-2.6.1
 - Updated to MCreator 2026.1 (2026.1.13616)
