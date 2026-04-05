@@ -1,9 +1,9 @@
 # Changelogs:
 
 # 2026.1-2.6.2
-- Updated to MCreator 2026.1 (2026.1.13616)
 - Removed unsupported procedures
 - [Bugfix] player_useitem_stop trigger was causing a build error with itemstack dependency
+- [Bugfix #593] Custom dimensions with no portal triggered procedure caused a build error.
 - Some other bug fixes
 
 # 2026.1-2.6.1
