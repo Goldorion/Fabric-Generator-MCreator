@@ -24,10 +24,10 @@ jobs:
           repository: MCreator/MCreator
           ref: master # The branch name (can also be the tag). This will be the branch on which the tests will be run
           path: mcreator
-      - name: Set up JDK 21
+      - name: Set up JDK 25
         uses: actions/setup-java@v5
         with:
-          java-version: '21.0.10'
+          java-version: '25.0.2'
           distribution: 'jetbrains'
           java-package: 'jdk+jcef'
         env:
