@@ -83,7 +83,7 @@ public class ${name}Entity extends ${extendsClass} <#if interfaces?size gt 0>imp
 	</#if>
 
 	<#if data.sensitiveToVibration>
-	private final DynamicGameEventListener<VibrationSystem.Listener> dynamicGameEventListener = new DynamicGameEventListener(new VibrationSystem.Listener(this));
+	private final DynamicGameEventListener<VibrationSystem.Listener> dynamicGameEventListener = new DynamicGameEventListener<>(new VibrationSystem.Listener(this));
 	private final VibrationSystem.User vibrationUser = new VibrationUser();
 	private VibrationSystem.Data vibrationData = new VibrationSystem.Data();
 	</#if>
@@ -826,7 +826,7 @@ public class ${name}Entity extends ${extendsClass} <#if interfaces?size gt 0>imp
 	}
 	</#if>
 
-	<#if data.ridable && (data.canControlForward || data.canControlStrafe) || data.flyingMob>
+	<#if data.ridable && (data.canControlForward || data.canControlStrafe)>
 		@Override public void travel(Vec3 dir) {
 			<#if data.canControlForward || data.canControlStrafe>
 			Entity entity = this.getPassengers().isEmpty() ? null : (Entity) this.getPassengers().get(0);
@@ -853,11 +853,7 @@ public class ${name}Entity extends ${extendsClass} <#if interfaces?size gt 0>imp
 						float strafe = 0;
 					</#if>
 
-					<#if data.flyingMob>
-					this.travelFlying(new Vec3(strafe, 0, forward), (float) this.getAttributeValue(Attributes.FLYING_SPEED));
-					<#else>
 					super.travel(new Vec3(strafe, 0, forward));
-					</#if>
 				}
 
 				double d1 = this.getX() - this.xo;
@@ -871,11 +867,7 @@ public class ${name}Entity extends ${extendsClass} <#if interfaces?size gt 0>imp
 			}
 			</#if>
 
-			<#if data.flyingMob>
-			this.travelFlying(dir, (float) this.getAttributeValue(Attributes.FLYING_SPEED));
-			<#else>
 			super.travel(dir);
-			</#if>
 		}
 	</#if>
 
@@ -896,18 +888,19 @@ public class ${name}Entity extends ${extendsClass} <#if interfaces?size gt 0>imp
 
 	<#if data.flyingMob>
 	@Override protected void checkFallDamage(double y, boolean onGroundIn, BlockState state, BlockPos pos) {
-   	}
+	}
 
-   	@Override public void setNoGravity(boolean ignored) {
+	@Override public void setNoGravity(boolean ignored) {
 		super.setNoGravity(true);
 	}
-	</#if>
 
-	<#if data.flyingMob>
-	public void aiStep() {
+	@Override public void aiStep() {
 		super.aiStep();
-
 		this.setNoGravity(true);
+	}
+
+	@Override protected float getFlyingSpeed() {
+		return (float) this.getAttributeValue(Attributes.FLYING_SPEED);
 	}
 	</#if>
 
@@ -1014,7 +1007,7 @@ public class ${name}Entity extends ${extendsClass} <#if interfaces?size gt 0>imp
 			</#if>
 		}
 
-		@Override public void onReceiveVibration(ServerLevel world, BlockPos vibrationPos, Holder<GameEvent> holder, @Nullable Entity vibrationSource, @Nullable Entity projectileShooter, float distance) {
+		@Override public void onReceiveVibration(ServerLevel world, BlockPos vibrationPos, Holder<GameEvent> holder, @Nullable Entity vibrationSource, @Nullable Entity immediateSource, float distance) {
 			<#if hasProcedure(data.onReceivedVibration)>
 				<@procedureCode data.onReceivedVibration {
 					"x": "entity.getX()",
@@ -1026,7 +1019,8 @@ public class ${name}Entity extends ${extendsClass} <#if interfaces?size gt 0>imp
 					"world": "world",
 					"entity": "entity",
 					"sourceentity": "vibrationSource",
-					"immediatesourceentity": "projectileShooter"
+					"immediatesourceentity": "immediateSource",
+					"distance": "distance"
 				}/>
 			</#if>
 		}

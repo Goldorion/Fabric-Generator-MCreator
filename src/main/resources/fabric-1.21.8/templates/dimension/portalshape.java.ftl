@@ -30,7 +30,6 @@ public class ${name}PortalShape ${mcc.getClassBody("net.minecraft.world.level.po
 		.replace("Optional<PortalShape>", "Optional<" + name + "PortalShape>")
 		.replace("Predicate<PortalShape>", "Predicate<" + name + "PortalShape>")
 		.replace("static PortalShape ", "static " + name + "PortalShape ")
-		<#--.replace("blockstate, 18);", "blockstate, 18);\nif (this.level instanceof ServerLevel) ((ServerLevel) this.level).getPoiManager().add(p_77725_, " + name + "Teleporter.poi);")-->
 		.replace("p_77718_.is(BlockTags.FIRE) || p_77718_.is(Blocks.NETHER_PORTAL)", "p_77718_.getBlock() == " + JavaModName + "Blocks." + REGISTRYNAME + "_PORTAL")
 		.replace("Blocks.NETHER_PORTAL.defaultBlockState()", JavaModName + "Blocks." + REGISTRYNAME + "_PORTAL.defaultBlockState()")
 		.replace("PortalShape.", "")
