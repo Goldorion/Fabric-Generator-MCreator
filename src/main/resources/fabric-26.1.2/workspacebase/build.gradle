@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '1.16-SNAPSHOT'
+    id 'net.fabricmc.fabric-loom' version '1.16-SNAPSHOT'
 }
 
 version = '1.0'
@@ -8,10 +8,11 @@ base.archivesName = 'modid'
 actualmodid = '${modid}'
 
 loom {
-    mixin {
-        useLegacyMixinAp = true
-        defaultRefmapName = actualmodid + ".refmap.json"
-    }
+// The following code makes impossible to setup Gradle projects
+//    mixin {
+//        useLegacyMixinAp = true
+//        defaultRefmapName = actualmodid + ".refmap.json"
+//    }
 
     if (file("src/main/resources/META-INF/${modid}.classtweaker").exists())
         accessWidenerPath = file("src/main/resources/META-INF/${modid}.classtweaker")
@@ -19,11 +20,10 @@ loom {
 
 dependencies {
     minecraft "com.mojang:minecraft:${generator.getGeneratorMinecraftVersion()}"
-    mappings loom.officialMojangMappings()
-    modImplementation "net.fabricmc:fabric-loader:0.19.2"
+    implementation "net.fabricmc:fabric-loader:0.19.2"
 
     //Fabric api
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${generator.getGeneratorBuildFileVersion()}+${generator.getGeneratorMinecraftVersion()}"
+    implementation "net.fabricmc.fabric-api:fabric-api:${generator.getGeneratorBuildFileVersion()}+${generator.getGeneratorMinecraftVersion()}"
 }
 
 tasks.withType(JavaCompile).configureEach {
