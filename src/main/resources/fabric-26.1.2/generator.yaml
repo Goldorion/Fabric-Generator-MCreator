@@ -4,14 +4,11 @@ buildfileversion: 0.149.1
 subversion: 1
 
 import:
-  - datapack-26.1.x:
-    exclude:
-      - mappings # Temp!
+  - datapack-26.1.x
   - neoforge-26.1.2:
     exclude:
       - procedures
       - triggers
-      - mappings # Temp!
       - cmdargs # Temp!
 
 # Gradle task definitions
@@ -29,7 +26,7 @@ import_formatter:
   priority_imports:
     Environment: net.fabricmc.api
     FabricLoader: net.fabricmc.loader.api
-    Nullable: javax.annotation
+    Nullable: org.jetbrains.annotations
     Codec: com.mojang.serialization
     SoundEvent: net.minecraft.sounds
     Blocks: net.minecraft.world.level.block
@@ -89,10 +86,10 @@ base_templates:
 #  - template: elementinits/tabs.java.ftl
 #    name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameTabs.java"
 #    condition: hasItemsInTabs()
-  - template: modbase/accesswidener.ftl
-    usercodeComment: "#"
-    writer: file
-    name: "@RESROOT/META-INF/@modid.classtweaker"
+#  - template: modbase/accesswidener.ftl
+#    usercodeComment: "#"
+#    writer: file
+#    name: "@RESROOT/META-INF/@modid.classtweaker"
 #  - template: elementinits/javamodels.java.ftl
 #    name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameModels.java"
 #    condition_any:

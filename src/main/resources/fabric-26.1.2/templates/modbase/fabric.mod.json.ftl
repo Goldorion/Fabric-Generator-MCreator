@@ -33,7 +33,6 @@
 	  "${package}.${JavaModName}Client"
 	]
   },
-  "accessWidener": "META-INF/${modid}.classtweaker",
   "mixins": [
 	"${modid}.mixins.json"
   ],
