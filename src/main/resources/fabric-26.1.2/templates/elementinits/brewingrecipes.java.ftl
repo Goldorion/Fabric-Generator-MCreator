@@ -1,6 +1,6 @@
 <#--
  # This file is part of Fabric-Generator-MCreator.
- # Copyright (C) 2020-2025, Goldorion, opensource contributors
+ # Copyright (C) 2020-2026, Goldorion, opensource contributors
  #
  # Fabric-Generator-MCreator is free software: you can redistribute it and/or modify
  # it under the terms of the GNU General Public License as published by
@@ -30,7 +30,7 @@ package ${package}.init;
 public class ${JavaModName}BrewingRecipes {
 
 	public static void load() {
-		FabricBrewingRecipeRegistryBuilder.BUILD.register((builder) -> {
+		FabricPotionBrewingBuilder.BUILD.register((builder) -> {
 			<#-- Fabric allows only potions as input and output -->
 			<#list brewingRecipes as recipe>
 				<#if recipe.brewingInputStack?starts_with("POTION:") && recipe.brewingReturnStack?starts_with("POTION:")>
