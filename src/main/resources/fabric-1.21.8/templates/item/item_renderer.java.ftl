@@ -47,18 +47,18 @@ public class ${name}ItemRenderer implements SpecialModelRenderer<ItemStack> {
 		<#list models as model>
 			Map.entry(${model[0]}, modelSet -> new ${name}ItemRenderer(
 				new <#if model[0] == -1 && data.animations?has_content>AnimatedModel<#else>${model[1]}</#if>(modelSet.bakeLayer(${model[1]}.LAYER_LOCATION)),
-				ResourceLocation.parse("${model[2].format("%s:textures/item/%s")}.png")
+				Identifier.parse("${model[2].format("%s:textures/item/%s")}.png")
 			))<#sep>,
 		</#list>
 	);
 
 	private final EntityModel<LivingEntityRenderState> model;
-	private final ResourceLocation texture;
+	private final Identifier texture;
 
 	private final LivingEntityRenderState renderState;
 	private final long start;
 
-	private ${name}ItemRenderer(EntityModel<LivingEntityRenderState> model, ResourceLocation texture) {
+	private ${name}ItemRenderer(EntityModel<LivingEntityRenderState> model, Identifier texture) {
 		this.model = model;
 		this.texture = texture;
 		this.renderState = new LivingEntityRenderState();

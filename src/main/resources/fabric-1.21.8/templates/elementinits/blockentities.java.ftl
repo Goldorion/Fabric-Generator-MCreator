@@ -43,7 +43,7 @@ public class ${JavaModName}BlockEntities {
 	// End of user code block custom block entities
 
 	private static <T extends BlockEntity> BlockEntityType<T> register(String registryname, Block block, FabricBlockEntityTypeBuilder.Factory<? extends T> supplier) {
-		return Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(${JavaModName}.MODID, registryname), FabricBlockEntityTypeBuilder.<T>create(supplier, block).build());
+		return Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, Identifier.fromNamespaceAndPath(${JavaModName}.MODID, registryname), FabricBlockEntityTypeBuilder.<T>create(supplier, block).build());
 	}
 }
 <#-- @formatter:on -->

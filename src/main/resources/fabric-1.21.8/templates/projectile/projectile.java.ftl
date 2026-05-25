@@ -222,7 +222,7 @@ public class ${name}Entity extends AbstractArrow implements ItemSupplier {
 
 		<#if data.actionSound.toString()?has_content>
 		world.playSound(null, entity.getX(), entity.getY(), entity.getZ(),
-				BuiltInRegistries.SOUND_EVENT.getValue(ResourceLocation.parse("${data.actionSound}")),
+				BuiltInRegistries.SOUND_EVENT.getValue(Identifier.parse("${data.actionSound}")),
 				SoundSource.PLAYERS, 1, 1f / (random.nextFloat() * 0.5f + 1) + (power / 2));
 		</#if>
 
@@ -247,7 +247,7 @@ public class ${name}Entity extends AbstractArrow implements ItemSupplier {
 
 		<#if data.actionSound.toString()?has_content>
 		entity.level().playSound(null, entity.getX(), entity.getY(), entity.getZ(),
-				BuiltInRegistries.SOUND_EVENT.getValue(ResourceLocation.parse("${data.actionSound}")),
+				BuiltInRegistries.SOUND_EVENT.getValue(Identifier.parse("${data.actionSound}")),
 				SoundSource.PLAYERS, 1, 1f / (RandomSource.create().nextFloat() * 0.5f + 1));
 		</#if>
 

@@ -48,7 +48,7 @@ public class ${name}Feature extends ${generator.map(featuretype, "features")} {
 	<#if data.restrictionBiomes?has_content>
 	${biomeSelector}(
 		<#list w.filterBrokenReferences(data.restrictionBiomes) as restrictionBiome>
-			${resourceKey}.create(Registries.BIOME, ResourceLocation.parse("${restrictionBiome?replace("#", "")}"))<#sep>,
+			${resourceKey}.create(Registries.BIOME, Identifier.parse("${restrictionBiome?replace("#", "")}"))<#sep>,
 		</#list>
 	)
 	<#else>

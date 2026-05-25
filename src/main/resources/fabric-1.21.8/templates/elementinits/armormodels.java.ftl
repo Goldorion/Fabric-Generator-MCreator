@@ -34,7 +34,7 @@ package ${package}.init;
             return original;
         }
 
-        @Nullable default ResourceLocation getArmorTexture(ItemStack stack, EquipmentClientInfo.LayerType type, EquipmentClientInfo.Layer layer, ResourceLocation _default) {
+        @Nullable default Identifier getArmorTexture(ItemStack stack, EquipmentClientInfo.LayerType type, EquipmentClientInfo.Layer layer, Identifier _default) {
             return null;
         }
 

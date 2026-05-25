@@ -41,7 +41,7 @@ package ${package}.init;
 
 public class ${JavaModName}WoodTypes {
 	<#list signs as block>
-	public static final WoodType ${block.getModElement().getRegistryNameUpper()}_WOOD_TYPE = WoodTypeBuilder.copyOf(WoodType.OAK).register(ResourceLocation.parse("${modid}:${block.getModElement().getRegistryName()}"), BlockSetType.OAK);
+	public static final WoodType ${block.getModElement().getRegistryNameUpper()}_WOOD_TYPE = WoodTypeBuilder.copyOf(WoodType.OAK).register(Identifier.parse("${modid}:${block.getModElement().getRegistryName()}"), BlockSetType.OAK);
 	</#list>
 
 	public static void load() {

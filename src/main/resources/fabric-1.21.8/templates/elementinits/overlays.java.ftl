@@ -32,7 +32,7 @@ package ${package}.init;
 	}
 
 	private static void register(String registryname, HudElement element) {
-		HudElementRegistry.attachElementAfter(VanillaHudElements.MISC_OVERLAYS, ResourceLocation.fromNamespaceAndPath(${JavaModName}.MODID, registryname), element);
+		HudElementRegistry.attachElementAfter(VanillaHudElements.MISC_OVERLAYS, Identifier.fromNamespaceAndPath(${JavaModName}.MODID, registryname), element);
 	}
 }
 <#-- @formatter:on -->

@@ -33,10 +33,10 @@ public class ${name}Dimension {
 				double x = entity.getX();
 				double y = entity.getY();
 				double z = entity.getZ();
-				if (origin.dimension() == ResourceKey.create(Registries.DIMENSION, ResourceLocation.parse("${modid}:${registryname}"))) {
+				if (origin.dimension() == ResourceKey.create(Registries.DIMENSION, Identifier.parse("${modid}:${registryname}"))) {
 					<@procedureOBJToCode data.onPlayerLeavesDimension/>
 				}
-				if (destination.dimension() == ResourceKey.create(Registries.DIMENSION, ResourceLocation.parse("${modid}:${registryname}"))) {
+				if (destination.dimension() == ResourceKey.create(Registries.DIMENSION, Identifier.parse("${modid}:${registryname}"))) {
 					<@procedureOBJToCode data.onPlayerEntersDimension/>
 				}
 			});

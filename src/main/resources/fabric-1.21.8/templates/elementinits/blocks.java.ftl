@@ -103,7 +103,7 @@ public class ${JavaModName}Blocks {
 	// End of user code block custom blocks
 
 	private static <B extends Block> B register(String name, Function<BlockBehaviour.Properties, B> supplier) {
-		return (B) Blocks.register(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(${JavaModName}.MODID, name)), (Function<BlockBehaviour.Properties, Block>) supplier, BlockBehaviour.Properties.of());
+		return (B) Blocks.register(ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(${JavaModName}.MODID, name)), (Function<BlockBehaviour.Properties, Block>) supplier, BlockBehaviour.Properties.of());
 	}
 
 	<#if hasTintedBlocks>

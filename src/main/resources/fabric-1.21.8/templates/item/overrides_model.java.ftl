@@ -128,7 +128,7 @@ public class LegacyOverrideSelectItemModel implements ItemModel {
 	}
 
 	public static void clientLoad() {
-		ItemModels.ID_MAPPER.put(ResourceLocation.parse("${modid}:legacy_overrides"), LegacyOverrideSelectItemModel.Unbaked.MAP_CODEC);
+		ItemModels.ID_MAPPER.put(Identifier.parse("${modid}:legacy_overrides"), LegacyOverrideSelectItemModel.Unbaked.MAP_CODEC);
 	}
 }
 <#-- @formatter:on -->

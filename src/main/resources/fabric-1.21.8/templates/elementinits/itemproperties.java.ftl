@@ -33,12 +33,12 @@ package ${package}.init;
 	public static void clientLoad() {
 		<#list items as item>
 			<#list item.customProperties.entrySet() as property>
-				RangeSelectItemModelProperties.ID_MAPPER.put(ResourceLocation.parse("${modid}:${item.getModElement().getRegistryName()}/${property.getKey()}"),
+				RangeSelectItemModelProperties.ID_MAPPER.put(Identifier.parse("${modid}:${item.getModElement().getRegistryName()}/${property.getKey()}"),
 					${item.getModElement().getName()}Item.${StringUtils.snakeToCamel(property.getKey())}Property.MAP_CODEC);
 			</#list>
 		</#list>
 		<#if hasItemsWithLeftHandedProperty>
-			ConditionalItemModelProperties.ID_MAPPER.put(ResourceLocation.parse("${modid}:lefthanded"), LegacyLeftHandedProperty.MAP_CODEC);
+			ConditionalItemModelProperties.ID_MAPPER.put(Identifier.parse("${modid}:lefthanded"), LegacyLeftHandedProperty.MAP_CODEC);
 		</#if>
 	}
 

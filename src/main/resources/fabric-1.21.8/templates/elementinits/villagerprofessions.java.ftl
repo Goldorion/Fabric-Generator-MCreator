@@ -41,7 +41,7 @@ public class ${JavaModName}VillagerProfessions {
 				registerProfession(
 					"${villagerprofession.getModElement().getRegistryName()}",
 					() -> ${mappedBlockToBlock(villagerprofession.pointOfInterest)},
-					() -> BuiltInRegistries.SOUND_EVENT.getValue(ResourceLocation.parse("${villagerprofession.actionSound}"))
+					() -> BuiltInRegistries.SOUND_EVENT.getValue(Identifier.parse("${villagerprofession.actionSound}"))
 				);
 		</#list>
 
@@ -55,7 +55,7 @@ public class ${JavaModName}VillagerProfessions {
 				continue;
 			}
 
-			PoiType poiType = PointOfInterestHelper.register(ResourceLocation.fromNamespaceAndPath("${modid}", name), 1, 1, ImmutableSet.copyOf(block.getStateDefinition().getPossibleStates()));
+			PoiType poiType = PointOfInterestHelper.register(Identifier.fromNamespaceAndPath("${modid}", name), 1, 1, ImmutableSet.copyOf(block.getStateDefinition().getPossibleStates()));
 				entry.getValue().poiType = BuiltInRegistries.POINT_OF_INTEREST_TYPE.wrapAsHolder(poiType);
 		}
 	}
@@ -65,7 +65,7 @@ public class ${JavaModName}VillagerProfessions {
 
 		Predicate<Holder<PoiType>> poiPredicate = poiTypeHolder -> (POI_TYPES.get(name).poiType != null) && (poiTypeHolder.value() == POI_TYPES.get(name).poiType.value());
 
-		return Registry.register(BuiltInRegistries.VILLAGER_PROFESSION, ResourceLocation.fromNamespaceAndPath(${JavaModName}.MODID, name), new VillagerProfession(Component.translatable("entity.villager." + ${JavaModName}.MODID + "." + name), poiPredicate, poiPredicate, ImmutableSet.of(), ImmutableSet.of(), soundEvent.get()));
+		return Registry.register(BuiltInRegistries.VILLAGER_PROFESSION, Identifier.fromNamespaceAndPath(${JavaModName}.MODID, name), new VillagerProfession(Component.translatable("entity.villager." + ${JavaModName}.MODID + "." + name), poiPredicate, poiPredicate, ImmutableSet.of(), ImmutableSet.of(), soundEvent.get()));
 	}
 
 	private static class ProfessionPoiType {

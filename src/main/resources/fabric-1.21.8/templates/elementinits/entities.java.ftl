@@ -67,8 +67,8 @@ public class ${JavaModName}Entities {
 	// End of user code block custom entities
 
 	private static <T extends Entity> EntityType<T> register(String registryname, EntityType.Builder<T> entityTypeBuilder) {
-		return Registry.register(BuiltInRegistries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(${JavaModName}.MODID, registryname), (EntityType<T>) entityTypeBuilder.build(
-				ResourceKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(${JavaModName}.MODID, registryname))
+		return Registry.register(BuiltInRegistries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(${JavaModName}.MODID, registryname), (EntityType<T>) entityTypeBuilder.build(
+				ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(${JavaModName}.MODID, registryname))
 		));
 	}
 

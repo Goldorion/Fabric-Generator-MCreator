@@ -31,7 +31,7 @@ package ${package}.init;
 	public static void clientLoad() {
 		<#list items as item>
 			<#if item.hasCustomJAVAModel()>
-				SpecialModelRenderers.ID_MAPPER.put(ResourceLocation.parse("${modid}:${item.getModElement().getRegistryName()}"), ${item.getModElement().getName()}ItemRenderer.Unbaked.MAP_CODEC);
+				SpecialModelRenderers.ID_MAPPER.put(Identifier.parse("${modid}:${item.getModElement().getRegistryName()}"), ${item.getModElement().getName()}ItemRenderer.Unbaked.MAP_CODEC);
 			</#if>
 		</#list>
 	}

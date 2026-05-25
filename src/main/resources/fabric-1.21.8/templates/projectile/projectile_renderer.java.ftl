@@ -26,7 +26,7 @@ import com.mojang.math.Axis;
 @Environment(EnvType.CLIENT)
 public class ${name}Renderer extends EntityRenderer<${name}Entity, LivingEntityRenderState> {
 
-	private static final ResourceLocation texture = ResourceLocation.parse("${modid}:textures/entities/${data.customModelTexture}");
+	private static final Identifier texture = Identifier.parse("${modid}:textures/entities/${data.customModelTexture}");
 
 	private final ${data.entityModel} model;
 

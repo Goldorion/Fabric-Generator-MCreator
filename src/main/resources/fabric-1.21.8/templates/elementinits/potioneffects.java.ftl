@@ -37,7 +37,7 @@ public class ${JavaModName}MobEffects {
 	}
 
 	private static Holder<MobEffect> register(String registryname, Supplier<MobEffect> element) {
-		return Holder.direct(Registry.register(BuiltInRegistries.MOB_EFFECT, ResourceLocation.fromNamespaceAndPath(${JavaModName}.MODID, registryname), element.get()));
+		return Holder.direct(Registry.register(BuiltInRegistries.MOB_EFFECT, Identifier.fromNamespaceAndPath(${JavaModName}.MODID, registryname), element.get()));
 	}
 }
 <#-- @formatter:on -->

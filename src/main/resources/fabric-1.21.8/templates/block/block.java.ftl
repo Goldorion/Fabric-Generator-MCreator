@@ -124,11 +124,11 @@ public class ${getClassName()}Block extends ${getBlockClass(data.blockBase)}
 		</#if>
 		<#if data.isCustomSoundType>
 			.sound(new SoundType(1.0f, 1.0f, null, null, null, null, null) {
-				@Override public SoundEvent getBreakSound() { return BuiltInRegistries.SOUND_EVENT.getValue(ResourceLocation.parse("${data.breakSound}")); }
-				@Override public SoundEvent getStepSound() { return BuiltInRegistries.SOUND_EVENT.getValue(ResourceLocation.parse("${data.stepSound}")); }
-				@Override public SoundEvent getPlaceSound() { return BuiltInRegistries.SOUND_EVENT.getValue(ResourceLocation.parse("${data.placeSound}")); }
-				@Override public SoundEvent getHitSound() { return BuiltInRegistries.SOUND_EVENT.getValue(ResourceLocation.parse("${data.hitSound}")); }
-				@Override public SoundEvent getFallSound() { return BuiltInRegistries.SOUND_EVENT.getValue(ResourceLocation.parse("${data.fallSound}")); }
+				@Override public SoundEvent getBreakSound() { return BuiltInRegistries.SOUND_EVENT.getValue(Identifier.parse("${data.breakSound}")); }
+				@Override public SoundEvent getStepSound() { return BuiltInRegistries.SOUND_EVENT.getValue(Identifier.parse("${data.stepSound}")); }
+				@Override public SoundEvent getPlaceSound() { return BuiltInRegistries.SOUND_EVENT.getValue(Identifier.parse("${data.placeSound}")); }
+				@Override public SoundEvent getHitSound() { return BuiltInRegistries.SOUND_EVENT.getValue(Identifier.parse("${data.hitSound}")); }
+				@Override public SoundEvent getFallSound() { return BuiltInRegistries.SOUND_EVENT.getValue(Identifier.parse("${data.fallSound}")); }
 			})
 		<#elseif data.soundOnStep != "STONE">
 			.sound(SoundType.${data.soundOnStep})
@@ -269,7 +269,7 @@ public class ${getClassName()}Block extends ${getBlockClass(data.blockBase)}
 		<#if data.restrictionBiomes?has_content>
 		${biomeSelector}(
 			<#list w.filterBrokenReferences(data.restrictionBiomes) as restrictionBiome>
-				${resourceKey}.create(Registries.BIOME, ResourceLocation.parse("${restrictionBiome?replace("#", "")}"))<#sep>,
+				${resourceKey}.create(Registries.BIOME, Identifier.parse("${restrictionBiome?replace("#", "")}"))<#sep>,
 			</#list>
 		)
 		<#else>

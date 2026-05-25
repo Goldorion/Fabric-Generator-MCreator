@@ -138,7 +138,7 @@ public class ${JavaModName}Items {
 	// End of user code block custom items
 
 	private static <I extends Item> I register(String name, Function<Item.Properties, ? extends I> supplier) {
-		return (I) Items.registerItem(ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(${JavaModName}.MODID, name)), (Function<Item.Properties, Item>) supplier);
+		return (I) Items.registerItem(ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(${JavaModName}.MODID, name)), (Function<Item.Properties, Item>) supplier);
 	}
 
 	<#if hasBlocks>
@@ -147,7 +147,7 @@ public class ${JavaModName}Items {
 	}
 
 	private static Item block(Block block, String name, Item.Properties properties) {
-		return Items.registerItem(ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(${JavaModName}.MODID, name)), prop -> new BlockItem(block, prop), properties);
+		return Items.registerItem(ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(${JavaModName}.MODID, name)), prop -> new BlockItem(block, prop), properties);
 	}
 	</#if>
 
@@ -157,7 +157,7 @@ public class ${JavaModName}Items {
 	}
 
 	private static Item doubleBlock(Block block, String name, Item.Properties properties) {
-		return Items.registerItem(ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(${JavaModName}.MODID, name)), prop -> new DoubleHighBlockItem(block, prop), properties);
+		return Items.registerItem(ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(${JavaModName}.MODID, name)), prop -> new DoubleHighBlockItem(block, prop), properties);
 	}
 	</#if>
 
@@ -167,7 +167,7 @@ public class ${JavaModName}Items {
 	}
 
 	private static Item signBlock(Block block, String name, Block wallBlock, Item.Properties properties) {
-		return Items.registerItem(ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(${JavaModName}.MODID, name)), prop -> new SignItem(block, wallBlock, prop), properties);
+		return Items.registerItem(ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(${JavaModName}.MODID, name)), prop -> new SignItem(block, wallBlock, prop), properties);
 	}
 	</#if>
 
@@ -177,7 +177,7 @@ public class ${JavaModName}Items {
 	}
 
 	private static Item hangingSignBlock(Block block, String name, Block wallBlock, Item.Properties properties) {
-		return Items.registerItem(ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(${JavaModName}.MODID, name)), prop -> new HangingSignItem(block, wallBlock, prop), properties);
+		return Items.registerItem(ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(${JavaModName}.MODID, name)), prop -> new HangingSignItem(block, wallBlock, prop), properties);
 	}
 	</#if>
 }

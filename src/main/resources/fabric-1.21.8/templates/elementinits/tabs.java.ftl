@@ -36,7 +36,7 @@ public class ${JavaModName}Tabs {
 
 	<#list customTabs as customTab>
 	<#assign tab = w.getWorkspace().getModElementByName(customTab.replace("CUSTOM:", "")).getGeneratableElement()>
-		public static ResourceKey<CreativeModeTab> TAB_${tab.getModElement().getRegistryNameUpper()} = ResourceKey.create(Registries.CREATIVE_MODE_TAB, ResourceLocation.fromNamespaceAndPath(${JavaModName}.MODID, "${tab.getModElement().getRegistryName()}"));
+		public static ResourceKey<CreativeModeTab> TAB_${tab.getModElement().getRegistryNameUpper()} = ResourceKey.create(Registries.CREATIVE_MODE_TAB, Identifier.fromNamespaceAndPath(${JavaModName}.MODID, "${tab.getModElement().getRegistryName()}"));
 	</#list>
 
 	public static void load() {
@@ -47,7 +47,7 @@ public class ${JavaModName}Tabs {
 			.icon(() -> ${mappedMCItemToItemStackCode(tab.icon, 1)})
 			<#if tab.showSearch>
 			.type(CreativeModeTab.Type.SEARCH)
-			.backgroundTexture(ResourceLocation.withDefaultNamespace("textures/gui/container/creative_inventory/tab_item_search.png"))
+			.backgroundTexture(Identifier.withDefaultNamespace("textures/gui/container/creative_inventory/tab_item_search.png"))
 			</#if>
 			.displayItems((parameters, tabData) -> {
 				<#list tabMap.get("CUSTOM:" + tab.getModElement().getName()) as tabElement>

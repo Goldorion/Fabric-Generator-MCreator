@@ -43,7 +43,7 @@ public class ${name}Item extends ${data.toolType?replace("Spade", "Shovel")?repl
 		${data.efficiency}f,
 		0,
 		${data.enchantability},
-		TagKey.create(Registries.ITEM, ResourceLocation.parse("${modid}:${registryname}_repair_items")) <#-- data.repairItems are put into a tag -->
+		TagKey.create(Registries.ITEM, Identifier.parse("${modid}:${registryname}_repair_items")) <#-- data.repairItems are put into a tag -->
 	);
 	</#if>
 
@@ -64,7 +64,7 @@ public class ${name}Item extends ${data.toolType?replace("Spade", "Shovel")?repl
 			<#elseif data.toolType == "MultiTool">
 			.attributes(<@itemAttributeModifiers true/>)
 			<#elseif data.toolType == "Shield">
-			.repairable(TagKey.create(Registries.ITEM, ResourceLocation.parse("${modid}:${registryname}_repair_items")))
+			.repairable(TagKey.create(Registries.ITEM, Identifier.parse("${modid}:${registryname}_repair_items")))
 			.component(DataComponents.BREAK_SOUND, SoundEvents.SHIELD_BREAK)
 			.equippableUnswappable(EquipmentSlot.OFFHAND)
 			.component(DataComponents.BLOCKS_ATTACKS, new BlocksAttacks(
@@ -79,7 +79,7 @@ public class ${name}Item extends ${data.toolType?replace("Spade", "Shovel")?repl
 			<#elseif data.toolType == "Shears">
 			.component(DataComponents.TOOL, ShearsItem.createToolProperties())
 				<#if data.repairItems?has_content>
-				.repairable(TagKey.create(Registries.ITEM, ResourceLocation.parse("${modid}:${registryname}_repair_items")))
+				.repairable(TagKey.create(Registries.ITEM, Identifier.parse("${modid}:${registryname}_repair_items")))
 				</#if>
 			</#if>
 			<#if data.toolType == "Shears" || data.toolType == "Shield">
@@ -182,7 +182,7 @@ public class ${name}Item extends Item {
 			.fireResistant()
 			</#if>
 			<#if data.repairItems?has_content>
-			.repairable(TagKey.create(Registries.ITEM, ResourceLocation.parse("${modid}:${registryname}_repair_items")))
+			.repairable(TagKey.create(Registries.ITEM, Identifier.parse("${modid}:${registryname}_repair_items")))
 			</#if>
 			.attributes(<@itemAttributeModifiers true/>)
 			<#if data.enchantability != 0>
@@ -219,7 +219,7 @@ public class ${name}Item extends FishingRodItem {
 			<#if data.immuneToFire>
 			.fireResistant()
 			</#if>
-			.repairable(TagKey.create(Registries.ITEM, ResourceLocation.parse("${modid}:${registryname}_repair_items")))
+			.repairable(TagKey.create(Registries.ITEM, Identifier.parse("${modid}:${registryname}_repair_items")))
 			<#if data.enchantability != 0>
 			.enchantable(${data.enchantability})
 			</#if>
@@ -298,7 +298,7 @@ public class ${name}Item extends FishingRodItem {
 	</#if>
 	<#list data.attributeModifiers as modifier>
 	.add(${modifier.attribute}, new AttributeModifier(
-			ResourceLocation.fromNamespaceAndPath(${JavaModName}.MODID, "${registryname}_${modifier?index}"),
+			Identifier.fromNamespaceAndPath(${JavaModName}.MODID, "${registryname}_${modifier?index}"),
 			${modifier.amount}, AttributeModifier.Operation.${modifier.operation}), ${generator.map(modifier.equipmentSlot, "equipmentslots")})
 	</#list>
 	.build()

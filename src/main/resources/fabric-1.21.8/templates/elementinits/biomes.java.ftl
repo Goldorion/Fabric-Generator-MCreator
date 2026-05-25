@@ -54,7 +54,7 @@ public class ${JavaModName}Biomes {
 	}
 
 	private static void register(String registryname, TreeDecoratorType<?> treeDecoratorType) {
-		Registry.register(BuiltInRegistries.TREE_DECORATOR_TYPE, ResourceLocation.fromNamespaceAndPath(${JavaModName}.MODID, registryname), treeDecoratorType);
+		Registry.register(BuiltInRegistries.TREE_DECORATOR_TYPE, Identifier.fromNamespaceAndPath(${JavaModName}.MODID, registryname), treeDecoratorType);
 	}
 	</#if>
 
@@ -85,7 +85,7 @@ public class ${JavaModName}Biomes {
 							Climate.Parameter.span(${biome.genWeirdness.min}f, ${biome.genWeirdness.max}f),
 							0 <#-- offset -->
 						),
-						biomeRegistry.getOrThrow(ResourceKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath("${modid}", "${biome.getModElement().getRegistryName()}")))
+						biomeRegistry.getOrThrow(ResourceKey.create(Registries.BIOME, Identifier.fromNamespaceAndPath("${modid}", "${biome.getModElement().getRegistryName()}")))
 					));
 					addParameterPoint(parameters, new Pair<>(
 						new Climate.ParameterPoint(
@@ -97,7 +97,7 @@ public class ${JavaModName}Biomes {
 							Climate.Parameter.span(${biome.genWeirdness.min}f, ${biome.genWeirdness.max}f),
 							0 <#-- offset -->
 						),
-						biomeRegistry.getOrThrow(ResourceKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath("${modid}", "${biome.getModElement().getRegistryName()}")))
+						biomeRegistry.getOrThrow(ResourceKey.create(Registries.BIOME, Identifier.fromNamespaceAndPath("${modid}", "${biome.getModElement().getRegistryName()}")))
 					));
 					</#list>
 
@@ -112,7 +112,7 @@ public class ${JavaModName}Biomes {
 							Climate.Parameter.span(${biome.genWeirdness.min}f, ${biome.genWeirdness.max}f),
 							0 <#-- offset -->
 						),
-						biomeRegistry.getOrThrow(ResourceKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath("${modid}", "${biome.getModElement().getRegistryName()}")))
+						biomeRegistry.getOrThrow(ResourceKey.create(Registries.BIOME, Identifier.fromNamespaceAndPath("${modid}", "${biome.getModElement().getRegistryName()}")))
 					));
 					</#list>
 
@@ -147,7 +147,7 @@ public class ${JavaModName}Biomes {
 							Climate.Parameter.span(${biome.genWeirdness.min}f, ${biome.genWeirdness.max}f),
 							0 <#-- offset -->
 						),
-						biomeRegistry.getOrThrow(ResourceKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath("${modid}", "${biome.getModElement().getRegistryName()}")))
+						biomeRegistry.getOrThrow(ResourceKey.create(Registries.BIOME, Identifier.fromNamespaceAndPath("${modid}", "${biome.getModElement().getRegistryName()}")))
 					));
 					addParameterPoint(parameters, new Pair<>(
 						new Climate.ParameterPoint(
@@ -159,7 +159,7 @@ public class ${JavaModName}Biomes {
 							Climate.Parameter.span(${biome.genWeirdness.min}f, ${biome.genWeirdness.max}f),
 							0 <#-- offset -->
 						),
-						biomeRegistry.getOrThrow(ResourceKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath("${modid}", "${biome.getModElement().getRegistryName()}")))
+						biomeRegistry.getOrThrow(ResourceKey.create(Registries.BIOME, Identifier.fromNamespaceAndPath("${modid}", "${biome.getModElement().getRegistryName()}")))
 					));
 					</#list>
 
@@ -195,7 +195,7 @@ public class ${JavaModName}Biomes {
 
 		<#list spawn_overworld_caves as biome>
 		customSurfaceRules.add(anySurfaceRule(
-			ResourceKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath("${modid}", "${biome.getModElement().getRegistryName()}")),
+			ResourceKey.create(Registries.BIOME, Identifier.fromNamespaceAndPath("${modid}", "${biome.getModElement().getRegistryName()}")),
 			${mappedBlockToBlockStateCode(biome.groundBlock)},
 			${mappedBlockToBlockStateCode(biome.undergroundBlock)},
 			${mappedBlockToBlockStateCode(biome.getUnderwaterBlock())}
@@ -204,7 +204,7 @@ public class ${JavaModName}Biomes {
 
 		<#list spawn_overworld as biome>
 		customSurfaceRules.add(preliminarySurfaceRule(
-			ResourceKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath("${modid}", "${biome.getModElement().getRegistryName()}")),
+			ResourceKey.create(Registries.BIOME, Identifier.fromNamespaceAndPath("${modid}", "${biome.getModElement().getRegistryName()}")),
 			${mappedBlockToBlockStateCode(biome.groundBlock)},
 			${mappedBlockToBlockStateCode(biome.undergroundBlock)},
 			${mappedBlockToBlockStateCode(biome.getUnderwaterBlock())}
@@ -227,7 +227,7 @@ public class ${JavaModName}Biomes {
 
 		<#list spawn_nether as biome>
 		customSurfaceRules.add(anySurfaceRule(
-			ResourceKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath("${modid}", "${biome.getModElement().getRegistryName()}")),
+			ResourceKey.create(Registries.BIOME, Identifier.fromNamespaceAndPath("${modid}", "${biome.getModElement().getRegistryName()}")),
 			${mappedBlockToBlockStateCode(biome.groundBlock)},
 			${mappedBlockToBlockStateCode(biome.undergroundBlock)},
 			${mappedBlockToBlockStateCode(biome.getUnderwaterBlock())}

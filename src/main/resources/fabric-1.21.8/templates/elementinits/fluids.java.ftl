@@ -49,7 +49,7 @@ public class ${JavaModName}Fluids {
 	}
 
 	private static <F extends Fluid> F register(String registryname, Supplier<F> element) {
-		return (F) Registry.register(BuiltInRegistries.FLUID, ResourceLocation.fromNamespaceAndPath(${JavaModName}.MODID, registryname), element.get());
+		return (F) Registry.register(BuiltInRegistries.FLUID, Identifier.fromNamespaceAndPath(${JavaModName}.MODID, registryname), element.get());
 	}
 }
 <#-- @formatter:on -->

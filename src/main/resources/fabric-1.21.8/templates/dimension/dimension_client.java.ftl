@@ -45,7 +45,7 @@ package ${package}.client.dimension;
 				return ${data.hasFog};
 			}
 		};
-			DimensionRenderingRegistry.registerDimensionEffects(ResourceLocation.parse("${modid}:${registryname}"), customEffect);
+			DimensionRenderingRegistry.registerDimensionEffects(Identifier.parse("${modid}:${registryname}"), customEffect);
 	}
 }
 </@javacompress>

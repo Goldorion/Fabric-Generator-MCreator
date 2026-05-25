@@ -28,7 +28,7 @@ package ${package}.init;
 @Environment(EnvType.CLIENT) public class ${JavaModName}Models {
 	<#list specialentities as entity>
 	public static final ModelLayerLocation ${entity.getModElement().getRegistryNameUpper()}_LAYER_LOCATION =
-			new ModelLayerLocation(ResourceLocation.parse("${modid}:<#if entity.entityType == "Boat">boat<#else>chest_boat</#if>/${entity.getModElement().getRegistryName()}"), "main");
+			new ModelLayerLocation(Identifier.parse("${modid}:<#if entity.entityType == "Boat">boat<#else>chest_boat</#if>/${entity.getModElement().getRegistryName()}"), "main");
 	</#list>
 
 	public static void clientLoad() {

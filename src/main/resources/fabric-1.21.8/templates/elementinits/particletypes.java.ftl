@@ -39,7 +39,7 @@ public class ${JavaModName}ParticleTypes {
 	}
 
 	private static SimpleParticleType register(String registryname, SimpleParticleType element) {
-		return Registry.register(BuiltInRegistries.PARTICLE_TYPE, ResourceLocation.fromNamespaceAndPath(${JavaModName}.MODID, registryname), element);
+		return Registry.register(BuiltInRegistries.PARTICLE_TYPE, Identifier.fromNamespaceAndPath(${JavaModName}.MODID, registryname), element);
 	}
 }
 <#-- @formatter:on -->

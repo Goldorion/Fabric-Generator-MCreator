@@ -80,11 +80,11 @@ public class ${name}Block extends ${getPlantClass(data.plantType)}Block <#if int
 		</#if>
 		<#if data.isCustomSoundType>
 			.sound(new SoundType(1.0f, 1.0f, null, null, null, null, null) {
-				@Override public SoundEvent getBreakSound() { return BuiltInRegistries.SOUND_EVENT.getValue(ResourceLocation.parse("${data.breakSound}")); }
-				@Override public SoundEvent getStepSound() { return BuiltInRegistries.SOUND_EVENT.getValue(ResourceLocation.parse("${data.stepSound}")); }
-				@Override public SoundEvent getPlaceSound() { return BuiltInRegistries.SOUND_EVENT.getValue(ResourceLocation.parse("${data.placeSound}")); }
-				@Override public SoundEvent getHitSound() { return BuiltInRegistries.SOUND_EVENT.getValue(ResourceLocation.parse("${data.hitSound}")); }
-				@Override public SoundEvent getFallSound() { return BuiltInRegistries.SOUND_EVENT.getValue(ResourceLocation.parse("${data.fallSound}")); }
+				@Override public SoundEvent getBreakSound() { return BuiltInRegistries.SOUND_EVENT.getValue(Identifier.parse("${data.breakSound}")); }
+				@Override public SoundEvent getStepSound() { return BuiltInRegistries.SOUND_EVENT.getValue(Identifier.parse("${data.stepSound}")); }
+				@Override public SoundEvent getPlaceSound() { return BuiltInRegistries.SOUND_EVENT.getValue(Identifier.parse("${data.placeSound}")); }
+				@Override public SoundEvent getHitSound() { return BuiltInRegistries.SOUND_EVENT.getValue(Identifier.parse("${data.hitSound}")); }
+				@Override public SoundEvent getFallSound() { return BuiltInRegistries.SOUND_EVENT.getValue(Identifier.parse("${data.fallSound}")); }
 			})
 		<#elseif data.soundOnStep != "STONE">
 			.sound(SoundType.${data.soundOnStep})
@@ -145,7 +145,7 @@ public class ${name}Block extends ${getPlantClass(data.plantType)}Block <#if int
 		<#if data.restrictionBiomes?has_content>
 		${biomeSelector}(
 			<#list w.filterBrokenReferences(data.restrictionBiomes) as restrictionBiome>
-				${resourceKey}.create(Registries.BIOME, ResourceLocation.parse("${restrictionBiome?replace("#", "")}"))<#sep>,
+				${resourceKey}.create(Registries.BIOME, Identifier.parse("${restrictionBiome?replace("#", "")}"))<#sep>,
 			</#list>
 		)
 		<#else>
@@ -341,7 +341,7 @@ public class ${name}Block extends ${getPlantClass(data.plantType)}Block <#if int
 
 	<#if data.plantType == "sapling">
 	private static ResourceKey<ConfiguredFeature<?, ?>> getFeatureKey(String feature) {
-		return ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.parse(feature));
+		return ResourceKey.create(Registries.CONFIGURED_FEATURE, Identifier.parse(feature));
 	}
 	</#if>
 
@@ -413,9 +413,9 @@ public class ${name}Block extends ${getPlantClass(data.plantType)}Block <#if int
 	<#if (blockList?size > 1) && condition>(</#if>
 	<#list blockList as canBePlacedOn>
 	<#if canBePlacedOn.getUnmappedValue().startsWith("TAG:")>
-	groundState.is(TagKey.create(Registries.BLOCK, ResourceLocation.parse("${canBePlacedOn.getUnmappedValue().replace("TAG:", "").replace("mod:", modid + ":")}")))
+	groundState.is(TagKey.create(Registries.BLOCK, Identifier.parse("${canBePlacedOn.getUnmappedValue().replace("TAG:", "").replace("mod:", modid + ":")}")))
 	<#elseif canBePlacedOn.getMappedValue(1).startsWith("#")>
-	groundState.is(TagKey.create(Registries.BLOCK, ResourceLocation.parse("${canBePlacedOn.getMappedValue(1)?remove_beginning("#")}")))
+	groundState.is(TagKey.create(Registries.BLOCK, Identifier.parse("${canBePlacedOn.getMappedValue(1)?remove_beginning("#")}")))
 	<#else>
 	groundState.is(${mappedBlockToBlock(canBePlacedOn)})
 	</#if><#sep>||

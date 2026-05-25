@@ -73,7 +73,7 @@ public class ${JavaModName}Menus {
 	}
 
 	private static <M extends AbstractContainerMenu> MenuType<M> register(String registryname, MenuType.MenuSupplier<M> element) {
-		return Registry.register(BuiltInRegistries.MENU, ResourceLocation.fromNamespaceAndPath(${JavaModName}.MODID, registryname), new MenuType<>(element, FeatureFlags.DEFAULT_FLAGS));
+		return Registry.register(BuiltInRegistries.MENU, Identifier.fromNamespaceAndPath(${JavaModName}.MODID, registryname), new MenuType<>(element, FeatureFlags.DEFAULT_FLAGS));
 	}
 }
 <#-- @formatter:on -->

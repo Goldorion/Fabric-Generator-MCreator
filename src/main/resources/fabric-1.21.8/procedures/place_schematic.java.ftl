@@ -1,6 +1,6 @@
 <#include "mcelements.ftl">
 <@head>if (world instanceof ServerLevel _serverworld) {</@head>
-	StructureTemplate template${cbi} = _serverworld.getStructureManager().getOrCreate(ResourceLocation.fromNamespaceAndPath("${modid}", "${field$schematic}"));
+	StructureTemplate template${cbi} = _serverworld.getStructureManager().getOrCreate(Identifier.fromNamespaceAndPath("${modid}", "${field$schematic}"));
 	if (template${cbi} != null) {
 		template${cbi}.placeInWorld(_serverworld,
 			${toBlockPos(input$x,input$y,input$z)},

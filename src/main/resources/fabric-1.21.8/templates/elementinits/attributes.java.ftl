@@ -74,7 +74,7 @@ public class ${JavaModName}Attributes {
 	}
 
 	private static Holder<Attribute> register(String registryname, Attribute element) {
-		return Registry.registerForHolder(BuiltInRegistries.ATTRIBUTE, ResourceLocation.fromNamespaceAndPath(${JavaModName}.MODID, registryname), element);
+		return Registry.registerForHolder(BuiltInRegistries.ATTRIBUTE, Identifier.fromNamespaceAndPath(${JavaModName}.MODID, registryname), element);
 	}
 }
 <#-- @formatter:on -->

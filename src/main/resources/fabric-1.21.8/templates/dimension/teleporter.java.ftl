@@ -26,7 +26,7 @@ public class ${name}Teleporter {
 	public static Holder<PoiType> poi = null;
 
 	public static void registerPointOfInterest() {
-		PoiType poiType = PointOfInterestHelper.register(ResourceLocation.parse("${modid}:${registryname}_portal"), 0, 1, ImmutableSet.copyOf(${JavaModName}Blocks.${REGISTRYNAME}_PORTAL.getStateDefinition().getPossibleStates()));
+		PoiType poiType = PointOfInterestHelper.register(Identifier.parse("${modid}:${registryname}_portal"), 0, 1, ImmutableSet.copyOf(${JavaModName}Blocks.${REGISTRYNAME}_PORTAL.getStateDefinition().getPossibleStates()));
 		poi = BuiltInRegistries.POINT_OF_INTEREST_TYPE.wrapAsHolder(poiType);
 	}
 

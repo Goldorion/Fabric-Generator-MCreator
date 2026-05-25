@@ -54,11 +54,11 @@ public class ${JavaModName}Features {
 
 	private static void register(String registryname, Feature feature, Predicate<BiomeSelectionContext> biomes, GenerationStep.Decoration stage) {
 		register(registryname, feature);
-	 	BiomeModifications.addFeature(biomes, stage, ResourceKey.create(Registries.PLACED_FEATURE, ResourceLocation.fromNamespaceAndPath(${JavaModName}.MODID, registryname)));
+	 	BiomeModifications.addFeature(biomes, stage, ResourceKey.create(Registries.PLACED_FEATURE, Identifier.fromNamespaceAndPath(${JavaModName}.MODID, registryname)));
 	}
 
 	private static void register(String registryname, Feature feature) {
-		Registry.register(BuiltInRegistries.FEATURE, ResourceLocation.fromNamespaceAndPath(${JavaModName}.MODID, registryname), feature);
+		Registry.register(BuiltInRegistries.FEATURE, Identifier.fromNamespaceAndPath(${JavaModName}.MODID, registryname), feature);
 	}
 }
 <#-- @formatter:on -->

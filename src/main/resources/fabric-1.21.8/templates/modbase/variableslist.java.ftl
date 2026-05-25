@@ -23,7 +23,7 @@ import ${package}.${JavaModName};
 
 public class ${JavaModName}Variables {
 	<#if w.hasVariablesOfScope("PLAYER_LIFETIME") || w.hasVariablesOfScope("PLAYER_PERSISTENT")>
-	public static final AttachmentType<PlayerVariables> PLAYER_VARIABLES = AttachmentRegistry.create(ResourceLocation.fromNamespaceAndPath(${JavaModName}.MODID, "player_variables"), (builder) -> builder.persistent(PlayerVariables.CODEC).initializer(PlayerVariables::new));
+	public static final AttachmentType<PlayerVariables> PLAYER_VARIABLES = AttachmentRegistry.create(Identifier.fromNamespaceAndPath(${JavaModName}.MODID, "player_variables"), (builder) -> builder.persistent(PlayerVariables.CODEC).initializer(PlayerVariables::new));
 	</#if>
 
 	<#if w.hasVariablesOfScope("GLOBAL_SESSION")>
@@ -224,7 +224,7 @@ public class ${JavaModName}Variables {
 
 	public record SavedDataSyncMessage(int dataType, SavedData data) implements CustomPacketPayload {
 
-		public static final Type<SavedDataSyncMessage> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(${JavaModName}.MODID, "saved_data_sync"));
+		public static final Type<SavedDataSyncMessage> TYPE = new Type<>(Identifier.fromNamespaceAndPath(${JavaModName}.MODID, "saved_data_sync"));
 
 		public static final StreamCodec<RegistryFriendlyByteBuf, SavedDataSyncMessage> STREAM_CODEC = StreamCodec.of(
 			(RegistryFriendlyByteBuf buffer, SavedDataSyncMessage message) -> {
@@ -330,7 +330,7 @@ public class ${JavaModName}Variables {
 
 	public record PlayerVariablesSyncMessage(PlayerVariables data) implements CustomPacketPayload {
 
-		public static final Type<PlayerVariablesSyncMessage> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(${JavaModName}.MODID, "player_variables_sync"));
+		public static final Type<PlayerVariablesSyncMessage> TYPE = new Type<>(Identifier.fromNamespaceAndPath(${JavaModName}.MODID, "player_variables_sync"));
 
 		public static final StreamCodec<RegistryFriendlyByteBuf, PlayerVariablesSyncMessage> STREAM_CODEC = StreamCodec.of(
 				(RegistryFriendlyByteBuf buffer, PlayerVariablesSyncMessage message) -> {

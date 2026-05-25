@@ -30,7 +30,7 @@ public abstract class ${name}Fluid extends FlowingFluid {
 		}
 
 		@Override public  Optional<SoundEvent> getEmptySound(FluidVariant variant) {
-			return Optional.of(<#if data.emptySound?has_content && data.emptySound.getMappedValue()?has_content>BuiltInRegistries.SOUND_EVENT.getValue(ResourceLocation.parse("${data.emptySound}"))<#else>SoundEvents.BUCKET_EMPTY</#if>);
+			return Optional.of(<#if data.emptySound?has_content && data.emptySound.getMappedValue()?has_content>BuiltInRegistries.SOUND_EVENT.getValue(Identifier.parse("${data.emptySound}"))<#else>SoundEvents.BUCKET_EMPTY</#if>);
 		}
 
 		<#if data.luminosity != 0>
@@ -184,8 +184,8 @@ public abstract class ${name}Fluid extends FlowingFluid {
 		FluidVariantAttributes.register(${JavaModName}Fluids.FLOWING_${REGISTRYNAME}, fluidAttributes);
 
 		FluidRenderHandlerRegistry.INSTANCE.register(${JavaModName}Fluids.${REGISTRYNAME}, ${JavaModName}Fluids.FLOWING_${REGISTRYNAME}, new SimpleFluidRenderHandler(
-		ResourceLocation.parse("${data.textureStill.format("%s:block/%s")}"), ResourceLocation.parse("${data.textureFlowing.format("%s:block/%s")}")
-		<#if data.textureRenderOverlay?has_content>, ResourceLocation.parse("${data.textureRenderOverlay.format("%s:textures/%s")}.png")</#if>
+		Identifier.parse("${data.textureStill.format("%s:block/%s")}"), Identifier.parse("${data.textureFlowing.format("%s:block/%s")}")
+		<#if data.textureRenderOverlay?has_content>, Identifier.parse("${data.textureRenderOverlay.format("%s:textures/%s")}.png")</#if>
 		<#if data.isFluidTinted()>,
 			<#if data.tintType == "Grass">
 				-6506636

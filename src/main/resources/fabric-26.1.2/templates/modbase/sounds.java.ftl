@@ -34,12 +34,12 @@ public class ${JavaModName}Sounds {
 
 	public static void load() {
 		<#list sounds as sound>
-			${sound.getJavaName()} = register("${sound.getName()}", SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath("${modid}", "${sound}")));
+			${sound.getJavaName()} = register("${sound.getName()}", SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath("${modid}", "${sound}")));
 		</#list>
 	}
 
 	private static SoundEvent register(String registryname, SoundEvent element) {
-		return Registry.register(BuiltInRegistries.SOUND_EVENT, ResourceLocation.fromNamespaceAndPath(${JavaModName}.MODID, registryname), element);
+		return Registry.register(BuiltInRegistries.SOUND_EVENT, Identifier.fromNamespaceAndPath(${JavaModName}.MODID, registryname), element);
 	}
 }
 <#-- @formatter:on -->
