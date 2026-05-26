@@ -59,7 +59,7 @@ public class ${JavaModName}Tabs {
 
 		<#if vanillaTabs?has_content>
 			<#list vanillaTabs as tabName>
-				ItemGroupEvents.modifyEntriesEvent(${generator.map(tabName, "tabs")}).register(tabData -> {
+				CreativeModeTabEvents.modifyOutputEvent(${generator.map(tabName, "tabs")}).register(tabData -> {
 					<#list tabMap.get(tabName) as tabElement>
 					tabData.accept(${mappedMCItemToItem(tabElement)}<#if tabName == "OP_BLOCKS">, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY</#if>);
 					</#list>
