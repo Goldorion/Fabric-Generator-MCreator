@@ -1,0 +1,5 @@
+global_templates:
+  - template: elementinits/blocks.java.ftl
+    name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameBlocks.java"
+  - template: elementinits/blocksrenderers.java.ftl
+    name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameBlocksRenderers.java"

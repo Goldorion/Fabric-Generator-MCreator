@@ -1,8 +1,8 @@
 <#--
  # This file is part of Fabric-Generator-MCreator.
  # Copyright (C) 2012-2020, Pylo
- # Copyright (C) 2020-2025, Pylo, opensource contributors
- # Copyright (C) 2020-2025, Goldorion, opensource contributors
+ # Copyright (C) 2020-2026, Pylo, opensource contributors
+ # Copyright (C) 2020-2026, Goldorion, opensource contributors
  #
  # Fabric-Generator-MCreator is free software: you can redistribute it and/or modify
  # it under the terms of the GNU General Public License as published by
@@ -277,24 +277,6 @@ public class ${getClassName()}Block extends ${getBlockClass(data.blockBase)}
 		</#if>;
 	</#if>
 
-	<#if data.transparencyType != "SOLID">
-	@Environment(EnvType.CLIENT) public static void registerRenderLayer() {
-		<#if data.transparencyType == "CUTOUT">
-		BlockRenderLayerMap.putBlock(${JavaModName}Blocks.${REGISTRYNAME}, ChunkSectionLayer.CUTOUT);
-		<#elseif data.transparencyType == "CUTOUT_MIPPED">
-		BlockRenderLayerMap.putBlock(${JavaModName}Blocks.${REGISTRYNAME}, ChunkSectionLayer.CUTOUT_MIPPED);
-		<#elseif data.transparencyType == "TRANSLUCENT">
-		BlockRenderLayerMap.putBlock(${JavaModName}Blocks.${REGISTRYNAME}, ChunkSectionLayer.TRANSLUCENT);
-		<#else>
-		BlockRenderLayerMap.putBlock(${JavaModName}Blocks.${REGISTRYNAME}, ChunkSectionLayer.SOLID);
-		</#if>
-	}
-	<#elseif data.hasTransparency> <#-- for cases when user selected SOLID but checked transparency -->
-	@Environment(EnvType.CLIENT) public static void registerRenderLayer() {
-		BlockRenderLayerMap.putBlock(${JavaModName}Blocks.${REGISTRYNAME}, ChunkSectionLayer.CUTOUT);
-	}
-	</#if>
-
 	<#if defaultStateCustomShape || statesWithCustomShape?has_content>
 		<#if data.rotationMode != 0 || statesWithCustomShape?has_content>
 		private Function<BlockState, VoxelShape> makeShapes() {
@@ -363,7 +345,7 @@ public class ${getClassName()}Block extends ${getBlockClass(data.blockBase)}
 		</#if>
 
 		<#if !data.blockBase?has_content || data.blockBase == "Leaves" || data.lightOpacity != 15>
-		@Override public int getLightBlock(BlockState state) {
+		@Override public int getLightDampening(BlockState state) {
 			<#if data.isWaterloggable && data.lightOpacity == 0> <#-- Prevent fully transparent blocks from overriding water opacity -->
 				return propagatesSkylightDown(state) ? 0 : 1;
 			<#else>
@@ -402,15 +384,18 @@ public class ${getClassName()}Block extends ${getBlockClass(data.blockBase)}
 
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
+	    BlockState state = super.getStateForPlacement(context);
+    	if (state == null) return null;
+
 		<#if data.isWaterloggable>
 		boolean flag = context.getLevel().getFluidState(context.getClickedPos()).getType() == Fluids.WATER;
 		</#if>
 		<#if data.rotationMode != 3>
-		return super.getStateForPlacement(context)
+		return state
 			<#if data.rotationMode == 1>
-				<#if data.enablePitch>
-				.setValue(FACE, faceForDirection(context.getNearestLookingDirection()))
-				</#if>
+			<#if data.enablePitch>
+			.setValue(FACE, faceForDirection(context.getNearestLookingDirection()))
+			</#if>
 			.setValue(FACING, context.getHorizontalDirection().getOpposite())
 			<#elseif data.rotationMode == 2>
 			.setValue(FACING, context.getNearestLookingDirection().getOpposite())
@@ -425,7 +410,7 @@ public class ${getClassName()}Block extends ${getBlockClass(data.blockBase)}
 			</#if>;
 		<#elseif data.rotationMode == 3>
 		if (context.getClickedFace().getAxis() == Direction.Axis.Y)
-			return super.getStateForPlacement(context)
+			return state
 				<#if data.enablePitch>
 					.setValue(FACE, context.getClickedFace().getOpposite() == Direction.UP ? AttachFace.CEILING : AttachFace.FLOOR)
 					.setValue(FACING, context.getHorizontalDirection())
@@ -437,7 +422,7 @@ public class ${getClassName()}Block extends ${getBlockClass(data.blockBase)}
 				.setValue(WATERLOGGED, flag)
 				</#if>;
 
-		return super.getStateForPlacement(context)
+		return state
 			<#if data.enablePitch>
 				.setValue(FACE, AttachFace.WALL)
 			</#if>
@@ -662,7 +647,7 @@ public class ${getClassName()}Block extends ${getBlockClass(data.blockBase)}
 			return true;
 		}
 
-		@Override public int getAnalogOutputSignal(BlockState blockState, Level world, BlockPos pos) {
+		@Override public int getAnalogOutputSignal(BlockState blockState, Level world, BlockPos pos, Direction direction) {
 			BlockEntity tileentity = world.getBlockEntity(pos);
 			if (tileentity instanceof ${name}BlockEntity be)
 				return AbstractContainerMenu.getRedstoneSignalFromContainer(be);
@@ -674,7 +659,7 @@ public class ${getClassName()}Block extends ${getBlockClass(data.blockBase)}
 
 	<#if data.sensitiveToVibration && data.hasInventory>
 	@Override public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState blockstate, BlockEntityType<T> blockEntityType) {
-		if (!level.isClientSide && blockEntityType == ${JavaModName}BlockEntities.${REGISTRYNAME}) {
+		if (!level.isClientSide() && blockEntityType == ${JavaModName}BlockEntities.${REGISTRYNAME}) {
 			return (_level, pos, state, blockEntity) -> {
 				if (blockEntity instanceof ${name}BlockEntity be)
 					VibrationSystem.Ticker.tick(_level, be.getVibrationData(), be.getVibrationUser());

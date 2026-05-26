@@ -1,6 +1,6 @@
 <#--
  # This file is part of Fabric-Generator-MCreator.
- # Copyright (C) 2020-2025, Goldorion, opensource contributors
+ # Copyright (C) 2020-2026, Goldorion, opensource contributors
  #
  # Fabric-Generator-MCreator is free software: you can redistribute it and/or modify
  # it under the terms of the GNU General Public License as published by
@@ -33,10 +33,10 @@ package ${package}.init;
 
 	public static void clientLoad() {
 		<#list javamodels as model>
-		EntityModelLayerRegistry.registerModelLayer(${model.getReadableName()}.LAYER_LOCATION, ${model.getReadableName()}::createBodyLayer);
+		ModelLayerRegistry.registerModelLayer(${model.getReadableName()}.LAYER_LOCATION, ${model.getReadableName()}::createBodyLayer);
 		</#list>
 		<#list specialentities as entity>
-		EntityModelLayerRegistry.registerModelLayer(${entity.getModElement().getRegistryNameUpper()}_LAYER_LOCATION, BoatModel::create${entity.entityType}Model);
+		ModelLayerRegistry.registerModelLayer(${entity.getModElement().getRegistryNameUpper()}_LAYER_LOCATION, BoatModel::create${entity.entityType}Model);
 		</#list>
 	}
 }

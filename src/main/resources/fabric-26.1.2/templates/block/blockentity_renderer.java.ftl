@@ -1,8 +1,8 @@
 <#--
  # This file is part of Fabric-Generator-MCreator.
  # Copyright (C) 2012-2020, Pylo
- # Copyright (C) 2020-2025, Pylo, opensource contributors
- # Copyright (C) 2020-2025, Goldorion, opensource contributors
+ # Copyright (C) 2020-2026, Pylo, opensource contributors
+ # Copyright (C) 2020-2026, Goldorion, opensource contributors
  #
  # Fabric-Generator-MCreator is free software: you can redistribute it and/or modify
  # it under the terms of the GNU General Public License as published by
@@ -22,21 +22,29 @@
 <#include "../procedures.java.ftl">
 package ${package}.client.renderer.block;
 
-@Environment(EnvType.CLIENT) public class ${name}Renderer implements BlockEntityRenderer<${name}BlockEntity> {
+@Environment(EnvType.CLIENT) public class ${name}Renderer implements BlockEntityRenderer<${name}BlockEntity, ${name}Renderer.CustomRenderState> {
+
 	private final CustomHierarchicalModel model;
 	private final Identifier texture;
-
-	private final LivingEntityRenderState renderState;
 
 	${name}Renderer(BlockEntityRendererProvider.Context context) {
 		this.model = new CustomHierarchicalModel(context.bakeLayer(${data.customModelName.split(":")[0]}.LAYER_LOCATION));
 		this.texture = Identifier.parse("${data.texture.format("%s:textures/block/%s")}.png");
-		this.renderState = new LivingEntityRenderState();
 	}
 
-	private void updateRenderState(${name}BlockEntity blockEntity, float partialTick) {
+	@Override public CustomRenderState createRenderState() {
+		return new CustomRenderState();
+	}
+
+	@Override public void extractRenderState(${name}BlockEntity blockEntity, CustomRenderState state, float partialTicks, Vec3 cameraPosition, ModelFeatureRenderer.CrumblingOverlay breakProgress) {
+		BlockEntityRenderState.extractBase(blockEntity, state, breakProgress);
+
+		state.blockEntity = blockEntity;
+		state.blockState = blockEntity.getBlockState();
+
 		int tickCount = (int) blockEntity.getLevel().getGameTime();
-		renderState.ageInTicks = tickCount + partialTick;
+		state.entityRenderState.ageInTicks = tickCount + partialTicks;
+
 		<#list data.animations as animation>
 			<#if hasProcedure(animation.condition)>
 				blockEntity.animationState${animation?index}.animateWhen(<@procedureCode animation.condition, {
@@ -53,47 +61,43 @@ package ${package}.client.renderer.block;
 		</#list>
 	}
 
-	@Override public void render(${name}BlockEntity blockEntity, float partialTick, PoseStack poseStack, MultiBufferSource renderer, int light, int overlayLight, Vec3 cameraPos) {
+	@Override public void submit(CustomRenderState renderState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState cameraRenderState) {
 		<@javacompress>
-		updateRenderState(blockEntity, partialTick);
 		poseStack.pushPose();
 		poseStack.scale(-1, -1, 1);
 		poseStack.translate(-0.5, -0.5, 0.5);
 		<#if data.rotationMode != 0>
-			BlockState state = blockEntity.getBlockState();
+			BlockState state = renderState.blockState;
 			<#if data.rotationMode != 5>
-			Direction facing = state.getValue(${name}Block.FACING);
-			switch (facing) {
-				case NORTH -> {}
-				case EAST -> poseStack.mulPose(Axis.YP.rotationDegrees(90));
-				case WEST -> poseStack.mulPose(Axis.YP.rotationDegrees(-90));
-				case SOUTH -> poseStack.mulPose(Axis.YP.rotationDegrees(180));
-				<#if data.rotationMode == 2 || data.rotationMode == 4>
-					case UP -> poseStack.mulPose(Axis.XN.rotationDegrees(90));
-					case DOWN -> poseStack.mulPose(Axis.XN.rotationDegrees(-90));
-				</#if>
-			}
-			<#if data.enablePitch>
-			if (facing != Direction.UP && facing != Direction.DOWN) {
+				Direction facing = state.getValue(${name}Block.FACING);
+				switch (facing) {
+					case NORTH -> {}
+					case EAST -> poseStack.mulPose(Axis.YP.rotationDegrees(90));
+					case WEST -> poseStack.mulPose(Axis.YP.rotationDegrees(-90));
+					case SOUTH -> poseStack.mulPose(Axis.YP.rotationDegrees(180));
+					<#if data.rotationMode == 2 || data.rotationMode == 4>
+						case UP -> poseStack.mulPose(Axis.XN.rotationDegrees(90));
+						case DOWN -> poseStack.mulPose(Axis.XN.rotationDegrees(-90));
+					</#if>
+				}
+				<#if data.enablePitch && (data.rotationMode == 1 || data.rotationMode == 3)>
 				switch (state.getValue(${name}Block.FACE)) {
 					case FLOOR -> {}
 					case WALL -> poseStack.mulPose(Axis.XP.rotationDegrees(90));
 					case CEILING -> poseStack.mulPose(Axis.XP.rotationDegrees(180));
 				};
-			}
-			</#if>
+				</#if>
 			<#else>
-			switch (state.getValue(${name}Block.AXIS)) {
-				case X -> poseStack.mulPose(Axis.ZN.rotationDegrees(90));
-				case Y -> {}
-				case Z -> poseStack.mulPose(Axis.XP.rotationDegrees(90));
-			}
+				switch (state.getValue(${name}Block.AXIS)) {
+					case X -> poseStack.mulPose(Axis.ZN.rotationDegrees(90));
+					case Y -> {}
+					case Z -> poseStack.mulPose(Axis.XP.rotationDegrees(90));
+				}
 			</#if>
 		</#if>
 		poseStack.translate(0, -1, 0);
-		VertexConsumer builder = renderer.getBuffer(RenderType.entityCutout(texture));
-		model.setupBlockEntityAnim(blockEntity, renderState);
-		model.renderToBuffer(poseStack, builder, light, overlayLight);
+		model.setupBlockEntityAnim(renderState.blockEntity, renderState.entityRenderState);
+		submitNodeCollector.submitModel(this.model, renderState.entityRenderState, poseStack, RenderTypes.entityCutout(texture), renderState.lightCoords, OverlayTexture.NO_OVERLAY, 0, null);
 		poseStack.popPose();
 		</@javacompress>
 	}
@@ -102,16 +106,22 @@ package ${package}.client.renderer.block;
 		BlockEntityRenderers.register(${JavaModName}BlockEntities.${REGISTRYNAME}, ${name}Renderer::new);
 	}
 
+	public static class CustomRenderState extends BlockEntityRenderState {
+		protected final LivingEntityRenderState entityRenderState = new LivingEntityRenderState();
+		protected ${name}BlockEntity blockEntity;
+		protected BlockState blockState;
+	}
+
 	private static final class CustomHierarchicalModel extends ${data.customModelName.split(":")[0]} {
 
 		<#list data.animations as animation>
-		private final Supplier<KeyframeAnimation> keyframeAnimation${animation?index};
+		private final KeyframeAnimation keyframeAnimation${animation?index};
 		</#list>
 
 		public CustomHierarchicalModel(ModelPart root) {
 			super(root);
 			<#list data.animations as animation>
-			this.keyframeAnimation${animation?index} = () -> safeBake(${animation.animation});
+			this.keyframeAnimation${animation?index} = safeBake(${animation.animation});
 			</#list>
 		}
 
@@ -128,10 +138,13 @@ package ${package}.client.renderer.block;
 		public void setupBlockEntityAnim(${name}BlockEntity blockEntity, LivingEntityRenderState state) {
 			this.root().getAllParts().forEach(ModelPart::resetPose);
 			<#list data.animations as animation>
-			this.keyframeAnimation${animation?index}.get().apply(blockEntity.animationState${animation?index}, state.ageInTicks, ${animation.speed}f);
+			this.keyframeAnimation${animation?index}.apply(blockEntity.animationState${animation?index}, state.ageInTicks, ${animation.speed}f);
 			</#list>
 			super.setupAnim(state);
 		}
+
 	}
+
 }
+
 <#-- @formatter:on -->
