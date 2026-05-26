@@ -1,8 +1,8 @@
 <#--
  # This file is part of Fabric-Generator-MCreator.
  # Copyright (C) 2012-2020, Pylo
- # Copyright (C) 2020-2025, Pylo, opensource contributors
- # Copyright (C) 2020-2025, Goldorion, opensource contributors
+ # Copyright (C) 2020-2026, Pylo, opensource contributors
+ # Copyright (C) 2020-2026, Goldorion, opensource contributors
  #
  # Fabric-Generator-MCreator is free software: you can redistribute it and/or modify
  # it under the terms of the GNU General Public License as published by
@@ -55,7 +55,7 @@ public class ${JavaModName}VillagerProfessions {
 				continue;
 			}
 
-			PoiType poiType = PointOfInterestHelper.register(Identifier.fromNamespaceAndPath("${modid}", name), 1, 1, ImmutableSet.copyOf(block.getStateDefinition().getPossibleStates()));
+			PoiType poiType = PoiHelper.register(Identifier.fromNamespaceAndPath("${modid}", name), 1, 1, ImmutableSet.copyOf(block.getStateDefinition().getPossibleStates()));
 				entry.getValue().poiType = BuiltInRegistries.POINT_OF_INTEREST_TYPE.wrapAsHolder(poiType);
 		}
 	}
@@ -65,7 +65,19 @@ public class ${JavaModName}VillagerProfessions {
 
 		Predicate<Holder<PoiType>> poiPredicate = poiTypeHolder -> (POI_TYPES.get(name).poiType != null) && (poiTypeHolder.value() == POI_TYPES.get(name).poiType.value());
 
-		return Registry.register(BuiltInRegistries.VILLAGER_PROFESSION, Identifier.fromNamespaceAndPath(${JavaModName}.MODID, name), new VillagerProfession(Component.translatable("entity.villager." + ${JavaModName}.MODID + "." + name), poiPredicate, poiPredicate, ImmutableSet.of(), ImmutableSet.of(), soundEvent.get()));
+		return Registry.register(BuiltInRegistries.VILLAGER_PROFESSION, Identifier.fromNamespaceAndPath(${JavaModName}.MODID, name),
+		        new VillagerProfession(Component.translatable("entity.villager." + ${JavaModName}.MODID + "." + name),
+            	        poiPredicate, poiPredicate, ImmutableSet.of(), ImmutableSet.of(), soundEvent.get(), Int2ObjectMap.ofEntries(
+            			Int2ObjectMap.entry(1, tradeSetResourceKey(name, 1)),
+            			Int2ObjectMap.entry(2, tradeSetResourceKey(name, 2)),
+            			Int2ObjectMap.entry(3, tradeSetResourceKey(name, 3)),
+            			Int2ObjectMap.entry(4, tradeSetResourceKey(name, 4)),
+            			Int2ObjectMap.entry(5, tradeSetResourceKey(name, 5))
+                )));
+	}
+
+	private static ResourceKey<TradeSet> tradeSetResourceKey(String name, int level) {
+		return ResourceKey.create(Registries.TRADE_SET, Identifier.fromNamespaceAndPath("${modid}", name + "/level_" + level));
 	}
 
 	private static class ProfessionPoiType {
