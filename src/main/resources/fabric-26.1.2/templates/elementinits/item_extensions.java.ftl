@@ -1,6 +1,6 @@
 <#--
  # This file is part of Fabric-Generator-MCreator.
- # Copyright (C) 2020-2025, Goldorion, opensource contributors
+ # Copyright (C) 2020-2026, Goldorion, opensource contributors
  #
  # Fabric-Generator-MCreator is free software: you can redistribute it and/or modify
  # it under the terms of the GNU General Public License as published by
@@ -31,11 +31,11 @@ public class ${JavaModName}ItemExtensions {
 
 	public static void load() {
         <#list itemextensions?filter(e -> e.compostLayerChance gt 0) as extension>
-        CompostingChanceRegistry.INSTANCE.add(${mappedMCItemToItem(extension.item)}, ${extension.compostLayerChance}f);
+        CompostableRegistry.INSTANCE.add(${mappedMCItemToItem(extension.item)}, ${extension.compostLayerChance}f);
 		</#list>
 
         <#if w.getGElementsOfType('itemextension')?filter(e -> e.enableFuel)?size != 0>
-		FuelRegistryEvents.BUILD.register((builder, context) -> {
+		FuelValueEvents.BUILD.register((builder, context) -> {
             <#list itemextensions?filter(e -> e.enableFuel) as extension>
                 <#if hasProcedure(extension.fuelSuccessCondition)>if(<@procedureOBJToConditionCode extension.fuelSuccessCondition/>)</#if>
                     builder.add(${mappedMCItemToItem(extension.item)},

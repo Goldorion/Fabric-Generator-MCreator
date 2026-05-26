@@ -105,14 +105,14 @@ base_templates:
 #      - "${w.getGElementsOfType('plant')?filter(e -> e.generateFeature)?size != 0}"
 #      - "${w.hasElementsOfType('feature')}"
 #    name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameFeatures.java"
-#
-## ItemExtension
-#  - template: elementinits/dispensebehaviors.java.ftl
-#    name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameDispenseBehaviors.java"
-#    condition_any:
-#      - "${w.getGElementsOfType('itemextension')?filter(e -> e.hasDispenseBehavior)?size != 0}"
+
+# ItemExtension
+  - template: elementinits/dispensebehaviors.java.ftl
+    name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameDispenseBehaviors.java"
+    condition_any:
+      - "${w.getGElementsOfType('itemextension')?filter(e -> e.hasDispenseBehavior)?size != 0}"
 #      - "${w.hasElementsOfType('specialentity')}"
-#
+
 ## Mixins
 #  - template: mixin/livingentity_mixin.java.ftl
 #    writer: java
