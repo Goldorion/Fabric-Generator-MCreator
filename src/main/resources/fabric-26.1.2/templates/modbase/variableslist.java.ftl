@@ -1,6 +1,6 @@
 <#--
  # This file is part of Fabric-Generator-MCreator.
- # Copyright (C) 2020-2025, Goldorion, opensource contributors
+ # Copyright (C) 2020-2026, Goldorion, opensource contributors
  #
  # Fabric-Generator-MCreator is free software: you can redistribute it and/or modify
  # it under the terms of the GNU General Public License as published by
@@ -36,7 +36,7 @@ public class ${JavaModName}Variables {
 
 	public static void variablesLoad() {
         <#if w.hasVariablesOfScope("PLAYER_LIFETIME") || w.hasVariablesOfScope("PLAYER_PERSISTENT")>
-        PayloadTypeRegistry.playS2C().register(PlayerVariablesSyncMessage.TYPE, PlayerVariablesSyncMessage.STREAM_CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(PlayerVariablesSyncMessage.TYPE, PlayerVariablesSyncMessage.STREAM_CODEC);
 
         ServerPlayerEvents.JOIN.register((player) -> {
             ServerPlayNetworking.send(player, new PlayerVariablesSyncMessage(player.getAttachedOrCreate(PLAYER_VARIABLES)));
@@ -46,7 +46,7 @@ public class ${JavaModName}Variables {
 				ServerPlayNetworking.send(newPlayer, new PlayerVariablesSyncMessage(oldPlayer.getAttachedOrCreate(PLAYER_VARIABLES)));
 		});
 
-		ServerEntityWorldChangeEvents.AFTER_PLAYER_CHANGE_WORLD.register((player, origin, destination) -> {
+		ServerEntityLevelChangeEvents.AFTER_PLAYER_CHANGE_LEVEL.register((player, origin, destination) -> {
 			if (!destination.isClientSide())
 				ServerPlayNetworking.send(player, new PlayerVariablesSyncMessage(player.getAttachedOrCreate(PLAYER_VARIABLES)));
 		});
@@ -78,7 +78,7 @@ public class ${JavaModName}Variables {
         </#if>
 
         <#if w.hasVariablesOfScope("GLOBAL_WORLD") || w.hasVariablesOfScope("GLOBAL_MAP")>
-        PayloadTypeRegistry.playS2C().register(SavedDataSyncMessage.TYPE, SavedDataSyncMessage.STREAM_CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(SavedDataSyncMessage.TYPE, SavedDataSyncMessage.STREAM_CODEC);
 
 		ServerPlayerEvents.JOIN.register((player) -> {
 			SavedData mapdata = MapVariables.get(player.level());
@@ -89,7 +89,7 @@ public class ${JavaModName}Variables {
 				ServerPlayNetworking.send(player, new SavedDataSyncMessage(1, worlddata));
 		});
 
-		ServerEntityWorldChangeEvents.AFTER_PLAYER_CHANGE_WORLD.register((player, origin, destination) -> {
+		ServerEntityLevelChangeEvents.AFTER_PLAYER_CHANGE_LEVEL.register((player, origin, destination) -> {
 			if (!destination.isClientSide()) {
 				SavedData worlddata = WorldVariables.get(player.level());
 				if(worlddata != null)

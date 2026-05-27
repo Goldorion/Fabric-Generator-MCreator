@@ -80,9 +80,9 @@ base_templates:
   - template: modbase/sounds.java.ftl
     name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameSounds.java"
     condition: hasSounds()
-#  - template: modbase/variableslist.java.ftl
-#    name: "@SRCROOT/@BASEPACKAGEPATH/network/@JavaModNameVariables.java"
-#    condition: hasVariables()
+  - template: modbase/variableslist.java.ftl
+    name: "@SRCROOT/@BASEPACKAGEPATH/network/@JavaModNameVariables.java"
+    condition: hasVariables()
   - template: elementinits/tabs.java.ftl
     name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameTabs.java"
     condition: hasItemsInTabs()
@@ -113,13 +113,13 @@ base_templates:
       - "${w.getGElementsOfType('itemextension')?filter(e -> e.hasDispenseBehavior)?size != 0}"
 #      - "${w.hasElementsOfType('specialentity')}"
 
-## Mixins
+# Mixins
 #  - template: mixin/livingentity_mixin.java.ftl
 #    writer: java
 #    name: "@SRCROOT/@BASEPACKAGEPATH/mixin/LivingEntityMixin.java"
-#  - template: mixin/player_mixin.java.ftl
-#    writer: java
-#    name: "@SRCROOT/@BASEPACKAGEPATH/mixin/PlayerMixin.java"
+  - template: mixin/player_mixin.java.ftl
+    writer: java
+    name: "@SRCROOT/@BASEPACKAGEPATH/mixin/PlayerMixin.java"
 #  - template: mixin/itemstack_mixin.java.ftl
 #    writer: java
 #    name: "@SRCROOT/@BASEPACKAGEPATH/mixin/ItemStackMixin.java"
@@ -135,14 +135,14 @@ base_templates:
 #  - template: mixin/experienceorb_mixin.java.ftl
 #    writer: java
 #    name: "@SRCROOT/@BASEPACKAGEPATH/mixin/ExperienceOrbMixin.java"
-#
-## Custom events
+
+# Custom events
 #  - template: event/livingentity_events.java.ftl
 #    writer: java
 #    name: "@SRCROOT/@BASEPACKAGEPATH/event/LivingEntityEvents.java"
-#  - template: event/player_events.java.ftl
-#    writer: java
-#    name: "@SRCROOT/@BASEPACKAGEPATH/event/PlayerEvents.java"
+  - template: event/player_events.java.ftl
+    writer: java
+    name: "@SRCROOT/@BASEPACKAGEPATH/event/PlayerEvents.java"
 #  - template: event/block_events.java.ftl
 #    writer: java
 #    name: "@SRCROOT/@BASEPACKAGEPATH/event/BlockEvents.java"
