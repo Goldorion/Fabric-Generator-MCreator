@@ -31,21 +31,18 @@ package ${package}.init;
 public class ${JavaModName}Features {
 
 	public static void load() {
-		<#list w.getGElementsOfType("feature") as feature>
+        <#list features as feature>
+            <#if feature.getModElement().getTypeString() == "feature">
 			register("${feature.getModElement().getRegistryName()}", new ${feature.getModElement().getName()}Feature()<#if feature.hasPlacedFeature()>,
 				${feature.getModElement().getName()}Feature.GENERATE_BIOMES, GenerationStep.Decoration.${generator.map(feature.generationStep, "generationsteps")?upper_case}</#if>);
-		</#list>
-
-		<#list w.getGElementsOfType("block")?filter(e -> e.generateFeature) as feature>
+            <#elseif feature.getModElement().getTypeString() == "block">
 			register("${feature.getModElement().getRegistryName()}", new OreFeature(OreConfiguration.CODEC),
 				${feature.getModElement().getName()}Block.GENERATE_BIOMES, GenerationStep.Decoration.UNDERGROUND_ORES);
-
-		</#list>
-
-		<#list w.getGElementsOfType("plant")?filter(e -> e.generateFeature) as feature>
+            <#elseif feature.getModElement().getTypeString() == "plant">
 			register("${feature.getModElement().getRegistryName()}", new RandomPatchFeature(RandomPatchConfiguration.CODEC),
 				${feature.getModElement().getName()}Block.GENERATE_BIOMES, GenerationStep.Decoration.VEGETAL_DECORATION);
-		</#list>
+            </#if>
+        </#list>
 
 		<#if hasStructureFeatureClass>
 			register("structure_feature", new StructureFeature(StructureFeatureConfiguration.CODEC));

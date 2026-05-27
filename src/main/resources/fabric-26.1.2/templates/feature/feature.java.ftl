@@ -17,6 +17,7 @@
  # You should have received a copy of the GNU General Public License
  # along with Fabric-Generator-MCreator. If not, see <https://www.gnu.org/licenses/>.
 -->
+
 <#-- @formatter:off -->
 <#include "../procedures.java.ftl">
 <#assign biomeSelector = "includeByKey">
@@ -30,7 +31,6 @@
 		</#if>
 	</#list>
 </#if>
-
 package ${package}.world.features;
 
 <#assign configuration = generator.map(featuretype, "features", 1)>
@@ -42,8 +42,7 @@ public class ${name}Feature extends ${generator.map(featuretype, "features")} {
 		super(${configuration}.CODEC);
 	}
 
-	public static final Predicate<BiomeSelectionContext> GENERATE_BIOMES =
-	BiomeSelectors.
+	public static final Predicate<BiomeSelectionContext> GENERATE_BIOMES = BiomeSelectors.
 	<#if data.restrictionBiomes?has_content>
 	${biomeSelector}(
 		<#list w.filterBrokenReferences(data.restrictionBiomes) as restrictionBiome>
