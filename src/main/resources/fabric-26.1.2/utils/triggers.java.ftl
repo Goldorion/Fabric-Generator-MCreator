@@ -45,7 +45,7 @@ public boolean makesPiglinsNeutral(ItemStack itemstack, LivingEntity entity) {
 		@Override public void appendHoverText(ItemStack itemstack, Item.TooltipContext context, TooltipDisplay tooltipDisplay, Consumer<Component> componentConsumer, TooltipFlag flag) {
 			super.appendHoverText(itemstack, context, tooltipDisplay, componentConsumer, flag);
 		<#if hasProcedure(procedure)>
-			Entity entity = itemstack.getEntityRepresentation() != null ? itemstack.getEntityRepresentation() : ${JavaModName}.clientPlayer();
+			Entity entity = ${JavaModName}.clientPlayer();
 			String hoverText = <@procedureCode procedure, {
 				"x": "entity.getX()",
 				"y": "entity.getY()",
@@ -291,8 +291,8 @@ public void onDroppedByPlayer(ItemStack itemstack, Player entity) {
 
 <#macro onEntityCollides procedure="">
 <#if hasProcedure(procedure)>
-@Override public void entityInside(BlockState blockstate, Level world, BlockPos pos, Entity entity, InsideBlockEffectApplier insideBlockEffectApplier) {
-	super.entityInside(blockstate, world, pos, entity, insideBlockEffectApplier);
+@Override public void entityInside(BlockState blockstate, Level world, BlockPos pos, Entity entity, InsideBlockEffectApplier insideBlockEffectApplier, boolean isPrecise) {
+	super.entityInside(blockstate, world, pos, entity, insideBlockEffectApplier, isPrecise);
 	<@procedureCode procedure, {
 		"x": "pos.getX()",
 		"y": "pos.getY()",
