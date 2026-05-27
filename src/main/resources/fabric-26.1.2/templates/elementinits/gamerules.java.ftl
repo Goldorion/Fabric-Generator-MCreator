@@ -34,11 +34,11 @@ public class ${JavaModName}GameRules {
 	<#list gamerules as gamerule>
 		<#if gamerule.type == "Number">
             <#assign hasNumberRules = true>
-            public static GameRule<Integer> ${gamerule.getModElement().getRegistryNameUpper()} = registerInt(${gamerule.defaultValueNumber},
+            public static final GameRule<Integer> ${gamerule.getModElement().getRegistryNameUpper()} = registerInt(${gamerule.defaultValueNumber},
                 GameRuleCategory.${gamerule.category}, "${StringUtils.camelToSnake(gamerule.getModElement().getName())?lower_case}");
 		<#else>
             <#assign hasLogicRules = true>
-            public static GameRule<Boolean> ${gamerule.getModElement().getRegistryNameUpper()} = registerBoolean(${gamerule.defaultValueLogic},
+            public static final GameRule<Boolean> ${gamerule.getModElement().getRegistryNameUpper()} = registerBoolean(${gamerule.defaultValueLogic},
                 GameRuleCategory.${gamerule.category}, "${StringUtils.camelToSnake(gamerule.getModElement().getName())?lower_case}");
 		</#if>
 	</#list>
@@ -46,14 +46,14 @@ public class ${JavaModName}GameRules {
 	public static void load() {}
 
     <#if hasNumberRules>
-	private static @NonNull GameRule<Integer> registerInt(int defaultValue, GameRuleCategory category, String registryName) {
-		return GameRuleBuilder.forInteger(defaultValue).category(category).buildAndRegister(Identifier.fromNamespaceAndPath("${modid}", registryName));
+	private static GameRule<Integer> registerInt(int defaultValue, GameRuleCategory category, String registryName) {
+		return GameRuleBuilder.forInteger(defaultValue).category(category).buildAndRegister(Identifier.fromNamespaceAndPath(${JavaModName}.MODID, registryName));
 	}
     </#if>
 
 	<#if hasLogicRules>
-	private static @NonNull GameRule<Boolean> registerBoolean(boolean defaultValue, GameRuleCategory category, String registryName) {
-		return GameRuleBuilder.forBoolean(defaultValue).category(category).buildAndRegister(Identifier.fromNamespaceAndPath("${modid}", registryName));
+	private static GameRule<Boolean> registerBoolean(boolean defaultValue, GameRuleCategory category, String registryName) {
+		return GameRuleBuilder.forBoolean(defaultValue).category(category).buildAndRegister(Identifier.fromNamespaceAndPath(${JavaModName}.MODID, registryName));
 	}
     </#if>
 }
