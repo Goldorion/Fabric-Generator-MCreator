@@ -9,7 +9,6 @@ import:
     exclude:
       - procedures
       - triggers
-      - cmdargs # Temp!
 
 # Gradle task definitions
 gradle:
