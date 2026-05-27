@@ -207,7 +207,7 @@ public class ${name}Screen extends AbstractContainerScreen<${name}Menu> implemen
 
 	@Override public boolean keyPressed(int key, int b, int c) {
 		if (key == 256) {
-			this.minecraft.player.closeContainer();
+			this.minecraft.player.containerMenu = this.minecraft.player.inventoryMenu;
 			return true;
 		}
 
