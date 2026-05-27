@@ -1,6 +1,6 @@
 <#include "procedures.java.ftl">
 public ${name}Procedure() {
-	ServerEntityWorldChangeEvents.AFTER_ENTITY_CHANGE_WORLD.register((originalEntity, newEntity, origin, destination) -> {
+	ServerEntityLevelChangeEvents.AFTER_ENTITY_CHANGE_LEVEL.register((originalEntity, newEntity, origin, destination) -> {
 		<#assign dependenciesCode>
 			<@procedureDependenciesCode dependencies, {
 			"x": "newEntity.getX()",
@@ -14,7 +14,7 @@ public ${name}Procedure() {
 		if (!(newEntity instanceof Player))
 			execute(${dependenciesCode});
 	});
-	ServerEntityWorldChangeEvents.AFTER_PLAYER_CHANGE_WORLD.register((player, origin, destination) -> {
+	ServerEntityLevelChangeEvents.AFTER_PLAYER_CHANGE_LEVEL.register((player, origin, destination) -> {
 		<#assign dependenciesCode>
 			<@procedureDependenciesCode dependencies, {
 			"x": "player.getX()",

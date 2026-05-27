@@ -114,44 +114,44 @@ base_templates:
 #      - "${w.hasElementsOfType('specialentity')}"
 
 # Mixins
-#  - template: mixin/livingentity_mixin.java.ftl
-#    writer: java
-#    name: "@SRCROOT/@BASEPACKAGEPATH/mixin/LivingEntityMixin.java"
+  - template: mixin/livingentity_mixin.java.ftl
+    writer: java
+    name: "@SRCROOT/@BASEPACKAGEPATH/mixin/LivingEntityMixin.java"
   - template: mixin/player_mixin.java.ftl
     writer: java
     name: "@SRCROOT/@BASEPACKAGEPATH/mixin/PlayerMixin.java"
-#  - template: mixin/itemstack_mixin.java.ftl
-#    writer: java
-#    name: "@SRCROOT/@BASEPACKAGEPATH/mixin/ItemStackMixin.java"
-#  - template: mixin/blockitem_mixin.java.ftl
-#    writer: java
-#    name: "@SRCROOT/@BASEPACKAGEPATH/mixin/BlockItemMixin.java"
-#  - template: mixin/bonemealitem_mixin.java.ftl
-#    writer: java
-#    name: "@SRCROOT/@BASEPACKAGEPATH/mixin/BoneMealItemMixin.java"
-#  - template: mixin/commands_mixin.java.ftl
-#    writer: java
-#    name: "@SRCROOT/@BASEPACKAGEPATH/mixin/CommandsMixin.java"
-#  - template: mixin/experienceorb_mixin.java.ftl
-#    writer: java
-#    name: "@SRCROOT/@BASEPACKAGEPATH/mixin/ExperienceOrbMixin.java"
+  - template: mixin/itemstack_mixin.java.ftl
+    writer: java
+    name: "@SRCROOT/@BASEPACKAGEPATH/mixin/ItemStackMixin.java"
+  - template: mixin/blockitem_mixin.java.ftl
+    writer: java
+    name: "@SRCROOT/@BASEPACKAGEPATH/mixin/BlockItemMixin.java"
+  - template: mixin/bonemealitem_mixin.java.ftl
+    writer: java
+    name: "@SRCROOT/@BASEPACKAGEPATH/mixin/BoneMealItemMixin.java"
+  - template: mixin/commands_mixin.java.ftl
+    writer: java
+    name: "@SRCROOT/@BASEPACKAGEPATH/mixin/CommandsMixin.java"
+  - template: mixin/experienceorb_mixin.java.ftl
+    writer: java
+    name: "@SRCROOT/@BASEPACKAGEPATH/mixin/ExperienceOrbMixin.java"
 
 # Custom events
-#  - template: event/livingentity_events.java.ftl
-#    writer: java
-#    name: "@SRCROOT/@BASEPACKAGEPATH/event/LivingEntityEvents.java"
+  - template: event/livingentity_events.java.ftl
+    writer: java
+    name: "@SRCROOT/@BASEPACKAGEPATH/event/LivingEntityEvents.java"
   - template: event/player_events.java.ftl
     writer: java
     name: "@SRCROOT/@BASEPACKAGEPATH/event/PlayerEvents.java"
-#  - template: event/block_events.java.ftl
-#    writer: java
-#    name: "@SRCROOT/@BASEPACKAGEPATH/event/BlockEvents.java"
-#  - template: event/item_events.java.ftl
-#    writer: java
-#    name: "@SRCROOT/@BASEPACKAGEPATH/event/ItemEvents.java"
-#  - template: event/misc_events.java.ftl
-#    writer: java
-#    name: "@SRCROOT/@BASEPACKAGEPATH/event/MiscEvents.java"
+  - template: event/block_events.java.ftl
+    writer: java
+    name: "@SRCROOT/@BASEPACKAGEPATH/event/BlockEvents.java"
+  - template: event/item_events.java.ftl
+    writer: java
+    name: "@SRCROOT/@BASEPACKAGEPATH/event/ItemEvents.java"
+  - template: event/misc_events.java.ftl
+    writer: java
+    name: "@SRCROOT/@BASEPACKAGEPATH/event/MiscEvents.java"
 
 java_models:
   key: mojmap-26.1.x

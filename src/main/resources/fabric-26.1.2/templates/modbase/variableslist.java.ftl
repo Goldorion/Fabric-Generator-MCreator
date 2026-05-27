@@ -97,7 +97,7 @@ public class ${JavaModName}Variables {
 			}
 		});
 
-        ServerTickEvents.END_WORLD_TICK.register((level) -> {
+        ServerTickEvents.END_LEVEL_TICK.register((level) -> {
 			WorldVariables worldVariables = WorldVariables.get(level);
 			if (worldVariables._syncDirty) {
 			    level.players().forEach(player -> ServerPlayNetworking.send(player, new SavedDataSyncMessage(1, worldVariables)));

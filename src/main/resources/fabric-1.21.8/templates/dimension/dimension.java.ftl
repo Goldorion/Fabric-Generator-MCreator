@@ -28,7 +28,7 @@ package ${package}.world.dimension;
 public class ${name}Dimension {
 	public static void load() {
 		<#if hasProcedure(data.onPlayerLeavesDimension) || hasProcedure(data.onPlayerEntersDimension)>
-			ServerEntityWorldChangeEvents.AFTER_PLAYER_CHANGE_WORLD.register((entity, origin, destination) -> {
+			ServerEntityLevelChangeEvents.AFTER_PLAYER_CHANGE_LEVEL.register((entity, origin, destination) -> {
 				Level world = entity.level();
 				double x = entity.getX();
 				double y = entity.getY();

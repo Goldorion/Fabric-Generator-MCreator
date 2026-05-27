@@ -1,9 +1,9 @@
 <#include "procedures.java.ftl">
 public ${name}Procedure() {
-	ServerTickEvents.END_WORLD_TICK.register((level) -> {
+	ServerLevelEvents.LOAD.register((server, world) -> {
 		<#assign dependenciesCode>
-		<@procedureDependenciesCode dependencies, {
-			"world": "level"
+			<@procedureDependenciesCode dependencies, {
+			"world": "world"
 			}/>
 		</#assign>
 		execute(${dependenciesCode});
