@@ -1,1 +1,1 @@
-/*@int*/(world.isClientSide() ? Minecraft.getInstance().getConnection().getOnlinePlayers().size() : ServerLifecycleHooks.getCurrentServer().getPlayerCount())
+/*@int*/(world.isClientSide() ? Minecraft.getInstance().getConnection().getOnlinePlayers().size() : world.getServer().getPlayerList().getPlayerCount())
