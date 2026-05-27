@@ -121,7 +121,7 @@ public class ${name}Screen extends AbstractContainerScreen<${name}Menu> implemen
 	}
 	</#if>
 
-	@Override public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
+	@Override public void render(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
 		super.render(guiGraphics, mouseX, mouseY, partialTicks);
 
 		<#list textFields as component>
@@ -176,7 +176,7 @@ public class ${name}Screen extends AbstractContainerScreen<${name}Menu> implemen
 		this.renderTooltip(guiGraphics, mouseX, mouseY);
 	}
 
-	@Override protected void renderBg(GuiGraphics guiGraphics, float partialTicks, int mouseX, int mouseY) {
+	@Override protected void renderBg(GuiGraphicsExtractor guiGraphics, float partialTicks, int mouseX, int mouseY) {
 		<#if data.renderBgLayer>
 			guiGraphics.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
 		</#if>
@@ -238,7 +238,7 @@ public class ${name}Screen extends AbstractContainerScreen<${name}Menu> implemen
 	}
 	</#if>
 
-	@Override protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+	@Override protected void renderLabels(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
 		<#list data.getComponentsOfType("Label") as component>
 			<#if hasProcedure(component.displayCondition)>
 				if (<@procedureOBJToConditionCode component.displayCondition/>)
@@ -298,7 +298,7 @@ public class ${name}Screen extends AbstractContainerScreen<${name}Menu> implemen
 				</#if>
 				<@buttonOnClick component/>
 			) {
-				@Override public void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
+				@Override public void renderWidget(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
 					<#if hasProcedure(component.displayCondition)>
 					int x = ${name}Screen.this.x; <#-- x and y provided by buttons are in-GUI, not in-world coordinates -->
 					int y = ${name}Screen.this.y;

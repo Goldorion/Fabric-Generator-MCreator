@@ -1,8 +1,8 @@
 <#--
  # This file is part of Fabric-Generator-MCreator.
  # Copyright (C) 2012-2020, Pylo
- # Copyright (C) 2020-2025, Pylo, opensource contributors
- # Copyright (C) 2020-2025, Goldorion, opensource contributors
+ # Copyright (C) 2020-2026, Pylo, opensource contributors
+ # Copyright (C) 2020-2026, Goldorion, opensource contributors
  #
  # Fabric-Generator-MCreator is free software: you can redistribute it and/or modify
  # it under the terms of the GNU General Public License as published by
@@ -35,7 +35,7 @@ package ${package}.client.screens;
 		private static final Identifier SPRITE_${component?index} = Identifier.parse("${modid}:textures/screens/${component.sprite}");
 	</#list>
 
-	public static void render(GuiGraphics guiGraphics, DeltaTracker deltaTracker) {
+	public static void render(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker) {
 			int w = guiGraphics.guiWidth();
 			int h = guiGraphics.guiHeight();
 
@@ -84,7 +84,7 @@ package ${package}.client.screens;
 				<#if hasProcedure(component.displayCondition)>
 					if (<@procedureOBJToConditionCode component.displayCondition/>)
 				</#if>
-				guiGraphics.drawString(Minecraft.getInstance().font,
+				guiGraphics.text(Minecraft.getInstance().font,
 					<#if hasProcedure(component.text)><@procedureOBJToStringCode component.text/><#else>Component.translatable("gui.${modid}.${registryname}.${component.getName()}")</#if>,
 					<@calculatePosition component/>, ${component.color.getRGB()}, ${component.hasShadow});
 			</#list>
@@ -94,7 +94,7 @@ package ${package}.client.screens;
 					<#if hasProcedure(component.displayCondition)>
 						if (<@procedureOBJToConditionCode component.displayCondition/>)
 					</#if>
-					InventoryScreen.renderEntityInInventoryFollowsMouse(guiGraphics,
+					InventoryScreen.extractEntityInInventoryFollowsMouse(guiGraphics,
 						<@calculatePosition component=component x_offset=(10 - 1000) y_offset=(20 - 1000)/>,
 						<@calculatePosition component=component x_offset=(10 + 1000) y_offset=(20 + 1000)/>,
 						${component.scale}, -livingEntity.getBbHeight() / (2.0f * livingEntity.getScale()),
