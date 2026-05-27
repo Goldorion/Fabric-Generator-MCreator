@@ -37,6 +37,7 @@ import_formatter:
     Keyframe: net.minecraft.client.animation
     Potion: net.minecraft.world.item.alchemy
     MapColor: net.minecraft.world.level.material
+    AttributeModifier: net.minecraft.world.entity.ai.attributes
 
 # base generator roots
 source_root: "@WORKSPACEROOT/src/main/java"
