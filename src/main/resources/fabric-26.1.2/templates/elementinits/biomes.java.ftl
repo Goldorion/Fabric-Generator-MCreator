@@ -32,7 +32,6 @@ import com.mojang.datafixers.util.Pair;
 <#assign spawn_overworld = biomes?filter(biome -> biome.spawnBiome)>
 <#assign spawn_overworld_caves = biomes?filter(biome -> biome.spawnInCaves)>
 <#assign spawn_nether = biomes?filter(biome -> biome.spawnBiomeNether)>
-<#assign decoratedBiomes = biomes?filter(e -> e.hasVines() || e.hasFruits())>
 
 public class ${JavaModName}Biomes {
 
@@ -42,19 +41,6 @@ public class ${JavaModName}Biomes {
 	private static boolean BOOTSTRAP_VALIDATION_PASSED = false;
 
 	public static void load() {
-        <#if decoratedBiomes?has_content>
-            <#list decoratedBiomes as biome>
-                <#assign biomeME = biome.getModElement()>
-                <#if biome.hasFruits()>
-                    register("${biomeME.getRegistryName()}_tree_fruit_decorator", ${biomeME.getName()}FruitDecorator.DECORATOR_TYPE);
-                </#if>
-                <#if biome.hasVines()>
-                    register("${biomeME.getRegistryName()}_tree_leave_decorator", ${biomeME.getName()}LeaveDecorator.DECORATOR_TYPE);
-                    register("${biomeME.getRegistryName()}_tree_trunk_decorator", ${biomeME.getName()}TrunkDecorator.DECORATOR_TYPE);
-                </#if>
-            </#list>
-        </#if>
-
 		<#-- At FMLCommonSetupEvent, bootstrap validation is already done -->
 		BOOTSTRAP_VALIDATION_PASSED = true;
 
@@ -70,12 +56,6 @@ public class ${JavaModName}Biomes {
             }
 		});
 	}
-
-	<#if decoratedBiomes?has_content>
-	private static void register(String registryname, TreeDecoratorType<?> treeDecoratorType) {
-		Registry.register(BuiltInRegistries.TREE_DECORATOR_TYPE, Identifier.fromNamespaceAndPath(${JavaModName}.MODID, registryname), treeDecoratorType);
-	}
-	</#if>
 
 	public static SurfaceRules.RuleSource adaptSurfaceRule(SurfaceRules.RuleSource currentRuleSource, Holder<DimensionType> dimensionType) {
 		<#if spawn_overworld?has_content || spawn_overworld_caves?has_content>

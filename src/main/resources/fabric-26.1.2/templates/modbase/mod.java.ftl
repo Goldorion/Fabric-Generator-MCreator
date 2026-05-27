@@ -52,7 +52,8 @@ public class ${JavaModName} implements ModInitializer {
 		<#if types["base:items"]??>${JavaModName}Items.load();</#if>
 		<#if types["attributes"]??>${JavaModName}Attributes.load();</#if>
 		<#if w.getGElementsOfType("recipe")?filter(e -> e.recipeType == "Brewing")?size != 0>${JavaModName}BrewingRecipes.load();</#if>
-		<#if types["biomes"]??>${JavaModName}Biomes.load();</#if>
+		<#if w.getGElementsOfType('biome')?filter(e -> e.hasVines() || e.hasFruits())?size != 0>${JavaModName}BiomeDecorators.load();</#if>
+		<#if w.getGElementsOfType('biome')?filter(e -> e.spawnBiome || e.spawnInCaves || e.spawnBiomeNether)?size != 0>${JavaModName}Biomes.load();</#if>
 		<#if w.getGElementsOfType('dimension')?filter(e -> hasProcedure(e.onPlayerEntersDimension) || hasProcedure(e.onPlayerLeavesDimension))?size != 0>${JavaModName}Dimensions.load();</#if>
 		<#if types["guis"]??>${JavaModName}Menus.load();</#if>
 		<#if types["villagerprofessions"]??>${JavaModName}VillagerProfessions.load();</#if>
