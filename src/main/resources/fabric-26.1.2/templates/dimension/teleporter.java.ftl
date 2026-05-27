@@ -1,8 +1,8 @@
 <#--
  # This file is part of Fabric-Generator-MCreator.
  # Copyright (C) 2012-2020, Pylo
- # Copyright (C) 2020-2025, Pylo, opensource contributors
- # Copyright (C) 2020-2025, Goldorion, opensource contributors
+ # Copyright (C) 2020-2026, Pylo, opensource contributors
+ # Copyright (C) 2020-2026, Goldorion, opensource contributors
  #
  # Fabric-Generator-MCreator is free software: you can redistribute it and/or modify
  # it under the terms of the GNU General Public License as published by
@@ -20,13 +20,15 @@
 
 <#-- @formatter:off -->
 <#include "../mcitems.ftl">
+
 package ${package}.world.teleporter;
 
-public class ${name}Teleporter {
+@EventBusSubscriber public class ${name}Teleporter {
+
 	public static Holder<PoiType> poi = null;
 
 	public static void registerPointOfInterest() {
-		PoiType poiType = PointOfInterestHelper.register(Identifier.parse("${modid}:${registryname}_portal"), 0, 1, ImmutableSet.copyOf(${JavaModName}Blocks.${REGISTRYNAME}_PORTAL.getStateDefinition().getPossibleStates()));
+		PoiType poiType = PoiHelper.register(Identifier.parse("${modid}:${registryname}_portal"), 0, 1, ImmutableSet.copyOf(${JavaModName}Blocks.${REGISTRYNAME}_PORTAL.getStateDefinition().getPossibleStates()));
 		poi = BuiltInRegistries.POINT_OF_INTEREST_TYPE.wrapAsHolder(poiType);
 	}
 
@@ -37,12 +39,11 @@ public class ${name}Teleporter {
 	}
 
 	${mcc.getMethod("net.minecraft.world.level.portal.PortalForcer", "findClosestPortalPosition", "BlockPos", "boolean", "WorldBorder")
-		 .replace("PoiTypes.NETHER_PORTAL", "poi.unwrapKey().get()")
-		 .replace("Comparator.comparingDouble", "Comparator.<BlockPos>comparingDouble")}
+		 .replace("PoiTypes.NETHER_PORTAL", "poi.unwrapKey().get()")}
 
 	${mcc.getMethod("net.minecraft.world.level.portal.PortalForcer", "createPortal", "BlockPos", "Direction.Axis")
 		 .replace("Blocks.OBSIDIAN", mappedBlockToBlock(data.portalFrame)?string)
-		 .replace(",blockstate,18);", ", blockstate, 18);\nthis.level.getPoiManager().add(blockpos$mutableblockpos, poi);")
+		 .replace(",portalBlockState,18);", ", portalBlockState, 18);\nthis.level.getPoiManager().add(mutable, poi);")
 		 .replace("Blocks.NETHER_PORTAL", JavaModName + "Blocks." + REGISTRYNAME + "_PORTAL")}
 
 	${mcc.getMethod("net.minecraft.world.level.portal.PortalForcer", "canHostFrame", "BlockPos", "BlockPos.MutableBlockPos", "Direction", "int")}
@@ -51,5 +52,10 @@ public class ${name}Teleporter {
 		BlockState blockstate = this.level.getBlockState(pos);
 		return blockstate.canBeReplaced() && blockstate.getFluidState().isEmpty();
 	}
+
+	@Environment(EnvType.CLIENT) public static void registerRenderLayer() {
+		ChunkSectionLayerMap.putBlock(${JavaModName}Blocks.${REGISTRYNAME}_PORTAL, ChunkSectionLayer.TRANSLUCENT);
+	}
 }
+
 <#-- @formatter:on -->

@@ -34,7 +34,7 @@ package ${package}.init;
 			<#elseif block.getModElement().getTypeString() == "plant">
 				${block.getModElement().getName()}Block.registerRenderLayer();
 			<#elseif block.getModElement().getTypeString() == "dimension">
-				${block.getModElement().getName()}PortalBlock.registerRenderLayer();
+				${block.getModElement().getName()}Teleporter.registerRenderLayer();
 			<#elseif block.getModElement().getTypeString() == "fluid">
 				${block.getModElement().getName()}Fluid.registerRenderLayer();
 			</#if>

@@ -1,6 +1,6 @@
 <#--
  # This file is part of Fabric-Generator-MCreator.
- # Copyright (C) 2020-2025, Goldorion, opensource contributors
+ # Copyright (C) 2020-2026, Goldorion, opensource contributors
  #
  # Fabric-Generator-MCreator is free software: you can redistribute it and/or modify
  # it under the terms of the GNU General Public License as published by
@@ -17,6 +17,7 @@
 -->
 
 <#-- @formatter:off -->
+<#include "../procedures.java.ftl">
 
 /*
  *	MCreator note: This file will be REGENERATED on each build.
@@ -25,12 +26,15 @@
 package ${package}.init;
 
 <@javacompress>
-@Environment(EnvType.CLIENT) public class ${JavaModName}DimensionsEffects {
+public class ${JavaModName}Dimensions {
 
-	public static void clientLoad() {
+	public static void load() {
 		<#list dimensions as dimension>
-			<#if dimension.useCustomEffects>
-				${dimension.getModElement().getName()}DimensionEffects.clientLoad();
+			<#if dimension.hasDimensionTriggers()>
+				${dimension.getModElement().getName()}Dimension.onPlayerChangedDimensionEvent();
+			</#if>
+			<#if dimension.enablePortal>
+				${dimension.getModElement().getName()}Teleporter.registerPointOfInterest();
 			</#if>
 		</#list>
 	}
