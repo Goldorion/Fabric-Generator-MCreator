@@ -18,7 +18,6 @@
 
 <#-- @formatter:off -->
 <#include "../procedures.java.ftl">
-
 package ${package};
 
 import java.lang.invoke.MethodHandle;
@@ -86,16 +85,16 @@ public class ${JavaModName} implements ModInitializer {
 
 	private void tick() {
 		ServerTickEvents.END_SERVER_TICK.register((server) -> {
-			int currentTick = server.getTickCount();
-	
-			IntObjectPair<Runnable> work;
-			while ((work = workToBeScheduled.poll()) != null) {
-				workQueue.add(new TickTask(currentTick + work.leftInt(), work.right()));
-			}
-	
-			while (!workQueue.isEmpty() && currentTick >= workQueue.peek().getTick()) {
-				workQueue.poll().run();
-			}
+            int currentTick = server.getTickCount();
+
+            IntObjectPair<Runnable> work;
+            while ((work = workToBeScheduled.poll()) != null) {
+                workQueue.add(new TickTask(currentTick + work.leftInt(), work.right()));
+            }
+
+            while (!workQueue.isEmpty() && currentTick >= workQueue.peek().getTick()) {
+                workQueue.poll().run();
+            }
 		});
 	}
 
