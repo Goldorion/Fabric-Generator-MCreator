@@ -46,9 +46,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
       - name: Build and Test Using Gradle
-        run: xvfb-run -a gradle --no-build-cache clean test
+        run: xvfb-run -a gradle --no-build-cache clean test --project-prop mcreator_path=${{ github.workspace }}/mcreator
       - name: Test Javadoc Generation
-        run: ./gradlew javadoc
+        run: gradle javadoc
       - name: Publish Test Report
         uses: mikepenz/action-junit-report@49b2ca06f62aa7ef83ae6769a2179271e160d8e4
         if: always() # always run even if the previous step fails
