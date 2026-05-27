@@ -1,6 +1,6 @@
 <#--
  # This file is part of Fabric-Generator-MCreator.
- # Copyright (C) 2020-2025, Goldorion, opensource contributors
+ # Copyright (C) 2020-2026, Goldorion, opensource contributors
  #
  # Fabric-Generator-MCreator is free software: you can redistribute it and/or modify
  # it under the terms of the GNU General Public License as published by
@@ -21,6 +21,33 @@
 
 <#include "../procedures.java.ftl">
 
+<#assign customCategories = []>
+
+<#function categoryToObject category>
+	<#if category == "movement">
+		<#return "KeyMapping.Category.MOVEMENT">
+	<#elseif category == "misc">
+		<#return "KeyMapping.Category.MISC">
+	<#elseif category == "multiplayer">
+		<#return "KeyMapping.Category.MULTIPLAYER">
+	<#elseif category == "gameplay">
+		<#return "KeyMapping.Category.GAMEPLAY">
+	<#elseif category == "inventory">
+		<#return "KeyMapping.Category.INVENTORY">
+	<#elseif category == "creative">
+		<#return "KeyMapping.Category.CREATIVE">
+	<#elseif category == "spectator">
+		<#return "KeyMapping.Category.SPECTATOR">
+	<#elseif category == "debug">
+		<#return "KeyMapping.Category.DEBUG">
+	<#else>
+		<#if !(customCategories?seq_contains(category))>
+			<#assign customCategories += [category]>
+		</#if>
+		<#return "CATEGORY_" + category?upper_case>
+	</#if>
+</#function>
+
 /*
  *	MCreator note: This file will be REGENERATED on each build.
  */
@@ -28,6 +55,15 @@
 package ${package}.init;
 
 @Environment(EnvType.CLIENT) public class ${JavaModName}KeyMappings {
+
+	<#-- preload categories so they can be referenced later -->
+	<#list keybinds as keybind>
+		<#assign _ = categoryToObject(keybind.keyBindingCategoryKey)>
+	</#list>
+
+	<#list customCategories as customCategory>
+	public static final KeyMapping.Category CATEGORY_${customCategory?upper_case} = new KeyMapping.Category(Identifier.parse("${modid}:${customCategory?lower_case}"));
+	</#list>
 
 	<#list keybinds as keybind>
 	public static final KeyMapping ${keybind.getModElement().getRegistryNameUpper()} = new KeyMapping(
@@ -37,7 +73,7 @@ package ${package}.init;
 			<#else>
 				GLFW.GLFW_KEY_${generator.map(keybind.triggerKey, "keybuttons")},
 			</#if>
-			"key.categories.${keybind.keyBindingCategoryKey}")
+			${categoryToObject(keybind.keyBindingCategoryKey)})
 				<#if hasProcedure(keybind.onKeyReleased) || hasProcedure(keybind.onKeyPressed)>
 				{
 					private boolean isDownOld = false;
@@ -77,7 +113,7 @@ package ${package}.init;
 
 	public static void clientLoad() {
 		<#list keybinds as keybind>
-			KeyBindingHelper.registerKeyBinding(${keybind.getModElement().getRegistryNameUpper()});
+			KeyMappingHelper.registerKeyMapping(${keybind.getModElement().getRegistryNameUpper()});
 		</#list>
 
 		ClientTickEvents.END_CLIENT_TICK.register((client) -> {

@@ -330,15 +330,15 @@ public class ${name}Menu extends AbstractContainerMenu implements ${JavaModName}
 
 	public static void screenInit() {
 		<#if data.hasButtonEvents()>
-			PayloadTypeRegistry.playC2S().register(${name}ButtonMessage.TYPE, ${name}ButtonMessage.STREAM_CODEC);
+			PayloadTypeRegistry.serverboundPlay().register(${name}ButtonMessage.TYPE, ${name}ButtonMessage.STREAM_CODEC);
 			ServerPlayNetworking.registerGlobalReceiver(${name}ButtonMessage.TYPE, ${name}ButtonMessage::handleData);
 		</#if>
 		<#if data.hasSlotEvents()>
-			PayloadTypeRegistry.playC2S().register(${name}SlotMessage.TYPE, ${name}SlotMessage.STREAM_CODEC);
+			PayloadTypeRegistry.serverboundPlay().register(${name}SlotMessage.TYPE, ${name}SlotMessage.STREAM_CODEC);
 			ServerPlayNetworking.registerGlobalReceiver(${name}SlotMessage.TYPE, ${name}SlotMessage::handleData);
 		</#if>
 		<#if data.hasSliderEvents()>
-			PayloadTypeRegistry.playC2S().register(${name}SliderMessage.TYPE, ${name}SliderMessage.STREAM_CODEC);
+			PayloadTypeRegistry.serverboundPlay().register(${name}SliderMessage.TYPE, ${name}SliderMessage.STREAM_CODEC);
 			ServerPlayNetworking.registerGlobalReceiver(${name}SliderMessage.TYPE, ${name}SliderMessage::handleData);
 		</#if>
 

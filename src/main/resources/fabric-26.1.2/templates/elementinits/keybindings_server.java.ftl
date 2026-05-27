@@ -1,6 +1,6 @@
 <#--
  # This file is part of Fabric-Generator-MCreator.
- # Copyright (C) 2020-2025, Goldorion, opensource contributors
+ # Copyright (C) 2020-2026, Goldorion, opensource contributors
  #
  # Fabric-Generator-MCreator is free software: you can redistribute it and/or modify
  # it under the terms of the GNU General Public License as published by
@@ -30,7 +30,7 @@ public class ${JavaModName}KeyMappingsServer {
 
 	public static void serverLoad() {
 		<#list keybinds as keybind>
-			PayloadTypeRegistry.playC2S().register(${keybind.getModElement().getName()}Message.TYPE, ${keybind.getModElement().getName()}Message.STREAM_CODEC);
+			PayloadTypeRegistry.serverboundPlay().register(${keybind.getModElement().getName()}Message.TYPE, ${keybind.getModElement().getName()}Message.STREAM_CODEC);
 			ServerPlayNetworking.registerGlobalReceiver(${keybind.getModElement().getName()}Message.TYPE, ${keybind.getModElement().getName()}Message::handleData);
 		</#list>
 	}
