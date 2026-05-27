@@ -40,7 +40,7 @@ public class ${name}Block extends LiquidBlock {
 			<#if data.emissiveRendering>.hasPostProcess((bs, br, bp) -> true).emissiveRendering((bs, br, bp) -> true)</#if>
 			<#if data.luminance != 0>.lightLevel(s -> ${data.luminance})</#if>
 			<#if data.ignitedByLava>.ignitedByLava()</#if>
-			.noCollission().noLootTable().liquid().pushReaction(PushReaction.DESTROY).sound(SoundType.EMPTY).replaceable()
+			.noCollision().noLootTable().liquid().pushReaction(PushReaction.DESTROY).sound(SoundType.EMPTY).replaceable()
 		);
 
 		<#if data.flammability != 0 && data.fireSpreadSpeed != 0>

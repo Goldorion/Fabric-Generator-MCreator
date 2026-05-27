@@ -36,7 +36,7 @@ public class ${name}PortalBlock extends NetherPortalBlock {
 	}
 
 	public ${name}PortalBlock(BlockBehaviour.Properties properties) {
-		super(properties.noCollission().randomTicks().pushReaction(PushReaction.BLOCK)
+		super(properties.noCollision().randomTicks().pushReaction(PushReaction.BLOCK)
 				.strength(-1.0F).sound(SoundType.GLASS).lightLevel(s -> ${data.portalLuminance}).noLootTable());
 	}
 

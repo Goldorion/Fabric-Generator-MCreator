@@ -123,13 +123,12 @@ public class ${getClassName()}Block extends ${getBlockClass(data.blockBase)}
 			.mapColor(MapColor.${generator.map(data.colorOnMap, "mapcolors")})
 		</#if>
 		<#if data.isCustomSoundType>
-			.sound(new SoundType(1.0f, 1.0f, null, null, null, null, null) {
-				@Override public SoundEvent getBreakSound() { return BuiltInRegistries.SOUND_EVENT.getValue(Identifier.parse("${data.breakSound}")); }
-				@Override public SoundEvent getStepSound() { return BuiltInRegistries.SOUND_EVENT.getValue(Identifier.parse("${data.stepSound}")); }
-				@Override public SoundEvent getPlaceSound() { return BuiltInRegistries.SOUND_EVENT.getValue(Identifier.parse("${data.placeSound}")); }
-				@Override public SoundEvent getHitSound() { return BuiltInRegistries.SOUND_EVENT.getValue(Identifier.parse("${data.hitSound}")); }
-				@Override public SoundEvent getFallSound() { return BuiltInRegistries.SOUND_EVENT.getValue(Identifier.parse("${data.fallSound}")); }
-			})
+			.sound(new SoundType(1.0f, 1.0f,
+			        BuiltInRegistries.SOUND_EVENT.getValue(Identifier.parse("${data.breakSound}")),
+			        BuiltInRegistries.SOUND_EVENT.getValue(Identifier.parse("${data.stepSound}")),
+			        BuiltInRegistries.SOUND_EVENT.getValue(Identifier.parse("${data.placeSound}")),
+			        BuiltInRegistries.SOUND_EVENT.getValue(Identifier.parse("${data.hitSound}")),
+			        BuiltInRegistries.SOUND_EVENT.getValue(Identifier.parse("${data.fallSound}"))))
 		<#elseif data.soundOnStep != "STONE">
 			.sound(SoundType.${data.soundOnStep})
 		</#if>
@@ -149,7 +148,7 @@ public class ${getClassName()}Block extends ${getBlockClass(data.blockBase)}
 			.requiresCorrectToolForDrops()
 		</#if>
 		<#if data.isNotColidable>
-			.noCollission()
+			.noCollision()
 		</#if>
 		<#if data.slipperiness != 0.6>
 			.friction(${data.slipperiness}f)
@@ -170,7 +169,7 @@ public class ${getClassName()}Block extends ${getBlockClass(data.blockBase)}
 			.pushReaction(PushReaction.${data.reactionToPushing})
 		</#if>
 		<#if data.emissiveRendering>
-			.hasPostProcess((bs, br, bp) -> true)
+			.postProcess((bs, br, bp) -> bp)
 			.emissiveRendering((bs, br, bp) -> true)
 		</#if>
 		<#if data.hasTransparency>

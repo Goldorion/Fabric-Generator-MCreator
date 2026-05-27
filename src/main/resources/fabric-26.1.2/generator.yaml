@@ -98,13 +98,13 @@ base_templates:
   - template: modbase/mixin.json.ftl
     writer: json
     name: "@RESROOT/@modid.mixins.json"
-#  - template: elementinits/features.java.ftl
-#    writer: java
-#    condition_any:
-#      - "${w.getGElementsOfType('block')?filter(e -> e.generateFeature)?size != 0}"
+  - template: elementinits/features.java.ftl
+    writer: java
+    condition_any:
+      - "${w.getGElementsOfType('block')?filter(e -> e.generateFeature)?size != 0}"
 #      - "${w.getGElementsOfType('plant')?filter(e -> e.generateFeature)?size != 0}"
 #      - "${w.hasElementsOfType('feature')}"
-#    name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameFeatures.java"
+    name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameFeatures.java"
 
 # ItemExtension
   - template: elementinits/dispensebehaviors.java.ftl
