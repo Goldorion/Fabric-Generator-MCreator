@@ -1,7 +1,7 @@
 <#assign mixins = []>
 <#assign client_mixins = []>
 <#if w.getGElementsOfType('biome')?filter(e -> e.spawnBiome || e.spawnInCaves || e.spawnBiomeNether)?size != 0>
-	<#assign mixins = mixins + ['NoiseGeneratorSettingsMixin']>
+  <#assign mixins = mixins + ['NoiseGeneratorSettingsMixin', 'BiomeSourcePresetMixin', 'LevelStorageSourceMixin']>
 </#if>
 <#if w.hasElementsOfBaseType('item')>
 	<#assign mixins = mixins + ['RepairItemRecipeMixin']>
@@ -27,7 +27,7 @@
 {
   "required": true,
   "package": "${package}.mixin",
-  "compatibilityLevel": "JAVA_21",
+  "compatibilityLevel": "JAVA_25",
   "refmap": "${modid}.refmap.json",
   "mixins": [
 	<#list mixins as mixin>"${mixin}"<#sep>,</#list>
@@ -36,7 +36,7 @@
 	<#list client_mixins as mixin>"${mixin}"<#sep>,</#list>
   ],
   "injectors": {
-	"defaultRequire": 1
+    "defaultRequire": 1
   },
   "minVersion": "0.8.4"
 }
