@@ -29,17 +29,17 @@ package ${package}.init;
 public class ${JavaModName}ParticleTypes {
 
 	<#list particles as particle>
-	public static SimpleParticleType ${particle.getModElement().getRegistryNameUpper()};
+	public static final SimpleParticleType ${particle.getModElement().getRegistryNameUpper()} = FabricParticleTypes.simple(<#if particle.alwaysShow>true</#if>);
 	</#list>
 
 	public static void load() {
 		<#list particles as particle>
-		register("${particle.getModElement().getRegistryName()}", FabricParticleTypes.simple(<#if particle.alwaysShow>true</#if>));
+		register("${particle.getModElement().getRegistryName()}", ${particle.getModElement().getRegistryNameUpper()});
 		</#list>
 	}
 
-	private static SimpleParticleType register(String registryname, SimpleParticleType element) {
-		return Registry.register(BuiltInRegistries.PARTICLE_TYPE, Identifier.fromNamespaceAndPath(${JavaModName}.MODID, registryname), element);
+	private static void register(String registryname, SimpleParticleType element) {
+		Registry.register(BuiltInRegistries.PARTICLE_TYPE, Identifier.fromNamespaceAndPath(${JavaModName}.MODID, registryname), element);
 	}
 }
 <#-- @formatter:on -->

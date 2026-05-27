@@ -1,8 +1,8 @@
 <#--
  # This file is part of Fabric-Generator-MCreator.
  # Copyright (C) 2012-2020, Pylo
- # Copyright (C) 2020-2025, Pylo, opensource contributors
- # Copyright (C) 2020-2025, Goldorion, opensource contributors
+ # Copyright (C) 2020-2026, Pylo, opensource contributors
+ # Copyright (C) 2020-2026, Goldorion, opensource contributors
  #
  # Fabric-Generator-MCreator is free software: you can redistribute it and/or modify
  # it under the terms of the GNU General Public License as published by
@@ -24,7 +24,7 @@
 package ${package}.client.particle;
 
 <@javacompress>
-@Environment(EnvType.CLIENT) public class ${name}Particle extends TextureSheetParticle {
+@Environment(EnvType.CLIENT) public class ${name}Particle extends SingleQuadParticle {
 
 	public static ${name}ParticleProvider provider(SpriteSet spriteSet) {
 		return new ${name}ParticleProvider(spriteSet);
@@ -37,7 +37,7 @@ package ${package}.client.particle;
 			this.spriteSet = spriteSet;
 		}
 
-		public Particle createParticle(SimpleParticleType typeIn, ClientLevel worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+		public Particle createParticle(SimpleParticleType typeIn, ClientLevel worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, RandomSource random) {
 			return new ${name}Particle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, this.spriteSet);
 		}
 	}
@@ -50,7 +50,7 @@ package ${package}.client.particle;
 	</#if>
 
 	protected ${name}Particle(ClientLevel world, double x, double y, double z, double vx, double vy, double vz, SpriteSet spriteSet) {
-		super(world, x, y, z);
+		super(world, x, y, z, spriteSet.first());
 		this.spriteSet = spriteSet;
 
 		this.setSize(${data.width}f, ${data.height}f);
@@ -79,19 +79,17 @@ package ${package}.client.particle;
 
 		<#if data.animate>
 		this.setSpriteFromAge(spriteSet);
-		<#else>
-		this.pickSprite(spriteSet);
 		</#if>
 	}
 
 	<#if data.emissiveRendering>
-	@Override public int getLightColor(float partialTick) {
+	@Override public int getLightCoords(float partialTick) {
 		return 15728880;
 	}
 	</#if>
 
-	@Override public ParticleRenderType getRenderType() {
-		return ParticleRenderType.PARTICLE_SHEET_${data.renderType};
+	@Override public SingleQuadParticle.Layer getLayer() {
+		return SingleQuadParticle.Layer.${data.renderType};
 	}
 
 	<#if hasProcedure(data.scale)>
@@ -102,7 +100,7 @@ package ${package}.client.particle;
 	</#if>
 
 	<#if hasProcedure(data.rotationProvider)>
-	@Override public void render(VertexConsumer buffer, Camera camera, float partialTicks) {
+	@Override public void extract(QuadParticleRenderState particleTypeRenderState, Camera camera, float partialTicks) {
 		Vec3 vec = <@procedureCode data.rotationProvider, {
 			"world": "this.level",
 			"x": "this.x",
@@ -116,10 +114,10 @@ package ${package}.client.particle;
 			"age": "this.age + partialTicks"
 		}/>
 		Quaternionf tilt = new Quaternionf().rotationXYZ((float) vec.x(), (float) vec.y(), (float) vec.z());
-		this.renderRotatedQuad(buffer, camera, tilt, partialTicks);
+		this.extractRotatedQuad(particleTypeRenderState, camera, tilt, partialTicks);
 		<#-- render a flipped face because by default only a single side renders this makes particle visible from all angles -->
 		Quaternionf flippedTilt = new Quaternionf(tilt).mul(new Quaternionf().rotateY((float) Math.PI));
-		this.renderRotatedQuad(buffer, camera, flippedTilt, partialTicks);
+		this.extractRotatedQuad(particleTypeRenderState, camera, flippedTilt, partialTicks);
 	}
 	</#if>
 
@@ -145,6 +143,7 @@ package ${package}.client.particle;
 			this.remove();
 		</#if>
 	}
+
 }
 </@javacompress>
 <#-- @formatter:on -->
