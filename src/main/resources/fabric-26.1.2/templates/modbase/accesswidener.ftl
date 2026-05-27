@@ -34,6 +34,7 @@ extendable method net/minecraft/client/model/Model renderToBuffer (Lcom/mojang/b
 <#if w.hasElementsOfType("gui")>
 accessible method net/minecraft/client/gui/components/AbstractSliderButton getSprite ()Lnet/minecraft/resources/Identifier;
 accessible method net/minecraft/client/gui/components/AbstractSliderButton getHandleSprite ()Lnet/minecraft/resources/Identifier;
+accessible field net/minecraft/client/gui/components/AbstractSliderButton dragging Z
 </#if>
 
 <#if w.getGElementsOfType('block')?filter(e -> e.isSign())?size != 0>

@@ -1,8 +1,8 @@
 <#--
  # This file is part of Fabric-Generator-MCreator.
  # Copyright (C) 2012-2020, Pylo
- # Copyright (C) 2020-2025, Pylo, opensource contributors
- # Copyright (C) 2020-2025, Goldorion, opensource contributors
+ # Copyright (C) 2020-2026, Pylo, opensource contributors
+ # Copyright (C) 2020-2026, Goldorion, opensource contributors
  #
  # Fabric-Generator-MCreator is free software: you can redistribute it and/or modify
  # it under the terms of the GNU General Public License as published by
@@ -222,8 +222,8 @@ public class ${name}Menu extends AbstractContainerMenu implements ${JavaModName}
 		}
 
 		@Override
-		public void clicked(int slotId, int button, ClickType clickType, Player player) {
-			if (clickType == ClickType.SWAP && boundItem != null) {
+		public void clicked(int slotId, int button, ContainerInput containerInput, Player player) {
+			if (containerInput == ContainerInput.SWAP && boundItem != null) {
 				if (slotId >= 0 && slotId < this.slots.size()) {
 					ItemStack slotItem = this.slots.get(slotId).getItem();
 					ItemStack hotbarItem = player.getInventory().getItem(button);
@@ -232,7 +232,7 @@ public class ${name}Menu extends AbstractContainerMenu implements ${JavaModName}
 					}
 				}
 			}
-			super.clicked(slotId, button, clickType, player);
+			super.clicked(slotId, button, containerInput, player);
 		}
 
 		@Override
