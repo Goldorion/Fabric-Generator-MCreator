@@ -54,7 +54,7 @@ package ${package}.world.teleporter;
 	}
 
 	@Environment(EnvType.CLIENT) public static void registerRenderLayer() {
-		BlockRenderLayerMap.putBlock(${JavaModName}Blocks.${REGISTRYNAME}_PORTAL, ChunkSectionLayer.TRANSLUCENT);
+		ChunkSectionLayerMap.putBlock(${JavaModName}Blocks.${REGISTRYNAME}_PORTAL, ChunkSectionLayer.TRANSLUCENT);
 	}
 }
 
