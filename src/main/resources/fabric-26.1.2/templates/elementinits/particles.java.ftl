@@ -30,7 +30,7 @@ package ${package}.init;
 
 	public static void clientLoad() {
 		<#list particles as particle>
-		ParticleFactoryRegistry.getInstance().register(${JavaModName}ParticleTypes.${particle.getModElement().getRegistryNameUpper()}, ${particle.getModElement().getName()}Particle::provider);
+		ParticleProviderRegistry.getInstance().register(${JavaModName}ParticleTypes.${particle.getModElement().getRegistryNameUpper()}, ${particle.getModElement().getName()}Particle::provider);
 		</#list>
 	}
 }
