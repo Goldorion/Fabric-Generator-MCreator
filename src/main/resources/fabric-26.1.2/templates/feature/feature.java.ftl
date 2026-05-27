@@ -1,8 +1,8 @@
 <#--
  # This file is part of Fabric-Generator-MCreator.
  # Copyright (C) 2012-2020, Pylo
- # Copyright (C) 2020-2025, Pylo, opensource contributors
- # Copyright (C) 2020-2025, Goldorion, opensource contributors
+ # Copyright (C) 2020-2026, Pylo, opensource contributors
+ # Copyright (C) 2020-2026, Goldorion, opensource contributors
  #
  # Fabric-Generator-MCreator is free software: you can redistribute it and/or modify
  # it under the terms of the GNU General Public License as published by
@@ -17,7 +17,6 @@
  # You should have received a copy of the GNU General Public License
  # along with Fabric-Generator-MCreator. If not, see <https://www.gnu.org/licenses/>.
 -->
-
 <#-- @formatter:off -->
 <#include "../procedures.java.ftl">
 <#assign biomeSelector = "includeByKey">

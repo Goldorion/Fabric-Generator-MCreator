@@ -103,7 +103,7 @@ base_templates:
     condition_any:
       - "${w.getGElementsOfType('block')?filter(e -> e.generateFeature)?size != 0}"
 #      - "${w.getGElementsOfType('plant')?filter(e -> e.generateFeature)?size != 0}"
-#      - "${w.hasElementsOfType('feature')}"
+      - "${w.hasElementsOfType('feature')}"
     name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameFeatures.java"
 
 # ItemExtension
