@@ -2,6 +2,7 @@
 
 - Fix tints not being applied in the game on custom blocks
 - Port GLOBAL_MAP and GLOBAL_WORLD variable scopes
+- Custom entities don't spawn :(
 
 ???
 - Port [[Bugfix] Certain GUI-related procedure blocks did not work in combination with GUI opened procedure triggers](https://github.com/MCreator/MCreator/commit/ce0485bf8f83e043bae47dd2cec5a257c331ded8)

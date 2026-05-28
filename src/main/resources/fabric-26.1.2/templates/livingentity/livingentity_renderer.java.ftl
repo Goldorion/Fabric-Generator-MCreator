@@ -1,8 +1,8 @@
 <#--
  # This file is part of Fabric-Generator-MCreator.
  # Copyright (C) 2012-2020, Pylo
- # Copyright (C) 2020-2025, Pylo, opensource contributors
- # Copyright (C) 2020-2025, Goldorion, opensource contributors
+ # Copyright (C) 2020-2026, Pylo, opensource contributors
+ # Copyright (C) 2020-2026, Goldorion, opensource contributors
  #
  # Fabric-Generator-MCreator is free software: you can redistribute it and/or modify
  # it under the terms of the GNU General Public License as published by
@@ -29,7 +29,7 @@ package ${package}.client.renderer;
 
 <#if data.mobModelName == "Chicken">
 	<#assign rootPart = "context.bakeLayer(ModelLayers.CHICKEN)">
-	<#assign model = "ChickenModel">
+	<#assign model = "AdultChickenModel">
 	<#assign renderState = "ChickenRenderState">
 <#elseif data.mobModelName == "Cod">
 	<#assign rootPart = "context.bakeLayer(ModelLayers.COD)">
@@ -49,7 +49,7 @@ package ${package}.client.renderer;
 	<#assign renderState = "GhastRenderState">
 <#elseif data.mobModelName == "Ocelot">
 	<#assign rootPart = "context.bakeLayer(ModelLayers.OCELOT)">
-	<#assign model = "OcelotModel">
+	<#assign model = "AdultOcelotModel">
 	<#assign renderState = "FelineRenderState">
 <#elseif data.mobModelName == "Pig">
 	<#assign rootPart = "context.bakeLayer(ModelLayers.PIG)">
@@ -57,7 +57,7 @@ package ${package}.client.renderer;
 	<#assign renderState = "LivingEntityRenderState">
 <#elseif data.mobModelName == "Piglin">
 	<#assign rootPart = "context.bakeLayer(ModelLayers.PIGLIN)">
-	<#assign model = "PiglinModel">
+	<#assign model = "AdultPiglinModel">
 	<#assign renderState = "PiglinRenderState">
 <#elseif data.mobModelName == "Slime">
 	<#assign rootPart = "context.bakeLayer(ModelLayers.SLIME)">
@@ -117,8 +117,7 @@ public class ${name}Renderer extends <#if humanoid>Humanoid</#if>MobRenderer<${n
 		super(context, new <#if data.animations?has_content>AnimatedModel<#else>${model}</#if>(${rootPart}), ${data.modelShadowSize}f);
 
 		<#if humanoid>
-		this.addLayer(new HumanoidArmorLayer(this, new HumanoidModel(context.bakeLayer(ModelLayers.PLAYER_INNER_ARMOR)),
-						new HumanoidModel(context.bakeLayer(ModelLayers.PLAYER_OUTER_ARMOR)), context.getEquipmentRenderer()));
+		this.addLayer(new HumanoidArmorLayer(this, ArmorModelSet.bake(ModelLayers.PLAYER_ARMOR, context.getModelSet(), HumanoidModel::new), context.getEquipmentRenderer()));
 		<#elseif data.mobModelName == "Villager" || data.mobModelName == "Witch">
 		this.addLayer(new CrossedArmsItemLayer<>(this));
 		</#if>
@@ -126,9 +125,10 @@ public class ${name}Renderer extends <#if humanoid>Humanoid</#if>MobRenderer<${n
 		<#list data.modelLayers as layer>
 		this.addLayer(new RenderLayer<>(this) {
 			final Identifier LAYER_TEXTURE = Identifier.parse("${modid}:textures/entities/${layer.texture}");
+			final RenderType RENDER_TYPE = RenderTypes.<#if layer.glow>eyes<#else>entityCutout</#if>(LAYER_TEXTURE);
 
 			<@javacompress>
-			@Override public void render(PoseStack poseStack, MultiBufferSource bufferSource, int light, ${renderState} state, float headYaw, float headPitch) {
+			@Override public void submit(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int light, ${renderState} state, float headYaw, float headPitch) {
 				<#if hasProcedure(layer.condition)>
 				Level world = entity.level();
 				double x = entity.getX();
@@ -137,15 +137,14 @@ public class ${name}Renderer extends <#if humanoid>Humanoid</#if>MobRenderer<${n
 				if (<@procedureOBJToConditionCode layer.condition/>) {
 				</#if>
 
-				VertexConsumer vertexConsumer = bufferSource.getBuffer(RenderType.<#if layer.glow>eyes<#else>entityCutoutNoCull</#if>(LAYER_TEXTURE));
 				<#if layer.model != "Default">
 					EntityModel model = new ${layer.model}(Minecraft.getInstance().getEntityModels().bakeLayer(${layer.model}.LAYER_LOCATION));
 					model.setupAnim(state);
-					model.renderToBuffer(poseStack, vertexConsumer, light,
-						<#if layer.disableHurtOverlay>OverlayTexture.NO_OVERLAY<#else>LivingEntityRenderer.getOverlayCoords(state, 0)</#if>);
+					submitNodeCollector.submitModel(model, state, poseStack, RENDER_TYPE, light,
+					        <#if layer.disableHurtOverlay>OverlayTexture.NO_OVERLAY<#else>LivingEntityRenderer.getOverlayCoords(state, 0)</#if>, state.outlineColor, null);
 				<#else>
-					this.getParentModel().renderToBuffer(poseStack, vertexConsumer, light,
-						<#if layer.disableHurtOverlay>OverlayTexture.NO_OVERLAY<#else>LivingEntityRenderer.getOverlayCoords(state, 0)</#if>);
+					submitNodeCollector.submitModel(this.getParentModel(), state, poseStack, RENDER_TYPE, light,
+						<#if layer.disableHurtOverlay>OverlayTexture.NO_OVERLAY<#else>LivingEntityRenderer.getOverlayCoords(state, 0)</#if>, state.outlineColor, null);
 				</#if>
 
 				<#if hasProcedure(layer.condition)>}</#if>

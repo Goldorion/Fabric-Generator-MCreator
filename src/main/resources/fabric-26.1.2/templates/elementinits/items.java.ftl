@@ -76,7 +76,7 @@ public class ${JavaModName}Items {
 			<#elseif item.getModElement().getTypeString() == "livingentity">
 				${item.getModElement().getRegistryNameUpper()}_SPAWN_EGG =
 					register("${item.getModElement().getRegistryName()}_spawn_egg",
-						properties -> new SpawnEggItem(${JavaModName}Entities.${item.getModElement().getRegistryNameUpper()}, properties));
+						properties -> new SpawnEggItem(properties.spawnEgg(${JavaModName}Entities.${item.getModElement().getRegistryNameUpper()})));
 			<#elseif item.getModElement().getTypeString() == "specialentity">
 				${item.getModElement().getRegistryNameUpper()} =
 					register("${item.getModElement().getRegistryName()}",

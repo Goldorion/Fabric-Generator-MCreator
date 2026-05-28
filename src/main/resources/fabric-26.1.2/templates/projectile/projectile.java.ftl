@@ -1,8 +1,8 @@
 <#--
  # This file is part of Fabric-Generator-MCreator.
  # Copyright (C) 2012-2020, Pylo
- # Copyright (C) 2020-2025, Pylo, opensource contributors
- # Copyright (C) 2020-2025, Goldorion, opensource contributors
+ # Copyright (C) 2020-2026, Pylo, opensource contributors
+ # Copyright (C) 2020-2026, Goldorion, opensource contributors
  #
  # Fabric-Generator-MCreator is free software: you can redistribute it and/or modify
  # it under the terms of the GNU General Public License as published by
@@ -44,7 +44,7 @@ public class ${name}Entity extends AbstractArrow implements ItemSupplier {
 		setNoGravity(true);
 		</#if>
 		if (firedFromWeapon != null)
-			setKnockback(EnchantmentHelper.getItemEnchantmentLevel(world.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.KNOCKBACK), firedFromWeapon));
+			setKnockback(firedFromWeapon.getEnchantments().getLevel(world.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.KNOCKBACK)));
 	}
 
 	public ${name}Entity(EntityType<? extends ${name}Entity> type, LivingEntity entity, Level world, @Nullable ItemStack firedFromWeapon) {
@@ -53,7 +53,7 @@ public class ${name}Entity extends AbstractArrow implements ItemSupplier {
 		setNoGravity(true);
 		</#if>
 		if (firedFromWeapon != null)
-			setKnockback(EnchantmentHelper.getItemEnchantmentLevel(world.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.KNOCKBACK), firedFromWeapon));
+			setKnockback(firedFromWeapon.getEnchantments().getLevel(world.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.KNOCKBACK)));
 	}
 
 	@Override public ItemStack getItem() {
