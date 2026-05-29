@@ -36,7 +36,7 @@
  *    MCreator note: This file will be REGENERATED on each build.
  */
 
-<#assign signs = w.getGElementsOfType("block")?filter(e -> e.isSign())>
+<#assign signs = blocks?filter(e -> e.isSign())>
 package ${package}.init;
 
 public class ${JavaModName}WoodTypes {
