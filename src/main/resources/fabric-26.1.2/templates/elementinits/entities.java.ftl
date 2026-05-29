@@ -38,7 +38,7 @@ public class ${JavaModName}Entities {
                             .clientTrackingRange(64).updateInterval(1).sized(${entity.modelWidth}f, ${entity.modelHeight}f));
                 <#elseif entity.getModElement().getTypeString() == "livingentity">
                     register("${entity.getModElement().getRegistryName()}", EntityType.Builder.<${entity.getModElement().getName()}Entity>
-                            of(${entity.getModElement().getName()}Entity::new, ${generator.map(entity.mobSpawningType, "mobspawntypes")})
+                            of(${entity.getModElement().getName()}Entity::new, ${entity.mobSpawningType})
                                 .clientTrackingRange(${entity.trackingRange}).updateInterval(3)
                                 <#if entity.immuneToFire>.fireImmune()</#if>
                                 <#if entity.mobModelName == "Biped">.ridingOffset(-0.6f)</#if>

@@ -30,6 +30,7 @@ package ${package}.init;
 public class ${JavaModName}Dimensions {
 
 	public static void load() {
+		<#if dimensions?filter(e -> e.hasDimensionTriggers())?size != 0>
 		ServerEntityLevelChangeEvents.AFTER_PLAYER_CHANGE_LEVEL.register((entity, origin, destination) -> {
             Level world = entity.level();
             double x = entity.getX();
@@ -51,6 +52,13 @@ public class ${JavaModName}Dimensions {
 		    </#if>
 		</#list>
 		});
+		</#if>
+
+		<#list dimensions as dimension>
+			<#if dimension.enablePortal>
+				${dimension.getModElement().getName()}Teleporter.registerPointOfInterest();
+			</#if>
+		</#list>
 	}
 }</@javacompress>
 <#-- @formatter:on -->

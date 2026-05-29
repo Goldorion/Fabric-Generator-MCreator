@@ -52,7 +52,7 @@ templates:
 global_templates:
   - template: elementinits/dimensions.java.ftl
     name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameDimensions.java"
-    condition: "${w.getGElementsOfType('dimension')?filter(e -> e.hasDimensionTriggers())?size != 0}"
+    condition: "${w.getGElementsOfType('dimension')?filter(e -> e.hasDimensionTriggers() || e.enablePortal)?size != 0}"
 
 tags:
   - tag: BLOCKS:minecraft:overworld_carver_replaceables

@@ -920,7 +920,7 @@ public class ${name}Entity extends ${extendsClass} <#if interfaces?size gt 0>imp
 		BiomeModifications.addSpawn(GENERATE_BIOMES
 		<#if hasProcedure(data.spawningCondition)>
 		.and(context -> <@procedureOBJToConditionCode data.spawningCondition/>)
-		</#if>, ${generator.map(data.mobSpawningType, "mobspawntypes")}, ${JavaModName}Entities.${REGISTRYNAME}, ${data.spawningProbability}, ${data.minNumberOfMobsPerGroup}, ${data.maxNumberOfMobsPerGroup});
+		</#if>, ${data.mobSpawningType.getUnmappedValue()}, ${JavaModName}Entities.${REGISTRYNAME}, ${data.spawningProbability}, ${data.minNumberOfMobsPerGroup}, ${data.maxNumberOfMobsPerGroup});
 	}
 	</#if>
 
