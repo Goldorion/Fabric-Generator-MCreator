@@ -37,15 +37,15 @@ public class ${JavaModName}Dimensions {
             double z = entity.getZ();
 		<#list dimensions as dimension>
 		    <#if dimension.hasDimensionTriggers()>
-                <#if hasProcedure(data.onPlayerLeavesDimension)>
-                if (origin.dimension() == ResourceKey.create(Registries.DIMENSION, Identifier.parse("${modid}:${registryname}"))) {
-                    <@procedureOBJToCode data.onPlayerLeavesDimension/>
+                <#if hasProcedure(dimension.onPlayerLeavesDimension)>
+                if (origin.dimension() == ResourceKey.create(Registries.DIMENSION, Identifier.parse("${modid}:${dimension.getModElement().getRegistryName()}"))) {
+                    <@procedureOBJToCode dimension.onPlayerLeavesDimension/>
                 }
                 </#if>
 
-                <#if hasProcedure(data.onPlayerEntersDimension)>
-                if (destination.dimension() == ResourceKey.create(Registries.DIMENSION, Identifier.parse("${modid}:${registryname}"))) {
-                    <@procedureOBJToCode data.onPlayerEntersDimension/>
+                <#if hasProcedure(dimension.onPlayerEntersDimension)>
+                if (destination.dimension() == ResourceKey.create(Registries.DIMENSION, Identifier.parse("${modid}:${dimension.getModElement().getRegistryName()}"))) {
+                    <@procedureOBJToCode dimension.onPlayerEntersDimension/>
                 }
                 </#if>
 		    </#if>
