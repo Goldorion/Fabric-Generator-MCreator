@@ -34,79 +34,80 @@ package ${package}.init;
 public class ${JavaModName}DispenseBehaviors {
 
 	public static void load() {
-		<#list itemextensions as extension>
-		DispenserBlock.registerBehavior(${mappedMCItemToItem(extension.item)},
-		<#if hasProcedure(extension.dispenseSuccessCondition)>
-		new OptionalDispenseItemBehavior() {
-			public ItemStack execute(BlockSource blockSource, ItemStack stack) {
-				ItemStack itemstack = stack.copy();
-				Level world = blockSource.level();
-				Direction direction = blockSource.state().getValue(DispenserBlock.FACING);
-				int x = blockSource.pos().getX();
-				int y = blockSource.pos().getY();
-				int z = blockSource.pos().getZ();
+			<#list itemextensions as extension>
+			DispenserBlock.registerBehavior(${mappedMCItemToItem(extension.item)},
+			<#if hasProcedure(extension.dispenseSuccessCondition)>
+			new OptionalDispenseItemBehavior() {
+				public ItemStack execute(BlockSource blockSource, ItemStack stack) {
+					ItemStack itemstack = stack.copy();
+					Level world = blockSource.level();
+					Direction direction = blockSource.state().getValue(DispenserBlock.FACING);
+					int x = blockSource.pos().getX();
+					int y = blockSource.pos().getY();
+					int z = blockSource.pos().getZ();
 
-				this.setSuccess(<@procedureOBJToConditionCode extension.dispenseSuccessCondition/>);
+					this.setSuccess(<@procedureOBJToConditionCode extension.dispenseSuccessCondition/>);
 
-				<#if hasProcedure(extension.dispenseResultItemstack)>
-					boolean success = this.isSuccess();
-					<#if hasReturnValueOf(extension.dispenseResultItemstack, "itemstack")>
-						return <@procedureOBJToItemstackCode extension.dispenseResultItemstack, false/>;
+					<#if hasProcedure(extension.dispenseResultItemstack)>
+						boolean success = this.isSuccess();
+						<#if hasReturnValueOf(extension.dispenseResultItemstack, "itemstack")>
+							return <@procedureOBJToItemstackCode extension.dispenseResultItemstack, false/>;
+						<#else>
+							<@procedureOBJToCode extension.dispenseResultItemstack/>
+							if (success) {
+								itemstack.shrink(1);
+							}
+							return itemstack;
+						</#if>
 					<#else>
-						<@procedureOBJToCode extension.dispenseResultItemstack/>
-						if (success) {
+						if (this.isSuccess()) {
 							itemstack.shrink(1);
 						}
 						return itemstack;
 					</#if>
-				<#else>
-					if (this.isSuccess()) {
-						itemstack.shrink(1);
-					}
-					return itemstack;
-				</#if>
+				}
 			}
-		}
-		<#else>
-		new DefaultDispenseItemBehavior() {
-			public ItemStack execute(BlockSource blockSource, ItemStack itemstack) {
-				<#if hasProcedure(extension.dispenseResultItemstack)>
-					<#if hasReturnValueOf(extension.dispenseResultItemstack, "itemstack")>
-						return <@procedureCode extension.dispenseResultItemstack, {
-							"x": "blockSource.pos().getX()",
-							"y": "blockSource.pos().getY()",
-							"z": "blockSource.pos().getZ()",
-							"itemstack": "itemstack.copy()",
-							"world": "blockSource.level()",
-							"direction": "blockSource.state().getValue(DispenserBlock.FACING)",
-							"success": "true" <#-- Dispense success condition defaults to true if not specified -->
-						}, false/>;
+			<#else>
+			new DefaultDispenseItemBehavior() {
+				public ItemStack execute(BlockSource blockSource, ItemStack itemstack) {
+					<#if hasProcedure(extension.dispenseResultItemstack)>
+						<#if hasReturnValueOf(extension.dispenseResultItemstack, "itemstack")>
+							return <@procedureCode extension.dispenseResultItemstack, {
+								"x": "blockSource.pos().getX()",
+								"y": "blockSource.pos().getY()",
+								"z": "blockSource.pos().getZ()",
+								"itemstack": "itemstack.copy()",
+								"world": "blockSource.level()",
+								"direction": "blockSource.state().getValue(DispenserBlock.FACING)",
+								"success": "true" <#-- Dispense success condition defaults to true if not specified -->
+							}, false/>;
+						<#else>
+							<@procedureCode extension.dispenseResultItemstack, {
+								"x": "blockSource.pos().getX()",
+								"y": "blockSource.pos().getY()",
+								"z": "blockSource.pos().getZ()",
+								"itemstack": "itemstack.copy()",
+								"world": "blockSource.level()",
+								"direction": "blockSource.state().getValue(DispenserBlock.FACING)",
+								"success": "true" <#-- Dispense success condition defaults to true if not specified -->
+							}/>
+							itemstack.shrink(1);
+							return itemstack;
+						</#if>
 					<#else>
-						<@procedureCode extension.dispenseResultItemstack, {
-							"x": "blockSource.pos().getX()",
-							"y": "blockSource.pos().getY()",
-							"z": "blockSource.pos().getZ()",
-							"itemstack": "itemstack.copy()",
-							"world": "blockSource.level()",
-							"direction": "blockSource.state().getValue(DispenserBlock.FACING)",
-							"success": "true" <#-- Dispense success condition defaults to true if not specified -->
-						}/>
 						itemstack.shrink(1);
 						return itemstack;
 					</#if>
-				<#else>
-					itemstack.shrink(1);
-					return itemstack;
-				</#if>
+				}
 			}
-		}
-		</#if>
-		);
-		</#list>
-		<#list specialentities as entity>
-		DispenserBlock.registerBehavior(${JavaModName}Items.${entity.getModElement().getRegistryNameUpper()},
-				new BoatDispenseItemBehavior(${JavaModName}Entities.${entity.getModElement().getRegistryNameUpper()}));
-		</#list>
+			</#if>
+			);
+			</#list>
+			<#list specialentities as entity>
+			DispenserBlock.registerBehavior(${JavaModName}Items.${entity.getModElement().getRegistryNameUpper()},
+					new BoatDispenseItemBehavior(${JavaModName}Entities.${entity.getModElement().getRegistryNameUpper()}));
+			</#list>
 	}
+
 }</@javacompress>
 <#-- @formatter:on -->

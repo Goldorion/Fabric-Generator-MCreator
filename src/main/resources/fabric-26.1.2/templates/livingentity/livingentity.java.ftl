@@ -244,16 +244,16 @@ public class ${name}Entity extends ${extendsClass} <#if interfaces?size gt 0>imp
 	protected void dropCustomDeathLoot(ServerLevel serverLevel, DamageSource source, boolean recentlyHitIn) {
 		super.dropCustomDeathLoot(serverLevel, source, recentlyHitIn);
 		this.spawnAtLocation(serverLevel, ${mappedMCItemToItemStackCode(data.mobDrop, 1)});
-   	}
+	}
 	</#if>
 
-   	<#if data.livingSound?has_content && data.livingSound.getMappedValue()?has_content>
+	<#if data.livingSound?has_content && data.livingSound.getMappedValue()?has_content>
 	@Override public SoundEvent getAmbientSound() {
 		return BuiltInRegistries.SOUND_EVENT.getValue(Identifier.parse("${data.livingSound}"));
 	}
 	</#if>
 
-   	<#if data.stepSound?has_content && data.stepSound.getMappedValue()?has_content>
+	<#if data.stepSound?has_content && data.stepSound.getMappedValue()?has_content>
 	@Override public void playStepSound(BlockPos pos, BlockState blockIn) {
 		this.playSound(BuiltInRegistries.SOUND_EVENT.getValue(Identifier.parse("${data.stepSound}")), 0.15f, 1);
 	}
@@ -783,11 +783,11 @@ public class ${name}Entity extends ${extendsClass} <#if interfaces?size gt 0>imp
 		return false;
 	}
 
-   	@Override protected void doPush(Entity entityIn) {
-   	}
+	@Override protected void doPush(Entity entityIn) {
+	}
 
-   	@Override protected void pushEntities() {
-   	}
+	@Override protected void pushEntities() {
+	}
 	</#if>
 
 	<#if data.solidBoundingBox?? && (hasProcedure(data.solidBoundingBox) || data.solidBoundingBox.getFixedValue())>

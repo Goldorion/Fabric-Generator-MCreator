@@ -141,7 +141,7 @@ public class ${name}Renderer extends <#if humanoid>Humanoid</#if>MobRenderer<${n
 					EntityModel model = new ${layer.model}(Minecraft.getInstance().getEntityModels().bakeLayer(${layer.model}.LAYER_LOCATION));
 					model.setupAnim(state);
 					submitNodeCollector.submitModel(model, state, poseStack, RENDER_TYPE, light,
-					        <#if layer.disableHurtOverlay>OverlayTexture.NO_OVERLAY<#else>LivingEntityRenderer.getOverlayCoords(state, 0)</#if>, state.outlineColor, null);
+						<#if layer.disableHurtOverlay>OverlayTexture.NO_OVERLAY<#else>LivingEntityRenderer.getOverlayCoords(state, 0)</#if>, state.outlineColor, null);
 				<#else>
 					submitNodeCollector.submitModel(this.getParentModel(), state, poseStack, RENDER_TYPE, light,
 						<#if layer.disableHurtOverlay>OverlayTexture.NO_OVERLAY<#else>LivingEntityRenderer.getOverlayCoords(state, 0)</#if>, state.outlineColor, null);
@@ -239,7 +239,7 @@ public class ${name}Renderer extends <#if humanoid>Humanoid</#if>MobRenderer<${n
 		}
 
 		<#-- ideally we would not do this, but many users use animations that animate parts
-		     that don't exist in their model and then complain the game is crashing -->
+			 that don't exist in their model and then complain the game is crashing -->
 		private KeyframeAnimation safeBake(AnimationDefinition source) {
 			try {
 				return source.bake(root);
