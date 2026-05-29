@@ -119,8 +119,8 @@ public class ${getClassName()}Block extends ${getBlockClass(data.blockBase)}
 
 	<#macro blockProperties>
 		properties
-		<#if generator.map(data.colorOnMap, "mapcolors") != "DEFAULT">
-			.mapColor(MapColor.${generator.map(data.colorOnMap, "mapcolors")})
+		<#if (data.colorOnMap!"DEFAULT") != "DEFAULT">
+			.mapColor(MapColor.${data.colorOnMap})
 		</#if>
 		<#if data.isCustomSoundType>
 			.sound(new SoundType(1.0f, 1.0f,
@@ -187,8 +187,8 @@ public class ${getClassName()}Block extends ${getBlockClass(data.blockBase)}
 		<#if data.ignitedByLava>
 			.ignitedByLava()
 		</#if>
-		<#if data.noteBlockInstrument != "harp">
-			.instrument(${generator.map(data.noteBlockInstrument, "noteblockinstruments")})
+		<#if data.noteBlockInstrument.getUnmappedValue() != "harp">
+			.instrument(${data.noteBlockInstrument})
 		</#if>
 		<#if data.blockBase?has_content && (
 				data.blockBase == "FenceGate" ||
@@ -263,17 +263,16 @@ public class ${getClassName()}Block extends ${getBlockClass(data.blockBase)}
 	}
 
 	<#if data.generateFeature>
-		public static final Predicate<BiomeSelectionContext> GENERATE_BIOMES =
-		BiomeSelectors.
-		<#if data.restrictionBiomes?has_content>
-		${biomeSelector}(
-			<#list w.filterBrokenReferences(data.restrictionBiomes) as restrictionBiome>
-				${resourceKey}.create(Registries.BIOME, Identifier.parse("${restrictionBiome?replace("#", "")}"))<#sep>,
-			</#list>
-		)
-		<#else>
-		all()
-		</#if>;
+        public static final Predicate<BiomeSelectionContext> GENERATE_BIOMES = BiomeSelectors.
+        <#if data.restrictionBiomes?has_content>
+        ${biomeSelector}(
+            <#list w.filterBrokenReferences(data.restrictionBiomes) as restrictionBiome>
+                ${resourceKey}.create(Registries.BIOME, Identifier.parse("${restrictionBiome?replace("#", "")}"))<#sep>,
+            </#list>
+        )
+        <#else>
+        all()
+        </#if>;
 	</#if>
 
 	<#if defaultStateCustomShape || statesWithCustomShape?has_content>
@@ -282,7 +281,7 @@ public class ${getClassName()}Block extends ${getBlockClass(data.blockBase)}
 			return this.getShapeForEachState(state -> {
 				<#list statesWithCustomShape as state>
 					<#if !state?is_first>else </#if>if (
-    				<#list state.stateMap.keySet() as property>
+					<#list state.stateMap.keySet() as property>
 						<#assign value = state.stateMap.get(property)>
 						<#if property.getClass().getSimpleName().equals("StringType")>
 							<#assign value = generator.map(property.getName(), "blockstateproperties", 2) + "." + value?upper_case>
@@ -325,9 +324,9 @@ public class ${getClassName()}Block extends ${getBlockClass(data.blockBase)}
 	</#if>
 
 	<#if data.blockBase?has_content && data.blockBase == "Stairs">
-   	@Override public float getExplosionResistance() {
+	@Override public float getExplosionResistance() {
 		return ${data.resistance}f;
-   	}
+	}
 	</#if>
 
 	<#if data.connectedSides>
@@ -381,10 +380,9 @@ public class ${getClassName()}Block extends ${getBlockClass(data.blockBase)}
 		builder.add(${props?join(", ")});
 	}
 
-	@Override
-	public BlockState getStateForPlacement(BlockPlaceContext context) {
-	    BlockState state = super.getStateForPlacement(context);
-    	if (state == null) return null;
+	@Override public BlockState getStateForPlacement(BlockPlaceContext context) {
+		BlockState state = super.getStateForPlacement(context);
+		if (state == null) return null;
 
 		<#if data.isWaterloggable>
 		boolean flag = context.getLevel().getFluidState(context.getClickedPos()).getType() == Fluids.WATER;
@@ -411,10 +409,10 @@ public class ${getClassName()}Block extends ${getBlockClass(data.blockBase)}
 		if (context.getClickedFace().getAxis() == Direction.Axis.Y)
 			return state
 				<#if data.enablePitch>
-					.setValue(FACE, context.getClickedFace().getOpposite() == Direction.UP ? AttachFace.CEILING : AttachFace.FLOOR)
-					.setValue(FACING, context.getHorizontalDirection())
+				.setValue(FACE, context.getClickedFace().getOpposite() == Direction.UP ? AttachFace.CEILING : AttachFace.FLOOR)
+				.setValue(FACING, context.getHorizontalDirection())
 				<#else>
-					.setValue(FACING, Direction.NORTH)
+				.setValue(FACING, Direction.NORTH)
 				</#if>
 				<@initCustomBlockStateProperties />
 				<#if data.isWaterloggable>
@@ -423,7 +421,7 @@ public class ${getClassName()}Block extends ${getBlockClass(data.blockBase)}
 
 		return state
 			<#if data.enablePitch>
-				.setValue(FACE, AttachFace.WALL)
+			.setValue(FACE, AttachFace.WALL)
 			</#if>
 			.setValue(FACING, context.getClickedFace())
 			<@initCustomBlockStateProperties />
@@ -705,8 +703,8 @@ public class ${getClassName()}Block extends ${getBlockClass(data.blockBase)}
 						}
 					})
 				</#if>,
-				        ${JavaModName}Blocks.${REGISTRYNAME});
-	    }
+						${JavaModName}Blocks.${REGISTRYNAME});
+		}
 	</#if>
 
 	<#list data.customProperties as prop>
