@@ -1,4 +1,4 @@
-<#assign mixins = []>
+<#assign mixins = ['LivingEntityMixin', 'PlayerMixin', 'ItemStackMixin', 'BlockItemMixin', 'BoneMealItemMixin', 'CommandsMixin', 'ExperienceOrbMixin']>
 <#assign client_mixins = []>
 <#if w.getGElementsOfType('biome')?filter(e -> e.spawnBiome || e.spawnInCaves || e.spawnBiomeNether)?size != 0>
   <#assign mixins = mixins + ['NoiseGeneratorSettingsMixin', 'BiomeSourcePresetMixin', 'LevelStorageSourceMixin']>
@@ -17,13 +17,6 @@
 <#if w.getGElementsOfType('livingentity')?filter(e -> e.spawnInDungeons)?size != 0>
 	<#assign mixins = mixins + ['MonsterRoomFeatureMixin']>
 </#if>
-<#assign mixins = mixins + ['LivingEntityMixin']>
-<#assign mixins = mixins + ['PlayerMixin']>
-<#assign mixins = mixins + ['ItemStackMixin']>
-<#assign mixins = mixins + ['BlockItemMixin']>
-<#assign mixins = mixins + ['BoneMealItemMixin']>
-<#assign mixins = mixins + ['CommandsMixin']>
-<#assign mixins = mixins + ['ExperienceOrbMixin']>
 {
   "required": true,
   "package": "${package}.mixin",

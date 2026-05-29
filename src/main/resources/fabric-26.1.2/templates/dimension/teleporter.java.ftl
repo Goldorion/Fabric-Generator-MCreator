@@ -23,7 +23,7 @@
 
 package ${package}.world.teleporter;
 
-@EventBusSubscriber public class ${name}Teleporter {
+public class ${name}Teleporter {
 
 	public static Holder<PoiType> poi = null;
 
