@@ -534,10 +534,10 @@ public class ${getClassName()}Block extends ${getBlockClass(data.blockBase)}
 	</#if>
 
 	<#if data.xpAmountMax != 0>
-	@Override protected void spawnAfterBreak(BlockState state, ServerLevel level, BlockPos pos, ItemStack stack, boolean bl) {
-	    super.spawnAfterBreak(state, level, pos, stack, bl);
-	    if (bl)
-	        this.tryDropExperience(level, pos, stack, <#if data.xpAmountMin == data.xpAmountMax>ConstantInt.of(${data.xpAmountMin}<#else>UniformInt.of(${data.xpAmountMin}, ${data.xpAmountMax}</#if>));
+	@Override protected void spawnAfterBreak(BlockState state, ServerLevel level, BlockPos pos, ItemStack tool, boolean dropExperience) {
+		super.spawnAfterBreak(state, level, pos, tool, dropExperience);
+		if (dropExperience)
+		    this.tryDropExperience(level, pos, tool, <#if data.xpAmountMin == data.xpAmountMax>ConstantInt.of(${data.xpAmountMin}<#else>UniformInt.of(${data.xpAmountMin}, ${data.xpAmountMax}</#if>));
 	}
 	</#if>
 
@@ -563,6 +563,8 @@ public class ${getClassName()}Block extends ${getBlockClass(data.blockBase)}
 	</#if>
 
 	<@onAnimateTick data.onRandomUpdateEvent/>
+
+	<@onDestroyedByPlayer data.onDestroyedByPlayer/>
 
 	<@onDestroyedByExplosion data.onDestroyedByExplosion/>
 
