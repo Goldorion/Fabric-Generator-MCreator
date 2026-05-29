@@ -12,7 +12,8 @@ loom {
 //        defaultRefmapName = actualmodid + ".refmap.json"
 //    }
 
-    accessWidenerPath = file("src/main/resources/META-INF/${modid}.classtweaker")
+    if (file("src/main/resources/META-INF/${modid}.classtweaker").exists())
+        accessWidenerPath = file("src/main/resources/META-INF/${modid}.classtweaker")
 }
 
 dependencies {
