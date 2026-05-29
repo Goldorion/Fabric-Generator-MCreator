@@ -52,10 +52,6 @@ package ${package}.world.teleporter;
 		BlockState blockstate = this.level.getBlockState(pos);
 		return blockstate.canBeReplaced() && blockstate.getFluidState().isEmpty();
 	}
-
-	@Environment(EnvType.CLIENT) public static void registerRenderLayer() {
-		ChunkSectionLayerMap.putBlock(${JavaModName}Blocks.${REGISTRYNAME}_PORTAL, ChunkSectionLayer.TRANSLUCENT);
-	}
 }
 
 <#-- @formatter:on -->

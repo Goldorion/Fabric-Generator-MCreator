@@ -29,14 +29,27 @@ package ${package}.init;
 public class ${JavaModName}Dimensions {
 
 	public static void load() {
+		ServerEntityLevelChangeEvents.AFTER_PLAYER_CHANGE_LEVEL.register((entity, origin, destination) -> {
+            Level world = entity.level();
+            double x = entity.getX();
+            double y = entity.getY();
+            double z = entity.getZ();
 		<#list dimensions as dimension>
-			<#if dimension.hasDimensionTriggers()>
-				${dimension.getModElement().getName()}Dimension.onPlayerChangedDimensionEvent();
-			</#if>
-			<#if dimension.enablePortal>
-				${dimension.getModElement().getName()}Teleporter.registerPointOfInterest();
-			</#if>
+		    <#if dimension.hasDimensionTriggers()>
+                <#if hasProcedure(data.onPlayerLeavesDimension)>
+                if (origin.dimension() == ResourceKey.create(Registries.DIMENSION, Identifier.parse("${modid}:${registryname}"))) {
+                    <@procedureOBJToCode data.onPlayerLeavesDimension/>
+                }
+                </#if>
+
+                <#if hasProcedure(data.onPlayerEntersDimension)>
+                if (destination.dimension() == ResourceKey.create(Registries.DIMENSION, Identifier.parse("${modid}:${registryname}"))) {
+                    <@procedureOBJToCode data.onPlayerEntersDimension/>
+                }
+                </#if>
+		    </#if>
 		</#list>
+		});
 	}
 }</@javacompress>
 <#-- @formatter:on -->
