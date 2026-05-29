@@ -585,10 +585,8 @@ public class ${getClassName()}Block extends ${getBlockClass(data.blockBase)}
 	public InteractionResult useWithoutItem(BlockState blockstate, Level world, BlockPos pos, Player entity, BlockHitResult hit) {
 		super.useWithoutItem(blockstate, world, pos, entity, hit);
 		<#if data.shouldOpenGUIOnRightClick()>
-		if(entity instanceof ServerPlayer player) {
-		    BlockEntity tileEntity = world.getBlockEntity(pos);
-			player.openMenu(tileEntity instanceof MenuProvider menuProvider ? menuProvider : null);
-		}
+		if(entity instanceof ServerPlayer player)
+			player.openMenu(world.getBlockEntity(pos) instanceof MenuProvider menuProvider ? menuProvider : null);
 		</#if>
 
 		<#if hasProcedure(data.onRightClicked)>
