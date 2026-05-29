@@ -3,9 +3,7 @@ plugins {
 }
 
 version = '1.0'
-group = 'com.yourname'
-base.archivesName = 'modid'
-actualmodid = '${modid}'
+base.archivesName = "modid"
 
 loom {
 // The following code makes impossible to setup Gradle projects
@@ -14,15 +12,14 @@ loom {
 //        defaultRefmapName = actualmodid + ".refmap.json"
 //    }
 
-    if (file("src/main/resources/META-INF/${modid}.classtweaker").exists())
-        accessWidenerPath = file("src/main/resources/META-INF/${modid}.classtweaker")
+    accessWidenerPath = file("src/main/resources/META-INF/${modid}.classtweaker")
 }
 
 dependencies {
     minecraft "com.mojang:minecraft:${generator.getGeneratorMinecraftVersion()}"
     implementation "net.fabricmc:fabric-loader:0.19.2"
 
-    //Fabric api
+    // Fabric API
     implementation "net.fabricmc.fabric-api:fabric-api:${generator.getGeneratorBuildFileVersion()}+${generator.getGeneratorMinecraftVersion()}"
 }
 
