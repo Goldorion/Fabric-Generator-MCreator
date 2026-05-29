@@ -152,7 +152,7 @@ public class ${name}Screen extends AbstractContainerScreen<${name}Menu> implemen
 				<#if hasProcedure(component.displayCondition)>
 					if (<@procedureOBJToConditionCode component.displayCondition/>)
 				</#if>
-				InventoryScreen.renderEntityInInventoryFollowsMouse(guiGraphics,
+				InventoryScreen.extractEntityInInventoryFollowsMouse(guiGraphics,
 					this.leftPos + ${x + (10 - 1000)}, this.topPos + ${y + (20 - 1000)},
 					this.leftPos + ${x + (10 + 1000)}, this.topPos + ${y + (20 + 1000)},
 					${component.scale}, -livingEntity.getBbHeight() / (2.0f * livingEntity.getScale()),
