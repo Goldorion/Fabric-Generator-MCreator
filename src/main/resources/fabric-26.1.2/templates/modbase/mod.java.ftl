@@ -56,7 +56,7 @@ public class ${JavaModName} implements ModInitializer {
 		<#if w.getGElementsOfType('dimension')?filter(e -> e.hasDimensionTriggers())?size != 0>${JavaModName}Dimensions.load();</#if>
 		<#if types["guis"]??>${JavaModName}Menus.load();</#if>
 		<#if types["villagerprofessions"]??>${JavaModName}VillagerProfessions.load();</#if>
-		<#if w.getGElementsOfType('itemextension')?filter(e -> e.enableFuel || e.compostLayerChance gt 0)?size != 0>${JavaModName}ItemExtensions.load();</#if>
+		<#if w.getGElementsOfType('itemextension')?filter(e -> (e.compostLayerChance gt 0) || e.enableFuel)?size != 0>${JavaModName}ItemExtensions.load();</#if>
 		<#if w.getGElementsOfType('itemextension')?filter(e -> e.hasDispenseBehavior)?size != 0 || types["specialentities"]??>${JavaModName}DispenseBehaviors.load();</#if>
 		<#if types["potioneffects"]??>${JavaModName}MobEffects.load();</#if>
 		<#if types["potions"]??>${JavaModName}Potions.load();</#if>
