@@ -43,7 +43,7 @@ public class ${name}Teleporter {
 
 	${mcc.getMethod("net.minecraft.world.level.portal.PortalForcer", "createPortal", "BlockPos", "Direction.Axis")
 		 .replace("Blocks.OBSIDIAN", mappedBlockToBlock(data.portalFrame)?string)
-		 .replace(",portalBlockState,18);", ", portalBlockState, 18);\nthis.level.getPoiManager().add(mutable, poi);")
+		 .replace(", portalBlockState, 18);", ", portalBlockState, 18);\nthis.level.getPoiManager().add(mutable, poi);")
 		 .replace("Blocks.NETHER_PORTAL", JavaModName + "Blocks." + REGISTRYNAME + "_PORTAL")}
 
 	${mcc.getMethod("net.minecraft.world.level.portal.PortalForcer", "canHostFrame", "BlockPos", "BlockPos.MutableBlockPos", "Direction", "int")}
