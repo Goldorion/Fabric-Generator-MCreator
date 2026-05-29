@@ -39,7 +39,8 @@ public class ${name}Teleporter {
 	}
 
 	${mcc.getMethod("net.minecraft.world.level.portal.PortalForcer", "findClosestPortalPosition", "BlockPos", "boolean", "WorldBorder")
-		 .replace("PoiTypes.NETHER_PORTAL", "poi.unwrapKey().get()")}
+		 .replace("PoiTypes.NETHER_PORTAL", "poi.unwrapKey().get()")
+		 .replace("Comparator.comparingDouble", "Comparator.<BlockPos>comparingDouble")}
 
 	${mcc.getMethod("net.minecraft.world.level.portal.PortalForcer", "createPortal", "BlockPos", "Direction.Axis")
 		 .replace("Blocks.OBSIDIAN", mappedBlockToBlock(data.portalFrame)?string)

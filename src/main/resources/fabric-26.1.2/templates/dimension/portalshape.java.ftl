@@ -32,6 +32,6 @@ public class ${name}PortalShape ${mcc.getClassBody("net.minecraft.world.level.po
         .replace("state.is(BlockTags.FIRE) || state.is(Blocks.NETHER_PORTAL)", "state.is(" + JavaModName + "Blocks." + REGISTRYNAME + "_PORTAL)")
         .replace("state.is(Blocks.NETHER_PORTAL)", "state.is(" + JavaModName + "Blocks." + REGISTRYNAME + "_PORTAL)")
         .replace("Blocks.NETHER_PORTAL.defaultBlockState()", JavaModName + "Blocks." + REGISTRYNAME + "_PORTAL.defaultBlockState()")
-        .replace("(state, level, pos) -> state.is(Blocks.OBSIDIAN);", "(state, level, pos) -> state.is(" + mappedBlockToBlock(data.portalFrame) + ");")}
-
+        .replace("(state, level, pos) -> state.is(Blocks.OBSIDIAN);", "(state, level, pos) -> state.is(" + mappedBlockToBlock(data.portalFrame) + ");")
+        .replace("PortalShape.", "").replace("Optional collisionFreePosition", "Optional<Vec3> collisionFreePosition")}
 <#-- @formatter:on -->

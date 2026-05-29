@@ -61,7 +61,7 @@ package ${package}.init;
 	</#list>
 
 	<#list customCategories as customCategory>
-	public static final KeyMapping.Category CATEGORY_${customCategory?upper_case} = new KeyMapping.Category(Identifier.parse("${modid}:${customCategory?lower_case}"));
+	public static final KeyMapping.Category CATEGORY_${customCategory?upper_case} = new KeyMapping.Category.register(Identifier.parse("${modid}:${customCategory?lower_case}"));
 	</#list>
 
 	<#list keybinds as keybind>
