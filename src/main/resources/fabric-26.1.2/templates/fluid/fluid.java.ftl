@@ -1,8 +1,8 @@
 <#--
  # This file is part of Fabric-Generator-MCreator.
  # Copyright (C) 2012-2020, Pylo
- # Copyright (C) 2020-2025, Pylo, opensource contributors
- # Copyright (C) 2020-2025, Goldorion, opensource contributors
+ # Copyright (C) 2020-2026, Pylo, opensource contributors
+ # Copyright (C) 2020-2026, Goldorion, opensource contributors
  #
  # Fabric-Generator-MCreator is free software: you can redistribute it and/or modify
  # it under the terms of the GNU General Public License as published by
@@ -24,24 +24,16 @@ package ${package}.fluid;
 
 <@javacompress>
 public abstract class ${name}Fluid extends FlowingFluid {
-	@Environment(EnvType.CLIENT) public static final FluidVariantAttributeHandler fluidAttributes = new FluidVariantAttributeHandler() {
-		@Override public Optional<SoundEvent> getFillSound(FluidVariant variant) {
-			return Optional.of(SoundEvents.BUCKET_FILL);
-		}
-
-		@Override public  Optional<SoundEvent> getEmptySound(FluidVariant variant) {
-			return Optional.of(<#if data.emptySound?has_content && data.emptySound.getMappedValue()?has_content>BuiltInRegistries.SOUND_EVENT.getValue(Identifier.parse("${data.emptySound}"))<#else>SoundEvents.BUCKET_EMPTY</#if>);
-		}
-
+	private static final FluidVariantAttributeHandler PROPERTIES = new FluidVariantAttributeHandler() {
 		<#if data.luminosity != 0>
-		@Override public  int getLuminance(FluidVariant variant) {
+		@Override public int getLightEmission(FluidVariant variant) {
 			return ${(data.luminosity lt 15)?then(data.luminosity, 15)};
 		}
 		</#if>
 
-		<#if data.temperature != 300>
-		@Override public int getTemperature(FluidVariant variant) {
-			return ${data.temperature};
+		<#if (data.density < 0)>
+		@Override public boolean isLighterThanAir(FluidVariant variant) {
+			return true;
 		}
 		</#if>
 
@@ -51,43 +43,21 @@ public abstract class ${name}Fluid extends FlowingFluid {
 		}
 		</#if>
 
-		<#if (data.density < 0)>
-		@Override public boolean isLighterThanAir(FluidVariant variant) {
-			return true;
+		<#if data.temperature != 300>
+		@Override public int getTemperature(FluidVariant variant) {
+			return ${data.temperature};
+		}
+		</#if>
+
+		<#if data.emptySound?has_content && data.emptySound.getMappedValue()?has_content>
+		@Override public Optional<SoundEvent> getEmptySound(FluidVariant variant) {
+			return Optional.of(BuiltInRegistries.SOUND_EVENT.getValue(Identifier.parse("${data.emptySound}")));
 		}
 		</#if>
 	};
 
-	<#if data.type == "WATER">
-	@Override ${mcc.getMethod("net.minecraft.world.level.material.WaterFluid", "entityInside", "Level", "BlockPos", "Entity", "InsideBlockEffectApplier")}
-	<#else>
-	@Override ${mcc.getMethod("net.minecraft.world.level.material.LavaFluid", "entityInside", "Level", "BlockPos", "Entity", "InsideBlockEffectApplier")}
-	</#if>
-
 	private ${name}Fluid() {
 		super();
-	}
-
-	@Override protected boolean canConvertToSource(ServerLevel level) {
-		return ${data.canMultiply};
-	}
-
-	@Override protected void beforeDestroyingBlock(LevelAccessor level, BlockPos pos, BlockState state) {
-		BlockEntity blockEntity = state.hasBlockEntity() ? level.getBlockEntity(pos) : null;
-		Block.dropResources(state, level, pos, blockEntity);
-	<#if hasProcedure(data.beforeReplacingBlock)>
-		<@procedureCode data.beforeReplacingBlock, {
-			"x": "pos.getX()",
-			"y": "pos.getY()",
-			"z": "pos.getZ()",
-			"world": "level",
-			"blockstate": "state"
-		}/>
-	</#if>
-	}
-
-	@Override protected boolean canBeReplacedWith(FluidState state, BlockGetter level, BlockPos pos, Fluid fluid, Direction direction) {
-		return direction == Direction.DOWN && !isSame(fluid);
 	}
 
 	@Override public Fluid getFlowing() {
@@ -98,30 +68,41 @@ public abstract class ${name}Fluid extends FlowingFluid {
 		return ${JavaModName}Fluids.${REGISTRYNAME};
 	}
 
-	@Override public float getExplosionResistance() {
-		return ${data.resistance}f;
+	@Override protected boolean canConvertToSource(ServerLevel level) {
+		return ${data.canMultiply};
 	}
 
-	@Override public int getTickDelay(LevelReader level) {
-		return ${data.flowRate};
-	}
-
-	@Override protected int getDropOff(LevelReader level) {
-		return ${data.levelDecrease};
+	@Override protected void beforeDestroyingBlock(LevelAccessor level, BlockPos pos, BlockState state) {
+		BlockEntity blockEntity = state.hasBlockEntity() ? level.getBlockEntity(pos) : null;
+		Block.dropResources(state, level, pos, blockEntity);
 	}
 
 	@Override protected int getSlopeFindDistance(LevelReader level) {
 		return ${data.slopeFindDistance};
 	}
 
+	@Override protected int getDropOff(LevelReader level) {
+		return ${data.levelDecrease};
+	}
+
 	@Override public Item getBucket() {
 		return <#if data.generateBucket>${JavaModName}Items.${REGISTRYNAME}_BUCKET<#else>Items.AIR</#if>;
 	}
 
+	@Override protected boolean canBeReplacedWith(FluidState state, BlockGetter level, BlockPos pos, Fluid fluid, Direction direction) {
+		return direction == Direction.DOWN && !isSame(fluid);
+	}
+
+	@Override public int getTickDelay(LevelReader level) {
+		return ${data.flowRate};
+	}
+
+	@Override protected float getExplosionResistance() {
+		return ${data.resistance}f;
+	}
+
 	@Override protected BlockState createLegacyBlock(FluidState state) {
-		if (${JavaModName}Blocks.${REGISTRYNAME} != null)
-			return ((LiquidBlock) ${JavaModName}Blocks.${REGISTRYNAME}).defaultBlockState().setValue(LiquidBlock.LEVEL, getLegacyLevel(state));
-		return Blocks.AIR.defaultBlockState();
+		return ${JavaModName}Blocks.${REGISTRYNAME}.defaultBlockState().setValue(LiquidBlock.LEVEL, getLegacyLevel(state));
 	}
 
 	@Override public boolean isSame(Fluid fluid) {
@@ -129,8 +110,14 @@ public abstract class ${name}Fluid extends FlowingFluid {
 	}
 
 	@Override public Optional<SoundEvent> getPickupSound() {
-		return Optional.ofNullable(SoundEvents.BUCKET_FILL);
+		return Optional.of(SoundEvents.BUCKET_FILL);
 	}
+
+	<#if data.type == "WATER">
+	@Override ${mcc.getMethod("net.minecraft.world.level.material.WaterFluid", "entityInside", "Level", "BlockPos", "Entity", "InsideBlockEffectApplier")}
+	<#else>
+	@Override ${mcc.getMethod("net.minecraft.world.level.material.LavaFluid", "entityInside", "Level", "BlockPos", "Entity", "InsideBlockEffectApplier")}
+	</#if>
 
 	<#if data.spawnParticles>
 	@Override public ParticleOptions getDripParticle() {
@@ -151,6 +138,18 @@ public abstract class ${name}Fluid extends FlowingFluid {
 		int z = fromPos.getZ();
 		if(<@procedureOBJToConditionCode data.flowCondition/>)
 			super.spread(world, fromPos, blockstate, fluidIn);
+	}
+	</#if>
+
+	<#if hasProcedure(data.beforeReplacingBlock)>
+	@Override protected void beforeDestroyingBlock(LevelAccessor world, BlockPos pos, BlockState blockstate) {
+		<@procedureCode data.beforeReplacingBlock, {
+			"x": "pos.getX()",
+			"y": "pos.getY()",
+			"z": "pos.getZ()",
+			"world": "world",
+			"blockstate": "blockstate"
+		}/>
 	}
 	</#if>
 
@@ -179,37 +178,37 @@ public abstract class ${name}Fluid extends FlowingFluid {
 		}
 	}
 
-	@Environment(EnvType.CLIENT) public static void clientLoad() {
-		FluidVariantAttributes.register(${JavaModName}Fluids.${REGISTRYNAME}, fluidAttributes);
-		FluidVariantAttributes.register(${JavaModName}Fluids.FLOWING_${REGISTRYNAME}, fluidAttributes);
-
-		FluidRenderHandlerRegistry.INSTANCE.register(${JavaModName}Fluids.${REGISTRYNAME}, ${JavaModName}Fluids.FLOWING_${REGISTRYNAME}, new SimpleFluidRenderHandler(
-		Identifier.parse("${data.textureStill.format("%s:block/%s")}"), Identifier.parse("${data.textureFlowing.format("%s:block/%s")}")
-		<#if data.textureRenderOverlay?has_content>, Identifier.parse("${data.textureRenderOverlay.format("%s:textures/%s")}.png")</#if>
-		<#if data.isFluidTinted()>,
-			<#if data.tintType == "Grass">
-				-6506636
-			<#elseif data.tintType == "Foliage" || data.tintType == "Default foliage">
-				-12012264
-			<#elseif data.tintType == "Birch foliage">
-				-8345771
-			<#elseif data.tintType == "Spruce foliage">
-				-10380959
-			<#elseif data.tintType == "Water">
-				-13083194
-			<#elseif data.tintType == "Sky">
-				-8214273
-			<#elseif data.tintType == "Fog">
-				-4138753
-			<#else>
-				-16448205
-			</#if>
-		</#if>
-		));
+	public static void load() {
+		FluidVariantAttributes.register(${JavaModName}Fluids.${REGISTRYNAME}, PROPERTIES);
+		FluidVariantAttributes.register(${JavaModName}Fluids.FLOWING_${REGISTRYNAME}, PROPERTIES);
 	}
 
-	@Environment(EnvType.CLIENT) public static void registerRenderLayer() {
-		BlockRenderLayerMap.putFluids(ChunkSectionLayer.TRANSLUCENT, ${JavaModName}Fluids.${REGISTRYNAME}, ${JavaModName}Fluids.FLOWING_${REGISTRYNAME});
+	@Environment(EnvType.CLIENT) public static void clientLoad() {
+		FluidRenderingRegistry.register(${JavaModName}Fluids.${REGISTRYNAME}, ${JavaModName}Fluids.FLOWING_${REGISTRYNAME}, new FluidModel.Unbaked(
+		new Material(Identifier.parse("${data.textureStill.format("%s:block/%s")}")), new Material(Identifier.parse("${data.textureFlowing.format("%s:block/%s")}")),
+		<#if data.textureRenderOverlay?has_content>new Material(Identifier.parse("${data.textureRenderOverlay.format("%s:textures/%s")}.png"))<#else>null</#if>,
+		<#if data.isFluidTinted()>BlockTintSources.
+			<#if data.tintType == "Grass">
+				grass()
+			<#elseif data.tintType == "Foliage" || data.tintType == "Default foliage">
+				foliage()
+			<#elseif data.tintType == "Birch foliage">
+				constant(-8345771)
+			<#elseif data.tintType == "Spruce foliage">
+				constant(-10380959))
+			<#elseif data.tintType == "Water">
+				water()
+			<#elseif data.tintType == "Sky">
+				constant(-8214273)
+			<#elseif data.tintType == "Fog">
+				constant(-4138753)
+			<#else>
+				constant(-16448205)
+			</#if>)
+        <#else>
+        null
+		</#if>
+		));
 	}
 }</@javacompress>
 <#-- @formatter:on -->

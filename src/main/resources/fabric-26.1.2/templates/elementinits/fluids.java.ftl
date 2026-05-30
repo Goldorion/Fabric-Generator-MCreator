@@ -1,8 +1,8 @@
 <#--
  # This file is part of Fabric-Generator-MCreator.
  # Copyright (C) 2012-2020, Pylo
- # Copyright (C) 2020-2025, Pylo, opensource contributors
- # Copyright (C) 2020-2025, Goldorion, opensource contributors
+ # Copyright (C) 2020-2026, Pylo, opensource contributors
+ # Copyright (C) 2020-2026, Goldorion, opensource contributors
  #
  # Fabric-Generator-MCreator is free software: you can redistribute it and/or modify
  # it under the terms of the GNU General Public License as published by
@@ -35,10 +35,9 @@ public class ${JavaModName}Fluids {
 
 	public static void load() {
 		<#list fluids as fluid>
-		${fluid.getModElement().getRegistryNameUpper()} =
-			register("${fluid.getModElement().getRegistryName()}", ${fluid.getModElement().getName()}Fluid.Source::new);
-		FLOWING_${fluid.getModElement().getRegistryNameUpper()} =
-			register("flowing_${fluid.getModElement().getRegistryName()}", ${fluid.getModElement().getName()}Fluid.Flowing::new);
+		${fluid.getModElement().getRegistryNameUpper()} = register("${fluid.getModElement().getRegistryName()}", ${fluid.getModElement().getName()}Fluid.Source::new);
+		FLOWING_${fluid.getModElement().getRegistryNameUpper()} = register("flowing_${fluid.getModElement().getRegistryName()}", ${fluid.getModElement().getName()}Fluid.Flowing::new);
+        ${fluid.getModElement().getName()}Fluid.load();
 		</#list>
 	}
 
