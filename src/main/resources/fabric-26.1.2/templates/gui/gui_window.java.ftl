@@ -144,6 +144,7 @@ public class ${name}Screen extends AbstractContainerScreen<${name}Menu> implemen
 		${component.getName()}.extractWidgetRenderState(guiGraphics, mouseX, mouseY, partialTicks);
 		</#list>
 
+		<@javacompress>
 		<#list data.getComponentsOfType("EntityModel") as component>
 			<#assign followMouse = component.followMouseMovement>
 			<#assign x = component.gx(data.width)>
@@ -161,6 +162,7 @@ public class ${name}Screen extends AbstractContainerScreen<${name}Menu> implemen
 				);
 			}
 		</#list>
+		</@javacompress>
 	}
 
 	@Override public void extractBackground(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
@@ -193,7 +195,7 @@ public class ${name}Screen extends AbstractContainerScreen<${name}Menu> implemen
 	}
 
 	@Override public boolean keyPressed(KeyEvent event) {
-		int key = InputConstants.getKey(event).getValue();
+	    int key = event.key();
 		if (key == 256) {
 			this.minecraft.player.closeContainer();
 			return true;
