@@ -19,6 +19,7 @@
 -->
 
 <#-- @formatter:off -->
+<@javacompress>
 <#include "procedures.java.ftl">
 
 package ${package}.network;
@@ -74,4 +75,5 @@ public record ${name}Message(int eventType, int pressedms) implements CustomPack
 	}
 	</#if>
 }
+</@javacompress>
 <#-- @formatter:on -->
