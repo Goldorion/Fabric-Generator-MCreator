@@ -195,7 +195,7 @@ public abstract class ${name}Fluid extends FlowingFluid {
 			<#elseif data.tintType == "Birch foliage">
 				constant(-8345771)
 			<#elseif data.tintType == "Spruce foliage">
-				constant(-10380959))
+				constant(-10380959)
 			<#elseif data.tintType == "Water">
 				water()
 			<#elseif data.tintType == "Sky">
