@@ -204,7 +204,7 @@ public abstract class ${name}Fluid extends FlowingFluid {
 				constant(-4138753)
 			<#else>
 				constant(-16448205)
-			</#if>)
+			</#if>
         <#else>
         null
 		</#if>
