@@ -1,5 +1,9 @@
 # Changelogs:
 
+# 2026.2-2.7
+- Added support for Minecraft 26.1.2 with Fabric API 0.150.0
+- Custom shears and fishing rods are no longer supported for the moment
+
 # 2026.1-2.6.2
 - Removed unsupported procedures
 - [Bugfix] player_useitem_stop trigger was causing a build error with itemstack dependency

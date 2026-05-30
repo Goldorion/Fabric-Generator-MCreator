@@ -3,6 +3,8 @@
 - Fix tints not being applied in the game on custom blocks
 - Port GLOBAL_MAP and GLOBAL_WORLD variable scopes
 - Custom entities don't spawn :(
+- Custom shears and fishing rods
+  - Shears now require a custom mixin on Sheep#mobInteract
 - should we be interested in restoring the centerX, centerY, xAngle, yAngle variables to their old state? [Patch](https://github.com/neoforged/NeoForge/blob/26.1.x/patches/net/minecraft/client/gui/screens/inventory/InventoryScreen.java.patch)
 
 ???

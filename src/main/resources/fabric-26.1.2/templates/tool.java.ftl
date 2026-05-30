@@ -1,8 +1,8 @@
 <#--
  # This file is part of Fabric-Generator-MCreator.
  # Copyright (C) 2012-2020, Pylo
- # Copyright (C) 2020-2025, Pylo, opensource contributors
- # Copyright (C) 2020-2025, Goldorion, opensource contributors
+ # Copyright (C) 2020-2026, Pylo, opensource contributors
+ # Copyright (C) 2020-2026, Goldorion, opensource contributors
  #
  # Fabric-Generator-MCreator is free software: you can redistribute it and/or modify
  # it under the terms of the GNU General Public License as published by
@@ -27,7 +27,7 @@ package ${package}.item;
 
 <@javacompress>
 <#if data.toolType == "Pickaxe" || data.toolType == "Axe" || data.toolType == "Sword" || data.toolType == "Spade"
-		|| data.toolType == "Hoe" || data.toolType == "Shears" || data.toolType == "Shield" || data.toolType == "MultiTool">
+		|| data.toolType == "Hoe" || data.toolType == "Shield" || data.toolType == "MultiTool">
 public class ${name}Item extends ${data.toolType?replace("Spade", "Shovel")?replace("MultiTool|Pickaxe|Sword", "", "r")}Item {
 
 	<#if data.toolType == "Pickaxe" || data.toolType == "Axe" || data.toolType == "Sword" || data.toolType == "Spade" || data.toolType == "Hoe" || data.toolType == "MultiTool">
@@ -67,12 +67,12 @@ public class ${name}Item extends ${data.toolType?replace("Spade", "Shovel")?repl
 			.repairable(TagKey.create(Registries.ITEM, Identifier.parse("${modid}:${registryname}_repair_items")))
 			.component(DataComponents.BREAK_SOUND, SoundEvents.SHIELD_BREAK)
 			.equippableUnswappable(EquipmentSlot.OFFHAND)
-			.component(DataComponents.BLOCKS_ATTACKS, new BlocksAttacks(
+			.delayedComponent(DataComponents.BLOCKS_ATTACKS, context -> new BlocksAttacks(
 				0.25f,
 				1,
 				List.of(new BlocksAttacks.DamageReduction(90.0f, Optional.empty(), 0, 1)),
 				new BlocksAttacks.ItemDamageFunction(3, 1, 1),
-				Optional.of(DamageTypeTags.BYPASSES_SHIELD),
+				Optional.of(context.getOrThrow(DamageTypeTags.BYPASSES_SHIELD)),
 				Optional.of(SoundEvents.SHIELD_BLOCK),
 				Optional.of(SoundEvents.SHIELD_BREAK)
 			))
@@ -203,80 +203,7 @@ public class ${name}Item extends Item {
 
 	<@commonMethods/>
 }
-<#elseif data.toolType=="Fishing rod">
-public class ${name}Item extends FishingRodItem {
 
-	public ${name}Item(Item.Properties properties) {
-		super(properties
-			<#if data.usageCount != 0>
-			.durability(${data.usageCount})
-			<#else>
-			.stacksTo(1)
-			</#if>
-			<#if data.rarity != "COMMON">
-			.rarity(Rarity.${data.rarity})
-			</#if>
-			<#if data.immuneToFire>
-			.fireResistant()
-			</#if>
-			.repairable(TagKey.create(Registries.ITEM, Identifier.parse("${modid}:${registryname}_repair_items")))
-			<#if data.enchantability != 0>
-			.enchantable(${data.enchantability})
-			</#if>
-			<#if data.attributeModifiers?size gt 0>
-			.attributes(<@itemAttributeModifiers/>)
-			</#if>
-		);
-	}
-
-	<@onBlockDestroyedWith data.onBlockDestroyedWithTool/>
-
-	<@onEntityHitWith data.onEntityHitWith/>
-
-	@Override public InteractionResult use(Level world, Player entity, InteractionHand hand) {
-		ItemStack itemStack = entity.getItemInHand(hand);
-		if (entity.fishing != null) {
-			if (!world.isClientSide) {
-				itemStack.hurtAndBreak(entity.fishing.retrieve(itemStack), (LivingEntity) entity, LivingEntity.getSlotForHand(hand));
-			}
-			world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.FISHING_BOBBER_RETRIEVE, SoundSource.NEUTRAL, 1.0f, 0.4f / (world.getRandom().nextFloat() * 0.4f + 0.8f));
-			entity.gameEvent(GameEvent.ITEM_INTERACT_FINISH);
-		} else {
-			world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.FISHING_BOBBER_THROW, SoundSource.NEUTRAL, 0.5f, 0.4f / (world.getRandom().nextFloat() * 0.4f + 0.8f));
-			if (world instanceof ServerLevel serverLevel) {
-				int j = (int) (EnchantmentHelper.getFishingTimeReduction(serverLevel, itemStack, entity) * 20.0f);
-				int k = EnchantmentHelper.getFishingLuckBonus(serverLevel, itemStack, entity);
-				Projectile.spawnProjectile(new FishingHook(entity, world, k, j) {
-					@Override protected boolean shouldStopFishing(Player entity) {
-						if (entity.isRemoved() || !entity.isAlive() || !entity.getMainHandItem().is(${JavaModName}Items.${REGISTRYNAME}) && !entity.getOffhandItem().is(${JavaModName}Items.${REGISTRYNAME}) && this.distanceToSqr(entity) > 1024.0) {
-							this.discard();
-							return true;
-						}
-
-						return false;
-					}
-				}, serverLevel, itemStack);
-			}
-			entity.awardStat(Stats.ITEM_USED.get(this));
-			entity.gameEvent(GameEvent.ITEM_INTERACT_START);
-		}
-
-		<#if hasProcedure(data.onRightClickedInAir)>
-			<@procedureCode data.onRightClickedInAir, {
-				"x": "entity.getX()",
-				"y": "entity.getY()",
-				"z": "entity.getZ()",
-				"world": "world",
-				"entity": "entity",
-				"itemstack": "itemstack"
-			}/>
-		</#if>
-
-		return InteractionResult.SUCCESS;
-	}
-
-	<@commonMethods/>
-}
 </#if>
 </@javacompress>
 
@@ -307,17 +234,17 @@ public class ${name}Item extends FishingRodItem {
 <#macro commonMethods>
 	<#if data.stayInGridWhenCrafting>
 		<#if data.damageOnCrafting && data.usageCount != 0>
-			@Override public ItemStack getRecipeRemainder(ItemStack itemstack) {
+			@Override public ItemStackTemplate getCraftingRemainder(ItemStack itemstack) {
 				ItemStack retval = new ItemStack(this);
 				retval.setDamageValue(itemstack.getDamageValue() + 1);
 				if(retval.getDamageValue() >= retval.getMaxDamage()) {
-					return ItemStack.EMPTY;
+					return ItemStack.EMPTY.getCraftingRemainder();
 				}
-				return retval;
+				return retval.getCraftingRemainder();
 			}
 		<#else>
-			@Override public ItemStack getRecipeRemainder(ItemStack itemstack) {
-				return new ItemStack(this);
+			@Override public ItemStackTemplate getCraftingRemainder(ItemStack itemstack) {
+				return new ItemStackTemplate(this);
 			}
 		</#if>
 	</#if>
