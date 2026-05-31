@@ -35,6 +35,11 @@ templates:
     condition: "toolType %= Shield"
     name: "@MODASSETSROOT/items/@registryname.json"
 
+global_templates:
+  - template: mixin/sheep_mixin.java.ftl
+    condition: "${w.getGElementsOfType('tool')?filter(e -> e.toolType.equals('Shears'))?size != 0}"
+    name: "@SRCROOT/@BASEPACKAGEPATH/mixin/SheepMixin.java"
+
 tags:
   - tag: ITEMS:minecraft:pickaxes
     condition_any:

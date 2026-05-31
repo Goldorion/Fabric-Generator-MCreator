@@ -17,6 +17,9 @@
 <#if w.getGElementsOfType('livingentity')?filter(e -> e.spawnInDungeons)?size != 0>
 	<#assign mixins = mixins + ['MonsterRoomFeatureMixin']>
 </#if>
+<#if w.getGElementsOfType('tool')?filter(e -> e.toolType.equals('Shears'))?size != 0>
+	<#assign mixins = mixins + ['SheepMixin']>
+</#if>
 {
   "required": true,
   "package": "${package}.mixin",

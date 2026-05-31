@@ -27,7 +27,7 @@ package ${package}.item;
 
 <@javacompress>
 <#if data.toolType == "Pickaxe" || data.toolType == "Axe" || data.toolType == "Sword" || data.toolType == "Spade"
-		|| data.toolType == "Hoe" || data.toolType == "Shield" || data.toolType == "MultiTool">
+		|| data.toolType == "Hoe"|| data.toolType == "Shears" || data.toolType == "Shield" || data.toolType == "MultiTool">
 public class ${name}Item extends ${data.toolType?replace("Spade", "Shovel")?replace("MultiTool|Pickaxe|Sword", "", "r")}Item {
 
 	<#if data.toolType == "Pickaxe" || data.toolType == "Axe" || data.toolType == "Sword" || data.toolType == "Spade" || data.toolType == "Hoe" || data.toolType == "MultiTool">
