@@ -203,7 +203,81 @@ public class ${name}Item extends Item {
 
 	<@commonMethods/>
 }
+<#elseif data.toolType=="Fishing rod">
+public class ${name}Item extends FishingRodItem {
 
+	public ${name}Item(Item.Properties properties) {
+		super(properties
+			<#if data.usageCount != 0>
+			.durability(${data.usageCount})
+			<#else>
+			.stacksTo(1)
+			</#if>
+			<#if data.rarity != "COMMON">
+			.rarity(Rarity.${data.rarity})
+			</#if>
+			<#if data.immuneToFire>
+			.fireResistant()
+			</#if>
+			.repairable(TagKey.create(Registries.ITEM, Identifier.parse("${modid}:${registryname}_repair_items")))
+			<#if data.enchantability != 0>
+			.enchantable(${data.enchantability})
+			</#if>
+			<#if data.attributeModifiers?size gt 0>
+			.attributes(<@itemAttributeModifiers/>)
+			</#if>
+		);
+	}
+
+	<@onBlockDestroyedWith data.onBlockDestroyedWithTool/>
+
+	<@onEntityHitWith data.onEntityHitWith/>
+
+	@Override public InteractionResult use(Level world, Player entity, InteractionHand hand) {
+        ItemStack itemStack = entity.getItemInHand(hand);
+        if (entity.fishing != null) {
+            if (!world.isClientSide()) {
+                int dmg = entity.fishing.retrieve(itemStack);
+                itemStack.hurtAndBreak(dmg, (LivingEntity) entity, hand.asEquipmentSlot());
+            }
+            world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.FISHING_BOBBER_RETRIEVE, SoundSource.NEUTRAL, 1.0f, 0.4f / (world.getRandom().nextFloat() * 0.4f + 0.8f));
+            itemStack.causeUseVibration(entity, GameEvent.ITEM_INTERACT_FINISH);
+        } else {
+            world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.FISHING_BOBBER_THROW, SoundSource.NEUTRAL, 0.5f, 0.4f / (world.getRandom().nextFloat() * 0.4f + 0.8f));
+            if (world instanceof ServerLevel) {
+                ServerLevel serverLevel = (ServerLevel) world;
+                int lureSpeed = (int)(EnchantmentHelper.getFishingTimeReduction(serverLevel, itemStack, entity) * 20.0f);
+                int luck = EnchantmentHelper.getFishingLuckBonus(serverLevel, itemStack, entity);
+                Projectile.spawnProjectile(new FishingHook(entity, world, luck, lureSpeed) {
+                    @Override protected boolean shouldStopFishing(Player owner) {
+                        if (owner.canInteractWithLevel() && this.distanceToSqr(owner) <= 1024 && (owner.getMainHandItem().is(${JavaModName}Items.${REGISTRYNAME}) || owner.getOffhandItem().is(${JavaModName}Items.${REGISTRYNAME})))
+                            return false;
+
+                        this.discard();
+                        return true;
+                    }
+                }, serverLevel, itemStack);
+            }
+            entity.awardStat(Stats.ITEM_USED.get(this));
+            itemStack.causeUseVibration(entity, GameEvent.ITEM_INTERACT_START);
+        }
+
+		<#if hasProcedure(data.onRightClickedInAir)>
+			<@procedureCode data.onRightClickedInAir, {
+				"x": "entity.getX()",
+				"y": "entity.getY()",
+				"z": "entity.getZ()",
+				"world": "world",
+				"entity": "entity",
+				"itemstack": "itemstack"
+			}/>
+		</#if>
+
+		return InteractionResult.SUCCESS;
+	}
+
+	<@commonMethods/>
+}
 </#if>
 </@javacompress>
 

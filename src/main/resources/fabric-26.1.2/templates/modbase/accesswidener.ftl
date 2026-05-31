@@ -16,21 +16,7 @@ extendable method net/minecraft/world/level/levelgen/feature/TreeFeature place (
 </#if>
 
 <#if w.getGElementsOfType('tool')?filter(e -> e.toolType.equals('Fishing rod'))?size != 0>
-accessible field net/minecraft/world/entity/projectile/FishingHook syncronizedRandom Lnet/minecraft/util/RandomSource;
-accessible field net/minecraft/world/entity/projectile/FishingHook life I
-accessible field net/minecraft/world/entity/projectile/FishingHook currentState Lnet/minecraft/world/entity/projectile/FishingHook$FishHookState;
-accessible class net/minecraft/world/entity/projectile/FishingHook$FishHookState
-accessible method net/minecraft/world/entity/projectile/FishingHook checkCollision ()V
-accessible field net/minecraft/world/entity/projectile/FishingHook hookedIn Lnet/minecraft/world/entity/Entity;
-accessible method net/minecraft/world/entity/projectile/FishingHook setHookedEntity (Lnet/minecraft/world/entity/Entity;)V
-accessible field net/minecraft/world/entity/projectile/FishingHook openWater Z
-accessible field net/minecraft/world/entity/projectile/FishingHook nibble I
-accessible field net/minecraft/world/entity/projectile/FishingHook timeUntilHooked I
-accessible field net/minecraft/world/entity/projectile/FishingHook outOfWaterTime I
-accessible method net/minecraft/world/entity/projectile/FishingHook catchingFish (Lnet/minecraft/core/BlockPos;)V
-accessible field net/minecraft/world/entity/projectile/FishingHook luck I
-accessible field net/minecraft/world/entity/projectile/FishingHook biting Z
-accessible method net/minecraft/world/entity/projectile/FishingHook calculateOpenWater (Lnet/minecraft/core/BlockPos;)Z
+extendable method net/minecraft/world/entity/projectile/FishingHook shouldStopFishing (Lnet/minecraft/world/entity/player/Player;)Z
 </#if>
 
 <#if w.getGElementsOfType('livingentity')?filter(e -> e.spawnInDungeons)?size != 0>
