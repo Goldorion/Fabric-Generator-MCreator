@@ -138,8 +138,8 @@ public abstract class ${name}Fluid extends FlowingFluid {
 
 
 	@Override protected void beforeDestroyingBlock(LevelAccessor world, BlockPos pos, BlockState blockstate) {
-		BlockEntity blockEntity = state.hasBlockEntity() ? level.getBlockEntity(pos) : null;
-		Block.dropResources(state, level, pos, blockEntity);
+		BlockEntity blockEntity = blockstate.hasBlockEntity() ? world.getBlockEntity(pos) : null;
+		Block.dropResources(blockstate, world, pos, blockEntity);
 		<#if hasProcedure(data.beforeReplacingBlock)>
 		<@procedureCode data.beforeReplacingBlock, {
 			"x": "pos.getX()",
