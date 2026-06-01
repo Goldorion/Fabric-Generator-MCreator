@@ -312,13 +312,13 @@ public class ${name}Item extends FishingRodItem {
 				ItemStack retval = new ItemStack(this);
 				retval.setDamageValue(itemstack.getDamageValue() + 1);
 				if(retval.getDamageValue() >= retval.getMaxDamage()) {
-					return ItemStack.EMPTY.getCraftingRemainder();
+					return null;
 				}
-				return retval.getCraftingRemainder();
+				return ItemStackTemplate.fromNonEmptyStack(retval);
 			}
 		<#else>
 			@Override public ItemStackTemplate getCraftingRemainder(ItemStack itemstack) {
-				return ItemStackTemplate.fromNonEmptyStack(this);
+				return new ItemStackTemplate(this);
 			}
 		</#if>
 	</#if>

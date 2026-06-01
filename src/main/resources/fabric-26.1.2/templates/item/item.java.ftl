@@ -170,20 +170,20 @@ public class ${name}Item extends Item {
 	<#if data.stayInGridWhenCrafting>
 		<#if data.recipeRemainder?? && !data.recipeRemainder.isEmpty()>
 			@Override public ItemStackTemplate getCraftingRemainder(ItemStack itemstack) {
-				return ${mappedMCItemToItemStackCode(data.recipeRemainder, 1)}.getCraftingRemainder();
+				return new ItemStackTemplate(${mappedMCItemToItem(data.recipeRemainder)});
 			}
 		<#elseif data.damageOnCrafting && data.damageCount != 0>
 			@Override public ItemStackTemplate getCraftingRemainder(ItemStack itemstack) {
 				ItemStack retval = new ItemStack(this);
 				retval.setDamageValue(itemstack.getDamageValue() + 1);
 				if(retval.getDamageValue() >= retval.getMaxDamage()) {
-					return ItemStack.EMPTY.getCraftingRemainder();
+					return null;
 				}
-				return retval.getCraftingRemainder();
+				return ItemStackTemplate.fromNonEmptyStack(retval);
 			}
 		<#else>
 			@Override public ItemStackTemplate getCraftingRemainder(ItemStack itemstack) {
-				return ItemStackTemplate.fromNonEmptyStack(this);
+				return new ItemStackTemplate(this);
 			}
 		</#if>
 	</#if>

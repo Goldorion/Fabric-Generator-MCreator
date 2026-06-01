@@ -42,18 +42,30 @@ package ${package}.init;
             Model replacement = getHumanoidArmorModel(itemStack, layerType, original);
             if (replacement != original) {
                 if (original instanceof HumanoidModel<?> originalHumanoid && replacement instanceof HumanoidModel<?> replacementHumanoid) {
-                    originalHumanoid.copyTransforms(replacement);
-                    replacementHumanoid.head.visible = originalHumanoid.head.visible;
-                    replacementHumanoid.hat.visible = originalHumanoid.hat.visible;
-                    replacementHumanoid.body.visible = originalHumanoid.body.visible;
-                    replacementHumanoid.rightArm.visible = originalHumanoid.rightArm.visible;
-                    replacementHumanoid.leftArm.visible = originalHumanoid.leftArm.visible;
-                    replacementHumanoid.rightLeg.visible = originalHumanoid.rightLeg.visible;
-                    replacementHumanoid.leftLeg.visible = originalHumanoid.leftLeg.visible;
+                    copyModelPartProperties(originalHumanoid.head, replacementHumanoid.head);
+                    copyModelPartProperties(originalHumanoid.hat, replacementHumanoid.hat);
+                    copyModelPartProperties(originalHumanoid.body, replacementHumanoid.body);
+                    copyModelPartProperties(originalHumanoid.rightArm, replacementHumanoid.rightArm);
+                    copyModelPartProperties(originalHumanoid.leftArm, replacementHumanoid.leftArm);
+                    copyModelPartProperties(originalHumanoid.rightLeg, replacementHumanoid.rightLeg);
+                    copyModelPartProperties(originalHumanoid.leftLeg, replacementHumanoid.leftLeg);
                 }
                 return replacement;
             }
             return original;
+        }
+
+        private void copyModelPartProperties(ModelPart original, ModelPart replacement) {
+            replacement.visible = original.visible;
+            replacement.x = original.x;
+            replacement.y = original.y;
+            replacement.z = original.z;
+            replacement.xRot = original.xRot;
+            replacement.yRot = original.yRot;
+            replacement.zRot = original.zRot;
+            replacement.xScale = original.xScale;
+            replacement.yScale = original.yScale;
+            replacement.zScale = original.zScale;
         }
     }
 
