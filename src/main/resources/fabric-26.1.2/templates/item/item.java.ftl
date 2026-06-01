@@ -128,7 +128,7 @@ public class ${name}Item extends Item {
 
 					@Override public void setChanged() {
                         ListTag itemsTag = new ListTag();
-                        for (ItemStack itemStack : inventory) {
+                        for (ItemStack itemStack : this) {
                             if (!itemStack.isEmpty()) {
                                 DataResult<Tag> result = ItemStack.CODEC.encodeStart(NbtOps.INSTANCE, itemStack);
                                 result.result().ifPresent(itemsTag::add);
