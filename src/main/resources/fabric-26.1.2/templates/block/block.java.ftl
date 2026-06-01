@@ -21,7 +21,7 @@
 <#-- @formatter:off -->
 <#include "../boundingboxes.java.ftl">
 <#include "../mcitems.ftl">
-<#include "../procedures.java.ftl">ttintty
+<#include "../procedures.java.ftl">
 <#include "../triggers.java.ftl">
 <#assign biomeSelector = "includeByKey">
 <#assign resourceKey = "ResourceKey">
