@@ -18,7 +18,7 @@ loom {
 
 dependencies {
     minecraft "com.mojang:minecraft:${generator.getGeneratorMinecraftVersion()}"
-    implementation "net.fabricmc:fabric-loader:0.19.2"
+    implementation "net.fabricmc:fabric-loader:0.19.3"
 
     // Fabric API
     implementation "net.fabricmc.fabric-api:fabric-api:${generator.getGeneratorBuildFileVersion()}+${generator.getGeneratorMinecraftVersion()}"
