@@ -50,6 +50,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 	<#assign interfaces += ["SimpleWaterloggedBlock"]>
 </#if>
 public class ${name}Block extends ${getPlantClass(data.plantType)}Block <#if interfaces?size gt 0>implements ${interfaces?join(",")}</#if> {
+
 	<#if data.isWaterloggable()>
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 	</#if>
@@ -136,17 +137,16 @@ public class ${name}Block extends ${getPlantClass(data.plantType)}Block <#if int
 	}
 
 	<#if data.generateFeature>
-		public static final Predicate<BiomeSelectionContext> GENERATE_BIOMES =
-		BiomeSelectors.
-		<#if data.restrictionBiomes?has_content>
-		${biomeSelector}(
-			<#list w.filterBrokenReferences(data.restrictionBiomes) as restrictionBiome>
-				${resourceKey}.create(Registries.BIOME, Identifier.parse("${restrictionBiome?replace("#", "")}"))<#sep>,
-			</#list>
-		)
-		<#else>
-		all()
-		</#if>;
+        public static final Predicate<BiomeSelectionContext> GENERATE_BIOMES = BiomeSelectors.
+        <#if data.restrictionBiomes?has_content>
+        ${biomeSelector}(
+            <#list w.filterBrokenReferences(data.restrictionBiomes) as restrictionBiome>
+                ${resourceKey}.create(Registries.BIOME, Identifier.parse("${restrictionBiome?replace("#", "")}"))<#sep>,
+            </#list>
+        )
+        <#else>
+        all()
+        </#if>;
 	</#if>
 
 	<#if data.isWaterloggable()>
@@ -190,10 +190,10 @@ public class ${name}Block extends ${getPlantClass(data.plantType)}Block <#if int
 	</#if>
 
 	<#if data.xpAmountMax != 0>
-	@Override protected void spawnAfterBreak(BlockState state, ServerLevel level, BlockPos pos, ItemStack stack, boolean bl) {
-	    super.spawnAfterBreak(state, level, pos, stack, bl);
-	    if (bl)
-	        this.tryDropExperience(level, pos, stack, <#if data.xpAmountMin == data.xpAmountMax>ConstantInt.of(${data.xpAmountMin}<#else>UniformInt.of(${data.xpAmountMin}, ${data.xpAmountMax}</#if>));
+	@Override protected void spawnAfterBreak(BlockState state, ServerLevel level, BlockPos pos, ItemStack tool, boolean dropExperience) {
+		super.spawnAfterBreak(state, level, pos, tool, dropExperience);
+		if (dropExperience)
+		    this.tryDropExperience(level, pos, tool, <#if data.xpAmountMin == data.xpAmountMax>ConstantInt.of(${data.xpAmountMin}<#else>UniformInt.of(${data.xpAmountMin}, ${data.xpAmountMax}</#if>));
 	}
 	</#if>
 
@@ -316,6 +316,8 @@ public class ${name}Block extends ${getPlantClass(data.plantType)}Block <#if int
 	<@onRedstoneOrNeighborChanged "", "", data.onNeighbourBlockChanges/>
 
 	<@onEntityCollides data.onEntityCollides/>
+
+	<@onDestroyedByPlayer data.onDestroyedByPlayer/>
 
 	<@onDestroyedByExplosion data.onDestroyedByExplosion/>
 

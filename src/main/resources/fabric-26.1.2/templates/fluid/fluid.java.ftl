@@ -185,27 +185,53 @@ public abstract class ${name}Fluid extends FlowingFluid {
 		FluidRenderingRegistry.register(${JavaModName}Fluids.${REGISTRYNAME}, ${JavaModName}Fluids.FLOWING_${REGISTRYNAME}, new FluidModel.Unbaked(
 		new Material(Identifier.parse("${data.textureStill.format("%s:block/%s")}")), new Material(Identifier.parse("${data.textureFlowing.format("%s:block/%s")}")),
 		<#if data.textureRenderOverlay?has_content>new Material(Identifier.parse("${data.textureRenderOverlay.format("%s:textures/%s")}.png"))<#else>null</#if>,
-		<#if data.isFluidTinted()>BlockTintSources.
-			<#if data.tintType == "Grass">
-				grass()
-			<#elseif data.tintType == "Foliage" || data.tintType == "Default foliage">
-				foliage()
-			<#elseif data.tintType == "Birch foliage">
-				constant(-8345771)
-			<#elseif data.tintType == "Spruce foliage">
-				constant(-10380959)
-			<#elseif data.tintType == "Water">
-				water()
-			<#elseif data.tintType == "Sky">
-				constant(-8214273)
-			<#elseif data.tintType == "Fog">
-				constant(-4138753)
-			<#else>
-				constant(-16448205)
-			</#if>
-		<#else>
-		null
-		</#if>
+				<#if data.isFluidTinted()>
+				new FluidTintSource() {
+					@Override public int color(FluidState state) {
+						return <#if data.tintType == "Grass">
+						-6506636
+						<#elseif data.tintType == "Foliage" || data.tintType == "Default foliage">
+						-12012264
+						<#elseif data.tintType == "Birch foliage">
+						-8345771
+						<#elseif data.tintType == "Spruce foliage">
+						-10380959
+						<#elseif data.tintType == "Water">
+						-13083194
+						<#elseif data.tintType == "Sky">
+						-8214273
+						<#elseif data.tintType == "Fog">
+						-4138753
+						<#else>
+						-16448205
+						</#if>;
+					}
+
+					@Override public int colorInWorld(FluidState state, BlockState blockState, BlockAndTintGetter world, BlockPos pos) {
+						return <#if data.tintType == "Grass">
+							BiomeColors.getAverageGrassColor(world, pos)
+						<#elseif data.tintType == "Foliage">
+							BiomeColors.getAverageFoliageColor(world, pos)
+						<#elseif data.tintType == "Default foliage">
+							FoliageColor.FOLIAGE_DEFAULT
+						<#elseif data.tintType == "Birch foliage">
+							FoliageColor.FOLIAGE_BIRCH
+						<#elseif data.tintType == "Spruce foliage">
+							FoliageColor.FOLIAGE_EVERGREEN
+						<#elseif data.tintType == "Water">
+							BiomeColors.getAverageWaterColor(world, pos)
+						<#elseif data.tintType == "Sky">
+							Minecraft.getInstance().gameRenderer.getMainCamera().attributeProbe().getValue(EnvironmentAttributes.SKY_COLOR, 0)
+						<#elseif data.tintType == "Fog">
+							Minecraft.getInstance().gameRenderer.getMainCamera().attributeProbe().getValue(EnvironmentAttributes.FOG_COLOR, 0)
+						<#else>
+							Minecraft.getInstance().gameRenderer.getMainCamera().attributeProbe().getValue(EnvironmentAttributes.WATER_FOG_COLOR, 0)
+						</#if> | 0xFF000000;
+					}
+				}
+				<#else>
+				null
+				</#if>
 		));
 	}
 }</@javacompress>
