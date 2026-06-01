@@ -1,7 +1,13 @@
 # Changelogs:
 
-# 2026.2-2.7
+# 2026.2-2.7 (unstable - beta)
+(Thank you Spectrall for your help once again)
+**You will most certainly encounter many build errors and/or bugs. Please report them on GitHub**
+**THIS IS NOT A VERSION MADE FOR PRODUCTION. PLEASE USE FOR TESTING PURPOSES ONLY**
+- Updated to MCreator 2026.2.22416
 - Added support for Minecraft 26.1.2 with Fabric API 0.150.0
+  - GLOBAL_MAP and GLOBAL_WORLD scopes for variables have been temporarily disabled
+  - Tint types for custom blocks have also been temporarily disabled
 
 # 2026.1-2.6.2
 - Removed unsupported procedures
