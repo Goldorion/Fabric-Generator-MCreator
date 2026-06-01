@@ -39,7 +39,7 @@ public class ${JavaModName}Features {
 			register("${feature.getModElement().getRegistryName()}", new OreFeature(OreConfiguration.CODEC),
 				${feature.getModElement().getName()}Block.GENERATE_BIOMES, GenerationStep.Decoration.UNDERGROUND_ORES);
             <#elseif feature.getModElement().getTypeString() == "plant">
-			register("${feature.getModElement().getRegistryName()}", new RandomPatchFeature(RandomPatchConfiguration.CODEC),
+			register("${feature.getModElement().getRegistryName()}", new VegetationPatchFeature(VegetationPatchConfiguration.CODEC),
 				${feature.getModElement().getName()}Block.GENERATE_BIOMES, GenerationStep.Decoration.VEGETAL_DECORATION);
             </#if>
         </#list>

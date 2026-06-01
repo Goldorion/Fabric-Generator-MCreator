@@ -1,8 +1,8 @@
 <#--
  # This file is part of Fabric-Generator-MCreator.
  # Copyright (C) 2012-2020, Pylo
- # Copyright (C) 2020-2025, Pylo, opensource contributors
- # Copyright (C) 2020-2025, Goldorion, opensource contributors
+ # Copyright (C) 2020-2026, Pylo, opensource contributors
+ # Copyright (C) 2020-2026, Goldorion, opensource contributors
  #
  # Fabric-Generator-MCreator is free software: you can redistribute it and/or modify
  # it under the terms of the GNU General Public License as published by
@@ -97,7 +97,7 @@ public class ${name}Block extends ${getPlantClass(data.plantType)}Block <#if int
 		.strength(${data.hardness}f, ${data.resistance}f)
 		</#if>
 		<#if data.emissiveRendering>
-		.hasPostProcess((bs, br, bp) -> true).emissiveRendering((bs, br, bp) -> true)
+		.postProcess((bs, br, bp) -> bp).emissiveRendering((bs, br, bp) -> true)
 		</#if>
 		<#if data.speedFactor != 1.0>
 		.speedFactor(${data.speedFactor}f)
@@ -133,10 +133,6 @@ public class ${name}Block extends ${getPlantClass(data.plantType)}Block <#if int
 		<#if data.flammability != 0 && data.fireSpreadSpeed != 0>
 			FlammableBlockRegistry.getDefaultInstance().add(this, ${data.flammability}, ${data.fireSpreadSpeed});
 		</#if>
-	}
-
-	@Environment(EnvType.CLIENT) public static void registerRenderLayer() {
-		BlockRenderLayerMap.putBlock(${JavaModName}Blocks.${REGISTRYNAME}, ChunkSectionLayer.CUTOUT);
 	}
 
 	<#if data.generateFeature>
@@ -359,30 +355,42 @@ public class ${name}Block extends ${getPlantClass(data.plantType)}Block <#if int
 
 	<#if data.tintType != "No tint">
 		public static void blockColorLoad() {
-			ColorProviderRegistry.BLOCK.register((bs, world, pos, index) -> {
+			BlockColorRegistry.register(
 				<#if data.tintType == "Default foliage">
-					return FoliageColor.FOLIAGE_DEFAULT;
+					List.of(BlockTintSources.constant(FoliageColor.FOLIAGE_DEFAULT))
 				<#elseif data.tintType == "Birch foliage">
-					return FoliageColor.FOLIAGE_BIRCH;
+					List.of(BlockTintSources.constant(FoliageColor.FOLIAGE_BIRCH))
 				<#elseif data.tintType == "Spruce foliage">
-					return FoliageColor.FOLIAGE_EVERGREEN;
+					List.of(BlockTintSources.constant(FoliageColor.FOLIAGE_EVERGREEN))
+				<#elseif data.tintType == "Grass">
+					List.of(BlockTintSources.grass())
+				<#elseif data.tintType == "Foliage">
+					List.of(BlockTintSources.foliage())
+				<#elseif data.tintType == "Water">
+					List.of(BlockTintSources.water())
+				<#elseif data.tintType == "Sky">
+					List.of(new BlockTintSource() {
+						@Override public int color(BlockState state) { return 8562943; }
+						@Override public int colorInWorld(BlockState state, BlockAndTintGetter level, BlockPos pos) {
+							return Minecraft.getInstance().gameRenderer.getMainCamera().attributeProbe().getValue(EnvironmentAttributes.SKY_COLOR, 0);
+						}
+					})
+				<#elseif data.tintType == "Fog">
+					List.of(new BlockTintSource() {
+						@Override public int color(BlockState state) { return 12638463; }
+						@Override public int colorInWorld(BlockState state, BlockAndTintGetter level, BlockPos pos) {
+							return Minecraft.getInstance().gameRenderer.getMainCamera().attributeProbe().getValue(EnvironmentAttributes.FOG_COLOR, 0);
+						}
+					})
 				<#else>
-					return world != null && pos != null ?
-					<#if data.tintType == "Grass">
-						BiomeColors.getAverageGrassColor(world, pos) : GrassColor.get(0.5D, 1.0D);
-					<#elseif data.tintType == "Foliage">
-						BiomeColors.getAverageFoliageColor(world, pos) : FoliageColor.FOLIAGE_DEFAULT;
-					<#elseif data.tintType == "Water">
-						BiomeColors.getAverageWaterColor(world, pos) : -1;
-					<#elseif data.tintType == "Sky">
-						Minecraft.getInstance().level.getBiome(pos).value().getSkyColor() : 8562943;
-					<#elseif data.tintType == "Fog">
-						Minecraft.getInstance().level.getBiome(pos).value().getFogColor() : 12638463;
-					<#else>
-						Minecraft.getInstance().level.getBiome(pos).value().getWaterFogColor() : 329011;
-					</#if>
-				</#if>
-			}, ${JavaModName}Blocks.${REGISTRYNAME});
+					List.of(new BlockTintSource() {
+						@Override public int color(BlockState state) { return 329011; }
+						@Override public int colorInWorld(BlockState state, BlockAndTintGetter level, BlockPos pos) {
+							return Minecraft.getInstance().gameRenderer.getMainCamera().attributeProbe().getValue(EnvironmentAttributes.WATER_FOG_COLOR, 0);
+						}
+					})
+				</#if>,
+						${JavaModName}Blocks.${REGISTRYNAME});
 		}
 	</#if>
 
