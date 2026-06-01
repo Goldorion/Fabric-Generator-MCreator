@@ -186,8 +186,8 @@ public abstract class ${name}Fluid extends FlowingFluid {
 		new Material(Identifier.parse("${data.textureStill.format("%s:block/%s")}")), new Material(Identifier.parse("${data.textureFlowing.format("%s:block/%s")}")),
 		<#if data.textureRenderOverlay?has_content>new Material(Identifier.parse("${data.textureRenderOverlay.format("%s:textures/%s")}.png"))<#else>null</#if>,
 				<#if data.isFluidTinted()>
-				new FluidTintSource() {
-					@Override public int color(FluidState state) {
+				new BlockTintSource() {
+					@Override public int color(BlockState state) {
 						return <#if data.tintType == "Grass">
 						-6506636
 						<#elseif data.tintType == "Foliage" || data.tintType == "Default foliage">
@@ -207,7 +207,7 @@ public abstract class ${name}Fluid extends FlowingFluid {
 						</#if>;
 					}
 
-					@Override public int colorInWorld(FluidState state, BlockState blockState, BlockAndTintGetter world, BlockPos pos) {
+					@Override public int colorInWorld(BlockState blockState, BlockAndTintGetter world, BlockPos pos) {
 						return <#if data.tintType == "Grass">
 							BiomeColors.getAverageGrassColor(world, pos)
 						<#elseif data.tintType == "Foliage">

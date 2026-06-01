@@ -41,8 +41,7 @@ package ${package}.client.renderer.item;
 </#list>
 
 <@javacompress>
-@Environment(EnvType.CLIENT)
-public class ${name}ItemRenderer implements SpecialModelRenderer<ItemStack> {
+@Environment(EnvType.CLIENT) public class ${name}ItemRenderer implements SpecialModelRenderer<ItemStack> {
 	private static final Map<Integer, Function<Unbaked.CustomBakingContext, ${name}ItemRenderer>> MODELS = Map.ofEntries(
 		<#list models as model>
 			Map.entry(${model[0]}, context -> new ${name}ItemRenderer(
@@ -68,13 +67,15 @@ public class ${name}ItemRenderer implements SpecialModelRenderer<ItemStack> {
 		this.start = System.currentTimeMillis();
 	}
 
-	@Override public void submit(ItemStack itemstack, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int lightCoords, int overlayCoords, boolean glint, int outlineColor) {		<#if data.hasCustomJAVAModel() && data.animations?has_content>
+	@Override public void submit(ItemStack itemstack, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int lightCoords, int overlayCoords, boolean glint, int outlineColor) {
+		<#if data.hasCustomJAVAModel() && data.animations?has_content>
 		updateRenderState(itemstack);
 		</#if>
 
 		poseStack.pushPose();
 		poseStack.translate(0.5, isInventory(displayContext) ? 1.5 : 2, 0.5);
 		poseStack.scale(1, -1, displayContext == ItemDisplayContext.GUI ? -1 : 1);
+
 		renderState.ageInTicks = (System.currentTimeMillis() - start) / 50.0f;
 		<#if data.hasCustomJAVAModel() && data.animations?has_content>
 		if (model instanceof AnimatedModel animatedModel)

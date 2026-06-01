@@ -21,8 +21,7 @@
 <#-- @formatter:off -->
 package ${package}.client.renderer.item;
 
-@Environment(EnvType.CLIENT)
-public class LegacyOverrideSelectItemModel implements ItemModel {
+@Environment(EnvType.CLIENT) public class LegacyOverrideSelectItemModel implements ItemModel {
 
 	private final ModelOverride[] overrides;
 	private final ItemModel[] models;
