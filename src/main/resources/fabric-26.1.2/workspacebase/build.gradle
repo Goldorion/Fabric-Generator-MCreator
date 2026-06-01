@@ -24,6 +24,16 @@ dependencies {
     implementation "net.fabricmc.fabric-api:fabric-api:${generator.getGeneratorBuildFileVersion()}+${generator.getGeneratorMinecraftVersion()}"
 }
 
+// We need to do this because MCreator doesn't allow to split armor textures in multiple folders
+build {
+    doLast {
+        copy {
+            from 'src/main/resources/assets/dev_fabric_2612/textures/entity/equipment/humanoid/'
+            into 'src/main/resources/assets/dev_fabric_2612/textures/entity/equipment/humanoid_leggings/'
+        }
+    }
+}
+
 tasks.withType(JavaCompile).configureEach {
     it.options.release = 25
 }

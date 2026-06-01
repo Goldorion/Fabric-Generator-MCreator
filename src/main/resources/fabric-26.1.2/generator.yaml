@@ -1,7 +1,7 @@
 name: Fabric for @minecraft (@buildfileversion)
 status: dev
 buildfileversion: 0.150.0
-subversion: 1
+subversion: 2
 
 import:
   - datapack-26.1.x
@@ -13,8 +13,8 @@ import:
 # Gradle task definitions
 gradle:
   sync_task: genSourcesWithCfr
-  run_client: runClient
-  run_server: runServer
+  run_client: build runClient
+  run_server: build runServer
   export_file: "build/libs/modid-1.0.jar"
 
 import_formatter:
@@ -55,7 +55,7 @@ entity_textures_dir: "@MODASSETSROOT/textures/entities"
 effect_textures_dir: "@MODASSETSROOT/textures/mob_effect"
 particle_textures_dir: "@MODASSETSROOT/textures/particle"
 screen_textures_dir: "@MODASSETSROOT/textures/screens"
-armor_textures_dir: "@MODASSETSROOT/textures/models/armor"
+armor_textures_dir: "@MODASSETSROOT/textures/entity/equipment/humanoid" # Files are copied to humanoid_leggings inside the builld.gradle file
 other_textures_dir: "@MODASSETSROOT/textures"
 
 # vanilla resources

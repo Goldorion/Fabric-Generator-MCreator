@@ -1,7 +1,7 @@
 <#--
  # This file is part of Fabric-Generator-MCreator.
  # Copyright (C) 2012-2020, Pylo
- # Copyright (C) 2020-2025, Pylo, opensource contributors
+ # Copyright (C) 2020-2026, Pylo, opensource contributors
  # Copyright (C) 2020-2026, Goldorion, opensource contributors
  #
  # Fabric-Generator-MCreator is free software: you can redistribute it and/or modify
@@ -42,7 +42,7 @@ package ${package}.init;
             Model replacement = getHumanoidArmorModel(itemStack, layerType, original);
             if (replacement != original) {
                 if (original instanceof HumanoidModel<?> originalHumanoid && replacement instanceof HumanoidModel<?> replacementHumanoid) {
-                    originalHumanoid.copyPropertiesTo((HumanoidModel) replacement);
+                    originalHumanoid.copyTransforms(replacement);
                     replacementHumanoid.head.visible = originalHumanoid.head.visible;
                     replacementHumanoid.hat.visible = originalHumanoid.hat.visible;
                     replacementHumanoid.body.visible = originalHumanoid.body.visible;

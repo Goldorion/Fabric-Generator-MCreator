@@ -26,43 +26,43 @@ public abstract class EquipmentLayerRendererMixin {
 	@Shadow @Final private Function<EquipmentLayerRenderer.LayerTextureKey, Identifier> layerTextureLookup;
 
 	@Shadow @Final private Function<EquipmentLayerRenderer.TrimSpriteKey, TextureAtlasSprite> trimSpriteLookup;
-
-	@Shadow private static int getColorForLayer(EquipmentClientInfo.Layer layer, int i) {
-		return 0;
-	}
-
-	@Inject(method = "Lnet/minecraft/client/renderer/entity/layers/EquipmentLayerRenderer;renderLayers(Lnet/minecraft/client/resources/model/EquipmentClientInfo$LayerType;Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/client/model/Model;Lnet/minecraft/world/item/ItemStack;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILnet/minecraft/resources/Identifier;)V", at = @At("HEAD"), cancellable = true)
-	public void renderLayers(EquipmentClientInfo.LayerType layerType, ResourceKey<EquipmentAsset> resourceKey, Model model, ItemStack itemStack, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, Identifier Identifier, CallbackInfo ci) {
-            if (!${JavaModName}ArmorModels.ARMOR_MODELS.containsKey(itemStack.getItem()) || layerType == EquipmentClientInfo.LayerType.WINGS) return;
-
-            ${JavaModName}ArmorModels.ArmorModel armorModel = ${JavaModName}ArmorModels.ARMOR_MODELS.get(itemStack.getItem());
-            if (armorModel.getHumanoidArmorModel(itemStack, layerType, model) != null)
-                model = armorModel.getGenericArmorModel(itemStack, layerType, model);
-
-            List<EquipmentClientInfo.Layer> list = this.equipmentAssets.get(resourceKey).getLayers(layerType);
-            if (list.isEmpty()) {
-                ci.cancel();
-                return;
-            }
-
-			int j = DyedItemColor.getOrDefault(itemStack, 0);
-			boolean bl = itemStack.hasFoil();
-			for (EquipmentClientInfo.Layer layer : list) {
-				int k = getColorForLayer(layer, j);
-				if (k == 0) continue;
-				Identifier Identifier2 = layer.usePlayerTexture() && Identifier != null ? Identifier : this.layerTextureLookup.apply(new EquipmentLayerRenderer.LayerTextureKey(layerType, layer));
-				Identifier2 = armorModel.getArmorTexture(itemStack, layerType, layer, Identifier2);
-				VertexConsumer vertexConsumer = ItemRenderer.getArmorFoilBuffer(multiBufferSource, RenderType.armorCutoutNoCull(Identifier2), bl);
-				model.renderToBuffer(poseStack, vertexConsumer, i, OverlayTexture.NO_OVERLAY, k);
-				bl = false;
-			}
-			ArmorTrim armorTrim = itemStack.get(DataComponents.TRIM);
-			if (armorTrim != null) {
-				TextureAtlasSprite textureAtlasSprite = this.trimSpriteLookup.apply(new EquipmentLayerRenderer.TrimSpriteKey(armorTrim, layerType, resourceKey));
-				VertexConsumer vertexConsumer2 = textureAtlasSprite.wrap(multiBufferSource.getBuffer(Sheets.armorTrimsSheet(armorTrim.pattern().value().decal())));
-				model.renderToBuffer(poseStack, vertexConsumer2, i, OverlayTexture.NO_OVERLAY);
-			}
+	
+	@Inject(method = "renderLayers(Lnet/minecraft/client/resources/model/EquipmentClientInfo$LayerType;Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/client/model/Model;Ljava/lang/Object;Lnet/minecraft/world/item/ItemStack;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;ILnet/minecraft/resources/Identifier;II)V", at = @At("HEAD"), cancellable = true)
+	public <S> void renderLayers(EquipmentClientInfo.LayerType layerType, ResourceKey<EquipmentAsset> resourceKey, Model<? super S> model, S state, ItemStack itemStack, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int lightCoords, @Nullable Identifier playerTextureOverride, int outlineColor, int order, CallbackInfo ci) {
+		if (!${JavaModName}ArmorModels.ARMOR_MODELS.containsKey(itemStack.getItem()) || layerType == EquipmentClientInfo.LayerType.WINGS)
+		    return;
+		${JavaModName}ArmorModels.ArmorModel armorModel = ${JavaModName}ArmorModels.ARMOR_MODELS.get(itemStack.getItem());
+		if (armorModel.getHumanoidArmorModel(itemStack, layerType, model) != null)
+			model = armorModel.getGenericArmorModel(itemStack, layerType, model);
+		List<EquipmentClientInfo.Layer> layers = this.equipmentAssets.get(resourceKey).getLayers(layerType);
+		if (layers.isEmpty()) {
 			ci.cancel();
+			return;
+		}
+
+		int dyeColor = DyedItemColor.getOrDefault(itemStack, 0);
+		boolean renderFoil = itemStack.hasFoil();
+		int nextOrder = order;
+
+		for(EquipmentClientInfo.Layer layer : layers) {
+			int color = ((EquipmentLayerRenderer)(Object)this).getColorForLayer(layer, dyeColor);
+			if (color != 0) {
+				Identifier layerTexture = layer.usePlayerTexture() && playerTextureOverride != null ? playerTextureOverride : this.layerTextureLookup.apply(new EquipmentLayerRenderer.LayerTextureKey(layerType, layer));
+				submitNodeCollector.order(nextOrder++).submitModel(model, state, poseStack, RenderTypes.armorCutoutNoCull(layerTexture), lightCoords, OverlayTexture.NO_OVERLAY, color, null, outlineColor, null);
+				if (renderFoil) {
+					submitNodeCollector.order(nextOrder++).submitModel(model, state, poseStack, RenderTypes.armorEntityGlint(), lightCoords, OverlayTexture.NO_OVERLAY, color, null, outlineColor, null);
+				}
+
+				renderFoil = false;
+			}
+		}
+		ArmorTrim trim = (ArmorTrim)itemStack.get(DataComponents.TRIM);
+		if (trim != null && layerType != EquipmentClientInfo.LayerType.HUMANOID_BABY) {
+			TextureAtlasSprite sprite = this.trimSpriteLookup.apply(new EquipmentLayerRenderer.TrimSpriteKey(trim, layerType, resourceKey));
+			RenderType renderType = Sheets.armorTrimsSheet(trim.pattern().value().decal());
+			submitNodeCollector.order(order++).submitModel(model, state, poseStack, renderType, lightCoords, OverlayTexture.NO_OVERLAY, -1, sprite, outlineColor, (ModelFeatureRenderer.CrumblingOverlay)null);
+		}
+		ci.cancel();
 	}
 }
 <#-- @formatter:on -->
