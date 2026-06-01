@@ -22,7 +22,7 @@
 
 <#macro piglinNeutral procedure="">
 <#if procedure?has_content && (hasProcedure(procedure) || procedure.getFixedValue())>
-@Override public boolean makesPiglinsNeutral(ItemStack itemstack, LivingEntity entity) {
+public boolean makesPiglinsNeutral(ItemStack itemstack, LivingEntity entity) {
 	<#if hasProcedure(procedure)>
 		return <@procedureCode procedure, {
 			"x": "entity.getX()",
