@@ -72,11 +72,6 @@ public abstract class ${name}Fluid extends FlowingFluid {
 		return ${data.canMultiply};
 	}
 
-	@Override protected void beforeDestroyingBlock(LevelAccessor level, BlockPos pos, BlockState state) {
-		BlockEntity blockEntity = state.hasBlockEntity() ? level.getBlockEntity(pos) : null;
-		Block.dropResources(state, level, pos, blockEntity);
-	}
-
 	@Override protected int getSlopeFindDistance(LevelReader level) {
 		return ${data.slopeFindDistance};
 	}
@@ -141,8 +136,11 @@ public abstract class ${name}Fluid extends FlowingFluid {
 	}
 	</#if>
 
-	<#if hasProcedure(data.beforeReplacingBlock)>
+
 	@Override protected void beforeDestroyingBlock(LevelAccessor world, BlockPos pos, BlockState blockstate) {
+		BlockEntity blockEntity = state.hasBlockEntity() ? level.getBlockEntity(pos) : null;
+		Block.dropResources(state, level, pos, blockEntity);
+		<#if hasProcedure(data.beforeReplacingBlock)>
 		<@procedureCode data.beforeReplacingBlock, {
 			"x": "pos.getX()",
 			"y": "pos.getY()",
@@ -150,8 +148,8 @@ public abstract class ${name}Fluid extends FlowingFluid {
 			"world": "world",
 			"blockstate": "blockstate"
 		}/>
+		</#if>
 	}
-	</#if>
 
 	public static class Source extends ${name}Fluid {
 		public int getAmount(FluidState state) {
@@ -205,8 +203,8 @@ public abstract class ${name}Fluid extends FlowingFluid {
 			<#else>
 				constant(-16448205)
 			</#if>
-        <#else>
-        null
+		<#else>
+		null
 		</#if>
 		));
 	}
