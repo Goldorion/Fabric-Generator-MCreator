@@ -121,11 +121,25 @@ public class ${name}Item extends Item {
 
 				SimpleContainer inventory = new SimpleContainer(${data.inventorySize}) {
 					<#if data.inventoryStackSize != 99>
-					@Override
-					public int getMaxStackSize() {
+					@Override public int getMaxStackSize() {
 						return ${data.inventoryStackSize};
 				   	}
 					</#if>
+
+					@Override public void setChanged() {
+                        ListTag itemsTag = new ListTag();
+                        for (ItemStack itemStack : inventory) {
+                            if (!itemStack.isEmpty()) {
+                                DataResult<Tag> result = ItemStack.CODEC.encodeStart(NbtOps.INSTANCE, itemStack);
+                                result.result().ifPresent(itemsTag::add);
+                            } else {
+                                itemsTag.add(new CompoundTag());
+                            }
+                        }
+                        CompoundTag rootTag = new CompoundTag();
+                        rootTag.put("inventory_${registryname}", itemsTag);
+                        stack.set(DataComponents.CUSTOM_DATA, CustomData.of(rootTag));
+				   	}
 				};
 				CustomData nbtComponent = stack.get(DataComponents.CUSTOM_DATA);
 				if (nbtComponent != null) {
@@ -141,20 +155,7 @@ public class ${name}Item extends Item {
 						}
 					});
 				}
-				inventory.addListener(inv -> {
-					ListTag itemsTag = new ListTag();
-					for (ItemStack itemStack : inventory) {
-						if (!itemStack.isEmpty()) {
-							DataResult<Tag> result = ItemStack.CODEC.encodeStart(NbtOps.INSTANCE, itemStack);
-							result.result().ifPresent(itemsTag::add);
-						} else {
-							itemsTag.add(new CompoundTag());
-						}
-					}
-					CompoundTag rootTag = new CompoundTag();
-					rootTag.put("inventory_${registryname}", itemsTag);
-					stack.set(DataComponents.CUSTOM_DATA, CustomData.of(rootTag));
-				});
+
 				return new ${data.guiBoundTo}Menu(id, invIgnored, inventory, packetBuffer);
 			}
 		};
