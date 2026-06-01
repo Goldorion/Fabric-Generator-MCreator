@@ -330,15 +330,15 @@ public class ${name}Item extends Item {
 		@Override public void onUseTick(Level world, LivingEntity entity, ItemStack itemstack, int time) {
 			<#if hasProcedure(data.everyTickWhileUsing)>
 				<@procedureCode data.everyTickWhileUsing, {
-            		"x": "entity.getX()",
-            		"y": "entity.getY()",
-            		"z": "entity.getZ()",
-            		"world": "world",
-            		"entity": "entity",
-            		"itemstack": "itemstack",
-            		"time": "time"
-            	}/>
-            </#if>
+					"x": "entity.getX()",
+					"y": "entity.getY()",
+					"z": "entity.getZ()",
+					"world": "world",
+					"entity": "entity",
+					"itemstack": "itemstack",
+					"time": "time"
+				}/>
+			</#if>
 			<#if data.enableRanged && data.shootConstantly>
 				if (!world.isClientSide() && entity instanceof ServerPlayer player) {
 					<@arrowShootCode/>
@@ -374,12 +374,12 @@ public class ${name}Item extends Item {
 			public static final MapCodec<${propClassName}Property> MAP_CODEC = MapCodec.unit(new ${propClassName}Property());
 
 			@Override
-			public float get(ItemStack itemStackToRender, @Nullable ClientLevel clientWorld, @Nullable ItemOwner  owner, int seed) {
+			public float get(ItemStack itemStackToRender, @Nullable ClientLevel clientWorld, @Nullable ItemOwner owner, int seed) {
 				<#if hasProcedure(property.getValue())>
 				return (float) <@procedureCode property.getValue(), {
-					"x": "owner != null ? owner.getX() : 0",
-					"y": "owner != null ? owner.getY() : 0",
-					"z": "owner != null ? owner.getZ() : 0",
+					"x": "owner != null ? owner.position().x() : 0",
+					"y": "owner != null ? owner.position().y() : 0",
+					"z": "owner != null ? owner.position().z() : 0",
 					"world": "owner != null ? owner.level() : clientWorld",
 					"entity": "owner.asLivingEntity()",
 					"itemstack": "itemStackToRender"
