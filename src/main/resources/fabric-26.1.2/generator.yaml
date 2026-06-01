@@ -38,6 +38,7 @@ import_formatter:
     Potion: net.minecraft.world.item.alchemy
     MapColor: net.minecraft.world.level.material
     AttributeModifier: net.minecraft.world.entity.ai.attributes
+    Consumer: java.util.function
 
 # base generator roots
 source_root: "@WORKSPACEROOT/src/main/java"

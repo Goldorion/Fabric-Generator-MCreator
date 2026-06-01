@@ -1,8 +1,8 @@
 <#--
  # This file is part of Fabric-Generator-MCreator.
  # Copyright (C) 2012-2020, Pylo
- # Copyright (C) 2020-2025, Pylo, opensource contributors
- # Copyright (C) 2020-2025, Goldorion, opensource contributors
+ # Copyright (C) 2020-2026, Pylo, opensource contributors
+ # Copyright (C) 2020-2026, Goldorion, opensource contributors
  #
  # Fabric-Generator-MCreator is free software: you can redistribute it and/or modify
  # it under the terms of the GNU General Public License as published by
@@ -51,7 +51,7 @@ public class ${name}Item extends Item {
 				.fireResistant()
 				</#if>
 				<#if data.hasBannerPatterns()>
-				.component(DataComponents.PROVIDES_BANNER_PATTERNS, PROVIDED_PATTERNS)
+				.delayedComponent(DataComponents.PROVIDES_BANNER_PATTERNS, context -> context.getOrThrow(PROVIDED_PATTERNS))
 				</#if>
 				<#if data.isFood>
 				.food((new FoodProperties.Builder())
@@ -183,7 +183,7 @@ public class ${name}Item extends Item {
 			}
 		<#else>
 			@Override public ItemStackTemplate getCraftingRemainder(ItemStack itemstack) {
-				return new ItemStackTemplate(this);
+				return ItemStackTemplate.fromNonEmptyStack(this);
 			}
 		</#if>
 	</#if>
@@ -374,14 +374,14 @@ public class ${name}Item extends Item {
 			public static final MapCodec<${propClassName}Property> MAP_CODEC = MapCodec.unit(new ${propClassName}Property());
 
 			@Override
-			public float get(ItemStack itemStackToRender, @Nullable ClientLevel clientWorld, @Nullable LivingEntity entity, int seed) {
+			public float get(ItemStack itemStackToRender, @Nullable ClientLevel clientWorld, @Nullable ItemOwner  owner, int seed) {
 				<#if hasProcedure(property.getValue())>
 				return (float) <@procedureCode property.getValue(), {
-					"x": "entity != null ? entity.getX() : 0",
-					"y": "entity != null ? entity.getY() : 0",
-					"z": "entity != null ? entity.getZ() : 0",
-					"world": "entity != null ? entity.level() : clientWorld",
-					"entity": "entity",
+					"x": "owner != null ? owner.getX() : 0",
+					"y": "owner != null ? owner.getY() : 0",
+					"z": "owner != null ? owner.getZ() : 0",
+					"world": "owner != null ? owner.level() : clientWorld",
+					"entity": "owner.asLivingEntity()",
 					"itemstack": "itemStackToRender"
 				}, false/>;
 				<#else>
@@ -420,7 +420,7 @@ public class ${name}Item extends Item {
 		</#if>
 
 		<#if data.damageCount != 0>
-		itemstack.hurtAndBreak(1, entity, LivingEntity.getSlotForHand(entity.getUsedItemHand()));
+		itemstack.hurtAndBreak(1, entity, entity.getUsedItemHand().asEquipmentSlot());
 		</#if>
 
 		if (player.getAbilities().instabuild) {

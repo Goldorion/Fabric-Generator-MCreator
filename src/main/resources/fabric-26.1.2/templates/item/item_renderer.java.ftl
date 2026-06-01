@@ -1,8 +1,8 @@
 <#--
  # This file is part of Fabric-Generator-MCreator.
  # Copyright (C) 2012-2020, Pylo
- # Copyright (C) 2020-2025, Pylo, opensource contributors
- # Copyright (C) 2020-2025, Goldorion, opensource contributors
+ # Copyright (C) 2020-2026, Pylo, opensource contributors
+ # Copyright (C) 2020-2026, Goldorion, opensource contributors
  #
  # Fabric-Generator-MCreator is free software: you can redistribute it and/or modify
  # it under the terms of the GNU General Public License as published by
@@ -43,37 +43,38 @@ package ${package}.client.renderer.item;
 <@javacompress>
 @Environment(EnvType.CLIENT)
 public class ${name}ItemRenderer implements SpecialModelRenderer<ItemStack> {
-	private static final Map<Integer, Function<EntityModelSet, ${name}ItemRenderer>> MODELS = Map.ofEntries(
+	private static final Map<Integer, Function<Unbaked.CustomBakingContext, ${name}ItemRenderer>> MODELS = Map.ofEntries(
 		<#list models as model>
-			Map.entry(${model[0]}, modelSet -> new ${name}ItemRenderer(
-				new <#if model[0] == -1 && data.animations?has_content>AnimatedModel<#else>${model[1]}</#if>(modelSet.bakeLayer(${model[1]}.LAYER_LOCATION)),
-				Identifier.parse("${model[2].format("%s:textures/item/%s")}.png")
+			Map.entry(${model[0]}, context -> new ${name}ItemRenderer(
+				new <#if model[0] == -1 && data.animations?has_content>AnimatedModel<#else>${model[1]}</#if>(context.bakingContext().entityModelSet().bakeLayer(${model[1]}.LAYER_LOCATION)),
+				Identifier.parse("${model[2].format("%s:textures/item/%s")}.png"),
+				context.display()
 			))<#sep>,
 		</#list>
 	);
 
 	private final EntityModel<LivingEntityRenderState> model;
 	private final Identifier texture;
+	private final ItemDisplayContext displayContext;
 
 	private final LivingEntityRenderState renderState;
 	private final long start;
 
-	private ${name}ItemRenderer(EntityModel<LivingEntityRenderState> model, Identifier texture) {
+	private ${name}ItemRenderer(EntityModel<LivingEntityRenderState> model, Identifier texture, ItemDisplayContext displayContext) {
 		this.model = model;
 		this.texture = texture;
+		this.displayContext = displayContext;
 		this.renderState = new LivingEntityRenderState();
 		this.start = System.currentTimeMillis();
 	}
 
-	@Override public void render(ItemStack itemstack, ItemDisplayContext displayContext, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay, boolean glint) {
-		<#if data.hasCustomJAVAModel() && data.animations?has_content>
+	@Override public void submit(ItemStack itemstack, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int lightCoords, int overlayCoords, boolean glint, int outlineColor) {		<#if data.hasCustomJAVAModel() && data.animations?has_content>
 		updateRenderState(itemstack);
 		</#if>
 
 		poseStack.pushPose();
 		poseStack.translate(0.5, isInventory(displayContext) ? 1.5 : 2, 0.5);
 		poseStack.scale(1, -1, displayContext == ItemDisplayContext.GUI ? -1 : 1);
-		VertexConsumer vertexConsumer = ItemRenderer.getFoilBuffer(bufferSource, model.renderType(texture), false, glint);
 		renderState.ageInTicks = (System.currentTimeMillis() - start) / 50.0f;
 		<#if data.hasCustomJAVAModel() && data.animations?has_content>
 		if (model instanceof AnimatedModel animatedModel)
@@ -81,7 +82,13 @@ public class ${name}ItemRenderer implements SpecialModelRenderer<ItemStack> {
 		else
 		</#if>
 		model.setupAnim(renderState);
-		model.renderToBuffer(poseStack, vertexConsumer, packedLight, packedOverlay);
+
+		submitNodeCollector.submitModel(this.model, renderState, poseStack, texture, lightCoords, overlayCoords, outlineColor, null);
+
+		if (glint) {
+			submitNodeCollector.submitModel(this.model, renderState, poseStack, RenderTypes.entityGlint(), lightCoords, overlayCoords, -1, null);
+		}
+
 		poseStack.popPose();
 	}
 
@@ -89,18 +96,19 @@ public class ${name}ItemRenderer implements SpecialModelRenderer<ItemStack> {
 		return itemstack;
 	}
 
-	@Override public void getExtents(Set<Vector3f> extentsSet) {
+	@Override public void getExtents(Consumer<Vector3fc> output) {
 		PoseStack posestack = new PoseStack();
-		this.model.root().getExtentsForGui(posestack, extentsSet);
+		this.model.root().getExtentsForGui(posestack, output);
 	}
 
 	private static boolean isInventory(ItemDisplayContext type) {
 		return type == ItemDisplayContext.GUI || type == ItemDisplayContext.FIXED;
 	}
 
-	public record Unbaked(int index) implements SpecialModelRenderer.Unbaked {
+	public record Unbaked(int index, ItemDisplayContext display) implements SpecialModelRenderer.Unbaked<ItemStack> {
 		public static final MapCodec<${name}ItemRenderer.Unbaked> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-			ExtraCodecs.NON_NEGATIVE_INT.optionalFieldOf("index").xmap(opt -> opt.orElse(-1), i -> i == -1 ? Optional.empty() : Optional.of(i)).forGetter(${name}ItemRenderer.Unbaked::index)
+				ExtraCodecs.NON_NEGATIVE_INT.optionalFieldOf("index").xmap(opt -> opt.orElse(-1), i -> i == -1 ? Optional.empty() : Optional.of(i)).forGetter(${name}ItemRenderer.Unbaked::index),
+				ItemDisplayContext.CODEC.optionalFieldOf("display", ItemDisplayContext.NONE).forGetter(${name}ItemRenderer.Unbaked::display)
 		).apply(instance, ${name}ItemRenderer.Unbaked::new));
 
 		@Override
@@ -109,9 +117,11 @@ public class ${name}ItemRenderer implements SpecialModelRenderer<ItemStack> {
 		}
 
 		@Override
-		public SpecialModelRenderer<?> bake(EntityModelSet modelSet) {
-			return ${name}ItemRenderer.MODELS.get(index).apply(modelSet);
+		public SpecialModelRenderer<ItemStack> bake(BakingContext bakingContext) {
+			return ${name}ItemRenderer.MODELS.get(index).apply(new CustomBakingContext(bakingContext, display));
 		}
+
+		public record CustomBakingContext(BakingContext bakingContext, ItemDisplayContext display) {}
 	}
 
 	<#if data.hasCustomJAVAModel() && data.animations?has_content>

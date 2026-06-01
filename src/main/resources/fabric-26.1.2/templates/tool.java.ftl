@@ -318,7 +318,7 @@ public class ${name}Item extends FishingRodItem {
 			}
 		<#else>
 			@Override public ItemStackTemplate getCraftingRemainder(ItemStack itemstack) {
-				return new ItemStackTemplate(this);
+				return ItemStackTemplate.fromNonEmptyStack(this);
 			}
 		</#if>
 	</#if>

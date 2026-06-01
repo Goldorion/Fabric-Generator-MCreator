@@ -1,8 +1,8 @@
 <#--
  # This file is part of Fabric-Generator-MCreator.
  # Copyright (C) 2012-2020, Pylo
- # Copyright (C) 2020-2025, Pylo, opensource contributors
- # Copyright (C) 2020-2025, Goldorion, opensource contributors
+ # Copyright (C) 2020-2026, Pylo, opensource contributors
+ # Copyright (C) 2020-2026, Goldorion, opensource contributors
  #
  # Fabric-Generator-MCreator is free software: you can redistribute it and/or modify
  # it under the terms of the GNU General Public License as published by
@@ -23,6 +23,7 @@ package ${package}.client.renderer.item;
 
 @Environment(EnvType.CLIENT)
 public class LegacyOverrideSelectItemModel implements ItemModel {
+
 	private final ModelOverride[] overrides;
 	private final ItemModel[] models;
 	private final ItemModel fallback;
@@ -34,15 +35,15 @@ public class LegacyOverrideSelectItemModel implements ItemModel {
 	}
 
 	@Override public void update(ItemStackRenderState renderState, ItemStack itemStack, ItemModelResolver modelResolver,
-			ItemDisplayContext displayContext, @Nullable ClientLevel level, @Nullable LivingEntity entity, int seed) {
+			ItemDisplayContext displayContext, @Nullable ClientLevel level, @Nullable ItemOwner owner, int seed) {
 		ItemModel model = fallback;
 		for (int i = overrides.length - 1; i >= 0; i--) {
-			if (overrides[i].test(itemStack, level, entity, seed, displayContext)) {
+			if (overrides[i].test(itemStack, level, owner != null ? owner.asLivingEntity() : null, seed, displayContext)) {
 				model = models[i];
 				break;
 			}
 		}
-		model.update(renderState, itemStack, modelResolver, displayContext, level, entity, seed);
+		model.update(renderState, itemStack, modelResolver, displayContext, level, owner, seed);
 	}
 
 	public record FloatEntry(RangeSelectItemModelProperty property, float value) implements PredicateEntry {
@@ -114,11 +115,11 @@ public class LegacyOverrideSelectItemModel implements ItemModel {
 			return MAP_CODEC;
 		}
 
-		@Override public ItemModel bake(ItemModel.BakingContext bakingContext) {
+		@Override public ItemModel bake(ItemModel.BakingContext bakingContext, Matrix4fc transformation) {
 			ItemModel[] models = new ItemModel[overrides.size()];
 			for (int i = 0; i < overrides.size(); i++)
-			   models[i] = overrides.get(i).model.bake(bakingContext);
-			return new LegacyOverrideSelectItemModel(overrides.toArray(LegacyOverrideSelectItemModel.ModelOverride[]::new), models, fallback.bake(bakingContext));
+				models[i] = overrides.get(i).model.bake(bakingContext, transformation);
+			return new LegacyOverrideSelectItemModel(overrides.toArray(LegacyOverrideSelectItemModel.ModelOverride[]::new), models, fallback.bake(bakingContext, transformation));
 		}
 
 		@Override public void resolveDependencies(ResolvableModel.Resolver resolver) {
