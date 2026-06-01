@@ -106,7 +106,7 @@ public class ${JavaModName}Variables {
 
 			MapVariables mapVariables = MapVariables.get(level);
 			if (mapVariables._syncDirty) {
-			    PlayerLookup.world(level).forEach(player -> ServerPlayNetworking.send(player, new SavedDataSyncMessage(0, mapVariables)));
+			    PlayerLookup.level(level).forEach(player -> ServerPlayNetworking.send(player, new SavedDataSyncMessage(0, mapVariables)));
 			    mapVariables._syncDirty = false;
 			}
 		});
@@ -116,14 +116,14 @@ public class ${JavaModName}Variables {
 	<#if w.hasVariablesOfScope("GLOBAL_WORLD") || w.hasVariablesOfScope("GLOBAL_MAP")>
 	public static class WorldVariables extends SavedData {
 
-		public static final SavedDataType<WorldVariables> TYPE = new SavedDataType<>("${modid}_worldvars", ctx -> new WorldVariables(),
-			ctx -> CompoundTag.CODEC.xmap(
+		public static final SavedDataType<WorldVariables> TYPE = new SavedDataType<>(Identifier.parse("${modid}:worldvars"), WorldVariables::new,
+				CompoundTag.CODEC.xmap(
 				tag -> {
 					WorldVariables instance = new WorldVariables();
-					instance.read(tag, ctx.levelOrThrow().registryAccess());
+					instance.read(tag);
 					return instance;
 				},
-				instance -> instance.save(new CompoundTag(), ctx.levelOrThrow().registryAccess())
+				instance -> instance.save(new CompoundTag())
 			), null
 		);
 
@@ -135,7 +135,7 @@ public class ${JavaModName}Variables {
 			</#if>
 		</#list>
 
-		public void read(CompoundTag nbt, HolderLookup.Provider lookupProvider) {
+		public void read(CompoundTag nbt) {
 			<#list variables as var>
 				<#if var.getScope().name() == "GLOBAL_WORLD">
 					<@var.getType().getScopeDefinition(generator.getWorkspace(), "GLOBAL_WORLD")['read']?interpret/>
@@ -143,7 +143,7 @@ public class ${JavaModName}Variables {
 			</#list>
 		}
 
-		public CompoundTag save(CompoundTag nbt, HolderLookup.Provider lookupProvider) {
+		public CompoundTag save(CompoundTag nbt) {
 			<#list variables as var>
 				<#if var.getScope().name() == "GLOBAL_WORLD">
 					<@var.getType().getScopeDefinition(generator.getWorkspace(), "GLOBAL_WORLD")['write']?interpret/>
@@ -170,14 +170,14 @@ public class ${JavaModName}Variables {
 
 	public static class MapVariables extends SavedData {
 
-		public static final SavedDataType<MapVariables> TYPE = new SavedDataType<>("${modid}_mapvars", ctx -> new MapVariables(),
-			ctx -> CompoundTag.CODEC.xmap(
+		public static final SavedDataType<MapVariables> TYPE = new SavedDataType<>(Identifier.parse("${modid}:mapvars"), MapVariables::new,
+				CompoundTag.CODEC.xmap(
 				tag -> {
 					MapVariables instance = new MapVariables();
-					instance.read(tag, ctx.levelOrThrow().registryAccess());
+					instance.read(tag);
 					return instance;
 				},
-				instance -> instance.save(new CompoundTag(), ctx.levelOrThrow().registryAccess())
+				instance -> instance.save(new CompoundTag())
 			), null
 		);
 
@@ -189,7 +189,7 @@ public class ${JavaModName}Variables {
 			</#if>
 		</#list>
 
-		public void read(CompoundTag nbt, HolderLookup.Provider lookupProvider) {
+		public void read(CompoundTag nbt) {
 			<#list variables as var>
 				<#if var.getScope().name() == "GLOBAL_MAP">
 					<@var.getType().getScopeDefinition(generator.getWorkspace(), "GLOBAL_MAP")['read']?interpret/>
@@ -197,7 +197,7 @@ public class ${JavaModName}Variables {
 			</#list>
 		}
 
-		public CompoundTag save(CompoundTag nbt, HolderLookup.Provider lookupProvider) {
+		public CompoundTag save(CompoundTag nbt) {
 			<#list variables as var>
 				<#if var.getScope().name() == "GLOBAL_MAP">
 					<@var.getType().getScopeDefinition(generator.getWorkspace(), "GLOBAL_MAP")['write']?interpret/>
@@ -230,9 +230,9 @@ public class ${JavaModName}Variables {
 			(RegistryFriendlyByteBuf buffer, SavedDataSyncMessage message) -> {
 				buffer.writeInt(message.dataType);
 				if (message.data instanceof MapVariables mapVariables)
-					buffer.writeNbt(mapVariables.save(new CompoundTag(), buffer.registryAccess()));
+					buffer.writeNbt(mapVariables.save(new CompoundTag()));
 				else if (message.data instanceof WorldVariables worldVariables)
-					buffer.writeNbt(worldVariables.save(new CompoundTag(), buffer.registryAccess()));
+					buffer.writeNbt(worldVariables.save(new CompoundTag()));
 			},
 			(RegistryFriendlyByteBuf buffer) -> {
 				int dataType = buffer.readInt();
@@ -241,9 +241,9 @@ public class ${JavaModName}Variables {
 				if (nbt != null) {
 					data = dataType == 0 ? new MapVariables() : new WorldVariables();
 					if(data instanceof MapVariables mapVariables)
-						mapVariables.read(nbt, buffer.registryAccess());
+						mapVariables.read(nbt);
 					else if(data instanceof WorldVariables worldVariables)
-						worldVariables.read(nbt, buffer.registryAccess());
+						worldVariables.read(nbt);
 				}
 				return new SavedDataSyncMessage(dataType, data);
 			}
@@ -257,9 +257,9 @@ public class ${JavaModName}Variables {
 			if (message.data != null) {
 				context.client().execute(() -> {
 					if (message.dataType == 0)
-						MapVariables.clientSide.read(((MapVariables) message.data).save(new CompoundTag(), context.player().registryAccess()), context.player().registryAccess());
+						MapVariables.clientSide.read(((MapVariables) message.data).save(new CompoundTag()));
 					else
-						WorldVariables.clientSide.read(((WorldVariables) message.data).save(new CompoundTag(), context.player().registryAccess()), context.player().registryAccess());
+						WorldVariables.clientSide.read(((WorldVariables) message.data).save(new CompoundTag()));
 				});
 			}
 		}

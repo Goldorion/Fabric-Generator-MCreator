@@ -2,7 +2,7 @@
 
 - Fix tints not being applied in the game on custom blocks
   - See [this page](https://docs.fabricmc.net/develop/blocks/block-models#elements) to fix the problem
-- Port GLOBAL_MAP and GLOBAL_WORLD variable scopes
+- Port blockstate GLOBAL_MAP and GLOBAL_WORLD variable scopes
 - should we be interested in restoring the centerX, centerY, xAngle, yAngle variables to their old state? [Patch](https://github.com/neoforged/NeoForge/blob/26.1.x/patches/net/minecraft/client/gui/screens/inventory/InventoryScreen.java.patch)
 
 ???
