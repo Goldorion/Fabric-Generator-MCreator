@@ -101,7 +101,7 @@ public class ${name}Item extends Item {
 				.enchantable(${data.enchantability})
 				</#if>
 				<#if data.hasCustomEatResultItem()>
-				.component(DataComponents.USE_REMAINDER, new UseRemainder(${mappedMCItemToItemStackCode(data.eatResultItem, 1)}))
+				.component(DataComponents.USE_REMAINDER, new UseRemainder(new ItemStackTemplate(${mappedMCItemToItem(data.eatResultItem)})))
 				</#if>
 		);
 	}

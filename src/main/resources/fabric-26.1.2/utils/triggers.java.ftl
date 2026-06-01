@@ -22,7 +22,7 @@
 
 <#macro piglinNeutral procedure="">
 <#if procedure?has_content && (hasProcedure(procedure) || procedure.getFixedValue())>
-public boolean makesPiglinsNeutral(ItemStack itemstack, LivingEntity entity) {
+@Override public boolean makesPiglinsNeutral(ItemStack itemstack, LivingEntity entity) {
 	<#if hasProcedure(procedure)>
 		return <@procedureCode procedure, {
 			"x": "entity.getX()",
@@ -107,7 +107,7 @@ public void onEntitySwing(ItemStack itemstack, LivingEntity entity, InteractionH
 <#if hasProcedure(procedure) || hurtStack>
 @Override public void hurtEnemy(ItemStack itemstack, LivingEntity entity, LivingEntity sourceentity) {
 	<#if hurtStack>
-		itemstack.hurtAndBreak(${hurtStackAmount}, entity, LivingEntity.getSlotForHand(entity.getUsedItemHand()));
+		itemstack.hurtAndBreak(${hurtStackAmount}, entity, entity.getUsedItemHand().asEquipmentSlot());
 	<#else>
 		super.hurtEnemy(itemstack, entity, sourceentity);
 	</#if>
@@ -234,7 +234,7 @@ public void onDroppedByPlayer(ItemStack itemstack, Player entity) {
 <#if hasProcedure(procedure) || hurtStack>
 @Override public boolean mineBlock(ItemStack itemstack, Level world, BlockState blockstate, BlockPos pos, LivingEntity entity) {
 	<#if hurtStack>
-		itemstack.hurtAndBreak(1, entity, LivingEntity.getSlotForHand(entity.getUsedItemHand()));
+		itemstack.hurtAndBreak(1, entity, entity.getUsedItemHand().asEquipmentSlot());
 	<#else>
 		boolean retval = super.mineBlock(itemstack,world,blockstate,pos,entity);
 	</#if>
