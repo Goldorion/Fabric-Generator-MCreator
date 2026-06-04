@@ -1,5 +1,22 @@
 # Changelogs:
 
+# 2026.2-2.7.1
+(Thank you Spectrall for all thoe fixes and improvements)
+- Updated minimal Fabric Loader version to 0.19.3
+- Added GLOBAL_MAP and GLOBAL_WORLD variable scopes back
+- Max amount xp dropped by plant was not working correctly
+- On Destroyed by player trigger was missing for plants
+- Custom boats and rafts could cause some problems
+- Using a procedure for custom item properties caused a build error
+- Recipe remainder for items and tools did not work correctly
+- Some block and item triggers could cause build errors and/or did not work correctly
+- Tint was causing a build error for custom fluids
+- Custom Java model for items could cause problems.
+- Custom Java models for custom armors could cause some problems
+- Custom inventory for items did not work correctly
+- Breedable entities could cause problems
+- Some other minor fixes and improvements
+
 # 2026.2-2.7 (unstable - beta)
 (Thank you Spectrall for your help once again)
 **You will most certainly encounter many build errors and/or bugs. Please report them on GitHub**
