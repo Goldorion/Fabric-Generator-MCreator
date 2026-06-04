@@ -38,7 +38,7 @@
   ],
   "accessWidener": "META-INF/${modid}.classtweaker",
   "depends": {
-	"fabricloader": ">=0.19.2",
+	"fabricloader": ">=0.19.3",
 	"minecraft": "~${generator.getGeneratorMinecraftVersion()}",
 	"java": ">=25",
 	"fabric-api": "*"<#if settings.getRequiredMods()?has_content>,</#if>
