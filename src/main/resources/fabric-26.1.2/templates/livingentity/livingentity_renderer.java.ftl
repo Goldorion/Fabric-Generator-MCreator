@@ -125,7 +125,7 @@ public class ${name}Renderer extends <#if humanoid>Humanoid</#if>MobRenderer<${n
 			@Override public void submit(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int light, ${renderState} state, float headYaw, float headPitch) {
 				<#if hasProcedure(layer.condition)>
 				<#assign needsEntityInState = true>
-				Entity entity = state.getRenderData(ENTITY_KEY);
+				Entity entity = state.getData(ENTITY_KEY);
 				Level world = entity.level();
 				double x = entity.getX();
 				double y = entity.getY();
@@ -176,7 +176,7 @@ public class ${name}Renderer extends <#if humanoid>Humanoid</#if>MobRenderer<${n
 	@Override protected void scale(${renderState} state, PoseStack poseStack) {
 		<#if hasProcedure(data.visualScale)>
 			<#assign needsEntityInState = true>
-			Entity entity = state.getRenderData(ENTITY_KEY);
+			Entity entity = state.getData(ENTITY_KEY);
 			Level world = entity.level();
 			double x = entity.getX();
 			double y = entity.getY();
@@ -199,7 +199,7 @@ public class ${name}Renderer extends <#if humanoid>Humanoid</#if>MobRenderer<${n
 	@Override protected boolean isBodyVisible(${renderState} state) {
 		<#if hasProcedure(data.transparentModelCondition)>
 		<#assign needsEntityInState = true>
-		Entity entity = state.getRenderData(ENTITY_KEY);
+		Entity entity = state.getData(ENTITY_KEY);
 		Level world = entity.level();
 		double x = entity.getX();
 		double y = entity.getY();
@@ -213,7 +213,7 @@ public class ${name}Renderer extends <#if humanoid>Humanoid</#if>MobRenderer<${n
 	@Override protected boolean isShaking(${renderState} state) {
 		<#if hasProcedure(data.isShakingCondition)>
 		<#assign needsEntityInState = true>
-		Entity entity = state.getRenderData(ENTITY_KEY);
+		Entity entity = state.getData(ENTITY_KEY);
 		Level world = entity.level();
 		double x = entity.getX();
 		double y = entity.getY();
@@ -280,7 +280,7 @@ public class ${name}Renderer extends <#if humanoid>Humanoid</#if>MobRenderer<${n
 	this.root().getAllParts().forEach(ModelPart::resetPose);
 	</#if>
 	<#if data.animations?has_content>
-	${name}Entity entity = state.getRenderData(ENTITY_KEY);
+	${name}Entity entity = state.getData(ENTITY_KEY);
 	</#if>
 	<#list data.animations as animation>
 		<#if !animation.walking>

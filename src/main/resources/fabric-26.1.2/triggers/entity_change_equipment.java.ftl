@@ -8,7 +8,7 @@ public ${name}Procedure() {
 				"z": "entity.getZ()",
 				"world": "entity.level()",
 				"entity": "entity",
-				"equipmentslot": "equipmentSlot",
+				"equipmentslot": "equipmentSlot.getId()",
 				"olditemstack": "previousStack",
 				"newitemstack": "currentStack"
 			}/>
