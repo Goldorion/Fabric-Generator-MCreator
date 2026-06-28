@@ -28,8 +28,8 @@ dependencies {
 build {
     doLast {
         copy {
-            from 'src/main/resources/assets/dev_fabric_2612/textures/entity/equipment/humanoid/'
-            into 'src/main/resources/assets/dev_fabric_2612/textures/entity/equipment/humanoid_leggings/'
+            from 'src/main/resources/assets/${modid}/textures/entity/equipment/humanoid/'
+            into 'src/main/resources/assets/${modid}/textures/entity/equipment/humanoid_leggings/'
         }
     }
 }
