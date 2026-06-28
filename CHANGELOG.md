@@ -1,7 +1,11 @@
 # Changelogs:
 
+# 2026.2-2.7.2
+
+
+
 # 2026.2-2.7.1
-(Thank you Spectrall for all thoe fixes and improvements)
+(Thank you Spectrall for all thoes fixes and improvements)
 - Updated minimal Fabric Loader version to 0.19.3
 - Added GLOBAL_MAP and GLOBAL_WORLD variable scopes back
 - Max amount xp dropped by plant was not working correctly

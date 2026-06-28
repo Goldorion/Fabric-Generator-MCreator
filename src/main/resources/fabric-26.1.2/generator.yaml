@@ -1,6 +1,6 @@
 name: Fabric for @minecraft (@buildfileversion)
 status: experimental
-buildfileversion: 0.150.0
+buildfileversion: 0.153.0
 subversion: 2
 
 import:

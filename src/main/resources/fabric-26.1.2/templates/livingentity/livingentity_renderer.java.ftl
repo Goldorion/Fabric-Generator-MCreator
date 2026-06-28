@@ -99,17 +99,11 @@ package ${package}.client.renderer;
 	<#assign stateForAnimations = "EntityRenderState">
 </#if>
 
+<#assign needsEntityInState = false>
+
 <@javacompress>
 @Environment(EnvType.CLIENT)
 public class ${name}Renderer extends <#if humanoid>Humanoid</#if>MobRenderer<${name}Entity, ${renderState}, ${model}> {
-
-	<#-- This entity reference is shared for all entities as renderer only has one instance.
-		 This currently works, but is somewhat hacky. It works because all methods requiring it
-		 are called after extractRenderState where this entity is assigned to the current entity.
-		 On the other hand, vanilla code reuses state for all entities too, so it may be fine.
-		 If we need to change this, we can use RegisterRenderStateModifiersEvent and
-		 and IRenderStateExtension#setRenderData with custom ContextKey-->
-	private ${name}Entity entity = null;
 
 	private final Identifier entityTexture = Identifier.parse("${modid}:textures/entities/${data.mobModelTexture}");
 
@@ -130,6 +124,8 @@ public class ${name}Renderer extends <#if humanoid>Humanoid</#if>MobRenderer<${n
 			<@javacompress>
 			@Override public void submit(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int light, ${renderState} state, float headYaw, float headPitch) {
 				<#if hasProcedure(layer.condition)>
+				<#assign needsEntityInState = true>
+				Entity entity = state.getRenderData(ENTITY_KEY);
 				Level world = entity.level();
 				double x = entity.getX();
 				double y = entity.getY();
@@ -160,12 +156,11 @@ public class ${name}Renderer extends <#if humanoid>Humanoid</#if>MobRenderer<${n
 
 	@Override public void extractRenderState(${name}Entity entity, ${renderState} state, float partialTicks) {
 		super.extractRenderState(entity, state, partialTicks);
-		this.entity = entity;
-		<#if data.animations?has_content>
-		if (this.model instanceof AnimatedModel) {
-			((AnimatedModel) this.model).setEntity(entity);
-		}
+
+		<#if needsEntityInState>
+		state.setData(ENTITY_KEY, entity);
 		</#if>
+
 		<#if data.mobModelName == "Villager" || data.mobModelName == "Witch">
 		if (state instanceof HoldingEntityRenderState holdingState) {
 			this.itemModelResolver.updateForLiving(holdingState.heldItem, entity.getMainHandItem(), ItemDisplayContext.GROUND, entity);
@@ -180,6 +175,8 @@ public class ${name}Renderer extends <#if humanoid>Humanoid</#if>MobRenderer<${n
 	<#if data.mobModelName == "Villager" || data.breedable || (data.visualScale?? && (data.visualScale.getFixedValue() != 1 || hasProcedure(data.visualScale)))>
 	@Override protected void scale(${renderState} state, PoseStack poseStack) {
 		<#if hasProcedure(data.visualScale)>
+			<#assign needsEntityInState = true>
+			Entity entity = state.getRenderData(ENTITY_KEY);
 			Level world = entity.level();
 			double x = entity.getX();
 			double y = entity.getY();
@@ -193,7 +190,7 @@ public class ${name}Renderer extends <#if humanoid>Humanoid</#if>MobRenderer<${n
 			poseStack.scale(0.9375f, 0.9375f, 0.9375f);
 		</#if>
 		<#if data.breedable>
-			poseStack.scale(entity.getAgeScale(), entity.getAgeScale(), entity.getAgeScale());
+			poseStack.scale(state.ageScale, state.ageScale, state.ageScale);
 		</#if>
 	}
 	</#if>
@@ -201,6 +198,8 @@ public class ${name}Renderer extends <#if humanoid>Humanoid</#if>MobRenderer<${n
 	<#if data.transparentModelCondition?? && (hasProcedure(data.transparentModelCondition) || data.transparentModelCondition.getFixedValue())>
 	@Override protected boolean isBodyVisible(${renderState} state) {
 		<#if hasProcedure(data.transparentModelCondition)>
+		<#assign needsEntityInState = true>
+		Entity entity = state.getRenderData(ENTITY_KEY);
 		Level world = entity.level();
 		double x = entity.getX();
 		double y = entity.getY();
@@ -213,6 +212,8 @@ public class ${name}Renderer extends <#if humanoid>Humanoid</#if>MobRenderer<${n
 	<#if data.isShakingCondition?? && (hasProcedure(data.isShakingCondition) || data.isShakingCondition.getFixedValue())>
 	@Override protected boolean isShaking(${renderState} state) {
 		<#if hasProcedure(data.isShakingCondition)>
+		<#assign needsEntityInState = true>
+		Entity entity = state.getRenderData(ENTITY_KEY);
 		Level world = entity.level();
 		double x = entity.getX();
 		double y = entity.getY();
@@ -225,16 +226,14 @@ public class ${name}Renderer extends <#if humanoid>Humanoid</#if>MobRenderer<${n
 	<#if data.animations?has_content>
 	private static final class AnimatedModel extends ${model} {
 
-		private ${name}Entity entity = null;
-
 		<#list data.animations as animation>
-		private final Supplier<KeyframeAnimation> keyframeAnimation${animation?index};
+		private final KeyframeAnimation keyframeAnimation${animation?index};
 		</#list>
 
 		public AnimatedModel(ModelPart root) {
 			super(root);
 			<#list data.animations as animation>
-			this.keyframeAnimation${animation?index} = () -> safeBake(${animation.animation});
+			this.keyframeAnimation${animation?index} = safeBake(${animation.animation});
 			</#list>
 		}
 
@@ -246,10 +245,6 @@ public class ${name}Renderer extends <#if humanoid>Humanoid</#if>MobRenderer<${n
 			} catch (IllegalArgumentException e) {
 				return new AnimationDefinition(0, false, Map.of()).bake(root);
 			}
-		}
-
-		public void setEntity(${name}Entity entity) {
-			this.entity = entity;
 		}
 
 		<#if stateForAnimations == "EntityRenderState"><#-- special handling for silverfish and slime -->
@@ -273,6 +268,10 @@ public class ${name}Renderer extends <#if humanoid>Humanoid</#if>MobRenderer<${n
 	}
 	</#if>
 
+	<#if needsEntityInState>
+	public static final RenderStateDataKey<${name}Entity> ENTITY_KEY = RenderStateDataKey.create(() -> "${modid}:${registryname}_entity");
+	</#if>
+
 }
 </@javacompress>
 
@@ -280,11 +279,16 @@ public class ${name}Renderer extends <#if humanoid>Humanoid</#if>MobRenderer<${n
 	<#if !humanoid> <#-- HumanoidModel resets its pose in its setupAnim which is called before this one for this special case -->
 	this.root().getAllParts().forEach(ModelPart::resetPose);
 	</#if>
+	<#if data.animations?has_content>
+	${name}Entity entity = state.getRenderData(ENTITY_KEY);
+	</#if>
 	<#list data.animations as animation>
 		<#if !animation.walking>
-			this.keyframeAnimation${animation?index}.get().apply(entity.animationState${animation?index}, state.ageInTicks, ${animation.speed}f);
+			<#assign needsEntityInState = true>
+			this.keyframeAnimation${animation?index}.apply(entity.animationState${animation?index}, state.ageInTicks, ${animation.speed}f);
 		<#else>
 			<#if hasProcedure(animation.condition)>
+			<#assign needsEntityInState = true>
 			if (<@procedureCode animation.condition, {
 				"x": "entity.getX()",
 				"y": "entity.getY()",
@@ -293,7 +297,7 @@ public class ${name}Renderer extends <#if humanoid>Humanoid</#if>MobRenderer<${n
 				"world": "entity.level()"
 			}, false/>)
 			</#if>
-			this.keyframeAnimation${animation?index}.get().applyWalk(state.walkAnimationPos, state.walkAnimationSpeed, ${animation.speed}f, ${animation.amplitude}f);
+			this.keyframeAnimation${animation?index}.applyWalk(state.walkAnimationPos, state.walkAnimationSpeed, ${animation.speed}f, ${animation.amplitude}f);
 		</#if>
 	</#list>
 </#macro>

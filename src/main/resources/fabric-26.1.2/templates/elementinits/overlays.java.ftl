@@ -27,12 +27,16 @@ package ${package}.init;
 
 	public static void clientLoad() {
 		<#list overlays as overlay>
-			register("${overlay.getModElement().getRegistryName()}", ${overlay.getModElement().getName()}Overlay::render);
+			register(<#if overlay.overlayTarget != "VanillaHudElements.MISC_OVERLAYS" && overlay.overlayTarget?starts_with("VanillaHudElements")>${overlay.overlayTarget},</#if>"${overlay.getModElement().getRegistryName()}", ${overlay.getModElement().getName()}Overlay::render);
 		</#list>
 	}
 
+	private static void register(Identifier identifier, String registryname, HudElement element) {
+		HudElementRegistry.attachElementAfter(identifier, Identifier.fromNamespaceAndPath(${JavaModName}.MODID, registryname), element);
+	}
+
 	private static void register(String registryname, HudElement element) {
-		HudElementRegistry.attachElementAfter(VanillaHudElements.MISC_OVERLAYS, Identifier.fromNamespaceAndPath(${JavaModName}.MODID, registryname), element);
+		register(VanillaHudElements.MISC_OVERLAYS, registryname, element);
 	}
 }
 <#-- @formatter:on -->

@@ -27,6 +27,7 @@ package ${package}.item;
 
 import java.util.Map;
 
+<@javacompress>
 public abstract class ${name}Item extends Item {
 
 	public static ArmorMaterial ARMOR_MATERIAL = new ArmorMaterial(
@@ -58,7 +59,8 @@ public abstract class ${name}Item extends Item {
 	public static class Helmet extends ${name}Item {
 
 		public Helmet(Item.Properties properties) {
-			super(properties<#if data.helmetImmuneToFire>.fireResistant()</#if><#if data.rarity != "COMMON">.rarity(Rarity.${data.rarity})</#if>.humanoidArmor(ARMOR_MATERIAL, ArmorType.HELMET));
+			super(properties<#if data.helmetImmuneToFire>.fireResistant()</#if><#if data.rarity != "COMMON">.rarity(Rarity.${data.rarity})</#if>.humanoidArmor(ARMOR_MATERIAL, ArmorType.HELMET)
+					<@itemAttributeModifiers data.attributeModifiers?filter(e -> e.armorPieces[0]) "helmet" "EquipmentSlotGroup.HEAD" data.damageValueHelmet/>);
 		}
 
 		<@addSpecialInformation data.helmetSpecialInformation, "item." + modid + "." + registryname + "_helmet"/>
@@ -75,7 +77,8 @@ public abstract class ${name}Item extends Item {
 	public static class Chestplate extends ${name}Item {
 
 		public Chestplate(Item.Properties properties) {
-			super(properties<#if data.bodyImmuneToFire>.fireResistant()</#if><#if data.rarity != "COMMON">.rarity(Rarity.${data.rarity})</#if>.humanoidArmor(ARMOR_MATERIAL, ArmorType.CHESTPLATE));
+			super(properties<#if data.bodyImmuneToFire>.fireResistant()</#if><#if data.rarity != "COMMON">.rarity(Rarity.${data.rarity})</#if>.humanoidArmor(ARMOR_MATERIAL, ArmorType.CHESTPLATE)
+					<@itemAttributeModifiers data.attributeModifiers?filter(e -> e.armorPieces[1]) "chestplate" "EquipmentSlotGroup.CHEST" data.damageValueBody/>);
 		}
 
 		<@addSpecialInformation data.bodySpecialInformation, "item." + modid + "." + registryname + "_chestplate"/>
@@ -92,7 +95,8 @@ public abstract class ${name}Item extends Item {
 	public static class Leggings extends ${name}Item {
 
 		public Leggings(Item.Properties properties) {
-			super(properties<#if data.leggingsImmuneToFire>.fireResistant()</#if><#if data.rarity != "COMMON">.rarity(Rarity.${data.rarity})</#if>.humanoidArmor(ARMOR_MATERIAL, ArmorType.LEGGINGS));
+			super(properties<#if data.leggingsImmuneToFire>.fireResistant()</#if><#if data.rarity != "COMMON">.rarity(Rarity.${data.rarity})</#if>.humanoidArmor(ARMOR_MATERIAL, ArmorType.LEGGINGS)
+					<@itemAttributeModifiers data.attributeModifiers?filter(e -> e.armorPieces[2]) "leggings" "EquipmentSlotGroup.LEGS" data.damageValueLeggings/>);
 		}
 
 		<@addSpecialInformation data.leggingsSpecialInformation, "item." + modid + "." + registryname + "_leggings"/>
@@ -109,7 +113,8 @@ public abstract class ${name}Item extends Item {
 	public static class Boots extends ${name}Item {
 
 		public Boots(Item.Properties properties) {
-			super(properties<#if data.bootsImmuneToFire>.fireResistant()</#if><#if data.rarity != "COMMON">.rarity(Rarity.${data.rarity})</#if>.humanoidArmor(ARMOR_MATERIAL, ArmorType.BOOTS));
+			super(properties<#if data.bootsImmuneToFire>.fireResistant()</#if><#if data.rarity != "COMMON">.rarity(Rarity.${data.rarity})</#if>.humanoidArmor(ARMOR_MATERIAL, ArmorType.BOOTS)
+					<@itemAttributeModifiers data.attributeModifiers?filter(e -> e.armorPieces[3]) "boots" "EquipmentSlotGroup.FEET" data.damageValueBoots/>);
 		}
 
 		<@addSpecialInformation data.bootsSpecialInformation, "item." + modid + "." + registryname + "_boots"/>
@@ -123,4 +128,24 @@ public abstract class ${name}Item extends Item {
 	</#if>
 
 }
+</@javacompress>
 <#-- @formatter:on -->
+
+<#macro itemAttributeModifiers modifiers armorPart defaultEquipSlot defense>
+<#if modifiers?size != 0>
+.attributes(
+	ItemAttributeModifiers.builder()
+	<#-- First add the default armor attributes -->
+	.add(Attributes.ARMOR, new AttributeModifier(Identifier.withDefaultNamespace("armor.${armorPart}"), ${defense}, AttributeModifier.Operation.ADD_VALUE), ${defaultEquipSlot})
+	<#if data.toughness != 0>.add(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(Identifier.withDefaultNamespace("armor.${armorPart}"), ${data.toughness}, AttributeModifier.Operation.ADD_VALUE), ${defaultEquipSlot})</#if>
+	<#if data.knockbackResistance != 0>.add(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(Identifier.withDefaultNamespace("armor.${armorPart}"), ${data.knockbackResistance}, AttributeModifier.Operation.ADD_VALUE), ${defaultEquipSlot})</#if>
+	<#-- Then add the custom modifiers -->
+	<#list modifiers as modifier>
+	.add(${modifier.attribute}, new AttributeModifier(
+			Identifier.fromNamespaceAndPath(${JavaModName}.MODID, "${registryname}_${modifier?index}.${armorPart}"),
+			${modifier.amount}, AttributeModifier.Operation.${modifier.operation}),
+			<#if modifier.equipmentSlot == "default">${defaultEquipSlot}<#else>${generator.map(modifier.equipmentSlot, "equipmentslots")}</#if>)
+	</#list>.build()
+)
+</#if>
+</#macro>

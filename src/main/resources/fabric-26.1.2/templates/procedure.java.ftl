@@ -36,23 +36,21 @@ package ${package}.procedures;
 	</#list>
 </#if>
 
+<#assign methodSignature><#list dependencies as d>${d.getType(generator.getWorkspace())} ${d.getName()}<#sep>, </#list></#assign>
+<#assign methodArgs><#list dependencies as d>${d.getName()}<#sep>, </#list></#assign>
+
 <@javacompress>
 
 public class ${name}Procedure {
-
-public static boolean eventResult = true;
-
 <#if trigger_code?has_content>
-	${trigger_code}
+    public static boolean eventResult = true;
+
+    ${trigger_code}
 </#if>
 
-	public static <#if return_type??>${return_type.getJavaType(generator.getWorkspace())}<#else>void</#if> execute(
-		<#list dependencies as dependency>
-				${dependency.getType(generator.getWorkspace())} ${dependency.getName()}<#sep>,
-		</#list>
-	) {
+	public static <#if return_type??>${return_type.getJavaType(generator.getWorkspace())}<#else>void</#if> execute(${methodSignature}) {
 		<#if nullableDependencies?has_content>
-			if(
+			if (
 			<#list nullableDependencies as dependency>
 			${dependency} == null <#sep>||
 			</#list>
@@ -63,8 +61,10 @@ public static boolean eventResult = true;
 			<@var.getType().getScopeDefinition(generator.getWorkspace(), "LOCAL")['init']?interpret/>
 		</#list>
 
-		${procedurecode}
+		${procedurecode?replace("@procedureSignature@", methodSignature)?replace("@procedureArgs@", methodArgs)}
 	}
+
+	${additional_code?replace("@procedureSignature@", methodSignature)?replace("@procedureArgs@", methodArgs)}
 
 	${extra_templates_code}
 }
