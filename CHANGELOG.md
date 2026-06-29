@@ -1,8 +1,12 @@
 # Changelogs:
 
 # 2026.2-2.7.2
-
-
+- Updated to MCreator 2026.2.25619
+- Updated to Fabric API 0.153.0
+- Added support for `entity_change_equipment`, `entity_ticks` global trigger
+- [Bugfix #604] Custom Leggings Do Not Render Correctly
+- [Bugfix #603] GUI related bugs and others
+- Some other minor fixes and improvements
 
 # 2026.2-2.7.1
 (Thank you Spectrall for all thoes fixes and improvements)

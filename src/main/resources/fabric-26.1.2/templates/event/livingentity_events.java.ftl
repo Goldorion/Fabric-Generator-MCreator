@@ -19,9 +19,6 @@
 package ${package}.event;
 
 public class LivingEntityEvents {
-
-	public static final Event<StartUseItem> START_USE_ITEM = EventFactory.createArrayBacked(StartUseItem.class, (callbacks) -> (entity, itemstack) -> Arrays.stream(callbacks).forEach(callback -> callback.onStartUseItem(entity, itemstack)));
-
 	public static final Event<EntityHeal> ENTITY_HEAL = EventFactory.createArrayBacked(EntityHeal.class, (callbacks) -> (entity, amount) -> {
 		for (EntityHeal event : callbacks) {
 			boolean result = event.onEntityHeal(entity, amount);
@@ -62,9 +59,11 @@ public class LivingEntityEvents {
 		return true;
 	});
 
+	public static final Event<StartUseItem> START_USE_ITEM = EventFactory.createArrayBacked(StartUseItem.class, (callbacks) -> (entity, itemstack) -> Arrays.stream(callbacks).forEach(callback -> callback.onStartUseItem(entity, itemstack)));
 	public static final Event<EntityPickupItem> ENTITY_PICKUP_ITEM = EventFactory.createArrayBacked(EntityPickupItem.class, (callbacks) -> (entity, itemstack) -> Arrays.stream(callbacks).forEach(callback -> callback.onEntityPickupItem(entity, itemstack)));
     public static final Event<EntityJump> ENTITY_JUMP = EventFactory.createArrayBacked(EntityJump.class, (callbacks) -> (entity) -> Arrays.stream(callbacks).forEach(callback -> callback.onEntityJump(entity)));
 	public static final Event<EntityStopUsingItem> ENTITY_STOP_USING_ITEM = EventFactory.createArrayBacked(EntityStopUsingItem.class, (callbacks) -> (entity, itemstack, duration) -> Arrays.stream(callbacks).forEach(callback -> callback.onStopUsingItem(entity, itemstack, duration)));
+	public static final Event<TickEnd> END_ENTITY_TICK = EventFactory.createArrayBacked(TickEnd.class, (callbacks) -> (entity) -> Arrays.stream(callbacks).forEach(callback -> callback.onEndTick(entity)));
 
 	@FunctionalInterface
 	public interface StartUseItem {
@@ -105,6 +104,10 @@ public class LivingEntityEvents {
 	public interface EntityStopUsingItem {
 		void onStopUsingItem(Entity entity, ItemStack itemstack, int duration);
 	}
-		
+
+	@FunctionalInterface
+	public interface TickEnd {
+		void onEndTick(Entity entity);
+	}
 }
 <#-- @formatter:on -->
