@@ -53,30 +53,29 @@ public class ${JavaModName}SkyboxRenderer {
 	}
 
 	public static void renderSky() {
-		LevelRenderEvents.END_MAIN.register(context -> {
+		LevelRenderEvents.START_MAIN.register(context -> {
             Minecraft mc = Minecraft.getInstance();
             if (mc.player == null) return;
+            PoseStack poseStack = new PoseStack();
             <#list dimensions as dimension>
                 <#if dimension.enableCustomSkyboxTextures || dimension.enableCustomSunMoonTextures>
                     if (mc.player.level().dimension() == ${dimension.getModElement().getRegistryNameUpper()}) {
                         <#if dimension.enableCustomSkyboxTextures>
-                            renderCustomSkybox(context, ${dimension.getModElement().getRegistryNameUpper()}_SKYBOX);
+                            renderCustomSkybox(context, poseStack, ${dimension.getModElement().getRegistryNameUpper()}_SKYBOX);
                         </#if>
                         <#if dimension.enableCustomSunMoonTextures>
-                            renderCustomSun(context, ${dimension.getModElement().getRegistryNameUpper()}_SUN);
-                            renderCustomMoon(context, ${dimension.getModElement().getRegistryNameUpper()}_MOON);
+                            renderCustomSun(context, poseStack, ${dimension.getModElement().getRegistryNameUpper()}_SUN);
+                            renderCustomMoon(context, poseStack, ${dimension.getModElement().getRegistryNameUpper()}_MOON);
                         </#if>
                     }
                 </#if>
             </#list>
-            context.bufferSource().endBatch();
 		});
 	}
 
-	public static void renderCustomSun(LevelRenderContext event, Identifier textureId) {
+	public static void renderCustomSun(LevelTerrainRenderContext event, PoseStack poseStack, Identifier textureId) {
 		initBuffers();
 		Minecraft mc = Minecraft.getInstance();
-		PoseStack poseStack = event.poseStack();
 		SkyRenderState state = event.levelState().skyRenderState;
 
 		poseStack.pushPose();
@@ -113,10 +112,9 @@ public class ${JavaModName}SkyboxRenderer {
 		poseStack.popPose();
 	}
 
-	public static void renderCustomMoon(LevelRenderContext event, Identifier textureId) {
+	public static void renderCustomMoon(LevelTerrainRenderContext event, PoseStack poseStack, Identifier textureId) {
 		initBuffers();
 		Minecraft mc = Minecraft.getInstance();
-		PoseStack poseStack = event.poseStack();
 		SkyRenderState state = event.levelState().skyRenderState;
 
 		poseStack.pushPose();
@@ -155,10 +153,9 @@ public class ${JavaModName}SkyboxRenderer {
 		poseStack.popPose();
 	}
 
-	public static void renderCustomSkybox(LevelRenderContext event, Identifier textureId) {
+	public static void renderCustomSkybox(LevelTerrainRenderContext event, PoseStack poseStack, Identifier textureId) {
 		initBuffers();
 		Minecraft mc = Minecraft.getInstance();
-		PoseStack poseStack = event.poseStack();
 
 		Matrix4fStack modelViewStack = RenderSystem.getModelViewStack();
 		modelViewStack.pushMatrix();

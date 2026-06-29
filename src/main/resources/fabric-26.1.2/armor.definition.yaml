@@ -148,7 +148,7 @@ templates:
 global_templates:
   - template: armor/piglinai_mixin.java.ftl
     name: "@SRCROOT/@BASEPACKAGEPATH/mixin/PiglinAiMixin.java"
-  - template: mixin/equipmentlayermixin.java.ftl
+  - template: armor/equipment_layer_mixin.java.ftl
     name: "@SRCROOT/@BASEPACKAGEPATH/mixin/EquipmentLayerRendererMixin.java"
   - template: elementinits/armormodels.java.ftl
     name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameArmorModels.java"
