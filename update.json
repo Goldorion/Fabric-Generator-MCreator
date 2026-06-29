@@ -2,7 +2,7 @@
   "generator-fabric-26.1.2": {
     "latest": "2026.2-2.7.2",
     "changes": [
-      "2026.2-2.7.1",
+      "2026.2-2.7.2",
       "Updated to MCreator 2026.2.25619",
       "Updated to Fabric API 0.153.0",
       "Added support for `entity_change_equipment`, `entity_ticks` global trigger",
