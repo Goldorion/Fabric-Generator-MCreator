@@ -6,12 +6,6 @@ version = '1.0'
 base.archivesName = "modid"
 
 loom {
-// The following code makes impossible to setup Gradle projects
-//    mixin {
-//        useLegacyMixinAp = true
-//        defaultRefmapName = actualmodid + ".refmap.json"
-//    }
-
     if (file("src/main/resources/META-INF/${modid}.classtweaker").exists())
         accessWidenerPath = file("src/main/resources/META-INF/${modid}.classtweaker")
 }

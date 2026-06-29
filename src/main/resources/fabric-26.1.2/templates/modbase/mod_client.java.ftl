@@ -43,6 +43,7 @@ package ${package};
 		<#if types["overlays"]??>${JavaModName}Overlays.clientLoad();</#if>
 		<#if w.getGElementsOfType("command")?filter(e -> e.type == "CLIENTSIDE")?size != 0>${JavaModName}Commands.clientLoad();</#if>
 		<#if types["keybinds"]??>${JavaModName}KeyMappings.clientLoad();</#if>
+		<#if w.getGElementsOfType('dimension')?filter(e -> e.enableCustomSkyboxTextures || e.enableCustomSunMoonTextures)?size != 0>${JavaModName}SkyboxRenderer.renderSky();</#if>
 		</@javacompress>
 
 		<#if w.hasVariablesOfScope("GLOBAL_WORLD") || w.hasVariablesOfScope("GLOBAL_MAP")>
