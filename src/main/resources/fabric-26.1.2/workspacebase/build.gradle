@@ -25,11 +25,11 @@ dependencies {
 }
 
 // We need to do this because MCreator doesn't allow to split armor textures in multiple folders
-build {
+tasks.named('processResources', ProcessResources) {
     doLast {
         copy {
-            from 'src/main/resources/assets/${modid}/textures/entity/equipment/humanoid/'
-            into 'src/main/resources/assets/${modid}/textures/entity/equipment/humanoid_leggings/'
+            from(layout.buildDirectory.dir("resources/main/assets/${modid}/textures/entity/equipment/humanoid"))
+            into(layout.buildDirectory.dir("resources/main/assets/${modid}/textures/entity/equipment/humanoid_leggings"))
         }
     }
 }
