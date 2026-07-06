@@ -1,7 +1,9 @@
 # Changelogs:
 
 # 2026.2-2.7.3
+- Updated to MCreator 2026.2.27711
 - Updated to Fabric API 0.154.0
+- Minor cleanup
 
 # 2026.2-2.7.2
 - Updated to MCreator 2026.2.25619
