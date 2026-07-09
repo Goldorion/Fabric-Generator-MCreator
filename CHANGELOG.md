@@ -1,5 +1,8 @@
 # Changelogs:
 
+# 2026.2-2.7.4
+- Added support for Stats plugin
+
 # 2026.2-2.7.3
 - Updated to MCreator 2026.2.27711
 - Updated to Fabric API 0.154.0

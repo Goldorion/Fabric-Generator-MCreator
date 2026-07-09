@@ -64,6 +64,7 @@ public class ${JavaModName} implements ModInitializer {
 		<#if w.getGElementsOfType("command")?filter(e -> e.type != "CLIENTSIDE")?size != 0>${JavaModName}Commands.load();</#if>
 		<#if w.getGElementsOfType('procedure')?filter(e -> !e.procedurexml?contains('no_ext_trigger'))?size != 0>${JavaModName}Procedures.load();</#if>
 		<#if types["keybinds"]??>${JavaModName}KeyMappingsServer.serverLoad();</#if>
+		<#if types["stats"]??>${JavaModName}Stats.registerStats();</#if>
 		</@javacompress>
 
 		tick();
