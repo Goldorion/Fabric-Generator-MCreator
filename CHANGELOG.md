@@ -10,6 +10,7 @@
 - [Bugfix] Custom monster entities did not spawn in the End dimension
 - [Bugfix] Game rule names and descriptions showed translation keys
 - [Bugfix] Item state conditions with entity dependency crash the game on item drop
+- [Bugfix] Image button display conditions only visually hid the button
 - Some other minor fixes and improvements
 
 # 2026.2-2.7.4
