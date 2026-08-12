@@ -35,11 +35,11 @@ public class ${JavaModName}GameRules {
 		<#if gamerule.type == "Number">
             <#assign hasNumberRules = true>
             public static final GameRule<Integer> ${gamerule.getModElement().getRegistryNameUpper()} = registerInt(${gamerule.defaultValueNumber},
-                GameRuleCategory.${gamerule.category}, "${StringUtils.camelToSnake(gamerule.getModElement().getName())?lower_case}");
+                GameRuleCategory.${gamerule.category}, "${gamerule.getModElement().getRegistryName()}");
 		<#else>
             <#assign hasLogicRules = true>
             public static final GameRule<Boolean> ${gamerule.getModElement().getRegistryNameUpper()} = registerBoolean(${gamerule.defaultValueLogic},
-                GameRuleCategory.${gamerule.category}, "${StringUtils.camelToSnake(gamerule.getModElement().getName())?lower_case}");
+                GameRuleCategory.${gamerule.category}, "${gamerule.getModElement().getRegistryName()}");
 		</#if>
 	</#list>
 

@@ -8,6 +8,7 @@
 - [Bugfix] Fixed time parameter in custom dimensions did not work correctly
 - [Bugfix] Hostile mobs did not despawn in peaceful mode
 - [Bugfix] Custom monster entities did not spawn in the End dimension
+- [Bugfix] Game rule names and descriptions showed translation keys
 - Some other minor fixes and improvements
 
 # 2026.2-2.7.4
