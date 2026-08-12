@@ -3,6 +3,7 @@
 # 2026.2-2.7.5
 - [Bugfix] Fix armor attributes handling for mappable elements
 - [Bugfix] Get current world time procedure block did not work correctly
+- [Bugfix] Custom items providing banner patterns could not be used inside the loom block
 
 # 2026.2-2.7.4
 - Added support for Stats plugin
