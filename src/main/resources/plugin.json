@@ -4,7 +4,7 @@
   "supportedversions": [${supportedVersion}, 202600299999],
   "info": {
     "name": "Minecraft Fabric ${mcVersion} Generator",
-    "version": "${pluginVersion}",
+    "version": "2026.2-2.7.5",
     "description": "A Fabric generator",
     "author": "Goldorion, NerdyPuzzle and Spectrall",
     "credits": "Thank you to all contributors and supporters on Ko-fi",

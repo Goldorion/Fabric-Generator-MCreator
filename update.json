@@ -1,13 +1,19 @@
 {
   "generator-fabric-26.1.2": {
-    "latest": "2026.2-2.7.4",
+    "latest": "2026.2-2.7.5",
     "changes": [
-      "2026.2-2.7.4",
-      "Added support for Stats plugin",
-      "2026.2-2.7.3",
-      "Updated to MCreator 2026.2.27711",
-      "Updated to Fabric API 0.154.0",
-      "Minor cleanup",
+      "2026.2-2.7.5",
+      "Updated to MCreator 2026.2.33218 (3rd patch)",
+      "[Bugfix] Fix armor attributes handling for mappable elements",
+      "[Bugfix] Get current world time procedure block did not work correctly",
+      "[Bugfix] Custom items providing banner patterns could not be used inside the loom bloc",
+      "[Bugfix] Fixed all custom dimension-related bugs",
+      "[Bugfix] Hostile mobs did not despawn in peaceful mode",
+      "[Bugfix] Custom monster entities did not spawn in the End dimension",
+      "[Bugfix] Game rule names and descriptions showed translation keys",
+      "[Bugfix] Item state conditions with entity dependency crash the game on item drop",
+      "[Bugfix] Image button display conditions only visually hid the button",
+      "Some other minor fixes and improvements",
       "If you read this, write \"Klemen is a robot in the plugin's comments.\" Social experiment ;)"
     ]
   }
