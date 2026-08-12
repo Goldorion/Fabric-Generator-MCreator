@@ -5,7 +5,7 @@
 - [Bugfix] Fix armor attributes handling for mappable elements
 - [Bugfix] Get current world time procedure block did not work correctly
 - [Bugfix] Custom items providing banner patterns could not be used inside the loom block
-- [Bugfix] Fixed time parameter in custom dimensions did not work correctly
+- [Bugfix] Fixed all custom dimension-related bugs
 - [Bugfix] Hostile mobs did not despawn in peaceful mode
 - [Bugfix] Custom monster entities did not spawn in the End dimension
 - [Bugfix] Game rule names and descriptions showed translation keys
