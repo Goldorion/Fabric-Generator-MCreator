@@ -1,5 +1,8 @@
 # Changelogs:
 
+# 2026.2-2.7.5
+- [Bugfix] Fix armor attributes handling for mappable elements
+
 # 2026.2-2.7.4
 - Added support for Stats plugin
 
