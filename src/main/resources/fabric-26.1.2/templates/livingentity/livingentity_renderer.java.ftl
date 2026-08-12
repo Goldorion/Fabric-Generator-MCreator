@@ -134,9 +134,8 @@ public class ${name}Renderer extends <#if humanoid>Humanoid</#if>MobRenderer<${n
 				</#if>
 
 				<#if layer.model != "Default">
-					EntityModel model = new ${layer.model}(Minecraft.getInstance().getEntityModels().bakeLayer(${layer.model}.LAYER_LOCATION));
-					model.setupAnim(state);
-					submitNodeCollector.submitModel(model, state, poseStack, RENDER_TYPE, light,
+					LAYER_MODEL.setupAnim(state);
+                    submitNodeCollector.submitModel(LAYER_MODEL, state, poseStack, RENDER_TYPE, light,
 						<#if layer.disableHurtOverlay>OverlayTexture.NO_OVERLAY<#else>LivingEntityRenderer.getOverlayCoords(state, 0)</#if>, state.outlineColor, null);
 				<#else>
 					submitNodeCollector.submitModel(this.getParentModel(), state, poseStack, RENDER_TYPE, light,

@@ -7,6 +7,7 @@
 - [Bugfix] Custom items providing banner patterns could not be used inside the loom block
 - [Bugfix] Fixed time parameter in custom dimensions did not work correctly
 - [Bugfix] Hostile mobs did not despawn in peaceful mode
+- Some other minor fixes and improvements
 
 # 2026.2-2.7.4
 - Added support for Stats plugin
