@@ -42,6 +42,7 @@ public class ${JavaModName}Entities {
                                 .clientTrackingRange(${entity.trackingRange}).updateInterval(3)
                                 <#if entity.immuneToFire>.fireImmune()</#if>
                                 <#if entity.mobModelName == "Biped">.ridingOffset(-0.6f)</#if>
+                                <#if entity.mobBehaviourType != "Creature">.notInPeaceful()</#if>
                                 .sized(${entity.modelWidth}f, ${entity.modelHeight}f));
                 <#elseif entity.getModElement().getTypeString() == "specialentity">
                     register("${entity.getModElement().getRegistryName()}",
