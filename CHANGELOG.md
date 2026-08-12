@@ -9,6 +9,7 @@
 - [Bugfix] Hostile mobs did not despawn in peaceful mode
 - [Bugfix] Custom monster entities did not spawn in the End dimension
 - [Bugfix] Game rule names and descriptions showed translation keys
+- [Bugfix] Item state conditions with entity dependency crash the game on item drop
 - Some other minor fixes and improvements
 
 # 2026.2-2.7.4
