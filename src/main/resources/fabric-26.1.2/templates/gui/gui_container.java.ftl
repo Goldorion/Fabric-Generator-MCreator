@@ -64,6 +64,7 @@ public class ${name}Menu extends AbstractContainerMenu implements ${JavaModName}
 
 	public ${name}Menu(int id, Inventory inv, Container container, FriendlyByteBuf extraData) {
 		this(id, inv, container);
+
 		BlockPos pos = null;
 		if (extraData != null) {
 			pos = extraData.readBlockPos();
@@ -182,7 +183,7 @@ public class ${name}Menu extends AbstractContainerMenu implements ${JavaModName}
 	<#if data.type == 1>
 		@Override public ItemStack quickMoveStack(Player playerIn, int index) {
 			ItemStack itemstack = ItemStack.EMPTY;
-			Slot slot = (Slot) this.slots.get(index);
+			Slot slot = this.slots.get(index);
 
 			if (slot != null && slot.hasItem()) {
 				ItemStack itemstack1 = slot.getItem();
