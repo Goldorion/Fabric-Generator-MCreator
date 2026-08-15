@@ -8,7 +8,7 @@
     "description": "A Fabric generator",
     "author": "Goldorion, NerdyPuzzle and Spectrall",
     "credits": "Thank you to all contributors and supporters on Ko-fi",
-    "updateJSONURL": "https://raw.githubusercontent.com/Goldorion/Fabric-Generator-MCreator/refs/heads/${mcVersion}-${mcreatorVersion}/update.json",
+    "updateJSONURL": "https://raw.githubusercontent.com/Goldorion/Fabric-Generator-MCreator/refs/heads/26.1.x-${mcreatorVersion}/update.json",
     "pluginPageID": 64512
   }
 }
