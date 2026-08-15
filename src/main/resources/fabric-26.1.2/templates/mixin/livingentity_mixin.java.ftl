@@ -20,15 +20,11 @@
 <#include "../procedures.java.ftl">
 
 <#assign itemsWithEntitySwing = []>
-<#list w.getGElementsOfType("item") as item>
-	<#if hasProcedure(item.onEntitySwing)>
+<#list w.getGElementsOfType("item")?filter(e -> hasProcedure(e.onEntitySwing)) as item>
 	<#assign itemsWithEntitySwing += [item]>
-	</#if>
 </#list>
-<#list w.getGElementsOfType("tool") as tool>
-	<#if hasProcedure(tool.onEntitySwing)>
+<#list w.getGElementsOfType("tool")?filter(e -> hasProcedure(e.onEntitySwing)) as tool>
 	<#assign itemsWithEntitySwing += [tool]>
-	</#if>
 </#list>
 
 package ${package}.mixin;
@@ -47,10 +43,11 @@ public abstract class LivingEntityMixin {
 	public void swing(InteractionHand hand, boolean updateSelf, CallbackInfo ci) {
 		ItemStack stack = ((LivingEntity) (Object) this).getItemInHand(hand);
 		if (!stack.isEmpty()) {
-		<#list itemsWithEntitySwing as item>
-			if (stack.getItem() instanceof ${item.getModElement().getName()}Item)
-				((${item.getModElement().getName()}Item)stack.getItem()).onEntitySwing(stack, (LivingEntity) (Object) this, hand);
-		</#list>
+            <#list itemsWithEntitySwing as item>
+                if (stack.getItem() instanceof ${item.getModElement().getName()}Item item)
+                    item.onEntitySwing(stack, (LivingEntity) (Object) this, hand);
+                <#sep>else
+            </#list>
 		}
 	}
 	
@@ -58,9 +55,8 @@ public abstract class LivingEntityMixin {
 	public void startUsingItem(InteractionHand hand, CallbackInfo ci) {
 		LivingEntity entity = (LivingEntity) (Object) this;
 		ItemStack stack = entity.getItemInHand(hand);
-		if (!stack.isEmpty() && !entity.isUsingItem()) {
+		if (!stack.isEmpty() && !entity.isUsingItem())
 			LivingEntityEvents.START_USE_ITEM.invoker().onStartUseItem(entity, stack);
-		}
 	}
 
 	@Inject(method = "heal(F)V", at = @At("HEAD"), cancellable = true)
@@ -78,6 +74,7 @@ public abstract class LivingEntityMixin {
 	@Inject(method = "dropExperience(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/Entity;)V", at = @At("HEAD"), cancellable = true)
 	public void dropExperience(ServerLevel serverLevel, Entity entity, CallbackInfo ci) {
 	    LivingEntity self = (LivingEntity) (Object) this;
+
 	    if (!self.wasExperienceConsumed() && (this.isAlwaysExperienceDropper() || this.lastHurtByPlayerMemoryTime > 0 && self.shouldDropExperience() && serverLevel.getGameRules().get(GameRules.MOB_DROPS))) {
 		    if (!LivingEntityEvents.ENTITY_DROP_XP.invoker().onEntityDropXp(self, self.getLastHurtByPlayer(), (double) self.getExperienceReward(serverLevel, entity)))
 			    ci.cancel();

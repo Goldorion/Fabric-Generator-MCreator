@@ -26,7 +26,7 @@ public abstract class ServerPlayerMixin {
     private ItemStack drop(ItemStack removed, boolean all) {
         ServerPlayer self = (ServerPlayer) (Object) this;
 
-        <#list items?filter(e -> hasProcedure(e.onDroppedByPlayer)) as item>
+        <#list items?filter(e -> e.onDroppedByPlayer?? && hasProcedure(e.onDroppedByPlayer)) as item>
             if (removed.getItem() instanceof ${item.getModElement().getName()}Item item)
                 item.onDroppedByPlayer(removed, self);
             <#sep>else
