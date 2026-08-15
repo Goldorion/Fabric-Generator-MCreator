@@ -8,6 +8,7 @@
 - [Bugfix] Limit connected sides option to full cube block bases
 - [Bugfix] Fix item attributes handling for mappable elements
 - [Bugfix] Living entities with custom walk animation but no other animations failed to build
+- [Bugfix #607] Making an item based element caused a glitch where the same item was dropped twice
 - Some other minor fixes and improvements
 
 # 2026.2-2.7.5
