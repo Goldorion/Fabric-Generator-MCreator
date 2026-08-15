@@ -58,6 +58,10 @@ public class ${name}Menu extends AbstractContainerMenu implements ${JavaModName}
 		access = ContainerLevelAccess.create(inv.player.level(), new BlockPos(x, y, z));
 	}
 
+	public ${name}Menu(int id, Inventory inv, FriendlyByteBuf extraData) {
+		this(id, inv, new SimpleContainer(${data.getMaxSlotID() + 1}), extraData);
+	}
+
 	public ${name}Menu(int id, Inventory inv, Container container, FriendlyByteBuf extraData) {
 		this(id, inv, container);
 		BlockPos pos = null;
