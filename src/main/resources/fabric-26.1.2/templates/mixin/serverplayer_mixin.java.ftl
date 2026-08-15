@@ -18,26 +18,21 @@
 
 <#-- @formatter:off -->
 <#include "../procedures.java.ftl">
-
 package ${package}.mixin;
 
 @Mixin(ServerPlayer.class)
 public abstract class ServerPlayerMixin {
-    @Inject(method = "drop(Z)V", at = @At("HEAD"))
-    public void drop(boolean all, CallbackInfo ci) {
+    @ModifyExpressionValue(method = "drop(Z)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Inventory;removeFromSelected(Z)Lnet/minecraft/world/item/ItemStack;"))
+    private ItemStack drop(ItemStack removed, boolean all) {
         ServerPlayer self = (ServerPlayer) (Object) this;
-        Inventory inventory = self.getInventory();
-        ItemStack itemstack = inventory.removeFromSelected(all);
-        self.containerMenu.findSlot(inventory, inventory.getSelectedSlot()).ifPresent(p_401732_ -> self.containerMenu.setRemoteSlot(p_401732_, inventory.getSelectedItem()));
-		<#list items as item>
-			<#if item.getModElement().getTypeString() == "item">
-				<#if hasProcedure(item.onDroppedByPlayer)>
-					if (itemstack.getItem() instanceof ${item.getModElement().getName()}Item)
-						((${item.getModElement().getName()}Item)itemstack.getItem()).onDroppedByPlayer(itemstack, self);
-				</#if>
-			</#if>
-		</#list>
-        self.drop(itemstack, false, true);
+
+        <#list items?filter(e -> hasProcedure(e.onDroppedByPlayer)) as item>
+            if (removed.getItem() instanceof ${item.getModElement().getName()}Item item)
+                item.onDroppedByPlayer(removed, self);
+            <#sep>else
+        </#list>
+
+        return removed;
     }
 }
 <#-- @formatter:on -->
