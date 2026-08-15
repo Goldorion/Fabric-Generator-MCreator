@@ -48,6 +48,8 @@ public class ${name}Menu extends AbstractContainerMenu implements ${JavaModName}
 
 	private boolean bound = false;
 	private Supplier<Boolean> boundItemMatcher = null;
+	private Entity boundEntity = null;
+	private BlockEntity boundBlockEntity = null;
 	private ItemStack boundItem = null;
 
 	public ${name}Menu(int id, Inventory inv) {
@@ -81,6 +83,15 @@ public class ${name}Menu extends AbstractContainerMenu implements ${JavaModName}
 					boundItem = hand == 0 ? this.entity.getMainHandItem() : this.entity.getOffhandItem();
 					this.boundItemMatcher = () -> boundItem == (hand == 0 ? this.entity.getMainHandItem() : this.entity.getOffhandItem());
 					this.bound = true;
+				} else if (extraData.readableBytes() > 1) { <#-- bound to entity, GUI opened by entity ME internal logic -->
+					extraData.readByte(); <#-- drop padding byte -->
+					boundEntity = world.getEntity(extraData.readVarInt());
+					if(boundEntity != null)
+						this.bound = true;
+				} else { <#-- if we find container block at pos, we bind to it in all cases -->
+					boundBlockEntity = this.world.getBlockEntity(pos);
+					if (boundBlockEntity instanceof BaseContainerBlockEntity)
+						this.bound = true;
 				}
 			}
 		</#if>
@@ -176,6 +187,10 @@ public class ${name}Menu extends AbstractContainerMenu implements ${JavaModName}
 		if (this.bound) {
 			if (this.boundItemMatcher != null)
 				return this.boundItemMatcher.get();
+			else if (this.boundBlockEntity != null)
+				return AbstractContainerMenu.stillValid(this.access, player, this.boundBlockEntity.getBlockState().getBlock());
+			else if (this.boundEntity != null)
+				return this.boundEntity.isAlive();
 		}
 		return this.inventory.stillValid(player);
 	}
@@ -221,8 +236,7 @@ public class ${name}Menu extends AbstractContainerMenu implements ${JavaModName}
 			return itemstack;
 		}
 
-		@Override
-		public void clicked(int slotId, int button, ContainerInput containerInput, Player player) {
+		@Override public void clicked(int slotId, int button, ContainerInput containerInput, Player player) {
 			if (containerInput == ContainerInput.SWAP && boundItem != null) {
 				if (slotId >= 0 && slotId < this.slots.size()) {
 					ItemStack slotItem = this.slots.get(slotId).getItem();
