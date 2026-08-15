@@ -10,7 +10,7 @@
 		</#list>
 
 		<#list elements as e>
-			"${e}"<#if e?has_next>,</#if>
+			"${e}"<#sep>,
 		</#list>
 	]
 }

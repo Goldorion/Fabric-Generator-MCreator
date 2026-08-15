@@ -39,6 +39,10 @@ package ${package}.procedures;
 <#assign methodSignature><#list dependencies as d>${d.getType(generator.getWorkspace())} ${d.getName()}<#sep>, </#list></#assign>
 <#assign methodArgs><#list dependencies as d>${d.getName()}<#sep>, </#list></#assign>
 
+<#-- Variants without the world dependency, with a leading comma per entry, so blocks can pass a custom world in its place -->
+<#assign methodSignatureNoWorld><#list dependencies as d><#if d.getName() != "world">, ${d.getType(generator.getWorkspace())} ${d.getName()}</#if></#list></#assign>
+<#assign methodArgsNoWorld><#list dependencies as d><#if d.getName() != "world">, ${d.getName()}</#if></#list></#assign>
+
 <@javacompress>
 
 public class ${name}Procedure {
@@ -61,10 +65,10 @@ public class ${name}Procedure {
 			<@var.getType().getScopeDefinition(generator.getWorkspace(), "LOCAL")['init']?interpret/>
 		</#list>
 
-		${procedurecode?replace("@procedureSignature@", methodSignature)?replace("@procedureArgs@", methodArgs)}
+		${procedurecode?replace("@procedureSignatureNoWorld@", methodSignatureNoWorld)?replace("@procedureArgsNoWorld@", methodArgsNoWorld)}
 	}
 
-	${additional_code?replace("@procedureSignature@", methodSignature)?replace("@procedureArgs@", methodArgs)}
+	${additional_code?replace("@procedureSignatureNoWorld@", methodSignatureNoWorld)?replace("@procedureArgsNoWorld@", methodArgsNoWorld)}
 
 	${extra_templates_code}
 }

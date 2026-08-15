@@ -75,7 +75,7 @@ public class ${name}Menu extends AbstractContainerMenu implements ${JavaModName}
 
 		<#if data.type == 1>
 			if (pos != null) {
-				if (extraData.readableBytes() == 1) { // bound to item
+				if (extraData.readableBytes() == 1) { <#-- bound to item, GUI opened by item ME internal logic -->
 					byte hand = extraData.readByte();
 					ItemStack itemstack = hand == 0 ? this.entity.getMainHandItem() : this.entity.getOffhandItem();
 					this.boundItem = itemstack;

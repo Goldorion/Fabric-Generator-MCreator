@@ -1,10 +1,10 @@
 {
   "id": "generator-fabric-${mcVersion}",
   "weight": 11,
-  "supportedversions": [${supportedVersion}, 202600299999],
+  "supportedversions": [${supportedVersion}],
   "info": {
     "name": "Minecraft Fabric ${mcVersion} Generator",
-    "version": "2026.2-2.7.5",
+    "version": "${pluginVersion}",
     "description": "A Fabric generator",
     "author": "Goldorion, NerdyPuzzle and Spectrall",
     "credits": "Thank you to all contributors and supporters on Ko-fi",

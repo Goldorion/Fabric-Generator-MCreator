@@ -38,7 +38,7 @@ import net.minecraft.client.model.Model;
 			private final Identifier armorTexture = Identifier.parse("${modid}:textures/entity/equipment/humanoid/${data.armorTextureFile}_layer_1.png");
 			</#if>
 
-			<#if data.helmetModelName != "Default" && data.getHelmetModel()??>
+			<#if data.helmetModelName != "Default" && data.getHelmetModel()?? && data.helmetModelPart?has_content>
 			private HumanoidModel<?> armorModel = null;
 			@Override public Model getHumanoidArmorModel(ItemStack itemStack, EquipmentClientInfo.LayerType layerType, Model original) {
 				if (armorModel == null) {
@@ -81,7 +81,7 @@ import net.minecraft.client.model.Model;
 			private final Identifier armorTexture = Identifier.parse("${modid}:textures/entity/equipment/humanoid/${data.armorTextureFile}_layer_1.png");
 			</#if>
 
-			<#if data.bodyModelName != "Default" && data.getBodyModel()??>
+			<#if data.bodyModelName != "Default" && data.getBodyModel()?? && data.bodyModelPart?has_content && data.armsModelPartL?has_content && data.armsModelPartR?has_content>
 			private HumanoidModel<?> armorModel = null;
 			@Override public Model getHumanoidArmorModel(ItemStack itemStack, EquipmentClientInfo.LayerType layerType, Model original) {
 				if (armorModel == null) {
@@ -124,14 +124,14 @@ import net.minecraft.client.model.Model;
 			private final Identifier armorTexture = Identifier.parse("${modid}:textures/entity/equipment/humanoid_leggings/${data.armorTextureFile}_layer_2.png");
 			</#if>
 
-			<#if data.leggingsModelName != "Default" && data.getLeggingsModel()??>
+			<#if data.leggingsModelName != "Default" && data.getLeggingsModel()?? && (data.leggingsModelPartL?has_content || data.leggingsModelPartR?has_content)>
 			private HumanoidModel<?> armorModel = null;
 			@Override public Model getHumanoidArmorModel(ItemStack itemStack, EquipmentClientInfo.LayerType layerType, Model original) {
 				if (armorModel == null) {
 					${data.leggingsModelName} model = new ${data.leggingsModelName}(Minecraft.getInstance().getEntityModels().bakeLayer(${data.leggingsModelName}.LAYER_LOCATION));
 					armorModel = new HumanoidModel<>(new ModelPart(Collections.emptyList(), Map.of(
-						"left_leg", model.${data.leggingsModelPartL},
-						"right_leg", model.${data.leggingsModelPartR},
+						"left_leg", <#if data.leggingsModelPartL?has_content>model.${data.leggingsModelPartL}<#else>new ModelPart(Collections.emptyList(), Collections.emptyMap())</#if>,
+						"right_leg", <#if data.leggingsModelPartR?has_content>model.${data.leggingsModelPartR}<#else>new ModelPart(Collections.emptyList(), Collections.emptyMap())</#if>,
 						"head", new ModelPart(Collections.emptyList(), Map.of(
 							"hat", new ModelPart(Collections.emptyList(), Collections.emptyMap())
 						)),
@@ -167,7 +167,7 @@ import net.minecraft.client.model.Model;
 			private final Identifier armorTexture = Identifier.parse("${modid}:textures/entity/equipment/humanoid/${data.armorTextureFile}_layer_1.png");
 			</#if>
 
-			<#if data.bootsModelName != "Default" && data.getBootsModel()??>
+			<#if data.bootsModelName != "Default" && data.getBootsModel()?? && data.bootsModelPartL?has_content && data.bootsModelPartR?has_content>
 			private HumanoidModel<?> armorModel = null;
 			@Override public Model getHumanoidArmorModel(ItemStack itemStack, EquipmentClientInfo.LayerType layerType, Model original) {
 				if (armorModel == null) {

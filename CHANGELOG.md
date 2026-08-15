@@ -1,5 +1,15 @@
 # Changelogs:
 
+# 2026.2-2.7.6
+- Updated to MCreator 2026.2.33518
+- Updated to Fabric API 0.155.2
+- [Bugfix] Fix specialentity tags
+- [Bugfix] Do not generate broken code if empty armor models are used
+- [Bugfix] Limit connected sides option to full cube block bases
+- [Bugfix] Fix item attributes handling for mappable elements
+- [Bugfix] Living entities with custom walk animation but no other animations failed to build
+- Some other minor fixes and improvements
+
 # 2026.2-2.7.5
 - **Due to the nature of some fixes, MCreator 2026.2.33218 (3rd patch) is now required**
 - [Bugfix] Fix armor attributes handling for mappable elements

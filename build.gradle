@@ -14,8 +14,13 @@ tasks.named('processResources') {
                 pluginVersion: pluginVersion,
                 supportedVersion: {
                     def p = mcreatorVersion.split("\\.")
-                    p[0] + p[1].padLeft(3, '0')
-                }() // Example: Input = 2026.1 -> Output: 2026001
+                    def majorlong = p[0] + p[1].padLeft(3, '0')
+
+                    if (p.length == 2)
+                        return majorlong
+
+                    return majorlong + p[2]
+                }() // Example: 2026.2 → 2026002, 2026.2.33218 → 202600233218
         )
     }
 }
