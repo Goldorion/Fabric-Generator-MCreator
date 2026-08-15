@@ -85,7 +85,7 @@ public class ${name}Menu extends AbstractContainerMenu implements ${JavaModName}
 		</#if>
 	}
 
-	public ${name}Menu(int id, Inventory inv, Container container) {
+	private ${name}Menu(int id, Inventory inv, Container container) {
 		super(${JavaModName}Menus.${REGISTRYNAME}, id);
 
 		this.entity = inv.player;
