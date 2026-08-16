@@ -42,6 +42,10 @@ accessible field net/minecraft/client/gui/components/AbstractSliderButton draggi
 accessible method net/minecraft/world/level/block/state/properties/WoodType register (Lnet/minecraft/world/level/block/state/properties/WoodType;)Lnet/minecraft/world/level/block/state/properties/WoodType;
 </#if>
 
+<#if w.getGElementsOfType('block')?filter(e -> e.enchantPowerBonus gt 0)?size gt 0>
+accessible method net/minecraft/world/inventory/EnchantmentMenu getEnchantmentList (Lnet/minecraft/core/RegistryAccess;Lnet/minecraft/world/item/ItemStack;II)Ljava/util/List;
+</#if>
+
 accessible field net/minecraft/world/item/BucketItem content Lnet/minecraft/world/level/material/Fluid;
 accessible field net/minecraft/world/level/block/LiquidBlock fluid Lnet/minecraft/world/level/material/FlowingFluid;
 

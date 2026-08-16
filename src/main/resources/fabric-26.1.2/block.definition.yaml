@@ -509,6 +509,9 @@ global_templates:
   - template: elementinits/woodtypes.java.ftl
     name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameWoodTypes.java"
     condition: "${w.getGElementsOfType('block')?filter(e -> e.isSign())?size != 0}"
+  - template: mixin/enchantmentmenu_mixin.java.ftl
+    name: "@SRCROOT/@BASEPACKAGEPATH/mixin/EnchantmentMenuMixin.java"
+    condition: "${w.getGElementsOfType('block')?filter(e -> e.enchantPowerBonus gt 0)?size gt 0}"
 
 list_templates:
   - name: "Block states"
@@ -683,6 +686,6 @@ tags:
       - "${data.vibrationalEvents?has_content}"
     entryprovider: getVibrationalEvents()
 
-field_exclusions: [transparencyType, displayFluidOverlay, beaconColorModifier, enchantPowerBonus, aiPathNodeType, plantsGrowOn, canRedstoneConnect, onDestroyedByPlayer,
+field_exclusions: [transparencyType, displayFluidOverlay, beaconColorModifier, aiPathNodeType, plantsGrowOn, canRedstoneConnect, onDestroyedByPlayer,
                    additionalHarvestCondition, hasEnergyStorage, energyCapacity, energyMaxReceive, energyMaxExtract, energyInitial, isFluidTank, fluidCapacity, fluidRestrictions,
                    tintType]

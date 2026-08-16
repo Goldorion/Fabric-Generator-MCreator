@@ -20,6 +20,9 @@
 <#if w.getGElementsOfType('tool')?filter(e -> e.toolType.equals('Shears'))?size != 0>
 	<#assign mixins = mixins + ['SheepMixin']>
 </#if>
+<#if w.getGElementsOfType('block')?filter(e -> e.enchantPowerBonus gt 0)?size gt 0>
+	<#assign mixins = mixins + ['EnchantmentMenuMixin']>
+</#if>
 {
   "required": true,
   "package": "${package}.mixin",
