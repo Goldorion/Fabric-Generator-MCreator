@@ -2,17 +2,16 @@
   "generator-fabric-26.1.2": {
     "latest": "2026.2-2.7.5",
     "changes": [
-      "2026.2-2.7.5",
-      "Updated to MCreator 2026.2.33218 (3rd patch)",
-      "[Bugfix] Fix armor attributes handling for mappable elements",
-      "[Bugfix] Get current world time procedure block did not work correctly",
-      "[Bugfix] Custom items providing banner patterns could not be used inside the loom bloc",
-      "[Bugfix] Fixed all custom dimension-related bugs",
-      "[Bugfix] Hostile mobs did not despawn in peaceful mode",
-      "[Bugfix] Custom monster entities did not spawn in the End dimension",
-      "[Bugfix] Game rule names and descriptions showed translation keys",
-      "[Bugfix] Item state conditions with entity dependency crash the game on item drop",
-      "[Bugfix] Image button display conditions only visually hid the button",
+      "2026.2-2.8",
+      "Updated to MCreator 2026.2.33518 (4th patch)",
+      "Updated to Fabric API 0.155.2",
+      "[#281] Added support for the Enchantment power bonus parameter for custom blocks",
+      "[Bugfix] Fix specialentity tags",
+      "[Bugfix] Do not generate broken code if empty armor models are used",
+      "[Bugfix] Limit connected sides option to full cube block bases",
+      "[Bugfix] Fix item attributes handling for mappable elements",
+      "[Bugfix] Living entities with custom walk animation but no other animations failed to build",
+      "[Bugfix] [Bugfix #607] Making an item based element caused a glitch where the same item was dropped twice",
       "Some other minor fixes and improvements",
       "If you read this, write \"Klemen is a robot in the plugin's comments.\" Social experiment ;)"
     ]

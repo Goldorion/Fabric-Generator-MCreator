@@ -3,7 +3,7 @@
 # 2026.2-2.8
 - Updated to MCreator 2026.2.33518
 - Updated to Fabric API 0.155.2
-- [#281] Added support for the "Enchantment power bonus" for custom blocks
+- [#281] Added support for the "Enchantment power bonus" parameter for custom blocks
 - [Bugfix] Fix specialentity tags
 - [Bugfix] Do not generate broken code if empty armor models are used
 - [Bugfix] Limit connected sides option to full cube block bases
