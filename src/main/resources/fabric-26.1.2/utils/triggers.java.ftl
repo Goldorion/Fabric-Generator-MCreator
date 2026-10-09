@@ -211,7 +211,7 @@ public void onDroppedByPlayer(ItemStack itemstack, Player entity) {
 <#if procedure?has_content && (hasProcedure(procedure) || procedure.getFixedValue())>
 @Override public boolean isFoil(ItemStack itemstack) {
 	<#if hasProcedure(procedure)>
-		<#assign dependencies = procedure.getDependencies(generator.getWorkspace())>
+		<#local dependencies = procedure.getDependencies(generator.getWorkspace())>
 		<#if !(dependencies.isEmpty() || (dependencies.size() == 1 && dependencies.get(0).getName() == "itemstack"))>
 		Entity entity = ${JavaModName}.clientPlayer();
 		</#if>
