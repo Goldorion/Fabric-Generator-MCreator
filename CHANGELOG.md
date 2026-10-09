@@ -1,6 +1,9 @@
 # Changelogs:
 
-# 2026.2-2.8
+## 2026.3-2.8.1
+- Updated to MCreator 2026.3.38715 (1st snapshot)
+
+## 2026.2-2.8
 - Updated to MCreator 2026.2.33518
 - Updated to Fabric API 0.155.2
 - [#281] Added support for the "Enchantment power bonus" parameter for custom blocks
@@ -12,7 +15,7 @@
 - [Bugfix #607] Making an item based element caused a glitch where the same item was dropped twice
 - Some other minor fixes and improvements
 
-# 2026.2-2.7.5
+## 2026.2-2.7.5
 - **Due to the nature of some fixes, MCreator 2026.2.33218 (3rd patch) is now required**
 - [Bugfix] Fix armor attributes handling for mappable elements
 - [Bugfix] Get current world time procedure block did not work correctly
@@ -25,15 +28,15 @@
 - [Bugfix] Image button display conditions only visually hid the button
 - Some other minor fixes and improvements
 
-# 2026.2-2.7.4
+## 2026.2-2.7.4
 - Added support for Stats plugin
 
-# 2026.2-2.7.3
+## 2026.2-2.7.3
 - Updated to MCreator 2026.2.27711
 - Updated to Fabric API 0.154.0
 - Minor cleanup
 
-# 2026.2-2.7.2
+## 2026.2-2.7.2
 - Updated to MCreator 2026.2.25619
 - Updated to Fabric API 0.153.0
 - Added support for `entity_change_equipment`, `entity_ticks` global trigger
@@ -41,7 +44,7 @@
 - [Bugfix #603] GUI related bugs and others
 - Some other minor fixes and improvements
 
-# 2026.2-2.7.1
+## 2026.2-2.7.1
 (Thank you Spectrall for all thoes fixes and improvements)
 - Updated minimal Fabric Loader version to 0.19.3
 - Added GLOBAL_MAP and GLOBAL_WORLD variable scopes back
@@ -58,7 +61,7 @@
 - Breedable entities could cause problems
 - Some other minor fixes and improvements
 
-# 2026.2-2.7 (unstable - beta)
+## 2026.2-2.7 (unstable - beta)
 (Thank you Spectrall for your help once again)
 **You will most certainly encounter many build errors and/or bugs. Please report them on GitHub**
 **THIS IS NOT A VERSION MADE FOR PRODUCTION. PLEASE USE FOR TESTING PURPOSES ONLY**
@@ -67,16 +70,16 @@
   - GLOBAL_MAP and GLOBAL_WORLD scopes for variables have been temporarily disabled
   - Tint types for custom blocks have also been temporarily disabled
 
-# 2026.1-2.6.2
+## 2026.1-2.6.2
 - Removed unsupported procedures
 - [Bugfix] player_useitem_stop trigger was causing a build error with itemstack dependency
 - [Bugfix #593] Custom dimensions with no portal triggered procedure caused a build error.
 - Some other bug fixes
 
-# 2026.1-2.6.1
+## 2026.1-2.6.1
 - Updated to MCreator 2026.1 (2026.1.13616)
 
-# 2026.1-2.6
+## 2026.1-2.6
 - Added support for Show search bar parameter in custom creative tabs
 - Added support for Spawn in dungeons parameter in custom living entities
 - Added dependencies/required/dependants mods support
@@ -86,17 +89,17 @@
 - [Bugfix] Hanging signs could cause registration problems
 - Some other bug fixes
 
-# 2026.1-2.5.6
+## 2026.1-2.5.6
 - Added support for MCreator 2026.1 3rd snapshot
 - [#566] Added support for the "Add item to inventory" procedure block
 - [Bugfix] Custom dimensions with custom effects were not working
 - [Bugfix #588] The Close any open GUI for procedure block did not work
 
-# 2.5.5
+## 2.5.5
 - Added support for MCreator 2026.1 2nd snapshot
 - [Bugfix #574] Certain blocks become bugged when an armor is part of the mod
 
-# 2.5.4
+## 2.5.4
 - Added support for MCreator 2025.4 1st snapshot - Both snapshots are supported
 - Ported all changes of this snapshot to this version
 - [Bugfix #575] Custom villager trades were always priced at 1 unit
