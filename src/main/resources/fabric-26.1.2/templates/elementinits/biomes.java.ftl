@@ -22,7 +22,7 @@
 <#include "../mcitems.ftl">
 
 /*
- *    MCreator note: This file will be REGENERATED on each build.
+ *	MCreator note: This file will be REGENERATED on each build.
  */
 
 package ${package}.init;
@@ -45,15 +45,19 @@ public class ${JavaModName}Biomes {
 		BOOTSTRAP_VALIDATION_PASSED = true;
 
 		ServerLifecycleEvents.SERVER_STARTING.register((server) -> {
-            Registry<LevelStem> levelStemTypeRegistry = server.registryAccess().lookupOrThrow(Registries.LEVEL_STEM);
-            for (LevelStem levelStem : levelStemTypeRegistry.stream().toList()) {
-                Holder<DimensionType> dimensionType = levelStem.type();
-                if (dimensionType.is(BuiltinDimensionTypes.NETHER) || dimensionType.is(BuiltinDimensionTypes.OVERWORLD)) {
-                    if(levelStem.generator() instanceof NoiseBasedChunkGenerator noiseGenerator) {
-                        ((${JavaModName}NoiseGeneratorSettings)(Object)noiseGenerator.generatorSettings().value()).set${modid}DimensionTypeReference(dimensionType);
-                    }
-                }
-            }
+			Registry<LevelStem> levelStemTypeRegistry = server.registryAccess().lookupOrThrow(Registries.LEVEL_STEM);
+			for (LevelStem levelStem : levelStemTypeRegistry.stream().toList()) {
+				Holder<DimensionType> dimensionType = levelStem.type();
+				if (dimensionType.is(BuiltinDimensionTypes.NETHER) || dimensionType.is(BuiltinDimensionTypes.OVERWORLD)) {
+					if(levelStem.generator() instanceof NoiseBasedChunkGenerator noiseGenerator) {
+						if ((Object) noiseGenerator.generatorSettings().value() instanceof ${JavaModName}NoiseGeneratorSettings settings) {
+							settings.set${modid}DimensionTypeReference(dimensionType);
+						} else {
+							${JavaModName}.LOGGER.error("NoiseGeneratorSettings mixin of ${modid} was not applied, custom biomes may not generate properly");
+						}
+					}
+				}
+			}
 		});
 	}
 
