@@ -109,12 +109,6 @@ public class ${getClassName()}Block extends ${getBlockClass(data.blockBase)}
 	</#if>
 
 	<#if data.hasGravity>
-	public static final MapCodec<${name}Block> CODEC = simpleCodec(${name}Block::new);
-
-	@Override public MapCodec<${name}Block> codec() {
-		return CODEC;
-	}
-
 	@Override public int getDustColor(BlockState blockstate, BlockGetter world, BlockPos pos) {
 		return blockstate.getMapColor(world, pos).col;
 	}
@@ -173,7 +167,7 @@ public class ${getClassName()}Block extends ${getBlockClass(data.blockBase)}
 		</#if>
 		<#if data.emissiveRendering>
 			.postProcess((bs, br, bp) -> bp)
-			.emissiveRendering((bs, br, bp) -> true)
+			.emissiveRendering(bs -> true)
 		</#if>
 		<#if data.forceRedstoneConductor>
 			.isRedstoneConductor((bs, br, bp) -> true)
@@ -209,7 +203,7 @@ public class ${getClassName()}Block extends ${getBlockClass(data.blockBase)}
 		</#if>
 		<#if data.blockBase?has_content && data.blockBase == "Leaves">
 			.isSuffocating((bs, br, bp) -> false)
-			.isViewBlocking((bs, br, bp) -> false)
+			.isViewBlocking((bs, br, bp, aabb) -> false)
 		</#if>
 		<#if var_extends_class! == "WallSignBlock" || var_extends_class! == "WallHangingSignBlock">
 			.overrideLootTable(${JavaModName}Blocks.${REGISTRYNAME}.getLootTable())
@@ -223,8 +217,8 @@ public class ${getClassName()}Block extends ${getBlockClass(data.blockBase)}
 				super(Blocks.AIR.defaultBlockState(), <@blockProperties/>);
 			<#elseif data.blockBase == "Leaves">
 				super(${data.leavesParticleChance}f,
-						<#if data.leavesParticleType??>${data.leavesParticleType},
-						<#elseif data.tintType == "No tint">ColorParticleOption.create(ParticleTypes.TINTED_LEAVES, ${data.getLeavesParticleColor()}),
+						<#if data.leavesParticleType??>${data.leavesParticleType}, AmbientLeavesBlockSoundPlayer.noAmbientSound(),
+						<#elseif data.tintType == "No tint">ColorParticleOption.create(ParticleTypes.TINTED_LEAVES, ${data.getLeavesParticleColor()}), AmbientLeavesBlockSoundPlayer.noAmbientSound(),
 						</#if><@blockProperties/>);
 			<#elseif data.blockBase == "PressurePlate" || data.blockBase == "TrapDoor" || data.blockBase == "Door">
 				super(BlockSetType.${data.blockSetType}, <@blockProperties/>);
@@ -714,21 +708,21 @@ public class ${getClassName()}Block extends ${getBlockClass(data.blockBase)}
 					List.of(new BlockTintSource() {
 						@Override public int color(BlockState state) { return 8562943; }
 						@Override public int colorInWorld(BlockState state, BlockAndTintGetter level, BlockPos pos) {
-							return Minecraft.getInstance().gameRenderer.getMainCamera().attributeProbe().getValue(EnvironmentAttributes.SKY_COLOR, 0);
+							return ARGB.colorFromVector3f(Minecraft.getInstance().gameRenderer.mainCamera().attributeProbe().getValue(EnvironmentAttributes.SKY_COLOR, 0));
 						}
 					})
 				<#elseif data.tintType == "Fog">
 					List.of(new BlockTintSource() {
 						@Override public int color(BlockState state) { return 12638463; }
 						@Override public int colorInWorld(BlockState state, BlockAndTintGetter level, BlockPos pos) {
-							return Minecraft.getInstance().gameRenderer.getMainCamera().attributeProbe().getValue(EnvironmentAttributes.FOG_COLOR, 0);
+							return ARGB.colorFromVector3f(Minecraft.getInstance().gameRenderer.mainCamera().attributeProbe().getValue(EnvironmentAttributes.FOG_COLOR, 0));
 						}
 					})
 				<#else>
 					List.of(new BlockTintSource() {
 						@Override public int color(BlockState state) { return 329011; }
 						@Override public int colorInWorld(BlockState state, BlockAndTintGetter level, BlockPos pos) {
-							return Minecraft.getInstance().gameRenderer.getMainCamera().attributeProbe().getValue(EnvironmentAttributes.WATER_FOG_COLOR, 0);
+							return ARGB.colorFromVector3f(Minecraft.getInstance().gameRenderer.mainCamera().attributeProbe().getValue(EnvironmentAttributes.WATER_FOG_COLOR, 0));
 						}
 					})
 				</#if>,
@@ -762,10 +756,10 @@ public class ${getClassName()}Block extends ${getBlockClass(data.blockBase)}
 	</#list>
 
 	<#if data.hasSpecialInformation(w) && !(var_extends_class??)> <#-- Do not generate item class for secondary block templates -->
-	public static class Item extends <#if data.isDoubleBlock()>DoubleHighBlock<#elseif data.blockBase! == "Sign">Sign<#elseif data.blockBase! == "HangingSign">HangingSign<#else>Block</#if>Item {
+	public static class Item extends <#if data.isDoubleBlock()>DoubleHighBlock<#elseif data.blockBase! == "Sign">StandingAndWallBlock<#elseif data.blockBase! == "HangingSign">HangingSign<#else>Block</#if>Item {
 
 		public Item(Item.Properties properties) {
-			super(${JavaModName}Blocks.${REGISTRYNAME}, <#if data.isSign()>${JavaModName}Blocks.${data.getWallRegistryNameUpper()}, </#if>properties);
+			super(${JavaModName}Blocks.${REGISTRYNAME}, <#if data.isSign()>${JavaModName}Blocks.${data.getWallRegistryNameUpper()}, </#if><#if data.blockBase! == "Sign">Direction.DOWN, </#if>properties);
 		}
 
 		<@addSpecialInformation data.specialInformation, "block." + modid + "." + registryname, true/>

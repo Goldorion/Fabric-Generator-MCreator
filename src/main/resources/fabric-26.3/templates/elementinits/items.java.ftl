@@ -168,7 +168,7 @@ public class ${JavaModName}Items {
 	}
 
 	private static Item signBlock(Block block, String name, Block wallBlock, Item.Properties properties) {
-		return Items.registerItem(ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(${JavaModName}.MODID, name)), prop -> new SignItem(block, wallBlock, prop), properties);
+		return Items.registerItem(ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(${JavaModName}.MODID, name)), prop -> new StandingAndWallBlockItem(block, wallBlock, Direction.DOWN, prop), properties);
 	}
 	</#if>
 
