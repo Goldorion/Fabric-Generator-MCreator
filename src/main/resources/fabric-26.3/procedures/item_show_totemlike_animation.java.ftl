@@ -1,3 +1,3 @@
 <#include "mcitems.ftl">
-if(world.isClientSide())
-	Minecraft.getInstance().gameRenderer.displayItemActivation(${mappedMCItemToItemStackCode(input$item, 1)});
+if(world.isClientSide() && Minecraft.getInstance().player != null)
+	Minecraft.getInstance().player.displayItemActivation(${mappedMCItemToItemStackCode(input$item, 1)});

@@ -1,1 +1,1 @@
-(${input$entity} instanceof LivingEntity _livEnt${cbi} && _livEnt${cbi}.swinging)
+(${input$entity} instanceof LivingEntity _livEnt${cbi} && _livEnt${cbi}.isSwinging())

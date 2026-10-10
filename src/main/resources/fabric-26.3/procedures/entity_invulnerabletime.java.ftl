@@ -1,1 +1,1 @@
-/*@int*/(${input$entity}.invulnerableTime)
+/*@int*/(${input$entity}.getInvulnerableTime())
