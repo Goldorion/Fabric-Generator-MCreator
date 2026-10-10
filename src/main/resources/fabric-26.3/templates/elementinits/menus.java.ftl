@@ -57,7 +57,7 @@ public class ${JavaModName}Menus {
 			if (player instanceof ServerPlayer serverPlayer) {
 				ServerPlayNetworking.send(serverPlayer, new MenuStateUpdateMessage(elementType, name, elementState));
 			} else if (player.level().isClientSide()) {
-				if (Minecraft.getInstance().screen instanceof ${JavaModName}Screens.FabricScreenAccessor accessor && needClientUpdate)
+				if (Minecraft.getInstance().gui.screen() instanceof ${JavaModName}Screens.FabricScreenAccessor accessor && needClientUpdate)
 					accessor.updateMenuState(elementType, name, elementState);
 				ClientPlayNetworking.send(new MenuStateUpdateMessage(elementType, name, elementState));
 			}

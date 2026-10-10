@@ -23,6 +23,8 @@
 <#include "../procedures.java.ftl">
 <#include "../triggers.java.ftl">
 
+<#assign translucentBufferUsed = false>
+
 package ${package}.client.renderer.item;
 
 import net.minecraft.client.model.Model;
@@ -54,11 +56,11 @@ import net.minecraft.client.model.Model;
 						"left_leg", new ModelPart(Collections.emptyList(), Collections.emptyMap())
 					)))
 					<#if data.helmetTranslucency>
+					<#assign translucentBufferUsed = true>
 					{
 						@Override
 						public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, int color) {
-							VertexConsumer translucentTexture = Minecraft.getInstance().renderBuffers().bufferSource().getBuffer(RenderTypes.entityTranslucent(getArmorTexture(null, null, null, null)));
-							super.renderToBuffer(poseStack, translucentTexture, packedLight, packedOverlay, color);
+							super.renderToBuffer(poseStack, getTranslucentBuffer(buffer, getArmorTexture(null, null, null, null)), packedLight, packedOverlay, color);
 						}
 					}
 					</#if>;
@@ -97,11 +99,11 @@ import net.minecraft.client.model.Model;
 						"left_leg", new ModelPart(Collections.emptyList(), Collections.emptyMap())
 					)))
 					<#if data.bodyTranslucency>
+					<#assign translucentBufferUsed = true>
 					{
 						@Override
 						public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, int color) {
-							VertexConsumer translucentTexture = Minecraft.getInstance().renderBuffers().bufferSource().getBuffer(RenderTypes.entityTranslucent(getArmorTexture(null, null, null, null)));
-							super.renderToBuffer(poseStack, translucentTexture, packedLight, packedOverlay, color);
+							super.renderToBuffer(poseStack, getTranslucentBuffer(buffer, getArmorTexture(null, null, null, null)), packedLight, packedOverlay, color);
 						}
 					}
 					</#if>;
@@ -140,11 +142,11 @@ import net.minecraft.client.model.Model;
 						"left_arm", new ModelPart(Collections.emptyList(), Collections.emptyMap())
 					)))
 					<#if data.leggingsTranslucency>
+					<#assign translucentBufferUsed = true>
 					{
 						@Override
 						public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, int color) {
-							VertexConsumer translucentTexture = Minecraft.getInstance().renderBuffers().bufferSource().getBuffer(RenderTypes.entityTranslucent(getArmorTexture(null, null, null, null)));
-							super.renderToBuffer(poseStack, translucentTexture, packedLight, packedOverlay, color);
+							super.renderToBuffer(poseStack, getTranslucentBuffer(buffer, getArmorTexture(null, null, null, null)), packedLight, packedOverlay, color);
 						}
 					}
 					</#if>;
@@ -183,11 +185,11 @@ import net.minecraft.client.model.Model;
 						"left_arm", new ModelPart(Collections.emptyList(), Collections.emptyMap())
 					)))
 					<#if data.bootsTranslucency>
+					<#assign translucentBufferUsed = true>
 					{
 						@Override
 						public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, int color) {
-							VertexConsumer translucentTexture = Minecraft.getInstance().renderBuffers().bufferSource().getBuffer(RenderTypes.entityTranslucent(getArmorTexture(null, null, null, null)));
-							super.renderToBuffer(poseStack, translucentTexture, packedLight, packedOverlay, color);
+							super.renderToBuffer(poseStack, getTranslucentBuffer(buffer, getArmorTexture(null, null, null, null)), packedLight, packedOverlay, color);
 						}
 					}
 					</#if>;

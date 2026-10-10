@@ -67,11 +67,8 @@ package ${package}.init;
 	<#list keybinds as keybind>
 	public static final KeyMapping ${keybind.getModElement().getRegistryNameUpper()} = new KeyMapping(
 			"key.${modid}.${keybind.getModElement().getRegistryName()}",
-			<#if keybind.triggerKey?starts_with("MOUSE")>
-				InputConstants.Type.MOUSE, GLFW.GLFW_${keybind.triggerKey},
-			<#else>
-				GLFW.GLFW_KEY_${keybind.triggerKey},
-			</#if>
+			<#if keybind.triggerKey?starts_with("MOUSE")>InputConstants.Type.MOUSE,</#if>
+			${keybind.triggerKey},
 			${categoryToObject(keybind.keyBindingCategoryKey)})
 				<#if hasProcedure(keybind.onKeyReleased) || hasProcedure(keybind.onKeyPressed)>
 				{
@@ -116,7 +113,7 @@ package ${package}.init;
 		</#list>
 
 		ClientTickEvents.END_CLIENT_TICK.register((client) -> {
-			if (client.screen == null) {
+			if (client.gui.screen() == null) {
 			<#list keybinds as keybind>
 				<#if hasProcedure(keybind.onKeyPressed) || hasProcedure(keybind.onKeyReleased)>
 					${keybind.getModElement().getRegistryNameUpper()}.consumeClick();
