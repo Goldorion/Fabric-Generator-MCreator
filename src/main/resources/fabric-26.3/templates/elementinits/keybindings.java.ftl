@@ -67,7 +67,7 @@ package ${package}.init;
 	<#list keybinds as keybind>
 	public static final KeyMapping ${keybind.getModElement().getRegistryNameUpper()} = new KeyMapping(
 			"key.${modid}.${keybind.getModElement().getRegistryName()}",
-			<#if keybind.triggerKey?starts_with("MOUSE")>InputConstants.Type.MOUSE,</#if>
+			<#if keybind.triggerKey.getUnmappedValue()?starts_with("MOUSE")>InputConstants.Type.MOUSE,</#if>
 			${keybind.triggerKey},
 			${categoryToObject(keybind.keyBindingCategoryKey)})
 				<#if hasProcedure(keybind.onKeyReleased) || hasProcedure(keybind.onKeyPressed)>
