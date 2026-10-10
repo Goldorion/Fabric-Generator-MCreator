@@ -99,7 +99,10 @@ package ${package}.client.renderer;
 	<#assign stateForAnimations = "EntityRenderState">
 </#if>
 
-<#assign needsEntityInState = false>
+<#-- extractRenderState below is emitted before the members that read the entity from the render state -->
+<#assign needsEntityInState = (data.visualScale?? && hasProcedure(data.visualScale))
+		|| (data.transparentModelCondition?? && hasProcedure(data.transparentModelCondition))
+		|| (data.isShakingCondition?? && hasProcedure(data.isShakingCondition))>
 
 <@javacompress>
 @Environment(EnvType.CLIENT)
