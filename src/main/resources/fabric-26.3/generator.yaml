@@ -39,6 +39,7 @@ import_formatter:
     MapColor: net.minecraft.world.level.material
     AttributeModifier: net.minecraft.world.entity.ai.attributes
     Consumer: java.util.function
+    VertexFormat: com.mojang.renderpearl.api.vertex
 
 # base generator roots
 source_root: "@WORKSPACEROOT/src/main/java"
