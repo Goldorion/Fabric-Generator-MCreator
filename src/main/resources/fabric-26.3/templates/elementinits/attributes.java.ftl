@@ -56,7 +56,7 @@ public class ${JavaModName}Attributes {
 					});
 				</#if>
 				<#if attribute.addToPlayers>
-					FabricDefaultAttributeRegistry.register(EntityType.PLAYER, addAttributeToEntity(DefaultAttributes.getSupplier(EntityType.PLAYER), EntityType.PLAYER, ${JavaModName}Attributes.${attribute.getModElement().getRegistryNameUpper()}));
+					FabricDefaultAttributeRegistry.register(EntityTypes.PLAYER, addAttributeToEntity(DefaultAttributes.getSupplier(EntityTypes.PLAYER), EntityTypes.PLAYER, ${JavaModName}Attributes.${attribute.getModElement().getRegistryNameUpper()}));
 				</#if>
 			</#if>
 		</#list>

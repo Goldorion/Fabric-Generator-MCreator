@@ -24,7 +24,7 @@
 package ${package}.potion;
 
 <@javacompress>
-public class ${name}MobEffect extends <#if data.isInstant>Instantenous</#if>MobEffect {
+public class ${name}MobEffect extends <#if data.isInstant>Instantaneous</#if>MobEffect {
 
 	public ${name}MobEffect() {
 		super(MobEffectCategory.${data.mobEffectCategory}, ${data.color.getRGB()}<#if data.hasCustomParticle()>, ${data.particle}</#if>);
@@ -40,7 +40,7 @@ public class ${name}MobEffect extends <#if data.isInstant>Instantenous</#if>MobE
 
 	<#if hasProcedure(data.onStarted)>
 		<#if data.isInstant>
-			@Override public void applyInstantenousEffect(ServerLevel level, Entity source, Entity indirectSource, LivingEntity entity, int amplifier, double health) {
+			@Override public void applyInstantaneousEffect(ServerLevel level, Entity source, Entity indirectSource, LivingEntity entity, int amplifier, double health) {
 				<@procedureCode data.onStarted, {
 					"x": "entity.getX()",
 					"y": "entity.getY()",

@@ -27,8 +27,8 @@ package ${package}.item;
 
 <@javacompress>
 <#if data.toolType == "Pickaxe" || data.toolType == "Axe" || data.toolType == "Sword" || data.toolType == "Spade"
-		|| data.toolType == "Hoe"|| data.toolType == "Shears" || data.toolType == "Shield" || data.toolType == "MultiTool">
-public class ${name}Item extends ${data.toolType?replace("Spade", "Shovel")?replace("MultiTool|Pickaxe|Sword", "", "r")}Item {
+		|| data.toolType == "Hoe" || data.toolType == "Shears" || data.toolType == "Shield" || data.toolType == "MultiTool">
+public class ${name}Item extends <#if data.toolType == "Shears" || data.toolType == "Shield">${data.toolType}Item<#else>Item</#if> {
 
 	<#if data.toolType == "Pickaxe" || data.toolType == "Axe" || data.toolType == "Sword" || data.toolType == "Spade" || data.toolType == "Hoe" || data.toolType == "MultiTool">
 	private static final ToolMaterial TOOL_MATERIAL = new ToolMaterial(
@@ -49,9 +49,6 @@ public class ${name}Item extends ${data.toolType?replace("Spade", "Shovel")?repl
 
 	public ${name}Item (Item.Properties properties) {
 		super(
-			<#if data.toolType == "Axe" || data.toolType == "Spade" || data.toolType == "Hoe">
-			TOOL_MATERIAL, ${data.damageVsEntity - 1}f, ${data.attackSpeed - 4}f,
-			</#if>
 			<#if data.toolType == "MultiTool">
 			TOOL_MATERIAL.applyToolProperties(properties, BlockTags.MINEABLE_WITH_PICKAXE, ${data.damageVsEntity - 1}f, ${data.attackSpeed - 4}f, 0)
 			<#else>
@@ -59,6 +56,12 @@ public class ${name}Item extends ${data.toolType?replace("Spade", "Shovel")?repl
 			</#if>
 			<#if data.toolType == "Pickaxe">
 			.pickaxe(TOOL_MATERIAL, ${data.damageVsEntity - 1}f, ${data.attackSpeed - 4}f)
+			<#elseif data.toolType == "Axe">
+			.axe(TOOL_MATERIAL, ${data.damageVsEntity - 1}f, ${data.attackSpeed - 4}f)
+			<#elseif data.toolType == "Spade">
+			.shovel(TOOL_MATERIAL, ${data.damageVsEntity - 1}f, ${data.attackSpeed - 4}f)
+			<#elseif data.toolType == "Hoe">
+			.hoe(TOOL_MATERIAL, ${data.damageVsEntity - 1}f, ${data.attackSpeed - 4}f)
 			<#elseif data.toolType == "Sword">
 			.sword(TOOL_MATERIAL, ${data.damageVsEntity - 1}f, ${data.attackSpeed - 4}f)
 			<#elseif data.toolType == "MultiTool">
@@ -147,6 +150,30 @@ public class ${name}Item extends ${data.toolType?replace("Spade", "Shovel")?repl
 
 		@Override public float getDestroySpeed(ItemStack itemstack, BlockState blockstate) {
 			return ${data.efficiency}f;
+		}
+
+		@Override public InteractionResult useOn(UseOnContext context) {
+			Registry<BlockTransformer> transformers = context.getLevel().registryAccess().lookupOrThrow(Registries.BLOCK_TRANSFORMER);
+			InteractionResult result = InteractionResult.PASS;
+			for (ResourceKey<BlockTransformer> transformer : List.of(BlockTransformers.AXE, BlockTransformers.HOE, BlockTransformers.SHOVEL)) {
+				result = transformers.getOrThrow(transformer).value().transformBlock(context);
+				if (result != InteractionResult.PASS)
+					break;
+			}
+			<#if hasProcedure(data.onRightClickedOnBlock)>
+			<@procedureCodeWithOptResult data.onRightClickedOnBlock, "actionresulttype", "InteractionResult.SUCCESS", {
+				"world": "context.getLevel()",
+				"x": "context.getClickedPos().getX()",
+				"y": "context.getClickedPos().getY()",
+				"z": "context.getClickedPos().getZ()",
+				"blockstate": "context.getLevel().getBlockState(context.getClickedPos())",
+				"entity": "context.getPlayer()",
+				"direction": "context.getClickedFace()",
+				"itemstack": "context.getItemInHand()"
+			}/>
+			<#else>
+			return result;
+			</#if>
 		}
 	</#if>
 
@@ -282,13 +309,7 @@ public class ${name}Item extends FishingRodItem {
 </@javacompress>
 
 <#function modifiesDefaultComponents toolType>
-	<#if data.usageCount == 0>
-		<#return toolType == "Pickaxe" || toolType == "Axe" || toolType == "Sword" || toolType == "Spade" || toolType == "Hoe" || toolType == "MultiTool">
-	<#elseif data.attributeModifiers?size gt 0>
-		<#return toolType == "Axe" || toolType == "Spade" || toolType == "Hoe">
-	<#else>
-		<#return false>
-	</#if>
+	<#return data.usageCount == 0 && (toolType == "Pickaxe" || toolType == "Axe" || toolType == "Sword" || toolType == "Spade" || toolType == "Hoe" || toolType == "MultiTool")>
 </#function>
 
 <#macro itemAttributeModifiers includeMeleeAttributes=false>
@@ -326,7 +347,10 @@ public class ${name}Item extends FishingRodItem {
 
 	<@addSpecialInformation data.specialInformation, "item." + modid + "." + registryname/>
 
+	<#-- MultiTool defines its own useOn that applies block transformers before running the procedure -->
+	<#if data.toolType != "MultiTool">
 	<@onItemUsedOnBlock data.onRightClickedOnBlock/>
+	</#if>
 
 	<@onCrafted data.onCrafted/>
 
