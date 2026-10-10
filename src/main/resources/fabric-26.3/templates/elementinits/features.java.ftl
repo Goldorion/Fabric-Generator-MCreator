@@ -27,17 +27,17 @@
 <#assign hasStructureFeatureClass = w.getElementsOfType("feature")?filter(e -> e.getMetadata("has_nbt_structure")??)?size != 0>
 
 <#macro biomeSelector restrictionBiomes>
-	<#assign biomeSelector = "includeByKey">
+	<#assign selectorMethod = "includeByKey">
 	<#assign resourceKey = "ResourceKey">
 	<#if restrictionBiomes?has_content>
 		<#list w.filterBrokenReferences(restrictionBiomes) as restrictionBiome>
 			<#if restrictionBiome?contains("#")>
-				<#assign biomeSelector = "tag">
+				<#assign selectorMethod = "tag">
 				<#assign resourceKey = "TagKey">
 				<#break>
 			</#if>
 		</#list>
-		BiomeSelectors.${biomeSelector}(
+		BiomeSelectors.${selectorMethod}(
 		<#list w.filterBrokenReferences(restrictionBiomes) as restrictionBiome>
 			${resourceKey}.create(Registries.BIOME, Identifier.parse("${restrictionBiome?replace("#", "")}"))<#sep>,
 		</#list>
