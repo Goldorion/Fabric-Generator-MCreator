@@ -225,12 +225,12 @@ public abstract class ${name}Fluid extends FlowingFluid {
 						<#elseif data.tintType == "Water">
 							BiomeColors.getAverageWaterColor(world, pos)
 						<#elseif data.tintType == "Sky">
-							Minecraft.getInstance().gameRenderer.getMainCamera().attributeProbe().getValue(EnvironmentAttributes.SKY_COLOR, 0)
+							ARGB.colorFromVector3f(Minecraft.getInstance().gameRenderer.mainCamera().attributeProbe().getValue(EnvironmentAttributes.SKY_COLOR, 0))
 						<#elseif data.tintType == "Fog">
-							Minecraft.getInstance().gameRenderer.getMainCamera().attributeProbe().getValue(EnvironmentAttributes.FOG_COLOR, 0)
+							ARGB.colorFromVector3f(Minecraft.getInstance().gameRenderer.mainCamera().attributeProbe().getValue(EnvironmentAttributes.FOG_COLOR, 0))
 						<#else>
-							Minecraft.getInstance().gameRenderer.getMainCamera().attributeProbe().getValue(EnvironmentAttributes.WATER_FOG_COLOR, 0)
-						</#if> | 0xFF000000;
+							ARGB.colorFromVector3f(Minecraft.getInstance().gameRenderer.mainCamera().attributeProbe().getValue(EnvironmentAttributes.WATER_FOG_COLOR, 0))
+						</#if>;
 					}
 				}
 				<#else>

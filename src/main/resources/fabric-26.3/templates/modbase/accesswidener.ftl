@@ -1,18 +1,11 @@
 classTweaker v1 official
 
 <#if w.getGElementsOfType("biome")?filter(e -> e.spawnBiome || e.spawnInCaves || e.spawnBiomeNether)?size != 0>
-accessible class net/minecraft/world/level/levelgen/SurfaceRules$SequenceRuleSource
-accessible method net/minecraft/world/level/levelgen/SurfaceRules$SequenceRuleSource <init> (Ljava/util/List;)V
 accessible class net/minecraft/world/level/biome/MultiNoiseBiomeSourceParameterList$Preset$SourceProvider
 </#if>
 
 <#if w.getGElementsOfType("biome")?filter(e -> e.hasVines() || e.hasFruits())?size != 0>
 extendable method net/minecraft/world/level/levelgen/feature/treedecorators/TreeDecoratorType <init> (Lcom/mojang/serialization/MapCodec;)V
-</#if>
-
-<#if w.hasElementsOfType("feature")>
-accessible method net/minecraft/world/level/levelgen/feature/ScatteredOreFeature <init> (Lcom/mojang/serialization/Codec;)V
-extendable method net/minecraft/world/level/levelgen/feature/TreeFeature place (Lnet/minecraft/world/level/levelgen/feature/FeaturePlaceContext;)Z
 </#if>
 
 <#if w.getGElementsOfType('tool')?filter(e -> e.toolType.equals('Fishing rod'))?size != 0>
@@ -24,12 +17,10 @@ accessible method net/minecraft/world/level/levelgen/feature/MonsterRoomFeature 
 </#if>
 
 <#if w.hasElementsOfType("armor")>
-accessible class net/minecraft/client/renderer/entity/layers/EquipmentLayerRenderer$LayerTextureKey
-accessible class net/minecraft/client/renderer/entity/layers/EquipmentLayerRenderer$TrimSpriteKey
-accessible method net/minecraft/client/renderer/entity/layers/EquipmentLayerRenderer$TrimSpriteKey <init> (Lnet/minecraft/world/item/equipment/trim/ArmorTrim;Lnet/minecraft/client/resources/model/EquipmentClientInfo$LayerType;Lnet/minecraft/resources/ResourceKey;)V
-accessible method net/minecraft/client/renderer/entity/layers/EquipmentLayerRenderer$LayerTextureKey <init> (Lnet/minecraft/client/resources/model/EquipmentClientInfo$LayerType;Lnet/minecraft/client/resources/model/EquipmentClientInfo$Layer;)V
 extendable method net/minecraft/client/model/Model renderToBuffer (Lcom/mojang/blaze3d/vertex/PoseStack;Lcom/mojang/blaze3d/vertex/VertexConsumer;III)V
-accessible method net/minecraft/client/renderer/entity/layers/EquipmentLayerRenderer getColorForLayer (Lnet/minecraft/client/resources/model/EquipmentClientInfo$Layer;I)I
+accessible field net/minecraft/client/renderer/feature/FeatureRenderDispatcher featureRenderers Lnet/minecraft/client/renderer/feature/FeatureRendererMap;
+accessible field net/minecraft/client/renderer/feature/RenderTypeFeatureRenderer currentGroup Lnet/minecraft/client/renderer/feature/RenderTypeFeatureRenderer$Group;
+accessible method net/minecraft/client/renderer/feature/RenderTypeFeatureRenderer getVertexBuilder (Lnet/minecraft/client/renderer/rendertype/RenderType;)Lcom/mojang/blaze3d/vertex/VertexConsumer;
 </#if>
 
 <#if w.hasElementsOfType("gui")>

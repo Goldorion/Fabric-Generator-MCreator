@@ -204,5 +204,13 @@ import net.minecraft.client.model.Model;
 		});
 		</#if>
 	}
+
+	<#if translucentBufferUsed>
+	private static VertexConsumer getTranslucentBuffer(VertexConsumer original, Identifier texture) {
+		if (Minecraft.getInstance().gameRenderer.featureRenderDispatcher().featureRenderers.get(ModelFeatureRenderer.TYPE) instanceof RenderTypeFeatureRenderer<?> featureRenderer && featureRenderer.currentGroup != null)
+			return featureRenderer.getVertexBuilder(RenderTypes.entityTranslucent(texture));
+		return original;
+	}
+	</#if>
 }
 <#-- @formatter:on -->

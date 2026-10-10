@@ -26,6 +26,8 @@ package ${package}.init;
 
 import java.text.DecimalFormat;
 
+import com.mojang.blaze3d.platform.InputConstants;
+
 @Environment(EnvType.CLIENT) public class ${JavaModName}Screens {
 
 	public static void clientLoad() {
@@ -120,8 +122,8 @@ import java.text.DecimalFormat;
 		@Override
 		public boolean keyPressed(KeyEvent event) {
 			int keyCode = event.key();
-			boolean flag = keyCode == GLFW.GLFW_KEY_LEFT;
-			if (flag || keyCode == GLFW.GLFW_KEY_RIGHT) {
+			boolean flag = keyCode == InputConstants.KEY_LEFT;
+			if (flag || keyCode == InputConstants.KEY_RIGHT) {
 				if (this.minValue > this.maxValue)
 					flag = !flag;
 				float f = flag ? -1F : 1F;
