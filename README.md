@@ -6,7 +6,7 @@ A plugin for [MCreator](https://mcreator.net/), a code generator to create Minec
 
 This project is not official. It is not affiliated with the respective owners and maintainers of Fabric, Minecraft, or MCreator. Do not expect any official support from their communities.
 
-**The current targeted Minecraft version is 26.1.2.**
+**The current targeted Minecraft version is 26.3.**
 
 ## Important Information
 
