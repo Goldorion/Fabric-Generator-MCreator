@@ -105,12 +105,10 @@ public class ${name}Item extends <#if data.toolType == "Shears" || data.toolType
 			.attributes(<@itemAttributeModifiers (data.toolType == "Pickaxe" || data.toolType == "Sword")/>)
 			</#if>
 			<#if modifiesDefaultComponents(data.toolType)>
-                <#if data.usageCount == 0>
-                    .component(DataComponents.MAX_DAMAGE, null)
-                </#if>
-                <#if data.attributeModifiers?size gt 0 && (data.toolType == "Axe" || data.toolType == "Spade" || data.toolType == "Hoe")>
-                    .component(DataComponents.ATTRIBUTE_MODIFIERS, <@itemAttributeModifiers true/>)
-                </#if>
+				.component(DataComponents.MAX_DAMAGE, null)
+			</#if>
+			<#if data.attributeModifiers?size gt 0 && (data.toolType == "Axe" || data.toolType == "Spade" || data.toolType == "Hoe")>
+				.component(DataComponents.ATTRIBUTE_MODIFIERS, <@itemAttributeModifiers true/>)
 			</#if>
 		);
 	}
