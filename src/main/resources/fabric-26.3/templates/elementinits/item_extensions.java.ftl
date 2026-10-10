@@ -26,27 +26,65 @@
 
 package ${package}.init;
 
+<#assign proceduralFuels = itemextensions?filter(e -> e.enableFuel && (hasProcedure(e.fuelPower) || hasProcedure(e.fuelSuccessCondition)))>
+
 <@javacompress>
 public class ${JavaModName}ItemExtensions {
 
 	public static void load() {
-        <#list itemextensions?filter(e -> e.compostLayerChance gt 0) as extension>
-        CompostableRegistry.INSTANCE.add(${mappedMCItemToItem(extension.item)}, ${extension.compostLayerChance}f);
-		</#list>
-
-        <#if w.getGElementsOfType('itemextension')?filter(e -> e.enableFuel)?size != 0>
-		FuelValueEvents.BUILD.register((builder, context) -> {
-            <#list itemextensions?filter(e -> e.enableFuel) as extension>
-                <#if hasProcedure(extension.fuelSuccessCondition)>if(<@procedureOBJToConditionCode extension.fuelSuccessCondition/>)</#if>
-                    builder.add(${mappedMCItemToItem(extension.item)},
-                    <#if hasProcedure(extension.fuelPower)>
-                        (int) <@procedureOBJToNumberCode extension.fuelPower/>
-                    <#else>
-                        ${extension.fuelPower.getFixedValue()}
-                    </#if>);
-            </#list>
-		});
+		<#if proceduralFuels?size != 0>
+		Registry.register(BuiltInRegistries.CONTEXT_INT_PROVIDER_TYPE, Identifier.fromNamespaceAndPath(${JavaModName}.MODID, "fuel_power_procedural_provider"), ProcedureFuelProvider.CODEC);
 		</#if>
+
+		DefaultItemComponentEvents.MODIFY.register(context -> {
+			<#list itemextensions?filter(e -> e.compostLayerChance gt 0) as extension>
+			context.modify(${mappedMCItemToItem(extension.item)}, builder -> builder.set(DataComponents.COMPOSTABLE,
+					new Compostable(ResourceKey.create(Registries.CONTEXT_INT_PROVIDER,
+							Identifier.fromNamespaceAndPath(${JavaModName}.MODID, "compostable/${extension.getModElement().getRegistryName()}")))));
+			</#list>
+			<#list itemextensions?filter(e -> e.enableFuel) as extension>
+			context.modify(${mappedMCItemToItem(extension.item)}, builder -> builder.set(DataComponents.COOKING_FUEL,
+					new CookingFuel(ResourceKey.create(Registries.CONTEXT_INT_PROVIDER,
+							Identifier.fromNamespaceAndPath(${JavaModName}.MODID, "fuel/${extension.getModElement().getRegistryName()}")),
+							ContextFloatProviders.COOKING_DEFAULT_SPEED_MULTIPLIER)));
+			</#list>
+		});
 	}
+	<#if proceduralFuels?size != 0>
+
+	public static final class ProcedureFuelProvider implements ContextIntProvider {
+
+		public static final MapCodec<ProcedureFuelProvider> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+				Codec.STRING.fieldOf("item_extension").forGetter(provider -> provider.itemExtension)
+		).apply(instance, ProcedureFuelProvider::new));
+
+		private final String itemExtension;
+
+		public ProcedureFuelProvider(String itemExtension) {
+			this.itemExtension = itemExtension;
+		}
+
+		@Override public int getIntUnsafe(LootContext context) {
+			<#list proceduralFuels as e>
+			if (itemExtension.equals("${e.getModElement().getRegistryName()}")) {
+				ItemStack itemstack = new ItemStack(${mappedMCItemToItem(e.item)});
+				<#if hasProcedure(e.fuelSuccessCondition)>
+				if (<@procedureOBJToConditionCode object=e.fuelSuccessCondition invertCondition=true/>)
+					return 0;
+				</#if>
+				return (int) <#if hasProcedure(e.fuelPower)><@procedureOBJToNumberCode e.fuelPower/><#else>${e.fuelPower.getFixedValue()}</#if>;
+			}
+			</#list>
+			return 0;
+		}
+
+		@Override public MapCodec<ProcedureFuelProvider> codec() {
+			return CODEC;
+		}
+
+		@Override public void validate(ValidationContext context) {
+		}
+	}
+	</#if>
 }</@javacompress>
 <#-- @formatter:on -->
