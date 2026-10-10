@@ -48,8 +48,8 @@ public class ${JavaModName} implements ModInitializer {
 		<#if types["base:blocks"]??>${JavaModName}Blocks.load();</#if>
 		<#if types["base:blockentities"]??>${JavaModName}BlockEntities.load();</#if>
 		<#if w.getGElementsOfType('block')?filter(e -> e.isSign())?size != 0>${JavaModName}WoodTypes.load();</#if>
-		<#if types["base:items"]??>${JavaModName}Items.load();</#if>
 		<#if types["attributes"]??>${JavaModName}Attributes.load();</#if>
+		<#if types["base:items"]??>${JavaModName}Items.load();</#if>
 		<#if w.getGElementsOfType('biome')?filter(e -> e.hasVines() || e.hasFruits())?size != 0>${JavaModName}BiomeDecorators.load();</#if>
 		<#if w.getGElementsOfType('biome')?filter(e -> e.spawnBiome || e.spawnInCaves || e.spawnBiomeNether)?size != 0>${JavaModName}Biomes.load();</#if>
 		<#if w.getGElementsOfType('dimension')?filter(e -> e.hasDimensionTriggers() || e.enablePortal)?size != 0>${JavaModName}Dimensions.load();</#if>
