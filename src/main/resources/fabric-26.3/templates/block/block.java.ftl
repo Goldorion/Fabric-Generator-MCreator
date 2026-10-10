@@ -169,7 +169,7 @@ public class ${getClassName()}Block extends ${getBlockClass(data.blockBase)}
 			.randomTicks()
 		</#if>
 		<#if data.reactionToPushing != "NORMAL">
-			.pushReaction(PushReaction.${data.reactionToPushing})
+			.pushReaction(PushReaction.${data.reactionToPushing?replace("DESTROY", "POPPED")?replace("BLOCK", "IMMOVEABLE")?replace("PUSH_ONLY", "PUSH")?replace("IGNORE", "IGNORE_ENTITY")})
 		</#if>
 		<#if data.emissiveRendering>
 			.postProcess((bs, br, bp) -> bp)

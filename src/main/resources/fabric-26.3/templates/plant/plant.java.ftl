@@ -124,7 +124,7 @@ public class ${name}Block extends ${getPlantClass(data.plantType)}Block <#if int
 		<#if data.offsetType != "NONE">
 		.offsetType(BlockBehaviour.OffsetType.${data.offsetType})
 		</#if>
-		.pushReaction(PushReaction.DESTROY)
+		.pushReaction(PushReaction.POPPED)
 		);
 
 		<#if data.isWaterloggable()>
