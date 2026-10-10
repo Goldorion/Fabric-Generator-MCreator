@@ -54,6 +54,7 @@ public class ${JavaModName}Biomes {
 							settings.set${modid}References(dimensionType, materialRules);
 						} else {
 							${JavaModName}.LOGGER.error("NoiseGeneratorSettings mixin of ${modid} was not applied, custom biomes may not generate properly");
+						}
 					}
 				}
 			}
