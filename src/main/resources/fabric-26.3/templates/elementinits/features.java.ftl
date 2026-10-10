@@ -26,6 +26,27 @@
 
 <#assign hasStructureFeatureClass = w.getElementsOfType("feature")?filter(e -> e.getMetadata("has_nbt_structure")??)?size != 0>
 
+<#macro biomeSelector restrictionBiomes>
+	<#assign biomeSelector = "includeByKey">
+	<#assign resourceKey = "ResourceKey">
+	<#if restrictionBiomes?has_content>
+		<#list w.filterBrokenReferences(restrictionBiomes) as restrictionBiome>
+			<#if restrictionBiome?contains("#")>
+				<#assign biomeSelector = "tag">
+				<#assign resourceKey = "TagKey">
+				<#break>
+			</#if>
+		</#list>
+		BiomeSelectors.${biomeSelector}(
+		<#list w.filterBrokenReferences(restrictionBiomes) as restrictionBiome>
+			${resourceKey}.create(Registries.BIOME, Identifier.parse("${restrictionBiome?replace("#", "")}"))<#sep>,
+		</#list>
+		)
+	<#else>
+		BiomeSelectors.all()
+	</#if>
+</#macro>
+
 package ${package}.init;
 
 public class ${JavaModName}Features {
@@ -33,29 +54,30 @@ public class ${JavaModName}Features {
 	public static void load() {
         <#list features as feature>
             <#if feature.getModElement().getTypeString() == "feature">
-			register("${feature.getModElement().getRegistryName()}", new ${feature.getModElement().getName()}Feature()<#if feature.hasPlacedFeature()>,
-				${feature.getModElement().getName()}Feature.GENERATE_BIOMES, GenerationStep.Decoration.${generator.map(feature.generationStep, "generationsteps")?upper_case}</#if>);
+                <#if feature.hasGenerationConditions()>
+			registerType("${feature.getModElement().getRegistryName()}", ${feature.getModElement().getName()}Feature.CODEC);
+                </#if>
+                <#if feature.hasPlacedFeature()>
+			addToBiomes("${feature.getModElement().getRegistryName()}", <@biomeSelector feature.restrictionBiomes/>, GenerationStep.Decoration.${generator.map(feature.generationStep, "generationsteps")?upper_case});
+                </#if>
             <#elseif feature.getModElement().getTypeString() == "block">
-			register("${feature.getModElement().getRegistryName()}", new OreFeature(OreConfiguration.CODEC),
-				${feature.getModElement().getName()}Block.GENERATE_BIOMES, GenerationStep.Decoration.UNDERGROUND_ORES);
+			addToBiomes("${feature.getModElement().getRegistryName()}", ${feature.getModElement().getName()}Block.GENERATE_BIOMES, GenerationStep.Decoration.UNDERGROUND_ORES);
             <#elseif feature.getModElement().getTypeString() == "plant">
-			register("${feature.getModElement().getRegistryName()}", new VegetationPatchFeature(VegetationPatchConfiguration.CODEC),
-				${feature.getModElement().getName()}Block.GENERATE_BIOMES, GenerationStep.Decoration.VEGETAL_DECORATION);
+			addToBiomes("${feature.getModElement().getRegistryName()}", ${feature.getModElement().getName()}Block.GENERATE_BIOMES, GenerationStep.Decoration.VEGETAL_DECORATION);
             </#if>
         </#list>
 
 		<#if hasStructureFeatureClass>
-			register("structure_feature", new StructureFeature(StructureFeatureConfiguration.CODEC));
+			registerType("structure_feature", StructureFeature.CODEC);
 		</#if>
 	}
 
-	private static void register(String registryname, Feature feature, Predicate<BiomeSelectionContext> biomes, GenerationStep.Decoration stage) {
-		register(registryname, feature);
+	private static void addToBiomes(String registryname, Predicate<BiomeSelectionContext> biomes, GenerationStep.Decoration stage) {
 	 	BiomeModifications.addFeature(biomes, stage, ResourceKey.create(Registries.PLACED_FEATURE, Identifier.fromNamespaceAndPath(${JavaModName}.MODID, registryname)));
 	}
 
-	private static void register(String registryname, Feature feature) {
-		Registry.register(BuiltInRegistries.FEATURE, Identifier.fromNamespaceAndPath(${JavaModName}.MODID, registryname), feature);
+	private static void registerType(String registryname, MapCodec<? extends Feature> codec) {
+		Registry.register(BuiltInRegistries.FEATURE_TYPE, Identifier.fromNamespaceAndPath(${JavaModName}.MODID, registryname), codec);
 	}
 }
 <#-- @formatter:on -->
