@@ -44,7 +44,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-mcreator-gradle-
       - name: Build and Test Using Gradle
-        run: xvfb-run -a gradle --no-build-cache clean test --project-prop mcreator_path=${{ github.workspace }}/mcreator
+        run: xvfb-run -a gradle --no-build-cache clean test --project-prop mcreator_path=${{ github.workspace }}/mcreator --stacktrace
       - name: Test Javadoc Generation
         run: gradle javadoc
       - name: Publish Test Report
