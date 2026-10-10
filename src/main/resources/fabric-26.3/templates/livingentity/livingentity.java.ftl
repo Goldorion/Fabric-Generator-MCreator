@@ -924,10 +924,13 @@ public class ${name}Entity extends ${extendsClass} <#if interfaces?size gt 0>imp
 	</#if>
 
 	public static void init() {
+		<#-- Fabric API refuses to add spawns for MobCategory.MISC -->
+		<#if data.mobSpawningType.getUnmappedValue() != "misc">
 		BiomeModifications.addSpawn(GENERATE_BIOMES
 		<#if hasProcedure(data.spawningCondition)>
 		.and(context -> <@procedureOBJToConditionCode data.spawningCondition/>)
 		</#if>, ${data.mobSpawningType}, ${JavaModName}Entities.${REGISTRYNAME}, ${data.spawningProbability}, ${data.minNumberOfMobsPerGroup}, ${data.maxNumberOfMobsPerGroup});
+		</#if>
 	}
 	</#if>
 
