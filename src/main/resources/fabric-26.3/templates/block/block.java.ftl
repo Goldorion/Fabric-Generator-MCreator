@@ -51,9 +51,9 @@ public class ${getClassName()}Block extends ${getBlockClass(data.blockBase)}
 	</#if>
 	<#if data.hasInventory>
 		<#assign interfaces += ["EntityBlock"]>
-	</#if>
-	<#if data.guiBoundTo?has_content>
-		<#assign interfaces += ["${JavaModName}Menus.BoundBlock"]>
+		<#if data.guiBoundTo?has_content>
+			<#assign interfaces += ["${JavaModName}Menus.BoundBlock"]>
+		</#if>
 	</#if>
 	<#if data.isBonemealable && !(data.blockBase?has_content && data.blockBase == "TrapDoor")>
 		<#assign interfaces += ["BonemealableBlock"]>

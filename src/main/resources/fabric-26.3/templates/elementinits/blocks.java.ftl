@@ -73,7 +73,7 @@ public class ${JavaModName}Blocks {
             <#list sub_blocks as block>
                 <#if block.getModElement().getTypeString() != "dimension">
                     <#if block.strippingResult?? && !block.strippingResult.isEmpty()>
-                        StrippableBlockRegistry.register(${JavaModName}Blocks.${block.getModElement().getRegistryNameUpper()}, ${mappedBlockToBlock(block.strippingResult)});
+                        BlockTransformerHelper.registerStripping(${JavaModName}Blocks.${block.getModElement().getRegistryNameUpper()}, ${mappedBlockToBlock(block.strippingResult)});
                     </#if>
                 </#if>
             </#list>
@@ -88,7 +88,7 @@ public class ${JavaModName}Blocks {
         <#list sub_blocks as block>
             <#if block.getModElement().getTypeString() != "dimension">
                 <#if block.strippingResult?? && !block.strippingResult.isEmpty()>
-                    StrippableBlockRegistry.register(${JavaModName}Blocks.${block.getModElement().getRegistryNameUpper()}, ${mappedBlockToBlock(block.strippingResult)});
+                    BlockTransformerHelper.registerStripping(${JavaModName}Blocks.${block.getModElement().getRegistryNameUpper()}, ${mappedBlockToBlock(block.strippingResult)});
                 </#if>
             </#if>
         </#list>
