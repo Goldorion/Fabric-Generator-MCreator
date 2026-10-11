@@ -118,7 +118,7 @@ subprojects { subproject ->
                 environment("MCREATOR_PLUGINS_FOLDER", new File(rootProject.projectDir, "/build/libs"))
                 environment("MCREATOR_TEST_GENERATORS", "fabric-${mcVersion}")
 
-                workingDir = file(findProperty('mcreator_path') ?: "${rootProject.projectDir}/mcreator")
+                workingDir = mcreator_path
             }
         }
     }
