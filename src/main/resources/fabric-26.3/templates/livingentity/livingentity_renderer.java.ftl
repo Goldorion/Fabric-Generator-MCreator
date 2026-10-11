@@ -102,7 +102,8 @@ package ${package}.client.renderer;
 <#-- extractRenderState below is emitted before the members that read the entity from the render state -->
 <#assign needsEntityInState = (data.visualScale?? && hasProcedure(data.visualScale))
 		|| (data.transparentModelCondition?? && hasProcedure(data.transparentModelCondition))
-		|| (data.isShakingCondition?? && hasProcedure(data.isShakingCondition))>
+		|| (data.isShakingCondition?? && hasProcedure(data.isShakingCondition))
+		|| data.animations?filter(a -> !a.walking || a.syncedDataCondition?? || hasProcedure(a.condition))?has_content>
 
 <@javacompress>
 @Environment(EnvType.CLIENT)
