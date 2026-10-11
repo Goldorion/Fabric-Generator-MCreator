@@ -1,1 +1,3 @@
-_mcreator_map_template: "@JavaModNameMobEffects.@REGISTRYNAME"
+_mcreator_map_template:
+  - "@JavaModNameMobEffects.@REGISTRYNAME"
+  - "@modid:@registryname"

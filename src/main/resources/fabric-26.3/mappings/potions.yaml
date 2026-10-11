@@ -1,1 +1,3 @@
-_mcreator_map_template: "@JavaModNamePotions.@REGISTRYNAME"
+_mcreator_map_template:
+  - "@JavaModNamePotions.@REGISTRYNAME"
+  - "@modid:@registryname"
