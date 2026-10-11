@@ -61,7 +61,23 @@ public class ${name}Menu extends AbstractContainerMenu implements ${JavaModName}
 	}
 
 	public ${name}Menu(int id, Inventory inv, FriendlyByteBuf extraData) {
-		this(id, inv, new SimpleContainer(${data.getMaxSlotID() + 1}), extraData);
+		this(id, inv, resolveContainer(inv, extraData), extraData);
+	}
+
+	<#-- Slots are created with the container, so a container block at pos must be resolved before them -->
+	private static Container resolveContainer(Inventory inv, FriendlyByteBuf extraData) {
+		<#if data.type == 1>
+			if (extraData != null) {
+				FriendlyByteBuf buf = new FriendlyByteBuf(extraData.copy());
+				BlockPos pos = buf.readBlockPos();
+				if (buf.readableBytes() == 0 && inv.player.level().getBlockEntity(pos) instanceof BaseContainerBlockEntity baseContainerBlockEntity) {
+					if (inv.player.level().getBlockState(pos).getBlock() instanceof ${JavaModName}Menus.BoundBlock boundBlock && boundBlock.getBoundMenuClass() == ${name}Menu.class
+							|| baseContainerBlockEntity.getContainerSize() > ${data.getMaxSlotID()})
+						return baseContainerBlockEntity;
+				}
+			}
+		</#if>
+		return new SimpleContainer(${data.getMaxSlotID() + 1});
 	}
 
 	public ${name}Menu(int id, Inventory inv, Container container, FriendlyByteBuf extraData) {
