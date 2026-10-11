@@ -1,5 +1,13 @@
 # Changelogs:
 
+## Unreleased
+- Full Minecraft 26.3 support for all element types (Fabric API 0.161.0, Fabric Loader 0.19.5)
+- Tested against MCreator master at commit a28ea044c (`GeneratorsTest` for `fabric-26.3`, plus client runs of a workspace containing every element type)
+- Worldgen, features, signs, armor trims, brewing, compostables and fuel updated to the 26.3 formats
+- [Bugfix] Attributes are now loaded before items, so item attribute modifiers no longer hold null attributes
+- [Bugfix] Mouse button keybindings were not detected
+- [Bugfix] Durable axes, shovels and hoes lost their custom attribute modifiers
+
 ## 2026.3-2.8.1
 - Updated to MCreator 2026.3.38715 (1st snapshot)
 
