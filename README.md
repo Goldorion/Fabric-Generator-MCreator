@@ -6,11 +6,11 @@ A plugin for [MCreator](https://mcreator.net/), a code generator to create Minec
 
 This project is not official. It is not affiliated with the respective owners and maintainers of Fabric, Minecraft, or MCreator. Do not expect any official support from their communities.
 
-**The current targeted Minecraft version is 26.1.2.**
+**The current targeted Minecraft version is 26.3.**
 
 ## Important Information
 
-- Make sure you use MCreator 2026.3.38715 (1st patch)
+- Make sure you use MCreator 2026.3.41718 (2nd snapshot)
 - Back up your workspace before updating to a newer version of the plugin.
 - Mods will also require [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api) to function properly, so when you want to play your mod, make sure you have Fabric API.
 

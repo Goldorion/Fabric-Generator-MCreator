@@ -1,6 +1,0 @@
-global_templates:
-  - template: elementinits/item_extensions.java.ftl
-    writer: java
-    condition: "${w.getGElementsOfType('itemextension')?filter(e -> (e.compostLayerChance gt 0) || e.enableFuel)?size != 0}"
-    name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameItemExtensions.java"
-  # Dispense behaviors are controlled by generator.yaml

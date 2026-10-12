@@ -1,3 +1,0 @@
-<#include "mcelements.ftl">
-(world instanceof ServerLevel _level${cbi} && _level${cbi}.registryAccess().lookupOrThrow(Registries.CONFIGURED_FEATURE).getOrThrow(ResourceKey.create(Registries.CONFIGURED_FEATURE, Identifier.parse("${generator.map(field$feature, "configuredfeatures")}")))
-	.value().place(_level${cbi}, _level${cbi}.getChunkSource().getGenerator(), _level${cbi}.getRandom(), ${toBlockPos(input$x,input$y,input$z)}))

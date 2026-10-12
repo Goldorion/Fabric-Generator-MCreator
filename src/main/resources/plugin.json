@@ -1,6 +1,6 @@
 {
   "id": "generator-fabric-${mcVersion}",
-  "weight": 11,
+  "weight": 0,
   "supportedversions": [${supportedVersion}, 202600399999],
   "info": {
     "name": "Minecraft Fabric ${mcVersion} Generator",

@@ -1,0 +1,41 @@
+plugins {
+    id 'net.fabricmc.fabric-loom' version '1.18-SNAPSHOT'
+}
+
+version = '1.0'
+base.archivesName = "modid"
+
+loom {
+    if (file("src/main/resources/META-INF/${modid}.classtweaker").exists())
+        accessWidenerPath = file("src/main/resources/META-INF/${modid}.classtweaker")
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${generator.getGeneratorMinecraftVersion()}"
+    implementation "net.fabricmc:fabric-loader:0.19.5"
+
+    // Fabric API
+    implementation "net.fabricmc.fabric-api:fabric-api:${generator.getGeneratorBuildFileVersion()}+${generator.getGeneratorMinecraftVersion()}"
+}
+
+// We need to do this because MCreator doesn't allow to split armor textures in multiple folders
+tasks.named('processResources', ProcessResources) {
+    doLast {
+        copy {
+            from(layout.buildDirectory.dir("resources/main/assets/${modid}/textures/entity/equipment/humanoid"))
+            into(layout.buildDirectory.dir("resources/main/assets/${modid}/textures/entity/equipment/humanoid_leggings"))
+        }
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.release = 25
+}
+
+java {
+    withSourcesJar()
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+apply from: 'mcreator.gradle'
