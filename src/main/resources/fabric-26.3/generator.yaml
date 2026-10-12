@@ -1,6 +1,6 @@
 name: Fabric for @minecraft (@buildfileversion)
 status: stable
-buildfileversion: 0.161.0
+buildfileversion: 0.162.0
 subversion: 5
 
 import:

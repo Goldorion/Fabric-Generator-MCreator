@@ -2,7 +2,7 @@
 
 ## Unreleased
 - Updated to MCreator 2026.3.41718
-- Added support for Minecraft 26.13 with Fabric API 0.161.0
+- Added support for Minecraft 26.13 with Fabric API 0.162.0
 
 To confirm
 - [Bugfix] Attributes are now loaded before items, so item attribute modifiers no longer hold null attributes
