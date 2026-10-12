@@ -1,10 +1,12 @@
 # Changelogs:
 
-## Unreleased
+## 2026.3-2.9 (beta)
+(With the help of champgm)
 - Updated to MCreator 2026.3.41718
 - Added support for Minecraft 26.13 with Fabric API 0.162.0
 - [Bugfix] Mouse button keybindings were not detected
 - [Bugfix] Custom axes, shovels and hoes with custom attribute modifiers could not work in some cases
+- Some other minor fixes and improvements
 
 ## 2026.3-2.8.1
 - Updated to MCreator 2026.3.38715 (1st snapshot)
