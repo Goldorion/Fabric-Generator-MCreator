@@ -9,8 +9,10 @@ java.toolchain.languageVersion = JavaLanguageVersion.of(25)
 
 // MCreator's build script configures idea.project, which only exists on the root project. As MCreator is included
 // here as a subproject, share this root project's IDEA project model with it so its configuration does not fail
-project(':MCreator').plugins.withType(IdeaPlugin).configureEach { ideaPlugin ->
-    ideaPlugin.model.project = rootProject.idea.project
+if(mcreator_path != "unassigned") {
+    project(':MCreator').plugins.withType(IdeaPlugin).configureEach { ideaPlugin ->
+        ideaPlugin.model.project = rootProject.idea.project
+    }
 }
 
 tasks.named('processResources') {
