@@ -1,2 +1,2 @@
 _mcreator_map_template: "@JavaModNameAttributes.@REGISTRYNAME"
-SWIM_SPEED: Attributes.ARMOR
+SWIM_SPEED: Attributes.MOVEMENT_SPEED
