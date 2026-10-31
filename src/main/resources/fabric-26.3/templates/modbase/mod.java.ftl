@@ -42,13 +42,13 @@ public class ${JavaModName} implements ModInitializer {
 		<#if w.hasItemsInTabs()>${JavaModName}Tabs.load();</#if>
 		<#if w.hasVariables()>${JavaModName}Variables.variablesLoad();</#if>
 		<#if types["base:features"]??>${JavaModName}Features.load();</#if>
-		<#if types["particles"]??>${JavaModName}ParticleTypes.load();</#if>
+		<#if types.particles?has_content>${JavaModName}ParticleTypes.load();</#if>
 		<#if types["fluids"]??>${JavaModName}Fluids.load();</#if>
 		<#if types["base:entities"]??>${JavaModName}Entities.load();</#if>
 		<#if types["base:blocks"]??>${JavaModName}Blocks.load();</#if>
 		<#if types["base:blockentities"]??>${JavaModName}BlockEntities.load();</#if>
 		<#if types.blocks?filter(e -> e.isSign())?size != 0>${JavaModName}WoodTypes.load();</#if>
-		<#if types["attributes"]??>${JavaModName}Attributes.load();</#if>
+		<#if types.attributes?has_content>${JavaModName}Attributes.load();</#if>
 		<#if types["base:items"]??>${JavaModName}Items.load();</#if>
 		<#if types.biomes?filter(e -> e.hasVines() || e.hasFruits())?size != 0>${JavaModName}BiomeDecorators.load();</#if>
 		<#if types.biomes?filter(e -> e.spawnBiome || e.spawnInCaves || e.spawnBiomeNether)?size != 0>${JavaModName}Biomes.load();</#if>

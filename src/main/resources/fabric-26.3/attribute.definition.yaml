@@ -4,6 +4,9 @@ global_templates:
   - template: mixin/attributesupplieraccessor.java.ftl
     name: "@SRCROOT/@BASEPACKAGEPATH/mixin/AttributeSupplierAccessor.java"
 
+base_types:
+  - attribute
+
 localizationkeys:
   - key: attribute.@modid.@registryname
     mapto: name

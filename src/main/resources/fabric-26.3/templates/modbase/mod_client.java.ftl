@@ -34,7 +34,7 @@ package ${package};
 		<#if types.items?filter(e -> e.getModels()?has_content)?size != 0>LegacyOverrideSelectItemModel.clientLoad();</#if>
 		<#if types.items?filter(e -> e.customProperties?has_content)?size != 0>${JavaModName}ItemProperties.clientLoad();</#if>
 		<#if types["base:entities"]??>${JavaModName}EntityRenderers.clientLoad();</#if>
-		<#if types["particles"]??>${JavaModName}Particles.clientLoad();</#if>
+		<#if types.particles?has_content>${JavaModName}Particles.clientLoad();</#if>
 		<#if types["fluids"]??>${JavaModName}Fluids.clientLoad();</#if>
 		<#if types["guis"]??>
 		${JavaModName}Screens.clientLoad();
