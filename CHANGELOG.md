@@ -1,5 +1,10 @@
 # Changelogs:
 
+## 2026.3-2.10
+- Updated to MCreator 2026.3.44621 (3rd snapshot)
+- [Bugfix] Item model animations kept playing while the game was paused or time was frozen
+- [Bugfix] Vanilla hoppers kept inserting items over the block inventory stack size limit
+
 ## 2026.3-2.9 (beta)
 (With the help of champgm)
 - Updated to MCreator 2026.3.41718

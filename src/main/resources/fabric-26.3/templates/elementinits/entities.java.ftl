@@ -26,7 +26,7 @@
 
 package ${package}.init;
 
-<#assign hasLivingEntities = w.hasElementsOfType("livingentity")>
+<#assign hasLivingEntities = types.livingentities?has_content>
 
 public class ${JavaModName}Entities {
 

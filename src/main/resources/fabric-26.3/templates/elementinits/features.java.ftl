@@ -24,7 +24,7 @@
  *	MCreator note: This file will be REGENERATED on each build.
  */
 
-<#assign hasStructureFeatureClass = w.getElementsOfType("feature")?filter(e -> e.getMetadata("has_nbt_structure")??)?size != 0>
+<#assign hasStructureFeatureClass = types.features?filter(e -> e.getMetadata("has_nbt_structure")??)?size != 0>
 
 <#macro biomeSelector restrictionBiomes>
 	<#assign selectorMethod = "includeByKey">

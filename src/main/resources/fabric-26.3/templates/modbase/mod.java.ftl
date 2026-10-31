@@ -47,21 +47,21 @@ public class ${JavaModName} implements ModInitializer {
 		<#if types["base:entities"]??>${JavaModName}Entities.load();</#if>
 		<#if types["base:blocks"]??>${JavaModName}Blocks.load();</#if>
 		<#if types["base:blockentities"]??>${JavaModName}BlockEntities.load();</#if>
-		<#if w.getGElementsOfType('block')?filter(e -> e.isSign())?size != 0>${JavaModName}WoodTypes.load();</#if>
+		<#if types.blocks?filter(e -> e.isSign())?size != 0>${JavaModName}WoodTypes.load();</#if>
 		<#if types["attributes"]??>${JavaModName}Attributes.load();</#if>
 		<#if types["base:items"]??>${JavaModName}Items.load();</#if>
-		<#if w.getGElementsOfType('biome')?filter(e -> e.hasVines() || e.hasFruits())?size != 0>${JavaModName}BiomeDecorators.load();</#if>
-		<#if w.getGElementsOfType('biome')?filter(e -> e.spawnBiome || e.spawnInCaves || e.spawnBiomeNether)?size != 0>${JavaModName}Biomes.load();</#if>
-		<#if w.getGElementsOfType('dimension')?filter(e -> e.hasDimensionTriggers() || e.enablePortal)?size != 0>${JavaModName}Dimensions.load();</#if>
+		<#if types.biomes?filter(e -> e.hasVines() || e.hasFruits())?size != 0>${JavaModName}BiomeDecorators.load();</#if>
+		<#if types.biomes?filter(e -> e.spawnBiome || e.spawnInCaves || e.spawnBiomeNether)?size != 0>${JavaModName}Biomes.load();</#if>
+		<#if types.dimensions?filter(e -> e.hasDimensionTriggers() || e.enablePortal)?size != 0>${JavaModName}Dimensions.load();</#if>
 		<#if types["guis"]??>${JavaModName}Menus.load();</#if>
 		<#if types["villagerprofessions"]??>${JavaModName}VillagerProfessions.load();</#if>
-		<#if w.getGElementsOfType('itemextension')?filter(e -> (e.compostLayerChance gt 0) || e.enableFuel)?size != 0>${JavaModName}ItemExtensions.load();</#if>
-		<#if w.getGElementsOfType('itemextension')?filter(e -> e.hasDispenseBehavior)?size != 0 || types["specialentities"]??>${JavaModName}DispenseBehaviors.load();</#if>
+		<#if types.itemextensions?filter(e -> (e.compostLayerChance gt 0) || e.enableFuel)?size != 0>${JavaModName}ItemExtensions.load();</#if>
+		<#if types.itemextensions?filter(e -> e.hasDispenseBehavior)?size != 0 || types["specialentities"]??>${JavaModName}DispenseBehaviors.load();</#if>
 		<#if types["potioneffects"]??>${JavaModName}MobEffects.load();</#if>
 		<#if types["potions"]??>${JavaModName}Potions.load();</#if>
 		<#if types["gamerules"]??>${JavaModName}GameRules.load();</#if>
-		<#if w.getGElementsOfType("command")?filter(e -> e.type != "CLIENTSIDE")?size != 0>${JavaModName}Commands.load();</#if>
-		<#if w.getGElementsOfType('procedure')?filter(e -> !e.procedurexml?contains('no_ext_trigger'))?size != 0>${JavaModName}Procedures.load();</#if>
+		<#if types.commands?filter(e -> e.type != "CLIENTSIDE")?size != 0>${JavaModName}Commands.load();</#if>
+		<#if types.procedures?filter(e -> !e.procedurexml?contains('no_ext_trigger'))?size != 0>${JavaModName}Procedures.load();</#if>
 		<#if types["keybinds"]??>${JavaModName}KeyMappingsServer.serverLoad();</#if>
 		<#if types["stats"]??>${JavaModName}Stats.registerStats();</#if>
 		</@javacompress>

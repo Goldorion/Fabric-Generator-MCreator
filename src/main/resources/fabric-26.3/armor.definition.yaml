@@ -153,6 +153,17 @@ global_templates:
   - template: elementinits/armormodels.java.ftl
     name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameArmorModels.java"
 
+base_types:
+  - item
+
+fragments:
+  - type: accesstransformer
+    content: accessible method net/minecraft/client/gui/components/AbstractSliderButton getSprite ()Lnet/minecraft/resources/Identifier;
+  - type: accesstransformer
+    content: accessible method net/minecraft/client/gui/components/AbstractSliderButton getHandleSprite ()Lnet/minecraft/resources/Identifier;
+  - type: accesstransformer
+    content: accessible field net/minecraft/client/gui/components/AbstractSliderButton dragging Z
+
 tags:
   - tag: ITEMS:minecraft:head_armor
     condition: enableHelmet

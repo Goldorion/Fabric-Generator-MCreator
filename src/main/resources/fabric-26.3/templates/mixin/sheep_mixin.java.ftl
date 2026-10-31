@@ -17,7 +17,7 @@
 -->
 <#-- @formatter:off -->
 package ${package}.mixin;
-<#assign shears = w.getGElementsOfType('tool')?filter(e -> e.toolType.equals('Shears'))>
+<#assign shears = types.tools?filter(e -> e.toolType.equals('Shears'))>
 
 @Mixin(Sheep.class)
 public abstract class SheepMixin {

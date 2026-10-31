@@ -43,13 +43,13 @@ templates:
 global_templates:
   - template: item/overrides_model.java.ftl
     name: "@SRCROOT/@BASEPACKAGEPATH/client/renderer/item/LegacyOverrideSelectItemModel.java"
-    condition: "${w.getGElementsOfType('item')?filter(e -> e.getModels()?has_content)?size != 0}"
+    condition: "${types.items?filter(e -> e.getModels()?has_content)?size != 0}"
   - template: elementinits/itemrenderers.java.ftl
     name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameItemRenderers.java"
-    condition: "${w.getGElementsOfType('item')?filter(e -> e.getModels()?filter(a -> a.hasCustomJAVAModel())?has_content || e.hasCustomJAVAModel())?size != 0}"
+    condition: "${types.items?filter(e -> e.getModels()?filter(a -> a.hasCustomJAVAModel())?has_content || e.hasCustomJAVAModel())?size != 0}"
   - template: elementinits/itemproperties.java.ftl
     name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameItemProperties.java"
-    condition: "${w.getGElementsOfType('item')?filter(e -> e.customProperties?has_content)?size != 0}"
+    condition: "${types.items?filter(e -> e.customProperties?has_content)?size != 0}"
 
 list_templates:
   - name: "Item states"
@@ -77,6 +77,9 @@ list_templates:
         writer: json
         condition: hasCustomOBJModel()
         name: "@MODASSETSROOT/models/item/@registryname_@itemindex.json"
+
+base_types:
+  - item
 
 tags:
   - tag: ITEMS:minecraft:meat

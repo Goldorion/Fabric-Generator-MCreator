@@ -28,11 +28,11 @@ package ${package};
 
 		<@javacompress>
 		<#if w.hasJavaModels() || types["specialentities"]??>${JavaModName}Models.clientLoad();</#if>
-		<#if w.getGElementsOfType('block')?filter(e -> e.tintType != "No tint")?size != 0 || w.getGElementsOfType('plant')?filter(e -> e.tintType != "No tint")?size != 0>${JavaModName}Blocks.clientLoad();</#if>
+		<#if types.blocks?filter(e -> e.tintType != "No tint")?size != 0 || types.plants?filter(e -> e.tintType != "No tint")?size != 0>${JavaModName}Blocks.clientLoad();</#if>
 		<#if types["armors"]??>${JavaModName}ArmorModels.clientLoad();</#if>
-		<#if w.getGElementsOfType("item")?filter(e -> e.getModels()?filter(a -> a.hasCustomJAVAModel())?has_content || e.hasCustomJAVAModel())?size != 0>${JavaModName}ItemRenderers.clientLoad();</#if>
-		<#if w.getGElementsOfType("item")?filter(e -> e.getModels()?has_content)?size != 0>LegacyOverrideSelectItemModel.clientLoad();</#if>
-		<#if w.getGElementsOfType("item")?filter(e -> e.customProperties?has_content)?size != 0>${JavaModName}ItemProperties.clientLoad();</#if>
+		<#if types.items?filter(e -> e.getModels()?filter(a -> a.hasCustomJAVAModel())?has_content || e.hasCustomJAVAModel())?size != 0>${JavaModName}ItemRenderers.clientLoad();</#if>
+		<#if types.items?filter(e -> e.getModels()?has_content)?size != 0>LegacyOverrideSelectItemModel.clientLoad();</#if>
+		<#if types.items?filter(e -> e.customProperties?has_content)?size != 0>${JavaModName}ItemProperties.clientLoad();</#if>
 		<#if types["base:entities"]??>${JavaModName}EntityRenderers.clientLoad();</#if>
 		<#if types["particles"]??>${JavaModName}Particles.clientLoad();</#if>
 		<#if types["fluids"]??>${JavaModName}Fluids.clientLoad();</#if>
@@ -41,9 +41,9 @@ package ${package};
 		${JavaModName}Menus.clientLoad();
 		</#if>
 		<#if types["overlays"]??>${JavaModName}Overlays.clientLoad();</#if>
-		<#if w.getGElementsOfType("command")?filter(e -> e.type == "CLIENTSIDE")?size != 0>${JavaModName}Commands.clientLoad();</#if>
+		<#if types.commands?filter(e -> e.type == "CLIENTSIDE")?size != 0>${JavaModName}Commands.clientLoad();</#if>
 		<#if types["keybinds"]??>${JavaModName}KeyMappings.clientLoad();</#if>
-		<#if w.getGElementsOfType('dimension')?filter(e -> e.enableCustomSkyboxTextures || e.enableCustomSunMoonTextures)?size != 0>${JavaModName}SkyboxRenderer.renderSky();</#if>
+		<#if types.dimensions?filter(e -> e.enableCustomSkyboxTextures || e.enableCustomSunMoonTextures)?size != 0>${JavaModName}SkyboxRenderer.renderSky();</#if>
 		</@javacompress>
 
 		<#if w.hasVariablesOfScope("GLOBAL_WORLD") || w.hasVariablesOfScope("GLOBAL_MAP")>

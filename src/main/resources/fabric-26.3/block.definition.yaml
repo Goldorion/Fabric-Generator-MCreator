@@ -570,10 +570,10 @@ templates:
 global_templates:
   - template: elementinits/woodtypes.java.ftl
     name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameWoodTypes.java"
-    condition: "${w.getGElementsOfType('block')?filter(e -> e.isSign())?size != 0}"
+    condition: "${types.blocks?filter(e -> e.isSign())?size != 0}"
   - template: mixin/enchantmentmenu_mixin.java.ftl
     name: "@SRCROOT/@BASEPACKAGEPATH/mixin/EnchantmentMenuMixin.java"
-    condition: "${w.getGElementsOfType('block')?filter(e -> e.enchantPowerBonus gt 0)?size gt 0}"
+    condition: "${types.blocks?filter(e -> e.enchantPowerBonus gt 0)?size gt 0}"
 
 list_templates:
   - name: "Block states"
@@ -616,6 +616,25 @@ list_templates:
 #        condition: "renderType #= 3"
 #        writer: json
 #        name: "@MODASSETSROOT/models/block/@registryname_@itemindex.json"
+
+fragments:
+  - type: accesstransformer
+    condition: "${types.blocks?filter(e -> e.isSign())?size != 0}"
+    content: accessible method net/minecraft/world/level/block/state/properties/WoodType register (Lnet/minecraft/world/level/block/state/properties/WoodType;)Lnet/minecraft/world/level/block/state/properties/WoodType;
+  - type: accesstransformer
+    condition: "${types.blocks?filter(e -> e.enchantPowerBonus gt 0)?size gt 0}"
+    content: accessible method net/minecraft/world/inventory/EnchantmentMenu getEnchantmentList (Lnet/minecraft/core/RegistryAccess;Lnet/minecraft/world/item/ItemStack;II)Ljava/util/List;
+
+base_types:
+  - block
+  - type: item
+    condition: hasBlockItem
+  - type: configuredfeature
+    condition: generateFeature
+  - type: transformable
+    condition: hasStrippingResult()
+  - type: blockentity
+    condition: hasInventory
 
 block_base_properties:
   Stairs: [ facing, half, shape, waterlogged ]

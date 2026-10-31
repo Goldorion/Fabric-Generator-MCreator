@@ -20,10 +20,10 @@
 <#include "../procedures.java.ftl">
 
 <#assign itemsWithEntitySwing = []>
-<#list w.getGElementsOfType("item")?filter(e -> hasProcedure(e.onEntitySwing)) as item>
+<#list types.items?filter(e -> hasProcedure(e.onEntitySwing)) as item>
 	<#assign itemsWithEntitySwing += [item]>
 </#list>
-<#list w.getGElementsOfType("tool")?filter(e -> hasProcedure(e.onEntitySwing)) as tool>
+<#list types.tools?filter(e -> hasProcedure(e.onEntitySwing)) as tool>
 	<#assign itemsWithEntitySwing += [tool]>
 </#list>
 

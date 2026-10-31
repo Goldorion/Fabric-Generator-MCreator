@@ -15,6 +15,12 @@ templates:
 global_templates:
   - template: feature/structure_feature.java.ftl
     writer: java
-    condition: "${w.getElementsOfType('feature')?filter(e -> e.getMetadata('has_nbt_structure')??)?size != 0}"
+    condition: "${types.features?filter(e -> e.getMetadata('has_nbt_structure')??)?size != 0}"
     name: "@SRCROOT/@BASEPACKAGEPATH/world/features/StructureFeature.java"
     hidden: true
+
+base_types:
+  - type: configuredfeature
+    condition: hasConfiguredFeature()
+  - type: feature
+    condition: hasGenerationConditions()

@@ -25,12 +25,12 @@ global_templates:
   - template: json/fluidtag.json.ftl
     writer: json
     variables: "type=water"
-    condition: "${w.getGElementsOfType('fluid')?filter(e -> e.type.equals('WATER'))?size != 0}"
+    condition: "${types.fluids?filter(e -> e.type.equals('WATER'))?size != 0}"
     name: "@RESROOT/data/minecraft/tags/fluid/water.json"
   - template: json/fluidtag.json.ftl
     writer: json
     variables: "type=lava"
-    condition: "${w.getGElementsOfType('fluid')?filter(e -> e.type.equals('LAVA'))?size != 0}"
+    condition: "${types.fluids?filter(e -> e.type.equals('LAVA'))?size != 0}"
     name: "@RESROOT/data/minecraft/tags/fluid/lava.json"
 
 localizationkeys:
@@ -43,6 +43,11 @@ localizationkeys:
     condition: generateBucket
   - fromlist: data.getFixedSpecialInformation()
     key: item.@modid.@registryname_bucket.description_@item_index
+
+base_types:
+  - block
+  - type: item
+    condition: generateBucket
 
 tags:
   - tag: BLOCKS:minecraft:replaceable

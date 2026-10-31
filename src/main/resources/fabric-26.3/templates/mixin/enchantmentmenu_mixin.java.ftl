@@ -25,7 +25,7 @@ public abstract class EnchantmentMenuMixin {
 	@Unique
 	private static final HashMap<Block, Integer> VALUES = new HashMap<>() {{
 		put(Blocks.BOOKSHELF, 1);
-		<#list w.getGElementsOfType('block')?filter(e -> e.enchantPowerBonus gt 0) as block>
+		<#list types.blocks?filter(e -> e.enchantPowerBonus gt 0) as block>
 		put(${JavaModName}Blocks.${block.getModElement().getRegistryNameUpper()}, ${block.enchantPowerBonus?round});
 		</#list>
 	}};
