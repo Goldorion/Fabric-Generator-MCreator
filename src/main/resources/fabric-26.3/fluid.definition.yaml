@@ -25,12 +25,12 @@ global_templates:
   - template: json/fluidtag.json.ftl
     writer: json
     variables: "type=water"
-    condition: "${types.fluids?filter(e -> e.type.equals('WATER'))?size != 0}"
+    condition: "${fluids?filter(e -> e.type.equals('WATER'))?size != 0}"
     name: "@RESROOT/data/minecraft/tags/fluid/water.json"
   - template: json/fluidtag.json.ftl
     writer: json
     variables: "type=lava"
-    condition: "${types.fluids?filter(e -> e.type.equals('LAVA'))?size != 0}"
+    condition: "${fluids?filter(e -> e.type.equals('LAVA'))?size != 0}"
     name: "@RESROOT/data/minecraft/tags/fluid/lava.json"
 
 localizationkeys:

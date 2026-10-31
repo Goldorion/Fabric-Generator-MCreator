@@ -1,6 +1,6 @@
 <#assign mixins = ['LivingEntityMixin', 'PlayerMixin', 'ItemStackMixin', 'BlockItemMixin', 'BoneMealItemMixin', 'CommandsMixin', 'ExperienceOrbMixin']>
 <#assign client_mixins = []>
-<#if types.biomes?has_content?filter(e -> e.spawnBiome || e.spawnInCaves || e.spawnBiomeNether)?size != 0>
+<#if types.biomes?filter(e -> e.spawnBiome || e.spawnInCaves || e.spawnBiomeNether)?size != 0>
   <#assign mixins = mixins + ['NoiseGeneratorSettingsMixin', 'BiomeSourcePresetMixin']>
 </#if>
 <#if types.items?has_content>
@@ -14,7 +14,7 @@
 	<#assign mixins = mixins + ['PiglinAiMixin']>
 	<#assign client_mixins = client_mixins + ['EquipmentLayerRendererMixin']>
 </#if>
-<#if types.livinentities?filter(e -> e.spawnInDungeons)?size != 0>
+<#if types.livingentities?filter(e -> e.spawnInDungeons)?size != 0>
 	<#assign mixins = mixins + ['MonsterRoomFeatureMixin']>
 </#if>
 <#if types.tools?filter(e -> e.toolType.equals('Shears'))?size != 0>
@@ -29,7 +29,7 @@
   "compatibilityLevel": "JAVA_25",
   "refmap": "${modid}.refmap.json",
   "mixins": [
-	<#list fragments.mixin as mixin>"${mixin}"<#sep>,</#list>
+	<#list mixins as mixin>"${mixin}"<#sep>,</#list>
   ],
   "client": [
 	<#list client_mixins as mixin>"${mixin}"<#sep>,</#list>

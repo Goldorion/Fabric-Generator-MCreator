@@ -37,7 +37,7 @@ templates:
 
 global_templates:
   - template: mixin/sheep_mixin.java.ftl
-    condition: "${types.tools?filter(e -> e.toolType.equals('Shears'))?size != 0}"
+    condition: "${tools?filter(e -> e.toolType.equals('Shears'))?size != 0}"
     name: "@SRCROOT/@BASEPACKAGEPATH/mixin/SheepMixin.java"
 
 base_types:
@@ -45,7 +45,7 @@ base_types:
 
 fragments:
   - type: accesstransformer
-    condition: "${types.tools?filter(e -> e.toolType.equals('Fishing rod'))?size != 0}"
+    condition: "${tools?filter(e -> e.toolType.equals('Fishing rod'))?size != 0}"
     content: extendable method net/minecraft/world/entity/projectile/FishingHook shouldStopFishing (Lnet/minecraft/world/entity/player/Player;)Z
 
 tags:

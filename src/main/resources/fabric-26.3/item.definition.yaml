@@ -43,13 +43,13 @@ templates:
 global_templates:
   - template: item/overrides_model.java.ftl
     name: "@SRCROOT/@BASEPACKAGEPATH/client/renderer/item/LegacyOverrideSelectItemModel.java"
-    condition: "${types.items?filter(e -> e.getModels()?has_content)?size != 0}"
+    condition: "${items?filter(e -> e.getModels()?has_content)?size != 0}"
   - template: elementinits/itemrenderers.java.ftl
     name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameItemRenderers.java"
-    condition: "${types.items?filter(e -> e.getModels()?filter(a -> a.hasCustomJAVAModel())?has_content || e.hasCustomJAVAModel())?size != 0}"
+    condition: "${items?filter(e -> e.getModels()?filter(a -> a.hasCustomJAVAModel())?has_content || e.hasCustomJAVAModel())?size != 0}"
   - template: elementinits/itemproperties.java.ftl
     name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameItemProperties.java"
-    condition: "${types.items?filter(e -> e.customProperties?has_content)?size != 0}"
+    condition: "${items?filter(e -> e.customProperties?has_content)?size != 0}"
 
 list_templates:
   - name: "Item states"

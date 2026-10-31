@@ -64,10 +64,10 @@ templates:
 global_templates:
   - template: elementinits/dimensions.java.ftl
     name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameDimensions.java"
-    condition: "${types.dimensions?filter(e -> e.hasDimensionTriggers() || e.enablePortal)?size != 0}"
+    condition: "${dimensions?filter(e -> e.hasDimensionTriggers() || e.enablePortal)?size != 0}"
   - template: dimension/skybox.java.ftl
     name: "@SRCROOT/@BASEPACKAGEPATH/client/@JavaModNameSkyboxRenderer.java"
-    condition: "${types.dimensions?filter(e -> e.enableCustomSkyboxTextures || e.enableCustomSunMoonTextures)?size != 0}"
+    condition: "${dimensions?filter(e -> e.enableCustomSkyboxTextures || e.enableCustomSunMoonTextures)?size != 0}"
 
 base_types:
   - type: block

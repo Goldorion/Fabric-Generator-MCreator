@@ -23,7 +23,7 @@ base_types:
 
 fragments:
   - type: accesstransformer
-    condition: "${types.livingentities?filter(e -> e.spawnInDungeons)?size != 0}"
+    condition: "${livingentities?filter(e -> e.spawnInDungeons)?size != 0}"
     content: accessible method net/minecraft/world/level/levelgen/feature/MonsterRoomFeature randomEntityId (Lnet/minecraft/util/RandomSource;)Lnet/minecraft/world/entity/EntityType;
 
 unmodifiable_ai_bases: [ Bat, MagmaCube, Slime ]

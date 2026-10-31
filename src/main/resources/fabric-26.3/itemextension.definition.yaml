@@ -1,7 +1,7 @@
 global_templates:
   - template: elementinits/item_extensions.java.ftl
     writer: java
-    condition: "${types.itemextensions?filter(e -> (e.compostLayerChance gt 0) || e.enableFuel)?size != 0}"
+    condition: "${itemextensions?filter(e -> (e.compostLayerChance gt 0) || e.enableFuel)?size != 0}"
     name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameItemExtensions.java"
 
 templates:

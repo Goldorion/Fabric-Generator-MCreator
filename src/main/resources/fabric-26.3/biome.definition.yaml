@@ -37,19 +37,19 @@ templates:
 global_templates:
   - template: elementinits/biomes.java.ftl
     writer: java
-    condition: "${types.biomes?filter(e -> e.spawnBiome || e.spawnInCaves || e.spawnBiomeNether)?size != 0}"
+    condition: "${biomes?filter(e -> e.spawnBiome || e.spawnInCaves || e.spawnBiomeNether)?size != 0}"
     name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameBiomes.java"
   - template: elementinits/biomedecorators.java.ftl
     writer: java
-    condition: "${types.biomes?filter(e -> e.hasFruits() || e.hasVines())?size != 0}"
+    condition: "${biomes?filter(e -> e.hasFruits() || e.hasVines())?size != 0}"
     name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameBiomeDecorators.java"
   - template: biome/mixin_noisegeneratorsettings.java.ftl
     writer: java
-    condition: "${types.biomes?filter(e -> e.spawnBiome || e.spawnInCaves || e.spawnBiomeNether)?size != 0}"
+    condition: "${biomes?filter(e -> e.spawnBiome || e.spawnInCaves || e.spawnBiomeNether)?size != 0}"
     name: "@SRCROOT/@BASEPACKAGEPATH/mixin/NoiseGeneratorSettingsMixin.java"
   - template: biome/mixin_biomesourcepreset.java.ftl
     writer: java
-    condition: "${types.biomes?filter(e -> e.spawnBiome || e.spawnInCaves || e.spawnBiomeNether)?size != 0}"
+    condition: "${biomes?filter(e -> e.spawnBiome || e.spawnInCaves || e.spawnBiomeNether)?size != 0}"
     name: "@SRCROOT/@BASEPACKAGEPATH/mixin/BiomeSourcePresetMixin.java"
 
 fragments:
