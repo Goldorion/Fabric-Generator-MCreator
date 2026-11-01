@@ -41,29 +41,29 @@ public class ${JavaModName} implements ModInitializer {
 		<#if w.hasSounds()>${JavaModName}Sounds.load();</#if>
 		<#if w.hasItemsInTabs()>${JavaModName}Tabs.load();</#if>
 		<#if w.hasVariables()>${JavaModName}Variables.variablesLoad();</#if>
-		<#if types["base:features"]??>${JavaModName}Features.load();</#if>
+		<#if types.configuredfeatures?has_content>${JavaModName}Features.load();</#if>
 		<#if types.particles?has_content>${JavaModName}ParticleTypes.load();</#if>
-		<#if types["fluids"]??>${JavaModName}Fluids.load();</#if>
-		<#if types["base:entities"]??>${JavaModName}Entities.load();</#if>
-		<#if types["base:blocks"]??>${JavaModName}Blocks.load();</#if>
-		<#if types["base:blockentities"]??>${JavaModName}BlockEntities.load();</#if>
+		<#if types.fluids?has_content>${JavaModName}Fluids.load();</#if>
+		<#if types.livingentities?has_content>${JavaModName}Entities.load();</#if>
+		<#if types.blocks?has_content>${JavaModName}Blocks.load();</#if>
+		<#if types.blockentities?has_content>${JavaModName}BlockEntities.load();</#if>
 		<#if types.blocks?filter(e -> e.isSign())?size != 0>${JavaModName}WoodTypes.load();</#if>
 		<#if types.attributes?has_content>${JavaModName}Attributes.load();</#if>
-		<#if types["base:items"]??>${JavaModName}Items.load();</#if>
+		<#if types.items?has_content>${JavaModName}Items.load();</#if>
 		<#if types.biomes?filter(e -> e.hasVines() || e.hasFruits())?size != 0>${JavaModName}BiomeDecorators.load();</#if>
 		<#if types.biomes?filter(e -> e.spawnBiome || e.spawnInCaves || e.spawnBiomeNether)?size != 0>${JavaModName}Biomes.load();</#if>
 		<#if types.dimensions?filter(e -> e.hasDimensionTriggers() || e.enablePortal)?size != 0>${JavaModName}Dimensions.load();</#if>
-		<#if types["guis"]??>${JavaModName}Menus.load();</#if>
-		<#if types["villagerprofessions"]??>${JavaModName}VillagerProfessions.load();</#if>
+		<#if types.guis?has_content>${JavaModName}Menus.load();</#if>
+		<#if types.villagerprofessions?has_content>${JavaModName}VillagerProfessions.load();</#if>
 		<#if types.itemextensions?filter(e -> (e.compostLayerChance gt 0) || e.enableFuel)?size != 0>${JavaModName}ItemExtensions.load();</#if>
 		<#if types.itemextensions?filter(e -> e.hasDispenseBehavior)?size != 0 || types["specialentities"]??>${JavaModName}DispenseBehaviors.load();</#if>
-		<#if types["potioneffects"]??>${JavaModName}MobEffects.load();</#if>
-		<#if types["potions"]??>${JavaModName}Potions.load();</#if>
-		<#if types["gamerules"]??>${JavaModName}GameRules.load();</#if>
+		<#if types.potioneffects?has_content>${JavaModName}MobEffects.load();</#if>
+		<#if types.potions?has_content>${JavaModName}Potions.load();</#if>
+		<#if types.gamerules?has_content>${JavaModName}GameRules.load();</#if>
 		<#if types.commands?filter(e -> e.type != "CLIENTSIDE")?size != 0>${JavaModName}Commands.load();</#if>
 		<#if types.procedures?filter(e -> !e.procedurexml?contains('no_ext_trigger'))?size != 0>${JavaModName}Procedures.load();</#if>
-		<#if types["keybinds"]??>${JavaModName}KeyMappingsServer.serverLoad();</#if>
-		<#if types["stats"]??>${JavaModName}Stats.registerStats();</#if>
+		<#if types.keybinds?has_content>${JavaModName}KeyMappingsServer.serverLoad();</#if>
+		<#if types.stats?has_content>${JavaModName}Stats.registerStats();</#if>
 		</@javacompress>
 
 		tick();

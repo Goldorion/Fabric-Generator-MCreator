@@ -29,20 +29,20 @@ package ${package};
 		<@javacompress>
 		<#if w.hasJavaModels() || types["specialentities"]??>${JavaModName}Models.clientLoad();</#if>
 		<#if types.blocks?filter(e -> e.tintType != "No tint")?size != 0 || types.plants?filter(e -> e.tintType != "No tint")?size != 0>${JavaModName}Blocks.clientLoad();</#if>
-		<#if types["armors"]??>${JavaModName}ArmorModels.clientLoad();</#if>
+		<#if types.armors?has_content>${JavaModName}ArmorModels.clientLoad();</#if>
 		<#if types.items?filter(e -> e.getModels()?filter(a -> a.hasCustomJAVAModel())?has_content || e.hasCustomJAVAModel())?size != 0>${JavaModName}ItemRenderers.clientLoad();</#if>
 		<#if types.items?filter(e -> e.getModels()?has_content)?size != 0>LegacyOverrideSelectItemModel.clientLoad();</#if>
 		<#if types.items?filter(e -> e.customProperties?has_content)?size != 0>${JavaModName}ItemProperties.clientLoad();</#if>
-		<#if types["base:entities"]??>${JavaModName}EntityRenderers.clientLoad();</#if>
+		<#if types.livingentities?has_content>${JavaModName}EntityRenderers.clientLoad();</#if>
 		<#if types.particles?has_content>${JavaModName}Particles.clientLoad();</#if>
-		<#if types["fluids"]??>${JavaModName}Fluids.clientLoad();</#if>
-		<#if types["guis"]??>
+		<#if types.fluids?has_content>${JavaModName}Fluids.clientLoad();</#if>
+		<#if types.guis?has_content>
 		${JavaModName}Screens.clientLoad();
 		${JavaModName}Menus.clientLoad();
 		</#if>
-		<#if types["overlays"]??>${JavaModName}Overlays.clientLoad();</#if>
+		<#if types.overlaies?has_content>${JavaModName}Overlays.clientLoad();</#if>
 		<#if types.commands?filter(e -> e.type == "CLIENTSIDE")?size != 0>${JavaModName}Commands.clientLoad();</#if>
-		<#if types["keybinds"]??>${JavaModName}KeyMappings.clientLoad();</#if>
+		<#if types.keybinds?has_content>${JavaModName}KeyMappings.clientLoad();</#if>
 		<#if types.dimensions?filter(e -> e.enableCustomSkyboxTextures || e.enableCustomSunMoonTextures)?size != 0>${JavaModName}SkyboxRenderer.renderSky();</#if>
 		</@javacompress>
 
