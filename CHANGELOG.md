@@ -2,6 +2,7 @@
 
 ## 2026.3-2.10
 - Updated to MCreator 2026.3.44621 (3rd snapshot)
+- [Bugfix #620] When effect expires trigger for custom potion effects did not work
 - [Bugfix] Item model animations kept playing while the game was paused or time was frozen
 - [Bugfix] Vanilla hoppers kept inserting items over the block inventory stack size limit
 

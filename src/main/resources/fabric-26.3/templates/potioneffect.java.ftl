@@ -117,6 +117,19 @@ public class ${name}MobEffect extends <#if data.isInstant>Instantaneous</#if>Mob
 			}
 		}
 	</#if>
+
+	<#if hasProcedure(data.onExpired)>
+		public static void onExpired(MobEffectInstance effectInstance, LivingEntity entity) {
+			<@procedureCode data.onExpired, {
+				"x": "entity.getX()",
+				"y": "entity.getY()",
+				"z": "entity.getZ()",
+				"world": "entity.level()",
+				"entity": "entity",
+				"amplifier": "effectInstance.getAmplifier()"
+			}/>
+		}
+	</#if>
 }
 </@javacompress>
 <#-- @formatter:on -->

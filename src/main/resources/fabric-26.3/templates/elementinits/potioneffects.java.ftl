@@ -22,6 +22,9 @@
  *	MCreator note: This file will be REGENERATED on each build.
  */
 
+<#include "../procedures.java.ftl">
+
+<#assign effects_that_expire = potioneffects?filter(effect -> hasProcedure(effect.onExpired))>
 package ${package}.init;
 
 public class ${JavaModName}MobEffects {
@@ -34,6 +37,16 @@ public class ${JavaModName}MobEffects {
 		<#list potioneffects as effect>
 			${effect.getModElement().getRegistryNameUpper()} = register("${effect.getModElement().getRegistryName()}", ${effect.getModElement().getName()}MobEffect::new);
 		</#list>
+
+		<#if effects_that_expire?size != 0>
+		ServerMobEffectEvents.AFTER_REMOVE.register((effect, entity, ctx) -> {
+			if (!ctx.isFromCommand()) {
+                <#list effects_that_expire as effect>
+                    ${effect.getModElement().getName()}MobEffect.onExpired(effect, entity);
+                </#list>
+			}
+		});
+		</#if>
 	}
 
 	private static Holder<MobEffect> register(String registryname, Supplier<MobEffect> element) {
