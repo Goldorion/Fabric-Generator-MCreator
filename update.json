@@ -1,13 +1,12 @@
 {
   "generator-fabric-26.3": {
-    "latest": "2026.3-2.9-beta",
+    "latest": "2026.3-2.10",
     "changes": [
-      "2026.3-2.9-beta",
-      "(With the help of champgm)",
-      "Updated to MCreator 2026.3.41718",
-      "Added support for Minecraft 26.13 with Fabric API 0.162.0",
-      "[Bugfix] Mouse button keybindings were not detected",
-      "[Bugfix] Custom axes, shovels and hoes with custom attribute modifiers could not work in some cases",
+      "2026.3-2.10",
+      "Updated to MCreator 2026.3.44621 (3rd snapshot)",
+      "[Bugfix #620] When effect expires trigger for custom potion effects did not work",
+      "[Bugfix] Item model animations kept playing while the game was paused or time was frozen",
+      "[Bugfix] Vanilla hoppers kept inserting items over the block inventory stack size limit",
       "Some other minor fixes and improvements",
       "If you read this, write \"Klemen is a robot in the plugin's comments.\" Social experiment ;)"
     ]
