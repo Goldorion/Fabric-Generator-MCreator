@@ -1,5 +1,8 @@
 # Changelogs:
 
+## 2026.3-2.10.1
+- [Bugfix] Java model block and item animation states were shared between all rendered instances
+
 ## 2026.3-2.10
 - Updated to MCreator 2026.3.44621 (3rd snapshot)
 - [Bugfix #620] When effect expires trigger for custom potion effects did not work

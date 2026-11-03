@@ -39,7 +39,7 @@ package ${package}.client.renderer.block;
 	@Override public void extractRenderState(${name}BlockEntity blockEntity, CustomRenderState state, float partialTicks, Vec3 cameraPosition, ModelFeatureRenderer.CrumblingOverlay breakProgress) {
 		BlockEntityRenderState.extractBase(blockEntity, state, breakProgress);
 
-		state.blockEntity = blockEntity;
+		state.entityRenderState.blockEntity = blockEntity;
 		state.blockState = blockEntity.getBlockState();
 
 		int tickCount = (int) blockEntity.getLevel().getGameTime();
@@ -96,7 +96,6 @@ package ${package}.client.renderer.block;
 			</#if>
 		</#if>
 		poseStack.translate(0, -1, 0);
-		model.setupBlockEntityAnim(renderState.blockEntity, renderState.entityRenderState);
 		submitNodeCollector.submitModel(this.model, renderState.entityRenderState, poseStack, RenderTypes.entityCutout(texture), renderState.lightCoords, OverlayTexture.NO_OVERLAY, 0);
 		poseStack.popPose();
 		</@javacompress>
@@ -107,10 +106,13 @@ package ${package}.client.renderer.block;
 	}
 
 	public static class CustomRenderState extends BlockEntityRenderState {
-		protected final LivingEntityRenderState entityRenderState = new LivingEntityRenderState();
-		protected ${name}BlockEntity blockEntity;
+	    protected final CustomEntityRenderState entityRenderState = new CustomEntityRenderState();
 		protected BlockState blockState;
 	}
+
+	public static class CustomEntityRenderState extends LivingEntityRenderState {
+    	protected ${name}BlockEntity blockEntity;
+    }
 
 	private static final class CustomHierarchicalModel extends ${data.customModelName.split(":")[0]} {
 
@@ -135,7 +137,10 @@ package ${package}.client.renderer.block;
 			}
 		}
 
-		public void setupBlockEntityAnim(${name}BlockEntity blockEntity, LivingEntityRenderState state) {
+		<#-- Animations must be applied here and not at submit time, as the model is shared between
+			 all block entities of this type and the actual rendering happens later -->
+		@Override public void setupAnim(LivingEntityRenderState state) {
+			${name}BlockEntity blockEntity = ((CustomEntityRenderState) state).blockEntity;
 			this.root().getAllParts().forEach(ModelPart::resetPose);
 			<#list data.animations as animation>
 			this.keyframeAnimation${animation?index}.apply(blockEntity.animationState${animation?index}, state.ageInTicks, ${animation.speed}f);
