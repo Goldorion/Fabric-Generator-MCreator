@@ -56,7 +56,7 @@ public class ${JavaModName} implements ModInitializer {
 		<#if types.guis?has_content>${JavaModName}Menus.load();</#if>
 		<#if types.villagerprofessions?has_content>${JavaModName}VillagerProfessions.load();</#if>
 		<#if types.itemextensions?filter(e -> (e.compostLayerChance gt 0) || e.enableFuel)?size != 0>${JavaModName}ItemExtensions.load();</#if>
-		<#if types.itemextensions?filter(e -> e.hasDispenseBehavior)?size != 0 || types["specialentities"]??>${JavaModName}DispenseBehaviors.load();</#if>
+		<#if types.itemextensions?filter(e -> e.hasDispenseBehavior)?size != 0 || types.specialentities?has_content>${JavaModName}DispenseBehaviors.load();</#if>
 		<#if types.potioneffects?has_content>${JavaModName}MobEffects.load();</#if>
 		<#if types.potions?has_content>${JavaModName}Potions.load();</#if>
 		<#if types.gamerules?has_content>${JavaModName}GameRules.load();</#if>

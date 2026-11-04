@@ -28,8 +28,8 @@
 
 package ${package}.init;
 
-<#assign itemextensions = w.getGElementsOfType("itemextension")?filter(e -> e.hasDispenseBehavior)>
-<#assign specialentities = w.getGElementsOfType("specialentity")>
+<#assign itemextensions = types.itemextensions?filter(e -> e.hasDispenseBehavior)>
+<#assign specialentities = types.specialentities>
 <@javacompress>
 public class ${JavaModName}DispenseBehaviors {
 

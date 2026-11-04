@@ -27,7 +27,7 @@ package ${package};
 		// End of user code block mod constructor
 
 		<@javacompress>
-		<#if w.hasJavaModels() || types["specialentities"]??>${JavaModName}Models.clientLoad();</#if>
+		<#if w.hasJavaModels() || types.specialentities?has_content>${JavaModName}Models.clientLoad();</#if>
 		<#if types.blocks?filter(e -> e.tintType != "No tint")?size != 0 || types.plants?filter(e -> e.tintType != "No tint")?size != 0>${JavaModName}Blocks.clientLoad();</#if>
 		<#if types.armors?has_content>${JavaModName}ArmorModels.clientLoad();</#if>
 		<#if types.items?filter(e -> e.getModels()?filter(a -> a.hasCustomJAVAModel())?has_content || e.hasCustomJAVAModel())?size != 0>${JavaModName}ItemRenderers.clientLoad();</#if>

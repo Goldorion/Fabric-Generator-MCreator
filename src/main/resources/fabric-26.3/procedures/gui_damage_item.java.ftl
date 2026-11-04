@@ -1,4 +1,4 @@
-<#if w.hasElementsOfType("gui")>
+<#if types.guis?has_content>
 if(${input$entity} instanceof Player _player && _player.level() instanceof ServerLevel _serverLevel && _player.containerMenu instanceof ${JavaModName}Menus.MenuAccessor _menu) {
 	Slot _slot = _menu.getSlots().get(${opt.toInt(input$slotid)});
 	ItemStack stack = _slot.getItem();

@@ -1,5 +1,8 @@
 # Changelogs:
 
+## 2026.3-2.10.2
+- [Bugfix #626] Many places still caused build errors due to the snapshot's breaking changes
+
 ## 2026.3-2.10.1
 - [Bugfix #625] Access wideners were not generated in some cases, causing build errors
 - [Bugfix] Java model block and item animation states were shared between all rendered instances

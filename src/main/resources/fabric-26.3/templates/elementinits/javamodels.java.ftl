@@ -26,7 +26,7 @@
 
 package ${package}.init;
 
-<#assign specialentities = w.getGElementsOfType("specialentity")>
+<#assign specialentities = types.specialentities>
 @Environment(EnvType.CLIENT) public class ${JavaModName}Models {
 	<#list specialentities as entity>
 	public static final ModelLayerLocation ${entity.getModElement().getRegistryNameUpper()}_LAYER_LOCATION =

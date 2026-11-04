@@ -26,7 +26,7 @@
 
 package ${package}.init;
 
-<#assign hasItemsWithLeftHandedProperty = w.getGElementsOfType("item")?filter(e -> e.states
+<#assign hasItemsWithLeftHandedProperty = types.items?filter(e -> e.states
 	?filter(e -> e.stateMap.keySet()?filter(e -> e.getName() == "lefthanded")?size != 0)?size != 0)?size != 0>
 @Environment(EnvType.CLIENT) public class ${JavaModName}ItemProperties {
 

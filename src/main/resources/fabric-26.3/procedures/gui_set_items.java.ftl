@@ -1,5 +1,5 @@
 <#include "mcitems.ftl">
-<#if w.hasElementsOfType("gui")>
+<#if types.guis?has_content>
 <@head>if (${input$entity} instanceof Player _player && _player.containerMenu instanceof ${JavaModName}Menus.MenuAccessor _menu) {</@head>
 	ItemStack _setstack${cbi} = ${mappedMCItemToItemStackCode(input$item, 1)}.copy();
 	_setstack${cbi}.setCount(${opt.toInt(input$amount)});
