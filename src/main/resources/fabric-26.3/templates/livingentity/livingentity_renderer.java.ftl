@@ -132,7 +132,7 @@ public class ${name}Renderer extends <#if humanoid>Humanoid</#if>MobRenderer<${n
 			@Override public void submit(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int light, ${renderState} state, float headYaw, float headPitch) {
 				<#if layer.syncedDataCondition??>
 				<#assign needsEntityInState = true>
-				if (state.getRenderData(ENTITY_KEY).getEntityData().get(${name}Entity.DATA_${layer.syncedDataCondition})) {
+				if (state.getData(ENTITY_KEY).getEntityData().get(${name}Entity.DATA_${layer.syncedDataCondition})) {
 				<#elseif hasProcedure(layer.condition)>
 				<#assign needsEntityInState = true>
 				Entity entity = state.getData(ENTITY_KEY);
