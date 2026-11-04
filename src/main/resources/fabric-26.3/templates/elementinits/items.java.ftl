@@ -167,7 +167,7 @@ public class ${JavaModName}Items {
                 prop -> new DoubleHighBlockItem(block, prop), properties);
 	    <#-- Due to MCreator#6780, we can not generate the required access wideners, so we need to make the method ourself -->
 		<#-- return Items.registerItem(ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(${JavaModName}.MODID, name)),  -->
-		        prop -> new DoubleHighBlockItem(block, prop), properties); -->
+		        <#-- prop -> new DoubleHighBlockItem(block, prop), properties); -->
 	}
 	</#if>
 
@@ -181,7 +181,7 @@ public class ${JavaModName}Items {
                 prop -> new StandingAndWallBlockItem(block, wallBlock, Direction.DOWN, prop), properties);
 	    <#-- Due to MCreator#6780, we can not generate the required access wideners, so we need to make the method ourself -->
 		<#-- return Items.registerItem(ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(${JavaModName}.MODID, name)),  -->
-		        prop -> new StandingAndWallBlockItem(block, wallBlock, Direction.DOWN, prop), properties); -->
+		        <#-- prop -> new StandingAndWallBlockItem(block, wallBlock, Direction.DOWN, prop), properties); -->
 	}
 	</#if>
 
@@ -195,7 +195,7 @@ public class ${JavaModName}Items {
                 prop -> new HangingSignItem(block, wallBlock, prop), properties);
 	    <#-- Due to MCreator#6780, we can not generate the required access wideners, so we need to make the method ourself -->
 		<#-- return Items.registerItem(ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(${JavaModName}.MODID, name)),  -->
-		        prop -> new HangingSignItem(block, wallBlock, prop), properties); -->
+		        <#-- prop -> new HangingSignItem(block, wallBlock, prop), properties); -->
 	}
 	</#if>
 
