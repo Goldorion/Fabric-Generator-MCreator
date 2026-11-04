@@ -5,3 +5,9 @@ global_templates:
     name: "@SRCROOT/@BASEPACKAGEPATH/mixin/RepairItemRecipeMixin.java"
   - template: mixin/serverplayer_mixin.java.ftl
     name: "@SRCROOT/@BASEPACKAGEPATH/mixin/ServerPlayerMixin.java"
+
+fragments:
+  - type: accesstransformer
+    content: accessible method net/minecraft/world/item/Items registerItem (Lnet/minecraft/resources/ResourceKey;Ljava/util/function/Function;)Lnet/minecraft/world/item/Item;
+  - type: accesstransformer
+    content: accessible method net/minecraft/world/item/Items registerItem (Lnet/minecraft/resources/ResourceKey;Ljava/util/function/Function;Lnet/minecraft/world/item/Item$Properties;)Lnet/minecraft/world/item/Item;

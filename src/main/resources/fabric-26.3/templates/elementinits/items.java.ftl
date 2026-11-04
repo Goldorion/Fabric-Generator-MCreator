@@ -139,7 +139,10 @@ public class ${JavaModName}Items {
 	// End of user code block custom items
 
 	private static <I extends Item> I register(String name, Function<Item.Properties, ? extends I> supplier) {
-		return (I) Items.registerItem(ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(${JavaModName}.MODID, name)), (Function<Item.Properties, Item>) supplier);
+	    return (I) registerItem(ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(${JavaModName}.MODID, name)),
+	            (Function<Item.Properties, Item>) supplier, new Item.Properties());
+	    <#-- Due to MCreator#6780, we can not generate the required access wideners, so we need to make the method ourself -->
+		<#-- return (I) Items.registerItem(ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(${JavaModName}.MODID, name)), (Function<Item.Properties, Item>) supplier); -->
 	}
 
 	<#if hasBlocks>
@@ -148,7 +151,9 @@ public class ${JavaModName}Items {
 	}
 
 	private static Item block(Block block, String name, Item.Properties properties) {
-		return Items.registerItem(ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(${JavaModName}.MODID, name)), prop -> new BlockItem(block, prop), properties);
+	    return registerItem(ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(${JavaModName}.MODID, name)), prop -> new BlockItem(block, prop), properties);
+	    <#-- Due to MCreator#6780, we can not generate the required access wideners, so we need to make the method ourself -->
+		<#-- return Items.registerItem(ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(${JavaModName}.MODID, name)), prop -> new BlockItem(block, prop), properties); -->
 	}
 	</#if>
 
@@ -158,7 +163,11 @@ public class ${JavaModName}Items {
 	}
 
 	private static Item doubleBlock(Block block, String name, Item.Properties properties) {
-		return Items.registerItem(ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(${JavaModName}.MODID, name)), prop -> new DoubleHighBlockItem(block, prop), properties);
+	    return registerItem(ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(${JavaModName}.MODID, name)),
+                prop -> new DoubleHighBlockItem(block, prop), properties);
+	    <#-- Due to MCreator#6780, we can not generate the required access wideners, so we need to make the method ourself -->
+		<#-- return Items.registerItem(ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(${JavaModName}.MODID, name)),  -->
+		        prop -> new DoubleHighBlockItem(block, prop), properties); -->
 	}
 	</#if>
 
@@ -168,7 +177,11 @@ public class ${JavaModName}Items {
 	}
 
 	private static Item signBlock(Block block, String name, Block wallBlock, Item.Properties properties) {
-		return Items.registerItem(ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(${JavaModName}.MODID, name)), prop -> new StandingAndWallBlockItem(block, wallBlock, Direction.DOWN, prop), properties);
+	    return registerItem(ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(${JavaModName}.MODID, name)),
+                prop -> new StandingAndWallBlockItem(block, wallBlock, Direction.DOWN, prop), properties);
+	    <#-- Due to MCreator#6780, we can not generate the required access wideners, so we need to make the method ourself -->
+		<#-- return Items.registerItem(ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(${JavaModName}.MODID, name)),  -->
+		        prop -> new StandingAndWallBlockItem(block, wallBlock, Direction.DOWN, prop), properties); -->
 	}
 	</#if>
 
@@ -178,9 +191,22 @@ public class ${JavaModName}Items {
 	}
 
 	private static Item hangingSignBlock(Block block, String name, Block wallBlock, Item.Properties properties) {
-		return Items.registerItem(ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(${JavaModName}.MODID, name)), prop -> new HangingSignItem(block, wallBlock, prop), properties);
+	    return registerItem(ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(${JavaModName}.MODID, name)),
+                prop -> new HangingSignItem(block, wallBlock, prop), properties);
+	    <#-- Due to MCreator#6780, we can not generate the required access wideners, so we need to make the method ourself -->
+		<#-- return Items.registerItem(ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(${JavaModName}.MODID, name)),  -->
+		        prop -> new HangingSignItem(block, wallBlock, prop), properties); -->
 	}
 	</#if>
+
+    private static Item registerItem(final ResourceKey<Item> id, final Function<Item.Properties, Item> itemFactory, final Item.Properties properties) {
+        Item item = (Item)itemFactory.apply(properties.setId(id));
+        if (item instanceof BlockItem blockItem) {
+            blockItem.registerBlocks(Item.BY_BLOCK, item);
+        }
+
+        return (Item)Registry.register(BuiltInRegistries.ITEM, id, item);
+    }
 }
 <#macro blockItemProperties block newProperties=true>
 <#if newProperties>new Item.Properties()<#else>properties</#if>

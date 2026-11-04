@@ -158,11 +158,13 @@ base_types:
 
 fragments:
   - type: accesstransformer
-    content: accessible method net/minecraft/client/gui/components/AbstractSliderButton getSprite ()Lnet/minecraft/resources/Identifier;
+    content: extendable method net/minecraft/client/model/Model renderToBuffer (Lcom/mojang/blaze3d/vertex/PoseStack;Lcom/mojang/blaze3d/vertex/VertexConsumer;III)V
   - type: accesstransformer
-    content: accessible method net/minecraft/client/gui/components/AbstractSliderButton getHandleSprite ()Lnet/minecraft/resources/Identifier;
+    content: accessible field net/minecraft/client/renderer/feature/FeatureRenderDispatcher featureRenderers Lnet/minecraft/client/renderer/feature/FeatureRendererMap;
   - type: accesstransformer
-    content: accessible field net/minecraft/client/gui/components/AbstractSliderButton dragging Z
+    content: accessible field net/minecraft/client/renderer/feature/RenderTypeFeatureRenderer currentGroup Lnet/minecraft/client/renderer/feature/RenderTypeFeatureRenderer$Group;
+  - type: accesstransformer
+    content: accessible method net/minecraft/client/renderer/feature/RenderTypeFeatureRenderer getVertexBuilder (Lnet/minecraft/client/renderer/rendertype/RenderType;)Lcom/mojang/blaze3d/vertex/VertexConsumer;
 
 tags:
   - tag: ITEMS:minecraft:head_armor

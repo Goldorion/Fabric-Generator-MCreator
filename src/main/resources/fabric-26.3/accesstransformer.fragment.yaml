@@ -1,0 +1,5 @@
+templates:
+  - template: modbase/accesswidener.classtweaker.ftl
+    usercodeComment: "#"
+    writer: file
+    name: "@RESROOT/META-INF/@modid.classtweaker"

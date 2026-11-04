@@ -1,3 +1,7 @@
 localizationkeys:
   - key: item_group.@modid.@registryname
     mapto: name
+
+fragments:
+  - type: accesstransformer
+    content: accessible method net/minecraft/world/item/CreativeModeTab$Builder type (Lnet/minecraft/world/item/CreativeModeTab$Type;)Lnet/minecraft/world/item/CreativeModeTab$Builder;

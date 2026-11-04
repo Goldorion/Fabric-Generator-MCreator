@@ -49,6 +49,12 @@ base_types:
   - type: item
     condition: generateBucket
 
+fragments:
+  - type: accesstransformer
+    content: accessible field net/minecraft/world/item/BucketItem content Lnet/minecraft/world/level/material/Fluid;
+  - type: accesstransformer
+    content: accessible field net/minecraft/world/level/block/LiquidBlock fluid Lnet/minecraft/world/level/material/FlowingFluid;
+
 tags:
   - tag: BLOCKS:minecraft:replaceable
 

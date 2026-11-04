@@ -1,7 +1,7 @@
 name: Fabric for @minecraft (@buildfileversion)
 status: experimental
 buildfileversion: 0.162.0
-subversion: 1
+subversion: 2
 
 import:
   - datapack-26.3.x
@@ -88,10 +88,6 @@ base_templates:
   - template: elementinits/tabs.java.ftl
     name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameTabs.java"
     condition: hasItemsInTabs()
-  - template: modbase/accesswidener.ftl
-    usercodeComment: "#"
-    writer: file
-    name: "@RESROOT/META-INF/@modid.classtweaker"
   - template: elementinits/javamodels.java.ftl
     name: "@SRCROOT/@BASEPACKAGEPATH/init/@JavaModNameModels.java"
     condition_any:
