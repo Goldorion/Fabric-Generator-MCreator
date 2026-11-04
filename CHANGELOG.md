@@ -3,6 +3,7 @@
 ## 2026.3-2.10.1
 - [Bugfix #625] Access wideners were not generated in some cases, causing build errors
 - [Bugfix] Java model block and item animation states were shared between all rendered instances
+- [Bugfix] Some access widener generated with incorrect mod elements
 
 ## 2026.3-2.10
 - Updated to MCreator 2026.3.44621 (3rd snapshot)
