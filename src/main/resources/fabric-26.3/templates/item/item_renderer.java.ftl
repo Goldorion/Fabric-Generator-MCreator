@@ -181,7 +181,7 @@ package ${package}.client.renderer.item;
 			Map<Integer, AnimationState> animationStates = ((CustomRenderState) state).animationStates;
 			this.root().getAllParts().forEach(ModelPart::resetPose);
 			<#list data.animations as animation>
-			this.keyframeAnimation${animation?index}.apply(animationStates.get(${animation?index}), state.ageInTicks, ${animation.speed}f);
+			this.keyframeAnimation${animation?index}.get().apply(animationStates.get(${animation?index}), state.ageInTicks, ${animation.speed}f);
 			</#list>
 			super.setupAnim(state);
 		}
