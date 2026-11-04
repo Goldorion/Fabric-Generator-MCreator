@@ -2,6 +2,7 @@
 
 ## 2026.3-2.10.2
 - [Bugfix #626] Many places still caused build errors due to the snapshot's breaking changes
+- [Bugfix] Mods with no access wideners could not launch the game
 
 ## 2026.3-2.10.1
 - [Bugfix #625] Access wideners were not generated in some cases, causing build errors

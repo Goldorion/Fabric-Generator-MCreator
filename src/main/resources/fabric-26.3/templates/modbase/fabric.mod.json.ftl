@@ -36,7 +36,9 @@
   "mixins": [
 	"${modid}.mixins.json"
   ],
+  <#if fragments.accesstransformer?has_content>
   "accessWidener": "META-INF/${modid}.classtweaker",
+  </#if>
   "depends": {
 	"fabricloader": ">=0.19.5",
 	"minecraft": "~${generator.getGeneratorMinecraftVersion()}",
